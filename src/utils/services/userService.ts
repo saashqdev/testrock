@@ -3,7 +3,7 @@ import { UserWithoutPasswordDto } from "@/db/models/accounts/UsersModel";
 import { deleteAndCancelTenant } from "./tenantService";
 import { prisma } from "@/db/config/prisma/database";
 import { db } from "@/db";
-import { clearCacheKey } from "../cache.server";
+import { clearCacheKey } from "@/lib/services/cache.server";
 
 export async function deleteUserWithItsTenants(id: string) {
   const userTenants = await db.tenants.getMyTenants(id);
