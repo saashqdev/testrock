@@ -1,0 +1,42 @@
+model ApiKey {
+  id                String            @id @default(cuid())
+  createdAt         DateTime          @default(now())
+  createdByUserId   String
+  tenantId          String
+  key               String            @default(uuid())
+  alias             String
+  expires           DateTime?
+  active            Boolean
+  createdByUser     User              @relation(fields: [createdByUserId], references: [id], onDelete: Cascade)
+  tenant            Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  entities          ApiKeyEntity[]
+  apiKeyLogs        ApiKeyLog[]
+  logs              Log[]
+  createdRows       Row[]
+  tenantIpAddresses TenantIpAddress[]
+
+  @@unique([tenantId, alias])
+  @@unique([tenantId, key])
+  @@index([key])
+}
+
+model ApiKeyLog {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  apiKeyId  String?
+  apiKey    ApiKey?  @relation(fields: [apiKeyId], references: [id])
+  tenantId  String?
+  tenant    Tenant?  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  ip        String
+  endpoint  String
+  method    String
+  params    String
+  status    Int?
+  duration  Int?
+  error     String?
+  type      String?
+
+  @@index([tenantId], name: "api_key_log_tenant")
+  @@index([tenantId, createdAt], name: "api_key_log_tenant_created_at")
+  @@index([tenantId, type], name: "api_key_log_tenant_type")
+}

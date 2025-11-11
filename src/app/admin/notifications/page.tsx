@@ -1,0 +1,64 @@
+import { getServerTranslations } from "@/i18n/server";
+import ServerError from "@/components/ui/errors/ServerError";
+import NotificationMessagesTable from "@/modules/notifications/components/NotificationMessagesTable";
+import NotificationService, { IGetIntegrationsData, IGetMessagesData, IGetSubscribersData } from "@/modules/notifications/services/server/NotificationService";
+import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
+import NumberUtils from "@/lib/shared/NumberUtils";
+
+type LoaderData = {
+  subscribers: IGetSubscribersData | null;
+  messages: IGetMessagesData | null;
+  integrations: IGetIntegrationsData | null;
+};
+
+async function getData(): Promise<LoaderData> {
+  await verifyUserHasPermission("admin.notifications.view");
+  const subscribers = await NotificationService.getSubscribers({});
+  const messages = await NotificationService.getMessages({});
+  const integrations = await NotificationService.getIntegrations();
+  return {
+    subscribers,
+    messages,
+    integrations,
+  };
+}
+
+export default async function NotificationsPage() {
+  const { t } = await getServerTranslations();
+  const data = await getData();
+  return (
+    <div className="mx-auto mb-12 max-w-5xl space-y-5 px-4 py-4 sm:px-6 lg:px-8 xl:max-w-7xl">
+      <div className="border-border border-b pb-5">
+        <h3 className="text-foreground text-lg leading-6 font-medium">{t("shared.overview")}</h3>
+      </div>
+      <dl className="grid gap-2 sm:grid-cols-3">
+        <div className="bg-card border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs">
+          <dt className="text-muted-foreground truncate text-xs font-medium uppercase">
+            <div>Subscribers</div>
+          </dt>
+          <dd className="text-foreground mt-1 truncate text-2xl font-semibold">{NumberUtils.intFormat(data.subscribers?.totalCount ?? 0)}</dd>
+        </div>
+        <div className="bg-card border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs">
+          <dt className="text-muted-foreground truncate text-xs font-medium uppercase">
+            <div>Messages</div>
+          </dt>
+          <dd className="text-foreground mt-1 truncate text-2xl font-semibold">{NumberUtils.intFormat(data.messages?.totalCount ?? 0)}</dd>
+        </div>
+        <div className="bg-card border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs">
+          <dt className="text-muted-foreground flex items-center space-x-2 truncate text-xs font-medium uppercase">
+            <div>Integrations</div>
+          </dt>
+          <dd className="text-foreground mt-1 flex items-baseline space-x-1 truncate text-2xl font-semibold">
+            <div>{NumberUtils.numberFormat(data.integrations?.data.length ?? 0)}</div>
+          </dd>
+        </div>
+      </dl>
+
+      <NotificationMessagesTable items={data.messages} withPagination={false} />
+    </div>
+  );
+}
+
+export function ErrorBoundary() {
+  return <ServerError />;
+}

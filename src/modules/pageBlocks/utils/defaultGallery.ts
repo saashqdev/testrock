@@ -1,0 +1,28 @@
+import { GalleryItemDto } from "../components/blocks/marketing/gallery/GalleryBlockUtils";
+
+export const defaultGallery: GalleryItemDto[] = [
+  { type: "image", title: "cover", src: "/img/1-cover.png", width: 1200, height: 630 },
+  { type: "image", title: "admin-dashboard", src: "/img/2-admin-dashboard.png", width: 1200, height: 630 },
+  { type: "image", title: "stripe-subscriptions", src: "/img/3-stripe-subscriptions.png", width: 1200, height: 630 },
+  { type: "image", title: "workflows", src: "/img/4-workflows.png", width: 1200, height: 630 },
+  { type: "image", title: "notifications", src: "/img/5-notifications.png", width: 1200, height: 630 },
+  { type: "image", title: "email-marketing", src: "/img/6-email-marketing.png", width: 1200, height: 630 },
+  { type: "image", title: "no-code-builder", src: "/img/7-no-code-builder.png", width: 1200, height: 630 },
+  { type: "image", title: "api-keys", src: "/img/8-api-keys.png", width: 1200, height: 630 },
+  { type: "image", title: "accounts-management", src: "/img/9-accounts-management.png", width: 1200, height: 630 },
+  { type: "image", title: "roles-and-permissions", src: "/img/10-roles-and-permissions.png", width: 1200, height: 630 },
+  { type: "image", title: "metrics-tracker", src: "/img/11-metrics-tracker.png", width: 1200, height: 630 },
+  { type: "image", title: "cache", src: "/img/12-cache.png", width: 1200, height: 630 },
+  { type: "image", title: "events", src: "/img/13-events.png", width: 1200, height: 630 },
+  { type: "image", title: "onboarding-flows", src: "/img/14-onboarding-flows.png", width: 1200, height: 630 },
+  { type: "image", title: "feature-flags", src: "/img/15-feature-flags.png", width: 1200, height: 630 },
+  { type: "image", title: "app-dashboard", src: "/img/16-app-dashboard.png", width: 1200, height: 630 },
+  { type: "image", title: "marketing-pages", src: "/img/17-marketing-pages.png", width: 1200, height: 630 },
+  { type: "image", title: "advanced-pricing", src: "/img/18-advanced-pricing.png", width: 1200, height: 630 },
+  { type: "image", title: "built-in-blog", src: "/img/19-built-in-blog.png", width: 1200, height: 630 },
+  { type: "image", title: "build-in-knowledge-base", src: "/img/20-build-in-knowledge-base.png", width: 1200, height: 630 },
+  { type: "image", title: "page-blocks-builder", src: "/img/21-page-blocks-builder.png", width: 1200, height: 630 },
+  { type: "image", title: "seo-optimized", src: "/img/22-seo-optimized.png", width: 1200, height: 630 },
+  { type: "image", title: "5-star-boilerplate", src: "/img/23-5-star-boilerplate.png", width: 1200, height: 630 },
+  { type: "image", title: "nextjs-stack", src: "/img/24-nextjs-stack.png", width: 1200, height: 630 },
+];

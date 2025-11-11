@@ -1,0 +1,112 @@
+import { Metadata } from "next";
+import Link from "next/link";
+import { Colors } from "@/lib/enums/shared/Colors";
+import RowsList from "@/components/entities/rows/RowsList";
+import ColorBadge from "@/components/ui/badges/ColorBadge";
+import CrmService, { CrmSummaryDto } from "@/modules/crm/services/CrmService";
+import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { RowDisplayDefaultProperty } from "@/lib/helpers/PropertyHelper";
+import { requireAuth } from "@/lib/services/loaders.middleware";
+import { getTenantIdOrNull } from "@/utils/services/server/urlService";
+import NumberUtils from "@/lib/shared/NumberUtils";
+import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
+import { getServerTranslations } from "@/i18n/server";
+
+type LoaderData = {
+  title: string;
+  summary: CrmSummaryDto;
+  routes: EntitiesApi.Routes;
+};
+
+export const loader = async (props: IServerComponentsProps) => {
+  const params = (await props.params) || {};
+  const request = props.request!;  
+  await requireAuth();
+  const tenantId = await getTenantIdOrNull({ request, params });
+  const data: LoaderData = {
+    title: `CRM | ${process.env.APP_NAME}`,
+    summary: await CrmService.getSummary(tenantId),
+    routes: EntitiesApi.getNoCodeRoutes({ request, params }),
+  };
+  return data;
+};
+
+export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
+  const data = await loader(props);
+  return {
+    title: data.title,
+  };
+}
+
+export default async function CrmIndexPage(props: IServerComponentsProps) {
+  const params = (await props.params) || {};
+  const { t } = await getServerTranslations();
+  const data = await loader(props);
+  return (
+    <div className="mx-auto mb-12 max-w-5xl space-y-5 px-4 py-4 sm:px-6 lg:px-8 xl:max-w-7xl">
+      <div className="border-border border-b pb-5">
+        <h3 className="text-foreground text-lg leading-6 font-medium">{t("shared.overview")}</h3>
+      </div>
+      <dl className="grid gap-2 sm:grid-cols-3">
+        <Link
+          href={params.tenant ? `/app/${params.tenant}/crm/companies` : "/admin/crm/companies"}
+          className="hover:bg-secondary bg-background border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs"
+        >
+          <dt className="text-muted-foreground truncate text-xs font-medium uppercase">{t("models.company.plural")}</dt>
+          <dd className="text-foreground mt-1 truncate text-2xl font-semibold">{NumberUtils.intFormat(data.summary.companies)}</dd>
+        </Link>
+        <Link
+          href={params.tenant ? `/app/${params.tenant}/crm/contacts` : "/admin/crm/contacts"}
+          className="hover:bg-secondary bg-background border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs"
+        >
+          <dt className="text-muted-foreground truncate text-xs font-medium uppercase">{t("models.contact.plural")}</dt>
+          <dd className="text-foreground mt-1 truncate text-2xl font-semibold">{NumberUtils.intFormat(data.summary.contacts)}</dd>
+        </Link>
+        <Link
+          href={params.tenant ? `/app/${params.tenant}/crm/opportunities` : "/admin/crm/opportunities"}
+          className="hover:bg-secondary bg-background border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs"
+        >
+          <dt className="text-muted-foreground flex items-center space-x-2 truncate text-xs font-medium uppercase">
+            <ColorBadge color={Colors.GREEN} />
+            <div>{t("models.opportunity.plural")}</div>
+          </dt>
+          <dd className="text-foreground mt-1 flex items-baseline space-x-1 truncate text-2xl font-semibold">
+            <div>${NumberUtils.numberFormat(data.summary.opportunities.value)}</div>
+            <div className="text-muted-foreground text-xs font-normal lowercase">
+              {t("crm.opportunities.from")} {NumberUtils.intFormat(data.summary.opportunities.count)} {t("models.opportunity.plural").toLowerCase()}
+            </div>
+          </dd>
+        </Link>
+      </dl>
+
+      <div className="space-y-2">
+        <div className="flex items-center justify-between space-x-2">
+          <h3 className="text-muted-foreground text-sm font-medium">{t("models.opportunity.plural")}</h3>
+          <Link
+            href={params.tenant ? `/app/${params.tenant}/crm/opportunities/new` : `/admin/crm/opportunities/new`}
+            className="text-foreground bg-secondary hover:bg-secondary/90 rounded-full p-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+          >
+            <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+            </svg>
+          </Link>
+        </div>
+        <RowsList
+          view="board"
+          entity="opportunity"
+          items={data.summary.data.openOpportunities}
+          readOnly={true}
+          columns={[
+            { name: "name", title: t("shared.name"), visible: true },
+            { name: "value", title: t("crm.opportunities.value"), visible: true },
+            { name: "expectedCloseDate", title: t("crm.opportunities.expectedCloseDate"), visible: true },
+            { name: RowDisplayDefaultProperty.CREATED_AT, title: t("shared.createdAt"), visible: true },
+            { name: RowDisplayDefaultProperty.CREATED_BY, title: t("shared.createdBy"), visible: true },
+          ]}
+          routes={data.routes}
+          onClickRoute={(i) => (params.tenant ? `/app/${params.tenant}/crm/opportunities/${i.id}` : `/admin/crm/opportunities/${i.id}`)}
+        />
+      </div>
+    </div>
+  );
+}

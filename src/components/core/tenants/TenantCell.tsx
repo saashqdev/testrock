@@ -1,0 +1,24 @@
+import UrlUtils from "@/lib/utils/UrlUtils";
+
+interface Props {
+  item: {
+    id: string;
+    name: string;
+    slug: string;
+  } | null;
+}
+export default function TenantCell({ item }: Props) {
+  return (
+    <div>
+      {item ? (
+        <a href={UrlUtils.currentTenantUrl({ tenant: item.slug }, "")} className="hover:underline" target="_blank" rel="noreferrer">
+          <span>/app/{item.slug}</span>
+        </a>
+      ) : (
+        <a href="/admin" className="text-theme-500 font-medium hover:underline" target="_blank" rel="noreferrer">
+          <span>/admin</span>
+        </a>
+      )}
+    </div>
+  );
+}
