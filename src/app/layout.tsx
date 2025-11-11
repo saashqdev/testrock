@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import "@/styles/themes.css";
-import { detectLanguage, getServerTranslations } from "@/i18n/server";
+import { detectLanguage } from "@/i18n/server";
 import { I18nProvider } from "@/i18n/i18n-context";
 import { getUserInfo } from "@/lib/services/session.server";
 import { Metadata } from "next";
@@ -33,10 +33,14 @@ export default async function RootLayout({
   const rootData = await getRootData();
 
   return (
-    <I18nProvider language={lng}>
-      <RootDataLayout rootData={rootData} scheme={scheme}>
-        {children}
-      </RootDataLayout>
-    </I18nProvider>
+    <html lang={lng}>
+      <body>
+        <I18nProvider language={lng}>
+          <RootDataLayout rootData={rootData} scheme={scheme}>
+            {children}
+          </RootDataLayout>
+        </I18nProvider>
+      </body>
+    </html>
   );
 }

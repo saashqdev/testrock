@@ -39,7 +39,7 @@ export default function HeaderVariantSimple({ item, width = "7xl" }: { item: Hea
   };
 
   function registerRoute() {
-    if (appConfiguration?.subscription.allowSignUpBeforeSubscribe) {
+    if (appConfiguration?.subscription?.allowSignUpBeforeSubscribe) {
       return "/register";
     } else {
       return "/pricing";

@@ -37,7 +37,7 @@ export namespace LandingPage {
           style: "bottomImage",
           heading: t("front.hero.heading"),
           subheading: t("front.hero.subheading"),
-          image: "http://localhost:3000/img/catstack-og.png",
+          image: "/img/catstack-og.png",
           cta: [
             {
               text: t("front.hero.cta1"),

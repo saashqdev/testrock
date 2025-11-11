@@ -8,7 +8,7 @@ interface Props {
 }
 export default function RecaptchaWrapper({ children, enabled }: Props) {
   const rootData = useRootData();
-  const siteKey = rootData.appConfiguration?.auth.recaptcha.siteKey;
+  const siteKey = rootData.appConfiguration?.auth?.recaptcha.siteKey;
   return (
     <Fragment>
       {enabled ? (
