@@ -117,7 +117,7 @@ export default function LoginForm({
         emailInput.current?.input.current?.focus();
       }, 300);
     }
-  }, [appConfiguration.auth.authMethods.emailPassword.enabled]);
+  }, [appConfiguration.auth?.authMethods.emailPassword.enabled]);
   
   return (
     <div className="space-y-5">
@@ -169,7 +169,7 @@ export default function LoginForm({
         {/* <!-- SSO: END --> */}
 
         {appConfiguration.auth.authMethods.emailPassword.enabled && (
-          <form action={formAction} method="post" className="w-full space-y-3">
+          <form action={formAction} className="w-full space-y-3">
             <LoginFormFields actionData={actionData} redirectTo={redirectTo} emailInput={emailInput} />
           </form>
         )}

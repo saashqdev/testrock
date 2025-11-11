@@ -1,65 +1,26 @@
-import { LoaderFunctionArgs, MetaFunction, useLoaderData } from "react-router";
-import HeaderBlock from "~/modules/pageBlocks/components/blocks/marketing/header/HeaderBlock";
-import FooterBlock from "~/modules/pageBlocks/components/blocks/marketing/footer/FooterBlock";
-import { MetaTagsDto } from "~/application/dtos/seo/MetaTagsDto";
-import { getDefaultSiteTags } from "~/modules/pageBlocks/utils/defaultSeoMetaTags";
+"use client";
+
+import HeaderBlock from "@/modules/pageBlocks/components/blocks/marketing/header/HeaderBlock";
+import FooterBlock from "@/modules/pageBlocks/components/blocks/marketing/footer/FooterBlock";
 import { useTranslation } from "react-i18next";
-import { getLinkTags } from "~/modules/pageBlocks/services/.server/pagesService";
-import { getTranslations } from "~/locale/i18next.server";
 import { Fragment, useState } from "react";
-import NumberUtils from "~/utils/shared/NumberUtils";
-import { getAppConfiguration } from "~/utils/db/appConfiguration.db.server";
-import ButtonPrimary from "~/components/ui/buttons/ButtonPrimary";
-import ServerError from "~/components/ui/errors/ServerError";
-import Page404 from "~/components/pages/Page404";
+import NumberUtils from "@/lib/shared/NumberUtils";
+import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 
-export const meta: MetaFunction<typeof loader> = ({ data }) => (data && "metatags" in data ? data.metatags : []);
-
-type LoaderData = {
-  metatags: MetaTagsDto;
-  enabled?: boolean;
-  contactEmail?: string;
-  affiliates: {
-    percentage: number;
-    plans: { title: string; price: number }[];
-    signUpLink: string;
-  };
-};
-export let loader = async ({ request }: LoaderFunctionArgs) => {
-  const { t } = await getTranslations(request);
-  const appConfiguration = await getAppConfiguration({ request });
-  let affiliatesConfig = appConfiguration.affiliates;
-  if (!affiliatesConfig) {
-    return Response.json({ enabled: false });
-  }
-  if (!affiliatesConfig?.provider.rewardfulApiKey) {
-    throw Error("[Affiliates] Rewardful API key is not set.");
-  } else if (!affiliatesConfig?.percentage) {
-    throw Error("[Affiliates] Percentage is not set.");
-  } else if (!affiliatesConfig?.plans || affiliatesConfig.plans.length === 0) {
-    throw Error("[Affiliates] Plans are not set.");
-  } else if (!affiliatesConfig?.signUpLink) {
-    throw Error("[Affiliates] SignUp link is not set.");
-  }
-  const data: LoaderData = {
-    metatags: [{ title: `${t("affiliates.program")} | ${getDefaultSiteTags().title}` }, { description: t("affiliates.description") }, ...getLinkTags(request)],
-    enabled: true,
-    contactEmail: appConfiguration.email.supportEmail,
+type AffiliateProgramViewProps = {
+  data: {
+    enabled?: boolean;
+    contactEmail?: string;
     affiliates: {
-      percentage: affiliatesConfig.percentage,
-      plans: affiliatesConfig.plans,
-      signUpLink: affiliatesConfig.signUpLink,
-    },
+      percentage: number;
+      plans: { title: string; price: number }[];
+      signUpLink: string;
+    };
   };
-  return data;
 };
 
-export default function () {
+export default function AffiliateProgramView({ data }: AffiliateProgramViewProps) {
   const { t } = useTranslation();
-  const data = useLoaderData<LoaderData>();
-  if ("enabled" in data && !data.enabled) {
-    return <Page404 />;
-  }
   return (
     <div>
       <div>
@@ -171,8 +132,4 @@ function AffiliatesCalculator({
       </div>
     </div>
   );
-}
-
-export function ErrorBoundary() {
-  return <ServerError />;
 }

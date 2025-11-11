@@ -76,7 +76,7 @@ export default function PricingVariantSimple({ item, serverAction }: { item: Pri
           <main className="py-10">
             <PlansGrouped
               items={item.data?.items}
-              canSubmit={!rootData.authenticated && rootData.appConfiguration?.subscription.allowSubscribeBeforeSignUp}
+              canSubmit={!rootData.authenticated && rootData.appConfiguration?.subscription?.allowSubscribeBeforeSignUp}
               stripeCoupon={item.data.coupon?.stripeCoupon || null}
               currenciesAndPeriod={item.data.currenciesAndPeriod}
               serverAction={serverAction}

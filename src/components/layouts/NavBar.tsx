@@ -61,8 +61,8 @@ export default function NavBar({
             subscriberId={appOrAdminData?.user.id || ""}
             routerPush={(path: string) => router.push(path)}
             appearance={{ elements: { popoverTrigger: { padding: "0rem" } } }}
-            renderBell={(unreadCount) => {
-              const count = typeof unreadCount === "number" ? unreadCount : (unreadCount as any)?.total ?? 0;
+            renderBell={(unreadCount: number | { total: number }) => {
+              const count = typeof unreadCount === "number" ? unreadCount : unreadCount?.total ?? 0;
               return (
                 <div>
                   <NotificationsButton unseenCount={count} />

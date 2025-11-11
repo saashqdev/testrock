@@ -19,7 +19,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { DocsSidebar } from "@/lib/sidebar/DocsSidebar";
 import UrlUtils from "@/utils/app/UrlUtils";
-import { useAppData } from "@/lib/state/useAppData";
 import { SidebarGroupDto } from "@/lib/sidebar/SidebarGroupDto";
 import { TeamSwitcher } from "./team-switcher";
 import { DARK_SIDEBAR_IN_LIGHT_MODE } from "@/lib/constants";
@@ -35,8 +34,6 @@ export function ShadcnAppSidebar({
   const pathname = usePathname();
   const rootData = useRootData();
   const appOrAdminData = useAppOrAdminData();
-  const appDataFromHook = useAppData();
-  const appData = props.layout === "app" ? appDataFromHook : null;
   const params = useParams();
   const appConfiguration = rootData.appConfiguration;
 
@@ -244,10 +241,15 @@ export function ShadcnAppSidebar({
     if (!item.adminOnly) {
       return true;
     }
-    return appData?.user?.admin !== null;
+    return appOrAdminData?.user?.admin !== null;
   }
   function allowCurrentTenantUserType(item: SideBarItem) {
-    return !item.tenantUserTypes || (appData?.currentRole !== undefined && item.tenantUserTypes.includes(appData.currentRole));
+    // currentRole is only available in app layout (AppLoaderData)
+    if (props.layout !== "app") {
+      return !item.tenantUserTypes; // If not in app layout, only show items without tenant user type restrictions
+    }
+    const currentRole = (appOrAdminData as any)?.currentRole;
+    return !item.tenantUserTypes || (currentRole !== undefined && item.tenantUserTypes.includes(currentRole));
   }
   function checkUserRolePermissions(item: SideBarItem) {
     return !item.permission || appOrAdminData?.permissions?.includes(item.permission) || appOrAdminData?.permissions?.includes(item.permission);
@@ -325,10 +327,10 @@ export function ShadcnAppSidebar({
         </SidebarMenu>
         {/* {props.layout === "app" && (
           <SidebarMenu>
-            <div>{appData?.currentTenant && <NewTenantSelector key={params.tenant} />}</div>
+            <div>{appOrAdminData?.currentTenant && <NewTenantSelector key={params.tenant} />}</div>
           </SidebarMenu>
         )} */}
-        {props.layout === "app" && appData?.currentTenant && <TeamSwitcher key={Array.isArray(params.tenant) ? params.tenant[0] : params.tenant} size="md" tenants={appData?.myTenants ?? []} />}
+        {props.layout === "app" && appOrAdminData?.currentTenant && <TeamSwitcher key={Array.isArray(params.tenant) ? params.tenant[0] : params.tenant} size="md" tenants={appOrAdminData?.myTenants ?? []} />}
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={navMain} />

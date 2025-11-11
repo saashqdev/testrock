@@ -150,20 +150,8 @@ export async function requireUser({ request }: { request: Request }) {
 }
 
 export async function logout() {
-  const userSession = await getUserInfo();
-  cookieStore.set("userId", "");
-  cookieStore.set("lightOrDarkMode", userSession.scheme);
-  cookieStore.set("lng", userSession.lightOrDarkMode);
-  cookieStore.set("crsf", "");
-  cookieStore.set("metrics", userSession.lightOrDarkMode);
-  cookieStore.set("cookies", JSON.stringify(userSession.cookies));
-  cookieStore.set("impersonatingFromUserId", "");
-  return (
-    redirect("/login"),
-    {
-      headers: {},
-    }
-  );
+  await resetUserSession();
+  redirect("/login");
 }
 
 export async function createUserSession(userSession: UserSession, redirectTo: string = "") {
