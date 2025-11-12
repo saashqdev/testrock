@@ -122,7 +122,7 @@ export default function ({ data, children }: { data: AppSettingsLayoutLoaderData
         iconSelected: <ModulesIconFilled className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
       });
     }
-    if (!data.isProduction && appData.isSuperAdmin) {
+    if (!data.isProduction && appData?.isSuperAdmin) {
       tabs.push({
         name: "Debug",
         href: UrlUtils.currentTenantUrl(params, "settings/debug"),
