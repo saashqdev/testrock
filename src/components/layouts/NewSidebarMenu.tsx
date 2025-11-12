@@ -169,7 +169,7 @@ export default function NewSidebarMenu({ layout, children, onOpenCommandPalette,
     return appData?.user?.admin !== null;
   }
   function allowCurrentTenantUserType(item: SideBarItem) {
-    return !item.tenantUserTypes || item.tenantUserTypes.includes(appData?.currentRole);
+    return !item.tenantUserTypes || (appData?.currentRole !== undefined && item.tenantUserTypes.includes(appData.currentRole));
   }
   function checkUserRolePermissions(item: SideBarItem) {
     return !item.permission || appData?.permissions?.includes(item.permission) || adminData?.permissions?.includes(item.permission);
