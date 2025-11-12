@@ -12,7 +12,7 @@ export default function CurrentSubscriptionButton() {
   const appData = useAppData();
 
   function getSubscriptionProducts() {
-    return appData.mySubscription?.products.map((f) => t(f.subscriptionProduct.title)) ?? [];
+    return appData?.mySubscription?.products.map((f) => t(f.subscriptionProduct.title)) ?? [];
   }
   function hasSubscription() {
     return getSubscriptionProducts().length > 0;
