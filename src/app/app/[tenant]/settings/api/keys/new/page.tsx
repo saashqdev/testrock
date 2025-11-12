@@ -33,7 +33,7 @@ export default function ApiNewKeyRoute() {
   return (
     <>
       <OpenModal className="sm:max-w-xl" onClose={() => router.push(UrlUtils.currentTenantUrl(params, "settings/api/keys"))}>
-        <ApiKeyForm entities={appData.entities} onSubmit={handleFormAction} />
+        <ApiKeyForm entities={appData?.entities || []} onSubmit={handleFormAction} />
         {actionData?.apiKey !== undefined && (
           <ApiKeyCreatedModal apiKey={actionData?.apiKey} redirectTo={UrlUtils.currentTenantUrl(params, "settings/api/keys")} />
         )}
