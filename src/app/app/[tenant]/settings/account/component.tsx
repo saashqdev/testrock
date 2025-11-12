@@ -27,6 +27,10 @@ export default function () {
     }
   }, [actionData]);
 
+  if (!appData) {
+    return null;
+  }
+
   function deleteAccount() {
     confirmDelete.current?.show(t("settings.danger.confirmDeleteTenant"), t("shared.confirm"), t("shared.cancel"), t("shared.warningCannotUndo"));
   }
