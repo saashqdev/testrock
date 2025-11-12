@@ -41,8 +41,8 @@ export default function StackedLayout({ layout, children }: Props) {
       setMenu(
         AppSidebar({
           tenantId: Array.isArray(params.tenantId) ? params.tenantId[0] || "" : params.tenantId || "",
-          entities: appData.entities,
-          entityGroups: appData.entityGroups,
+          entities: appData?.entities || [],
+          entityGroups: appData?.entityGroups || [],
           appConfiguration: rootData.appConfiguration,
         })
       );
@@ -53,10 +53,10 @@ export default function StackedLayout({ layout, children }: Props) {
     if (!item.adminOnly) {
       return true;
     }
-    return appData.user?.admin !== null;
+    return appData?.user?.admin !== null;
   }
   function allowCurrentRole(item: SideBarItem) {
-    return !item.tenantUserTypes || item.tenantUserTypes.includes(appData.currentRole);
+    return !item.tenantUserTypes || (appData?.currentRole && item.tenantUserTypes.includes(appData.currentRole));
   }
   async function signOut() {
     try {
@@ -129,8 +129,8 @@ export default function StackedLayout({ layout, children }: Props) {
             <div className="flex shrink-0 items-center space-x-2">
               {/* {layout === "admin" && <LayoutSelector className="text-sm" />} */}
               {/* {layout === "admin" && <LocaleSelector className="text-sm" />} */}
-              {layout === "app" && <QuickActionsButton entities={appData.entities.filter((f) => f.showInSidebar)} className="text-muted-foreground" />}
-              <ProfileButton user={appData.user} layout={layout} />
+              {layout === "app" && <QuickActionsButton entities={appData?.entities?.filter((f) => f.showInSidebar) || []} className="text-muted-foreground" />}
+              <ProfileButton user={appData?.user} layout={layout} />
               <button
                 onClick={() => setMenuOpened(!menuOpened)}
                 type="button"
