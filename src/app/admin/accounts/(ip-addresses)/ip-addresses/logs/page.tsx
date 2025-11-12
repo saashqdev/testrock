@@ -16,9 +16,9 @@ export async function generateMetadata() {
 
 export default async function IpAddressLogsPage(props: IServerComponentsProps) {
   await verifyUserHasPermission("admin.tenantIpAddress.view");
-  const request = props.request!;
+  const searchParams = await props.searchParams;
 
-  const urlSearchParams = new URL(request.url).searchParams;
+  const urlSearchParams = new URLSearchParams(searchParams as Record<string, string>);
   const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
   const { items, pagination } = await db.ipAddressLogs.getAllIpAddressLogs(currentPagination);
 

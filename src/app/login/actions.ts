@@ -18,12 +18,12 @@ export async function loginAction(prevState: LoginActionData | null, formData: F
     // If we reach here, something unexpected happened
     return null;
   } catch (error: any) {
-    console.error("Login action error:", error);
-    
-    // Handle redirect thrown by Next.js - let it propagate
+    // Handle redirect thrown by Next.js - let it propagate (this is expected)
     if (error.digest?.startsWith("NEXT_REDIRECT")) {
       throw error;
     }
+    
+    console.error("Login action error:", error);
     
     // Handle Response.json() errors thrown in loginFromRequest
     if (error instanceof Response) {

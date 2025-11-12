@@ -78,63 +78,58 @@ export function NavMain({
       </SidebarGroup> */}
 
       {items.map((group, idxGroup) => (
-        <SidebarGroup key={idxGroup}>
+        <SidebarGroup key={`group-${idxGroup}-${group.title || ''}`}>
           {group.title && <SidebarGroupLabel>{group.title}</SidebarGroupLabel>}
           <SidebarMenu>
-            {group.items.map((item, idx) => (
-              <Fragment key={idx}>
-                {!item.items?.length ? (
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
+            {group.items.map((item, idx) => {
+              const itemKey = `item-${idxGroup}-${idx}-${item.path}`;
+              const hasSubItems = item.items && item.items.length > 0;
+              
+              if (!hasSubItems) {
+                return (
+                  <SidebarMenuItem key={itemKey}>
+                    <SidebarMenuButton asChild suppressHydrationWarning>
                       <Link href={item.path}>
                         {/* <item.icon /> */}
                         {(item.icon !== undefined || item.entityIcon !== undefined) && <SidebarIcon className="size-4" item={item} />}
-                        <span>{item.title}</span>
+                        <span suppressHydrationWarning>{item.title}</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
-                ) : (
-                  <Collapsible asChild defaultOpen={item.isActive} className="group/collapsible">
-                    <SidebarMenuItem>
-                      <CollapsibleTrigger asChild>
-                        <SidebarMenuButton tooltip={item.title}>
-                          {/* <Link to={item.path}> */}
-                          {/* <item.icon /> */}
-                          {(item.icon !== undefined || item.entityIcon !== undefined) && <SidebarIcon className="size-4" item={item} />}
-                          <span>{item.title}</span>
-                          <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                );
+              }
+              
+              return (
+                <Collapsible key={itemKey} asChild defaultOpen={item.isActive} className="group/collapsible">
+                  <SidebarMenuItem>
+                    <CollapsibleTrigger asChild>
+                      <SidebarMenuButton tooltip={item.title} suppressHydrationWarning>
+                        {/* <Link to={item.path}> */}
+                        {/* <item.icon /> */}
+                        {(item.icon !== undefined || item.entityIcon !== undefined) && <SidebarIcon className="size-4" item={item} />}
+                        <span suppressHydrationWarning>{item.title}</span>
+                        <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
 
-                          {/* </Link> */}
-                        </SidebarMenuButton>
-                      </CollapsibleTrigger>
-                      {item.items?.length ? (
-                        <>
-                          {/* <CollapsibleTrigger asChild>
-                            <SidebarMenuAction className="data-[state=open]:rotate-90"> */}
-                          {/* <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                          <span className="sr-only">Toggle</span> */}
-                          {/* </SidebarMenuAction>
-                          </CollapsibleTrigger> */}
-                          <CollapsibleContent>
-                            <SidebarMenuSub>
-                              {item.items?.map((subItem) => (
-                                <SidebarMenuSubItem key={subItem.title}>
-                                  <SidebarMenuSubButton asChild>
-                                    <Link href={subItem.path}>
-                                      <span>{subItem.title}</span>
-                                    </Link>
-                                  </SidebarMenuSubButton>
-                                </SidebarMenuSubItem>
-                              ))}
-                            </SidebarMenuSub>
-                          </CollapsibleContent>
-                        </>
-                      ) : null}
-                    </SidebarMenuItem>
-                  </Collapsible>
-                )}
-              </Fragment>
-            ))}
+                        {/* </Link> */}
+                      </SidebarMenuButton>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <SidebarMenuSub>
+                        {item.items?.map((subItem, subIdx) => (
+                          <SidebarMenuSubItem key={`subitem-${idxGroup}-${idx}-${subIdx}-${subItem.path}`}>
+                            <SidebarMenuSubButton asChild suppressHydrationWarning>
+                              <Link href={subItem.path}>
+                                <span suppressHydrationWarning>{subItem.title}</span>
+                              </Link>
+                            </SidebarMenuSubButton>
+                          </SidebarMenuSubItem>
+                        ))}
+                      </SidebarMenuSub>
+                    </CollapsibleContent>
+                  </SidebarMenuItem>
+                </Collapsible>
+              );
+            })}
           </SidebarMenu>
         </SidebarGroup>
       ))}

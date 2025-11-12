@@ -120,7 +120,7 @@ export default function UsersTable({ items, canImpersonate, canChangePassword, c
         title: t("shared.createdAt"),
         value: (i) => DateUtils.dateDM(i.createdAt),
         formattedValue: (item) => (
-          <time dateTime={DateUtils.dateYMDHMS(item.createdAt)} title={DateUtils.dateYMDHMS(item.createdAt)}>
+          <time dateTime={DateUtils.dateYMDHMS(item.createdAt)} title={DateUtils.dateYMDHMS(item.createdAt)} suppressHydrationWarning>
             {DateUtils.dateAgo(item.createdAt)}
           </time>
         ),
@@ -227,7 +227,7 @@ function LastActivity({ item, lastLogs, action }: { item: UserWithDetailsDto; la
   const lastLog = lastLogs?.find((f) => f.userId === item.id && (!action || f.log.action === action));
   if (lastLog) {
     return (
-      <div className="text-sm text-muted-foreground">
+      <div className="text-sm text-muted-foreground" suppressHydrationWarning>
         {!action && lastLog.log.action} {DateUtils.dateAgo(lastLog.log.createdAt)}
       </div>
     );

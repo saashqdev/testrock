@@ -46,12 +46,10 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
       menu = menuItems;
     } else if (layout === "admin") {
       menu = AdminSidebar({ 
-        t, 
         appConfiguration: rootData?.appConfiguration
       });
     } else if (layout === "app") {
       menu = AppSidebar({
-        t,
         tenantId: Array.isArray(params.tenant) ? params.tenant[0] ?? "" : params.tenant ?? "",
         entities: appData?.entities ?? [],
         entityGroups: appData?.entityGroups ?? [],

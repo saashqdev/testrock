@@ -61,12 +61,13 @@ async function getLogsData(searchParams: URLSearchParams): Promise<LoaderData> {
 export default async function LogsPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  const resolvedSearchParams = await searchParams;
   const params = new URLSearchParams();
 
   // Convert searchParams to URLSearchParams
-  Object.entries(searchParams || {}).forEach(([key, value]) => {
+  Object.entries(resolvedSearchParams || {}).forEach(([key, value]) => {
     if (Array.isArray(value)) {
       value.forEach((v) => params.append(key, v));
     } else if (value) {

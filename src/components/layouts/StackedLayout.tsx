@@ -36,11 +36,10 @@ export default function StackedLayout({ layout, children }: Props) {
 
   useEffect(() => {
     if (layout === "admin") {
-      setMenu(AdminSidebar({ t, appConfiguration: rootData.appConfiguration }));
+      setMenu(AdminSidebar({ appConfiguration: rootData.appConfiguration }));
     } else {
       setMenu(
         AppSidebar({
-          t,
           tenantId: Array.isArray(params.tenantId) ? params.tenantId[0] || "" : params.tenantId || "",
           entities: appData.entities,
           entityGroups: appData.entityGroups,

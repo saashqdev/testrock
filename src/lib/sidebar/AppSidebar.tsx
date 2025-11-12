@@ -1,19 +1,17 @@
 import { SideBarItem } from "./SidebarItem";
 import { SvgIcon } from "../enums/shared/SvgIcon";
-import { TFunction } from "i18next";
 import { EntityDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { EntityGroupWithDetailsDto } from "@/db/models/entityBuilder/EntityGroupsModel";
 import { AppConfigurationDto } from "@/db/models/core/AppConfigurationModel";
 
 type Props = {
-  t: TFunction;
   tenantId: string;
   entities: EntityDto[];
   entityGroups: EntityGroupWithDetailsDto[];
   appConfiguration: AppConfigurationDto | null;
 };
 
-export const AppSidebar = ({ t, tenantId, entities, entityGroups, appConfiguration }: Props): SideBarItem[] => {
+export const AppSidebar = ({ tenantId, entities, entityGroups, appConfiguration }: Props): SideBarItem[] => {
   const currentTenantUrl = `/app/${tenantId}`;
 
   const sectionItems: SideBarItem[] = [];
@@ -21,7 +19,7 @@ export const AppSidebar = ({ t, tenantId, entities, entityGroups, appConfigurati
 
   entityGroups.forEach((group) => {
     const item: SideBarItem = {
-      title: t(group.title),
+      title: group.title,
       // icon: group.icon,
       path: `${currentTenantUrl}/g/` + group.slug,
       entityIcon: group.icon,
@@ -30,7 +28,7 @@ export const AppSidebar = ({ t, tenantId, entities, entityGroups, appConfigurati
     if (group.collapsible) {
       item.items = group.entities.map(({ entity }) => {
         return {
-          title: t(entity.titlePlural),
+          title: entity.titlePlural,
           // icon: entity.icon,
           path: `${currentTenantUrl}/g/${group.slug}/${entity.slug}`,
           // entityIcon: entity.icon,
@@ -57,7 +55,7 @@ export const AppSidebar = ({ t, tenantId, entities, entityGroups, appConfigurati
     .filter((f) => f.showInSidebar)
     .forEach((entity) => {
       entitiesItems.push({
-        title: t(entity.titlePlural),
+        title: entity.titlePlural,
         entityIcon: entity.icon,
         // tenantUserTypes: [TenantUserType.OWNER, TenantUserType.ADMIN],
         path: `${currentTenantUrl}/` + entity.slug,
@@ -69,7 +67,7 @@ export const AppSidebar = ({ t, tenantId, entities, entityGroups, appConfigurati
   const crmEntitiesSidebarItems: SideBarItem[] = [];
   if (appConfiguration?.app.features.tenantEmailMarketing) {
     crmEntitiesSidebarItems.push({
-      title: t("emailMarketing.title"),
+      title: "emailMarketing.title",
       path: `${currentTenantUrl}/email-marketing`,
       icon: SvgIcon.EMAILS,
     });
@@ -80,7 +78,7 @@ export const AppSidebar = ({ t, tenantId, entities, entityGroups, appConfigurati
     path: "",
     items: [
       {
-        title: t("app.sidebar.dashboard"),
+        title: "app.sidebar.dashboard",
         path: `${currentTenantUrl}/dashboard`,
         icon: SvgIcon.DASHBOARD,
         // tenantUserTypes: [TenantUserType.OWNER, TenantUserType.ADMIN, TenantUserType.MEMBER],
@@ -88,7 +86,7 @@ export const AppSidebar = ({ t, tenantId, entities, entityGroups, appConfigurati
       ...entitiesItems,
       ...crmEntitiesSidebarItems,
       // {
-      //   title: t("models.email.plural"),
+      //   title: "models.email.plural",
       //   path: `${currentTenantUrl}/emails`,
       //   icon: SvgIcon.EMAILS,
       // },
@@ -96,21 +94,21 @@ export const AppSidebar = ({ t, tenantId, entities, entityGroups, appConfigurati
   };
   if (appConfiguration?.app.features.tenantBlogs) {
     appItem?.items?.push({
-      title: t("blog.title"),
+      title: "blog.title",
       path: `${currentTenantUrl}/blog`,
       icon: SvgIcon.BLOG,
     });
   }
   if (appConfiguration?.app.features.tenantWorkflows) {
     appItem?.items?.push({
-      title: t("workflows.title"),
+      title: "workflows.title",
       path: `${currentTenantUrl}/workflow-engine`,
       icon: SvgIcon.WORKFLOWS,
     });
   }
   if (appConfiguration?.widgets?.enabled) {
     appItem?.items?.push({
-      title: t("widgets.plural"),
+      title: "widgets.plural",
       path: `${currentTenantUrl}/widgets`,
       icon: SvgIcon.WIDGETS,
     });
@@ -118,7 +116,7 @@ export const AppSidebar = ({ t, tenantId, entities, entityGroups, appConfigurati
 
   if (appConfiguration?.portals?.enabled && appConfiguration?.portals?.forTenants) {
     appItem?.items?.push({
-      title: t("models.portal.plural"),
+      title: "models.portal.plural",
       path: `${currentTenantUrl}/portals`,
       icon: SvgIcon.PORTALS,
     });
@@ -133,20 +131,20 @@ export const AppSidebar = ({ t, tenantId, entities, entityGroups, appConfigurati
       isSecondary: true,
       items: [
         {
-          title: t("app.sidebar.settings"),
+          title: "app.sidebar.settings",
           icon: SvgIcon.SETTINGS,
           // tenantUserTypes: [TenantUserType.OWNER, TenantUserType.ADMIN],
           path: `${currentTenantUrl}/settings`,
           redirectTo: `${currentTenantUrl}/settings/profile`,
         },
         // {
-        //   title: t("app.sidebar.logs"),
+        //   title: "app.sidebar.logs",
         //   icon: SvgIcon.LOGS,
         //   tenantUserTypes: [TenantUserType.OWNER, TenantUserType.ADMIN],
         //   path: `${currentTenantUrl}/logs`,
         // },
         {
-          title: t("admin.switchToAdmin"),
+          title: "admin.switchToAdmin",
           path: "/admin/dashboard",
           icon: SvgIcon.ADMIN,
           adminOnly: true,

@@ -11,7 +11,7 @@ import { getTenantIdFromUrl } from "@/modules/accounts/services/TenantService";
 import { getUser, updateUser } from "@/modules/accounts/services/UserService";
 import { CreditTypes } from "@/modules/credits/dtos/CreditType";
 import { DefaultPermission } from "@/modules/permissions/data/DefaultPermission";
-import { AdminRoleEnum } from "@/modules/permissions/enums/AdminRoleEnum";
+import { DefaultAdminRoles } from "@/lib/dtos/shared/DefaultAdminRoles";
 import { AppRoleEnum } from "@/modules/permissions/enums/AppRoleEnum";
 import { DefaultAppFeatures } from "@/modules/subscriptions/data/appFeatures";
 import { PlanFeatureUsageDto } from "@/modules/subscriptions/dtos/PlanFeatureUsageDto";
@@ -93,7 +93,7 @@ const loader = async () => {
       mySubscription: getActiveTenantSubscriptions(tenantId.id),
       allPermissions: db.userRoles.getPermissionsByUser(userInfo.userId, tenantId.id),
       superUserRole: db.userRoles.getUserRoleInTenant(userInfo.userId, tenantId.id, AppRoleEnum.SuperUser),
-      superAdminRole: db.userRoles.getUserRoleInAdmin(userInfo.userId, AdminRoleEnum.SuperAdmin),
+      superAdminRole: db.userRoles.getUserRoleInAdmin(userInfo.userId, DefaultAdminRoles.SuperAdmin),
       allRoles: db.roles.getAllRoles(),
       roles: db.userRoles.getUserRoles(userInfo.userId, tenantId.id),
       entities: db.entities.getAllEntities(tenantId.id),
@@ -139,13 +139,25 @@ const loader = async () => {
   return data;
 };
 
-export default async function ({ children }: IServerComponentsProps) {
+export default async function (props: IServerComponentsProps) {
   const appData = await loader();
+  const searchParams = await props.searchParams;
+  const sidebarParam = searchParams?.sidebar;
+  let sidebarType: "v1" | "v2" | "v3" = "v3";
+  
+  if (sidebarParam === "v1") {
+    sidebarType = "v1";
+  } else if (sidebarParam === "v2") {
+    sidebarType = "v2";
+  } else if (sidebarParam === "v3") {
+    sidebarType = "v3";
+  }
+  
   return (
     <AppDataLayout data={appData}>
       <div className="min-h-screen bg-white">
-        <AppLayout layout="app">
-          {children}
+        <AppLayout layout="app" type={sidebarType}>
+          {props.children}
         </AppLayout>
       </div>
     </AppDataLayout>

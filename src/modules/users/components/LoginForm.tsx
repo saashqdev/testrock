@@ -124,7 +124,7 @@ export default function LoginForm({
       <div className="flex flex-col items-center">
         <h1 className="text-left text-2xl font-extrabold">{t("account.login.headline")}</h1>
         <p className="mt-1 text-left">
-          <Link href={appConfiguration.subscription.allowSignUpBeforeSubscribe ? "/register" : "/pricing"} className="text-primary font-medium hover:underline">
+          <Link href={appConfiguration.subscription?.allowSignUpBeforeSubscribe ? "/register" : "/pricing"} className="text-primary font-medium hover:underline">
             {t("account.login.orRegister")}
           </Link>
         </p>

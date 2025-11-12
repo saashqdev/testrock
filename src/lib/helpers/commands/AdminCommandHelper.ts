@@ -11,9 +11,11 @@ interface Props {
   rootData: RootDataDto;
 }
 function getCommands({ t, router, rootData }: Props): Action[] {
-  const actions: Action[] = CommandHelper.getSidebarCommands({ items: AdminSidebar({ t, appConfiguration: rootData.appConfiguration }) }).map((i) => {
+  const actions: Action[] = CommandHelper.getSidebarCommands({ items: AdminSidebar({ appConfiguration: rootData.appConfiguration }) }).map((i) => {
     return {
       ...i,
+      name: t(i.name || ""),
+      subtitle: i.subtitle ? t(i.subtitle) : undefined,
       perform(action) {
         router.push(action.id);
       },

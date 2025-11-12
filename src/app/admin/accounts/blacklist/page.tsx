@@ -16,9 +16,9 @@ export async function generateMetadata() {
 export default async function BlacklistPage(props: IServerComponentsProps) {
   await verifyUserHasPermission("admin.blacklist.view");
   const { t } = await getServerTranslations();
-  const request = props.request!;
+  const searchParams = await props.searchParams;
 
-  const urlSearchParams = new URL(request.url).searchParams;
+  const urlSearchParams = new URLSearchParams(searchParams as Record<string, string>);
   const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
   const { items, pagination } = await db.blacklist.getBlacklist(undefined, currentPagination);
 

@@ -34,7 +34,9 @@ export function useRootData(): RootDataDto {
       appConfiguration: {
         onboarding: { enabled: false },
         notifications: { enabled: false },
-        app: { features: {} }
+        app: { features: {} },
+        auth: { authMethods: { emailPassword: { enabled: true }, github: { enabled: false }, google: { enabled: false } } },
+        subscription: { allowSignUpBeforeSubscribe: true }
       }
     } as RootDataDto;
   }

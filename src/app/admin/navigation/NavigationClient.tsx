@@ -24,13 +24,12 @@ export default function NavigationClient() {
 
   useEffect(() => {
     setItems([]);
-    AdminSidebar({ t, appConfiguration: rootData.appConfiguration }).forEach((admin) => {
+    AdminSidebar({ appConfiguration: rootData.appConfiguration }).forEach((admin) => {
       admin.items?.forEach((item) => {
         setItems((items) => [...items, item]);
       });
     });
     AppSidebar({
-      t,
       tenantId: Array.isArray(params.tenant) ? params.tenant[0] : params.tenant || "",
       entities: adminData?.entities || [],
       entityGroups: adminData?.entityGroups || [],

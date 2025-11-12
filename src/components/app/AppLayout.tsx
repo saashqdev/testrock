@@ -4,7 +4,6 @@ import { ReactNode } from "react";
 import SidebarLayout from "../layouts/SidebarLayout";
 import CommandPalette from "../ui/commandPalettes/CommandPalette";
 import NewSidebarLayout from "../layouts/NewSidebarLayout";
-import { useSearchParams } from "next/navigation";
 import ShadcnSidebarLayout from "../layouts/sidebars/shadcn/ShadcnSidebarLayout";
 
 interface Props {
@@ -14,17 +13,6 @@ interface Props {
 }
 
 export default function AppLayout({ layout, children, type = "v3" }: Props) {
-  const [searchParams] = useSearchParams();
-  const newSearchParams = new URLSearchParams(searchParams?.toString() || "");
-  const sidebarParam = newSearchParams.get("sidebar");
-
-  if (sidebarParam === "v1") {
-    type = "v1";
-  } else if (sidebarParam === "v2") {
-    type = "v2";
-  } else if (sidebarParam === "v3") {
-    type = "v3";
-  }
   return (
     <div>
       <CommandPalette key={layout} layout={layout}>

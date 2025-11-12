@@ -63,7 +63,6 @@ export default function NewSidebarMenu({ layout, children, onOpenCommandPalette,
       menu = menuItems;
     } else if (layout === "admin") {
       menu = AdminSidebar({ 
-        t, 
         appConfiguration: rootData.appConfiguration ? {
           ...rootData.appConfiguration,
           app: {
@@ -77,7 +76,6 @@ export default function NewSidebarMenu({ layout, children, onOpenCommandPalette,
       });
     } else if (layout === "app") {
       menu = AppSidebar({
-        t,
         tenantId: Array.isArray(params.tenant) ? params.tenant[0] ?? "" : params.tenant ?? "",
         entities: appData?.entities ?? [],
         entityGroups: appData?.entityGroups ?? [],

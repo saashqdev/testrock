@@ -39,7 +39,6 @@ import IconWorkflows from "./IconWorkflows";
 import IconMetrics from "./IconMetrics";
 import IconPortals from "./IconPortals";
 import IconWidgets from "./IconWidgets";
-import { useMounted } from "@/hooks/use-mounted";
 // import IconEntities from "./IconEntities";
 
 interface Props {
@@ -48,11 +47,9 @@ interface Props {
 }
 
 export default function SidebarIcon({ className, item }: Props) {
-  const mounted = useMounted();
-
   return (
     <span>
-      {mounted && typeof item.icon !== "number" && item.icon}
+      {typeof item.icon !== "number" && item.icon}
 
       {/* Core */}
       {item.icon === SvgIcon.ADMIN && <IconAdmin className={clsx(className, "")} />}
@@ -79,7 +76,7 @@ export default function SidebarIcon({ className, item }: Props) {
       {item.icon === SvgIcon.LINKS && <IconLinks className={clsx(className, "")} />}
       {item.icon === SvgIcon.PROVIDERS && <IconProviders className={clsx(className, "")} />}
       {item.icon === SvgIcon.CLIENTS && <UserGroupIconFilled className={clsx(className, "")} />}
-      {mounted && item.entityIcon && <EntityIcon className={clsx(className, "")} icon={item.entityIcon} title={item.title} />}
+      {item.entityIcon && <EntityIcon className={clsx(className, "")} icon={item.entityIcon} title={item.title} />}
       {item.icon === SvgIcon.ANALYTICS && <IconAnalytics className={clsx(className, "")} />}
       {item.icon === SvgIcon.AFFILIATES_AND_REFERRALS && <MegaphoneFilled className={clsx(className, "")} />}
       {item.icon === SvgIcon.KNOWLEDGE_BASE && <BookStackIconFilled className={clsx(className, "")} />}

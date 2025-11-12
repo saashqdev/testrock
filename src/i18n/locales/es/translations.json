@@ -1425,5 +1425,50 @@
       "title": "Cómo funciona",
       "description": "Ofrecemos una comisión del {{0}}% en todos los pagos que nos refieras. Esto significa que si refieres un cliente a nosotros, recibirás el {{0}}% del pago o suscripción (mientras el cliente esté suscrito a nosotros en el primer año)."
     }
+  },
+  "segments": {
+    "manage": "Gestionar",
+    "market": "Comercializar",
+    "build": "Construir"
+  },
+  "crm": {
+    "title": "CRM"
+  },
+  "emailMarketing": {
+    "title": "Marketing por Correo"
+  },
+  "workflows": {
+    "title": "Flujos de Trabajo"
+  },
+  "onboarding": {
+    "title": "Incorporación"
+  },
+  "featureFlags": {
+    "title": "Banderas de Características"
+  },
+  "helpDesk": {
+    "title": "Mesa de Ayuda"
+  },
+  "notifications": {
+    "title": "Notificaciones"
+  },
+  "pages": {
+    "title": "Páginas"
+  },
+  "blog": {
+    "title": "Blog"
+  },
+  "knowledgeBase": {
+    "title": "Base de Conocimientos"
+  },
+  "widgets": {
+    "plural": "Widgets"
+  },
+  "analytics": {
+    "title": "Analíticas",
+    "overview": "Resumen",
+    "uniqueVisitors": "Visitantes Únicos",
+    "pageViews": "Vistas de Página",
+    "events": "Eventos"
   }
 }

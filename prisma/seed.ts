@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
+import { getAvailableTenantInboundAddress } from "@/utils/services/emailService";
+import { seedRolesAndPermissions } from "@/utils/services/rolesAndPermissionsService";
 
 const prisma = new PrismaClient();
 
@@ -65,6 +67,9 @@ async function seed() {
     { ...user1, type: TenantUserType.OWNER },
     { ...user2, type: TenantUserType.MEMBER },
   ]);
+
+  // Permissions
+  await seedRolesAndPermissions(adminUser.email);  
 
   console.log("✅ Seed completed successfully!");
   await prisma.$disconnect();
@@ -132,7 +137,7 @@ async function createTenant(slug: string, name: string, users: { id: string; typ
   }
   
   // Generate a simple inbound address
-  const address = `${slug}@inbound.example.com`;
+  const address = await getAvailableTenantInboundAddress(name);
   
   tenant = await prisma.tenant.create({
     data: {

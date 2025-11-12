@@ -1423,5 +1423,50 @@
       "title": "How it works",
       "description": "We offer a {{0}}% commission on all payments that you refer to us. This means that if you refer a customer to us, you will receive {{0}}% of the payment or subscription (for as long as the customer is subscribed to us in the first year)."
     }
+  },
+  "segments": {
+    "manage": "Manage",
+    "market": "Market",
+    "build": "Build"
+  },
+  "crm": {
+    "title": "CRM"
+  },
+  "emailMarketing": {
+    "title": "Email Marketing"
+  },
+  "workflows": {
+    "title": "Workflows"
+  },
+  "onboarding": {
+    "title": "Onboarding"
+  },
+  "featureFlags": {
+    "title": "Feature Flags"
+  },
+  "helpDesk": {
+    "title": "Help Desk"
+  },
+  "notifications": {
+    "title": "Notifications"
+  },
+  "pages": {
+    "title": "Pages"
+  },
+  "blog": {
+    "title": "Blog"
+  },
+  "knowledgeBase": {
+    "title": "Knowledge Base"
+  },
+  "widgets": {
+    "plural": "Widgets"
+  },
+  "analytics": {
+    "title": "Analytics",
+    "overview": "Overview",
+    "uniqueVisitors": "Unique Visitors",
+    "pageViews": "Page Views",
+    "events": "Events"
   }
 }

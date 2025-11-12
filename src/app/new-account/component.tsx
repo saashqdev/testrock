@@ -15,7 +15,7 @@ export default function () {
       <div className="mx-auto max-w-7xl px-4 pt-2 sm:px-6 lg:px-8">
         <div className="flex flex-shrink-0 justify-center">
           <Link href="/" className="inline-flex">
-            <Logo />
+            <Logo withLink={false} />
           </Link>
         </div>
         <div className="sm:align-center sm:flex sm:flex-col">

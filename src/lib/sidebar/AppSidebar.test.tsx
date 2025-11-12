@@ -5,14 +5,13 @@ import { EntityDto } from "@/db/models/entityBuilder/EntitiesModel";
 
 describe("AppSidebar", () => {
   it("returns the expected sidebar items", () => {
-    const t = vi.fn().mockImplementation((v: string) => v) as any;
     const entities = [
       { name: "entity1", slug: "entity1", titlePlural: "Entity 1", showInSidebar: true, icon: "" },
       { name: "entity2", slug: "entity2", titlePlural: "Entity 2", showInSidebar: false, icon: "" },
       { name: "entity3", slug: "entity3", titlePlural: "Entity 3", showInSidebar: true, icon: "" },
     ] as EntityDto[];
 
-    const result = AppSidebar({ t, tenantId: "test-user", entities, entityGroups: [], appConfiguration: null });
+    const result = AppSidebar({ tenantId: "test-user", entities, entityGroups: [], appConfiguration: null });
     const expected: SideBarItem[] = [
       {
         title: "",

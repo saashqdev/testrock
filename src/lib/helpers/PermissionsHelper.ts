@@ -22,15 +22,17 @@ export function getUserHasPermission(appOrAdminData: AppOrAdminData | null, perm
     return false; // No data available or no user, deny permission
   }
   
-  if (permission.startsWith("entity.")) {
-    return appOrAdminData.permissions.includes(permission);
-  }
-  if (appOrAdminData?.permissions === undefined) {
-    return true;
-  }
+  // Super admins have all permissions
   if (appOrAdminData.isSuperAdmin) {
     return true;
   }
+  
+  // If permissions array is undefined (shouldn't happen but defensive), deny access
+  if (appOrAdminData?.permissions === undefined) {
+    return false;
+  }
+  
+  // Check if user has the specific permission
   return appOrAdminData.permissions.includes(permission);
 }
 

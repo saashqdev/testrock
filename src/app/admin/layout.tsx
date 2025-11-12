@@ -3,7 +3,7 @@ import { getUserInfo } from "@/lib/services/session.server";
 import { AdminDataDto } from "@/lib/state/useAdminData";
 import { promiseHash } from "@/lib/utils";
 import { getUser } from "@/modules/accounts/services/UserService";
-import { AdminRoleEnum } from "@/modules/permissions/enums/AdminRoleEnum";
+import { DefaultAdminRoles } from "@/lib/dtos/shared/DefaultAdminRoles";
 import AppLayout from "@/components/app/AppLayout";
 import AdminDataLayout from "@/context/AdminDataLayout";
 import { redirect } from "next/navigation";
@@ -11,7 +11,7 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
 import { getCurrentUrl } from "@/lib/services/url.server";
 
-const loader = async ({}: IServerComponentsProps): Promise<AdminDataDto> => {
+const loader = async (props: IServerComponentsProps): Promise<AdminDataDto> => {
   const userInfo = await getUserInfo();
   const user = userInfo.userId ? await getUser(userInfo.userId) : null;
   const url = new URL(await getCurrentUrl());
@@ -28,7 +28,7 @@ const loader = async ({}: IServerComponentsProps): Promise<AdminDataDto> => {
 
   const { allPermissions, superAdminRole, allRoles, roles, entities, entityGroups, myGroups, tenantTypes, myTenants } = await promiseHash({
     allPermissions: db.userRoles.getPermissionsByUser(userInfo.userId, null),
-    superAdminRole: db.userRoles.getUserRoleInAdmin(userInfo.userId, AdminRoleEnum.SuperAdmin),
+    superAdminRole: db.userRoles.getUserRoleInAdmin(userInfo.userId, DefaultAdminRoles.SuperAdmin),
     allRoles: db.roles.getAllRolesWithoutPermissions(), // Use lightweight version
     roles: db.userRoles.getUserRoles(userInfo.userId, null),
     entities: db.entities.getAllEntities(null, false), // Exclude system entities to reduce memory
@@ -57,9 +57,21 @@ const loader = async ({}: IServerComponentsProps): Promise<AdminDataDto> => {
 
 export default async function (props: IServerComponentsProps) {
   const adminData = await loader(props);
+  const searchParams = await props.searchParams;
+  const sidebarParam = searchParams?.sidebar;
+  let sidebarType: "v1" | "v2" | "v3" = "v3";
+  
+  if (sidebarParam === "v1") {
+    sidebarType = "v1";
+  } else if (sidebarParam === "v2") {
+    sidebarType = "v2";
+  } else if (sidebarParam === "v3") {
+    sidebarType = "v3";
+  }
+  
   return (
     <AdminDataLayout data={adminData}>
-      <AppLayout layout="admin">{props.children}</AppLayout>
+      <AppLayout layout="admin" type={sidebarType}>{props.children}</AppLayout>
     </AdminDataLayout>
   );
 }

@@ -2,10 +2,8 @@ import { describe, it, expect, vi } from "vitest";
 import { AdminSidebar } from "./AdminSidebar";
 
 describe("AdminSidebar", () => {
-  const t = vi.fn().mockImplementation((v: string) => v) as any;
-
   it("returns an array of sidebar items", () => {
-    const sidebar = AdminSidebar(t);
+    const sidebar = AdminSidebar({ appConfiguration: null });
 
     expect(Array.isArray(sidebar)).toBe(true);
 
