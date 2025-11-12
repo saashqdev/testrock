@@ -18,10 +18,10 @@ type LoaderData = {
 
 async function getLogsData(props: IServerComponentsProps): Promise<LoaderData> {
   const params = (await props.params) || {};
-  const request = props.request!;
+  const searchParams = (await props.searchParams) || {};
   await verifyUserHasPermission("admin.entities.view");
   const { t } = await getServerTranslations();
-  const tenantId = await getTenantIdOrNull({ request, params });
+  const tenantId = await getTenantIdOrNull({ params });
   const entities = await db.entities.getAllEntities(null);
   const filterableProperties: FilterablePropertyDto[] = [
     {
@@ -46,9 +46,24 @@ async function getLogsData(props: IServerComponentsProps): Promise<LoaderData> {
       title: t("models.row.object"),
     },
   ];
-  const urlSearchParams = new URL(request.url).searchParams;
+  const urlSearchParams = new URLSearchParams(Object.entries(searchParams).map(([key, value]) => [key, String(value)]));
   const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
-  const filters = getFiltersFromCurrentUrl(request, filterableProperties);
+  
+  // Apply filters from URL search params
+  filterableProperties.forEach((property) => {
+    const value = urlSearchParams.get(property.name);
+    property.value = value ?? null;
+    if (property.isNumber && property.value) {
+      if (isNaN(Number(property.value))) {
+        property.value = null;
+      }
+    }
+  });
+  
+  const filters = {
+    query: urlSearchParams.get("q") ?? undefined,
+    properties: filterableProperties,
+  };
   const filterTenantId = filters.properties.find((f) => f.name === "tenantId")?.value;
   const { items, pagination } = await db.logs.getAllRowLogs({
     entityId: filters.properties.find((f) => f.name === "entityId")?.value ?? undefined,

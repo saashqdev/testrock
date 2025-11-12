@@ -11,7 +11,7 @@ import Modal from "@/components/ui/modals/Modal";
 import LoadingButton from "@/components/ui/buttons/LoadingButton";
 import { FormulaComponentDto, FormulaDto } from "@/modules/formulas/dtos/FormulaDto";
 import { FormulaVariableValueDto } from "@/modules/formulas/dtos/FormulaVariableValueDto";
-import FormulaHelpers from "@/modules/formulas/utils/FormulaHelpers";
+import { FormulaHelpersClient } from "@/modules/formulas/utils/FormulaHelpers.client";
 import InfoBanner from "@/components/ui/banners/InfoBanner";
 import ErrorBanner from "@/components/ui/banners/ErrorBanner";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
@@ -384,8 +384,8 @@ function ExecuteModal({
                           name={v.value}
                           disabled={true}
                           defaultValue={
-                            `${FormulaHelpers.getOperatorSymbol(v.value)}`
-                            // `${v.operator} (${FormulaHelpers.getOperatorSymbol(v.operator)})`
+                            `${FormulaHelpersClient.getOperatorSymbol(v.value)}`
+                            // `${v.operator} (${FormulaHelpersClient.getOperatorSymbol(v.operator)})`
                           }
                         />
                       ) : v.type == "parenthesis" ? (

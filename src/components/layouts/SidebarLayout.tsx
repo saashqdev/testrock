@@ -61,11 +61,11 @@ export default function SidebarLayout({ layout, children, menuItems, className =
   }
 
   function getLogoDarkMode() {
-    if (appConfiguration?.branding.logoDarkMode?.length) {
-      return appConfiguration?.branding.logoDarkMode;
+    if (appConfiguration?.branding?.logoDarkMode?.length) {
+      return appConfiguration?.branding?.logoDarkMode;
     }
-    if (appConfiguration?.branding.logo?.length) {
-      return appConfiguration?.branding.logo;
+    if (appConfiguration?.branding?.logo?.length) {
+      return appConfiguration?.branding?.logo;
     }
     return LogoDark;
   }
@@ -127,7 +127,7 @@ export default function SidebarLayout({ layout, children, menuItems, className =
                         <Link href={"/"}>
                           <Image
                             className={"mx-auto h-8 w-auto"}
-                            src={appConfiguration.branding.logoDarkMode || appConfiguration.branding.logo || LogoDark}
+                            src={appConfiguration?.branding?.logoDarkMode || appConfiguration?.branding?.logo || LogoDark}
                             alt="Logo"
                           />
                         </Link>

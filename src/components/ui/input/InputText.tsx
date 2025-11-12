@@ -184,36 +184,34 @@ const InputText = (props: InputTextProps, ref: Ref<RefInputText>) => {
         {editor === "monaco" && editorLanguage ? (
           <>
             <textarea hidden readOnly name={name} value={actualValue} />
-            {typeof window !== "undefined" && (
-              <Editor
-                theme={editorTheme}
-                className={clsx(
-                  "block w-full min-w-0 flex-1 rounded-md border-border focus:border-border focus:ring-ring sm:text-sm",
-                  actualEditorSize === "sm" && "h-32",
-                  actualEditorSize === "md" && "h-64",
-                  actualEditorSize === "lg" && "h-96",
-                  actualEditorSize === "auto" && "h-auto",
-                  actualEditorSize === "full" && "h-full",
-                  actualEditorSize === "screen" && "h-screen",
-                  className,
-                  classNameBg,
-                  editorHideLineNumbers && "-ml-10",
-                  borderless && "border-transparent"
-                )}
-                defaultLanguage={editorLanguage}
-                language={editorLanguage}
-                options={{
-                  fontSize: editorFontSize,
-                  renderValidationDecorations: "off",
-                  wordWrap: "on",
-                  readOnly: disabled || readOnly,
-                  ...editorOptions,
-                }}
-                value={value}
-                defaultValue={defaultValue}
-                onChange={(e) => onChange(e ?? "")}
-              />
-            )}
+            <Editor
+              theme={editorTheme}
+              className={clsx(
+                "block w-full min-w-0 flex-1 rounded-md border-border focus:border-border focus:ring-ring sm:text-sm",
+                actualEditorSize === "sm" && "h-32",
+                actualEditorSize === "md" && "h-64",
+                actualEditorSize === "lg" && "h-96",
+                actualEditorSize === "auto" && "h-auto",
+                actualEditorSize === "full" && "h-full",
+                actualEditorSize === "screen" && "h-screen",
+                className,
+                classNameBg,
+                editorHideLineNumbers && "-ml-10",
+                borderless && "border-transparent"
+              )}
+              defaultLanguage={editorLanguage}
+              language={editorLanguage}
+              options={{
+                fontSize: editorFontSize,
+                renderValidationDecorations: "off",
+                wordWrap: "on",
+                readOnly: disabled || readOnly,
+                ...editorOptions,
+              }}
+              value={value}
+              defaultValue={defaultValue}
+              onChange={(e) => onChange(e ?? "")}
+            />
           </>
         ) : editor === "wysiwyg" ? (
           <>

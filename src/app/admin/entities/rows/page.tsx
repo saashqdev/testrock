@@ -1,22 +1,16 @@
-import Link from "next/link";
 import { getServerTranslations } from "@/i18n/server";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
-import TableSimple from "@/components/ui/tables/TableSimple";
 import { PaginationDto } from "@/lib/dtos/data/PaginationDto";
 import { getFiltersFromCurrentUrl, getPaginationFromCurrentUrl } from "@/lib/helpers/RowPaginationHelper";
 import { getRowsWithPagination } from "@/lib/helpers/server/RowPaginationService";
-import RowHelper from "@/lib/helpers/RowHelper";
-import DateUtils from "@/lib/shared/DateUtils";
 import { FilterablePropertyDto } from "@/lib/dtos/data/FilterablePropertyDto";
-import UrlUtils from "@/lib/utils/UrlUtils";
 import InputFilters from "@/components/ui/input/InputFilters";
-import ActivityHistoryIcon from "@/components/ui/icons/entities/ActivityHistoryIcon";
-import ShowPayloadModalButton from "@/components/ui/json/ShowPayloadModalButton";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
 import { headers } from "next/headers";
+import RowsTableClient from "./rows-table-client";
 
 type LoaderData = {
   items: RowWithDetailsDto[];
@@ -93,10 +87,7 @@ async function getLoaderData(searchParams: IServerComponentsProps["searchParams"
 export default async function AdminEntityRowsRoute(props: IServerComponentsProps) {
   const { t } = await getServerTranslations();
   const data = await getLoaderData(props.searchParams);
-  
-  function findEntity(item: RowWithDetailsDto) {
-    return data.entities.find((e) => e.id === item.entityId);
-  }
+
   return (
     <div className="mx-auto w-full max-w-5xl space-y-3 px-4 py-2 pb-6 sm:px-6 sm:pt-3 lg:px-8 xl:max-w-full">
       <div className="md:border-border md:border-b md:py-2">
@@ -108,84 +99,7 @@ export default async function AdminEntityRowsRoute(props: IServerComponentsProps
         </div>
       </div>
 
-      <TableSimple
-        headers={[
-          {
-            name: "object",
-            title: "Object",
-            value: (item) => (
-              <div>
-                <ShowPayloadModalButton title="Details" description={"Details"} payload={JSON.stringify(item)} />
-              </div>
-            ),
-          },
-          {
-            name: "tenant",
-            title: t("models.tenant.object"),
-            value: (item) => (
-              <div>
-                {item.tenant ? (
-                  <Link
-                    href={UrlUtils.currentTenantUrl({ tenant: item.tenant.slug }, "")}
-                    className="focus:bg-secondary/90 hover:border-border rounded-md border-b border-dashed border-transparent"
-                  >
-                    {item.tenant.name}
-                  </Link>
-                ) : (
-                  <div>-</div>
-                )}
-              </div>
-            ),
-          },
-          {
-            name: "entity",
-            title: t("models.entity.object"),
-            value: (i) => t(findEntity(i)?.title ?? ""),
-          },
-          {
-            name: "folio",
-            title: t("models.row.folio"),
-            value: (i) => RowHelper.getRowFolio(findEntity(i)!, i),
-          },
-          {
-            name: "description",
-            title: t("shared.description"),
-            value: (i) => RowHelper.getTextDescription({ entity: findEntity(i)!, item: i, t }),
-          },
-          {
-            name: "logs",
-            title: t("models.log.plural"),
-            value: (item) => (
-              <Link href={"/admin/entities/logs?rowId=" + item.id}>
-                <ActivityHistoryIcon className="hover:text-theme-800 text-muted-foreground h-4 w-4" />
-              </Link>
-            ),
-          },
-          {
-            name: "createdByUser",
-            title: t("shared.createdBy"),
-            value: (item) => item.createdByUser?.email ?? (item.createdByApiKey ? "API" : "?"),
-            className: "text-muted-foreground text-xs",
-            breakpoint: "sm",
-          },
-          {
-            name: "createdAt",
-            title: t("shared.createdAt"),
-            value: (item) => DateUtils.dateAgo(item.createdAt),
-            formattedValue: (item) => (
-              <div className="flex flex-col">
-                <div>{DateUtils.dateYMD(item.createdAt)}</div>
-                <div className="text-xs">{DateUtils.dateAgo(item.createdAt)}</div>
-              </div>
-            ),
-            className: "text-muted-foreground text-xs",
-            breakpoint: "sm",
-            sortable: true,
-          },
-        ]}
-        items={data.items}
-        pagination={data.pagination}
-      />
+      <RowsTableClient items={data.items} entities={data.entities} pagination={data.pagination} />
     </div>
   );
 }

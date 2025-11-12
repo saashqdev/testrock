@@ -20,7 +20,7 @@ const types: CreateTemplateType[] = [
   {
     title: "Manual",
     description: "Upload a JSON configuration",
-    href: "manual",
+    href: "templates/manual",
   },
 ];
 

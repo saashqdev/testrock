@@ -25,16 +25,28 @@ type LoaderData = {
 };
 
 async function getData(props: IServerComponentsProps): Promise<LoaderData> {
-  const request = props.request!;
+  const searchParams = await props.searchParams;
   const { t } = await getServerTranslations();
   await verifyUserHasPermission("admin.entities.view");
-  const searchParams = new URL(request.url).searchParams;
-  let type = searchParams.get("type");
+  
+  let type = searchParams?.type as string | undefined;
   if (type && ["default", "tenant", "user", "system"].includes(type) === false) {
     throw redirect("/admin/entities/views/all");
   }
 
-  const urlSearchParams = new URL(request.url).searchParams;
+  // Convert searchParams to URLSearchParams for pagination helper
+  const urlSearchParams = new URLSearchParams();
+  if (searchParams) {
+    Object.entries(searchParams).forEach(([key, value]) => {
+      if (value) {
+        if (Array.isArray(value)) {
+          value.forEach(v => urlSearchParams.append(key, v));
+        } else {
+          urlSearchParams.append(key, value);
+        }
+      }
+    });
+  }
   const pagination = getPaginationFromCurrentUrl(urlSearchParams);
 
   const filterableProperties: FilterablePropertyDto[] = [
@@ -69,7 +81,10 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
       }),
     },
   ];
-  const filters = getFiltersFromCurrentUrl(request, filterableProperties);
+  
+  // Create a mock Request object for the filter helper
+  const mockRequest = props.request || (searchParams ? new Request(`http://localhost?${urlSearchParams.toString()}`) : undefined);
+  const filters = getFiltersFromCurrentUrl(mockRequest, filterableProperties);
 
   const { items, total } = await db.entityViews.getAllEntityViews({
     type: type ?? undefined,
@@ -90,7 +105,10 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
 }
 
 export const action = async (props: IServerComponentsProps) => {
-  const request = props.request!;
+  const request = props.request;
+  if (!request) {
+    return Response.json({ error: "Request object not available" }, { status: 400 });
+  }
   await verifyUserHasPermission("admin.entities.update");
   const { t } = await getServerTranslations();
   const form = await request.formData();

@@ -97,7 +97,7 @@ const nextConfig: NextConfig = {
   },
   
   // Ensure server-only modules are not bundled for client
-  serverExternalPackages: ['redis', '@redis/client', 'cachified-redis-adapter'],
+  serverExternalPackages: ['redis', '@redis/client', 'cachified-redis-adapter', '@prisma/client'],
 };
 
 export default nextConfig;
