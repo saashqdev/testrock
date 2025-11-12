@@ -250,7 +250,7 @@ function NewPermissionForm({
       });
     } else if (type === "tenant") {
       return tenants.map((i) => {
-        return { name: i.name + (appData.currentTenant?.id === i.id ? ` (${t("shared.current")})` : ""), value: i.id };
+        return { name: i.name + (appData?.currentTenant?.id === i.id ? ` (${t("shared.current")})` : ""), value: i.id };
       });
     } else if (type === "role") {
       return appOrAdminData?.allRoles.map((i) => {
