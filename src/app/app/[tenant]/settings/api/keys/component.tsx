@@ -51,10 +51,10 @@ export function ApiKeysClientPage({ data }: ApiKeysClientPageProps) {
         <CheckPlanFeatureLimit item={data.featurePlanUsage} hideContent={false}>
           <div className="space-y-2">
             <ApiKeysTable
-              entities={appData.entities}
+              entities={appData?.entities ?? []}
               items={data.apiKeys}
               withTenant={false}
-              canCreate={getUserHasPermission(appData, "app.settings.apiKeys.create")}
+              canCreate={appData ? getUserHasPermission(appData, "app.settings.apiKeys.create") : false}
             />
             {data.featurePlanUsage?.enabled && (
               <InfoBanner title="API usage" text="API calls remaining: ">
