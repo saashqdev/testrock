@@ -9,7 +9,7 @@ export default function TenantBadge({ item, showCurrent }: Props) {
   const { t } = useTranslation();
   const appData = useAppData();
   function isCurrent() {
-    return appData.currentTenant?.id === item.id;
+    return appData?.currentTenant?.id === item.id;
   }
   return (
     <div>
