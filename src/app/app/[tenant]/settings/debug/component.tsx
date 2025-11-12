@@ -22,9 +22,9 @@ export default function Component() {
           <pre>
             {JSON.stringify(
               {
-                isSuperAdmin: appData.isSuperAdmin,
-                isSuperUser: appData.isSuperUser,
-                permissions: appData.permissions,
+                isSuperAdmin: appData?.isSuperAdmin,
+                isSuperUser: appData?.isSuperUser,
+                permissions: appData?.permissions,
               },
               null,
               2
