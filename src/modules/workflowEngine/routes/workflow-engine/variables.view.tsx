@@ -1,3 +1,5 @@
+"use client";
+
 import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import DateCell from "@/components/ui/dates/DateCell";
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
@@ -10,7 +12,7 @@ export default function WorkflowsVariablesView({ data }: { data: WorkflowsVariab
       title="Variables"
       buttons={
         <>
-          <ButtonPrimary to="new">New</ButtonPrimary>
+          <ButtonPrimary to="variables/new">New</ButtonPrimary>
         </>
       }
     >

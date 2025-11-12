@@ -17,7 +17,7 @@ export namespace WorkflowsExecutionsApi {
   };
   export const loader = async (props: IServerComponentsProps) => {
     const params = (await props.params) || {};
-    const request = props.request!;
+    const request = props.request;
     await requireAuth();
     const tenantId = await getTenantIdOrNull({ request, params });
     const filterableProperties: FilterablePropertyDto[] = [
@@ -50,7 +50,7 @@ export namespace WorkflowsExecutionsApi {
       },
     ];
     const filters = getFiltersFromCurrentUrl(request, filterableProperties);
-    const urlSearchParams = new URL(request.url).searchParams;
+    const urlSearchParams = request?.url ? new URL(request.url).searchParams : new URLSearchParams();
     const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
     const { items, pagination } = await db.workflowExecutions.getAllWorkflowExecutions({
       tenantId: tenantId?.toString() ?? null,
@@ -68,7 +68,10 @@ export namespace WorkflowsExecutionsApi {
 
   export const action = async (props: IServerComponentsProps) => {
     const params = (await props.params) || {};
-    const request = props.request!;
+    const request = props.request;
+    if (!request) {
+      return Response.json({ error: "Request is required" }, { status: 400 });
+    }
     await requireAuth();
     const tenantId = await getTenantIdOrNull({ request, params });
     const form = await request.formData();

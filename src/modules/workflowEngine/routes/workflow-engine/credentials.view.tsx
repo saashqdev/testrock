@@ -1,9 +1,8 @@
 "use client";
 
 import { WorkflowCredential } from "@prisma/client";
-import { useRef } from "react";
+import { useRef, useActionState } from "react";
 import { Metadata } from "next";
-import { useFormState } from "react-dom";
 import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import DateCell from "@/components/ui/dates/DateCell";
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
@@ -22,7 +21,7 @@ interface WorkflowsCredentialsViewProps {
 
 export default function WorkflowsCredentialsView({ data, deleteAction }: WorkflowsCredentialsViewProps) {
   const confirmDelete = useRef<RefConfirmModal>(null);
-  const [, deleteFormAction] = useFormState(deleteAction, null);
+  const [, deleteFormAction] = useActionState(deleteAction, null);
 
   function onDelete(item: WorkflowCredential) {
     confirmDelete.current?.setValue(item);
@@ -40,7 +39,7 @@ export default function WorkflowsCredentialsView({ data, deleteAction }: Workflo
       title="Credentials"
       buttons={
         <>
-          <ButtonPrimary to="new">New</ButtonPrimary>
+          <ButtonPrimary to="credentials/new">New</ButtonPrimary>
         </>
       }
     >

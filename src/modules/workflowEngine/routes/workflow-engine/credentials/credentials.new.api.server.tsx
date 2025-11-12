@@ -5,8 +5,8 @@ import CryptoApi from "@/utils/api/server/CryptoApi";
 import { MetaTagsDto } from "@/lib/dtos/seo/MetaTagsDto";
 import { getUserInfo } from "@/lib/services/session.server";
 import { requireAuth } from "@/lib/services/loaders.middleware";
-import { db } from "@/db";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
+import { db } from "@/db";
 
 export namespace WorkflowsCredentialsNewApi {
   export type LoaderData = {
