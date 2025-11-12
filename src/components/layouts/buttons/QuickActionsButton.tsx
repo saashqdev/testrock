@@ -28,7 +28,7 @@ export default function QuickActionsButton({ entities, className }: Props) {
   const clickOutside = useOuterClick(() => setOpened(false));
   return (
     <span className={className} ref={clickOutside}>
-      {appData.currentRole < 3 && (
+      {appData && appData.currentRole < 3 && (
         <div className="relative">
           <div className="inline-flex divide-x divide-gray-300 rounded-sm shadow-none">
             <div className="relative z-0 inline-flex rounded-full text-sm shadow-none">

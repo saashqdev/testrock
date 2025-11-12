@@ -9,7 +9,7 @@ interface Props {
 
 export default function NewTenantSelect({ onOpenCommandPalette }: Props) {
   const appData = useAppData();
-  if (!appData.currentTenant) {
+  if (!appData || !appData.currentTenant) {
     return null;
   }
   return (

@@ -23,7 +23,7 @@ export default function TenantSelector({ className }: Props) {
   useEffect(() => {
     if (selected) {
       const tenant = appData?.myTenants.find((f) => f.slug === selected);
-      if (tenant && tenant.id !== appData.currentTenant.id) {
+      if (tenant && tenant.id !== appData?.currentTenant.id) {
         router.push(
           location.pathname
             .replace(`/app/${appData?.currentTenant.slug}`, `/app/${tenant.slug}`)
@@ -36,7 +36,7 @@ export default function TenantSelector({ className }: Props) {
 
   function getAllTenants() {
     const items = appData?.myTenants
-      .map((f) => {
+      ?.map((f) => {
         let group = t("models.tenant.plural");
         if (f.types.length > 0) {
           group = f.types[0].titlePlural ?? t("models.tenant.plural");
@@ -61,7 +61,7 @@ export default function TenantSelector({ className }: Props) {
       })
       .sort((a, b) => a.group.localeCompare(b.group));
     // return unique slugs
-    const unique = items.filter((item, index, self) => self.findIndex((t) => t.value === item.value) === index);
+    const unique = items?.filter((item, index, self) => self.findIndex((t) => t.value === item.value) === index) ?? [];
     return [
       ...unique,
       {
@@ -81,7 +81,7 @@ export default function TenantSelector({ className }: Props) {
   }
   return (
     <div className="text-foreground">
-      {appData?.myTenants.length > 1 && (
+      {(appData?.myTenants?.length ?? 0) > 1 && (
         <InputSelector
           selectPlaceholder=""
           withSearch={false}

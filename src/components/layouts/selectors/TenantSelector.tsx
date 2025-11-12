@@ -21,8 +21,8 @@ export default function TenantSelector({ className }: Props) {
 
   useEffect(() => {
     if (selected) {
-      const tenant = appData.myTenants.find((f) => f.slug === selected);
-      if (tenant && tenant.id !== appData.currentTenant.id) {
+      const tenant = appData?.myTenants.find((f) => f.slug === selected);
+      if (tenant && tenant.id !== appData?.currentTenant.id) {
         router.push(
           location.pathname
             .replace(`/app/${appData?.currentTenant.slug}`, `/app/${tenant.slug}`)
@@ -34,6 +34,8 @@ export default function TenantSelector({ className }: Props) {
   }, [selected]);
 
   function getAllTenants() {
+    if (!appData?.myTenants) return [];
+    
     const items = appData.myTenants
       .map((f) => {
         let group = t("models.tenant.plural");
@@ -61,12 +63,12 @@ export default function TenantSelector({ className }: Props) {
   }
   return (
     <Fragment>
-      {appData.myTenants.length > 1 && (
+      {appData && appData.myTenants.length > 1 && (
         <InputSelectorDarkMode
           withSearch={false}
           value={selected}
           renderSelected={(e) => {
-            const tenant = appData.myTenants.find((f) => f.slug === e.value);
+            const tenant = appData?.myTenants.find((f) => f.slug === e.value);
             return <div>{tenant?.name}</div>;
           }}
           options={getAllTenants()}

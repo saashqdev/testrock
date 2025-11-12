@@ -31,7 +31,7 @@ export function TeamSwitcher({ tenants, size = "md" }: { tenants: TenantDto[]; s
 
   const [activeTenant, setActiveTeam] = React.useState(appData?.currentTenant);
 
-  const activeTenantDescription = appData.mySubscription?.products.length
+  const activeTenantDescription = appData?.mySubscription?.products.length
     ? t(appData.mySubscription.products.find((f) => f)?.subscriptionProduct.title || "")
     : t("settings.subscription.noSubscription");
 
@@ -52,16 +52,16 @@ export function TeamSwitcher({ tenants, size = "md" }: { tenants: TenantDto[]; s
                 )}
               >
                 {/* <activeTeam.logo className="size-4" /> */}
-                {activeTenant.icon ? (
+                {activeTenant?.icon ? (
                   <Image className="size-7 shrink-0 rounded-md" src={activeTenant.icon} alt={activeTenant.name} width={28} height={28} />
                 ) : (
                   <span className="bg-primary inline-flex size-7 shrink-0 items-center justify-center rounded-md">
-                    <span className="text-primary-foreground text-xs font-medium uppercase leading-none">{activeTenant.name.substring(0, 1)}</span>
+                    <span className="text-primary-foreground text-xs font-medium uppercase leading-none">{activeTenant?.name.substring(0, 1)}</span>
                   </span>
                 )}
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{activeTenant.name}</span>
+                <span className="truncate font-semibold">{activeTenant?.name}</span>
                 {size === "md" && <span className="truncate text-xs">{activeTenantDescription}</span>}
               </div>
               <ChevronsUpDown className="ml-auto" />

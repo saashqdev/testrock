@@ -17,7 +17,7 @@ export default function TenantSelect({ onOpenCommandPalette }: Props) {
   }, []);
 
   // Prevent hydration mismatch by not rendering until mounted
-  if (!isMounted || !appData.currentTenant) {
+  if (!isMounted || !appData?.currentTenant) {
     return null;
   }
 
@@ -27,7 +27,7 @@ export default function TenantSelect({ onOpenCommandPalette }: Props) {
         <div className="group block w-full shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center truncate text-left">
-              {appData.currentTenant.icon ? (
+              {appData?.currentTenant.icon ? (
                 <Image
                   className="inline-block h-9 w-9 shrink-0 rounded-full bg-gray-500 shadow-2xs"
                   src={appData.currentTenant.icon}
