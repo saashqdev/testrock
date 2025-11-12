@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import ServerError from "@/components/ui/errors/ServerError";
 import { WorkflowsVariablesApi } from "@/modules/workflowEngine/routes/workflow-engine/variables.api.server";
 import WorkflowsVariablesView from "@/modules/workflowEngine/routes/workflow-engine/variables.view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";

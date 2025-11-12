@@ -106,7 +106,7 @@ function parseChatGptContentToBlock(content: string | undefined) {
   console.log({ content });
   let jsonContent = content ?? "";
   if (content?.includes("```json")) {
-    jsonContent = content?.match(/```json(.*)```/s)?.[1] ?? "";
+    jsonContent = content?.match(/```json([\s\S]*)```/)?.[1] ?? "";
   } else if (content?.includes("```")) {
     jsonContent = content.split("```")[1] ?? "";
   }
