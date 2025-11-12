@@ -19,6 +19,8 @@ export default function Component({ data }: ComponentProps) {
   const appData = useAppData();
   const params = useParams();
 
+  if (!appData) return null;
+
   return (
     <>
       <OpenModal className="sm:max-w-xl" onClose={() => router.push(UrlUtils.currentTenantUrl(params, "settings/api/keys"))}>
