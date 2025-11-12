@@ -56,9 +56,11 @@ export default function DashboardClient({ data }: DashboardClientProps) {
   return (
     <main className="relative z-0 flex-1 pb-8">
       {/*Page header */}
-      <div className="bg-background border-border hidden border-b md:block">
-        <ProfileBanner user={appData.user} />
-      </div>
+      {appData?.user && (
+        <div className="bg-background border-border hidden border-b md:block">
+          <ProfileBanner user={appData.user} />
+        </div>
+      )}
 
       <div className="mx-auto grid max-w-5xl gap-5 px-4 py-5 sm:px-8">
         {getUserHasPermission(appData, "app.dashboard.view") ? (
