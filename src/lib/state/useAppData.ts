@@ -17,7 +17,7 @@ export type AppDataDto = AppLoaderData;
 
 export const AppDataContext = createContext<AppDataDto | null>(null);
 
-export default function useAppData(): AppLoaderData {
+export default function useAppData(): AppLoaderData | null {
   const context = useContext(AppDataContext);
   
   if (!context) {
@@ -42,7 +42,9 @@ export default function useAppData(): AppLoaderData {
         currentRole: 0, // TenantUserType.OWNER
       } as AppLoaderData;
     }
-    throw new Error("useAppData must be used within an AppDataContext.Provider");
+    // Return null instead of throwing an error to allow graceful fallback
+    // This allows the hook to be used in components that may not always be within AppDataContext
+    return null;
   }
   EntitiesSingleton.getInstance().setEntities(context.entities);
   return context;

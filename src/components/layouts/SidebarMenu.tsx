@@ -27,9 +27,11 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
   const params = useParams();
   const { t } = useTranslation();
   const pathname = usePathname();
+  const rootData = useRootData();
+  
+  // These hooks may return null if context is not available (e.g., different layout)
   const appData = useAppData();
   const adminData = useAdminData();
-  const rootData = useRootData();
   
   const [isMounted, setIsMounted] = useState(false);
 

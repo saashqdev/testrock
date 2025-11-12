@@ -108,10 +108,10 @@ export function NavMain({
               }
               
               // Only apply defaultOpen after mount to avoid hydration mismatch
-              const isActive = mounted ? item.isActive : undefined;
+              const isActive = mounted ? item.isActive : false;
               
               return (
-                <Collapsible key={itemKey} asChild defaultOpen={isActive} className="group/collapsible">
+                <Collapsible key={itemKey} asChild defaultOpen={isActive} className="group/collapsible" suppressHydrationWarning>
                   <SidebarMenuItem>
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton tooltip={item.title} suppressHydrationWarning>

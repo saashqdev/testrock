@@ -10,6 +10,7 @@ import { redirect } from "next/navigation";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
 import { getCurrentUrl } from "@/lib/services/url.server";
+import SidebarLayout from "@/components/layouts/SidebarLayout";
 
 const loader = async (props: IServerComponentsProps): Promise<AdminDataDto> => {
   const userInfo = await getUserInfo();
@@ -57,10 +58,9 @@ const loader = async (props: IServerComponentsProps): Promise<AdminDataDto> => {
 
 export default async function (props: IServerComponentsProps) {
   const adminData = await loader(props);
-  
   return (
     <AdminDataLayout data={adminData}>
-      <AdminLayoutWrapper>{props.children}</AdminLayoutWrapper>
+      <SidebarLayout layout="admin">{props.children}</SidebarLayout>
     </AdminDataLayout>
   );
 }

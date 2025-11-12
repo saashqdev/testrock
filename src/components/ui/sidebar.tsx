@@ -6,6 +6,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import { PanelLeftIcon } from "lucide-react";
 
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useMounted } from "@/hooks/use-mounted";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -57,6 +58,7 @@ function SidebarProvider({
   onOpenChange?: (open: boolean) => void;
 }) {
   const isMobile = useIsMobile();
+  const mounted = useMounted();
   const [openMobile, setOpenMobile] = React.useState(false);
   const pathname = usePathname();
 
@@ -110,12 +112,12 @@ function SidebarProvider({
       state,
       open,
       setOpen,
-      isMobile,
+      isMobile: mounted ? isMobile : false,
       openMobile,
       setOpenMobile,
       toggleSidebar,
     }),
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
+    [state, open, setOpen, isMobile, mounted, openMobile, setOpenMobile, toggleSidebar]
   );
 
   return (
@@ -153,6 +155,7 @@ function Sidebar({
   collapsible?: "offcanvas" | "icon" | "none";
 }) {
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
+  const mounted = useMounted();
 
   if (collapsible === "none") {
     return (
@@ -162,7 +165,8 @@ function Sidebar({
     );
   }
 
-  if (isMobile) {
+  // Always render desktop version during SSR to avoid hydration mismatch
+  if (mounted && isMobile) {
     return (
       <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
         <SheetContent
@@ -412,6 +416,7 @@ function SidebarMenuButton({
 } & VariantProps<typeof sidebarMenuButtonVariants>) {
   const Comp = asChild ? Slot : "button";
   const { isMobile, state } = useSidebar();
+  const mounted = useMounted();
 
   const button = (
     <Comp
@@ -432,6 +437,11 @@ function SidebarMenuButton({
     tooltip = {
       children: tooltip,
     };
+  }
+
+  // Don't render tooltip during SSR to avoid hydration mismatch
+  if (!mounted) {
+    return button;
   }
 
   return (

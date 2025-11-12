@@ -244,7 +244,7 @@ export default function RowsViewRoute({ title, rowsData, items, routes, onNewRow
           {showCustomViewModal && (
             <EntityViewForm
               entity={rowsData.entity}
-              tenantId={appData.currentTenant?.id ?? null}
+              tenantId={appData?.currentTenant?.id ?? null}
               userId={currentSession?.user.id ?? null}
               item={editingView}
               canDelete={true}
