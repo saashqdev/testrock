@@ -4,7 +4,6 @@ import { AdminDataDto } from "@/lib/state/useAdminData";
 import { promiseHash } from "@/lib/utils";
 import { getUser } from "@/modules/accounts/services/UserService";
 import { DefaultAdminRoles } from "@/lib/dtos/shared/DefaultAdminRoles";
-import AdminLayoutWrapper from "@/components/layouts/AdminLayoutWrapper";
 import AdminDataLayout from "@/context/AdminDataLayout";
 import { redirect } from "next/navigation";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
