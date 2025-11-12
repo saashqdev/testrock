@@ -13,7 +13,6 @@ import { db } from "@/db";
 import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import Component from "./component";
-import { redirect } from "next/navigation";
 
 type LoaderData = {
   items: UserWithRolesDto[];

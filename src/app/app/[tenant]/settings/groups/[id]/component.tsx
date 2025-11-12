@@ -34,8 +34,8 @@ export default function EditGroupClient({ data }: EditGroupClientProps) {
       <GroupForm
         allUsers={data.tenantUsers}
         item={data.item}
-        canUpdate={getUserHasPermission(appData, "app.settings.groups.full") || data.item.createdByUserId === appData.user.id}
-        canDelete={getUserHasPermission(appData, "app.settings.groups.full") || data.item.createdByUserId === appData.user.id}
+        canUpdate={getUserHasPermission(appData, "app.settings.groups.full") || data.item.createdByUserId === appData?.user.id}
+        canDelete={getUserHasPermission(appData, "app.settings.groups.full") || data.item.createdByUserId === appData?.user.id}
       />
     </SlideOverWideEmpty>
   );

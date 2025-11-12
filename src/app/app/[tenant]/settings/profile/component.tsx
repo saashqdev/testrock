@@ -19,6 +19,10 @@ export default function () {
     }
   }, [actionData]);
 
+  if (!appData) {
+    return null;
+  }
+
   return (
     <IndexPageLayout className="pb-20">
       <UserProfileSettings user={appData.user} serverAction={{ actionData, action, pending }} />

@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import { getServerTranslations } from "@/i18n/server";
 import { FormulaDto } from "@/modules/formulas/dtos/FormulaDto";
 import FormulaHelpers from "@/modules/formulas/utils/FormulaHelpers";
 import UrlUtils from "@/utils/app/UrlUtils";

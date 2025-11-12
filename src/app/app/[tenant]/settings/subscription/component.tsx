@@ -11,12 +11,16 @@ export default function ({ data }: { data: AppSettingsSubscriptionLoaderData }) 
   const { t } = useTranslation();
   const appData = useAppData();
 
+  if (!appData) {
+    return null;
+  }
+
   return (
     <IndexPageLayout className="mb-12">
       {"error" in data ? (
         <ErrorBanner title={t("shared.error")} text={data.error} />
       ) : (
-        <SubscriptionSettings {...data} mySubscription={appData.mySubscription} currentTenant={appData.currentTenant} />
+        <SubscriptionSettings {...data} mySubscription={appData?.mySubscription} currentTenant={appData.currentTenant} />
       )}
     </IndexPageLayout>
   );

@@ -58,7 +58,7 @@ export default function Component({ data }: ComponentProps) {
         items={filteredItems()}
         roles={data.roles}
         onChange={onChange}
-        tenantId={appData.currentTenant.id}
+        tenantId={appData?.currentTenant.id}
         disabled={!getUserHasPermission(appData, "app.settings.roles.set")}
       />
     </div>

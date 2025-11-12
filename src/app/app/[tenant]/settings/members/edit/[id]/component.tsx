@@ -45,7 +45,7 @@ export default function ({ data }: { data: AppSettingsMembersEditLoaderData }) {
     );
   }
   function yesRemove() {
-    if (appData.isSuperUser) {
+    if (appData?.isSuperUser) {
       toast.error(t("account.tenant.onlyAdmin"));
     } else {
       const form = new FormData();

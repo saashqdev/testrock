@@ -117,7 +117,7 @@ export default function ({ data, children }: { data: AppSettingsMembersLoaderDat
               items={filteredItems().map((f) => f.user)}
               roles={data.roles}
               onChange={onSetRole}
-              tenantId={appData.currentTenant.id}
+              tenantId={appData?.currentTenant.id}
               disabled={false}
               onRoleClick={(role) => setSelectedRole(role)}
               actions={{

@@ -25,6 +25,10 @@ export default function EntityPropertiesClient({ data }: EntityPropertiesClientP
   const router = useRouter();
   const params = useParams();
 
+  if (!appData) {
+    return null;
+  }
+
   return (
     <EditPageLayout
       title={`${t(data.entity.title)} - ${t("models.property.plural")}`}
