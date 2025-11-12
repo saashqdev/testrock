@@ -72,7 +72,7 @@ export default function AppCommandPalette({ onClosed, isOpen }: Props) {
         const items: Command[] = [];
         if (selectedCommand.command === "T") {
           let idx = 0;
-          appData.myTenants.forEach((tenant) => {
+          appData?.myTenants.forEach((tenant) => {
             items.push({
               title: `${t("app.commands.tenants.switchTo")} ${tenant.name}`,
               description: tenant.name,
@@ -171,7 +171,7 @@ export default function AppCommandPalette({ onClosed, isOpen }: Props) {
   // }, [items, query]);
 
   function getAllowedCommands(items: Command[]) {
-    return items.filter((f) => !f.adminOnly || appData.user?.admin);
+    return items.filter((f) => !f.adminOnly || appData?.user?.admin);
   }
 
   function onChange(value: any) {
