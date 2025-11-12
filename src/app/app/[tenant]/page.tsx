@@ -14,15 +14,15 @@ export default function AppTenantPage() {
   const { appConfiguration } = useRootData();
 
   useEffect(() => {
-    if (!appData.currentTenant) {
+    if (!appData?.currentTenant) {
       router.push("/app");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [appData.currentTenant]);
+  }, [appData?.currentTenant]);
 
   useEffect(() => {
     if (!UrlUtils.stripTrailingSlash(pathname).startsWith(`/app/${params.tenant}/settings`)) {
-      if (appConfiguration.subscription.required && appData.mySubscription?.products.length === 0) {
+      if (appConfiguration.subscription.required && appData?.mySubscription?.products.length === 0) {
         router.push(`/subscribe/${params.tenant}?error=subscription_required`);
       }
     }
