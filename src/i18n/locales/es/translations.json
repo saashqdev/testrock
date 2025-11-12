@@ -1078,6 +1078,12 @@
       "object": "Dirección IP",
       "plural": "Direcciones IP"
     },
+    "blacklist": {
+      "object": "Lista negra"
+    },
+    "tenantIpAddress": {
+      "plural": "Direcciones IP"
+    },
     "role": {
       "object": "Rol",
       "plural": "Roles",

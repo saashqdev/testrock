@@ -4,7 +4,7 @@ import { AdminDataDto } from "@/lib/state/useAdminData";
 import { promiseHash } from "@/lib/utils";
 import { getUser } from "@/modules/accounts/services/UserService";
 import { DefaultAdminRoles } from "@/lib/dtos/shared/DefaultAdminRoles";
-import AppLayout from "@/components/app/AppLayout";
+import AdminLayoutWrapper from "@/components/layouts/AdminLayoutWrapper";
 import AdminDataLayout from "@/context/AdminDataLayout";
 import { redirect } from "next/navigation";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
@@ -57,21 +57,10 @@ const loader = async (props: IServerComponentsProps): Promise<AdminDataDto> => {
 
 export default async function (props: IServerComponentsProps) {
   const adminData = await loader(props);
-  const searchParams = await props.searchParams;
-  const sidebarParam = searchParams?.sidebar;
-  let sidebarType: "v1" | "v2" | "v3" = "v3";
-  
-  if (sidebarParam === "v1") {
-    sidebarType = "v1";
-  } else if (sidebarParam === "v2") {
-    sidebarType = "v2";
-  } else if (sidebarParam === "v3") {
-    sidebarType = "v3";
-  }
   
   return (
     <AdminDataLayout data={adminData}>
-      <AppLayout layout="admin" type={sidebarType}>{props.children}</AppLayout>
+      <AdminLayoutWrapper>{props.children}</AdminLayoutWrapper>
     </AdminDataLayout>
   );
 }
