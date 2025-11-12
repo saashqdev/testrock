@@ -16,7 +16,10 @@ export const PeriodFilters = [
 export type PeriodFilter = (typeof PeriodFilters)[number]["value"];
 export const defaultPeriodFilter = "last-30-days";
 
-function getPeriodFromRequest({ request }: { request: Request }): PeriodFilter {
+function getPeriodFromRequest({ request }: { request?: Request }): PeriodFilter {
+  if (!request) {
+    return defaultPeriodFilter;
+  }
   const searchParams = new URL(request.url).searchParams;
   const period = searchParams.get("period") || defaultPeriodFilter;
   const found = PeriodFilters.find((p) => p.value === period);
@@ -54,7 +57,10 @@ function weekStartDate(date: Date) {
   return new Date(date.setDate(diff));
 }
 
-function getCreatedAtFilter({ request }: { request: Request }) {
+function getCreatedAtFilter({ request }: { request?: Request }) {
+  if (!request) {
+    return getCreatedAt(defaultPeriodFilter);
+  }
   const searchParams = new URL(request.url).searchParams;
   let period = searchParams.get("period");
   if (!period) {

@@ -40,8 +40,7 @@ export const loader = async (props: IServerComponentsProps) => {
 };
 
 export const action = async (props: IServerComponentsProps) => {
-  const params = await props.params;
-  return PageBlockService.action({ request: props.request!, params });
+  return PageBlockService.action({ request: props.request!, params: props.params });
 };
 
 export default async function Page(props: IServerComponentsProps) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronRight, type LucideIcon } from "lucide-react";
-import { Fragment } from "react/jsx-runtime";
+import { Fragment, useEffect, useState } from "react";
 import { SidebarGroupDto } from "@/lib/sidebar/SidebarGroupDto";
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/sidebar";
 import SidebarIcon from "../../icons/SidebarIcon";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function NavMain({
   items,
@@ -34,6 +35,13 @@ export function NavMain({
   // }[];
   items: SidebarGroupDto[];
 }) {
+  const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <Fragment>
       {/* <SidebarGroup>
@@ -99,8 +107,11 @@ export function NavMain({
                 );
               }
               
+              // Only apply defaultOpen after mount to avoid hydration mismatch
+              const isActive = mounted ? item.isActive : undefined;
+              
               return (
-                <Collapsible key={itemKey} asChild defaultOpen={item.isActive} className="group/collapsible">
+                <Collapsible key={itemKey} asChild defaultOpen={isActive} className="group/collapsible">
                   <SidebarMenuItem>
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton tooltip={item.title} suppressHydrationWarning>

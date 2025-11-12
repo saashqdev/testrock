@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import AppLayout from "@/components/app/AppLayout";
 
@@ -7,7 +8,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default function AdminLayoutWrapper({ children }: Props) {
+function AdminLayoutContent({ children }: Props) {
   const searchParams = useSearchParams();
   const sidebarParam = searchParams?.get("sidebar");
   
@@ -22,4 +23,12 @@ export default function AdminLayoutWrapper({ children }: Props) {
   }
   
   return <AppLayout layout="admin" type={sidebarType}>{children}</AppLayout>;
+}
+
+export default function AdminLayoutWrapper({ children }: Props) {
+  return (
+    <Suspense fallback={<AppLayout layout="admin" type="v3">{children}</AppLayout>}>
+      <AdminLayoutContent>{children}</AdminLayoutContent>
+    </Suspense>
+  );
 }
