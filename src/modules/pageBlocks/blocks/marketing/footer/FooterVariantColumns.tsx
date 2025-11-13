@@ -9,9 +9,11 @@ import ButtonEvent from "@/components/ui/buttons/ButtonEvent";
 import DarkModeToggle from "@/components/ui/toggles/DarkModeToggle";
 import ThemeSelector from "@/components/ui/selectors/ThemeSelector";
 import LocaleSelector from "@/components/ui/selectors/LocaleSelector";
+import useRootData from "@/lib/state/useRootData";
 
 export default function FooterVariantColumns({ item }: { item: FooterBlockDto }) {
   const { t } = useTranslation();
+  const { theme } = useRootData();
   return (
     <footer aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
@@ -27,9 +29,9 @@ export default function FooterVariantColumns({ item }: { item: FooterBlockDto })
               <SocialsVariantSimple item={item.socials} />
             </div>
             <div className="flex items-center space-x-2">
-              {item.withDarkModeToggle && <DarkModeToggle />}
+              {item.withDarkModeToggle && <DarkModeToggle currentScheme={theme?.scheme} />}
               {item.withLanguageSelector && <LocaleSelector />}
-              {item.withThemeSelector && <ThemeSelector />}
+              {item.withThemeSelector && <ThemeSelector currentTheme={theme?.color} />}
             </div>
           </div>
           <div className="mt-12 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-4 xl:col-span-2 xl:mt-0">

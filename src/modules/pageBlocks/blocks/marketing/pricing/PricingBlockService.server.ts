@@ -16,11 +16,18 @@ import { ISearchParams } from "@/lib/dtos/ServerComponentsProps";
 export namespace PricingBlockService {
   export async function load({ searchParams }: { searchParams: ISearchParams | undefined }) {
     const { t } = await getServerTranslations();
-    let items = await db.subscriptionProduct.getAllSubscriptionProducts(true);
+    let items = await db.subscriptionProducts.getAllSubscriptionProducts(true);
     const couponParam = searchParams?.coupon?.toString();
     const planParam = searchParams?.plan?.toString();
     if (planParam) {
-      items = await db.subscriptionProduct.getSubscriptionProductsInIds([planParam]);
+      const filteredItemsRaw = await db.subscriptionProducts.getSubscriptionProductsInIds([planParam]);
+      items = filteredItemsRaw.map((item: any) => ({
+        ...item,
+        tenantProducts: item.tenantProducts ?? [],
+        usageBasedPrices: item.usageBasedPrices ?? [],
+        prices: item.prices ?? [],
+        features: item.features ?? [],
+      }));
     }
     let coupon: { error?: string; stripeCoupon?: Stripe.Coupon | null } | undefined = undefined;
     if (couponParam) {

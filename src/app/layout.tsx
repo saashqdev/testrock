@@ -7,6 +7,7 @@ import { Metadata } from "next";
 import { getRootData } from "@/lib/services/rootData.server";
 import RootDataLayout from "@/context/RootDataLayout";
 import { defaultSiteTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { defaultThemeColor } from "@/lib/themes";
 
 export const revalidate = 0;
 
@@ -30,13 +31,14 @@ export default async function RootLayout({
   const lng = await detectLanguage();
   const userInfo = await getUserInfo();
   const scheme = userInfo?.scheme || "light";
+  const theme = userInfo?.theme || defaultThemeColor;
   const rootData = await getRootData();
 
   return (
     <html lang={lng}>
       <body>
         <I18nProvider language={lng}>
-          <RootDataLayout rootData={rootData} scheme={scheme}>
+          <RootDataLayout rootData={rootData} scheme={scheme} theme={theme}>
             {children}
           </RootDataLayout>
         </I18nProvider>

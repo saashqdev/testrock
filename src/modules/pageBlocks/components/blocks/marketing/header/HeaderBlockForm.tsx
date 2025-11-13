@@ -101,6 +101,13 @@ export default function HeaderBlockForm({ item, onUpdate }: { item?: HeaderBlock
             value={state.withLanguageSelector}
             onChange={(e) => setState({ ...state, withLanguageSelector: Boolean(e) })}
           />
+          <InputCheckboxWithDescription
+            name="showThemeSelector"
+            title="Theme selector"
+            description="Show the theme selector in the header."
+            value={state.withThemeSelector}
+            onChange={(e) => setState({ ...state, withThemeSelector: Boolean(e) })}
+          />
         </div>
       </InputGroup>
     </div>

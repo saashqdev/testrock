@@ -9,10 +9,10 @@ import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import ScriptInjector from "@/modules/shared/scripts/ScriptInjector";
 import ThemeProvider from "@/components/ThemeProvider";
 
-export default function RootDataLayout({ children, rootData, scheme }: { children: React.ReactNode; rootData: RootDataDto; scheme: string }) {
+export default function RootDataLayout({ children, rootData, scheme, theme }: { children: React.ReactNode; rootData: RootDataDto; scheme: string; theme: string }) {
   return (
     <RootDataContext.Provider value={rootData}>
-      <ThemeProvider scheme={scheme} />
+      <ThemeProvider scheme={scheme} theme={theme} />
       {children}
       <ScriptCrisp />
       <ScriptAnalytics />

@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Transition } from "@headlessui/react";
 import Logo from "@/components/brand/Logo";
 import DarkModeToggle from "@/components/ui/toggles/DarkModeToggle";
@@ -18,13 +18,18 @@ import { usePathname } from "next/navigation";
 import useRootData from "@/lib/state/useRootData";
 
 export default function HeaderVariantSimple({ item, width = "7xl" }: { item: HeaderBlockDto; width?: "screen-2xl" | "7xl" }) {
-  const { authenticated, appConfiguration } = useRootData();
+  const { authenticated, appConfiguration, theme } = useRootData();
 
   const { t } = useTranslation();
 
   const pathname = usePathname();
 
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   function isCurrent(path: string): boolean {
     return pathname === path;
   }
@@ -61,8 +66,8 @@ export default function HeaderVariantSimple({ item, width = "7xl" }: { item: Hea
                     <div></div>
                   )}
                   <div className="-mr-1 flex items-center space-x-2 md:hidden">
-                    <div className="flex">
-                      {item.withSignInAndSignUp && (
+                    <div className="flex" suppressHydrationWarning>
+                      {mounted && item.withSignInAndSignUp && (
                         <div className="inline-flex space-x-2 rounded-md">
                           {!authenticated && (
                             <ButtonTertiary
@@ -134,12 +139,12 @@ export default function HeaderVariantSimple({ item, width = "7xl" }: { item: Hea
                   );
                 })}
                 {item.withLanguageSelector && <LocaleSelector className="hidden lg:flex" />}
-                {item.withDarkModeToggle && <DarkModeToggle className="hidden lg:flex" />}
-                {item.withThemeSelector && <ThemeSelector className="hidden lg:flex" />}
+                {item.withDarkModeToggle && <DarkModeToggle className="hidden lg:flex" currentScheme={theme?.scheme} />}
+                {item.withThemeSelector && <ThemeSelector className="hidden lg:flex" currentTheme={theme?.color} />}
               </div>
               <div className="hidden md:absolute md:inset-y-0 md:right-0 md:flex md:items-center md:justify-end">
-                <span className="inline-flex space-x-2">
-                  {item.withSignInAndSignUp && (
+                <span className="inline-flex space-x-2" suppressHydrationWarning>
+                  {mounted && item.withSignInAndSignUp && (
                     <>
                       {!authenticated && (
                         <ButtonTertiary
@@ -249,8 +254,8 @@ export default function HeaderVariantSimple({ item, width = "7xl" }: { item: Hea
                       );
                     })}
                   </div>
-                  <div role="none" className="flex items-center px-2 pb-2">
-                    {item.withSignInAndSignUp && !authenticated && (
+                  <div role="none" className="flex items-center px-2 pb-2" suppressHydrationWarning>
+                    {mounted && item.withSignInAndSignUp && !authenticated && (
                       <>
                         <ButtonEvent
                           to={registerRoute()}

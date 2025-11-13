@@ -19,7 +19,7 @@ import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import ButtonTertiary from "@/components/ui/buttons/ButtonTertiary";
 
 export default function HeaderVariantSimple({ item, width = "7xl" }: { item: HeaderBlockDto; width?: "screen-2xl" | "7xl" }) {
-  const { authenticated, appConfiguration, user } = useRootData();
+  const { authenticated, appConfiguration, user, theme } = useRootData();
   const { t } = useTranslation();
 
   const hasProfileButton = appConfiguration?.app.features.tenantHome === "/";
@@ -137,8 +137,8 @@ export default function HeaderVariantSimple({ item, width = "7xl" }: { item: Hea
                   );
                 })}
                 {item.withLanguageSelector && <LocaleSelector className="hidden lg:flex" />}
-                {item.withDarkModeToggle && <DarkModeToggle className="hidden lg:flex" />}
-                {item.withThemeSelector && <ThemeSelector className="hidden lg:flex" />}
+                {item.withDarkModeToggle && <DarkModeToggle className="hidden lg:flex" currentScheme={theme?.scheme} />}
+                {item.withThemeSelector && <ThemeSelector className="hidden lg:flex" currentTheme={theme?.color} />}
               </div>
               <div className="hidden md:absolute md:inset-y-0 md:right-0 md:flex md:items-center md:justify-end">
                 <span className="inline-flex space-x-2">

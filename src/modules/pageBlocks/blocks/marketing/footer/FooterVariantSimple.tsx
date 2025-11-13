@@ -7,9 +7,11 @@ import { useTranslation } from "react-i18next";
 import DarkModeToggle from "@/components/ui/toggles/DarkModeToggle";
 import ThemeSelector from "@/components/ui/selectors/ThemeSelector";
 import LocaleSelector from "@/components/ui/selectors/LocaleSelector";
+import useRootData from "@/lib/state/useRootData";
 
 export default function FooterVariantSimple({ item }: { item: FooterBlockDto }) {
   const { t } = useTranslation();
+  const { theme } = useRootData();
   return (
     <div>
       <footer>
@@ -38,9 +40,9 @@ export default function FooterVariantSimple({ item }: { item: FooterBlockDto }) 
             <SocialsVariantSimple item={item.socials} />
           </div>
           <div className="mt-4 flex items-center justify-center space-x-2">
-            {item.withDarkModeToggle && <DarkModeToggle />}
+            {item.withDarkModeToggle && <DarkModeToggle currentScheme={theme?.scheme} />}
             {item.withLanguageSelector && <LocaleSelector />}
-            {item.withThemeSelector && <ThemeSelector />}
+            {item.withThemeSelector && <ThemeSelector currentTheme={theme?.color} />}
           </div>
         </div>
       </footer>
