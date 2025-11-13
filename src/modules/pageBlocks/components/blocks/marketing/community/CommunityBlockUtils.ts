@@ -47,7 +47,7 @@ export const defaultCommunityBlock: CommunityBlockDto = {
         avatar_url: "https://avatars.githubusercontent.com/u/92839?v=4",
       },
       {
-        user: "Alexandro Martinez",
+        user: "TheDevs",
         avatar_url: "https://avatars.githubusercontent.com/u/8606530?v=4",
       },
       {

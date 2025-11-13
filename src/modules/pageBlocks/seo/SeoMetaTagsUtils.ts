@@ -11,11 +11,11 @@ type SiteTags = {
 };
 export const defaultSiteTags: SiteTags = {
   title: "Next.js CatStack Demo",
-  description: "Build, launch, fail, repeat with Next.js, Remix, SvelteKit, Tailwind CSS, shadcn/ui, Prisma, Drizzle, Stripe, Postmark. and Resend.",
-  keywords: "remix,nextjs,svelte,saas,tailwindcss,prisma,react,typescript,boilerplate,saas-kit,saas-boilerplate,saas-starter-kit,stripe,postmark,drizzle",
+  description: "Build, launch, fail, repeat with Next.js, Tailwind CSS, shadcn/ui, Prisma, Stripe, Postmark. and Resend.",
+  keywords: "nextjs,saas,tailwindcss,prisma,react,typescript,boilerplate,saas-kit,saas-boilerplate,saas-starter-kit,stripe,postmark",
   image: "/img/catstack-og.png",
   thumbnail: "/img/catstack-thumbnail.jpg",
-  twitterCreator: "@AlexandroMtzG",
+  twitterCreator: "@TheDevs",
   twitterSite: "",
 };
 
@@ -39,46 +39,4 @@ function parseMetaTags(tags: SiteTags): MetaTagsDto {
       description: tags.description,
     },
   };
-  // return [
-  //   { title: tags.title },
-  //   { name: "description", content: tags.description },
-  //   { name: "keywords", content: tags.keywords },
-  //   { property: "og:title", content: tags.title },
-  //   { property: "og:type", content: "website" },
-  //   { property: "og:image", content: tags.image },
-  //   { property: "og:card", content: "summary_large_image" },
-  //   { property: "og:description", content: tags.description },
-  //   { property: "twitter:image", content: tags.thumbnail },
-  //   { property: "twitter:card", content: "summary_large_image" },
-  //   { property: "twitter:creator", content: tags.twitterCreator ?? "" },
-  //   { property: "og:creator", content: tags.twitterCreator },
-  //   { property: "twitter:site", content: tags.twitterSite ?? "" },
-  //   { property: "twitter:title", content: tags.title },
-  //   { property: "twitter:description", content: tags.description },
-  // ];
 }
-
-// function getLinkTags(): MetaTagsDto {
-//   return {};
-//   // const baseUrl = (await getBaseURL());
-//   // const urlObj = new URL(request.url);
-//   // const pathname = `${baseUrl}${urlObj.pathname}`;
-//   // const searchParams = urlObj.searchParams;
-//   // const lng = searchParams.get("lng") ?? fallbackLng;
-//   // const linkTags: MetaTagsDto = {};
-
-//   // // Set the canonical link
-//   // const canonicalHref = lng === fallbackLng ? pathname : `${pathname}?lng=${lng}`;
-//   // linkTags.push({ property: "og:locale", content: lng });
-//   // linkTags.push({ tagName: "link", rel: "canonical", href: canonicalHref });
-//   // linkTags.push({ property: "og:url", content: canonicalHref });
-
-//   // // Add hreflang tags for each supported language
-//   // i18nConfig.supportedLngs.forEach((supportedLng) => {
-//   //   const href = supportedLng === i18nConfig.fallbackLng ? pathname : `${pathname}?lng=${supportedLng}`;
-//   //   linkTags.push({ tagName: "link", rel: "alternate", href: href, hrefLang: supportedLng });
-//   // });
-//   // linkTags.push({ tagName: "link", rel: "alternate", href: pathname, hrefLang: "x-default" });
-
-//   // return linkTags;
-// }

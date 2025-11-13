@@ -20,7 +20,7 @@ export namespace LandingPage {
         banner: {
           style: "top",
           text: "Next.js + Prisma + Postgres",
-          textMd: "RockStack: Next.js + Prisma + Postgres",
+          textMd: "CatStack: Next.js + Prisma + Postgres",
           href: "https://catstack.dev/stack/nextjs/prisma/postgres",
           cta: [
             { text: "Next.js", href: "https://nextjs.catstack.dev", isPrimary: true },
@@ -37,7 +37,7 @@ export namespace LandingPage {
           style: "bottomImage",
           heading: t("front.hero.heading"),
           subheading: t("front.hero.subheading"),
-          image: "https://qwcsbptoezmuwgyijrxp.supabase.co/storage/v1/object/public/novel/1727286645348-rockstack-og.png",
+          image: "https://qwcsbptoezmuwgyijrxp.supabase.co/storage/v1/object/public/novel/1727286645348-CatStack-og.png",
           cta: [
             {
               text: t("front.hero.cta1"),
@@ -69,7 +69,7 @@ export namespace LandingPage {
           style: "cards",
           topText: "Rock-solid",
           headline: "Core Features",
-          subheadline: "Explore the essential functionalities that every RockStack edition includes.",
+          subheadline: "Explore the essential functionalities that every CatStack edition includes.",
           cta: [
             { text: "Pricing", isPrimary: true, href: "/pricing" },
             { text: "Contact", isPrimary: false, href: "/contact" },
@@ -161,8 +161,8 @@ export namespace LandingPage {
           subheadline: "What our customers say about us.",
           items: [
             { name: "John Doe", quote: "This is the best piece of software I've ever seen in my entire life.", stars: 5 },
-            { name: "Jane Doe", quote: "I can't believe how easy it is to use RockStack. It's amazing!", stars: 5 },
-            { name: "Jack Smith", quote: "I've been using RockStack for 1 day and it's the best day of my life.", stars: 5 },
+            { name: "Jane Doe", quote: "I can't believe how easy it is to use CatStack. It's amazing!", stars: 5 },
+            { name: "Jack Smith", quote: "I've been using CatStack for 1 day and it's the best day of my life.", stars: 5 },
           ],
         },
       },
@@ -178,8 +178,8 @@ export namespace LandingPage {
 /*       {
         video: {
           style: "simple",
-          headline: "Watch RockStack in action",
-          subheadline: "Learn more about RockStack in this short video.",
+          headline: "Watch CatStack in action",
+          subheadline: "Learn more about CatStack in this short video.",
           src: "https://www.youtube.com/embed/Resfhqp6u_U",
         },
       }, */

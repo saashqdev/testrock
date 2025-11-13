@@ -20,8 +20,8 @@ export namespace Campaigns_List {
     const request = props.request!;
     await requireAuth();
     const tenantId = await getTenantIdOrNull({ request, params });
-    const searchParams = new URL(request.url).searchParams;
-    const status = searchParams.get("status")?.toString();
+    const searchParams = (await props.searchParams) || {};
+    const status = searchParams.status?.toString();
     const items = await db.campaigns.getAllCampaigns(tenantId, status);
     const campaignsCount = await db.campaigns.groupCampaigns(tenantId);
     const groupByStatus = campaignsCount.map((item) => {

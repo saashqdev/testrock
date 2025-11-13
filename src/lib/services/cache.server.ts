@@ -150,6 +150,9 @@ export async function getCachedValues() {
     return [];
   }
   const redis = await getRedisClient();
+  if (!redis) {
+    return [];
+  }
   const allKeys = await redis.keys("*");
   const cachedValues: CachedValue[] = [];
   for (const key of allKeys) {
@@ -182,5 +185,8 @@ export async function clearAllCache() {
     return;
   }
   const redis = await getRedisClient();
+  if (!redis) {
+    return;
+  }
   await redis.flushAll();
 }

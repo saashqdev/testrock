@@ -114,7 +114,7 @@ export default function SendersListRoute() {
           <div className="flex items-center justify-between">
             <h3 className="text-foreground text-lg font-medium leading-6">{t("emailMarketing.senders.plural")}</h3>
             <div className="flex items-center space-x-2">
-              <ButtonPrimary to="new">{t("shared.new")}</ButtonPrimary>
+              <ButtonPrimary to="senders/new">{t("shared.new")}</ButtonPrimary>
             </div>
           </div>
         </div>

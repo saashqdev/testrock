@@ -3,6 +3,8 @@ import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
 import { getAvailableTenantInboundAddress } from "@/utils/services/emailService";
 import { seedRolesAndPermissions } from "@/utils/services/rolesAndPermissionsService";
+import { importEntitiesFromTemplate } from "@/utils/services/server/entitiesTemplatesService";
+import { CRM_ENTITIES_TEMPLATE } from "@/modules/templates/defaultEntityTemplates";
 
 const prisma = new PrismaClient();
 
@@ -67,6 +69,22 @@ async function seed() {
     { ...user1, type: TenantUserType.OWNER },
     { ...user2, type: TenantUserType.MEMBER },
   ]);
+
+  // Create CRM entities (company, contact, opportunity, submission)
+  console.log("🌱 Creating CRM entities");
+  try {
+    await importEntitiesFromTemplate({
+      template: CRM_ENTITIES_TEMPLATE,
+      createdByUserId: admin.id,
+    });
+    console.log("✅ CRM entities created successfully");
+  } catch (error: any) {
+    if (error.message.includes("Entity already exists")) {
+      console.log("ℹ️ CRM entities already exist");
+    } else {
+      throw error;
+    }
+  }
 
   // Permissions
   await seedRolesAndPermissions(adminUser.email);  

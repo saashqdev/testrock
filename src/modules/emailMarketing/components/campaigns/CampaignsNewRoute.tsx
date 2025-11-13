@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useActionState } from "react";
+import { useActionState, useTransition } from "react";
 import Link from "next/link";
 import { useState, useEffect, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
@@ -27,6 +27,7 @@ export default function CampaignsNewRoute({ data, action }: CampaignsNewRoutePro
   const { t } = useTranslation();
   const appOrAdminData = useAppOrAdminData();
   const [actionData, formAction, pending] = useActionState(action, null);
+  const [isPending, startTransition] = useTransition();
   const params = useParams();
 
   const [name, setName] = useState("Campaign");
@@ -64,7 +65,9 @@ export default function CampaignsNewRoute({ data, action }: CampaignsNewRoutePro
     e.stopPropagation();
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    formAction(formData);
+    startTransition(() => {
+      formAction(formData);
+    });
   }
 
   function sendTest(i?: RowWithDetailsDto) {
@@ -80,7 +83,9 @@ export default function CampaignsNewRoute({ data, action }: CampaignsNewRoutePro
     form.set("subject", subject);
     form.set("htmlBody", htmlBody);
     form.set("textBody", "");
-    formAction(form);
+    startTransition(() => {
+      formAction(form);
+    });
   }
 
   return (

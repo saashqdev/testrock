@@ -19,8 +19,8 @@ interface CampaignsListRouteProps {
 export default function CampaignsListRoute({ data }: CampaignsListRouteProps) {
   const { t } = useTranslation();
   const params = useParams();
-  const [searchParams] = useSearchParams();
-  const newSearchParams = new URLSearchParams(searchParams.toString() || "");
+  const searchParams = useSearchParams();
+  const newSearchParams = new URLSearchParams(searchParams?.toString() || "");
 
   function countStatus(status?: string) {
     if (!status) {
@@ -68,7 +68,7 @@ export default function CampaignsListRoute({ data }: CampaignsListRouteProps) {
           />
         </div>
         <div>
-          <ButtonPrimary to="new">
+          <ButtonPrimary to="campaigns/new">
             <div>New</div>
             <SentIconFilled className="h-5 w-5" />
           </ButtonPrimary>

@@ -177,7 +177,7 @@ export default function PrivacyPolicyClient() {
               <h3 className="text-black dark:text-white">Contact Us</h3>
               <p>For any questions or concerns regarding your privacy, you may contact us using the following details:</p>
               <p>
-                Alexandro Martinez
+                TheDevs
                 <br />
                 hello@therock.com
               </p>

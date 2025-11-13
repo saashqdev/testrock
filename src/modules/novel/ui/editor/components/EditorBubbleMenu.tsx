@@ -64,22 +64,17 @@ export const EditorBubbleMenu: React.FC<EditorBubbleMenuProps> = (props) => {
     },
   ];
 
-  const bubbleMenuProps: EditorBubbleMenuProps = {
-    ...props,
-    shouldShow: ({ editor }) => {
+  const { promptFlows, onRunPromptFlow, tippyOptions, ...bubbleMenuProps } = props;
+
+  const bubbleMenuPropsWithDefaults = {
+    ...bubbleMenuProps,
+    shouldShow: ({ editor }: { editor: any }) => {
       // don't show if image is selected
 
       if (editor?.isActive("image")) {
         return false;
       }
       return editor.view.state.selection.content().size > 0;
-    },
-    tippyOptions: {
-      moveTransition: "transform 0.15s ease-out",
-      onHidden: () => {
-        setIsNodeSelectorOpen(false);
-        setIsColorSelectorOpen(false);
-      },
     },
   };
 
@@ -88,7 +83,7 @@ export const EditorBubbleMenu: React.FC<EditorBubbleMenuProps> = (props) => {
   const [isPromptSelectorOpen, setIsPromptSelectorOpen] = useState(false);
 
   return (
-    <BubbleMenu {...bubbleMenuProps} className="flex overflow-hidden rounded border border-stone-200 bg-background shadow-xl">
+    <BubbleMenu {...bubbleMenuPropsWithDefaults} className="flex overflow-hidden rounded border border-stone-200 bg-background shadow-xl">
       {props.editor && (
         <Fragment>
           <NodeSelector
@@ -126,16 +121,16 @@ export const EditorBubbleMenu: React.FC<EditorBubbleMenuProps> = (props) => {
         }}
       /> */}
 
-          {props.promptFlows && props.onRunPromptFlow && props.promptFlows.length > 0 && (
+          {promptFlows && onRunPromptFlow && promptFlows.length > 0 && (
             <PromptSelector
-              items={props.promptFlows}
+              items={promptFlows}
               editor={props.editor}
               isOpen={isPromptSelectorOpen}
               setIsOpen={() => {
                 setIsPromptSelectorOpen(!isPromptSelectorOpen);
                 setIsNodeSelectorOpen(false);
               }}
-              onRun={props.onRunPromptFlow}
+              onRun={onRunPromptFlow}
             />
           )}
         </Fragment>

@@ -50,7 +50,7 @@ export namespace OutboundEmails_List {
       },
     ];
     const filters = getFiltersFromCurrentUrl(request, filterableProperties);
-    const urlSearchParams = new URL(request.url).searchParams;
+    const urlSearchParams = new URL(request?.url || "http://localhost").searchParams;
     const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
     const fromSenderId = filters.properties.find((f) => f.name === "senderId")?.value ?? undefined;
     const campaignId = filters.properties.find((f) => f.name === "campaignId")?.value;

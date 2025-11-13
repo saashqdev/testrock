@@ -22,7 +22,13 @@ export namespace EntityViewsApi {
     withDefault: boolean;
     withRows: boolean;
   }): Promise<GetEntityViewsWithRows[]> {
-    const entity = await db.entities.getEntityByName({ tenantId, name: entityName });
+    let entity;
+    try {
+      entity = await db.entities.getEntityByName({ tenantId, name: entityName });
+    } catch (error) {
+      // Entity not found - return empty array
+      return [];
+    }
     if (!entity) {
       return [];
     }
@@ -58,7 +64,13 @@ export namespace EntityViewsApi {
     id: string | undefined,
     { entityName, tenantId, pageSize }: { entityName: string; tenantId: string | null; pageSize?: number }
   ): Promise<GetEntityViewsWithRows | null> {
-    const entity = await db.entities.getEntityByName({ tenantId, name: entityName });
+    let entity;
+    try {
+      entity = await db.entities.getEntityByName({ tenantId, name: entityName });
+    } catch (error) {
+      // Entity not found
+      return null;
+    }
     if (!entity) {
       return null;
     }
