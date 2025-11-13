@@ -14,20 +14,25 @@ export default function ThemeProvider({ scheme, theme }: ThemeProviderProps) {
   useEffect(() => {
     const htmlElement = document.documentElement;
     const shouldBeDark = scheme === "dark";
+    const isDark = htmlElement.classList.contains("dark");
     
-    if (shouldBeDark) {
+    // Only update if there's a mismatch
+    if (shouldBeDark && !isDark) {
       htmlElement.classList.add("dark");
-    } else {
+    } else if (!shouldBeDark && isDark) {
       htmlElement.classList.remove("dark");
     }
 
-    // Remove all existing theme classes
+    // Handle theme classes
+    const currentThemeClass = `theme-${theme}`;
     const themeClasses = Array.from(htmlElement.classList).filter((cls) => cls.startsWith("theme-"));
-    themeClasses.forEach((cls) => htmlElement.classList.remove(cls));
-
-    // Add the new theme class
-    if (theme) {
-      htmlElement.classList.add(`theme-${theme}`);
+    
+    // Only update if the theme class is different
+    if (!themeClasses.includes(currentThemeClass)) {
+      themeClasses.forEach((cls) => htmlElement.classList.remove(cls));
+      if (theme) {
+        htmlElement.classList.add(currentThemeClass);
+      }
     }
   }, [pathname, scheme, theme]);
 

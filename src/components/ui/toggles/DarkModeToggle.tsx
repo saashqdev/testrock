@@ -4,6 +4,7 @@ import { Button } from "../button";
 import clsx from "clsx";
 import { actionToggleScheme } from "@/app/(marketing)/actions";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 interface Props {
   className?: string;
@@ -11,8 +12,30 @@ interface Props {
   currentScheme?: string;
 }
 export default function DarkModeToggle({ className, disabled, currentScheme }: Props) {
-  const isDarkMode = currentScheme === "dark";
+  const [mounted, setMounted] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(currentScheme === "dark");
   const pathname = usePathname();
+
+  useEffect(() => {
+    setMounted(true);
+    // Check the actual DOM class to determine current theme
+    const htmlElement = document.documentElement;
+    setIsDarkMode(htmlElement.classList.contains("dark"));
+  }, []);
+
+  useEffect(() => {
+    // Update when currentScheme prop changes
+    setIsDarkMode(currentScheme === "dark");
+  }, [currentScheme]);
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return (
+      <Button variant="ghost" disabled className={clsx("flex w-10 space-x-2", className)}>
+        <div className="h-5 w-5" />
+      </Button>
+    );
+  }
 
   return (
     <form action={actionToggleScheme}>

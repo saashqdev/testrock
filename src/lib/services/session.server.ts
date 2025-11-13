@@ -74,9 +74,7 @@ export async function getUserSession(): Promise<UserSession | null> {
   if (!sessionCookie) return null;
 
   try {
-    const parsedCookies = parse(sessionCookie);
-    const token = parsedCookies[SESSION_COOKIE_NAME];
-    const decoded = jwt.verify(token, SESSION_SECRET) as JwtPayload;
+    const decoded = jwt.verify(sessionCookie, SESSION_SECRET) as JwtPayload;
     const userSession: UserSession = {
       userId: decoded.userId as string,
       lightOrDarkMode: (decoded.scheme as string) ?? defaultThemeScheme,
@@ -97,14 +95,14 @@ export async function getUserInfo(): Promise<UserSession> {
   const session = await getUserSession();
 
   const userId = session?.userId ?? "";
-  const lightOrDarkMode = session?.scheme ?? "";
+  const scheme = session?.scheme || defaultThemeScheme;
+  const lightOrDarkMode = scheme; // Keep in sync with scheme
   const lng = "en"; // Default language, adjust if needed
   const crsf = undefined; // Not present in UserSessionDto
   const metrics = { enabled: false, logToConsole: false, saveToDatabase: false, ignoreUrls: [] }; // Default metrics
   const cookies: { category: string; allowed: boolean }[] = []; // Default cookies
   const impersonatingFromUserId = undefined; // Not present in UserSessionDto
   const theme = session?.theme ?? defaultThemeColor;
-  const scheme = session?.scheme || defaultThemeScheme;
 
   return {
     userId,
@@ -157,16 +155,15 @@ export async function logout() {
 export async function createUserSession(userSession: UserSession, redirectTo: string = "") {
   const cookieStore = await cookies();
   const token = jwt.sign(userSession, SESSION_SECRET, { expiresIn: "30d" });
-  const serializedSession = serialize(SESSION_COOKIE_NAME, token, {
+  cookieStore.set(SESSION_COOKIE_NAME, token, {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
     maxAge: 60 * 60 * 24 * 30, // 30 days
     httpOnly: true,
   });
-  cookieStore.set(SESSION_COOKIE_NAME, serializedSession);
   cookieStore.set("userId", userSession.userId ?? "");
-  cookieStore.set("lightOrDarkMode", userSession.lightOrDarkMode);
+  cookieStore.set("lightOrDarkMode", userSession.scheme ?? userSession.lightOrDarkMode);
   cookieStore.set("lng", userSession.lng);
   cookieStore.set("crsf", userSession.crsf ?? "");
   cookieStore.set("metrics", JSON.stringify(userSession.metrics ?? {}));

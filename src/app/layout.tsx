@@ -9,6 +9,7 @@ import RootDataLayout from "@/context/RootDataLayout";
 import { defaultSiteTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
 import { defaultThemeColor } from "@/lib/themes";
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -34,8 +35,13 @@ export default async function RootLayout({
   const theme = userInfo?.theme || defaultThemeColor;
   const rootData = await getRootData();
 
+  const htmlClasses = [
+    scheme === "dark" ? "dark" : "",
+    `theme-${theme}`
+  ].filter(Boolean).join(" ");
+
   return (
-    <html lang={lng}>
+    <html lang={lng} className={htmlClasses}>
       <body>
         <I18nProvider language={lng}>
           <RootDataLayout rootData={rootData} scheme={scheme} theme={theme}>

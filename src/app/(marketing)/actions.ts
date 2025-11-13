@@ -49,11 +49,7 @@ export async function actionToggleScheme(formData: FormData) {
   const redirectTo = formData.get("redirectTo") as string;
   const userInfo = await getUserInfo();
   userInfo.scheme = userInfo.scheme === "light" ? "dark" : "light";
-  console.log({
-    scheme: userInfo.scheme,
-  });
   return await createUserSession(userInfo, redirectTo || "/");
-  // return redirect(redirectTo || "/");
 }
 
 export async function actionSetTheme(formData: FormData) {

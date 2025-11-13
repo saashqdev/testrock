@@ -75,10 +75,10 @@ export async function loadRootData({ request, params }: { request: Request; para
     user,
     locale,
     theme: typeof userInfo.theme === 'string' 
-      ? { color: userInfo.theme, scheme: 'light' } 
+      ? { color: userInfo.theme, scheme: userInfo.scheme || 'light' } 
       : userInfo.theme || (typeof appConfiguration.app.theme === 'string' 
-        ? { color: appConfiguration.app.theme, scheme: 'light' } 
-        : appConfiguration.app.theme),
+        ? { color: appConfiguration.app.theme, scheme: userInfo.scheme || 'light' } 
+        : { ...appConfiguration.app.theme, scheme: userInfo.scheme || appConfiguration.app.theme.scheme || 'light' }),
     serverUrl: await getBaseURL(),
     domainName: await getDomainName(),
     userSession: userInfo,
