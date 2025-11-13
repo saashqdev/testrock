@@ -361,6 +361,11 @@
       "affiliates": "Affiliate program"
     },
     "hero": {
+      "heading": "The Next.js SaaS Boilerplate",
+      "subheading": "Launch production-ready SaaS apps with +25 built-in features, such as: Admin dashboard, App portal, Stripe, Blog, Page Builder, Knowledge Base, Workflows, Analytics, Entity Builder, Email Marketing, Notifications, Onboarding, Feature Flags, Cache and Metrics.",
+      "topText": "Next.js + Prisma + Postgres",
+      "cta1": "Get started",
+      "cta2": "Contact us",
       "headline1": "The Remix (React Router 7) SaaS Boilerplate",
       "headline2": "Launch production-ready SaaS apps with +25 built-in features, such as: Admin dashboard, App portal, Stripe, Blog, Page Builder, Knowledge Base, Workflows, Analytics, Entity Builder, Email Marketing, Notifications, Onboarding, Feature Flags, Cache and Metrics.",
       "headline3": "",

@@ -360,6 +360,11 @@
       "affiliates": "Afiliados"
     },
     "hero": {
+      "heading": "El Boilerplate SaaS de Next.js",
+      "subheading": "Desarrolla tu SaaS con +25 funciones SaaS integradas: Portal de Administración, Portal de Aplicación, Suscripciones & Pagos, Blog, Page Block Builder, Bases de Conocimiento, Eventos & Workflows, Analíticas, Entity Builder (auto-generated CRUD and API), CRM & Marketing por Correo Electrónico, Notificaciones, Onboarding, Feature Flags, Caché y Métricas.",
+      "topText": "Next.js + Prisma + Postgres",
+      "cta1": "Empieza ahora",
+      "cta2": "Contáctanos",
       "headline1": "Desarrolla tu SaaS en Remix (React Router 7)",
       "headline2": "Desarrolla tu SaaS con +25 funciones SaaS integradas: Portal de Administración, Portal de Aplicación, Suscripciones & Pagos, Blog, Page Block Builder, Bases de Conocimiento, Eventos & Workflows, Analíticas, Entity Builder (auto-generated CRUD and API), CRM & Marketing por Correo Electrónico, Notificaciones, Onboarding, Feature Flags, Caché y Métricas.",
       "headline3": "",
