@@ -53,7 +53,6 @@
     "edit": "Editar",
     "overview": "Detalles",
     "summary": "Resumen",
-    "latestActivity": "Última actividad",
     "upload": "Subir",
     "avatar": "Avatar",
     "icon": "Ícono",
@@ -333,12 +332,19 @@
     "logout": "Salir",
     "register": "Registrarse",
     "submit": "Enviar",
-    "recommended": "Recomendado",
-    "pickDate": "Selecciona una fecha"
+    "recommended": "Recomendado"
   },
   "components": {
     "date": {
       "pick": "Selecciona una fecha"
+    }
+  },
+  "auth": {
+    "github": {
+      "button": "Iniciar sesión con GitHub"
+    },
+    "google": {
+      "button": "Iniciar sesión con Google"
     }
   },
   "front": {
@@ -354,11 +360,20 @@
       "affiliates": "Afiliados"
     },
     "hero": {
-      "heading": "Kit Full-stack de desarrollo SaaS en Next.js, Tailwind CSS, shadcn/ui, Prisma y Stripe",
-      "subheading": "La manera más rápida de desarrollar un SaaS en Next.js, NextJS, o SvelteKit.",
-      "topText": "Next.js TheRock Demo",
-      "cta1": "Ver precios",
-      "cta2": "Contáctanos"
+      "headline1": "Desarrolla tu SaaS en Remix (React Router 7)",
+      "headline2": "Desarrolla tu SaaS con +25 funciones SaaS integradas: Portal de Administración, Portal de Aplicación, Suscripciones & Pagos, Blog, Page Block Builder, Bases de Conocimiento, Eventos & Workflows, Analíticas, Entity Builder (auto-generated CRUD and API), CRM & Marketing por Correo Electrónico, Notificaciones, Onboarding, Feature Flags, Caché y Métricas.",
+      "headline3": "",
+      "subheadline1": "Construye → Publicita → Administra tu SaaS",
+      "hint": "Este sitio usa {{0}} Edición Pro",
+      "buy": "Empieza ahora",
+      "features": "Funcionalidades",
+      "docs": "Documentación",
+      "components": "Componentes",
+      "blog": "Blog",
+      "contact": "Contáctanos",
+      "startHint": "Este demo está alojado en Vercel + Supabase.",
+      "cta": "Empieza ahora",
+      "changelog": "Changelog"
     },
     "pricing": {
       "title": "Precios",
@@ -373,7 +388,7 @@
       "subscribe": "Suscribirse",
       "subscribing": "Suscribiéndose",
       "subscribed": "¡Te has suscrito!",
-      "checkEmail": "Revisa tu correo electrónico para confirmar (revisa tu carpeta de SPAM).",
+      "checkEmail": "¡Suscrito! Revisa tu correo electrónico para confirmar.",
       "weCare": "Nos importa la protección de tu privacidad."
     },
     "contact": {
@@ -395,13 +410,21 @@
       "title": "Marca",
       "description": "Assets de marca y guías de uso."
     },
+    "changelog": {
+      "title": "Changelog",
+      "headline": "Mantente informado de la última funcionalidad y bug fixes."
+    },
+    "roadmap": {
+      "title": "Roadmap",
+      "headline": "Entérate del estatus actual de SaasRock."
+    },
     "faq": {
       "title": "Preguntas más frecuentes",
       "headline": "Agrega tus propias preguntas y respuestas para ayudar a tus usuarios a entender tu SaaS.",
-      "subheadline": "Preguntas frecuentes acerca de TheRock.",
+      "subheadline": "Preguntas frecuentes acerca de SaasRock.",
       "questions": {
         "q1": "¿Cómo obtengo el código después de la compra?",
-        "a1": "Serás invitado al repositorio therock en GitHub. Si compraste TheRock Enterprise también serás invitado al repositorio therock-enterprise.",
+        "a1": "Serás invitado al repositorio saasrock en GitHub. Si compraste SaasRock Pro también serás invitado al repositorio saasrock-pro.",
         "q2": "¿Puedo obtener un reembolso?",
         "a2": "Debido a la naturaleza del desarrollo de software como un servicio personalizado, no ofrecemos reembolsos."
       }
@@ -419,6 +442,7 @@
       "docs": "Documentación",
       "contact": "Contáctanos",
       "newsletter": "Newsletter",
+      "changelog": "Changelog",
       "termsAndConditions": "Términos y Condiciones",
       "privacyPolicy": "Política de Privacidad",
       "features": "Funcionalidades"
@@ -566,13 +590,6 @@
         "unlimited": "Unlimited créditos",
         "moreThan": "+{{0}} créditos",
         "enterprise": "+10000 créditos"
-      },
-      "links": {
-        "one": "1 enlace",
-        "max": "{{0}} enlaces",
-        "monthly": "{{0}} enlaces/mes",
-        "unlimited": "Enlaces ilimitados",
-        "moreThan": "+{{0}} enlaces"
       }
     }
   },
@@ -627,6 +644,12 @@
         "LAST_30_DAYS": "Últimos 30 días",
         "LAST_7_DAYS": "Últimos 7 días",
         "LAST_24_HOURS": "Últimas 24 horas",
+        "LAST_HOUR": "Última hora",
+        "LAST_10_MINUTES": "Últimos 10 minutos",
+        "YEAR_TO_DATE": "Año a la fecha",
+        "MONTH_TO_DATE": "Mes a la fecha",
+        "WEEK_TO_DATE": "Semana a la fecha",
+        "TODAY": "Hoy",
         "ALL_Description": "Todo",
         "YEAR_Description": "Este año",
         "MONTH_Description": "Este mes",
@@ -726,7 +749,7 @@
       "settings": "Ajustes",
       "setup": "Configuración",
       "rolesAndPermissions": "Roles & Permisos",
-      "accountsAndUsers": "Cuentas"
+      "accountsAndUsers": "Cuentas & Usuarios"
     },
     "subscription": {
       "limits": {
@@ -786,7 +809,6 @@
       },
       "errors": {
         "limitReached": "Límite alcanzado",
-        "limitReachedLinkedAccounts": "Has llegado al límite de enlaces con cuentas.",
         "limitReachedUsers": "Has llegado al límite de usuarios.",
         "limitReachedContracts": "Has llegado al límite de contratos ({{0}})."
       }
@@ -807,7 +829,6 @@
     "tenants": {
       "empty": "No hay cuentas",
       "select": "Selecciona cuenta",
-      "my": "Mis cuentas",
       "youBelongToOne": "Perteneces a una cuenta",
       "youBelongToMany": "Perteneces a {{0}} cuentas",
       "create": {
@@ -828,7 +849,6 @@
         "isTrial": "Es prueba",
         "status": "Estatus",
         "members": "Miembros",
-        "linkedAccounts": "Enlaces con cuentas",
         "storage": "Almacenamiento"
       },
       "actions": {
@@ -845,7 +865,7 @@
       "new": "Nuevo plan",
       "edit": "Editar plan",
       "i18n": "Traducción i18n",
-      "thesePricesAreFromFiles": "Estos precios son demo, personalízalos en archivo defaultPlans.server.ts.",
+      "thesePricesAreFromFiles": "Estos precios son demo, personalízalos en archivo plans.server.ts.",
       "noPricesInDatabase": "No hay precios configurados. Inicia como admin para configurar los planes y precios.",
       "noPricesConfigured": "No hay precios configurados.",
       "generateFromFiles": "Clic aquí para generar planes"
@@ -996,7 +1016,7 @@
       "youWereInvited": "fuiste invitado a unirte a",
       "requestAccess": "Solicita acceso para unirte a",
       "acceptedUser": "👋  Te damos la bienvenida a {{0}}",
-      "button": "Aceptar y continuar",
+      "button": "Aceptar invitación",
       "anotherEmail": "Clic aquí para unirte con otro usuario",
       "successTitle": "Solicitud de acceso enviada",
       "successText": "Tu solicitud de acceso se ha enviado al administrador, cuando sea aceptada te enviaremos un correo de bienvenida (asegúrate de revisar en spam o promociones)"
@@ -1012,6 +1032,152 @@
     }
   },
   "models": {
+    "entity": {
+      "object": "Entidad",
+      "plural": "Entidades",
+      "name": "Nombre",
+      "slug": "Slug",
+      "order": "Orden",
+      "prefix": "Prefijo",
+      "title": "Título",
+      "titlePlural": "Plural",
+      "properties": "Propiedades",
+      "isAutogenerated": "CRUD Autogenerado",
+      "hasApi": "Generar API",
+      "icon": "Ícono",
+      "active": "Activo",
+      "showInSidebar": "Mostrar en menú",
+      "hasTags": "Etiquetas habilitadas",
+      "hasComments": "Comentarios habilitados",
+      "hasTasks": "Tareas habilitadas",
+      "hasActivity": "Actividad habilitada",
+      "hasBulkDelete": "Borrado masivo habilitado",
+      "hasViews": "Vistas habilitadas",
+      "rows": "Renglones",
+      "limits": "Límites",
+      "permissions": "Permisos",
+      "features": "Caracterísiticas",
+      "type": "Tipo",
+      "templates": "Plantillas"
+    },
+    "property": {
+      "object": "Propiedad",
+      "plural": "Propiedades",
+      "order": "Orden",
+      "name": "Nombre",
+      "title": "Título",
+      "type": "Tipo",
+      "subtype": "Subtipo",
+      "formula": "Fórmula",
+      "parent": "Propiedad padre",
+      "isDefault": "Es propiedad predeterminada",
+      "isRequired": "Requerido",
+      "isHidden": "Oculto",
+      "isDisplay": "Mostrar",
+      "isReadOnly": "Solo lectura",
+      "showInCreate": "Mostrar al crear",
+      "canUpdate": "Puede editarse",
+      "options": "Opciones",
+      "children": "Children",
+      "values": "Valores",
+      "defaultProperties": {
+        "title": "Propiedades Predeterminadas",
+        "show": "Mostrar propiedades predeterminadas",
+        "hide": "Ocultar propiedades predeterminadas"
+      },
+      "actions": {
+        "add": "Agregar propiedad personalizada"
+      }
+    },
+    "relationship": {
+      "object": "Relación",
+      "plural": "Relaciones",
+      "from": "De",
+      "to": "Hacia",
+      "multiple": "Múltiple",
+      "required": "Requerido",
+      "parents": "Padres",
+      "children": "Hijos"
+    },
+    "propertyAttribute": {
+      "object": "Atributo",
+      "plural": "Atributo",
+      "pattern": "Expresión regular",
+      "min": "Mínimo",
+      "max": "Máximo",
+      "step": "Intervalos",
+      "rows": "Renglones",
+      "defaultValue": "Valor predeterminado",
+      "maxSize": "Tamaño máximo (en MB)",
+      "acceptFileTypes": "Tipos de archivos",
+      "uppercase": "Mayúsculas",
+      "lowercase": "Minúsculas",
+      "hintText": "Texto de pista",
+      "helpText": "Texto de ayuda",
+      "placeholder": "Placeholder",
+      "icon": "Ícono",
+      "editor": "Editor",
+      "editorLanguage": "Lenguaje en editor",
+      "editorSize": "Tamaño de editor",
+      "columns": "Columnas",
+      "group": "Grupo",
+      "format": "Formato",
+      "separator": "Separador",
+      "selectOptions": "Opciones de selección",
+      "password": "Contraseña"
+    },
+    "workflow": {
+      "object": "Flujo",
+      "plural": "Flujos"
+    },
+    "row": {
+      "object": "Renglón",
+      "plural": "Renglones",
+      "order": "Order",
+      "folio": "Folio",
+      "visibility": "Visibilidad",
+      "entity": "Entidad",
+      "tenant": "Cuenta",
+      "createdAt": "Creado",
+      "createdBy": "Creado por",
+      "comments": "Comentarios",
+      "permissions": "Permisos",
+      "tags": "Etiquetas",
+      "tasks": "Tareas"
+    },
+    "rowComment": {
+      "object": "Comentario",
+      "plural": "Comentario",
+      "parentCommentId": "De comentario",
+      "reply": "Respuesta",
+      "replies": "Respuestas"
+    },
+    "rowTask": {
+      "object": "Tarea",
+      "plural": "Tareas",
+      "completed": "Completada",
+      "completedAt": "Fecha de completado"
+    },
+    "tag": {
+      "object": "Etiqueta",
+      "plural": "Etiquetas"
+    },
+    "post": {
+      "object": "Publicación",
+      "plural": "Publicaciones",
+      "slug": "Slug",
+      "title": "Título",
+      "description": "Descripción",
+      "date": "Fecha",
+      "image": "Imagen de portada",
+      "content": "Contenido",
+      "markdown": "Sintaxis Markdown",
+      "readingTime": "Tiempo de lectura",
+      "published": "Publicado",
+      "author": "Author",
+      "category": "Categoría",
+      "tags": "Tags"
+    },
     "tenant": {
       "object": "Cuenta",
       "plural": "Cuentas",
@@ -1046,7 +1212,7 @@
       "amount": "Cantidad",
       "resource": "Recurso",
       "whatIs": "¿Qué es un crédito?",
-      "info": "Usarás créditos para realizar ciertas acciones en la plataforma.",
+      "info": "Así que al enviar un mensaje por el ChatGPT personalizado, serían 3 créditos.",
       "remaining": "{{0}} créditos restantes",
       "unlimited": "Créditos ilimitados",
       "empty": "No tienes créditos"
@@ -1074,15 +1240,26 @@
       "signUpMethod": "Método de registro",
       "username": "Usuario"
     },
+    "blacklist": {
+      "object": "Lista negra",
+      "plural": "Lista negra",
+      "type": "Tipo",
+      "value": "Valor",
+      "registerAttempts": "Intentos de registro",
+      "types": {
+        "email": "Correo",
+        "domain": "Dominio",
+        "ip": "IP"
+      }
+    },
     "ipAddress": {
       "object": "Dirección IP",
       "plural": "Direcciones IP"
     },
-    "blacklist": {
-      "object": "Lista negra"
-    },
     "tenantIpAddress": {
-      "plural": "Direcciones IP"
+      "object": "Dirección IP",
+      "plural": "Direcciones IP",
+      "fromUrl": "De URL"
     },
     "role": {
       "object": "Rol",
@@ -1107,6 +1284,13 @@
       "userPermissions": "Permisos de Usuarios",
       "inRoles": "En Roles"
     },
+    "group": {
+      "object": "Grupo",
+      "plural": "Grupos",
+      "name": "Nombre",
+      "description": "Descripción",
+      "color": "Color"
+    },
     "log": {
       "object": "Bitácora",
       "plural": "Bitácora",
@@ -1124,6 +1308,21 @@
       "resource": "Recurso",
       "attempts": "Llamadas a Webhooks",
       "description": "Descripción"
+    },
+    "webhook": {
+      "object": "Webhook",
+      "plural": "Webhooks"
+    },
+    "webhookAttempt": {
+      "object": "Intento de Webhook",
+      "plural": "Intentos de Webhook",
+      "endpoint": "URL",
+      "success": "Éxito",
+      "status": "Estatus",
+      "message": "Mensaje",
+      "body": "Cuerpo",
+      "startedAt": "Fecha de inicio",
+      "finishedAt": "Fecha de fin"
     },
     "subscriptionProduct": {
       "object": "Suscripción",
@@ -1151,6 +1350,65 @@
       "type": "Tipo",
       "value": "Valor"
     },
+    "email": {
+      "object": "Correo",
+      "plural": "Correos",
+      "messageId": "ID",
+      "type": "Tipo",
+      "date": "Fecha",
+      "subject": "Asunto",
+      "from": "De",
+      "fromEmail": "De correo",
+      "fromName": "De (nombre)",
+      "to": "Para",
+      "toEmail": "Para correo",
+      "toName": "Para (nombre)",
+      "textBody": "Cuerpo",
+      "htmlBody": "Cuerpo en HTML",
+      "cc": "CC",
+      "attachments": "Adjuntos",
+      "inboundEmails": "Correos entrantes",
+      "outboundEmail": "Correo saliente",
+      "outboundEmails": "Correos salientes"
+    },
+    "contact": {
+      "object": "Contacto",
+      "plural": "Contactos",
+      "status": "Estatus",
+      "email": "Correo",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "phone": "Teléfono",
+      "company": "Empresa",
+      "title": "Puesto"
+    },
+    "opportunity": {
+      "object": "Oportunidad",
+      "plural": "Oportunidades",
+      "contact": "Contacto",
+      "name": "Nombre",
+      "status": "Estatus",
+      "value": "Valor",
+      "subscriptionPrice": "Precio de suscripción"
+    },
+    "contract": {
+      "object": "Contrato",
+      "plural": "Contratos",
+      "name": "Nombre",
+      "description": "Descripción",
+      "file": "Archivo PDF",
+      "status": "Estatus",
+      "members": "Miembros",
+      "activity": "Actividad"
+    },
+    "employee": {
+      "object": "Colaborador",
+      "plural": "Colaboradores",
+      "firstName": "Nombre",
+      "lastName": "Apellido paterno",
+      "email": "Correo electrónico",
+      "fullName": "Nombre completo"
+    },
     "subscription": {
       "object": "Suscripción",
       "plural": "Suscripciones",
@@ -1166,27 +1424,128 @@
       "prices": "Precios",
       "price": "Precio"
     },
-    "jsonProperty": {
-      "object": "Propiedad Personalizada",
-      "plural": "Propiedades Personalizadas",
+    "tenantType": {
+      "object": "Tipo de Cuenta",
+      "plural": "Tipos de Cuenta",
+      "inAccounts": "En cuentas"
+    },
+    "view": {
+      "object": "Vista",
+      "plural": "Vistas",
+      "type": "Tipo",
+      "appliesTo": "Aplica a",
+      "tenant": "Cuenta",
+      "user": "Usuario",
+      "layout": "Layout",
+      "order": "Orden",
       "name": "Nombre",
       "title": "Título",
-      "type": "Tipo",
-      "required": "Requerido",
-      "defaultValue": "Valor por defecto",
+      "pageSize": "Tamaño de página",
+      "isDefault": "Predeterminada",
+      "isSystem": "Sistema",
+      "properties": "Propiedades",
+      "filters": "Filtros",
+      "sort": "Orden",
+      "columns": "Columnas",
+      "groupByProperty": "Agrupar por propiedad",
       "types": {
-        "string": "Texto",
-        "number": "Número",
-        "boolean": "Booleano",
-        "image": "Imagen",
-        "date": "Fecha",
-        "select": "Selección",
-        "multiselect": "Selección múltiple",
-        "content": "Content"
+        "default": "Predeterminada",
+        "tenant": "Cuenta",
+        "user": "Usuario",
+        "system": "Sistema"
       },
       "actions": {
-        "add": "Add custom property"
+        "create": "Agregar vista",
+        "update": "Editar vista",
+        "delete": "Eliminar vista"
       }
+    },
+    "portal": {
+      "object": "Portal",
+      "plural": "Portales",
+      "subdomain": "Subdominio",
+      "domain": "Dominio",
+      "title": "Título",
+      "description": "Descripción",
+      "logo": "Logo",
+      "logoDark": "Logo (modo oscuro)",
+      "icon": "Ícono",
+      "iconDark": "Ícono (modo oscuro)",
+      "favicon": "Favicon",
+      "image": "Imagen",
+      "published": "Publicado",
+      "pricing": "Precios",
+      "users": "Usuarios",
+      "analytics": "Analíticas",
+      "themeColor": "Color de tema",
+      "themeScheme": "Esquema de tema",
+      "seoTitle": "Título SEO",
+      "seoDescription": "Descripción SEO",
+      "seoImage": "Imagen SEO",
+      "seoTwitterSite": "Twitter",
+      "seoTwitterCreator": "Creador en Twitter",
+      "template": "Plantilla",
+      "templates": "Plantillas",
+      "layout": "Layout",
+      "actions": {
+        "new": {
+          "title": "Nuevo portal",
+          "description": "Crea un nuevo portal"
+        }
+      },
+      "pages": {
+        "object": "Página",
+        "plural": "Páginas",
+        "pricing": "Precios",
+        "privacyPolicy": "Política de Privacidad",
+        "termsAndConditions": "Términos y Condiciones",
+        "blog": "Blog",
+        "about": "Acerca de",
+        "home": "Inicio",
+        "newsletter": "Newsletter",
+        "contact": "Contacto"
+      }
+    },
+    "domain": {
+      "object": "Dominio",
+      "plural": "Dominios",
+      "custom": "Dominio Personalizado",
+      "recordName": "Nombre de Registro",
+      "recordType": "Tipo de Registro",
+      "recordValue": "Valor de Registro",
+      "verification": {
+        "title": "Verificación de Dominio",
+        "description": "Para verificar la propiedad del dominio, agrega estos registros DNS a tu proveedor de dominio."
+      },
+      "notVerified": {
+        "title": "Dominio no verificado",
+        "description": "Después de agregar los registros, haz clic en el botón de abajo para verificar.",
+        "cta": "Verificar de nuevo"
+      },
+      "verified": {
+        "title": "Dominio verificado",
+        "description": "Puede tomar hasta 24 horas para que los cambios tengan efecto.",
+        "cta": "Haz clic aquí para visitar tu sitio."
+      }
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "headline": "Lee las últimas noticias de la plantilla para aplicaciones SaaS con Remix.",
+    "published": "Publicado",
+    "draft": "Borrador",
+    "thisIsADraft": "Este es un borrador",
+    "write": "Escribir",
+    "publish": "Publish",
+    "saveAndPreview": "Guardar y Previsualizar",
+    "new": "Nueva publicación",
+    "edit": "Editar publicación",
+    "previewMarkdown": "Previsualizar Markdown",
+    "backToBlog": "Volver al blog",
+    "backToPosts": "Volver a las publicaciones",
+    "errors": {
+      "authorRequired": "Autor requerido",
+      "categoryRequired": "Categoría requerida"
     }
   },
   "settings": {
@@ -1370,14 +1729,58 @@
       }
     }
   },
-  "api": {
-    "featureLimits": {
-      "reachedMaxLimit": "Has llegado al límite ({{0}})",
-      "reachedMonthLimit": "Has llegado al límite este mes ({{0}})",
-      "noSubscription": "No tienes subscripción activa",
-      "notIncluded": "No incluido en tu subscripción",
-      "upgradeSubscription": "Actualiza tu subscripción para tener acceso a esta funcionalidad"
+  "entities": {
+    "fields": {
+      "NUMBER": "Número",
+      "TEXT": "Texto",
+      "DATE": "Fecha",
+      "USER": "Usuario",
+      "ROLE": "Rol",
+      "ENTITY": "Entity",
+      "ID": "ID",
+      "SELECT": "Selección",
+      "FORMULA": "Fórmula",
+      "MEDIA": "Adjuntos",
+      "BOOLEAN": "Booleano",
+      "MULTI_SELECT": "Selección múltiple",
+      "MULTI_TEXT": "Texto múltiple",
+      "RANGE_NUMBER": "Rango de números",
+      "RANGE_DATE": "Rango de fechas"
     },
+    "subtypes": {
+      "singleLine": "Una línea",
+      "multiLine": "Múltiples líneas",
+      "email": "Email",
+      "phone": "Teléfono",
+      "url": "URL",
+      "dropdown": "Dropdown",
+      "combobox": "Combobox",
+      "radioGroupCards": "Radio Group Cards",
+      "checkboxCards": "Checkbox Cards"
+    },
+    "defaultFields": {
+      "USER": "Creado por usuario",
+      "ROLE": "Creado por rol",
+      "ID": "ID de Documento"
+    },
+    "conditions": {
+      "equals": "Igual a",
+      "contains": "Contiene",
+      "lt": "Menor que",
+      "lte": "Menor o igual que",
+      "gt": "Mayor que",
+      "gte": "Mayor o igual que",
+      "startsWith": "Empieza con",
+      "endsWith": "Termina con",
+      "in": "En",
+      "notIn": "No en"
+    },
+    "errors": {
+      "selectNeedsAtLeastOneOption": "En campo Selección se requiere al menos una opción",
+      "selectOptionCannotBeEmpty": "El valor de las opciones tiene que definirse"
+    }
+  },
+  "api": {
     "errors": {
       "youDontBelong": "No tienes acceso a esta cuenta",
       "alreadyAdded": "Ya agregado",
@@ -1422,6 +1825,152 @@
       "noOrganizations": "No perteneces a ninguna cuenta"
     }
   },
+  "demo": {
+    "cannotDelete": "No se puede eliminar en ambiente demo",
+    "cannotUpdate": "No se puede actualizar en ambiente demo"
+  },
+  "docs": {
+    "title": "Docs"
+  },
+  "featureLimits": {
+    "reachedMaxLimit": "Has llegado al límite ({{0}})",
+    "reachedMonthLimit": "Has llegado al límite este mes ({{0}})",
+    "noSubscription": "No tienes subscripción activa",
+    "notIncluded": "No incluido en tu subscripción",
+    "upgradeSubscription": "Actualiza tu subscripción para tener acceso a esta funcionalidad"
+  },
+  "cookies": {
+    "titleSmall": "Respetamos tu privacidad.",
+    "title": "Respetamos tu privacidad.",
+    "descriptionSmall": "TLDR: Usamos cookies para la selección de idioma, tema y analíticas.",
+    "description": "TLDR: Usamos cookies para la selección de idioma, tema y analíticas.",
+    "settings": "Ajustes de cookies",
+    "update": "Actualizar mis ajustes de cookies",
+    "accept": "Aceptar cookies",
+    "categories": {
+      "REQUIRED": {
+        "name": "Requeridas",
+        "description": "Estas cookies son necesarias para el correcto functionamiento del sitio web."
+      },
+      "FUNCTIONAL": {
+        "name": "Funcionales",
+        "description": "Estas cookies permiten al sitio web mejorar y personalizar la experiencia de usuario."
+      },
+      "ANALYTICS": {
+        "name": "Analíticas",
+        "description": "Estas cookies son usadas para ayudarnos a entender cómo utilizas el sitio web."
+      },
+      "ADVERTISEMENT": {
+        "name": "Anuncios",
+        "description": "Estas cookies pueden ser colocadas en el sitio por nuestros proveedores de anuncios."
+      }
+    }
+  },
+  "analytics": {
+    "title": "Analíticas",
+    "description": "Páginas vistas y eventos de {{0}}",
+    "overview": "Resumen",
+    "pageViews": "Páginas vistas",
+    "uniqueVisitors": "Visitantes únicos",
+    "liveVisitors": "Visitantes en vivo",
+    "events": "Eventos",
+    "settings": "Ajustes",
+    "delete": "Eliminar todos los datos",
+    "deleted": "Eliminado",
+    "viewed": "Visto",
+    "viewedAt": "Visto",
+    "route": "Ruta",
+    "url": "URL",
+    "action": "Acción",
+    "category": "Categoría",
+    "label": "Etiqueta",
+    "value": "Valor",
+    "visitor": "Visitante",
+    "visitors": "Visitantes",
+    "danger": {
+      "title": "Zona de peligro",
+      "description": "Eliminar datos de tu sitio web, esto no puede recuperarse.",
+      "reset": {
+        "title": "Restablecer",
+        "description": "Restablece los datos analíticos de tu sitio, incluyento Visitantes, Vistas de página y Eventos."
+      }
+    }
+  },
+  "segments": {
+    "build": "Construye",
+    "manage": "Administra",
+    "market": "Promociona"
+  },
+  "crm": {
+    "title": "CRM",
+    "settings": {
+      "title": "Ajustes",
+      "description": "Ajustes de CRM"
+    }
+  },
+  "emailMarketing": {
+    "title": "Email Marketing",
+    "campaign": "Campaña",
+    "campaigns": "Campañas",
+    "newCampaign": "Nueva campaña",
+    "campaignDetails": "Detalles de campaña",
+    "template": "Plantilla",
+    "templates": "Plantillas",
+    "activity": "Actividad",
+    "sendPreview": "Vista previa",
+    "saveDraft": "Guardar borrador",
+    "sendCampaignPreviewToContact": "Enviar prueba de 1 contacto",
+    "sendCampaignPreviewToContacts": "Enviar prueba de {{0}} contactos",
+    "sendCampaignToContact": "Enviar a 1 contacto",
+    "sendCampaignToContacts": "Enviar a {{0}} contactos",
+    "confirmSend": "Enviar campaña",
+    "sendingToContacts": "Enviarás esta campaña a {{0}} contactos",
+    "overview": {
+      "avgOpenRate": "% de apertura",
+      "avgClickRate": "% de clics",
+      "totalSent": "Correos enviados"
+    },
+    "settings": {
+      "title": "Ajustes",
+      "description": "Ajustes de Email Marketing"
+    },
+    "senders": {
+      "object": "Remitente",
+      "plural": "Remitentes",
+      "provider": "Proveedor",
+      "stream": "Stream",
+      "apiKey": "API key",
+      "fromEmail": "De correo",
+      "fromName": "De nombre",
+      "replyToEmail": "Responder a correo"
+    }
+  },
+  "emails": {
+    "object": "Correo",
+    "plural": "Correos",
+    "subject": "Asunto",
+    "from": "De",
+    "to": "Para",
+    "sender": "Remitente",
+    "sent": "Enviado",
+    "sentAt": "Enviado",
+    "delivered": "Entregados",
+    "deliveredAt": "Entregado",
+    "bouncedAt": "Rebotado",
+    "spamComplainedAt": "Spam denunciado",
+    "unsubscribedAt": "Desuscripción",
+    "openedAt": "Abierto",
+    "opens": "Aperturas",
+    "clicks": "Clicks",
+    "inboundEmail": "Correo entrante",
+    "inboundEmails": "Correos entrantes",
+    "outboundEmail": "Correo saliente",
+    "outboundEmails": "Correos salientes",
+    "emailActivity": "Actividad de correo",
+    "recipient": "Destinatario",
+    "recipients": "Destinatarios",
+    "recipientList": "Lista de destinatarios"
+  },
   "affiliates": {
     "title": "Afiliados & Referidos",
     "program": "Programa de Afiliados",
@@ -1432,49 +1981,222 @@
       "description": "Ofrecemos una comisión del {{0}}% en todos los pagos que nos refieras. Esto significa que si refieres un cliente a nosotros, recibirás el {{0}}% del pago o suscripción (mientras el cliente esté suscrito a nosotros en el primer año)."
     }
   },
-  "segments": {
-    "manage": "Gestionar",
-    "market": "Comercializar",
-    "build": "Construir"
-  },
-  "crm": {
-    "title": "CRM"
-  },
-  "emailMarketing": {
-    "title": "Marketing por Correo"
-  },
-  "workflows": {
-    "title": "Flujos de Trabajo"
-  },
-  "onboarding": {
-    "title": "Incorporación"
-  },
-  "featureFlags": {
-    "title": "Banderas de Características"
-  },
   "helpDesk": {
-    "title": "Mesa de Ayuda"
+    "title": "Help Desk"
   },
   "notifications": {
     "title": "Notificaciones"
   },
-  "pages": {
-    "title": "Páginas"
+  "onboarding": {
+    "title": "Onboarding",
+    "object": {
+      "plural": "Onboardings",
+      "title": "Título",
+      "type": "Tipo",
+      "active": "Activo",
+      "filters": "Filtros",
+      "steps": "Pasos",
+      "candidates": "Candidatos",
+      "sessions": {
+        "active": "Activas",
+        "started": "Iniciadas",
+        "completed": "Completadas",
+        "dismissed": "Descartadas"
+      },
+      "empty": {
+        "title": "No hay onboardings",
+        "description": "Crea un nuevo onboarding para guiar a tus usuarios."
+      }
+    },
+    "session": {
+      "object": "Sesión",
+      "plural": "Sesiones",
+      "user": "Usuario",
+      "tenant": "Cuenta",
+      "status": "Estado",
+      "startedAt": "Iniciada",
+      "completedAt": "Completada",
+      "dismissedAt": "Descartada",
+      "matches": "Filtros coincidentes",
+      "steps": "Pasos",
+      "actions": "Acciones",
+      "activity": "Actividad de sesión",
+      "empty": {
+        "title": "No hay sesiones",
+        "description": "Las sesiones de onboarding aparecerán aquí."
+      }
+    },
+    "filter": {
+      "object": "Filtro",
+      "plural": "Filtros",
+      "type": "Tipo",
+      "operator": "Operador",
+      "value": "Valor",
+      "matching": "Filtros coincidente",
+      "set": "Establecer filtros",
+      "empty": {
+        "title": "No hay filtros",
+        "description": "Los filtros se usan para determinar si un usuario cumple con los requisitos para ver un onboarding."
+      }
+    },
+    "step": {
+      "object": "Paso",
+      "plural": "Pasos",
+      "title": "Título",
+      "description": "Descripción",
+      "type": "Tipo",
+      "order": "Orden",
+      "content": "Contenido",
+      "actions": "Actions",
+      "block": "Bloque",
+      "set": "Establecer pasos",
+      "empty": {
+        "title": "No hay pasos",
+        "description": "Agrega pasos a tu onboarding."
+      }
+    },
+    "prompts": {
+      "activate": {
+        "title": "Activar onboarding",
+        "description": "¿Estás seguro de que quieres activar este onboarding?"
+      },
+      "deactivate": {
+        "title": "Desactivar onboarding",
+        "description": "¿Estás seguro de que quieres desactivar este onboarding?"
+      },
+      "deleteOnboarding": {
+        "title": "Eliminar onboarding",
+        "description": "¿Estás seguro de que quieres eliminar este onboarding?"
+      },
+      "deleteSession": {
+        "title": "Eliminar sesión",
+        "description": "¿Estás seguro de que quieres eliminar esta sesión?"
+      },
+      "updateSteps": {
+        "title": "Se eliminarán las sesiones existentes ({{0}})",
+        "description": "Se eliminarán las sesiones existentes, considera crear otro onboarding. ¿Continuar?"
+      }
+    },
+    "errors": {
+      "missingInput": "Por favor llena todos los campos requeridos: {{0}}",
+      "cannotBeActivated": {
+        "title": "No se puede activar",
+        "description": "El onboarding debe de tener al menos 1 paso y 1 filtro para ser activado."
+      }
+    },
+    "gettingStarted": {
+      "title": "Empezando"
+    }
   },
-  "blog": {
-    "title": "Blog"
+  "featureFlags": {
+    "title": "Feature Flags",
+    "object": "Flag",
+    "plural": "Flags",
+    "enabled": "Habilitadas",
+    "filter": "Filtro",
+    "filters": "Filtros",
+    "noFilters": "Sin filtros",
+    "triggers": "Triggers",
+    "empty": {
+      "title": "No hay feature flags",
+      "description": "Crea una nueva feature flag para habilitar o deshabilitar características.",
+      "demo": "Crea una bandera 'maintenance', habilítala y visita la página de inicio."
+    },
+    "danger": {
+      "title": "Zona de peligro",
+      "description": "Eliminar las feature flags podría causar que la aplicación deje de funcionar.",
+      "reset": {
+        "title": "Restablecer feature flags y eventos",
+        "description": "¿Estás seguro de que quieres restablecer las feature flags y eventos?"
+      }
+    }
   },
   "knowledgeBase": {
-    "title": "Base de Conocimientos"
+    "title": "Knowledge Base",
+    "featuredArticles": "Artículos Destacados",
+    "layouts": {
+      "list": "Lista",
+      "articles": "Artículos",
+      "grid": "Grid",
+      "docs": "Docs"
+    },
+    "category": {
+      "object": "Categoría",
+      "plural": "Categorías"
+    },
+    "article": {
+      "object": "Artículo",
+      "plural": "Artículos",
+      "new": "Nuevo artículo"
+    }
+  },
+  "pages": {
+    "title": "Páginas",
+    "blocks": "Bloques",
+    "seo": "SEO",
+    "settings": "Ajustes",
+    "marketing": {
+      "title": "Páginas de Marketing"
+    },
+    "app": {
+      "title": "Páginas de Aplicación"
+    },
+    "actions": {
+      "createDefault": "Crear predeterminadas"
+    },
+    "prompts": {
+      "delete": {
+        "title": "Eliminar página",
+        "confirm": "¿Estás seguro de que quieres eliminar esta página?"
+      },
+      "resetBlocks": {
+        "title": "Restablecer bloques",
+        "confirm": "¿Estás seguro de que quieres restablecer los bloques de esta página?"
+      }
+    }
+  },
+  "prompts": {
+    "object": "Prompt",
+    "plural": "Prompts",
+    "template": "Plantilla",
+    "templates": "Plantillas",
+    "builder": {
+      "title": "Constructor de Prompts",
+      "empty": {
+        "title": "No hay prompts",
+        "description": "Crea prompts AI para interactuar con tus datos."
+      }
+    }
+  },
+  "workflows": {
+    "title": "Workflows"
+  },
+  "feedback": {
+    "title": "Envíanos tus comentarios",
+    "object": "Feedback",
+    "plural": "Feedback",
+    "description": "Nos gustaría saber tu opinión. ¿Tienes alguna sugerencia o comentario?",
+    "placeholder": "Me encantaría que...",
+    "message": "Mensaje",
+    "send": "Enviar",
+    "sent": "¡Gracias por tu retroalimentación!",
+    "limitReached": "Has llegado al límite de retroalimentación de hoy. Inténtalo de nuevo mañana!",
+    "notLoggedIn": "Inicia sesión para enviar tu retroalimentación."
+  },
+  "surveys": {
+    "title": "Encuestas",
+    "object": "Encuesta",
+    "description": "Vota por nuevas características y ayúdanos a mejorar la aplicación.",
+    "submission": {
+      "object": "Resultado",
+      "plural": "Resultados"
+    }
   },
   "widgets": {
-    "plural": "Widgets"
-  },
-  "analytics": {
-    "title": "Analíticas",
-    "overview": "Resumen",
-    "uniqueVisitors": "Visitantes Únicos",
-    "pageViews": "Vistas de Página",
-    "events": "Eventos"
+    "object": "Widget",
+    "plural": "Widgets",
+    "create": "Agregar widget",
+    "appearance": "Apariencia",
+    "metadata": "Metadata"
   }
 }

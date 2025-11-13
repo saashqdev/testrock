@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, startTransition } from "react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import WorkflowBuilder from "@/modules/workflowEngine/components/workflows/WorkflowBuilder";
@@ -78,7 +78,9 @@ export default function WorkflowEditorClient({ workflow: initialWorkflow }: Work
     const formData = new FormData();
     formData.append("workflowId", workflow.id);
     formData.append("workflow", JSON.stringify(workflow));
-    saveFormAction(formData);
+    startTransition(() => {
+      saveFormAction(formData);
+    });
   }
 
   function onSaveBlock(block: WorkflowBlockDto) {
@@ -86,7 +88,9 @@ export default function WorkflowEditorClient({ workflow: initialWorkflow }: Work
     formData.append("workflowId", workflow.id);
     formData.append("blockId", block.id);
     formData.append("block", JSON.stringify(block));
-    updateBlockFormAction(formData);
+    startTransition(() => {
+      updateBlockFormAction(formData);
+    });
   }
 
   function onAddBlock({ type, from, condition }: { type: WorkflowBlockType; from: WorkflowBlockDto | undefined; condition: string | null }) {
@@ -99,7 +103,9 @@ export default function WorkflowEditorClient({ workflow: initialWorkflow }: Work
     if (from) {
       formData.append("fromBlockId", from.id);
     }
-    addBlockFormAction(formData);
+    startTransition(() => {
+      addBlockFormAction(formData);
+    });
   }
 
   function onConnectBlocks(params: { fromBlockId: string; toBlockId: string; condition: string | null }) {
@@ -110,14 +116,18 @@ export default function WorkflowEditorClient({ workflow: initialWorkflow }: Work
     if (params.condition) {
       formData.append("condition", params.condition);
     }
-    connectBlocksFormAction(formData);
+    startTransition(() => {
+      connectBlocksFormAction(formData);
+    });
   }
 
   function onDeleteBlock(id: string) {
     const formData = new FormData();
     formData.append("workflowId", workflow.id);
     formData.append("blockId", id);
-    deleteBlockFormAction(formData);
+    startTransition(() => {
+      deleteBlockFormAction(formData);
+    });
   }
 
   function onDeleteConnection(params: { fromBlockId: string; toBlockId: string } | { id: string }) {
@@ -129,7 +139,9 @@ export default function WorkflowEditorClient({ workflow: initialWorkflow }: Work
       formData.append("fromBlockId", params.fromBlockId);
       formData.append("toBlockId", params.toBlockId);
     }
-    deleteConnectionFormAction(formData);
+    startTransition(() => {
+      deleteConnectionFormAction(formData);
+    });
   }
 
   function onUpdateConditionsGroups(blockId: string, conditionsGroups: WorkflowConditionsGroupDto[]) {
@@ -137,14 +149,18 @@ export default function WorkflowEditorClient({ workflow: initialWorkflow }: Work
     formData.append("workflowId", workflow.id);
     formData.append("blockId", blockId);
     formData.append("conditionsGroups", JSON.stringify(conditionsGroups));
-    updateConditionsFormAction(formData);
+    startTransition(() => {
+      updateConditionsFormAction(formData);
+    });
   }
 
   function onToggle(enabled: boolean) {
     const formData = new FormData();
     formData.append("workflowId", workflow.id);
     formData.append("enabled", enabled ? "true" : "false");
-    toggleFormAction(formData);
+    startTransition(() => {
+      toggleFormAction(formData);
+    });
   }
 
   return (

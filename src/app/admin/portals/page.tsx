@@ -38,7 +38,7 @@ export default async function AdminPortalsPage(props: IServerComponentsProps) {
   ];
 
   const filters = getFiltersFromCurrentUrl(request, filterableProperties);
-  const urlSearchParams = new URL(request.url).searchParams;
+  const urlSearchParams = request?.url ? new URL(request.url).searchParams : new URLSearchParams();
   const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
 
   const { items, pagination } = await db.portals.getAllPortals({

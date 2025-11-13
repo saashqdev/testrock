@@ -11,11 +11,11 @@ type SiteTags = {
 };
 export const defaultSiteTags: SiteTags = {
   title: "Next.js CatStack Demo",
-  description: "Build, launch, fail, repeat with Next.js, NextJS, SvelteKit, Tailwind CSS, shadcn/ui, Prisma, Drizzle, Stripe, Postmark. and Resend.",
+  description: "Build, launch, fail, repeat with Next.js, Remix, SvelteKit, Tailwind CSS, shadcn/ui, Prisma, Drizzle, Stripe, Postmark. and Resend.",
   keywords: "remix,nextjs,svelte,saas,tailwindcss,prisma,react,typescript,boilerplate,saas-kit,saas-boilerplate,saas-starter-kit,stripe,postmark,drizzle",
-  image: "http://localhost:3000/catstack-og.png",
-  thumbnail: "http://localhost:3000/img/1727460068835-catstack-thumbnail.jpg.jpeg",
-  twitterCreator: "@TheDevs",
+  image: "/img/catstack-og.png",
+  thumbnail: "/img/catstack-thumbnail.jpg",
+  twitterCreator: "@AlexandroMtzG",
   twitterSite: "",
 };
 

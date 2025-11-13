@@ -14,12 +14,11 @@ export namespace OnboardingIndexApi {
     groupByStatus: { status: string; count: number }[];
   };
   export const loader = async (props: IServerComponentsProps) => {
-    const request = props.request!;
     await verifyUserHasPermission("admin.onboarding.view");
     const { t } = await getServerTranslations();
-    const urlSearchParams = new URL(request.url).searchParams;
-    // const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
-    const status = urlSearchParams.get("status");
+    const searchParams = await props.searchParams;
+    // const currentPagination = getPaginationFromCurrentUrl(searchParams);
+    const status = searchParams?.status;
     const items = await db.onboarding.getOnboardings({
       active: status === "active" ? true : status === "inactive" ? false : undefined,
     });

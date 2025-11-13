@@ -5,7 +5,7 @@ import SuccessBanner from "@/components/ui/banners/SuccessBanner";
 import LoadingButton from "@/components/ui/buttons/LoadingButton";
 import HoneypotInput from "@/components/ui/honeypot/HoneypotInput";
 import { Input } from "@/components/ui/input";
-import { useRootData } from "@/lib/state/useRootData";
+import useRootData from "@/lib/state/useRootData";
 import { NewsletterPage } from "@/modules/pageBlocks/pages/NewsletterPage";
 import { useActionState, useRef, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";

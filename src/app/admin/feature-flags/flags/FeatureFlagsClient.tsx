@@ -74,7 +74,7 @@ export default function FeatureFlagsClient({ items }: FeatureFlagsClientProps) {
           />
         </div>
         <div>
-          <ButtonPrimary to="new">
+          <ButtonPrimary to="flags/new">
             <div>{t("shared.new")}</div>
             <PlusIcon className="h-5 w-5" />
           </ButtonPrimary>

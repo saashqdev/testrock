@@ -9,7 +9,8 @@ import { HeaderBlockDto } from "./marketing/header/HeaderBlockDto";
 import { HeadingBlockDto } from "./marketing/heading/HeadingBlockDto";
 import { HeroBlockDto } from "./marketing/hero/HeroBlockDto";
 import { LogoCloudsBlockDto } from "./marketing/logoClouds/LogoCloudsBlockDto";
-//import { NewsletterBlockDto } from "./marketing/newsletter/NewsletterBlockDto";
+// import { NewsletterBlockDto } from "./marketing/newsletter/NewsletterBlockDto";
+// import { PricingBlockDto } from "./marketing/pricing/PricingBlockDto";
 import { TestimonialsBlockDto } from "./marketing/testimonials/TestimonialsBlockDto";
 import { VideoBlockDto } from "./marketing/video/VideoBlockDto";
 import { ContentBlockDto } from "./marketing/markdown/ContentBlockDto";
@@ -53,7 +54,7 @@ export type PageBlockDto = {
   community?: CommunityBlockDto;
   testimonials?: TestimonialsBlockDto;
   features?: FeaturesBlockDto;
-//  newsletter?: NewsletterBlockDto;
+  // newsletter?: NewsletterBlockDto;
   pricing?: PricingBlockDto;
   faq?: FaqBlockDto;
   content?: ContentBlockDto;

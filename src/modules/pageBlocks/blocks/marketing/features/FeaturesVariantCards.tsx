@@ -8,7 +8,6 @@ import GridBlockUtils from "../../shared/grid/GridBlockUtils";
 import ButtonEvent from "@/components/ui/buttons/ButtonEvent";
 import clsx from "clsx";
 import { ExternalLinkIcon } from "lucide-react";
-import Image from "next/image";
 
 export default function FeaturesVariantCards({ item }: { item: FeaturesBlockDto }) {
   const { t } = useTranslation();
@@ -104,7 +103,7 @@ function FeatureCard({ feature }: { feature: FeatureDto }) {
                 {feature.icon.startsWith("<svg") ? (
                   <div dangerouslySetInnerHTML={{ __html: feature.icon.replace("<svg", `<svg class='${" h-5 w-5"}'`) ?? "" }} />
                 ) : feature.icon.startsWith("http") ? (
-                  <Image className="h-5 w-5" src={feature.icon} alt={feature.name} />
+                  <img className="h-5 w-5" src={feature.icon} alt={feature.name} />
                 ) : (
                   feature.icon
                 )}

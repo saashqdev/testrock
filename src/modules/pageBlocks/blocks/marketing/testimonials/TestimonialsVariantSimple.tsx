@@ -6,7 +6,6 @@ import ButtonEvent from "@/components/ui/buttons/ButtonEvent";
 import { TestimonialsBlockDto } from "@/modules/pageBlocks/blocks/marketing/testimonials/TestimonialsBlockDto";
 import DateUtils from "@/lib/shared/DateUtils";
 import LinkOrAhref from "@/components/ui/buttons/LinkOrAhref";
-import Image from "next/image";
 
 export default function TestimonialsVariantSimple({ item }: { item: TestimonialsBlockDto }) {
   const { t } = useTranslation();
@@ -81,7 +80,7 @@ export default function TestimonialsVariantSimple({ item }: { item: Testimonials
                   </p>
                   <div className="inline-flex items-center gap-4">
                     {testimonial.avatar && (
-                      <Image alt="testimonial" src={testimonial.avatar} width={48} height={48} className="h-12 w-12 flex-shrink-0 rounded-full object-cover object-center" />
+                      <img alt="testimonial" src={testimonial.avatar} className="h-12 w-12 flex-shrink-0 rounded-full object-cover object-center" />
                     )}
                     <span className="flex flex-grow flex-col">
                       <LinkOrAhref

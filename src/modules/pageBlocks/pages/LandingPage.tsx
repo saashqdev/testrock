@@ -20,12 +20,12 @@ export namespace LandingPage {
         banner: {
           style: "top",
           text: "Next.js + Prisma + Postgres",
-          textMd: "CatStack: Next.js + Prisma + Postgres",
-          href: "https://catstack.dev/stack/nextjs/prisma/postgres",
+          textMd: "RockStack: Next.js + Prisma + Postgres",
+          href: "https://rockstack.dev/stack/nextjs/prisma/postgres",
           cta: [
-            { text: "Next.js", href: "https://nextjs.catstack.dev", isPrimary: true },
-            { text: "NextJS", href: "https://remix.catstack.dev", isPrimary: false },
-            { text: "SvelteKit", href: "https://sveltekit.catstack.dev", isPrimary: false },
+            { text: "Next.js", href: "https://nextjs.rockstack.dev", isPrimary: true },
+            { text: "Remix", href: "https://remix.rockstack.dev", isPrimary: false },
+            { text: "SvelteKit", href: "https://sveltekit.rockstack.dev", isPrimary: false },
           ],
         },
       },
@@ -37,7 +37,7 @@ export namespace LandingPage {
           style: "bottomImage",
           heading: t("front.hero.heading"),
           subheading: t("front.hero.subheading"),
-          image: "/img/catstack-og.png",
+          image: "https://qwcsbptoezmuwgyijrxp.supabase.co/storage/v1/object/public/novel/1727286645348-rockstack-og.png",
           cta: [
             {
               text: t("front.hero.cta1"),
@@ -69,7 +69,7 @@ export namespace LandingPage {
           style: "cards",
           topText: "Rock-solid",
           headline: "Core Features",
-          subheadline: "Explore the essential functionalities that every CatStack edition includes.",
+          subheadline: "Explore the essential functionalities that every RockStack edition includes.",
           cta: [
             { text: "Pricing", isPrimary: true, href: "/pricing" },
             { text: "Contact", isPrimary: false, href: "/contact" },
@@ -82,58 +82,58 @@ export namespace LandingPage {
             {
               name: "Auth & User Management",
               description: "Built-in email/password and user management. No third-party dependencies.",
-              link: { href: "https://catstack.dev/docs/articles/auth-and-user-management", target: "_blank" },
+              link: { href: "https://rockstack.dev/docs/articles/auth-and-user-management", target: "_blank" },
             },
             {
               name: "Subscriptions & Payments",
               description: "Flat-rate, one-time, per-seat, and usage-based payment models with Stripe.",
-              link: { href: "https://catstack.dev/docs/articles/subscriptions-and-payments", target: "_blank" },
+              link: { href: "https://rockstack.dev/docs/articles/subscriptions-and-payments", target: "_blank" },
             },
             {
               name: "Roles & Permissions",
               description: "Protect your routes and actions with granular roles and permissions.",
-              link: { href: "https://catstack.dev/docs/articles/roles-and-permissions", target: "_blank" },
+              link: { href: "https://rockstack.dev/docs/articles/roles-and-permissions", target: "_blank" },
             },
             {
               name: "Page Blocks",
               description: "Quickly prototype your site's content with configurable blocks.",
-              link: { href: "https://catstack.dev/docs/articles/page-blocks", target: "_blank" },
+              link: { href: "https://rockstack.dev/docs/articles/page-blocks", target: "_blank" },
             },
             {
               name: "SEO Optimized",
               description: "Meta tags and sitemap generation for better search engine visibility.",
-              link: { href: "https://catstack.dev/docs/articles/seo-optimized", target: "_blank" },
+              link: { href: "https://rockstack.dev/docs/articles/seo-optimized", target: "_blank" },
             },
-            {
-              name: "Multi-tenant",
-              description: "Each tenant has their app at /app/:tenant, with data segregation using tenantId.",
-              link: { href: "https://catstack.dev/docs/articles/multi-tenant", target: "_blank" },
-            },
+            // {
+            //   name: "Multi-tenant",
+            //   description: "Each tenant has their app at /app/:tenant, with data segregation using tenantId.",
+            //   link: { href: "https://rockstack.dev/docs/articles/multi-tenant", target: "_blank" },
+            // },
             {
               name: "Cache",
               description: "Cache the most used data to improve performance and reduce database queries.",
-              link: { href: "https://catstack.dev/docs/articles/cache", target: "_blank" },
+              link: { href: "https://rockstack.dev/docs/articles/cache", target: "_blank" },
             },
             {
               name: "Multi-theme",
               description: "Tailwind CSS, shadcn/ui, dark mode... customize your app's look and feel.",
-              link: { href: "https://catstack.dev/docs/articles/multi-theme", target: "_blank" },
+              link: { href: "https://rockstack.dev/docs/articles/multi-theme", target: "_blank" },
             },
             {
               name: "Internationalization (i18n)",
               description: "Translate your app into multiple languages with i18n to reach a global audience.",
-              link: { href: "https://catstack.dev/docs/articles/internationalization-i18n", target: "_blank" },
+              link: { href: "https://rockstack.dev/docs/articles/internationalization-i18n", target: "_blank" },
             },
             {
               name: "ORM agnostic",
               description: "Prisma and Drizzle support out of the box with repository pattern.",
-              link: { href: "https://catstack.dev/docs/articles/orm-agnostic", target: "_blank" },
+              link: { href: "https://rockstack.dev/docs/articles/orm-agnostic", target: "_blank" },
             },
-            {
-              name: "Credits Management",
-              description: "Limit user actions with a built-in credit system.",
-              link: { href: "https://catstack.dev/docs/articles/credits-management", target: "_blank" },
-            },
+            // {
+            //   name: "Credits Management",
+            //   description: "Limit user actions with a built-in credit system.",
+            //   link: { href: "https://rockstack.dev/docs/articles/credits-management", target: "_blank" },
+            // },
           ],
         },
       },
@@ -147,13 +147,13 @@ export namespace LandingPage {
         },
       },
       // Newsletter
-/*       {
-        newsletter: {
-          style: "simple",
-          headline: t("front.newsletter.title"),
-          subheadline: t("front.newsletter.headline"),
-        },
-      }, */
+      // {
+      //   newsletter: {
+      //     style: "simple",
+      //     headline: t("front.newsletter.title"),
+      //     subheadline: t("front.newsletter.headline"),
+      //   },
+      // },
       {
         testimonials: {
           style: "simple",
@@ -161,8 +161,8 @@ export namespace LandingPage {
           subheadline: "What our customers say about us.",
           items: [
             { name: "John Doe", quote: "This is the best piece of software I've ever seen in my entire life.", stars: 5 },
-            { name: "Jane Doe", quote: "I can't believe how easy it is to use CatStack. It's amazing!", stars: 5 },
-            { name: "Jack Smith", quote: "I've been using CatStack for 1 day and it's the best day of my life.", stars: 5 },
+            { name: "Jane Doe", quote: "I can't believe how easy it is to use RockStack. It's amazing!", stars: 5 },
+            { name: "Jack Smith", quote: "I've been using RockStack for 1 day and it's the best day of my life.", stars: 5 },
           ],
         },
       },
@@ -178,8 +178,8 @@ export namespace LandingPage {
       {
         video: {
           style: "simple",
-          headline: "Watch CatStack in action",
-          subheadline: "Learn more about CatStack in this short video.",
+          headline: "Watch RockStack in action",
+          subheadline: "Learn more about RockStack in this short video.",
           src: "https://www.youtube.com/embed/Resfhqp6u_U",
         },
       },

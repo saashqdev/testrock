@@ -6,7 +6,7 @@ import PlansGrouped from "@/modules/subscriptions/components/PlansGrouped";
 import InfoBanner from "@/components/ui/banners/InfoBanner";
 import WarningBanner from "@/components/ui/banners/WarningBanner";
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
-import { useRootData } from "@/lib/state/useRootData";
+import useRootData from "@/lib/state/useRootData";
 import { PricingBlockDto } from "./PricingBlockDto";
 import PricingContactUs from "./shared/PricingContactUs";
 import clsx from "clsx";
@@ -76,7 +76,7 @@ export default function PricingVariantSimple({ item, serverAction }: { item: Pri
           <main className="py-10">
             <PlansGrouped
               items={item.data?.items}
-              canSubmit={!rootData.authenticated && rootData.appConfiguration?.subscription?.allowSubscribeBeforeSignUp}
+              canSubmit={!rootData.authenticated && rootData.appConfiguration.subscription.allowSubscribeBeforeSignUp}
               stripeCoupon={item.data.coupon?.stripeCoupon || null}
               currenciesAndPeriod={item.data.currenciesAndPeriod}
               serverAction={serverAction}

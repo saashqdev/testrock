@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import clsx from "clsx";
 import { Card } from "@/components/ui/card";
-import Image from "next/image";
 
 export default function GalleryVariantCarousel({ item }: { item: GalleryBlockDto }) {
   const { t } = useTranslation();
@@ -77,12 +76,12 @@ export function CarouselItems({ items, size }: CarouselProps) {
             <div className="p-1">
               <Card className="overflow-hidden rounded-lg">
                 {(!item.type || item.type === "image") && (
-                  <Image
+                  <img
                     key={item.src}
                     loading="lazy"
                     className={clsx("min-h-full w-full object-cover md:h-auto", size === "sm" && "h-48", size === "md" && "h-64", size === "lg" && "h-96")}
                     src={item.src}
-                    alt={item.title ?? ""}
+                    alt={item.title}
                   />
                 )}
                 {item?.type === "video" && (

@@ -9,6 +9,8 @@ import { MetaTagsDto } from "@/lib/dtos/seo/MetaTagsDto";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
+import { headers } from "next/headers";
+import { getCurrentUrl } from "@/lib/services/url.server";
 
 export namespace OnboardingSessionsIndexApi {
   export type LoaderData = {
@@ -20,9 +22,12 @@ export namespace OnboardingSessionsIndexApi {
   };
   export const loader = async (props: IServerComponentsProps) => {
     const params = (await props.params) || {};
-    const request = props.request!;
     await verifyUserHasPermission("admin.onboarding.view");
     const { t } = await getServerTranslations();
+    
+    // Get URL from headers since request object may not be available in server components
+    const currentUrl = await getCurrentUrl();
+    const url = new URL(currentUrl, process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000");
     const allOnboardings = await db.onboardingSessions.getOnboardingSessions({});
     const users = await db.users.getUsersById(allOnboardings.map((x) => x.userId));
     const filterableProperties: FilterablePropertyDto[] = [
@@ -55,8 +60,11 @@ export namespace OnboardingSessionsIndexApi {
         ],
       },
     ];
-    const filters = getFiltersFromCurrentUrl(request, filterableProperties);
-    const urlSearchParams = new URL(request.url).searchParams;
+    
+    // Create a mock request object for helper functions that expect it
+    const mockRequest = new Request(url);
+    const filters = getFiltersFromCurrentUrl(mockRequest, filterableProperties);
+    const urlSearchParams = url.searchParams;
     const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
     const tenantId = filters.properties.find((f) => f.name === "tenantId")?.value;
     const { items, pagination } = await db.onboardingSessions.getOnboardingSessionsWithPagination({

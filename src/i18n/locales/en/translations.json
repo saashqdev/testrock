@@ -53,7 +53,6 @@
     "edit": "Edit",
     "overview": "Overview",
     "summary": "Summary",
-    "latestActivity": "Latest activity",
     "upload": "Upload",
     "avatar": "Avatar",
     "icon": "Icon",
@@ -334,8 +333,20 @@
     "logout": "Logout",
     "register": "Register",
     "submit": "Submit",
-    "recommended": "Recommended",
-    "pickDate": "Pick a date"
+    "recommended": "Recommended"
+  },
+  "components": {
+    "date": {
+      "pick": "Pick a date"
+    }
+  },
+  "auth": {
+    "github": {
+      "button": "Continue with GitHub"
+    },
+    "google": {
+      "button": "Continue with Google"
+    }
   },
   "front": {
     "navbar": {
@@ -350,11 +361,20 @@
       "affiliates": "Affiliate program"
     },
     "hero": {
-      "heading": "Full-stack SaaS kit for founders in Next.js, Tailwind CSS, shadcn/ui, Prisma, and Stripe",
-      "subheading": "The quickest way to build a full-stack SaaS app with Next.js, NextJS or SvelteKit.",
-      "topText": "Next.js TheRock Demo",
-      "cta1": "Pricing",
-      "cta2": "Contact us"
+      "headline1": "The Remix (React Router 7) SaaS Boilerplate",
+      "headline2": "Launch production-ready SaaS apps with +25 built-in features, such as: Admin dashboard, App portal, Stripe, Blog, Page Builder, Knowledge Base, Workflows, Analytics, Entity Builder, Email Marketing, Notifications, Onboarding, Feature Flags, Cache and Metrics.",
+      "headline3": "",
+      "subheadline1": "Build → Market → Manage your SaaS",
+      "hint": "This site uses {{0}} Pro Edition",
+      "buy": "Get started",
+      "features": "Features",
+      "docs": "Documentation",
+      "components": "Components",
+      "blog": "Blog",
+      "contact": "Contact us",
+      "startHint": "This demo is hosted on Vercel + Supabase.",
+      "cta": "Get started",
+      "changelog": "Changelog"
     },
     "pricing": {
       "title": "Pricing",
@@ -369,7 +389,7 @@
       "subscribe": "Subscribe",
       "subscribing": "Subscribing",
       "subscribed": "You're subscribed!",
-      "checkEmail": "Check your email to confirm your subscription (check SPAM folder).",
+      "checkEmail": "Subscribed! Check your email to confirm your subscription.",
       "weCare": "We care about the protection of your data."
     },
     "contact": {
@@ -381,6 +401,7 @@
       "jobTitle": "Job title",
       "email": "Email",
       "send": "Send",
+      "users": "Number of users",
       "comments": "Questions or comments",
       "setup": "Update the .env variable INTEGRATIONS_CONTACT_FORMSPREE",
       "success": "Thanks for reaching out {{0}}! We'll get back to you shortly.",
@@ -390,13 +411,21 @@
       "title": "Brand",
       "description": "Brand assets and usage guidelines."
     },
+    "changelog": {
+      "title": "Changelog",
+      "headline": "Stay up to date with the latest features and bug fixes."
+    },
+    "roadmap": {
+      "title": "Roadmap",
+      "headline": "Learn more about SaasRock's current status."
+    },
     "faq": {
       "title": "Frequently Asked Questions",
       "headline": "Add your own questions and answers to help your users understand your SaaS.",
-      "subheadline": "Common questions and answers about TheRock.",
+      "subheadline": "Common questions and answers about SaasRock.",
       "questions": {
         "q1": "How do I get the code after purchasing?",
-        "a1": "You will be invited to the therock repository on GitHub. If you bought TheRock Enterprise you will also be invited to the therock-enterprise repository.",
+        "a1": "You will be invited to the saasrock repository on GitHub. If you bought SaasRock Pro you will also be invited to the saasrock-pro repository.",
         "q2": "Can I get a refund?",
         "a2": "Due to the nature of software development being a custom service, we do not offer refunds."
       }
@@ -414,6 +443,7 @@
       "docs": "Docs",
       "contact": "Contact",
       "newsletter": "Newsletter",
+      "changelog": "Changelog",
       "termsAndConditions": "Terms and Conditions",
       "privacyPolicy": "Privacy Policy",
       "features": "Features"
@@ -527,7 +557,7 @@
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod..."
       },
       "plan3": {
-        "title": "Enterprise",
+        "title": "Pro",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod..."
       }
     },
@@ -561,13 +591,6 @@
         "unlimited": "Unlimited credits",
         "moreThan": "+{{0}} credits",
         "enterprise": "+10000 credits"
-      },
-      "links": {
-        "one": "1 linked account",
-        "max": "{{0}} linked accounts",
-        "monthly": "{{0}} linked accounts/month",
-        "unlimited": "Unlimited linked accounts",
-        "moreThan": "+{{0}} linked accounts"
       }
     }
   },
@@ -622,6 +645,12 @@
         "LAST_30_DAYS": "Last 30 days",
         "LAST_7_DAYS": "Last 7 days",
         "LAST_24_HOURS": "Last 24 hours",
+        "LAST_HOUR": "Last hour",
+        "LAST_10_MINUTES": "Last 10 minutes",
+        "YEAR_TO_DATE": "Year to date",
+        "MONTH_TO_DATE": "Month to date",
+        "WEEK_TO_DATE": "Week to date",
+        "TODAY": "Today",
         "ALL_Description": "All",
         "YEAR_Description": "This year",
         "MONTH_Description": "This month",
@@ -722,7 +751,7 @@
       "logs": "Logs",
       "setup": "Set up",
       "rolesAndPermissions": "Roles & Permissions",
-      "accountsAndUsers": "Accounts"
+      "accountsAndUsers": "Accounts & Users"
     },
     "subscription": {
       "limits": {
@@ -782,7 +811,6 @@
       },
       "errors": {
         "limitReached": "Limit reached",
-        "limitReachedLinkedAccounts": "You have reached the linked accounts limit ({{0}}), upgrade your subscription.",
         "limitReachedUsers": "You have reached the members limit, upgrade your subscription.",
         "limitReachedContracts": "You have reached the contracts limit ({{0}}), upgrade your subscription."
       }
@@ -803,7 +831,6 @@
     "tenants": {
       "empty": "There are no accounts",
       "select": "Select account",
-      "my": "My accounts",
       "youBelongToOne": "You belong to one account",
       "youBelongToMany": "You belong to {{0}} accounts",
       "create": {
@@ -824,7 +851,6 @@
         "isTrial": "Is trial",
         "status": "Status",
         "members": "Members",
-        "linkedAccounts": "Linked accounts",
         "storage": "Storage"
       },
       "actions": {
@@ -841,7 +867,7 @@
       "new": "New pricing plan",
       "edit": "Edit pricing plan",
       "i18n": "i18n translation",
-      "thesePricesAreFromFiles": "These are demo prices, customize them in file defaultPlans.server.ts.",
+      "thesePricesAreFromFiles": "These are demo prices, customize them in file plans.server.ts.",
       "noPricesInDatabase": "There are no prices. Log in as admin and configure plans and prices.",
       "noPricesConfigured": "There are no prices.",
       "generateFromFiles": "Click here to generate plans."
@@ -991,7 +1017,7 @@
       "title": "Invitation",
       "youWereInvited": "you were invited to join",
       "requestAccess": "Request access to join",
-      "button": "Accept and continue",
+      "button": "Accept invitation",
       "anotherEmail": "Click here to logout to join with another user",
       "successTitle": "Access request sent!",
       "successText": "Your access request has been sent to the admin, if it's accepted you will receive a welcome email (make sure to check spam or promotions folder)",
@@ -1008,6 +1034,152 @@
     }
   },
   "models": {
+    "entity": {
+      "object": "Entity",
+      "plural": "Entities",
+      "name": "Name",
+      "slug": "Slug",
+      "order": "Order",
+      "prefix": "Prefix",
+      "title": "Title",
+      "titlePlural": "Plural",
+      "properties": "Properties",
+      "isAutogenerated": "No-code CRUD",
+      "hasApi": "Has API",
+      "icon": "Icon",
+      "active": "Active",
+      "showInSidebar": "Show in sidebar",
+      "hasTags": "Has tags",
+      "hasComments": "Has comments",
+      "hasTasks": "Has tasks",
+      "hasActivity": "Has activity",
+      "hasBulkDelete": "Has bulk delete",
+      "hasViews": "Has views",
+      "rows": "Rows",
+      "limits": "Limits",
+      "permissions": "Permissions",
+      "features": "Features",
+      "type": "Type",
+      "templates": "Templates"
+    },
+    "property": {
+      "object": "Property",
+      "plural": "Properties",
+      "order": "Order",
+      "name": "Name",
+      "title": "Title",
+      "type": "Type",
+      "subtype": "Subtype",
+      "formula": "Formula",
+      "parent": "Parent property",
+      "isDefault": "Is default property",
+      "isRequired": "Required",
+      "isHidden": "Hidden",
+      "isDisplay": "Display",
+      "isReadOnly": "Read only",
+      "showInCreate": "Show in create form",
+      "canUpdate": "Can be updated",
+      "options": "Options",
+      "children": "Children",
+      "values": "Values",
+      "defaultProperties": {
+        "title": "Default Properties",
+        "show": "Show default properties",
+        "hide": "Hide default properties"
+      },
+      "actions": {
+        "add": "Add custom property"
+      }
+    },
+    "relationship": {
+      "object": "Relationship",
+      "plural": "Relationships",
+      "from": "Parent",
+      "to": "Child",
+      "multiple": "Multiple",
+      "required": "Required",
+      "parents": "Parents",
+      "children": "Children"
+    },
+    "propertyAttribute": {
+      "object": "Attribute",
+      "plural": "Attributes",
+      "pattern": "Pattern",
+      "min": "Minimum",
+      "max": "Maximum",
+      "step": "Step",
+      "rows": "Rows",
+      "defaultValue": "Default value",
+      "maxSize": "Max size (in MB)",
+      "acceptFileTypes": "Accept file types",
+      "uppercase": "Uppercase",
+      "lowercase": "Lowercase",
+      "hintText": "Hint text",
+      "helpText": "Help text",
+      "placeholder": "Placeholder",
+      "icon": "Icon",
+      "editor": "Editor",
+      "editorLanguage": "Editor language",
+      "editorSize": "Editor size",
+      "columns": "Columns",
+      "group": "Group",
+      "format": "Format",
+      "separator": "Separator",
+      "selectOptions": "Select options",
+      "password": "Password"
+    },
+    "workflow": {
+      "object": "Workflow",
+      "plural": "Workflows"
+    },
+    "row": {
+      "object": "Row",
+      "plural": "Rows",
+      "order": "Order",
+      "folio": "Folio",
+      "visibility": "Visibility",
+      "entity": "Entity",
+      "tenant": "Account",
+      "createdAt": "Created at",
+      "createdBy": "Created by",
+      "comments": "Comments",
+      "permissions": "Permissions",
+      "tags": "Tags",
+      "tasks": "Tasks"
+    },
+    "rowComment": {
+      "object": "Comment",
+      "plural": "Comments",
+      "parentCommentId": "Parent comment",
+      "reply": "Reply",
+      "replies": "Replies"
+    },
+    "rowTask": {
+      "object": "Task",
+      "plural": "Tasks",
+      "completed": "Completed",
+      "completedAt": "Completed at"
+    },
+    "tag": {
+      "object": "Tag",
+      "plural": "Tags"
+    },
+    "post": {
+      "object": "Blog Post",
+      "plural": "Blog Posts",
+      "slug": "Slug",
+      "title": "Title",
+      "description": "Description",
+      "date": "Date",
+      "image": "Cover image",
+      "content": "Content",
+      "markdown": "Markdown Syntax",
+      "readingTime": "Reading time",
+      "published": "Published",
+      "author": "Author",
+      "category": "Category",
+      "tags": "Tags"
+    },
     "tenant": {
       "object": "Account",
       "plural": "Accounts",
@@ -1042,7 +1214,7 @@
       "amount": "Amount",
       "resource": "Resource",
       "whatIs": "What is a credit?",
-      "info": "Credits are used to perform actions in the platform.",
+      "info": "By sending a message using your custom ChatGPT, you would be using 3 credits.",
       "remaining": "{{0}} credits left",
       "unlimited": "Unlimited credits",
       "empty": "No credits left"
@@ -1070,15 +1242,26 @@
       "signUpMethod": "Sign up method",
       "username": "Username"
     },
+    "blacklist": {
+      "object": "Blacklist",
+      "plural": "Blacklists",
+      "type": "Type",
+      "value": "Value",
+      "registerAttempts": "Register attempts",
+      "types": {
+        "email": "Email",
+        "domain": "Domain",
+        "ip": "IP address"
+      }
+    },
     "ipAddress": {
       "object": "IP Address",
       "plural": "IP Addresses"
     },
-    "blacklist": {
-      "object": "Blacklist"
-    },
     "tenantIpAddress": {
-      "plural": "IP Addresses"
+      "object": "IP Address",
+      "plural": "IP Addresses",
+      "fromUrl": "From URL"
     },
     "role": {
       "object": "Role",
@@ -1105,6 +1288,13 @@
       "userPermissions": "User Permissions",
       "inRoles": "In Roles"
     },
+    "group": {
+      "object": "Group",
+      "plural": "Groups",
+      "name": "Name",
+      "description": "Description",
+      "color": "Color"
+    },
     "log": {
       "object": "Log",
       "plural": "Logs",
@@ -1122,6 +1312,21 @@
       "resource": "Resource",
       "attempts": "Webhook Attempts",
       "description": "Description"
+    },
+    "webhook": {
+      "object": "Webhook",
+      "plural": "Webhooks"
+    },
+    "webhookAttempt": {
+      "object": "Webhook Attempt",
+      "plural": "Webhook Attempts",
+      "endpoint": "Endpoint",
+      "success": "Success",
+      "status": "Status",
+      "message": "Message",
+      "body": "Body",
+      "startedAt": "Started at",
+      "finishedAt": "Finished at"
     },
     "subscriptionProduct": {
       "object": "Subscription",
@@ -1149,6 +1354,65 @@
       "type": "Type",
       "value": "Value"
     },
+    "email": {
+      "object": "Email",
+      "plural": "Emails",
+      "messageId": "ID",
+      "type": "Type",
+      "date": "Date",
+      "subject": "Subject",
+      "from": "From",
+      "fromEmail": "From email",
+      "fromName": "From (name)",
+      "to": "To",
+      "toEmail": "To email",
+      "toName": "To (name)",
+      "textBody": "Text body",
+      "htmlBody": "HTML body",
+      "cc": "CC",
+      "attachments": "Attachments",
+      "inboundEmails": "Inbound Emails",
+      "outboundEmail": "Outbound Email",
+      "outboundEmails": "Outbound Emails"
+    },
+    "contact": {
+      "object": "Contact",
+      "plural": "Contacts",
+      "status": "Status",
+      "email": "Email",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "phone": "Phone",
+      "company": "Company",
+      "title": "Title"
+    },
+    "opportunity": {
+      "object": "Opportunity",
+      "plural": "Opportunities",
+      "contact": "Contact",
+      "name": "Name",
+      "status": "Status",
+      "value": "Value",
+      "subscriptionPrice": "Subscription price"
+    },
+    "contract": {
+      "object": "Contract",
+      "plural": "Contracts",
+      "name": "Nombre",
+      "description": "Description",
+      "file": "PDF File",
+      "status": "Status",
+      "members": "Members",
+      "activity": "Activity"
+    },
+    "employee": {
+      "object": "Employee",
+      "plural": "Employees",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "fullName": "Full name"
+    },
     "subscription": {
       "object": "Subscription",
       "plural": "Subscriptions",
@@ -1163,6 +1427,109 @@
       "quantity": "Quantity",
       "prices": "Prices",
       "price": "Price"
+    },
+    "tenantType": {
+      "object": "Account Type",
+      "plural": "Account Types",
+      "inAccounts": "In Accounts"
+    },
+    "view": {
+      "object": "View",
+      "plural": "Views",
+      "type": "Type",
+      "appliesTo": "Applies to",
+      "tenant": "Account",
+      "user": "User",
+      "layout": "Layout",
+      "order": "Order",
+      "name": "Name",
+      "title": "Title",
+      "pageSize": "Page size",
+      "isDefault": "Is default",
+      "isSystem": "Is system",
+      "properties": "Properties",
+      "filters": "Filters",
+      "sort": "Sort",
+      "columns": "Columns",
+      "groupByProperty": "Group by property",
+      "types": {
+        "default": "Default",
+        "tenant": "Account",
+        "user": "User",
+        "system": "System"
+      },
+      "actions": {
+        "create": "Add view",
+        "update": "Update view",
+        "delete": "Delete view"
+      }
+    },
+    "portal": {
+      "object": "Portal",
+      "plural": "Portals",
+      "subdomain": "Subdomain",
+      "domain": "Domain",
+      "title": "Title",
+      "description": "Description",
+      "logo": "Logo",
+      "logoDark": "Logo (dark mode)",
+      "icon": "Icon",
+      "iconDark": "Icon (dark mode)",
+      "favicon": "Favicon",
+      "image": "Image",
+      "published": "Published",
+      "pricing": "Pricing",
+      "users": "Users",
+      "analytics": "Analytics",
+      "themeColor": "Theme color",
+      "themeScheme": "Theme scheme",
+      "seoTitle": "SEO title",
+      "seoDescription": "SEO description",
+      "seoImage": "SEO image",
+      "seoTwitterSite": "Twitter",
+      "seoTwitterCreator": "Twitter creator",
+      "template": "Template",
+      "templates": "Templates",
+      "actions": {
+        "new": {
+          "title": "New portal",
+          "description": "Create a new portal"
+        }
+      },
+      "pages": {
+        "object": "Page",
+        "plural": "Pages",
+        "pricing": "Pricing",
+        "privacyPolicy": "Privacy Policy",
+        "termsAndConditions": "Terms and Conditions",
+        "blog": "Blog",
+        "about": "About",
+        "home": "Home",
+        "newsletter": "Newsletter",
+        "contact": "Contact"
+      }
+    },
+    "domain": {
+      "object": "Domain",
+      "plural": "Domains",
+      "custom": "Custom Domain",
+      "recordName": "Record Name",
+      "recordType": "Record Type",
+      "recordValue": "Record Value",
+      "verification": {
+        "title": "Domain Verification",
+        "description": "To verify domain ownership, add these DNS records to your domain provider."
+      },
+      "notVerified": {
+        "title": "Domain not verified",
+        "description": "After adding the records, click the button below to check verification.",
+        "cta": "Check again"
+      },
+      "verified": {
+        "title": "Domain verified",
+        "description": "It can take up to 24 hours for the changes to take effect.",
+        "cta": "Click here to visit your site."
+      }
     },
     "jsonProperty": {
       "object": "Custom Property",
@@ -1180,11 +1547,18 @@
         "date": "Date",
         "select": "Select",
         "multiselect": "Multi-select",
+        "wysiwyg": "Text editor",
+        "monaco": "Code editor",
+        "markdown": "Markdown",
         "content": "Content"
       },
       "actions": {
         "add": "Add custom property"
       }
+    },
+    "attribute": {
+      "object": "Attribute",
+      "plural": "Attributes"
     }
   },
   "settings": {
@@ -1368,14 +1742,77 @@
       }
     }
   },
-  "api": {
-    "featureLimits": {
-      "reachedMaxLimit": "You've reached the limit ({{0}})",
-      "reachedMonthLimit": "You've reached the limit this month ({{0}})",
-      "noSubscription": "You don't have an active subscription",
-      "notIncluded": "Not included in your plan",
-      "upgradeSubscription": "Upgrade your subscription to get this feature"
+  "blog": {
+    "title": "Blog",
+    "headline": "Read the latest articles.",
+    "published": "Published",
+    "draft": "Draft",
+    "thisIsADraft": "This is a draft",
+    "write": "Write",
+    "publish": "Publish",
+    "saveAndPreview": "Save and Preview",
+    "new": "New blog post",
+    "edit": "Edit blog post",
+    "previewMarkdown": "Preview Markdown",
+    "backToBlog": "Back to blog",
+    "backToPosts": "Back to posts",
+    "errors": {
+      "authorRequired": "Author required",
+      "categoryRequired": "Category required"
+    }
+  },
+  "entities": {
+    "fields": {
+      "NUMBER": "Number",
+      "TEXT": "Text",
+      "DATE": "Date",
+      "USER": "User",
+      "ROLE": "Role",
+      "ENTITY": "Entity",
+      "ID": "ID",
+      "SELECT": "Single Select",
+      "FORMULA": "Formula",
+      "MEDIA": "Media",
+      "BOOLEAN": "Boolean",
+      "MULTI_SELECT": "Multi Select",
+      "MULTI_TEXT": "Multi Text",
+      "RANGE_NUMBER": "Number Range",
+      "RANGE_DATE": "Date Range"
     },
+    "subtypes": {
+      "singleLine": "Single-line",
+      "multiLine": "Multi-line",
+      "email": "Email",
+      "phone": "Phone",
+      "url": "URL",
+      "dropdown": "Dropdown",
+      "combobox": "Combobox",
+      "radioGroupCards": "Radio Group Cards",
+      "checkboxCards": "Checkbox Cards"
+    },
+    "defaultFields": {
+      "USER": "Created by user",
+      "ROLE": "Created by role",
+      "ID": "ID"
+    },
+    "conditions": {
+      "equals": "Equals",
+      "contains": "Contains",
+      "lt": "Less than",
+      "lte": "Less than or equal to",
+      "gt": "Greater than",
+      "gte": "Greater than or equal to",
+      "startsWith": "Starts with",
+      "endsWith": "Ends with",
+      "in": "In",
+      "notIn": "Not in"
+    },
+    "errors": {
+      "selectNeedsAtLeastOneOption": "Add at least one option for Select fields",
+      "selectOptionCannotBeEmpty": "Select options cannot be empty"
+    }
+  },
+  "api": {
     "errors": {
       "youDontBelong": "You don't belong to this organization",
       "alreadyAdded": "Already added",
@@ -1420,6 +1857,152 @@
       "noOrganizations": "You don't belong to any organization"
     }
   },
+  "demo": {
+    "cannotDelete": "Cannot delete on demo environment",
+    "cannotUpdate": "Cannot update on demo environment"
+  },
+  "docs": {
+    "title": "Docs"
+  },
+  "featureLimits": {
+    "reachedMaxLimit": "You've reached the limit ({{0}})",
+    "reachedMonthLimit": "You've reached the limit this month ({{0}})",
+    "noSubscription": "You don't have an active subscription",
+    "notIncluded": "Not included in your plan",
+    "upgradeSubscription": "Upgrade your subscription to get this feature"
+  },
+  "cookies": {
+    "titleSmall": "We respect your privacy.",
+    "title": "We respect your privacy.",
+    "descriptionSmall": "TLDR: We use cookies for language selection, theme, and analytics.",
+    "description": "TLDR: We use cookies for language selection, theme, and analytics.",
+    "settings": "Cookie settings",
+    "update": "Update my cookie settings",
+    "accept": "Accept cookies",
+    "categories": {
+      "REQUIRED": {
+        "name": "Required",
+        "description": "These cookies are required for the website to work properly."
+      },
+      "FUNCTIONAL": {
+        "name": "Functional",
+        "description": "These cookies enable the website to provide enhanced functionality and personalisation."
+      },
+      "ANALYTICS": {
+        "name": "Analytics",
+        "description": "These cookies are used to help us understand how you use the website."
+      },
+      "ADVERTISEMENT": {
+        "name": "Advertisement",
+        "description": "These cookies may be set through our site by our advertising partners."
+      }
+    }
+  },
+  "analytics": {
+    "title": "Analytics",
+    "description": "Tracked page views and events for {{0}}",
+    "overview": "Overview",
+    "pageViews": "Page views",
+    "uniqueVisitors": "Unique visitors",
+    "liveVisitors": "Live visitors",
+    "events": "Events",
+    "settings": "Settings",
+    "delete": "Delete all analytics data",
+    "deleted": "Deleted",
+    "viewed": "Viewed",
+    "viewedAt": "Viewed at",
+    "route": "Route",
+    "url": "URL",
+    "action": "Action",
+    "category": "Category",
+    "label": "Label",
+    "value": "Value",
+    "visitor": "Visitor",
+    "visitors": "Visitors",
+    "danger": {
+      "title": "Danger zone",
+      "description": "This will delete all analytics data. This cannot be undone.",
+      "reset": {
+        "title": "Reset data",
+        "description": "Reset your website to delete all historical data, including Unique visitors, Page views and Events."
+      }
+    }
+  },
+  "segments": {
+    "build": "Build",
+    "manage": "Manage",
+    "market": "Market"
+  },
+  "crm": {
+    "title": "CRM",
+    "settings": {
+      "title": "Settings",
+      "description": "CRM settings"
+    }
+  },
+  "emailMarketing": {
+    "title": "Email marketing",
+    "campaign": "Campaign",
+    "campaigns": "Campaigns",
+    "newCampaign": "New campaign",
+    "campaignDetails": "Campaign details",
+    "template": "Template",
+    "templates": "Templates",
+    "activity": "Activity",
+    "sendPreview": "Send preview",
+    "saveDraft": "Save draft",
+    "sendCampaignPreviewToContact": "Send preview of 1 contact",
+    "sendCampaignPreviewToContacts": "Send preview of {{0}} contacts",
+    "sendCampaignToContact": "Send to 1 contact",
+    "sendCampaignToContacts": "Send to {{0}} contacts",
+    "confirmSend": "Send campain",
+    "sendingToContacts": "You are about to send this campaign to {{0}} contacts. Are you sure you want to continue?",
+    "overview": {
+      "avgOpenRate": "Avg. open rate",
+      "avgClickRate": "Avg. click rate",
+      "totalSent": "Total emails sent"
+    },
+    "settings": {
+      "title": "Settings",
+      "description": "Email marketing settings"
+    },
+    "senders": {
+      "object": "Email sender",
+      "plural": "Email senders",
+      "provider": "Provider",
+      "stream": "Stream",
+      "apiKey": "API key",
+      "fromEmail": "From email",
+      "fromName": "From name",
+      "replyToEmail": "Reply to email"
+    }
+  },
+  "emails": {
+    "object": "Email",
+    "plural": "Emails",
+    "subject": "Subject",
+    "from": "From",
+    "to": "To",
+    "sender": "Sender",
+    "sent": "Sent",
+    "sentAt": "Sent at",
+    "delivered": "Delivered",
+    "deliveredAt": "Delivered at",
+    "bouncedAt": "Bounced at",
+    "spamComplainedAt": "Spam complained at",
+    "unsubscribedAt": "Unsubscribed at",
+    "openedAt": "Opened at",
+    "opens": "Opens",
+    "clicks": "Clicks",
+    "inboundEmail": "Inbound Email",
+    "inboundEmails": "Inbound Emails",
+    "outboundEmail": "Outbound Email",
+    "outboundEmails": "Outbound Emails",
+    "emailActivity": "Email activity",
+    "recipient": "Recipient",
+    "recipients": "Recipients",
+    "recipientList": "Recipient list"
+  },
   "affiliates": {
     "title": "Affiliates & Referrals",
     "program": "Affiliate Program",
@@ -1430,49 +2013,223 @@
       "description": "We offer a {{0}}% commission on all payments that you refer to us. This means that if you refer a customer to us, you will receive {{0}}% of the payment or subscription (for as long as the customer is subscribed to us in the first year)."
     }
   },
-  "segments": {
-    "manage": "Manage",
-    "market": "Market",
-    "build": "Build"
-  },
-  "crm": {
-    "title": "CRM"
-  },
-  "emailMarketing": {
-    "title": "Email Marketing"
-  },
-  "workflows": {
-    "title": "Workflows"
-  },
-  "onboarding": {
-    "title": "Onboarding"
-  },
-  "featureFlags": {
-    "title": "Feature Flags"
-  },
   "helpDesk": {
     "title": "Help Desk"
   },
   "notifications": {
     "title": "Notifications"
   },
-  "pages": {
-    "title": "Pages"
+  "onboarding": {
+    "title": "Onboarding",
+    "object": {
+      "plural": "Onboardings",
+      "title": "Title",
+      "type": "Type",
+      "active": "Active",
+      "filters": "Filters",
+      "steps": "Steps",
+      "candidates": "Candidates",
+      "sessions": {
+        "active": "Active",
+        "started": "Started",
+        "completed": "Completed",
+        "dismissed": "Dismissed"
+      },
+      "empty": {
+        "title": "No onboardings",
+        "description": "Create onboardings to guide your users through the app."
+      }
+    },
+    "session": {
+      "object": "Session",
+      "plural": "Sessions",
+      "user": "User",
+      "tenant": "Account",
+      "status": "Status",
+      "startedAt": "Started at",
+      "completedAt": "Completed at",
+      "dismissedAt": "Dismissed at",
+      "matches": "Filter matches",
+      "steps": "Steps",
+      "actions": "Actions",
+      "activity": "Session activity",
+      "empty": {
+        "title": "No sessions",
+        "description": "Onboarding sessions will appear here."
+      }
+    },
+    "filter": {
+      "object": "Filter",
+      "plural": "Filters",
+      "type": "Type",
+      "operator": "Operator",
+      "value": "Value",
+      "matching": "Matching filters",
+      "set": "Set filters",
+      "empty": {
+        "title": "No filters",
+        "description": "Filters are used to determine which users will see this onboarding."
+      }
+    },
+    "step": {
+      "object": "Step",
+      "plural": "Steps",
+      "title": "Title",
+      "description": "Description",
+      "type": "Type",
+      "order": "Order",
+      "content": "Content",
+      "actions": "Actions",
+      "block": "Block",
+      "set": "Set steps",
+      "empty": {
+        "title": "No steps",
+        "description": "Add steps to your onboarding."
+      }
+    },
+    "prompts": {
+      "activate": {
+        "title": "Activate onboarding",
+        "description": "Are you sure you want to activate this onboarding?"
+      },
+      "deactivate": {
+        "title": "Deactivate onboarding",
+        "description": "Are you sure you want to deactivate this onboarding?"
+      },
+      "deleteOnboarding": {
+        "title": "Delete onboarding",
+        "description": "Are you sure you want to delete this onboarding?"
+      },
+      "deleteSession": {
+        "title": "Delete session",
+        "description": "Are you sure you want to delete this session?"
+      },
+      "updateSteps": {
+        "title": "Existing sessions ({{0}}) will be deleted",
+        "description": "All existing sessions will be deleted, consider creating a new onboarding. Are you sure you want to continue?"
+      }
+    },
+    "errors": {
+      "missingInput": "Please fill in all required fields: {{0}}",
+      "cannotBeActivated": {
+        "title": "Onboarding cannot be activated",
+        "description": "Onboarding must have at least 1 filter and 1 step to be activated."
+      }
+    },
+    "gettingStarted": {
+      "title": "Getting Started"
+    }
   },
-  "blog": {
-    "title": "Blog"
+  "featureFlags": {
+    "title": "Feature Flags",
+    "object": "Flag",
+    "plural": "Flags",
+    "enabled": "Enabled",
+    "filter": "Filter",
+    "filters": "Filters",
+    "noFilters": "No filters",
+    "triggers": "Triggers",
+    "empty": {
+      "title": "No feature flags",
+      "description": "Feature flags are used to enable or disable features in the app.",
+      "demo": "Create a 'maintenance' flag, enable it and visit the landing page to see it in action."
+    },
+    "danger": {
+      "title": "Danger zone",
+      "description": "Be careful when editing feature flags, you can break the app.",
+      "reset": {
+        "title": "Reset all flags and events",
+        "description": "Are you sure you want to reset all flags and events?"
+      }
+    }
   },
   "knowledgeBase": {
-    "title": "Knowledge Base"
+    "title": "Knowledge Base",
+    "featuredArticles": "Featured Articles",
+    "layouts": {
+      "list": "List",
+      "articles": "Articles",
+      "grid": "Grid",
+      "docs": "Docs"
+    },
+    "category": {
+      "object": "Category",
+      "plural": "Categories"
+    },
+    "article": {
+      "object": "Article",
+      "plural": "Articles",
+      "featured": "Featured",
+      "new": "New article"
+    }
+  },
+  "pages": {
+    "title": "Pages",
+    "blocks": "Blocks",
+    "seo": "SEO",
+    "settings": "Settings",
+    "marketing": {
+      "title": "Marketing Pages"
+    },
+    "app": {
+      "title": "Application Pages"
+    },
+    "actions": {
+      "createDefault": "Create default"
+    },
+    "prompts": {
+      "delete": {
+        "title": "Delete page",
+        "confirm": "Are you sure you want to delete this page?"
+      },
+      "resetBlocks": {
+        "title": "Reset blocks",
+        "confirm": "Are you sure you want to reset all blocks to default?"
+      }
+    }
+  },
+  "prompts": {
+    "object": "Prompt",
+    "plural": "Prompts",
+    "template": "Template",
+    "templates": "Templates",
+    "builder": {
+      "title": "Prompt Flow Builder",
+      "empty": {
+        "title": "No prompts",
+        "description": "Create AI prompt templates that interact with your data."
+      }
+    }
+  },
+  "workflows": {
+    "title": "Workflows"
+  },
+  "feedback": {
+    "title": "Send feedback",
+    "object": "Feedback",
+    "plural": "Feedback",
+    "description": "We'd love to hear from you. Do you have any feedback or feature requests?",
+    "placeholder": "I'd like to see...",
+    "message": "Message",
+    "send": "Send feedback",
+    "sent": "Thank you for your feedback!",
+    "limitReached": "You've reached the limit of feedback messages today. Try again tomorrow!",
+    "notLoggedIn": "You need to be logged in to send feedback."
+  },
+  "surveys": {
+    "title": "Surveys",
+    "object": "Survey",
+    "description": "Vote on new features and help us improve the app.",
+    "submission": {
+      "object": "Submission",
+      "plural": "Submissions"
+    }
   },
   "widgets": {
-    "plural": "Widgets"
-  },
-  "analytics": {
-    "title": "Analytics",
-    "overview": "Overview",
-    "uniqueVisitors": "Unique Visitors",
-    "pageViews": "Page Views",
-    "events": "Events"
+    "object": "Widget",
+    "plural": "Widgets",
+    "create": "Add widget",
+    "appearance": "Appearance",
+    "metadata": "Metadata"
   }
 }

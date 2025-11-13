@@ -7,20 +7,17 @@ import { useTranslation } from "react-i18next";
 import ButtonEvent from "@/components/ui/buttons/ButtonEvent";
 import { HeroBlockDto } from "@/modules/pageBlocks/blocks/marketing/hero/HeroBlockDto";
 import ProductHuntBadge from "../launch/ProductHuntBadge";
-import Image from "next/image";
 
 export default function HeroVariantTopImage({ item }: { item: HeroBlockDto }) {
   const { t } = useTranslation();
   return (
     <section className="body-font">
       <div className="container mx-auto flex flex-col items-center justify-center px-5 py-16">
-        {item.image && (
-          <Image
-            className="mb-10 w-5/6 rounded-lg border-2 border-border object-cover object-center shadow-sm dark:border-gray-600 md:w-3/6"
-            alt="hero"
-            src={item.image}
-          />
-        )}
+        <img
+          className="mb-10 w-5/6 rounded-lg border-2 border-border object-cover object-center shadow-sm dark:border-gray-600 md:w-3/6"
+          alt="hero"
+          src={item.image}
+        />
         <div className="w-full text-center lg:w-2/3">
           <div className="mb-4">
             <ProductHuntBadge />

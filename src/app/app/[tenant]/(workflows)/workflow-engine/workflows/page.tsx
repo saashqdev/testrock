@@ -16,7 +16,36 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 export default async function WorkflowsPage(props: IServerComponentsProps) {
   try {
     const data = await WorkflowsIndexApi.loader(props);
-    return <WorkflowsIndexView data={data} />;
+    
+    // Server Action for handling form submissions
+    async function handleWorkflowAction(formData: FormData): Promise<WorkflowsIndexApi.ActionData | void> {
+      "use server";
+      
+      const request = new Request("http://localhost", {
+        method: "POST",
+        body: formData,
+      });
+      
+      const actionProps: IServerComponentsProps = {
+        params: props.params,
+        searchParams: props.searchParams,
+        request,
+      };
+      
+      try {
+        const result = await WorkflowsIndexApi.action(actionProps);
+        // If action returns a Response object, extract the JSON data
+        if (result instanceof Response) {
+          return await result.json();
+        }
+        return result;
+      } catch (error) {
+        // Redirects throw, so we need to re-throw them
+        throw error;
+      }
+    }
+    
+    return <WorkflowsIndexView data={data} onAction={handleWorkflowAction} />;
   } catch (error) {
     return <ServerError />;
   }

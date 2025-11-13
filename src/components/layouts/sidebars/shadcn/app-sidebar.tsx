@@ -37,130 +37,6 @@ export function ShadcnAppSidebar({
   const params = useParams();
   const appConfiguration = rootData.appConfiguration;
 
-  // const data = {
-  //   // user: {
-  //   //   name: "shadcn",
-  //   //   email: "m@example.com",
-  //   //   avatar: "/avatars/shadcn.jpg",
-  //   // },
-  //   navMain: [
-  //     {
-  //       title: "Playground",
-  //       url: "#",
-  //       icon: SquareTerminal,
-  //       isActive: true,
-  //       items: [
-  //         {
-  //           title: "History",
-  //           url: "#",
-  //         },
-  //         {
-  //           title: "Starred",
-  //           url: "#",
-  //         },
-  //         {
-  //           title: "Settings",
-  //           url: "#",
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       title: "Models",
-  //       url: "#",
-  //       icon: Bot,
-  //       items: [
-  //         {
-  //           title: "Genesis",
-  //           url: "#",
-  //         },
-  //         {
-  //           title: "Explorer",
-  //           url: "#",
-  //         },
-  //         {
-  //           title: "Quantum",
-  //           url: "#",
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       title: "Documentation",
-  //       url: "#",
-  //       icon: BookOpen,
-  //       items: [
-  //         {
-  //           title: "Introduction",
-  //           url: "#",
-  //         },
-  //         {
-  //           title: "Get Started",
-  //           url: "#",
-  //         },
-  //         {
-  //           title: "Tutorials",
-  //           url: "#",
-  //         },
-  //         {
-  //           title: "Changelog",
-  //           url: "#",
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       title: "Settings",
-  //       url: "#",
-  //       icon: Settings2,
-  //       items: [
-  //         {
-  //           title: "General",
-  //           url: "#",
-  //         },
-  //         {
-  //           title: "Team",
-  //           url: "#",
-  //         },
-  //         {
-  //           title: "Billing",
-  //           url: "#",
-  //         },
-  //         {
-  //           title: "Limits",
-  //           url: "#",
-  //         },
-  //       ],
-  //     },
-  //   ],
-  //   navSecondary: [
-  //     {
-  //       title: "Support",
-  //       url: "#",
-  //       icon: LifeBuoy,
-  //     },
-  //     {
-  //       title: "Feedback",
-  //       url: "#",
-  //       icon: Send,
-  //     },
-  //   ],
-  //   projects: [
-  //     {
-  //       name: "Quick link 1",
-  //       url: "#",
-  //       icon: Frame,
-  //     },
-  //     {
-  //       name: "Quick link 2",
-  //       url: "#",
-  //       icon: PieChart,
-  //     },
-  //     {
-  //       name: "Quick link 3",
-  //       url: "#",
-  //       icon: Map,
-  //     },
-  //   ],
-  // };
-
   const getMenuItems = () => {
     let menu: SideBarItem[] = [];
     if (props.items) {
@@ -334,13 +210,11 @@ export function ShadcnAppSidebar({
       <SidebarContent>
         <NavMain items={navMain} />
         {navQuickLinks && <NavQuickLinks item={navQuickLinks} />}
-        <NavSecondary item={navSecondary} className="mt-auto" />
+        <NavSecondary item={navSecondary} />
       </SidebarContent>
-      {appOrAdminData?.user && (
-        <SidebarFooter>
-          <NavUser layout={props.layout} user={appOrAdminData.user} />
-        </SidebarFooter>
-      )}
+      <SidebarFooter>
+        {appOrAdminData?.user && <NavUser layout={props.layout} user={appOrAdminData.user} />}
+      </SidebarFooter>
     </Sidebar>
   );
 }

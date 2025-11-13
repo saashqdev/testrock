@@ -1,27 +1,22 @@
-"use client";
-
-import { Fragment, useEffect, useState } from "react";
+/* eslint-disable @next/next/no-img-element */
+import { Fragment } from "react";
 import ButtonEvent from "@/components/ui/buttons/ButtonEvent";
-import { useRootData } from "@/lib/state/useRootData";
-import Image from "next/image";
+import useRootData from "@/lib/state/useRootData";
 
-interface Props {
-  theme?: "light" | "neutral" | "dark";
-}
-export default function ProductHuntBadge({ theme }: Props) {
+export default function ProductHuntBadge() {
   const rootData = useRootData();
-  const [mounted, setMounted] = useState(false);
-  const producthunt = rootData?.appConfiguration?.launches?.producthunt;
-  
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Prevent hydration mismatch by not rendering until mounted on client
-  if (!mounted || !producthunt) {
+  const producthunt = rootData?.appConfiguration.launches?.producthunt;
+  if (!producthunt) {
     return null;
   }
-
+  const theme = producthunt.theme || "neutral";
+  const today = new Date();
+  if (producthunt.start && today < new Date(producthunt.start)) {
+    return null;
+  }
+  if (producthunt.end && today > new Date(producthunt.end)) {
+    return null;
+  }
   return (
     <Fragment>
       {producthunt ? (
@@ -33,7 +28,7 @@ export default function ProductHuntBadge({ theme }: Props) {
             rel="noreferrer"
           >
             {theme === "light" ? (
-              <Image
+              <img
                 src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=${producthunt.postId}&theme=light`}
                 alt={producthunt.title}
                 style={{
@@ -43,7 +38,7 @@ export default function ProductHuntBadge({ theme }: Props) {
                 height="54"
               />
             ) : theme === "neutral" ? (
-              <Image
+              <img
                 src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=${producthunt.postId}&theme=neutral`}
                 alt={producthunt.title}
                 style={{
@@ -53,7 +48,7 @@ export default function ProductHuntBadge({ theme }: Props) {
                 height="54"
               />
             ) : theme === "dark" ? (
-              <Image
+              <img
                 src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=${producthunt.postId}&theme=dark`}
                 alt={producthunt.title}
                 style={{

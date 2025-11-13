@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState } from "react";
 import { Transition } from "@headlessui/react";
 import Logo from "@/components/brand/Logo";
 import DarkModeToggle from "@/components/ui/toggles/DarkModeToggle";
@@ -15,32 +15,21 @@ import ThemeSelector from "@/components/ui/selectors/ThemeSelector";
 import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import ButtonTertiary from "@/components/ui/buttons/ButtonTertiary";
 import { usePathname } from "next/navigation";
-import { useRootData } from "@/lib/state/useRootData";
+import useRootData from "@/lib/state/useRootData";
 
 export default function HeaderVariantSimple({ item, width = "7xl" }: { item: HeaderBlockDto; width?: "screen-2xl" | "7xl" }) {
   const { authenticated, appConfiguration } = useRootData();
-  const [isHydrated, setIsHydrated] = useState(false);
 
   const { t } = useTranslation();
 
   const pathname = usePathname();
 
   const [open, setOpen] = useState(false);
-  
-  useEffect(() => {
-    setIsHydrated(true);
-  }, []);
-  
   function isCurrent(path: string): boolean {
     return pathname === path;
   }
 
   const loginOrEnterRoute = () => {
-    // Provide a default route during SSR to prevent hydration mismatch
-    if (!isHydrated) {
-      return "/login";
-    }
-    
     if (!authenticated) {
       return "/login";
     }
@@ -48,11 +37,6 @@ export default function HeaderVariantSimple({ item, width = "7xl" }: { item: Hea
   };
 
   function registerRoute() {
-    // Provide a default route during SSR to prevent hydration mismatch
-    if (!isHydrated) {
-      return "/register";
-    }
-    
     if (appConfiguration?.subscription.allowSignUpBeforeSubscribe) {
       return "/register";
     } else {
@@ -78,7 +62,7 @@ export default function HeaderVariantSimple({ item, width = "7xl" }: { item: Hea
                   )}
                   <div className="-mr-1 flex items-center space-x-2 md:hidden">
                     <div className="flex">
-                      {item.withSignInAndSignUp && isHydrated && (
+                      {item.withSignInAndSignUp && (
                         <div className="inline-flex space-x-2 rounded-md">
                           {!authenticated && (
                             <ButtonTertiary
@@ -155,7 +139,7 @@ export default function HeaderVariantSimple({ item, width = "7xl" }: { item: Hea
               </div>
               <div className="hidden md:absolute md:inset-y-0 md:right-0 md:flex md:items-center md:justify-end">
                 <span className="inline-flex space-x-2">
-                  {item.withSignInAndSignUp && isHydrated && (
+                  {item.withSignInAndSignUp && (
                     <>
                       {!authenticated && (
                         <ButtonTertiary
@@ -266,7 +250,7 @@ export default function HeaderVariantSimple({ item, width = "7xl" }: { item: Hea
                     })}
                   </div>
                   <div role="none" className="flex items-center px-2 pb-2">
-                    {item.withSignInAndSignUp && isHydrated && !authenticated && (
+                    {item.withSignInAndSignUp && !authenticated && (
                       <>
                         <ButtonEvent
                           to={registerRoute()}

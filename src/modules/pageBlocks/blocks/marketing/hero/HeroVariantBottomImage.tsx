@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import { HeroBlockDto } from "@/modules/pageBlocks/blocks/marketing/hero/HeroBlockDto";
 import ProductHuntBadge from "../launch/ProductHuntBadge";
 import ButtonEvent from "@/components/ui/buttons/ButtonEvent";
-import Image from "next/image";
 
 export default function HeroVariantBottomImage({ item }: { item: HeroBlockDto }) {
   const { t } = useTranslation();
@@ -71,15 +70,7 @@ export default function HeroVariantBottomImage({ item }: { item: HeroBlockDto })
             )}
           </div>
         </div>
-        {item.image && (
-          <Image
-            className="mt-10 w-auto max-w-5xl rounded border-2 border-dashed border-gray-800 object-cover object-center"
-            alt="hero"
-            src={item.image}
-            width={1200}
-            height={600}
-          />
-        )}
+        <img className="mt-10 w-auto max-w-5xl rounded border-2 border-dashed border-gray-800 object-cover object-center" alt="hero" src={item.image} />
       </div>
     </section>
   );
