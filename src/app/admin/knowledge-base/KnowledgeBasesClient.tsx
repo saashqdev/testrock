@@ -120,9 +120,9 @@ export default function KnowledgeBasesClient({ data }: KnowledgeBasesClientProps
           />
         </div>
         <div className="flex space-x-1">
-          <ButtonSecondary to="import">Import</ButtonSecondary>
+          <ButtonSecondary to="bases/import">Import</ButtonSecondary>
           <ButtonSecondary onClick={onExport}>Export</ButtonSecondary>
-          <ButtonPrimary to="new">
+          <ButtonPrimary to="bases/new">
             <div>New</div>
             <PlusIcon className="h-5 w-5" />
           </ButtonPrimary>

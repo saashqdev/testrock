@@ -2,7 +2,7 @@
 
 import { Editor, useMonaco } from "@monaco-editor/react";
 import clsx from "clsx";
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 export type MonacoAutoCompletion = {
   label: string;
@@ -41,6 +41,11 @@ export default function MonacoEditor({
   onControlEnter,
 }: Props) {
   const monaco = useMonaco();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     function createDependencyProposals(autocompletions: MonacoAutoCompletion[], range: any) {
@@ -106,9 +111,11 @@ export default function MonacoEditor({
   return (
     <Fragment>
       {name && <textarea name={name} value={value} hidden readOnly />}
-      {typeof window !== "undefined" && (
+      {!mounted ? (
+        <div className={clsx(className, "block w-full min-w-0 flex-1 rounded-md border border-border bg-muted/50")} style={{ minHeight: "200px" }} />
+      ) : (
         <Editor
-          loading={<div className={clsx(className)}></div>}
+          loading={<div className={clsx(className, "block w-full min-w-0 flex-1 rounded-md border border-border bg-muted/50")} style={{ minHeight: "200px" }} />}
           theme={theme}
           className={clsx(
             className,

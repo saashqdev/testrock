@@ -13,11 +13,10 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 }
 
 export default async function FormulasPage(props: IServerComponentsProps) {
-  const request = props.request!;
   const params = (await props.params) || {};
   
   await verifyUserHasPermission("admin.formulas.view");
-  const tenantId = await getTenantIdOrNull({ request, params });
+  const tenantId = await getTenantIdOrNull({ params });
   
   const items = await db.formulas.getAllFormulas();
   const logs = await db.formulaLogs.countLogs(items.map((item) => item.id ?? ""));

@@ -129,7 +129,7 @@ export default function FormulasPageClient({ initialData }: FormulasPageClientPr
             <ButtonSecondary to="logs">
               <span>Logs</span>
             </ButtonSecondary>
-            <ButtonPrimary to="new">
+            <ButtonPrimary to="formulas/new">
               <span>{t("shared.new")}</span>
             </ButtonPrimary>
           </div>

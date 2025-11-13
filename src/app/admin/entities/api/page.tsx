@@ -2,23 +2,27 @@ import ApiSpecsService, { ApiSpecsDto } from "@/modules/api/services/ApiSpecsSer
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 import ApiSpecs from "@/modules/api/components/ApiSpecs";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
-import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
+import { headers } from "next/headers";
 
 type LoaderData = {
   apiSpecs: ApiSpecsDto;
 };
 
-async function getLoaderData(props: IServerComponentsProps): Promise<LoaderData> {
-  const request = props.request!;
+async function getLoaderData(): Promise<LoaderData> {
   await verifyUserHasPermission("admin.entities.view");
+  const headersList = await headers();
+  const request = new Request(process.env.NEXT_PUBLIC_URL || 'http://localhost:3000', {
+    headers: headersList as any,
+  });
+  
   const data: LoaderData = {
     apiSpecs: await ApiSpecsService.generateSpecs({ request }),
   };
   return data;
 }
 
-export default async function ApiDocsPage(props: IServerComponentsProps) {
-  const data = await getLoaderData(props);
+export default async function ApiDocsPage() {
+  const data = await getLoaderData();
 
   return (
     <EditPageLayout title="API Docs">

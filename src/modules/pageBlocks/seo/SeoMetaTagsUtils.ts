@@ -11,7 +11,7 @@ type SiteTags = {
 };
 export const defaultSiteTags: SiteTags = {
   title: "Next.js CatStack Demo",
-  description: "Build, launch, fail, repeat with Next.js, Tailwind CSS, shadcn/ui, Prisma, Stripe, Postmark. and Resend.",
+  description: "Build, launch, succeed, repeat with Next.js, Tailwind CSS, shadcn/ui, Prisma, Stripe, Postmark. and Resend.",
   keywords: "nextjs,saas,tailwindcss,prisma,react,typescript,boilerplate,saas-kit,saas-boilerplate,saas-starter-kit,stripe,postmark",
   image: "/img/catstack-og.png",
   thumbnail: "/img/catstack-thumbnail.jpg",
