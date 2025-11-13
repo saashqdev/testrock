@@ -11,7 +11,7 @@ import { getServerTranslations } from "@/i18n/server";
 
 export async function generateMetadata() {
   return getMetaTags({
-    title: `TheRock vs TheRock | ${defaultSiteTags.title}`,
+    title: `CatStack vs TheRock | ${defaultSiteTags.title}`,
   });
 }
 
@@ -24,8 +24,8 @@ export default async function CatstackVsTheRock() {
           { header: defaultHeader({ t }) },
           {
             heading: {
-              headline: "TheRock vs TheRock",
-              subheadline: "TheRock is the production-ready SaaS boilerplate, but TheRock is remix-decoupled.",
+              headline: "CatStack vs TheRock",
+              subheadline: "CatStack is the production-ready Nextjs 15 SaaS platform and so is TheRock.",
             },
           },
           {
@@ -52,13 +52,9 @@ type FeatureSolution = {
 };
 
 const features: FeatureSolution[] = [
-  { name: "NextJS Edition", catstack: true, therock: true, href: "https://remix.run" },
   { name: "Next.js Edition", catstack: true, therock: false, href: "https://nextjs.org" },
-  { name: "SvelteKit Edition", catstack: true, therock: false, href: "https://kit.svelte.dev" },
   { name: "Repository Pattern", catstack: true, therock: false },
   { name: "Prisma ORM", catstack: true, therock: true, href: "https://www.prisma.io" },
-  { name: "Drizzle ORM", catstack: true, therock: false, href: "https://orm.drizzle.team" },
-  { name: "Mock ORM", catstack: true, therock: false },
   { name: "shadcn/ui", catstack: true, therock: true },
   { name: "Stripe Subscriptions & Payments", catstack: true, therock: true, href: "https://stripe.com" },
   { name: "Marketing pages + SEO metatags", href: "https://therock.com/docs/articles/marketing-pages", catstack: true, therock: true },
@@ -71,22 +67,22 @@ const features: FeatureSolution[] = [
   { name: "Internationalization", href: "https://therock.com/docs/articles/support-a-language", catstack: true, therock: true },
   { name: "Affiliates", href: "https://therock.com/docs/articles/affiliates", catstack: true, therock: true },
   { name: "Unit Tests", href: "https://therock.com/docs/articles/unit-tests", catstack: true, therock: true },
-  { name: "Entity Builder", href: "https://therock.com/docs/articles/entity-builder", catstack: false, therock: true },
-  { name: "Workflows", href: "https://therock.com/docs/articles/workflows", catstack: false, therock: true },
-  { name: "Google & GitHub Sign-In", href: "https://therock.com/docs/articles/google-single-sign-on-integration", catstack: false, therock: true },
-  { name: "GDPR management", catstack: false, therock: true },
-  { name: "Blogging", href: "https://therock.com/docs/articles/blogging", catstack: false, therock: true },
-  { name: "API Keys", href: "https://therock.com/docs/articles/api", catstack: false, therock: true },
-  { name: "API Rate Limiting", href: "https://therock.com/docs/articles/api-rate-limiting", catstack: false, therock: true },
-  { name: "B2B2B & B2B2C support", href: "https://therock.com/docs/articles/build-b2b2c-saas-applications", catstack: false, therock: true },
-  { name: "Knowledge Base", href: "https://therock.com/docs/articles/knowledge-base", catstack: false, therock: true },
-  { name: "In-app Notifications", href: "https://therock.com/docs/articles/notifications", catstack: false, therock: true },
-  { name: "Metrics", href: "https://therock.com/docs/articles/metrics", catstack: false, therock: true },
-  { name: "Email Marketing", href: "https://therock.com/docs/articles/email-marketing", catstack: false, therock: true },
-  { name: "Analytics", href: "https://therock.com/docs/articles/analytics", catstack: false, therock: true },
-  { name: "Onboarding", href: "https://therock.com/docs/articles/onboarding", catstack: false, therock: true },
-  { name: "Feature Flags", href: "https://therock.com/docs/articles/feature-flags", catstack: false, therock: true },
-  { name: "WYSIWYG and Monaco Editors", catstack: false, therock: true },
+  { name: "Entity Builder", href: "https://therock.com/docs/articles/entity-builder", catstack: true, therock: true },
+  { name: "Workflows", href: "https://therock.com/docs/articles/workflows", catstack: true, therock: true },
+  { name: "Google & GitHub Sign-In", href: "https://therock.com/docs/articles/google-single-sign-on-integration", catstack: true, therock: true },
+  { name: "GDPR management", catstack: true, therock: true },
+  { name: "Blogging", href: "https://therock.com/docs/articles/blogging", catstack: true, therock: true },
+  { name: "API Keys", href: "https://therock.com/docs/articles/api", catstack: true, therock: true },
+  { name: "API Rate Limiting", href: "https://therock.com/docs/articles/api-rate-limiting", catstack: true, therock: true },
+  { name: "B2B2B & B2B2C support", href: "https://therock.com/docs/articles/build-b2b2c-saas-applications", catstack: true, therock: true },
+  { name: "Knowledge Base", href: "https://therock.com/docs/articles/knowledge-base", catstack: true, therock: true },
+  { name: "In-app Notifications", href: "https://therock.com/docs/articles/notifications", catstack: true, therock: true },
+  { name: "Metrics", href: "https://therock.com/docs/articles/metrics", catstack: true, therock: true },
+  { name: "Email Marketing", href: "https://therock.com/docs/articles/email-marketing", catstack: true, therock: true },
+  { name: "Analytics", href: "https://therock.com/docs/articles/analytics", catstack: true, therock: true },
+  { name: "Onboarding", href: "https://therock.com/docs/articles/onboarding", catstack: true, therock: true },
+  { name: "Feature Flags", href: "https://therock.com/docs/articles/feature-flags", catstack: true, therock: true },
+  { name: "WYSIWYG and Monaco Editors", catstack: true, therock: true },
 ];
 
 function CompareFeatures() {
@@ -183,7 +179,7 @@ function CompareFeatures() {
                     href="https://catstack.dev/pricing"
                     target="_blank"
                   >
-                    Get TheRock
+                    Get CatStack
                   </Link>
                 </td>
                 <td className="w-1/5 whitespace-nowrap px-1 py-1 text-center text-sm text-muted-foreground">

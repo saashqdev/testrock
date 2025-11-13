@@ -1,11 +1,10 @@
 import { TFunction } from "i18next";
 import { MetaTagsDto } from "@/lib/dtos/MetaTagsDto";
-import { PageBlockDto } from "../blocks/PageBlockDto";
+import { PageBlockDto } from "../dtos/PageBlockDto";
 import { defaultSiteTags, getMetaTags } from "../seo/SeoMetaTagsUtils";
 import { defaultHeader } from "../defaultBlocks/defaultHeader";
 import { defaultFooter } from "../defaultBlocks/defaultFooter";
 import { getEmailConfig, sendEmail } from "@/modules/emails/services/EmailService";
-import NewsletterComponent from "../blocks/marketing/newsletter/NewsletterComponent";
 import { defaultAppConfiguration } from "@/modules/core/data/defaultAppConfiguration";
 
 export namespace NewsletterPage {
@@ -20,7 +19,13 @@ export namespace NewsletterPage {
       // Header
       { header: defaultHeader({ t }) },
       // Main
-      { render: <NewsletterComponent /> },
+      { 
+        newsletter: {
+          style: "simple",
+          headline: t("front.newsletter.headline"),
+          subheadline: t("front.newsletter.subheadline"),
+        }
+      },
       // Footer
       { footer: defaultFooter({ t }) },
     ];
@@ -44,7 +49,7 @@ export namespace NewsletterPage {
       throw Error("Missing fields");
     }
 
-    const emailConfig = getEmailConfig();
+    const emailConfig = await getEmailConfig();
     if (emailConfig) {
       await sendEmail({
         to: defaultAppConfiguration.email.supportEmail,

@@ -388,6 +388,7 @@
     "newsletter": {
       "title": "Stay up to date",
       "headline": "Subscribe to the newsletter to get product updates",
+      "subheadline": "Get the latest updates and news delivered to your inbox",
       "email": "Email address",
       "firstName": "First name",
       "lastName": "Last name",
@@ -422,15 +423,15 @@
     },
     "roadmap": {
       "title": "Roadmap",
-      "headline": "Learn more about SaasRock's current status."
+      "headline": "Learn more about TheRock's current status."
     },
     "faq": {
       "title": "Frequently Asked Questions",
       "headline": "Add your own questions and answers to help your users understand your SaaS.",
-      "subheadline": "Common questions and answers about SaasRock.",
+      "subheadline": "Common questions and answers about TheRock.",
       "questions": {
         "q1": "How do I get the code after purchasing?",
-        "a1": "You will be invited to the saasrock repository on GitHub. If you bought SaasRock Pro you will also be invited to the saasrock-pro repository.",
+        "a1": "You will be invited to the TheRock repository on GitHub. If you bought TheRock Pro you will also be invited to the TheRock-pro repository.",
         "q2": "Can I get a refund?",
         "a2": "Due to the nature of software development being a custom service, we do not offer refunds."
       }
