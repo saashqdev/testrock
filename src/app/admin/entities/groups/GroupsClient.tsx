@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter, useParams, usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import TableSimple from "@/components/ui/tables/TableSimple";
@@ -12,16 +12,20 @@ import OrderListButtons from "@/components/ui/sort/OrderListButtons";
 import SlideOverWideEmpty from "@/components/ui/slideOvers/SlideOverWideEmpty";
 import CheckIcon from "@/components/ui/icons/CheckIcon";
 import XIcon from "@/components/ui/icons/XIcon";
+import { ReactNode } from "react";
 
 interface EntityGroupsClientProps {
   items: EntityGroupWithDetailsDto[];
+  children?: ReactNode;
 }
 
-export default function EntityGroupsClient({ items }: EntityGroupsClientProps) {
+export default function EntityGroupsClient({ items, children }: EntityGroupsClientProps) {
   const { t } = useTranslation();
   const appOrAdminData = useAppOrAdminData();
   const router = useRouter();
   const params = useParams();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   return (
     <div className="mx-auto w-full max-w-5xl space-y-3 px-4 py-2 pb-6 sm:px-6 sm:pt-3 lg:px-8 xl:max-w-full">
@@ -29,7 +33,7 @@ export default function EntityGroupsClient({ items }: EntityGroupsClientProps) {
         <div className="flex items-center justify-between">
           <h3 className="text-foreground text-lg font-medium leading-6">Entity Groups</h3>
           <div className="flex items-center space-x-2">
-            <ButtonPrimary to="new" disabled={!getUserHasPermission(appOrAdminData, "admin.entities.create")}>
+            <ButtonPrimary to="groups/new" disabled={!getUserHasPermission(appOrAdminData, "admin.entities.create")}>
               {t("shared.new")}
             </ButtonPrimary>
           </div>
@@ -97,17 +101,18 @@ export default function EntityGroupsClient({ items }: EntityGroupsClientProps) {
 
       <SlideOverWideEmpty
         title={params.id ? "Edit Entity Group" : "New Entity Group"}
-        open={!!<></>}
+        open={pathname !== "/admin/entities/groups"}
         onClose={() => {
-          router.replace(".");
+          router.push("/admin/entities/groups");
         }}
-        className="sm:max-w-sm"
         overflowYScroll={true}
+        size="3xl"
       >
         <div className="-mx-1 -mt-3">
-          <div className="space-y-4">{<></>}</div>
+          <div className="space-y-4">{children}</div>
         </div>
       </SlideOverWideEmpty>
+
     </div>
   );
 }

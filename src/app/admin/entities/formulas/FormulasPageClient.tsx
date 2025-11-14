@@ -24,6 +24,7 @@ import SuccessBanner from "@/components/ui/banners/SuccessBanner";
 import ExperimentIconFilled from "@/components/ui/icons/tests/ExperimentIconFilled";
 import { defaultFormulas } from "@/modules/formulas/utils/DefaultFormulas";
 import SlideOverWideEmpty from "@/components/ui/slideOvers/SlideOverWideEmpty";
+import FormulaForm from "@/modules/formulas/components/FormulaForm";
 
 type LoaderData = {
   title: string;
@@ -51,6 +52,18 @@ export default function FormulasPageClient({ initialData }: FormulasPageClientPr
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [executingFormula, setExecutingFormula] = useState<FormulaDto | undefined>(undefined);
   const [showSlideOver, setShowSlideOver] = useState(false);
+  const [editingFormulaId, setEditingFormulaId] = useState<string | null>(null);
+
+  // Check if we should open the slide-over based on URL params
+  useEffect(() => {
+    if (params.id) {
+      setEditingFormulaId(params.id as string);
+      setShowSlideOver(true);
+    } else if (window.location.pathname.endsWith('/new')) {
+      setEditingFormulaId(null);
+      setShowSlideOver(true);
+    }
+  }, [params.id]);
 
   async function handleSubmit(formData: FormData) {
     setIsSubmitting(true);
@@ -129,7 +142,13 @@ export default function FormulasPageClient({ initialData }: FormulasPageClientPr
             <ButtonSecondary to="logs">
               <span>Logs</span>
             </ButtonSecondary>
-            <ButtonPrimary to="formulas/new">
+            <ButtonPrimary 
+              onClick={(e) => {
+                e.preventDefault();
+                setEditingFormulaId(null);
+                setShowSlideOver(true);
+              }}
+            >
               <span>{t("shared.new")}</span>
             </ButtonPrimary>
           </div>
@@ -172,7 +191,10 @@ export default function FormulasPageClient({ initialData }: FormulasPageClientPr
         actions={[
           {
             title: t("shared.edit"),
-            onClickRoute: (_, i) => `${i.id}`,
+            onClick: (_, i) => {
+              setEditingFormulaId(i.id ?? null);
+              setShowSlideOver(true);
+            },
           },
         ]}
         headers={[
@@ -271,18 +293,72 @@ export default function FormulasPageClient({ initialData }: FormulasPageClientPr
 
       <SlideOverWideEmpty
         title={"Formula"}
-        description={params.id ? "Edit formula" : "Create formula"}
+        description={editingFormulaId ? "Edit formula" : "Create formula"}
         open={showSlideOver}
         onClose={() => {
           setShowSlideOver(false);
-          router.push("/admin/entities/formulas");
+          setEditingFormulaId(null);
         }}
         className="sm:max-w-2xl"
         overflowYScroll={true}
       >
-        {<></>}
+        <div className="p-4">
+          <FormulaFormWrapper
+            item={editingFormulaId ? data.items.find(f => f.id === editingFormulaId) : undefined}
+            editingFormulaId={editingFormulaId}
+            onSuccess={() => {
+              setShowSlideOver(false);
+              setEditingFormulaId(null);
+            }}
+            onCancel={() => {
+              setShowSlideOver(false);
+              setEditingFormulaId(null);
+            }}
+            handleSubmit={handleSubmit}
+          />
+        </div>
       </SlideOverWideEmpty>
     </div>
+  );
+}
+
+function FormulaFormWrapper({
+  item,
+  editingFormulaId,
+  onSuccess,
+  onCancel,
+  handleSubmit,
+}: {
+  item?: FormulaDto;
+  editingFormulaId: string | null;
+  onSuccess: () => void;
+  onCancel: () => void;
+  handleSubmit: (formData: FormData) => Promise<void>;
+}) {
+  return (
+    <FormulaForm
+      item={item}
+      onCancel={onCancel}
+      updateFormula={async (formData) => {
+        formData.set("action", editingFormulaId ? "edit" : "new");
+        if (editingFormulaId) {
+          formData.set("id", editingFormulaId);
+        }
+        await handleSubmit(formData);
+        onSuccess();
+      }}
+      deleteFormula={
+        editingFormulaId
+          ? async () => {
+              const formData = new FormData();
+              formData.set("action", "delete");
+              formData.set("id", editingFormulaId);
+              await handleSubmit(formData);
+              onSuccess();
+            }
+          : undefined
+      }
+    />
   );
 }
 

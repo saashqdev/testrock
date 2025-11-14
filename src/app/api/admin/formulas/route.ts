@@ -87,6 +87,108 @@ export async function POST(request: NextRequest) {
       const createdDefault = await FormulaDefaultService.createDefault(name);
       
       return NextResponse.json({ createdDefault });
+    } else if (action === "new") {
+      await verifyUserHasPermission("admin.formulas.create");
+
+      const name = formData.get("name")?.toString() ?? "";
+      const description = formData.get("description")?.toString() ?? "";
+      const resultAs = formData.get("resultAs")?.toString();
+      const calculationTrigger = formData.get("calculationTrigger")?.toString();
+      const withLogs = ["true", "on"].includes(formData.get("withLogs")?.toString() ?? "false");
+
+      const components: { order: number; type: string; value: string }[] = formData.getAll("components[]").map((f) => {
+        return JSON.parse(f.toString());
+      });
+
+      if (!name || !resultAs || !calculationTrigger) {
+        return NextResponse.json(
+          { error: "Missing required fields." },
+          { status: 400 }
+        );
+      }
+      if (components.length === 0) {
+        return NextResponse.json(
+          { error: "Missing formula components." },
+          { status: 400 }
+        );
+      }
+
+      const formula = await db.formulas.createFormula({
+        name,
+        description,
+        resultAs,
+        calculationTrigger,
+        components,
+        withLogs,
+      });
+
+      return NextResponse.json({ success: "Formula created successfully", formula });
+    } else if (action === "edit") {
+      await verifyUserHasPermission("admin.formulas.update");
+
+      const id = formData.get("id")?.toString();
+      if (!id) {
+        return NextResponse.json(
+          { error: "Missing formula ID" },
+          { status: 400 }
+        );
+      }
+
+      const formula = await db.formulas.getFormula(id);
+      if (!formula) {
+        return NextResponse.json(
+          { error: t("shared.notFound") },
+          { status: 404 }
+        );
+      }
+
+      const name = formData.get("name")?.toString() ?? "";
+      const description = formData.get("description")?.toString() ?? "";
+      const resultAs = formData.get("resultAs")?.toString();
+      const calculationTrigger = formData.get("calculationTrigger")?.toString();
+      const withLogs = ["true", "on"].includes(formData.get("withLogs")?.toString() ?? "false");
+
+      const components: { order: number; type: string; value: string }[] = formData.getAll("components[]").map((f) => {
+        return JSON.parse(f.toString());
+      });
+
+      if (!name || !resultAs || !calculationTrigger) {
+        return NextResponse.json(
+          { error: "Missing required fields." },
+          { status: 400 }
+        );
+      }
+      if (components.length === 0) {
+        return NextResponse.json(
+          { error: "Missing formula components." },
+          { status: 400 }
+        );
+      }
+
+      await db.formulas.updateFormula(id, {
+        name,
+        description,
+        resultAs,
+        calculationTrigger,
+        withLogs,
+        components,
+      });
+
+      return NextResponse.json({ success: "Formula updated successfully" });
+    } else if (action === "delete") {
+      await verifyUserHasPermission("admin.formulas.delete");
+
+      const id = formData.get("id")?.toString();
+      if (!id) {
+        return NextResponse.json(
+          { error: "Missing formula ID" },
+          { status: 400 }
+        );
+      }
+
+      await db.formulas.deleteFormula(id);
+
+      return NextResponse.json({ success: "Formula deleted successfully" });
     } else {
       return NextResponse.json(
         { error: t("shared.invalidForm") },

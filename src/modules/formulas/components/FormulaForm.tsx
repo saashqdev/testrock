@@ -21,9 +21,10 @@ interface FormulaFormProps {
   onDelete?: () => void;
   updateFormula?: (formData: FormData) => Promise<void>;
   deleteFormula?: () => Promise<void>;
+  onCancel?: () => void;
 }
 
-export default function FormulaForm({ item, onDelete, updateFormula, deleteFormula }: FormulaFormProps) {
+export default function FormulaForm({ item, onDelete, updateFormula, deleteFormula, onCancel }: FormulaFormProps) {
   const { t } = useTranslation();
   const appOrAdminData = useAppOrAdminData();
   const router = useRouter();
@@ -192,7 +193,10 @@ export default function FormulaForm({ item, onDelete, updateFormula, deleteFormu
             )}
           </div>
           <div className="flex space-x-2">
-            <ButtonSecondary onClick={() => router.push("/admin/entities/formulas")} disabled={isPending}>
+            <ButtonSecondary 
+              onClick={() => onCancel ? onCancel() : router.push("/admin/entities/formulas")} 
+              disabled={isPending}
+            >
               {t("shared.cancel")}
             </ButtonSecondary>
             <LoadingButton actionName={getActionName()} type="submit" disabled={isPending}>

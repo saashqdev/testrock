@@ -221,10 +221,10 @@ const FormGroup = (
               )}
             </div>
 
-            {message && (
+            {message && (message.success || message.error) && (
               <div>
-                {<InfoBanner title={t("shared.success")} text={message.success} />}
-                {<ErrorBanner title={t("shared.error")} text={message.error} />}
+                {message.success && <InfoBanner title={t("shared.success")} text={message.success} />}
+                {message.error && <ErrorBanner title={t("shared.error")} text={message.error} />}
               </div>
             )}
           </div>
