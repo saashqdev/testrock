@@ -12,12 +12,15 @@ import Modal from "@/components/ui/modals/Modal";
 import TabsWithIcons from "@/components/ui/tabs/TabsWithIcons";
 import OnboardingsList from "../../../components/OnboardingsList";
 import { OnboardingIndexApi } from "../../api/onboardings/OnboardingsIndexApi.server";
+import { createOnboarding } from "@/app/admin/onboarding/onboardings/actions";
+import ActionResultModal from "@/components/ui/modals/ActionResultModal";
 
 export default function OnboardingsIndexRoute({ data }: { data: OnboardingIndexApi.LoaderData }) {
   const { t } = useTranslation();
   const searchParams = useSearchParams();
 
   const [adding, setAdding] = useState(false);
+  const [actionData, setActionData] = useState<{ error?: string; success?: string }>();
 
   function countStatus(status?: string) {
     if (!status) {
@@ -64,18 +67,35 @@ export default function OnboardingsIndexRoute({ data }: { data: OnboardingIndexA
 
       <OnboardingsList items={data.items} groupByStatus={data.groupByStatus} />
 
-      <AddOnboardingModal open={adding} onClose={() => setAdding(false)} />
+      <AddOnboardingModal open={adding} onClose={() => setAdding(false)} setActionData={setActionData} />
+      <ActionResultModal actionData={actionData} />
     </div>
   );
 }
 
-function AddOnboardingModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+function AddOnboardingModal({
+  open,
+  onClose,
+  setActionData,
+}: {
+  open: boolean;
+  onClose: () => void;
+  setActionData: (data: { error?: string; success?: string }) => void;
+}) {
   const { t } = useTranslation();
   const [title, setTitle] = useState("");
+
+  async function handleSubmit(formData: FormData) {
+    const result = await createOnboarding(formData);
+    if (result?.error) {
+      setActionData({ error: result.error });
+    }
+    // If successful, the redirect will happen automatically
+  }
+
   return (
     <Modal open={open} setOpen={onClose} size="md">
-      <form method="post" className="inline-block w-full overflow-hidden bg-background p-1 text-left align-bottom sm:align-middle">
-        <input name="action" type="hidden" value="create" readOnly hidden />
+      <form action={handleSubmit} className="inline-block w-full overflow-hidden bg-background p-1 text-left align-bottom sm:align-middle">
         <div className="mt-3 text-center sm:mt-5">
           <h3 className="text-lg font-medium leading-6 text-foreground">Create onboarding</h3>
         </div>

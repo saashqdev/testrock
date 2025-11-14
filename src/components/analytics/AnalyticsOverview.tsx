@@ -236,7 +236,14 @@ export default function AnalyticsOverview({ overview, withUsers, rootUrl }: { ov
                         <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
                       </svg>
                     ) : (
-                      <Image className="h-4 w-4" src={`http://www.google.com/s2/favicons?domain=${item.name}&sz=256`} alt={item.name} />
+                      <Image 
+                        className="h-4 w-4" 
+                        src={`https://www.google.com/s2/favicons?domain=${item.name}&sz=256`} 
+                        alt={item.name ?? "favicon"} 
+                        width={16} 
+                        height={16}
+                        unoptimized
+                      />
                     ),
                   name: UrlUtils.stripTrailingSlash(item.name?.replace("https://", "").replace("http://", "").replace("www.", "") ?? ""),
                   count: item.count,

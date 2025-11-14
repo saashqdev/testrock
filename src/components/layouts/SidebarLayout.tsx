@@ -75,6 +75,7 @@ export default function SidebarLayout({ layout, children, menuItems, className =
       {/* <WarningBanner title="Onboarding" text={appOrAdminData?.onboarding?.onboarding.title ?? "No onboarding"} /> */}
 
       <div
+        suppressHydrationWarning
         className={clsx("text-foreground bg-secondary/90 flex overflow-hidden", className)}
         style={{
           colorScheme: "light",
@@ -234,6 +235,12 @@ function NavBar({
   const appOrAdminData = useAppOrAdminData();
   const rootData = useRootData();
   const router = useRouter();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <div className="flex flex-1 justify-between space-x-2 px-3">
       <div className="flex flex-1 items-center">
@@ -244,10 +251,10 @@ function NavBar({
           <OnboardingButton item={appOrAdminData?.onboardingSession} onClick={onOpenOnboardingModal} />
         )}
         {layout === "app" && buttons.mySubscription && <CurrentSubscriptionButton />}
-        {buttons.notifications && appOrAdminData?.user && (
+        {isMounted && buttons.notifications && appOrAdminData?.user && rootData?.appConfiguration?.notifications?.novuAppId && (
           <Inbox
-            applicationIdentifier={rootData?.appConfiguration?.notifications?.novuAppId || ""}
-            subscriberId={appOrAdminData?.user.id || ""}
+            applicationIdentifier={rootData.appConfiguration.notifications.novuAppId}
+            subscriberId={appOrAdminData.user.id}
             routerPush={(path: string) => router.push(path)}
           />
         )}

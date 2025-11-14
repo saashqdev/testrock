@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Transition } from "@headlessui/react";
 import { usePathname } from "next/navigation";
 import Logo from "@/components/brand/Logo";
@@ -19,8 +19,18 @@ import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import ButtonTertiary from "@/components/ui/buttons/ButtonTertiary";
 
 export default function HeaderVariantSimple({ item, width = "7xl" }: { item: HeaderBlockDto; width?: "screen-2xl" | "7xl" }) {
-  const { authenticated, appConfiguration, user, theme } = useRootData();
+  const rootData = useRootData();
   const { t } = useTranslation();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const authenticated = mounted ? rootData.authenticated : false;
+  const appConfiguration = rootData.appConfiguration;
+  const user = mounted ? rootData.user : null;
+  const theme = mounted ? rootData.theme : undefined;
 
   const hasProfileButton = appConfiguration?.app.features.tenantHome === "/";
 

@@ -12,6 +12,7 @@ import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 import SlideOverWideEmpty from "@/components/ui/slideOvers/SlideOverWideEmpty";
 import UserEditForm from "@/components/core/users/UserEditForm";
 import UserCreateForm from "@/components/core/users/UserCreateForm";
+import UserRolesForm from "@/components/core/users/UserRolesForm";
 import { UserWithDetailsDto } from "@/db/models/accounts/UsersModel";
 import { FilterablePropertyDto } from "@/lib/dtos/data/FilterablePropertyDto";
 import { PaginationDto } from "@/lib/dtos/data/PaginationDto";
@@ -32,7 +33,7 @@ export default function Component({ items, filterableProperties, pagination, las
   const router = useRouter();
   const searchParams = useSearchParams();
   const modalType = searchParams?.get("modal");
-  const isModalOpen = modalType === "edit" || modalType === "new";
+  const isModalOpen = modalType === "edit" || modalType === "new" || modalType === "roles";
   const selectedUserId = searchParams?.get("userId");
   const selectedUser = items.find(item => item.id === selectedUserId);
 
@@ -71,10 +72,24 @@ export default function Component({ items, filterableProperties, pagination, las
           newSearchParams.set("userId", user.id);
           router.push(`?${newSearchParams.toString()}`);
         }}
+        onSetRoles={(user) => {
+          const newSearchParams = new URLSearchParams(searchParams?.toString() || "");
+          newSearchParams.set("modal", "roles");
+          newSearchParams.set("userId", user.id);
+          router.push(`?${newSearchParams.toString()}`);
+        }}
       />
 
       <SlideOverWideEmpty
-        title={modalType === "new" ? t("shared.new") + " " + t("models.user.object") : selectedUser ? `${t("shared.edit")} ${selectedUser.email}` : "Edit User"}
+        title={
+          modalType === "new" 
+            ? t("shared.new") + " " + t("models.user.object") 
+            : modalType === "roles" && selectedUser
+            ? t("admin.users.setAdminRoles") + " - " + selectedUser.email
+            : selectedUser 
+            ? `${t("shared.edit")} ${selectedUser.email}` 
+            : "Edit User"
+        }
         open={isModalOpen}
         onClose={() => {
           const newSearchParams = new URLSearchParams(searchParams?.toString() || "");
@@ -97,6 +112,24 @@ export default function Component({ items, filterableProperties, pagination, las
             onCancel={() => {
               const newSearchParams = new URLSearchParams(searchParams?.toString() || "");
               newSearchParams.delete("modal");
+              router.replace(`?${newSearchParams.toString()}`);
+            }}
+          />
+        ) : modalType === "roles" && selectedUser ? (
+          <UserRolesForm
+            user={selectedUser}
+            adminRoles={adminRoles}
+            onSuccess={() => {
+              const newSearchParams = new URLSearchParams(searchParams?.toString() || "");
+              newSearchParams.delete("modal");
+              newSearchParams.delete("userId");
+              router.replace(`?${newSearchParams.toString()}`);
+              router.refresh();
+            }}
+            onCancel={() => {
+              const newSearchParams = new URLSearchParams(searchParams?.toString() || "");
+              newSearchParams.delete("modal");
+              newSearchParams.delete("userId");
               router.replace(`?${newSearchParams.toString()}`);
             }}
           />

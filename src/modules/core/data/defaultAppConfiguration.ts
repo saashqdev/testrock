@@ -57,7 +57,7 @@ export const defaultAppConfiguration: AppConfigurationDto = {
     },
   },
   analytics: {
-    enabled: false,
+    enabled: true,
     googleAnalyticsTrackingId: "",
     simpleAnalytics: true,
     plausibleAnalytics: false,

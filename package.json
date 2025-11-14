@@ -23,6 +23,7 @@
     "@heroicons/react": "^2.2.0",
     "@monaco-editor/react": "^4.7.0",
     "@novu/api": "^1.7.1",
+    "@novu/nextjs": "^3.11.0",
     "@novu/react": "^3.11.0",
     "@novu/shared": "^2.6.6",
     "@paralleldrive/cuid2": "^2.2.2",

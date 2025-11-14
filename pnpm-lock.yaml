@@ -38,6 +38,9 @@ importers:
       '@novu/api':
         specifier: ^1.7.1
         version: 1.8.0
+      '@novu/nextjs':
+        specifier: ^3.11.0
+        version: 3.11.0(next@15.5.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@novu/react':
         specifier: ^3.11.0
         version: 3.11.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -1230,6 +1233,16 @@ packages:
 
   '@novu/js@3.11.0':
     resolution: {integrity: sha512-9GV0lb5n3Cf9vTfKgm/UzBnCm/+fcpFiqnSyuDd4lbI7BpdDbcDx5vz+XhvFhnJwtw+d1c9wTKTu5Q8xsplG7Q==}
+
+  '@novu/nextjs@3.11.0':
+    resolution: {integrity: sha512-1zjWcQdSXWWGKmA8prnCr8htReSgdI8flfsSStCaaH6tHVO69HSvvLwl+msM2NZeyUELntdqPguIPsAkZR8jqg==}
+    peerDependencies:
+      next: '>=13.5.2 || ^14.0.0 || ^15.0.0'
+      react: ^19.2.0
+      react-dom: ^19.2.0
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
 
   '@novu/react@3.11.0':
     resolution: {integrity: sha512-VoDh2DNjyP8JuzsLUXc5md9UEWF1MTQamMWjYeEv8WxUtDuYBkYGYjs7x/80kZXZ0wBJDuPsstypYUzjhsOwnw==}
@@ -6372,6 +6385,18 @@ snapshots:
       solid-js: 1.9.10
       solid-motionone: 1.0.4(solid-js@1.9.10)
       tailwind-merge: 2.6.0
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
+  '@novu/nextjs@3.11.0(next@15.5.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+    dependencies:
+      '@novu/react': 3.11.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      next: 15.5.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      react: 19.2.0
+    optionalDependencies:
+      react-dom: 19.2.0(react@19.2.0)
     transitivePeerDependencies:
       - bufferutil
       - supports-color

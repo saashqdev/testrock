@@ -5,7 +5,7 @@ import { useActionState, useEffect, useRef, useState } from "react";
 import LoadingButton from "@/components/ui/buttons/LoadingButton";
 import { Input } from "@/components/ui/input";
 import { actionNewAccount } from "@/app/new-account/page";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 export default function TenantNewForm() {
   const { t } = useTranslation();

@@ -237,7 +237,7 @@ export async function addTenantUser({ tenantId, userId, roles }: { tenantId: str
   }
   await Promise.all(
     roles.map(async (role) => {
-      return await db.userRoles.createUserRole(userId, tenantId);
+      return await db.userRoles.createUserRole(userId, role.id, tenantId);
     })
   );
 

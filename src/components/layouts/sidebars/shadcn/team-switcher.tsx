@@ -76,7 +76,7 @@ export function TeamSwitcher({ tenants, size = "md" }: { tenants: TenantDto[]; s
             <DropdownMenuLabel className="text-muted-foreground text-xs">{t("models.tenant.plural")}</DropdownMenuLabel>
             {tenants.map((tenant, index) => (
               <DropdownMenuItem
-                key={tenant.name}
+                key={tenant.id}
                 onClick={() => {
                   router.push(
                     pathname

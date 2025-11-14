@@ -28,8 +28,9 @@ interface Props {
   pagination?: PaginationDto;
   lastLogs?: { userId: string; log: LogsModel }[];
   onView?: (user: UserWithDetailsDto) => void;
+  onSetRoles?: (user: UserWithDetailsDto) => void;
 }
-export default function UsersTable({ items, canImpersonate, canChangePassword, canSetUserRoles, canDelete, pagination, lastLogs, onView }: Props) {
+export default function UsersTable({ items, canImpersonate, canChangePassword, canSetUserRoles, canDelete, pagination, lastLogs, onView, onSetRoles }: Props) {
   const { t } = useTranslation();
 
   const confirmDelete = useRef<RefConfirmModal>(null);
@@ -150,10 +151,10 @@ export default function UsersTable({ items, canImpersonate, canChangePassword, c
         disabled: (_) => !canChangePassword,
       });
     }
-    if (canSetUserRoles) {
+    if (canSetUserRoles && onSetRoles) {
       actions.push({
         title: t("admin.users.setAdminRoles"),
-        onClickRoute: (_, item) => `/admin/accounts/users/${item.email}/roles`,
+        onClick: (_, item) => onSetRoles(item),
       });
     }
     if (canDelete) {
@@ -169,7 +170,7 @@ export default function UsersTable({ items, canImpersonate, canChangePassword, c
     setHeaders(headers);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items, lastLogs, t, onView]);
+  }, [items, lastLogs, t, onView, onSetRoles]);
 
   function impersonate(user: UserWithDetailsDto) {
     const form = new FormData();

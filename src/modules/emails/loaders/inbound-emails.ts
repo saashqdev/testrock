@@ -74,7 +74,7 @@ export const loaderEmails = async (props: IServerComponentsProps, tenantId: stri
     },
   ];
   const filters = getFiltersFromCurrentUrl(request, filterableProperties);
-  const urlSearchParams = new URL(request.url).searchParams;
+  const urlSearchParams = request?.url ? new URL(request.url).searchParams : new URLSearchParams();
   const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
 
   const { items, pagination } = await db.emails.getAllEmails("inbound", currentPagination, filters, tenantId);

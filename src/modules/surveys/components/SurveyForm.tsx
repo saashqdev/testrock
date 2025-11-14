@@ -9,7 +9,6 @@ import { SurveyWithDetailsDto } from "@/db/models/helpDesk/SurveysModel";
 import SurveyItemsList from "./SurveyItemsList";
 import { SurveyDto } from "../dtos/SurveyDtos";
 import SurveyUtils from "../utils/SurveyUtils";
-import InputCheckbox from "@/components/ui/input/InputCheckbox";
 import InputCheckboxWithDescription from "@/components/ui/input/InputCheckboxWithDescription";
 import InputNumber from "@/components/ui/input/InputNumber";
 
@@ -20,29 +19,30 @@ interface Props {
 }
 export default function SurveyForm({ item, action, pending }: Props) {
   const { t } = useTranslation();
-  const [state, setState] = useState<SurveyDto>(
-    item
-      ? SurveyUtils.surveyToDto(item)
-      : {
-          id: "",
-          title: "",
-          slug: "",
-          description: "",
-          items: [],
-          isEnabled: true,
-          isPublic: false,
-          createdAt: new Date(),
-          minSubmissions: 50,
-          image: "",
-        }
-  );
+  const [state, setState] = useState<SurveyDto>(() => {
+    if (item) {
+      return SurveyUtils.surveyToDto(item);
+    }
+    return {
+      id: "",
+      title: "",
+      slug: "",
+      description: "",
+      items: [],
+      isEnabled: true,
+      isPublic: false,
+      createdAt: new Date(),
+      minSubmissions: 50,
+      image: "",
+    };
+  });
   return (
     <div>
-      <form method="post" action={action}>
-        <input type="hidden" name="action" value={!item ? "create" : "edit"} readOnly hidden />
-        <input type="hidden" name="id" value={item?.id || ""} readOnly hidden />
-        <input type="hidden" name="tenantId" value={item?.tenantId || ""} readOnly hidden />
-        <input type="hidden" name="item" value={JSON.stringify(state)} readOnly hidden />
+      <form method="post" action={action} suppressHydrationWarning>
+        <input type="hidden" name="action" value={!item ? "create" : "edit"} readOnly suppressHydrationWarning />
+        <input type="hidden" name="id" value={item?.id || ""} readOnly suppressHydrationWarning />
+        <input type="hidden" name="tenantId" value={item?.tenantId || ""} readOnly suppressHydrationWarning />
+        <input type="hidden" name="item" value={JSON.stringify(state)} readOnly suppressHydrationWarning />
 
         <div className="space-y-2">
           <div className="flex items-center space-x-2">

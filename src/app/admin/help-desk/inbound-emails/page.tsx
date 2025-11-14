@@ -14,4 +14,7 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   };
 }
 
-export default InboundEmailsRoute;
+export default async function InboundEmailsPageWrapper(props: IServerComponentsProps) {
+  const data = await loader(props);
+  return <InboundEmailsRoute data={data} />;
+}
