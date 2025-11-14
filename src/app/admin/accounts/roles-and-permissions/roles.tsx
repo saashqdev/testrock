@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter, useParams, useSearchParams } from "next/navigation";
 import RolesTable from "@/components/core/roles/RolesTable";
 import { RoleWithPermissionsAndUsersDto } from "@/db/models/permissions/RolesModel";
 import { useAdminData } from "@/lib/state/useAdminData";
@@ -8,6 +9,9 @@ import InputFilters from "@/components/ui/input/InputFilters";
 import InputSearchWithURL from "@/components/ui/input/InputSearchWithURL";
 import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import { getUserHasPermission } from "@/lib/helpers/PermissionsHelper";
+import SlideOverWideEmpty from "@/components/ui/slideOvers/SlideOverWideEmpty";
+import { useTranslation } from "react-i18next";
+import { ReactNode } from "react";
 
 type LoaderData = {
   title: string;
@@ -17,10 +21,18 @@ type LoaderData = {
 
 interface RolesClientProps {
   data: LoaderData;
+  children?: ReactNode;
 }
 
-export default function RolesClient({ data }: RolesClientProps) {
+export default function RolesClient({ data, children }: RolesClientProps) {
+  const { t } = useTranslation();
   const adminData = useAdminData();
+  const router = useRouter();
+  const params = useParams();
+  const searchParams = useSearchParams();
+  
+  // Check if we're in a nested route (new or edit)
+  const isNestedRoute = !!children;
 
   return (
     <div className="space-y-2">
@@ -35,6 +47,20 @@ export default function RolesClient({ data }: RolesClientProps) {
       </div>
       {/* <InputSearchWithURL onNewRoute={getUserHasPermission(adminData, "admin.roles.create") ? "new" : undefined} /> */}
       <RolesTable items={data.items} canUpdate={getUserHasPermission(adminData, "admin.roles.update")} />
+
+      <SlideOverWideEmpty
+        title={params.id ? t("shared.edit") : t("shared.new")}
+        open={isNestedRoute}
+        onClose={() => {
+          router.push("/admin/accounts/roles-and-permissions/roles");
+        }}
+        className="sm:max-w-lg"
+        overflowYScroll={true}
+      >
+        <div className="-mx-1 -mt-3">
+          <div className="space-y-4">{children}</div>
+        </div>
+      </SlideOverWideEmpty>
     </div>
   );
 }
