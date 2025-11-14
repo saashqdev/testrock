@@ -66,11 +66,10 @@ export default function AccountUsersView({ tenants }: AccountUsersViewProps) {
           {
             name: "createdAt",
             title: t("shared.createdAt"),
-            value: (i) => i.createdAt,
-            formattedValue: (item) => (
+            value: (i) => (
               <div className="flex flex-col">
-                <div>{DateUtils.dateYMD(item.createdAt)}</div>
-                <div className="text-xs">{DateUtils.dateAgo(item.createdAt)}</div>
+                <div>{DateUtils.dateYMD(i.createdAt)}</div>
+                <div className="text-xs">{DateUtils.dateAgo(i.createdAt)}</div>
               </div>
             ),
           },

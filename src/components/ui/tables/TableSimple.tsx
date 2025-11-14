@@ -418,6 +418,8 @@ export interface RowHeaderActionDto<T> {
 }
 
 function displayRowValue<T>(t: TFunction, header: RowHeaderDisplayDto<T>, item: T, idxRow: number) {
+  const displayValue = header.formattedValue ? header.formattedValue(item, idxRow) : header.value(item, idxRow);
+  
   return (
     <>
       {!header.onChange ? (
@@ -430,10 +432,10 @@ function displayRowValue<T>(t: TFunction, header: RowHeaderDisplayDto<T>, item: 
               href={header.href(item) ?? ""}
               className="rounded-md border-b border-dashed border-transparent hover:border-gray-400 focus:bg-gray-100"
             >
-              <span>{header.value(item, idxRow)}</span>
+              <span>{displayValue}</span>
             </Link>
           ) : (
-            <span>{header.value(item, idxRow)}</span>
+            <span>{displayValue}</span>
           )}
         </>
       ) : (

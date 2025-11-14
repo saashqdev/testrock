@@ -63,8 +63,6 @@ export namespace RolesPermissionsSeed {
   };
 
   export const action = async (formData: FormData, props?: IServerComponentsProps): Promise<ActionData> => {
-    "use server";
-    
     await verifyUserHasPermission("admin.roles.update");
     const { t } = await getServerTranslations();
     const actionType = formData.get("action");

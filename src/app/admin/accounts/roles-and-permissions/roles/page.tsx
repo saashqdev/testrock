@@ -8,11 +8,13 @@ import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
 import RolesClient from "./component";
+import { PermissionsWithRolesDto } from "@/db/models";
 
 type LoaderData = {
   title: string;
   items: RoleWithPermissionsAndUsersDto[];
   filterableProperties: FilterablePropertyDto[];
+  permissions: PermissionsWithRolesDto[];
 };
 
 async function getData(props: IServerComponentsProps): Promise<LoaderData> {
@@ -39,11 +41,13 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
   ];
   const filters = getFiltersFromCurrentUrl(request, filterableProperties);
   const items = await time(db.roles.getAllRolesWithUsers(undefined, filters), "getAllRolesWithUsers");
+  const permissions = await time(db.permissions.getAllPermissions(), "getAllPermissions");
 
   const data: LoaderData = {
     title: `${t("models.role.plural")} | ${process.env.APP_NAME}`,
     items,
     filterableProperties,
+    permissions,
   };
   return data;
 }

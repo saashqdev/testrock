@@ -11,7 +11,7 @@ import TableSimple from "@/components/ui/tables/TableSimple";
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 import { toast } from "sonner";
 import { RolesPermissionsSeed } from "./seed.server";
-import { action } from "./page";
+import { seedRolesPermissionsAction } from "./actions";
 
 interface Props {
   data: RolesPermissionsSeed.LoaderData;
@@ -24,7 +24,7 @@ export default function RolesPermissionsSeedView({ data }: Props) {
 
   const [actionData, formAction, pending] = useActionState(
     async (_state: RolesPermissionsSeed.ActionData | null, formData: FormData) => {
-      return await action(formData);
+      return await seedRolesPermissionsAction(formData);
     },
     null
   );

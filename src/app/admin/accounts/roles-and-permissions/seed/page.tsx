@@ -11,9 +11,6 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   };
 }
 
-export const loader = (props: IServerComponentsProps) => RolesPermissionsSeed.loader(props);
-export const action = (formData: FormData, props?: IServerComponentsProps) => RolesPermissionsSeed.action(formData, props);
-
 export default async function Page(props: IServerComponentsProps) {
   const data = await RolesPermissionsSeed.loader(props);
   return <RolesPermissionsSeedView data={data} />;

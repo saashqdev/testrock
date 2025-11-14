@@ -29,7 +29,7 @@ export default async function AccountsLayout({ children }: { children: React.Rea
         },
         {
           name: t("app.sidebar.rolesAndPermissions"),
-          href: "/admin/accounts/roles-and-permissions",
+          href: "/admin/accounts/roles-and-permissions/roles",
           icon: <LockIcon className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
           iconSelected: <LockIcon className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
         },

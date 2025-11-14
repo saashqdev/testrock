@@ -1,18 +1,20 @@
 import { Metadata } from "next";
 import { getServerTranslations } from "@/i18n/server";
 import { PermissionsWithRolesDto } from "@/db/models";
-import { getFiltersFromCurrentUrl } from "@/lib/helpers/RowPaginationHelper";
 import { FilterablePropertyDto } from "@/lib/dtos/data/FilterablePropertyDto";
+import { getFiltersFromCurrentUrl } from "@/lib/helpers/RowPaginationHelper";
 import { createMetrics } from "@/modules/metrics/services/server/MetricTracker";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
-import PermissionsClient from "@/app/admin/accounts/roles-and-permissions/permissions/component";
+import PermissionsClient from "./component";
+import { RoleWithPermissionsDto } from "@/db/models/permissions/RolesModel";
 
 type LoaderData = {
   title: string;
   items: PermissionsWithRolesDto[];
   filterableProperties: FilterablePropertyDto[];
+  roles: RoleWithPermissionsDto[];
 };
 
 async function getData(props: IServerComponentsProps): Promise<LoaderData> {
@@ -39,11 +41,13 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
   ];
   const filters = getFiltersFromCurrentUrl(request, filterableProperties);
   const items = await time(db.permissions.getAllPermissions(undefined, filters), "getAllPermissions");
+  const roles = await time(db.roles.getAllRoles(), "getAllRoles");
 
   const data: LoaderData = {
     title: `${t("models.permission.plural")} | ${process.env.APP_NAME}`,
     items,
     filterableProperties,
+    roles,
   };
   return data;
 }
