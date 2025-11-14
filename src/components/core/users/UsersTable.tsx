@@ -27,8 +27,9 @@ interface Props {
   canDelete: boolean;
   pagination?: PaginationDto;
   lastLogs?: { userId: string; log: LogsModel }[];
+  onView?: (user: UserWithDetailsDto) => void;
 }
-export default function UsersTable({ items, canImpersonate, canChangePassword, canSetUserRoles, canDelete, pagination, lastLogs }: Props) {
+export default function UsersTable({ items, canImpersonate, canChangePassword, canSetUserRoles, canDelete, pagination, lastLogs, onView }: Props) {
   const { t } = useTranslation();
 
   const confirmDelete = useRef<RefConfirmModal>(null);
@@ -129,6 +130,12 @@ export default function UsersTable({ items, canImpersonate, canChangePassword, c
     ];
 
     const actions: RowHeaderActionDto<UserWithDetailsDto>[] = [];
+    if (onView) {
+      actions.push({
+        title: t("shared.view"),
+        onClick: (_, item) => onView(item),
+      });
+    }
     if (canImpersonate) {
       actions.push({
         title: t("models.user.impersonate"),
@@ -162,7 +169,7 @@ export default function UsersTable({ items, canImpersonate, canChangePassword, c
     setHeaders(headers);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items, lastLogs, t]);
+  }, [items, lastLogs, t, onView]);
 
   function impersonate(user: UserWithDetailsDto) {
     const form = new FormData();

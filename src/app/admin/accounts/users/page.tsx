@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
 import { getServerTranslations } from "@/i18n/server";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
@@ -72,12 +73,17 @@ export default async function AdminUsersPage(props: IServerComponentsProps) {
     .filter((entry) => entry !== null)
     .map((entry) => entry as { userId: string; log: any });
 
+  const adminRoles = await db.roles.getAllRoles("admin");
+
   return (
-    <Component
-      items={items}
-      filterableProperties={filterableProperties}
-      pagination={pagination}
-      lastLogs={lastLogs}
-    />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Component
+        items={items}
+        filterableProperties={filterableProperties}
+        pagination={pagination}
+        lastLogs={lastLogs}
+        adminRoles={adminRoles}
+      />
+    </Suspense>
   );
 }
