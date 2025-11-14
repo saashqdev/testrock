@@ -28,7 +28,7 @@ export default function PermissionsTable({ items, className, canCreate, canUpdat
       setActions([
         {
           title: t("shared.edit"),
-          onClickRoute: (_: any, item: any) => item.id,
+          onClickRoute: (_: any, item: any) => `?modal=edit&permissionId=${item.id}`,
         },
       ]);
     }

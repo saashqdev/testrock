@@ -32,7 +32,7 @@ export default function RolesTable({ items, canUpdate = true, tenantId = null }:
       setActions([
         {
           title: t("shared.edit"),
-          onClickRoute: (_: any, item: any) => item.id,
+          onClickRoute: (_: any, item: any) => `?modal=edit&roleId=${item.id}`,
         },
       ]);
     }
