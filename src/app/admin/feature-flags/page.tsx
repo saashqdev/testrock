@@ -1,6 +1,6 @@
 import { prisma } from "@/db/config/prisma/database";
-import { db } from "@/db";
 import FeatureFlagsOverview from "./FeatureFlagsOverview";
+import { db } from "@/db";
 
 type LoaderData = {
   summary: {

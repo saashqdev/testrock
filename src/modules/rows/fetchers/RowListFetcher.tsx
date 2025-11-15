@@ -75,14 +75,29 @@ export default function RowListFetcher({ currentView, listUrl, newUrl, parentEnt
   }, [listUrl, fetchData]);
 
   useEffect(() => {
-    let url = listUrl;
-    if (currentView) {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("v", currentView.name);
-      url = listUrl + "?" + params.toString();
-    } else {
-      url = listUrl + "?" + searchParams.toString();
+    // Extract entity slug and tenant from listUrl path
+    // listUrl format: /app/{tenant}/{entity} or /admin/entities/{entity}/no-code/{entity}
+    let entitySlug = "";
+    let tenantSlug = "";
+    
+    const listUrlMatch = listUrl.match(/\/app\/([^\/]+)\/([^\/\?]+)|\/admin\/entities\/([^\/]+)/);
+    if (listUrlMatch) {
+      tenantSlug = listUrlMatch[1] || "";
+      entitySlug = listUrlMatch[2] || listUrlMatch[3] || "";
     }
+    
+    const params = new URLSearchParams(searchParams?.toString() ?? "");
+    if (entitySlug) {
+      params.set("entity", entitySlug);
+    }
+    if (tenantSlug) {
+      params.set("tenant", tenantSlug);
+    }
+    if (currentView) {
+      params.set("v", currentView.name);
+    }
+    
+    const url = `/api/rows/fetch?${params.toString()}`;
     fetchData(url);
   }, [searchParams, currentView, listUrl, fetchData]);
 

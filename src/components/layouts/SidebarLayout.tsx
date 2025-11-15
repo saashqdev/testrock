@@ -251,7 +251,7 @@ function NavBar({
           <OnboardingButton item={appOrAdminData?.onboardingSession} onClick={onOpenOnboardingModal} />
         )}
         {layout === "app" && buttons.mySubscription && <CurrentSubscriptionButton />}
-        {isMounted && buttons.notifications && appOrAdminData?.user && rootData?.appConfiguration?.notifications?.novuAppId && (
+        {buttons.notifications && appOrAdminData?.user && rootData?.appConfiguration?.notifications?.novuAppId && isMounted && (
           <Inbox
             applicationIdentifier={rootData.appConfiguration.notifications.novuAppId}
             subscriberId={appOrAdminData.user.id}

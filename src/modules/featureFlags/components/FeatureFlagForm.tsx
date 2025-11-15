@@ -105,7 +105,7 @@ export default function FeatureFlagForm({
         onClose={() => {
           router.push("/admin/feature-flags/flags");
         }}
-        className="sm:max-w-sm"
+        size="2xl"
         overflowYScroll={true}
       >
         <form action={formAction} className="inline-block w-full overflow-hidden p-1 text-left align-bottom sm:align-middle">

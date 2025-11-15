@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useEditor, EditorContent, UseEditorOptions } from "@tiptap/react";
 import { TiptapEditorProps } from "./props";
@@ -48,6 +50,12 @@ export default function NovelEditor({
   } | null>(null);
 
   const [hydrated, setHydrated] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Ensure component only renders on client to prevent hydration mismatch
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const debouncedUpdates = useCallback(
     ({ editor }: { editor: Editor }) => {
@@ -189,6 +197,12 @@ export default function NovelEditor({
   function getPromptFlows() {
     return promptFlows?.prompts?.filter((f) => f.inputVariables.find((f) => f.name === "selectedText"));
   }
+
+  // Prevent hydration mismatch by not rendering until client-side mounted
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <div
       onClick={() => {

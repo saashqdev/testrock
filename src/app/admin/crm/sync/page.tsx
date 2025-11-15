@@ -11,13 +11,12 @@ type LoaderData = {
 };
 
 async function getLoaderData(props: IServerComponentsProps): Promise<LoaderData> {
-  const request = props.request!;
-  const params = (await props.params) || {};
+  const params = await props.params;
+  const searchParams = await props.searchParams;
   await requireAuth();
-  await getTenantIdOrNull({ request, params });
-  const searchParams = new URL(request.url).searchParams;
+  await getTenantIdOrNull({ request: props.request, params: params || {} });
   const usersInCrm = await CrmService.getUsersInCrm({
-    invalidateCache: searchParams.get("cache") === "clear",
+    invalidateCache: searchParams?.cache === "clear",
   });
   const data: LoaderData = {
     users: usersInCrm,

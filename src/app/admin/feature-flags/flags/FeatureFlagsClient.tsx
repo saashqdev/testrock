@@ -1,6 +1,6 @@
 "use client";
 
-import { FeatureFlag } from "@prisma/client";
+import { FeatureFlagsModel } from "@/db/models";
 import { FeatureFlagWithEventsDto } from "@/db/models/featureFlags/FeatureFlagsModel";
 import SimpleBadge from "@/components/ui/badges/SimpleBadge";
 import { Colors } from "@/lib/enums/shared/Colors";
@@ -33,7 +33,7 @@ export default function FeatureFlagsClient({ items }: FeatureFlagsClientProps) {
     return items.filter((item) => item.enabled === enabled).length;
   }
 
-  function onToggle(item: FeatureFlag, enabled: boolean) {
+  function onToggle(item: FeatureFlagsModel, enabled: boolean) {
     startTransition(async () => {
       await toggleFeatureFlag(item.id, enabled);
     });

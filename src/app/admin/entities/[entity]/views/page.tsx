@@ -35,12 +35,7 @@ export default async function EditEntityIndexRoute(props: IServerComponentsProps
       <h3 className="text-foreground text-sm font-medium leading-3">Views</h3>
       <div>
         <div className="space-y-2">
-          <EntityViewsTable
-            items={data.items}
-            onClickRoute={(i) => {
-              return `/admin/entities/views/${i.id}`;
-            }}
-          />
+          <EntityViewsTable items={data.items} />
 
           <Link
             href={`/admin/entities/views/new/${data.entity.name}`}

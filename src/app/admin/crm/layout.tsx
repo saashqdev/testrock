@@ -30,17 +30,25 @@ export default ({ children }: { children: React.ReactNode }) => {
       iconSelected: <IncreaseIconFilled className="h-5 w-5" />,
     },
   ];
-  ["opportunities", "companies", "contacts", "submissions"].forEach((slug) => {
+  
+  // Always show these CRM entities in the sidenav
+  const crmEntities = [
+    { slug: "opportunities", defaultTitle: "Opportunities" },
+    { slug: "companies", defaultTitle: "Companies" },
+    { slug: "contacts", defaultTitle: "Contacts" },
+    { slug: "submissions", defaultTitle: "Submissions" },
+  ];
+  
+  crmEntities.forEach(({ slug, defaultTitle }) => {
     const entity = appOrAdminData?.entities.find((x) => x.slug === slug);
-    if (entity) {
-      items.push({
-        name: t(entity.titlePlural),
-        href: params.tenant ? `/app/${params.tenant}/crm/${slug}` : `/admin/crm/${slug}`,
-        icon: getIcons(entity.slug)?.icon,
-        iconSelected: getIcons(entity.slug)?.iconSelected,
-      });
-    }
+    items.push({
+      name: entity ? t(entity.titlePlural) : defaultTitle,
+      href: params.tenant ? `/app/${params.tenant}/crm/${slug}` : `/admin/crm/${slug}`,
+      icon: getIcons(slug)?.icon,
+      iconSelected: getIcons(slug)?.iconSelected,
+    });
   });
+  
   items.push({
     name: "Sync",
     href: params.tenant ? `/app/${params.tenant}/crm/sync` : `/admin/crm/sync`,

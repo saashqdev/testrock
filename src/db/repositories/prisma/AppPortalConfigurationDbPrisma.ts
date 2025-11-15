@@ -49,7 +49,7 @@ export class AppPortalConfigurationDbPrisma implements IAppPortalConfigurationDb
     ];
 
     const conf: AppPortalConfigurationDto = {
-      enabled: false,
+      enabled: true,
       forTenants: true,
       pricing: true,
       analytics: true,

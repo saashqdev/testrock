@@ -80,11 +80,12 @@ export namespace EntitiesApi {
 
     return errors;
   }
-  export function getNoCodeRoutes({ request, params }: { request: Request; params: { group?: string; tenant?: string } }): EntitiesApi.Routes {
-    const url = new URL(request.url);
+  export function getNoCodeRoutes({ request, params }: { request?: Request; params: { group?: string; tenant?: string } }): EntitiesApi.Routes {
+    const url = request ? new URL(request.url) : null;
+    const pathname = url?.pathname;
 
     if (params.group) {
-      if (url.pathname.startsWith(`/admin/g`)) {
+      if (pathname?.startsWith(`/admin/g`)) {
         const routes: EntitiesApi.Routes = {
           list: `/admin/g/${params.group}/:entity`,
           new: `/admin/g/${params.group}/:entity/new`,
@@ -96,7 +97,7 @@ export namespace EntitiesApi {
           group: `/admin/g/${params.group}`,
         };
         return routes;
-      } else if (url.pathname.startsWith(`/app/${params.tenant}/g`)) {
+      } else if (pathname?.startsWith(`/app/${params.tenant}/g`)) {
         const routes: EntitiesApi.Routes = {
           list: `/app/${params?.tenant}/g/${params.group}/:entity`,
           new: `/app/${params?.tenant}/g/${params.group}/:entity/new`,
@@ -109,7 +110,7 @@ export namespace EntitiesApi {
         };
         return routes;
       }
-    } else if (url.pathname.startsWith(`/admin/crm`)) {
+    } else if (pathname?.startsWith(`/admin/crm`)) {
       const routes: EntitiesApi.Routes = {
         list: `/admin/crm/:entity`,
         new: `/admin/crm/:entity/new`,
@@ -120,7 +121,7 @@ export namespace EntitiesApi {
         publicUrl: getBaseURL() + `/public/:entity/:id`,
       };
       return routes;
-    } else if (url.pathname.startsWith("/admin/")) {
+    } else if (pathname?.startsWith("/admin/")) {
       const routes: EntitiesApi.Routes = {
         list: `/admin/entities/:entity/no-code/:entity`,
         new: `/admin/entities/:entity/no-code/:entity/new`,
@@ -131,7 +132,7 @@ export namespace EntitiesApi {
         publicUrl: getBaseURL() + `/public/:entity/:id`,
       };
       return routes;
-    } else if (url.pathname.startsWith(`/app/${params?.tenant}/crm`)) {
+    } else if (pathname?.startsWith(`/app/${params?.tenant}/crm`)) {
       const routes: EntitiesApi.Routes = {
         list: `/app/${params?.tenant}/crm/:entity`,
         new: `/app/${params?.tenant}/crm/:entity/new`,

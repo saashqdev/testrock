@@ -26,7 +26,11 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 export const loader = (props: IServerComponentsProps) => Rows_New.loader(props);
 export const action = (props: IServerComponentsProps) => Rows_New.action(props);
 
-export default () => <RowNewRoute />;
+export default async function Page(props: IServerComponentsProps) {
+  const response = await Rows_New.loader(props);
+  const data = await response.json() as Rows_New.LoaderData;
+  return <RowNewRoute data={data} />;
+}
 
 export function ErrorBoundary() {
   return <ServerError />;

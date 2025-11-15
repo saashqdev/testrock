@@ -111,7 +111,6 @@ export default async function CrmIndexPage(props: IServerComponentsProps) {
             { name: RowDisplayDefaultProperty.CREATED_BY, title: t("shared.createdBy"), visible: true },
           ]}
           routes={data.routes}
-          onClickRoute={(i) => (params.tenant ? `/app/${params.tenant}/crm/opportunities/${i.id}` : `/admin/crm/opportunities/${i.id}`)}
         />
       </div>
 
@@ -132,7 +131,6 @@ export default async function CrmIndexPage(props: IServerComponentsProps) {
             { name: RowDisplayDefaultProperty.CREATED_AT, title: t("shared.createdAt"), visible: true },
           ]}
           routes={data.routes}
-          onClickRoute={(i) => (params.tenant ? `/app/${params.tenant}/crm/submissions/${i.id}` : `/admin/crm/submissions/${i.id}`)}
         />
       </div>
     </div>

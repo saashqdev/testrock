@@ -2,10 +2,13 @@ import { Metadata } from "next";
 import ServerError from "@/components/ui/errors/ServerError";
 import RowsViewRoute from "@/modules/rows/components/RowsViewRoute";
 import { Rows_List } from "@/modules/rows/routes/Rows_List.server";
-import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
-import { getEntityPermission, getUserHasPermission } from "@/lib/helpers/PermissionsHelper";
+import { getEntityPermission } from "@/lib/helpers/PermissionsHelper";
 import { serverTimingHeaders } from "@/modules/metrics/utils/defaultHeaders.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
+import { getUserInfo } from "@/lib/services/session.server";
+import { getUser } from "@/modules/accounts/services/UserService";
+import { db } from "@/db";
+import { DefaultAdminRoles } from "@/lib/dtos/shared/DefaultAdminRoles";
 
 export { serverTimingHeaders as headers };
 
@@ -31,7 +34,20 @@ export const action = (props: IServerComponentsProps) => Rows_List.action(props)
 export default async function (props: IServerComponentsProps) {
   const response = await Rows_List.loader(props);
   const data = await response.json() as Rows_List.LoaderData;
-  const appOrAdminData = useAppOrAdminData();
+  
+  // Fetch user data server-side
+  const userInfo = await getUserInfo();
+  const user = userInfo.userId ? await getUser(userInfo.userId) : null;
+  if (!user) {
+    throw new Error("User not found");
+  }
+  
+  // Check permissions server-side
+  const allPermissions = await db.userRoles.getPermissionsByUser(userInfo.userId, null);
+  const superAdminRole = await db.userRoles.getUserRoleInAdmin(userInfo.userId, DefaultAdminRoles.SuperAdmin);
+  const isSuperAdmin = !!superAdminRole;
+  const hasCreatePermission = allPermissions.some(p => p === getEntityPermission(data.rowsData.entity, "create")) || isSuperAdmin;
+  
   return (
     <RowsViewRoute
       key={data.rowsData.entity.id}
@@ -40,11 +56,11 @@ export default async function (props: IServerComponentsProps) {
       routes={data.routes}
       saveCustomViews={true}
       permissions={{
-        create: getUserHasPermission(appOrAdminData, getEntityPermission(data.rowsData.entity, "create")),
+        create: hasCreatePermission,
       }}
       currentSession={{
-        user: appOrAdminData?.user!,
-        isSuperAdmin: appOrAdminData?.isSuperAdmin ?? false,
+        user: user,
+        isSuperAdmin: isSuperAdmin,
       }}
     />
   );

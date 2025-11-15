@@ -1,6 +1,4 @@
-import { JsonPropertiesValuesDto } from "@/modules/jsonProperties/dtos/JsonPropertiesValuesDto";
 import { JsonPropertyDto } from "@/modules/jsonProperties/dtos/JsonPropertyTypeDto";
-import { Portal } from "@prisma/client";
 
 export type AppPortalConfigurationDto = {
   enabled: boolean;

@@ -19,7 +19,7 @@ export default function EntityViewsTable({
   onClickRoute,
 }: {
   items: EntityViewsWithTenantAndUserDto[];
-  onClickRoute: (item: EntityViewsWithTenantAndUserDto) => string;
+  onClickRoute?: (item: EntityViewsWithTenantAndUserDto) => string;
 }) {
   const { t } = useTranslation();
   return (
@@ -28,7 +28,7 @@ export default function EntityViewsTable({
       actions={[
         {
           title: t("shared.edit"),
-          onClickRoute: (_, i) => onClickRoute(i),
+          onClickRoute: onClickRoute ? (_, i) => onClickRoute(i) : (_, i) => `/admin/entities/views/${i.id}`,
         },
       ]}
       headers={[

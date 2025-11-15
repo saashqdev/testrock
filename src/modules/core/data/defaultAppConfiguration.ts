@@ -75,13 +75,13 @@ export const defaultAppConfiguration: AppConfigurationDto = {
     novuAppId: "",
   },
   onboarding: {
-    enabled: false,
+    enabled: true,
   },
   featureFlags: {
-    enabled: false,
+    enabled: true,
   },
   metrics: {
-    enabled: false,
+    enabled: true,
     logToConsole: true,
     saveToDatabase: false,
     ignoreUrls: ["/metrics", "/health", "/ping"],

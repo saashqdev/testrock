@@ -104,7 +104,6 @@ export default async function CrmIndexPage(props: IServerComponentsProps) {
             { name: RowDisplayDefaultProperty.CREATED_BY, title: t("shared.createdBy"), visible: true },
           ]}
           routes={data.routes}
-          onClickRoute={(i) => (params.tenant ? `/app/${params.tenant}/crm/opportunities/${i.id}` : `/admin/crm/opportunities/${i.id}`)}
         />
       </div>
     </div>

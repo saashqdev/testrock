@@ -74,7 +74,7 @@ export type AppConfigurationDto = {
     enabled: boolean;
   };
   featureFlags: {
-    enabled: boolean; // load all flags
+    enabled: boolean;
   };
   metrics: {
     enabled: boolean;

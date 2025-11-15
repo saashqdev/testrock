@@ -47,7 +47,7 @@ export default function Component({ items, filterableProperties, pagination, app
     <EditPageLayout title={t("models.portal.plural")}>
       {!appConfiguration.portals?.enabled && (
         <WarningBanner title={t("shared.warning")}>
-          Portals are not enabled. Enable it at <code className="font-bold">app/utils/db/appConfiguration.db.server.ts</code>.
+          Portals are not enabled. Enable it at <code className="font-bold">db/repositories/prisma/AppPortalConfigurationDbPrisma.ts</code>.
         </WarningBanner>
       )}
       <div className="space-y-2">
