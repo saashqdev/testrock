@@ -1,20 +1,24 @@
 import { redirect } from "next/navigation";
-import Link from "next/link";
-import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
+import { FilterablePropertyDto } from "@/lib/dtos/data/FilterablePropertyDto";
+import { PaginationDto } from "@/lib/dtos/data/PaginationDto";
 import { KnowledgeBaseArticleWithDetailsDto } from "@/db/models/knowledgeBase/KbArticlesModel";
 import { KnowledgeBaseDto } from "@/modules/knowledgeBase/dtos/KnowledgeBaseDto";
 import KnowledgeBaseService from "@/modules/knowledgeBase/service/KnowledgeBaseService.server";
-import KnowledgeBaseUtils from "@/modules/knowledgeBase/utils/KnowledgeBaseUtils";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
+import { getFiltersFromCurrentUrl, getPaginationFromCurrentUrl } from "@/lib/helpers/RowPaginationHelper";
+import { getUserInfo } from "@/lib/services/session.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
+import ArticlesClient from "./articles-client";
 import { db } from "@/db";
 
-type PageProps = {
+type LoaderData = {
   knowledgeBase: KnowledgeBaseDto;
   items: KnowledgeBaseArticleWithDetailsDto[];
+  pagination: PaginationDto;
+  filterableProperties: FilterablePropertyDto[];
 };
 
-async function getData(props: IServerComponentsProps): Promise<PageProps> {
+async function getData(props: IServerComponentsProps): Promise<LoaderData> {
   const params = (await props.params) || {};
   const request = props.request!;
   await verifyUserHasPermission("admin.kb.view");
@@ -23,46 +27,150 @@ async function getData(props: IServerComponentsProps): Promise<PageProps> {
     request,
   });
   if (!knowledgeBase) {
-    redirect("/admin/knowledge-base/bases");
+    return redirect("/admin/knowledge-base/bases");
   }
-  const items = await db.kbArticles.getAllKnowledgeBaseArticles({
+  
+  // Use default language if not specified
+  const defaultLang = knowledgeBase.defaultLanguage || knowledgeBase.languages[0] || 'en';
+  
+  const urlSearchParams = new URL(request.url).searchParams;
+  const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
+  const filterableProperties: FilterablePropertyDto[] = [
+    {
+      name: "title",
+      title: "Title",
+    },
+    {
+      name: "description",
+      title: "Description",
+    },
+    {
+      name: "categoryId",
+      title: "Category",
+      options: [
+        { value: "null", name: "{null}" },
+        ...(await db.kbCategories.getAllKnowledgeBaseCategories({ knowledgeBaseSlug: knowledgeBase.slug, language: defaultLang })).map((item) => {
+          return {
+            value: item.id,
+            name: item.title,
+          };
+        }),
+      ],
+    },
+    {
+      name: "content",
+      title: "Content",
+    },
+  ];
+  const filters = getFiltersFromCurrentUrl(request, filterableProperties);
+  const filtered = {
+    title: filters.properties.find((f) => f.name === "title")?.value ?? filters.query ?? undefined,
+    description: filters.properties.find((f) => f.name === "description")?.value ?? filters.query ?? undefined,
+    categoryId: filters.properties.find((f) => f.name === "categoryId")?.value ?? undefined,
+    content: filters.properties.find((f) => f.name === "content")?.value ?? filters.query ?? undefined,
+  };
+  const { items, pagination } = await db.kbArticles.getAllKnowledgeBaseArticlesWithPagination({
     knowledgeBaseSlug: params.slug!,
-    language: undefined,
+    language: defaultLang,
+    pagination: currentPagination,
+    filters: {
+      title: filtered.title,
+      description: filtered.description,
+      categoryId: filtered.categoryId === "null" ? null : filtered.categoryId,
+      content: filtered.content,
+    },
   });
-  return {
+  const data: LoaderData = {
     knowledgeBase,
     items,
+    pagination,
+    filterableProperties,
   };
+  return data;
+}
+
+// Server Actions
+async function handleNewArticle(kb: KnowledgeBaseDto, params: any, userId: string) {
+  "use server";
+  await verifyUserHasPermission(undefined as any, "admin.kb.create");
+  const defaultLang = kb.defaultLanguage || kb.languages[0] || 'en';
+  const created = await KnowledgeBaseService.newArticle({
+    kb,
+    params: { ...params, lang: defaultLang },
+    userId,
+    position: "last",
+  });
+  redirect(`/admin/knowledge-base/bases/${kb.slug}/articles/${defaultLang}/${created.id}/edit`);
+}
+
+async function handleDuplicate(kb: KnowledgeBaseDto, articleId: string) {
+  "use server";
+  await verifyUserHasPermission(undefined as any, "admin.kb.create");
+  const defaultLang = kb.defaultLanguage || kb.languages[0] || 'en';
+  const item = await KnowledgeBaseService.duplicateArticle({ kb, language: defaultLang, articleId });
+  redirect(`/admin/knowledge-base/bases/${kb.slug}/articles/${defaultLang}/${item.id}`);
+}
+
+async function handleToggleFeatured(itemId: string, isFeatured: boolean, kb: KnowledgeBaseDto) {
+  "use server";
+  await verifyUserHasPermission(undefined as any, "admin.kb.update");
+  
+  const item = await db.kbArticles.getKbArticleById(itemId);
+  if (!item) {
+    throw new Error("Not found");
+  }
+
+  let featuredOrder = item.featuredOrder;
+  if (isFeatured) {
+    if (!item.featuredOrder) {
+      const featuredArticles = await KnowledgeBaseService.getFeaturedArticles({
+        kb,
+        params: {},
+        request: undefined as any,
+      });
+      let maxOrder = 0;
+      if (featuredArticles.length > 0) {
+        maxOrder = Math.max(...featuredArticles.map((p) => p.featuredOrder ?? 0));
+      }
+      featuredOrder = maxOrder + 1;
+    }
+  } else {
+    featuredOrder = null;
+  }
+  await db.kbArticles.updateKnowledgeBaseArticle(item.id, {
+    featuredOrder,
+  });
 }
 
 export default async function ArticlesPage(props: IServerComponentsProps) {
-  const data = await getData(props);
   const params = (await props.params) || {};
+  const request = props.request!;
+  
+  await verifyUserHasPermission("admin.kb.view");
+  
+  const data = await getData(props);
+  const userInfo = await getUserInfo();
+  
+  // Add default language to params
+  const defaultLang = data.knowledgeBase.defaultLanguage || data.knowledgeBase.languages[0] || 'en';
+  const paramsWithLang = { ...params, lang: defaultLang };
+
   return (
-    <EditPageLayout
-      title="Articles"
-      withHome={false}
-      menu={[
-        { title: "Knowledge Bases", routePath: "/admin/knowledge-base/bases" },
-        { title: data.knowledgeBase.title, routePath: `/admin/knowledge-base/bases/${data.knowledgeBase.slug}` },
-        { title: "Articles", routePath: `/admin/knowledge-base/bases/${params.slug}/articles` },
-      ]}
-    >
-      <div className="space-y-2">
-        {data.knowledgeBase.languages.map((f) => {
-          return (
-            <div key={f} className="space-y-2">
-              <Link
-                href={f}
-                className="border-border hover:border-border relative block space-y-2 rounded-lg border-2 border-dashed px-12 py-6 text-center focus:border-solid focus:outline-hidden"
-              >
-                <div className="font-bold">{KnowledgeBaseUtils.getLanguageName(f)}</div>
-                <div className="text-sm">{data.items.filter((x) => x.language === f).length} articles</div>
-              </Link>
-            </div>
-          );
-        })}
-      </div>
-    </EditPageLayout>
+    <ArticlesClient 
+      data={data} 
+      params={paramsWithLang}
+      onNewArticle={async () => {
+        "use server";
+        await handleNewArticle(data.knowledgeBase, paramsWithLang, userInfo.userId);
+      }}
+      onDuplicate={async (articleId: string) => {
+        "use server";
+        await handleDuplicate(data.knowledgeBase, articleId);
+      }}
+      onToggleFeatured={async (itemId: string, isFeatured: boolean) => {
+        "use server";
+        await handleToggleFeatured(itemId, isFeatured, data.knowledgeBase);
+      }}
+    />
   );
 }

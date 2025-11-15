@@ -27,11 +27,13 @@ import Images from "next/image";
 export default function KnowledgeBaseForm({ 
   item, 
   onDelete, 
-  onSubmit 
+  onSubmit,
+  onCancel
 }: { 
   item?: KnowledgeBaseDto; 
   onDelete?: () => void;
   onSubmit?: (formData: FormData) => void | Promise<void>;
+  onCancel?: () => void;
 }) {
   const { t } = useTranslation();
   const { pending } = useFormStatus();
@@ -204,7 +206,7 @@ export default function KnowledgeBaseForm({
             )}
           </div>
           <div className="flex space-x-2">
-            <ButtonSecondary onClick={() => router.push("/admin/knowledge-base/bases")}>{"Cancel"}</ButtonSecondary>
+            <ButtonSecondary onClick={onCancel ? onCancel : () => router.push("/admin/knowledge-base/bases")}>{"Cancel"}</ButtonSecondary>
             <LoadingButton actionName={item ? "edit" : "new"} type="submit" disabled={pending}>
               {"Save"}
             </LoadingButton>

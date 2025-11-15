@@ -58,16 +58,22 @@ export default function ArticlesClient({ data, params, onNewArticle, onDuplicate
     });
   }
 
+  const menu = [
+    { title: "Knowledge Bases", routePath: "/admin/knowledge-base/bases" },
+    { title: data.knowledgeBase.title, routePath: `/admin/knowledge-base/bases/${data.knowledgeBase.slug}` },
+    { title: "Articles", routePath: `/admin/knowledge-base/bases/${params.slug}/articles` },
+  ];
+  
+  // Add language to menu only if on a language-specific route
+  if (params.lang) {
+    menu.push({ title: params.lang!, routePath: `/admin/knowledge-base/bases/${params.slug}/articles/${params.lang}` });
+  }
+
   return (
     <EditPageLayout
-      title={`Articles (${KnowledgeBaseUtils.getLanguageName(params.lang!)})`}
+      title={params.lang ? `Articles (${KnowledgeBaseUtils.getLanguageName(params.lang)})` : "Articles"}
       withHome={false}
-      menu={[
-        { title: "Knowledge Bases", routePath: "/admin/knowledge-base/bases" },
-        { title: data.knowledgeBase.title, routePath: `/admin/knowledge-base/bases/${data.knowledgeBase.slug}` },
-        { title: "Articles", routePath: `/admin/knowledge-base/bases/${params.slug}/articles` },
-        { title: params.lang!, routePath: `/admin/knowledge-base/bases/${params.slug}/articles/${params.lang}` },
-      ]}
+      menu={menu}
       buttons={
         <>
           <InputFilters filters={data.filterableProperties} />
@@ -85,7 +91,7 @@ export default function ArticlesClient({ data, params, onNewArticle, onDuplicate
           actions={[
             {
               title: "Settings",
-              onClickRoute: (_, item) => `${item.id}/settings`,
+              onClickRoute: (_, item) => `${item.language}/${item.id}/settings`,
             },
             {
               title: "Duplicate",
@@ -93,7 +99,7 @@ export default function ArticlesClient({ data, params, onNewArticle, onDuplicate
             },
             {
               title: "Edit",
-              onClickRoute: (_, item) => `${item.id}`,
+              onClickRoute: (_, item) => `${item.language}/${item.id}`,
             },
           ]}
           headers={[
@@ -110,7 +116,7 @@ export default function ArticlesClient({ data, params, onNewArticle, onDuplicate
               className: "w-full",
               value: (i) => (
                 <div className="space-y-1">
-                  <Link href={i.id} className="font-medium hover:underline">
+                  <Link href={`${i.language}/${i.id}`} className="font-medium hover:underline">
                     {i.title}
                   </Link>
                 </div>
@@ -127,7 +133,7 @@ export default function ArticlesClient({ data, params, onNewArticle, onDuplicate
                       {i.section && <div className="text-muted-foreground text-xs">{i.section.title}</div>}
                     </div>
                   ) : (
-                    <Link href={`${i.id}/settings`} className="text-muted-foreground text-xs italic hover:underline">
+                    <Link href={`${i.language}/${i.id}/settings`} className="text-muted-foreground text-xs italic hover:underline">
                       No category
                     </Link>
                   )}

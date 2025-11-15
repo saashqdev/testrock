@@ -24,7 +24,7 @@ export default function ({ data }: { data: AffiliatesLoaderData }) {
               and get a discount).
             </li>
             <li>
-              2. Open the file: <code className="font-bold text-blue-800">app/utils/db/appConfiguration.db.server.ts</code>.
+              2. Open the file: <code className="font-bold text-blue-800">db/repositories/prisma/AppPortalConfigurationDbPrisma.ts</code>.
             </li>
             <li>
               3. Set <b>affiliates.providers.rewardfulApiKey</b> <i>(you can find it in your Rewardful company settings)</i>.

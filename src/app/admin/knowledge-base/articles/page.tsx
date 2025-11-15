@@ -295,20 +295,6 @@ export default function ArticlesPage() {
       </div>
 
       <ActionResultModal actionData={actionData} showSuccess={false} />
-
-      <SlideOverWideEmpty
-        title={"Article settings"}
-        open={!!<></>}
-        onClose={() => {
-          router.replace(".");
-        }}
-        className="sm:max-w-sm"
-        overflowYScroll={true}
-      >
-        <div className="-mx-1 -mt-3">
-          <div className="space-y-4">{<></>}</div>
-        </div>
-      </SlideOverWideEmpty>
     </EditPageLayout>
   );
 }

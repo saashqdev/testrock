@@ -5,8 +5,9 @@ import { useRouter } from "next/navigation";
 import ActionResultModal from "@/components/ui/modals/ActionResultModal";
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
 import KnowledgeBaseForm from "@/modules/knowledgeBase/components/bases/KnowledgeBaseForm";
+import SlideOverFormLayout from "@/components/ui/slideOvers/SlideOverFormLayout";
 import { KnowledgeBaseDto } from "@/modules/knowledgeBase/dtos/KnowledgeBaseDto";
-import { deleteKnowledgeBase } from "./actions";
+import { deleteKnowledgeBase, editKnowledgeBase } from "./actions";
 
 type ComponentProps = {
   data: {
@@ -44,11 +45,34 @@ export default function Component({ data }: ComponentProps) {
     });
   }
 
+  async function handleSubmit(formData: FormData) {
+    const result = await editKnowledgeBase(data.item.id, formData);
+    if (result?.error) {
+      setActionData(result);
+    } else {
+      // Success - redirect happens in action
+      router.push("/admin/knowledge-base/bases");
+    }
+  }
+
+  function onClose() {
+    router.push("/admin/knowledge-base/bases");
+  }
+
   return (
-    <div>
-      <KnowledgeBaseForm item={data.item} onDelete={onDelete} />
+    <>
+      <SlideOverFormLayout
+        title="Edit Knowledge Base"
+        description="Update your knowledge base settings"
+        onClosed={onClose}
+        className="max-w-2xl"
+      >
+        <div className="px-4 sm:px-6">
+          <KnowledgeBaseForm item={data.item} onDelete={onDelete} onSubmit={handleSubmit} onCancel={onClose} />
+        </div>
+      </SlideOverFormLayout>
       <ActionResultModal actionData={actionData} showSuccess={false} />
       <ConfirmModal ref={confirmDelete} onYes={onConfirmedDelete} destructive />
-    </div>
+    </>
   );
 }
