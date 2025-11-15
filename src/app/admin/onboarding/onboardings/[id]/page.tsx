@@ -6,8 +6,8 @@ import { OnboardingFilterMetadataDto } from "@/modules/onboarding/dtos/Onboardin
 import OnboardingService from "@/modules/onboarding/services/OnboardingService";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
-import { db } from "@/db";
 import OnboardingDetailsClient from "./OnboardingDetailsClient";
+import { db } from "@/db";
 
 type PageData = {
   item: OnboardingWithDetailsDto;

@@ -14,7 +14,6 @@ export namespace OnboardingSessionOverviewApi {
   };
   export const loader = async (props: IServerComponentsProps) => {
     const params = (await props.params) || {};
-    const request: Request = props.request!;
     await verifyUserHasPermission("admin.onboarding.view");
     const { t } = await getServerTranslations();
     const item = await db.onboardingSessions.getOnboardingSession(params.id!);

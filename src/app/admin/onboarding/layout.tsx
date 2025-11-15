@@ -29,7 +29,7 @@ export default async function OnboardingLayout({
       items={[
         {
           name: "Overview",
-          href: "/admin/onboarding",
+          href: "/admin/onboarding/onboardings",
           exact: true,
           icon: <IncreaseIcon className="h-5 w-5" />,
           iconSelected: <IncreaseIconFilled className="h-5 w-5" />,

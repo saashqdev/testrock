@@ -12,7 +12,7 @@ export default function OnboardingsList({ items, groupByStatus }: { items: Onboa
   return (
     <TableSimple
       items={items}
-      actions={[{ title: t("shared.overview"), onClickRoute: (_, i) => `${i.id}` }]}
+      actions={[{ title: t("shared.overview"), onClickRoute: (_, i) => `/admin/onboarding/onboardings/${i.id}` }]}
       headers={[
         {
           name: "title",
