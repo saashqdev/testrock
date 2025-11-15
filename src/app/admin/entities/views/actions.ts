@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import { getServerTranslations } from "@/i18n/server";
 import { EntityViewsApi } from "@/utils/api/server/EntityViewsApi";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
+import { getUserInfo } from "@/lib/services/session.server";
 import { db } from "@/db";
 
 type ActionResult = {
@@ -61,6 +62,32 @@ export async function deleteEntityView(formData: FormData): Promise<ActionResult
     }
 
     await db.entityViews.deleteEntityView(item.id);
+  } catch (e: any) {
+    return { error: e.message };
+  }
+  
+  redirect(`/admin/entities/views`);
+}
+
+export async function createEntityView(formData: FormData): Promise<ActionResult> {
+  try {
+    // Create a mock Request object for permission verification
+    const headersList = await headers();
+    const host = headersList.get("host") || "";
+    const protocol = headersList.get("x-forwarded-proto") || "http";
+    const url = `${protocol}://${host}/admin/entities/views`;
+    const request = new Request(url);
+    
+    await verifyUserHasPermission("admin.entities.update");
+
+    const userInfo = await getUserInfo();
+    const entityId = formData.get("entityId")?.toString() ?? "";
+    const entity = await db.entities.getEntityById({ tenantId: null, id: entityId });
+    if (!entity) {
+      return { error: "Entity not found" };
+    }
+
+    await EntityViewsApi.createFromForm({ entity, form: formData, createdByUserId: userInfo.userId });
   } catch (e: any) {
     return { error: e.message };
   }

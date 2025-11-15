@@ -29,7 +29,16 @@ export default function RowMediaCell({ media, layout = "table" }: { media: Media
         {media
           ?.filter((f) => f.type.includes("image"))
           .map((item) => {
-            return <Image key={item.name} className={clsx("object-cover", layout === "table" ? "h-10" : "")} src={item.publicUrl ?? item.file} alt={item.name} />;
+            return (
+              <Image 
+                key={item.name} 
+                className={clsx("object-cover", layout === "table" ? "h-10 w-auto" : "h-40 w-auto")} 
+                src={item.publicUrl ?? item.file} 
+                alt={item.name}
+                width={layout === "table" ? 40 : 160}
+                height={layout === "table" ? 40 : 160}
+              />
+            );
           })}
 
         {media

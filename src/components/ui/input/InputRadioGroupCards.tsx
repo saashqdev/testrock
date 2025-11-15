@@ -46,7 +46,7 @@ export default function InputRadioGroupCards({
 }) {
   const [displayType, setDisplayType] = useState<"name" | "value" | "nameAndValue">("name");
 
-  const [actualValue, setActualValue] = useState<string | undefined>(value || defaultValue);
+  const [actualValue, setActualValue] = useState<string>(value || defaultValue || "");
 
   useEffect(() => {
     if (actualValue && onChange && value !== actualValue) {
@@ -73,7 +73,7 @@ export default function InputRadioGroupCards({
     }
   }, [display, options]);
   return (
-    <RadioGroup value={actualValue} defaultValue={defaultValue} onChange={(e) => setActualValue(e)} className={className}>
+    <RadioGroup value={actualValue} onChange={(e) => setActualValue(e)} className={className}>
       {title && (
         <RadioGroup.Label htmlFor={name} className="mb-1 flex justify-between space-x-2 text-xs font-medium">
           <div className="flex items-center space-x-1">

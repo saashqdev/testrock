@@ -85,7 +85,7 @@ export default async function RowModelPage() {
                         if (!logo) {
                           return null;
                         }
-                        return <Image alt={i.toString()} className="h-8 w-auto" src={i.getMediaPublicUrlOrFile("logo") ?? ""} title={i.getText("title")} />;
+                        return <Image alt={i.toString()} className="h-8 w-auto" src={i.getMediaPublicUrlOrFile("logo") ?? ""} title={i.getText("title")} width={32} height={32} />;
                       },
                     },
                     { name: "createdAt", title: "Created at", value: (i) => <DateCell date={i.row.createdAt} /> },

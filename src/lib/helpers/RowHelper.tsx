@@ -718,7 +718,7 @@ const getFakePropertyValue = ({ property, idx, t }: { property: PropertyWithDeta
           type: "image/png",
           name: "Image 1.png",
           title: "Image 1",
-          publicUrl: "https://placehold.co/150",
+          publicUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Crect width='150' height='150' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%23999'%3EImage%3C/text%3E%3C/svg%3E",
           storageBucket: null,
           storageProvider: null,
         },

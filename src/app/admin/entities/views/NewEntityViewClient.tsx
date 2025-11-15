@@ -35,7 +35,7 @@ export default function NewEntityViewClient({ data }: NewEntityViewClientProps) 
 
   const [error, setError] = useState<string>();
 
-  const [type, setType] = useState<"default" | "tenant" | "user" | "system">();
+  const [type, setType] = useState<"default" | "tenant" | "user" | "system">("default");
   const [tenantId, setTenantId] = useState<string>();
   const [userId, setUserId] = useState<string>();
 

@@ -51,7 +51,7 @@ export default function PreviewMediaModal({ item, onClose, onDownload }: Props) 
                 </div>
               ) : isImage() ? (
                 <div>
-                  <Image alt={item.title} className="mx-auto h-96 object-contain" src={item.publicUrl ?? item.file} />
+                  <Image alt={item.title} className="mx-auto h-96 object-contain" src={item.publicUrl ?? item.file} width={800} height={600} />
                 </div>
               ) : (
                 <div>Not PDF or Image</div>
