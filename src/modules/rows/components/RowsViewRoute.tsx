@@ -173,7 +173,7 @@ export default function RowsViewRoute({ title, rowsData, items, routes, onNewRow
           {filters.length > 0 && <InputFilters filters={filters} />}
           <RunPromptFlowButtons type="list" promptFlows={rowsData.promptFlows} className="p-0.5" />
           {permissions.create && (
-            <ButtonPrimary disabled={!permissions.create} to={!onNewRow ? "new" : undefined} onClick={onNewRow}>
+            <ButtonPrimary disabled={!permissions.create} to={!onNewRow ? EntityHelper.getRoutes({ routes, entity: rowsData.entity })?.new : undefined} onClick={onNewRow}>
               <span className="sm:text-sm">+</span>
             </ButtonPrimary>
           )}

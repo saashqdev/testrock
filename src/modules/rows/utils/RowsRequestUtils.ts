@@ -7,6 +7,10 @@ import { getTenantIdOrNull } from "@/utils/services/server/urlService";
 import { getUserInfo } from "@/lib/services/session.server";
 import { requireAuth } from "@/lib/services/loaders.middleware";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
+import { redirect } from "next/navigation";
+
+// Reserved route segments that should not be treated as entity slugs
+const RESERVED_ENTITY_SEGMENTS = ["new", "all-in-one", "export", "import", "relationships", "share", "tags"];
 
 type RowsLoaderData = {
   t: TFunction;
@@ -19,6 +23,11 @@ async function getLoader(props: IServerComponentsProps): Promise<RowsLoaderData>
   const params = (await props.params) ?? {};
   const request = props.request!;
   const tenantId = await getTenantIdOrNull({ request, params });
+  
+  // Check if the entity param is a reserved route segment
+  if (params.entity && RESERVED_ENTITY_SEGMENTS.includes(params.entity)) {
+    throw redirect("/404");
+  }
   const unparsedData = await promiseHash({
     i18n: getServerTranslations(),
     userInfo: getUserInfo(),

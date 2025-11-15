@@ -53,21 +53,21 @@ export default async function CrmIndexPage(props: IServerComponentsProps) {
       </div>
       <dl className="grid gap-2 sm:grid-cols-4">
         <Link
-          href={params.tenant ? `/app/${params.tenant}/crm/companies` : "/admin/crm/companies"}
+          href={params.tenant ? `/app/${params.tenant}/crm/companies` : "/admin/xrm/companies"}
           className="hover:bg-secondary bg-background border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs"
         >
           <dt className="text-muted-foreground truncate text-xs font-medium uppercase">Companies</dt>
           <dd className="text-foreground mt-1 truncate text-2xl font-semibold">{NumberUtils.intFormat(data.summary.companies)}</dd>
         </Link>
         <Link
-          href={params.tenant ? `/app/${params.tenant}/crm/contacts` : "/admin/crm/contacts"}
+          href={params.tenant ? `/app/${params.tenant}/crm/contacts` : "/admin/xrm/contacts"}
           className="hover:bg-secondary bg-background border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs"
         >
           <dt className="text-muted-foreground truncate text-xs font-medium uppercase">Contacts</dt>
           <dd className="text-foreground mt-1 truncate text-2xl font-semibold">{NumberUtils.intFormat(data.summary.contacts)}</dd>
         </Link>
         <Link
-          href={params.tenant ? `/app/${params.tenant}/crm/opportunities` : "/admin/crm/opportunities"}
+          href={params.tenant ? `/app/${params.tenant}/crm/opportunities` : "/admin/xrm/opportunities"}
           className="hover:bg-secondary bg-background border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs"
         >
           <dt className="text-muted-foreground flex items-center space-x-2 truncate text-xs font-medium uppercase">
@@ -82,7 +82,7 @@ export default async function CrmIndexPage(props: IServerComponentsProps) {
           </dd>
         </Link>
         <Link
-          href={params.tenant ? `/app/${params.tenant}/crm/submissions` : "/admin/crm/submissions"}
+          href={params.tenant ? `/app/${params.tenant}/crm/submissions` : "/admin/xrm/submissions"}
           className="hover:bg-secondary bg-background border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs"
         >
           <dt className="text-muted-foreground truncate text-xs font-medium uppercase">Submissions</dt>
@@ -94,7 +94,7 @@ export default async function CrmIndexPage(props: IServerComponentsProps) {
         <div className="flex items-center justify-between space-x-2">
           <h3 className="text-muted-foreground text-sm font-medium">Opportunities</h3>
           <Link
-            href={params.tenant ? `/app/${params.tenant}/crm/opportunities/new` : `/admin/crm/opportunities/new`}
+            href={params.tenant ? `/app/${params.tenant}/crm/opportunities/new` : `/admin/xrm/opportunities/new`}
             className="text-foreground bg-secondary hover:bg-secondary/90 rounded-full p-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
           >
             <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

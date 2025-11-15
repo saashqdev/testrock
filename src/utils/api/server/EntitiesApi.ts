@@ -110,6 +110,17 @@ export namespace EntitiesApi {
         };
         return routes;
       }
+    } else if (pathname?.startsWith(`/admin/xrm`)) {
+      const routes: EntitiesApi.Routes = {
+        list: `/admin/xrm/:entity`,
+        new: `/admin/xrm/:entity/new`,
+        overview: `/admin/xrm/:entity/:id`,
+        edit: `/admin/xrm/:entity/:id/edit`,
+        import: `/admin/xrm/:entity/import`,
+        export: `/admin/xrm/:entity/export`,
+        publicUrl: getBaseURL() + `/public/:entity/:id`,
+      };
+      return routes;
     } else if (pathname?.startsWith(`/admin/crm`)) {
       const routes: EntitiesApi.Routes = {
         list: `/admin/crm/:entity`,

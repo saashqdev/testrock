@@ -31,7 +31,7 @@ export async function syncAction(formData: FormData): Promise<{ success?: string
         }
       } else if (userInCrm.status === "to-create") {
         // Create a mock request for the createContact call
-        const url = new URL(`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}/admin/crm/sync`);
+        const url = new URL(`${process.env.NEXTAUTH_URL}/admin/xrm/sync`);
         const request = new Request(url.toString());
         
         const created = await CrmService.createContact({
@@ -58,7 +58,7 @@ export async function syncAction(formData: FormData): Promise<{ success?: string
     }
 
     // Revalidate the page to refresh data
-    revalidatePath("/admin/crm/sync");
+    revalidatePath("/admin/xrm/sync");
 
     if (progress.created === 0 && progress.updated === 0) {
       return { error: "No users to sync" };
