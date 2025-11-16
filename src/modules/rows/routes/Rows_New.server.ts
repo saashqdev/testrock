@@ -50,7 +50,7 @@ export namespace Rows_New {
       meta: [{ title: `${t("shared.create")} ${t(entity.title)} | ${process.env.APP_NAME}` }],
       entityData,
       routes: EntitiesApi.getNoCodeRoutes({ request, params }),
-      allEntities: await time(db.entities.getAllEntities(null), "getAllEntities"),
+      allEntities: await time(db.entities.getAllEntities(null, true), "getAllEntities"),
       relationshipRows: await time(RowsApi.getRelationshipRows({ entity, tenantId, userId }), "RowsApi.getRelationshipRows"),
     };
     return Response.json(data, { headers: getServerTimingHeader() });

@@ -14,9 +14,10 @@ interface Props {
   onCreated?: (row: RowWithDetailsDto) => void;
   allEntities: EntityWithDetailsDto[];
   customSearchParams?: URLSearchParams;
+  children?: React.ReactNode;
   // onSelected: (entity: EntityWithDetails, item: RowWithDetails) => void;
 }
-export default function RowNewFetcher({ url, parentEntity, onCreated, allEntities, customSearchParams }: Props) {
+export default function RowNewFetcher({ url, parentEntity, onCreated, allEntities, customSearchParams, children }: Props) {
   const { t } = useTranslation();
 
   const [data, setData] = useState<{
@@ -122,7 +123,9 @@ export default function RowNewFetcher({ url, parentEntity, onCreated, allEntitie
                 submitting: submitting,
               }}
               customSearchParams={customSearchParams}
-            />
+            >
+              {children}
+            </RowForm>
           )}
         </CheckPlanFeatureLimit>
       ) : (

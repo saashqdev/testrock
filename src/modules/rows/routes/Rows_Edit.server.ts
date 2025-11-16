@@ -60,7 +60,7 @@ export namespace Rows_Edit {
       ],
       rowData,
       routes: EntitiesApi.getNoCodeRoutes({ request, params }),
-      allEntities: await time(db.entities.getAllEntities(tenantId), "getAllEntities"),
+      allEntities: await time(db.entities.getAllEntities(tenantId, true), "getAllEntities"),
       relationshipRows: await time(RowsApi.getRelationshipRows({ entity, tenantId, userId }), "RowsApi.getRelationshipRows"),
     };
     return data;

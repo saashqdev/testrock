@@ -31,7 +31,7 @@ const loader = async (props: IServerComponentsProps): Promise<AdminDataDto> => {
     superAdminRole: db.userRoles.getUserRoleInAdmin(userInfo.userId, DefaultAdminRoles.SuperAdmin),
     allRoles: db.roles.getAllRolesWithoutPermissions(), // Use lightweight version
     roles: db.userRoles.getUserRoles(userInfo.userId, null),
-    entities: db.entities.getAllEntities(null, false), // Exclude system entities to reduce memory
+    entities: db.entities.getAllEntities(null, true), // Include system entities for functionality
     entityGroups: db.entityGroups.getAllEntityGroups(),
     myGroups: db.groups.getMyGroups(userInfo.userId, null), // Admin can see all groups
     tenantTypes: db.tenantTypes.getAllTenantTypes(),
