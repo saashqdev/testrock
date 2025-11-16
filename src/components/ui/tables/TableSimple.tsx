@@ -16,7 +16,7 @@ import InputSelect from "../input/InputSelect";
 import { Input } from "../input";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-interface Props<T> {
+interface Props<T extends { id: any }> {
   headers: RowHeaderDisplayDto<T>[];
   items: T[];
   actions?: RowHeaderActionDto<T>[];
@@ -31,7 +31,7 @@ interface Props<T> {
   darkMode?: boolean;
 }
 
-export default function TableSimple<T>(props: Props<T>) {
+export default function TableSimple<T extends { id: any }>(props: Props<T>) {
   const [showChild, setShowChild] = useState(false);
 
   // Wait until after client-side hydration to show
@@ -47,7 +47,7 @@ export default function TableSimple<T>(props: Props<T>) {
   return <Table {...props} />;
 }
 
-function Table<T>({
+function Table<T extends { id: any }>({
   headers,
   items,
   actions = [],
@@ -318,7 +318,7 @@ function Table<T>({
   );
 }
 
-function ActionsCells<T>({
+function ActionsCells<T extends { id: any }>({
   item,
   actions,
   idxRow,
@@ -381,7 +381,7 @@ function ActionsCells<T>({
   );
 }
 
-export type RowHeaderDisplayDto<T> = {
+export type RowHeaderDisplayDto<T extends { id: any }> = {
   title: string;
   name?: string;
   type?: "text" | "number" | "select" | "decimal";
@@ -402,7 +402,7 @@ export type RowHeaderDisplayDto<T> = {
   hidden?: boolean;
 };
 
-export interface RowHeaderActionDto<T> {
+export interface RowHeaderActionDto<T extends { id: any }> {
   title?: string | ReactNode;
   onClick?: (idx: number, item: T) => void;
   onClickRoute?: (idx: number, item: T) => string | undefined;
@@ -419,7 +419,7 @@ export interface RowHeaderActionDto<T> {
   };
 }
 
-function displayRowValue<T>(t: TFunction, header: RowHeaderDisplayDto<T>, item: T, idxRow: number) {
+function displayRowValue<T extends { id: any }>(t: TFunction, header: RowHeaderDisplayDto<T>, item: T, idxRow: number) {
   const displayValue = header.formattedValue ? header.formattedValue(item, idxRow) : header.value(item, idxRow);
   
   return (
