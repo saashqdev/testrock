@@ -14,7 +14,6 @@ type LoaderData = {
 
 export default async function EditEntityCrudRoute(props: IServerComponentsProps) {
   const params = (await props.params) || {};
-  const request = props.request!;
   
   await verifyUserHasPermission("admin.entities.view");
   const entity = await db.entities.getEntityBySlug({ tenantId: null, slug: params.entity! });
@@ -22,10 +21,10 @@ export default async function EditEntityCrudRoute(props: IServerComponentsProps)
   
   const previews = NoCodeViewsHelper.getEntityPreviews(entity, rows);
   return (
-    <div className="space-y-4 overflow-y-auto p-4 sm:px-8 sm:py-7">
+    <div className="space-y-6 overflow-y-auto p-4 sm:px-8 sm:py-7">
       {previews.map((item) => {
         return (
-          <div key={item.title} className="space-y-2">
+          <div key={item.title} className="space-y-4">
             <div>
               <div className="text-foreground text-lg font-bold">{item.title}</div>
               <div className="text-muted-foreground text-sm">{item.description}</div>
@@ -35,24 +34,22 @@ export default async function EditEntityCrudRoute(props: IServerComponentsProps)
                 <Fragment key={view.name}>
                   {!view.error ? (
                     <Link
-                      href={`${view.href}`}
-                      className="border-border focus:bg-background hover:border-border relative flex w-full flex-col justify-center space-y-2 rounded-lg border-2 border-dashed p-3 text-center focus:border-2 focus:border-gray-600 focus:outline-hidden"
+                      href={view.href!}
+                      className="border-border hover:border-foreground focus:bg-background relative flex w-full flex-col justify-center space-y-2 rounded-lg border-2 border-dashed p-3 text-center focus:border-2 focus:outline-hidden"
                     >
                       {view.icon}
-                      <div className="text-foreground block text-sm font-medium">
-                        {view.name} {view.error && <span className="text-xs lowercase text-red-500">({view.error})</span>}
-                        {view.underConstruction && <span className="text-xs lowercase text-orange-500">(Under 🚧 Construction)</span>}
-                      </div>
+                      <div className="text-foreground block text-sm font-medium">{view.name}</div>
                       <div className="text-muted-foreground block text-xs">{view.description}</div>
+                      {view.underConstruction && <div className="text-xs lowercase text-orange-500">(Under 🚧 Construction)</div>}
                     </Link>
                   ) : (
-                    <div className="border-border relative flex w-full flex-col justify-center space-y-2 rounded-lg border-2 border-dashed bg-red-50 p-3 text-center dark:bg-red-900/80">
+                    <div className="relative flex w-full flex-col justify-center space-y-2 rounded-lg border-2 border-dashed border-red-300 bg-red-50 p-3 text-center dark:bg-red-900/20">
                       {view.icon}
                       <div className="text-foreground block text-sm font-medium">
                         {view.name} {view.error && <span className="text-xs lowercase text-red-500">({view.error})</span>}
-                        {view.underConstruction && <span className="text-xs lowercase text-orange-500">(Under 🚧 Construction)</span>}
                       </div>
                       <div className="text-muted-foreground block text-xs">{view.description}</div>
+                      {view.underConstruction && <div className="text-xs lowercase text-orange-500">(Under 🚧 Construction)</div>}
                     </div>
                   )}
                 </Fragment>

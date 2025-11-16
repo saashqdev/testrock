@@ -65,7 +65,7 @@ export default function RowsAllInOneRoute({ data }: { data: Rows_List.LoaderData
       />
       <SlideOverWideEmpty
         title={t("shared.create") + " " + t(data.rowsData?.entity.title ?? "")}
-        className="max-w-md"
+        size="2xl"
         open={adding}
         onClose={() => setAdding(false)}
       >

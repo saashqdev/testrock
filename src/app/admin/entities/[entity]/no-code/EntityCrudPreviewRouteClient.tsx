@@ -2,23 +2,19 @@
 
 import { Entity } from "@prisma/client";
 import { useTranslation } from "react-i18next";
-import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
+import { ReactNode } from "react";
 
-export function EntityCrudPreviewRouteClient({ item, entitySlug }: { item: Entity; entitySlug: string }) {
+export function EntityCrudPreviewRouteClient({ item, entitySlug, children }: { item: Entity; entitySlug: string; children?: ReactNode }) {
   const { t } = useTranslation();
+  
   return (
-    <EditPageLayout
-      title={`${t(item.title)} - Sample views`}
-      menu={[
-        { title: t("models.entity.plural"), routePath: "/admin/entities" },
-        { title: t(item.title), routePath: `/admin/entities/${entitySlug}/details` },
-        { title: "No-code", routePath: `/admin/entities/${entitySlug}/no-code` },
-      ]}
-      withHome={false}
-    >
-      <div className="border-border h-[calc(100vh-200px)] overflow-y-auto rounded-lg border-2 border-dashed sm:h-[calc(100vh-160px)]">
-        {<></>}
+    <div className="space-y-4">
+      <div className="border-b border-border pb-4">
+        <h1 className="text-2xl font-bold text-foreground">
+          {t(item.title)} - Sample views
+        </h1>
       </div>
-    </EditPageLayout>
+      {children}
+    </div>
   );
 }

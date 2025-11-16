@@ -1,6 +1,7 @@
 import { Entity } from "@prisma/client";
-import { getServerTranslations } from "@/i18n/server";
 import { redirect } from "next/navigation";
+import { ReactNode } from "react";
+import { headers } from "next/headers";
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 import TabsVertical from "@/components/ui/tabs/TabsVertical";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
@@ -12,18 +13,20 @@ type PageProps = {
   entity: string;
 };
 
+type LayoutProps = IServerComponentsProps & {
+  children: ReactNode;
+};
+
 async function getData(props: IServerComponentsProps): Promise<PageProps> {
   const params = (await props.params) || {};
-  const request = props.request!;
   await verifyUserHasPermission("admin.entities.update");
   const item = await db.entities.getEntityBySlug({ tenantId: null, slug: params.entity! });
   if (!item) {
     redirect("/admin/entities");
   }
 
-  if (new URL(request.url).pathname === "/admin/entities/" + params.entity) {
-    redirect("/admin/entities/" + params.entity + "/details");
-  }
+  // Note: Layouts don't handle exact path redirects - use page.tsx for that
+  // The redirect logic has been removed as it's not appropriate for a layout component
   
   return {
     item,
@@ -31,9 +34,19 @@ async function getData(props: IServerComponentsProps): Promise<PageProps> {
   };
 }
 
-export default async function EditEntityRoute(props: IServerComponentsProps) {
+export default async function EditEntityRoute(props: LayoutProps) {
   const data = await getData(props);
   const { item, entity } = data;
+  
+  // Check if we're on the no-code route
+  const headersList = await headers();
+  const pathname = headersList.get('x-pathname') || '';
+  const isNoCodeRoute = pathname.includes('/no-code');
+  
+  // If on no-code route, render without sidebar
+  if (isNoCodeRoute) {
+    return <>{props.children}</>;
+  }
   
   return (
     <EditPageLayout
@@ -101,7 +114,7 @@ export default async function EditEntityRoute(props: IServerComponentsProps) {
         </div>
         <div className="lg:col-span-9">
           <div className="w-full">
-            {<></>}
+            {props.children}
           </div>
         </div>
       </div>

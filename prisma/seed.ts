@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { getAvailableTenantInboundAddress } from "@/utils/services/emailService";
 import { seedRolesAndPermissions } from "@/utils/services/rolesAndPermissionsService";
 import { importEntitiesFromTemplate } from "@/utils/services/server/entitiesTemplatesService";
-import { CRM_ENTITIES_TEMPLATE } from "@/modules/templates/defaultEntityTemplates";
+import { CRM_ENTITIES_TEMPLATE, COMPANY_SAMPLE_ENTITY_TEMPLATE } from "@/modules/templates/defaultEntityTemplates";
 
 const prisma = new PrismaClient();
 
@@ -81,6 +81,22 @@ async function seed() {
   } catch (error: any) {
     if (error.message.includes("Entity already exists")) {
       console.log("ℹ️ CRM entities already exist");
+    } else {
+      throw error;
+    }
+  }
+
+  // Create Company - Sample entity (uses SampleCustomEntity Prisma model)
+  console.log("🌱 Creating Company - Sample entity");
+  try {
+    await importEntitiesFromTemplate({
+      template: COMPANY_SAMPLE_ENTITY_TEMPLATE,
+      createdByUserId: admin.id,
+    });
+    console.log("✅ Company - Sample entity created successfully");
+  } catch (error: any) {
+    if (error.message.includes("Entity already exists")) {
+      console.log("ℹ️ Company - Sample entity already exists");
     } else {
       throw error;
     }

@@ -37,7 +37,7 @@ export default function TabsVertical({ className = "", tabs = [], asLinks = true
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tabs, location.pathname]);
+  }, [tabs, pathname]);
 
   function selectTab(idx: number) {
     const tab = tabs[idx];
@@ -58,9 +58,10 @@ export default function TabsVertical({ className = "", tabs = [], asLinks = true
   const currentTab = () => {
     if (asLinks) {
       if (exact) {
-        return tabs.find((element) => element.routePath && UrlUtils.stripTrailingSlash(location.pathname) === UrlUtils.stripTrailingSlash(element.routePath));
+        return tabs.find((element) => element.routePath && UrlUtils.stripTrailingSlash(pathname) === UrlUtils.stripTrailingSlash(element.routePath));
       } else {
-        return tabs.find((element) => element.routePath && (location.pathname + location.search).includes(element.routePath));
+        const search = searchParams.toString() ? `?${searchParams.toString()}` : "";
+        return tabs.find((element) => element.routePath && (pathname + search).includes(element.routePath));
       }
     } else {
       return tabs[selected];

@@ -1,11 +1,4 @@
-"use client";
-
 import { Prisma } from "@prisma/client";
-import { useSearchParams, useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
-import clsx from "clsx";
-import { useTranslation } from "react-i18next";
-import InputSelector from "@/components/ui/input/InputSelector";
 import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
 import { RowsApi } from "@/utils/api/server/RowsApi";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
@@ -15,6 +8,7 @@ import { getUserInfo } from "@/lib/services/session.server";
 import DateUtils from "@/lib/shared/DateUtils";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
+import CountPageComponent from "./CountPageComponent";
 
 enum FilterType {
   Last30Days = "last-30-days",
@@ -76,78 +70,7 @@ export const loader = async (props: IServerComponentsProps) => {
   return data;
 };
 
-export default function CountPage({ initialData }: { initialData: LoaderData }) {
-  const { t } = useTranslation();
-  const [data, setData] = useState<LoaderData>(initialData);
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [isPending, startTransition] = useTransition();
-  const newSearchParams = new URLSearchParams(searchParams?.toString() || "");
-  return (
-    <div className="space-y-5 p-8">
-      <div className="flex items-center justify-between space-x-2">
-        <h3 className="text-foreground grow text-lg font-medium leading-6">Summary</h3>
-        <div>
-          <InputSelector
-            className="w-44"
-            withSearch={false}
-            name="count"
-            value={newSearchParams.get("count")?.toString() ?? defaultFilter}
-            options={[
-              { name: t("app.shared.periods.LAST_30_DAYS"), value: FilterType.Last30Days },
-              { name: t("app.shared.periods.LAST_7_DAYS"), value: FilterType.Last7Days },
-            ]}
-            setValue={(value) => {
-              if (value) {
-                newSearchParams.set("count", value?.toString() ?? "");
-              } else {
-                newSearchParams.delete("count");
-              }
-              startTransition(() => {
-                router.push(`?${newSearchParams.toString()}`);
-              });
-            }}
-          />
-        </div>
-      </div>
-      <dl
-        className={clsx(
-          "grid grid-cols-1 gap-5",
-          data.summary.length === 2 && "sm:grid-cols-2",
-          data.summary.length === 3 && "sm:grid-cols-3",
-          data.summary.length === 4 && "sm:grid-cols-4",
-          data.summary.length === 5 && "sm:grid-cols-3",
-          data.summary.length === 6 && "sm:grid-cols-3"
-        )}
-      >
-        {data.summary.map((item, idx) => (
-          <div key={idx} className="bg-background overflow-hidden rounded-lg shadow-xs">
-            <div className="p-5">
-              <div className="flex items-center">
-                <div className="w-0 flex-1">
-                  <dl>
-                    <dt className="text-muted-foreground truncate text-sm font-medium">{t(item.entity.titlePlural)}</dt>
-                    <dd>
-                      <div className="text-foreground text-lg font-medium">
-                        <span>{isPending ? "..." : item.count}</span>
-                      </div>
-                    </dd>
-                  </dl>
-                </div>
-              </div>
-            </div>
-            {item.href && (
-              <div className="bg-secondary px-5 py-3">
-                <div className="text-sm">
-                  <a href={item.href} className="text-theme-700 hover:text-theme-900 font-medium">
-                    View all
-                  </a>
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
-      </dl>
-    </div>
-  );
+export default async function CountPage(props: IServerComponentsProps) {
+  const data = await loader(props);
+  return <CountPageComponent initialData={data} />;
 }

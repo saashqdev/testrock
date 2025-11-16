@@ -3,9 +3,9 @@ import { Fragment } from "react";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import NoCodeViewsHelper, { NoCodeEntityViewsDto } from "@/lib/helpers/NoCodeViewsHelper";
-import { db } from "@/db";
 import { headers } from "next/headers";
 import { getServerTranslations } from "@/i18n/server";
+import { db } from "@/db";
 
 type LoaderData = {
   entities: EntityWithDetailsDto[];
