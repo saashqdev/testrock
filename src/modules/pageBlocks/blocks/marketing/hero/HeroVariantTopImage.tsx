@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import clsx from "clsx";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
@@ -13,11 +14,13 @@ export default function HeroVariantTopImage({ item }: { item: HeroBlockDto }) {
   return (
     <section className="body-font">
       <div className="container mx-auto flex flex-col items-center justify-center px-5 py-16">
-        <img
-          className="mb-10 w-5/6 rounded-lg border-2 border-border object-cover object-center shadow-sm dark:border-gray-600 md:w-3/6"
-          alt="hero"
-          src={item.image}
-        />
+        {item.image && (
+          <Image
+            className="mb-10 w-5/6 rounded-lg border-2 border-border object-cover object-center shadow-sm dark:border-gray-600 md:w-3/6"
+            alt="hero"
+            src={item.image}
+          />
+        )}
         <div className="w-full text-center lg:w-2/3">
           <div className="mb-4">
             <ProductHuntBadge />

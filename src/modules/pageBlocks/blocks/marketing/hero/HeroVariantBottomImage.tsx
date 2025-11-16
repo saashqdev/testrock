@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import clsx from "clsx";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
@@ -70,7 +71,9 @@ export default function HeroVariantBottomImage({ item }: { item: HeroBlockDto })
             )}
           </div>
         </div>
-        <img className="mt-10 w-auto max-w-5xl rounded border-2 border-dashed border-gray-800 object-cover object-center" alt="hero" src={item.image} />
+        {item.image && (
+          <Image className="mt-10 w-auto max-w-5xl rounded border-2 border-dashed border-gray-800 object-cover object-center" alt="hero" src={item.image} />
+        )}
       </div>
     </section>
   );

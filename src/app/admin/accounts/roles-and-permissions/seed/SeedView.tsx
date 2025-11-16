@@ -58,7 +58,7 @@ export default function RolesPermissionsSeedView({ data }: Props) {
         <div className="space-y-2">
           <h3 className="text-foreground text-lg font-medium">Roles</h3>
           <TableSimple
-            items={data.roles.missing}
+            items={data.roles.missing.map((role) => ({ ...role, id: role.name }))}
             headers={[
               {
                 name: "type",
@@ -76,7 +76,7 @@ export default function RolesPermissionsSeedView({ data }: Props) {
 
           <h3 className="text-foreground text-lg font-medium">Permissions</h3>
           <TableSimple
-            items={data.permissions.missing}
+            items={data.permissions.missing.map((perm) => ({ ...perm, id: perm.name }))}
             headers={[
               {
                 name: "type",

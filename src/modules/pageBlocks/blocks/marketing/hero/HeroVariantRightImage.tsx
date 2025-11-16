@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import clsx from "clsx";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
@@ -70,7 +71,7 @@ export default function HeroVariantRightImage({ item }: { item: HeroBlockDto }) 
           </div>
         </div>
         <div className="dark:border-border-300 w-5/6 rounded-lg border-2 border-dashed border-gray-800 md:w-1/2 lg:w-full lg:max-w-lg">
-          <img className="objeco h-96 rounded object-cover object-center" alt="hero" src={item.image ?? "https://dummyimage.com/720x600"} />
+          <Image className="objeco h-96 rounded object-cover object-center" alt="hero" src={item.image ?? "https://dummyimage.com/720x600"} />
         </div>
       </div>
     </section>

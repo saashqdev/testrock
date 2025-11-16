@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import ButtonEvent from "@/components/ui/buttons/ButtonEvent";
 import { TestimonialsBlockDto } from "@/modules/pageBlocks/blocks/marketing/testimonials/TestimonialsBlockDto";
@@ -80,7 +81,7 @@ export default function TestimonialsVariantSimple({ item }: { item: Testimonials
                   </p>
                   <div className="inline-flex items-center gap-4">
                     {testimonial.avatar && (
-                      <img alt="testimonial" src={testimonial.avatar} className="h-12 w-12 flex-shrink-0 rounded-full object-cover object-center" />
+                      <Image alt="testimonial" src={testimonial.avatar} className="h-12 w-12 flex-shrink-0 rounded-full object-cover object-center" />
                     )}
                     <span className="flex flex-grow flex-col">
                       <LinkOrAhref

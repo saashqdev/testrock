@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import GridBlockUtils from "../../shared/grid/GridBlockUtils";
@@ -54,7 +55,7 @@ export default function CommunityVariantSimple({ item }: { item: CommunityBlockD
                   const card = (
                     <li key={member.user}>
                       <div className="space-y-4">
-                        <img
+                        <Image
                           className="mx-auto h-10 w-10 flex-shrink-0 rounded-full sm:h-12 sm:w-12 lg:h-14 lg:w-14"
                           src={member.avatar_url}
                           alt={member.user}
