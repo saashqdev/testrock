@@ -254,8 +254,7 @@ const InputText = (props: InputTextProps, ref: Ref<RefInputText>) => {
               required={required}
               minLength={minLength}
               maxLength={maxLength}
-              defaultValue={defaultValue}
-              value={value}
+              {...(setValue ? { value: value ?? "" } : { defaultValue })}
               onChange={(e) => onChange(e.currentTarget.value)}
               onBlur={onBlur}
               onFocus={onFocus}
@@ -290,8 +289,7 @@ const InputText = (props: InputTextProps, ref: Ref<RefInputText>) => {
             required={required}
             minLength={minLength}
             maxLength={maxLength}
-            defaultValue={defaultValue}
-            value={value}
+            {...(setValue ? { value: value ?? "" } : { defaultValue })}
             onChange={(e) => onChange(e.currentTarget.value)}
             onBlur={onBlur}
             onFocus={onFocus}

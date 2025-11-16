@@ -93,8 +93,10 @@ function Table<T>({
     if (!selectedRows || !onSelected) {
       return;
     }
-    if (selectedRows.includes(item)) {
-      onSelected(selectedRows.filter((i) => i !== item));
+    // Compare by ID instead of object reference to handle data refreshes
+    const isSelected = selectedRows.some((i) => i.id === item.id);
+    if (isSelected) {
+      onSelected(selectedRows.filter((i) => i.id !== item.id));
     } else {
       onSelected([...selectedRows, item]);
     }
@@ -255,12 +257,12 @@ function Table<T>({
                     <ActionsCells actions={actions.filter((f) => f.firstColumn)} className={className} item={item} idxRow={idxRow} />
                     {onSelected && (
                       <td className={clsx("relative w-10 px-6 sm:w-12 sm:px-6", darkMode && "")}>
-                        {selectedRows?.includes(item) && <div className="absolute inset-y-0 left-0 w-0.5 bg-primary" />}
+                        {selectedRows?.some((i) => i.id === item.id) && <div className="absolute inset-y-0 left-0 w-0.5 bg-primary" />}
                         <div className="flex items-center space-x-1">
                           <Checkbox
                             title="Select"
                             className="absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-border text-primary-foreground focus:ring-ring sm:left-6"
-                            checked={selectedRows?.includes(item)}
+                            checked={selectedRows?.some((i) => i.id === item.id) ?? false}
                             onCheckedChange={(e) => {
                               toggleSelected(idxRow, item);
                             }}

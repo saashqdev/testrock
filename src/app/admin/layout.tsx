@@ -59,7 +59,9 @@ export default async function (props: IServerComponentsProps) {
   const adminData = await loader(props);
   return (
     <AdminDataLayout data={adminData}>
-      <SidebarLayout layout="admin">{props.children}</SidebarLayout>
+      <div suppressHydrationWarning>
+        <SidebarLayout layout="admin">{props.children}</SidebarLayout>
+      </div>
     </AdminDataLayout>
   );
 }

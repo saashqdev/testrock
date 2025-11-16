@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import RowEditFetcher from "@/modules/rows/fetchers/RowEditFetcher";
 import RowNewFetcher from "@/modules/rows/fetchers/RowNewFetcher";
@@ -20,30 +20,27 @@ export default function RowsAllInOneRoute({ data }: { data: Rows_List.LoaderData
   const appOrAdminData = useAppOrAdminData();
   const [adding, setAdding] = useState(false);
   const [editing, setEditing] = useState<RowWithDetailsDto>();
-  const [rows, setRows] = useState<RowWithDetailsDto[]>([]);
+  // Use data.rowsData.items directly as initial state and only update via manual state changes
+  const [rows, setRows] = useState<RowWithDetailsDto[]>(() => data.rowsData.items);
   const [justCreated, setJustCreated] = useState<RowWithDetailsDto | null>(null);
   const [addingContact, setAddingContact] = useState(false);
   const [addingOpportunity, setAddingOpportunity] = useState(false);
 
-  useEffect(() => {
-    setRows(data.rowsData.items);
-  }, [data.rowsData.items]);
-
   // Helper to get the base URL path for related entities
-  const getRelatedEntityNewUrl = (entitySlug: string, companyId?: string) => {
+  const getRelatedEntityNewUrl = useCallback((entitySlug: string, companyId?: string) => {
     // Extract the base path from the current routes
     const currentPath = data.routes.list || "";
     // Replace the entity slug in the path
     const basePath = currentPath.replace(/\/entities\/[^\/]+\//, `/entities/${entitySlug}/`).replace(/\/[^\/]+$/, "");
     return companyId ? `${basePath}/${entitySlug}/new?company=${companyId}` : `${basePath}/${entitySlug}/new`;
-  };
+  }, [data.routes.list]);
 
-  // Get the contact and opportunity entities
-  const contactEntity = appOrAdminData?.entities?.find((e) => e.slug === "contacts");
-  const opportunityEntity = appOrAdminData?.entities?.find((e) => e.slug === "opportunities");
+  // Get the contact and opportunity entities - memoize to prevent recalculation
+  const contactEntity = useMemo(() => appOrAdminData?.entities?.find((e) => e.slug === "contacts"), [appOrAdminData?.entities]);
+  const opportunityEntity = useMemo(() => appOrAdminData?.entities?.find((e) => e.slug === "opportunities"), [appOrAdminData?.entities]);
 
-  function onCreated(row: RowWithDetailsDto) {
-    setRows([row, ...rows]);
+  const onCreated = useCallback((row: RowWithDetailsDto) => {
+    setRows((prevRows) => [row, ...prevRows]);
     // For companies, show the action buttons after creation
     if (data.rowsData.entity.slug === "companies") {
       setJustCreated(row);
@@ -51,17 +48,83 @@ export default function RowsAllInOneRoute({ data }: { data: Rows_List.LoaderData
       return;
     }
     setAdding(false);
-  }
-  function onUpdated(row: RowWithDetailsDto) {
-    setRows(rows.map((r) => (r.id === row.id ? row : r)));
+  }, [data.rowsData.entity.slug]);
+
+  const onUpdated = useCallback((row: RowWithDetailsDto) => {
+    setRows((prevRows) => prevRows.map((r) => (r.id === row.id ? row : r)));
     setEditing(undefined);
-  }
-  function onDeleted(row: RowWithDetailsDto | undefined) {
+  }, []);
+
+  const onDeleted = useCallback((row: RowWithDetailsDto | undefined) => {
     if (row) {
-      setRows(rows.filter((r) => r.id !== row.id));
+      setRows((prevRows) => prevRows.filter((r) => r.id !== row.id));
       setEditing(undefined);
     }
-  }
+  }, []);
+
+  const handleNewRow = useCallback(() => {
+    setAdding(true);
+  }, []);
+
+  const handleEditRow = useCallback((row: RowWithDetailsDto) => {
+    setEditing(row);
+  }, []);
+
+  const handleCloseAdding = useCallback(() => {
+    setAdding(false);
+  }, []);
+
+  const handleCloseEditing = useCallback(() => {
+    setEditing(undefined);
+  }, []);
+
+  const handleCloseAddingContact = useCallback(() => {
+    setAddingContact(false);
+  }, []);
+
+  const handleCloseAddingOpportunity = useCallback(() => {
+    setAddingOpportunity(false);
+  }, []);
+
+  const handleContactCreated = useCallback((row: RowWithDetailsDto) => {
+    setAddingContact(false);
+    // TODO: Store contact ID to link when company is saved
+  }, []);
+
+  const handleOpportunityCreated = useCallback((row: RowWithDetailsDto) => {
+    setAddingOpportunity(false);
+    // TODO: Store opportunity ID to link when company is saved
+  }, []);
+
+  const handleContactLinkClick = useCallback(() => {
+    setJustCreated(null);
+    setAdding(false);
+  }, []);
+
+  const handleOpportunityLinkClick = useCallback(() => {
+    setJustCreated(null);
+    setAdding(false);
+  }, []);
+
+  // Memoize specific primitive values from appOrAdminData to prevent reference changes
+  const userId = useMemo(() => appOrAdminData?.user?.id, [appOrAdminData?.user?.id]);
+  const isSuperAdmin = useMemo(() => appOrAdminData?.isSuperAdmin, [appOrAdminData?.isSuperAdmin]);
+  
+  const permissions = useMemo(() => ({
+    create: getUserHasPermission(appOrAdminData, getEntityPermission(data.rowsData.entity, "create")),
+  }), [appOrAdminData?.permissions, data.rowsData.entity.id]);
+
+  const currentSession = useMemo(() => 
+    appOrAdminData?.user
+      ? {
+          user: appOrAdminData.user,
+          isSuperAdmin: appOrAdminData.isSuperAdmin,
+        }
+      : null
+  , [userId, isSuperAdmin]);
+
+  // Memoize allEntities to avoid creating new array on every render
+  const allEntities = useMemo(() => appOrAdminData?.entities ?? [], [appOrAdminData?.entities]);
 
   return (
     <div>
@@ -70,31 +133,22 @@ export default function RowsAllInOneRoute({ data }: { data: Rows_List.LoaderData
         rowsData={data.rowsData}
         items={rows}
         routes={data.routes}
-        onNewRow={() => setAdding(true)}
-        onEditRow={(row) => setEditing(row)}
+        onNewRow={handleNewRow}
+        onEditRow={handleEditRow}
         saveCustomViews={true}
-        permissions={{
-          create: getUserHasPermission(appOrAdminData, getEntityPermission(data.rowsData.entity, "create")),
-        }}
-        currentSession={
-          appOrAdminData
-            ? {
-                user: appOrAdminData.user,
-                isSuperAdmin: appOrAdminData.isSuperAdmin,
-              }
-            : null
-        }
+        permissions={permissions}
+        currentSession={currentSession}
       />
       <SlideOverWideEmpty
         title={t("shared.create") + " " + t(data.rowsData?.entity.title ?? "")}
         size="2xl"
         open={adding}
-        onClose={() => setAdding(false)}
+        onClose={handleCloseAdding}
       >
         <RowNewFetcher
           url={EntityHelper.getRoutes({ routes: data.routes, entity: data.rowsData.entity })?.new ?? ""}
           onCreated={onCreated}
-          allEntities={appOrAdminData?.entities ?? []}
+          allEntities={allEntities}
         />
         
         {/* Quick action buttons for companies - shown after save */}
@@ -104,10 +158,7 @@ export default function RowsAllInOneRoute({ data }: { data: Rows_List.LoaderData
             <div className="flex flex-col gap-2 sm:flex-row">
               <Link
                 href={getRelatedEntityNewUrl("contacts", justCreated.id)}
-                onClick={() => {
-                  setJustCreated(null);
-                  setAdding(false);
-                }}
+                onClick={handleContactLinkClick}
                 className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2"
               >
                 <svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
@@ -117,10 +168,7 @@ export default function RowsAllInOneRoute({ data }: { data: Rows_List.LoaderData
               </Link>
               <Link
                 href={getRelatedEntityNewUrl("opportunities", justCreated.id)}
-                onClick={() => {
-                  setJustCreated(null);
-                  setAdding(false);
-                }}
+                onClick={handleOpportunityLinkClick}
                 className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2"
               >
                 <svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
@@ -139,7 +187,7 @@ export default function RowsAllInOneRoute({ data }: { data: Rows_List.LoaderData
         title={editing ? RowHelper.getRowFolio(data.rowsData?.entity, editing) : ""}
         className="max-w-md"
         open={!!editing}
-        onClose={() => setEditing(undefined)}
+        onClose={handleCloseEditing}
         buttons={
           <>
             {data.rowsData.entity.slug === "companies" && editing && (
@@ -178,7 +226,7 @@ export default function RowsAllInOneRoute({ data }: { data: Rows_List.LoaderData
       >
         <RowEditFetcher
           url={EntityHelper.getRoutes({ routes: data.routes, entity: data.rowsData.entity, item: editing })?.edit ?? ""}
-          allEntities={appOrAdminData?.entities ?? []}
+          allEntities={allEntities}
           onUpdated={onUpdated}
           onDeleted={() => onDeleted(editing)}
         />
@@ -191,7 +239,7 @@ export default function RowsAllInOneRoute({ data }: { data: Rows_List.LoaderData
           size="xl"
           position={2}
           open={addingContact}
-          onClose={() => setAddingContact(false)}
+          onClose={handleCloseAddingContact}
         >
           <div className="space-y-4">
             <div className="rounded-md border border-blue-200 bg-blue-50 p-3 text-sm text-blue-900">
@@ -199,11 +247,8 @@ export default function RowsAllInOneRoute({ data }: { data: Rows_List.LoaderData
             </div>
             <RowNewFetcher
               url={`/admin/entities/${contactEntity.slug}/no-code/${contactEntity.slug}/new`}
-              onCreated={(row) => {
-                setAddingContact(false);
-                // TODO: Store contact ID to link when company is saved
-              }}
-              allEntities={appOrAdminData?.entities ?? []}
+              onCreated={handleContactCreated}
+              allEntities={allEntities}
             />
           </div>
         </SlideOverWideEmpty>
@@ -216,7 +261,7 @@ export default function RowsAllInOneRoute({ data }: { data: Rows_List.LoaderData
           size="xl"
           position={2}
           open={addingOpportunity}
-          onClose={() => setAddingOpportunity(false)}
+          onClose={handleCloseAddingOpportunity}
         >
           <div className="space-y-4">
             <div className="rounded-md border border-blue-200 bg-blue-50 p-3 text-sm text-blue-900">
@@ -224,11 +269,8 @@ export default function RowsAllInOneRoute({ data }: { data: Rows_List.LoaderData
             </div>
             <RowNewFetcher
               url={`/admin/entities/${opportunityEntity.slug}/no-code/${opportunityEntity.slug}/new`}
-              onCreated={(row) => {
-                setAddingOpportunity(false);
-                // TODO: Store opportunity ID to link when company is saved
-              }}
-              allEntities={appOrAdminData?.entities ?? []}
+              onCreated={handleOpportunityCreated}
+              allEntities={allEntities}
             />
           </div>
         </SlideOverWideEmpty>

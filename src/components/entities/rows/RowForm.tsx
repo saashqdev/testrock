@@ -2,7 +2,7 @@
 
 import { RowWithDetailsDto, RowWithValuesDto } from "@/db/models/entityBuilder/RowsModel";
 import { EntityWithDetailsDto, PropertyWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
-import { Dispatch, forwardRef, Fragment, ReactNode, Ref, SetStateAction, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
+import { Dispatch, forwardRef, Fragment, ReactNode, Ref, SetStateAction, useEffect, useImperativeHandle, useMemo, useRef, useState, useCallback } from "react";
 import clsx from "clsx";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { RowValueDto } from "@/lib/dtos/entities/RowValueDto";
@@ -98,7 +98,9 @@ const RowForm = (
   const formGroup = useRef<RefFormGroup>(null);
 
   const [searchParams] = useSearchParams();
-  const newSearchParams = new URLSearchParams(searchParams?.toString() || "");
+  const searchParamsString = searchParams?.toString() || "";
+  // Memoize to avoid creating new URLSearchParams on every render
+  const newSearchParams = useMemo(() => new URLSearchParams(searchParamsString), [searchParamsString]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchingRelationshipRows, setSearchingRelationshipRows] = useState<EntityRelationshipWithDetailsDto>();
   const [selectedRelatedEntity, setSelectedRelatedEntity] = useState<{
@@ -289,14 +291,16 @@ const RowForm = (
     setRelatedRows(newRelatedRows);
   }
 
-  function onRemoveRelatedRow(relationship: EntityRelationshipWithDetailsDto, row: RowWithValuesDto) {
-    const newRelatedRows = [...relatedRows];
-    const existing = newRelatedRows.find((f) => f.relationship.id === relationship.id);
-    if (existing) {
-      existing.rows = existing.rows.filter((f) => f.id !== row.id);
-    }
-    setRelatedRows(newRelatedRows);
-  }
+  const onRemoveRelatedRow = useCallback((relationship: EntityRelationshipWithDetailsDto, row: RowWithValuesDto) => {
+    setRelatedRows((prevRelatedRows) => {
+      const newRelatedRows = [...prevRelatedRows];
+      const existing = newRelatedRows.find((f) => f.relationship.id === relationship.id);
+      if (existing) {
+        existing.rows = existing.rows.filter((f) => f.id !== row.id);
+      }
+      return newRelatedRows;
+    });
+  }, []); // No dependencies needed since we use functional setState
 
   function submitForm(formData: FormData) {
     if (onSubmit) {
@@ -609,6 +613,15 @@ function RelationshipSelector({
   function getChildEntity(relationship: EntityRelationshipWithDetailsDto) {
     return allEntities.find((f) => f.id === relationship.parentId);
   }
+  
+  // Memoize the onRemove callback to prevent RowsList re-renders
+  const handleRemove = useCallback(
+    (row: RowWithValuesDto) => {
+      onRemoveRelatedRow(relationship, row);
+    },
+    [relationship.id, onRemoveRelatedRow]
+  );
+  
   return (
     <div className={className}>
       {/* <div>selectedRow: {getSelectedRow()}</div>
@@ -680,7 +693,7 @@ function RelationshipSelector({
             currentView={entity.view}
             view={(entity.view?.layout ?? "card") as "table" | "board" | "grid" | "card"}
             readOnly={readOnly}
-            onRemove={readOnly ? undefined : (row) => onRemoveRelatedRow(relationship, row)}
+            onRemove={readOnly ? undefined : handleRemove}
             ignoreColumns={!readOnly ? [RowDisplayDefaultProperty.FOLIO, "parent." + relationship.parent.name, "child." + relationship.child.name] : []}
             routes={routes}
           />

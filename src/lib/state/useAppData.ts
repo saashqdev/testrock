@@ -1,11 +1,12 @@
 "use client"
 
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useRef } from "react";
 import { TenantUserType } from "@/lib/enums/tenants/TenantUserType";
 import { TenantDto } from "@/db/models/accounts/TenantsModel";
 import { TenantSubscriptionWithDetailsDto } from "@/db/models/subscriptions/TenantSubscriptionsModel";
 import { AppOrAdminData } from "./useAppOrAdminData";
 import EntitiesSingleton from "@/modules/rows/repositories/EntitiesSingleton";
+import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 
 export type AppLoaderData = AppOrAdminData & {
   currentTenant: TenantDto;
@@ -19,6 +20,16 @@ export const AppDataContext = createContext<AppDataDto | null>(null);
 
 export default function useAppData(): AppLoaderData | null {
   const context = useContext(AppDataContext);
+  
+  // Only set entities singleton when context.entities actually changes
+  const entitiesRef = useRef<EntityWithDetailsDto[] | null>(null);
+  
+  useEffect(() => {
+    if (context?.entities && context.entities !== entitiesRef.current) {
+      entitiesRef.current = context.entities;
+      EntitiesSingleton.getInstance().setEntities(context.entities);
+    }
+  }, [context?.entities]);
   
   if (!context) {
     if (typeof window === 'undefined') {
@@ -46,7 +57,6 @@ export default function useAppData(): AppLoaderData | null {
     // This allows the hook to be used in components that may not always be within AppDataContext
     return null;
   }
-  EntitiesSingleton.getInstance().setEntities(context.entities);
   return context;
 }
 

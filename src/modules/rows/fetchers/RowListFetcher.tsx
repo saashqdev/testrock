@@ -35,45 +35,41 @@ export default function RowListFetcher({ currentView, listUrl, newUrl, parentEnt
   const [selectedRows, setSelectedRows] = useState<RowWithDetailsDto[]>([]);
   const [searchParams] = useSearchParams();
 
-  const fetchData = useCallback(
-    async (url: string) => {
-      setLoading(true);
-      setError(null);
+  const fetchData = useCallback(async (url: string) => {
+    setLoading(true);
+    setError(null);
 
-      try {
-        const response = await fetch(url, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-        setData(result);
-
-        if (result.rowsData) {
-          setRows(result.rowsData.items);
-          let selectedRowIds = selectedRows.map((r) => r.id);
-          setSelectedRows(result.rowsData.items.filter((r: RowWithDetailsDto) => selectedRowIds.includes(r.id)));
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
-        console.error("Error fetching data:", err);
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    },
-    [selectedRows]
-  );
 
-  useEffect(() => {
-    fetchData(listUrl);
-  }, [listUrl, fetchData]);
+      const result = await response.json();
+      setData(result);
 
+      if (result.rowsData) {
+        setRows(result.rowsData.items);
+        // DON'T update selectedRows here - let user selections persist
+        // The only time we need to update is if a selected row no longer exists in the new data
+        // But that can cause issues, so we'll just leave selectedRows alone
+        // User selections are managed entirely by onRowsSelected callback
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+      console.error("Error fetching data:", err);
+    } finally {
+      setLoading(false);
+    }
+  }, []); // No dependencies needed now
+
+  // Combine the two useEffects to avoid double fetching
   useEffect(() => {
     // Extract entity slug and tenant from listUrl path
     // listUrl format: /app/{tenant}/{entity} or /admin/entities/{entity}/no-code/{entity}
@@ -101,19 +97,19 @@ export default function RowListFetcher({ currentView, listUrl, newUrl, parentEnt
     fetchData(url);
   }, [searchParams, currentView, listUrl, fetchData]);
 
-  function onRowsSelected(rows: RowWithDetailsDto[]) {
+  const onRowsSelected = useCallback((rows: RowWithDetailsDto[]) => {
     setSelectedRows(rows);
-  }
+  }, []);
 
-  function onCreated(row: RowWithDetailsDto) {
-    setRows([row, ...rows]);
-    setSelectedRows([row, ...selectedRows]);
+  const onCreated = useCallback((row: RowWithDetailsDto) => {
+    setRows((prevRows) => [row, ...prevRows]);
+    setSelectedRows((prevSelected) => [row, ...prevSelected]);
     setAdding(false);
-  }
+  }, []);
 
-  function onConfirm(rows: RowWithDetailsDto[]) {
+  const onConfirm = useCallback((rows: RowWithDetailsDto[]) => {
     onSelected(rows);
-  }
+  }, [onSelected]);
 
   return (
     <div>

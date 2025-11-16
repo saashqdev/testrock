@@ -55,16 +55,17 @@ export default function RowEditFetcher({ url, onUpdated, allEntities, onDeleted 
         setData(result);
       }
 
-      if (result.updatedRow?.item && onUpdated) {
-        onUpdated(result.updatedRow.item);
-      }
+      // Don't call onUpdated on initial load, only on explicit updates
+      // if (result.updatedRow?.item && onUpdated) {
+      //   onUpdated(result.updatedRow.item);
+      // }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
       console.error("Error fetching data:", err);
     } finally {
       setLoading(false);
     }
-  }, [url, onUpdated]);
+  }, [url]);
 
   useEffect(() => {
     fetchData();

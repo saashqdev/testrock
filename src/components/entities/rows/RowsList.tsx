@@ -9,7 +9,7 @@ import KanbanSimple, { KanbanColumn } from "@/components/ui/lists/KanbanSimple";
 import RowHelper from "@/lib/helpers/RowHelper";
 import { useTranslation } from "react-i18next";
 import { Colors } from "@/lib/enums/shared/Colors";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState, useMemo, memo } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
@@ -50,13 +50,14 @@ interface Props {
   leftHeaders?: RowHeaderDisplayDto<RowWithDetailsDto>[];
   rightHeaders?: RowHeaderDisplayDto<RowWithDetailsDto>[];
 }
-export default function RowsList(props: Props & { entity: EntityWithDetailsDto | string }) {
+function RowsList(props: Props & { entity: EntityWithDetailsDto | string }) {
   const appOrAdminData = useAppOrAdminData();
 
   const [entity, setEntity] = useState<EntityWithDetailsDto>();
   const [columns, setColumns] = useState<ColumnDto[]>([]);
   const [groupBy, setGroupBy] = useState<{ property?: PropertyWithDetailsDto } | undefined>();
 
+  // Only look up entity by name once when component mounts or entity changes
   useEffect(() => {
     let entity: EntityWithDetailsDto | undefined = undefined;
     let columns: ColumnDto[] = [];
@@ -117,10 +118,31 @@ export default function RowsList(props: Props & { entity: EntityWithDetailsDto |
       columns = props.columns;
     }
 
-    setEntity(entity);
-    setColumns(columns);
-    setGroupBy(groupBy);
-  }, [appOrAdminData?.entities, props]);
+    // Only update state if values actually changed
+    setEntity((prev) => {
+      const entityId = entity?.id;
+      const prevId = prev?.id;
+      return entityId !== prevId ? entity : prev;
+    });
+    setColumns((prev) => {
+      const columnsStr = JSON.stringify(columns.map(c => c.name));
+      const prevStr = JSON.stringify(prev.map(c => c.name));
+      return columnsStr !== prevStr ? columns : prev;
+    });
+    setGroupBy((prev) => {
+      const groupByProp = groupBy?.property?.id;
+      const prevProp = prev?.property?.id;
+      return groupByProp !== prevProp ? groupBy : prev;
+    });
+  }, [
+    // Only depend on the specific props that matter, not objects
+    typeof props.entity === 'string' ? props.entity : props.entity.id,
+    props.currentView?.id,
+    props.view,
+    JSON.stringify(props.ignoreColumns),
+    props.columns ? JSON.stringify(props.columns.map(c => c.name)) : undefined,
+    // Don't depend on appOrAdminData - just use it inside the effect
+  ]);
 
   if (!entity) {
     return null;
@@ -157,6 +179,12 @@ function RowsListWrapped({
   const { t } = useTranslation();
   const params = useParams();
   const appOrAdminData = useAppOrAdminData();
+  
+  // Get allEntities only when actually needed (memoized based on stable reference)
+  const allEntities = useMemo(() => {
+    // Only recreate if the entities array reference actually changed content-wise
+    return appOrAdminData?.entities ?? [];
+  }, [appOrAdminData?.entities]);
 
   const [options, setOptions] = useState<KanbanColumn<RowWithDetailsDto>[]>([]);
   useEffect(() => {
@@ -172,7 +200,7 @@ function RowsListWrapped({
               </div>
             ),
             value: (item: RowWithDetailsDto) => (
-              <RenderCard layout={view} item={item} entity={entity} columns={columns} allEntities={appOrAdminData?.entities ?? []} routes={routes} actions={actions} />
+              <RenderCard layout={view} item={item} entity={entity} columns={columns} allEntities={allEntities} routes={routes} actions={actions} />
             ),
             onClickRoute: (i: RowWithDetailsDto) => EntityHelper.getRoutes({ routes, entity, item: i })?.edit ?? "",
             onNewRoute: (columnValue: string) => {
@@ -187,7 +215,7 @@ function RowsListWrapped({
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [groupBy]);
+  }, [groupBy?.property?.id]);
 
   return (
     <Fragment>
@@ -201,7 +229,7 @@ function RowsListWrapped({
           onFolioClick={onEditRow}
           onEditClick={onEditRow}
           onRelatedRowClick={onEditRow}
-          allEntities={appOrAdminData?.entities ?? []}
+          allEntities={allEntities}
           editable={!readOnly}
           selectedRows={selectedRows}
           onSelected={onSelected}
@@ -242,7 +270,7 @@ function RowsListWrapped({
                     item={item}
                     entity={entity}
                     columns={columns}
-                    allEntities={appOrAdminData?.entities ?? []}
+                    allEntities={allEntities}
                     routes={routes}
                     actions={actions}
                   />
@@ -288,7 +316,7 @@ function RowsListWrapped({
                           item={item}
                           entity={entity}
                           columns={columns}
-                          allEntities={appOrAdminData?.entities ?? []}
+                          allEntities={allEntities}
                           routes={routes}
                           actions={actions}
                         />
@@ -303,7 +331,7 @@ function RowsListWrapped({
                         item={item}
                         entity={entity}
                         columns={columns}
-                        allEntities={appOrAdminData?.entities ?? []}
+                        allEntities={allEntities}
                         routes={routes}
                         actions={actions}
                         href={href}
@@ -364,7 +392,7 @@ function RowsListWrapped({
                           item={item}
                           entity={entity}
                           columns={columns}
-                          allEntities={appOrAdminData?.entities ?? []}
+                          allEntities={allEntities}
                           routes={routes}
                           actions={actions}
                         />
@@ -382,7 +410,7 @@ function RowsListWrapped({
                         item={item}
                         entity={entity}
                         columns={columns}
-                        allEntities={appOrAdminData?.entities ?? []}
+                        allEntities={allEntities}
                         routes={routes}
                         actions={actions}
                         href={href}
@@ -534,3 +562,28 @@ function RemoveButton({ item, readOnly, onRemove }: { item: RowWithDetailsDto; r
     </Fragment>
   );
 }
+
+// Memoize the component with custom comparison
+export default memo(RowsList, (prevProps, nextProps) => {
+  // Check items
+  if (prevProps.items !== nextProps.items) {
+    if (prevProps.items.length !== nextProps.items.length) return false;
+    for (let i = 0; i < prevProps.items.length; i++) {
+      if (prevProps.items[i].id !== nextProps.items[i].id) return false;
+    }
+  }
+  
+  // Check entity
+  const prevEntityId = typeof prevProps.entity === 'string' ? prevProps.entity : prevProps.entity.id;
+  const nextEntityId = typeof nextProps.entity === 'string' ? nextProps.entity : nextProps.entity.id;
+  
+  // Return true to skip re-render if all props are equal
+  return (
+    prevEntityId === nextEntityId &&
+    prevProps.view === nextProps.view &&
+    prevProps.selectedRows === nextProps.selectedRows &&
+    prevProps.onEditRow === nextProps.onEditRow &&
+    prevProps.onSelected === nextProps.onSelected &&
+    prevProps.onRemove === nextProps.onRemove
+  );
+});

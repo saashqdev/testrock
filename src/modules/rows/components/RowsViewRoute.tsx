@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, ReactNode, useEffect, useRef, useState, useActionState } from "react";
+import { Fragment, ReactNode, useEffect, useRef, useState, useActionState, useMemo, memo } from "react";
 import { useTranslation } from "react-i18next";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useFormStatus } from "react-dom";
@@ -42,19 +42,28 @@ interface Props {
   } | null;
   action?: (prevState: any, formData: FormData) => Promise<Rows_List.ActionData | null>;
 }
-export default function RowsViewRoute({ title, rowsData, items, routes, onNewRow, onEditRow, saveCustomViews, permissions, currentSession, action }: Props) {
+// Default no-op action to avoid creating new function on every render
+const defaultAction = async () => null;
+
+function RowsViewRoute({ title, rowsData, items, routes, onNewRow, onEditRow, saveCustomViews, permissions, currentSession, action }: Props) {
   const { t } = useTranslation();
-  const [actionData, formAction, pending] = useActionState(action || (async () => null), null);
+  const [actionData, formAction, pending] = useActionState(action || defaultAction, null);
   const appData = useAppData();
   const pathname = usePathname();
   const [searchParams] = useSearchParams();
-  const newSearchParams = new URLSearchParams(searchParams?.toString() || "");
+  const searchParamsString = searchParams?.toString() || "";
+  
+  // Memoize newSearchParams to avoid recreating on every render
+  const newSearchParams = useMemo(() => new URLSearchParams(searchParamsString), [searchParamsString]);
 
   const confirmDeleteRows = useRef<RefConfirmModal>(null);
 
   const [bulkActions, setBulkActions] = useState<string[]>([]);
 
-  const [view, setView] = useState(rowsData.currentView?.layout ?? newSearchParams.get("view") ?? "table");
+  const [view, setView] = useState(() => {
+    const params = new URLSearchParams(searchParamsString);
+    return rowsData.currentView?.layout ?? params.get("view") ?? "table";
+  });
   const [filters, setFilters] = useState<FilterDto[]>([]);
 
   const [showCustomViewModal, setShowCustomViewModal] = useState(false);
@@ -69,12 +78,12 @@ export default function RowsViewRoute({ title, rowsData, items, routes, onNewRow
       bulkActions.push("bulk-delete");
     }
     setBulkActions(bulkActions);
-  }, [rowsData, t]);
+  }, [rowsData.entity.id, rowsData.entity.hasBulkDelete, rowsData.pagination, t]);
 
   useEffect(() => {
     const newView = rowsData.currentView?.layout ?? newSearchParams.get("view") ?? "table";
     setView(newView);
-  }, [newSearchParams, rowsData.entity, rowsData.currentView?.layout]);
+  }, [newSearchParams, rowsData.currentView?.layout]);
 
   useEffect(() => {
     if (actionData?.error) {
@@ -94,7 +103,7 @@ export default function RowsViewRoute({ title, rowsData, items, routes, onNewRow
   useEffect(() => {
     setShowCustomViewModal(false);
     setEditingView(null);
-  }, [newSearchParams]);
+  }, [searchParamsString]);
 
   function onCreateView() {
     setShowCustomViewModal(true);
@@ -151,15 +160,13 @@ export default function RowsViewRoute({ title, rowsData, items, routes, onNewRow
               <TabsWithIcons
                 className="grow xl:flex"
                 tabs={rowsData.views.map((item) => {
-                  // if (views.find((f) => f.name === item.name && f.isDefault)) {
-                  //   searchParams.delete("v");
-                  // } else {
-                  newSearchParams.set("v", item.name);
-                  // }
-                  newSearchParams.delete("page");
+                  // Create a new URLSearchParams for each tab to avoid mutation
+                  const tabParams = new URLSearchParams(searchParamsString);
+                  tabParams.set("v", item.name);
+                  tabParams.delete("page");
                   return {
                     name: t(item.title),
-                    href: pathname + "?" + newSearchParams.toString(),
+                    href: pathname + "?" + tabParams.toString(),
                     current: isCurrenView(item),
                   };
                 })}
@@ -281,3 +288,23 @@ function DeleteIconButton({ onClick }: { onClick: () => void }) {
     </button>
   );
 }
+
+// Memoize the component with custom comparison
+export default memo(RowsViewRoute, (prevProps, nextProps) => {
+  // Check if items changed (length or content)
+  if (prevProps.items !== nextProps.items) {
+    if (prevProps.items.length !== nextProps.items.length) return false;
+    for (let i = 0; i < prevProps.items.length; i++) {
+      if (prevProps.items[i].id !== nextProps.items[i].id) return false;
+    }
+  }
+  
+  // Check other critical props
+  return (
+    prevProps.rowsData.entity.id === nextProps.rowsData.entity.id &&
+    prevProps.permissions.create === nextProps.permissions.create &&
+    prevProps.currentSession?.user?.id === nextProps.currentSession?.user?.id &&
+    prevProps.onNewRow === nextProps.onNewRow &&
+    prevProps.onEditRow === nextProps.onEditRow
+  );
+});

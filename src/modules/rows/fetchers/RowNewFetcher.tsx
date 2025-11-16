@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, memo } from "react";
 import { useTranslation } from "react-i18next";
 import CheckPlanFeatureLimit from "@/components/core/settings/subscription/CheckPlanFeatureLimit";
 import Loading from "@/components/ui/loaders/Loading";
@@ -17,7 +17,7 @@ interface Props {
   children?: React.ReactNode;
   // onSelected: (entity: EntityWithDetails, item: RowWithDetails) => void;
 }
-export default function RowNewFetcher({ url, parentEntity, onCreated, allEntities, customSearchParams, children }: Props) {
+function RowNewFetcher({ url, parentEntity, onCreated, allEntities, customSearchParams, children }: Props) {
   const { t } = useTranslation();
 
   const [data, setData] = useState<{
@@ -30,6 +30,7 @@ export default function RowNewFetcher({ url, parentEntity, onCreated, allEntitie
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [lastCreatedRowId, setLastCreatedRowId] = useState<string | null>(null);
 
   const fetchData = useCallback(async () => {
     if (!url) return;
@@ -61,15 +62,17 @@ export default function RowNewFetcher({ url, parentEntity, onCreated, allEntitie
 
   useEffect(() => {
     fetchData();
+    setLastCreatedRowId(null);
   }, [fetchData]);
 
   useEffect(() => {
-    if (data?.newRow && onCreated) {
-      // console.log("added", data.newRow);
+    // Only call onCreated if we have a new row and haven't already notified for this row ID
+    if (data?.newRow && onCreated && data.newRow.id !== lastCreatedRowId) {
       onCreated(data.newRow);
+      setLastCreatedRowId(data.newRow.id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [data?.newRow?.id]);
 
   const onSubmit = async (formData: FormData) => {
     setSubmitting(true);
@@ -87,10 +90,7 @@ export default function RowNewFetcher({ url, parentEntity, onCreated, allEntitie
 
       const result = await response.json();
       setData(result);
-
-      if (result.newRow && onCreated) {
-        onCreated(result.newRow);
-      }
+      // Note: onCreated will be called by the useEffect when data.newRow changes
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
       console.error("Error submitting form:", err);
@@ -134,3 +134,14 @@ export default function RowNewFetcher({ url, parentEntity, onCreated, allEntitie
     </div>
   );
 }
+
+// Memoize to prevent re-renders when parent re-renders
+export default memo(RowNewFetcher, (prevProps, nextProps) => {
+  // Only re-render if these specific props change
+  return (
+    prevProps.url === nextProps.url &&
+    prevProps.parentEntity?.id === nextProps.parentEntity?.id &&
+    prevProps.onCreated === nextProps.onCreated &&
+    prevProps.allEntities === nextProps.allEntities
+  );
+});
