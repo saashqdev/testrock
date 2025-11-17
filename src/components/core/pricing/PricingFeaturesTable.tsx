@@ -19,13 +19,21 @@ interface Props {
   items: SubscriptionFeatureDto[];
   setItems: React.Dispatch<React.SetStateAction<SubscriptionFeatureDto[]>>;
 }
+
+type SubscriptionFeatureWithId = SubscriptionFeatureDto & { id: string };
+
 export default function PricingFeaturesTable({ plans, items, setItems }: Props) {
   const { t } = useTranslation();
+  
+  // Ensure all items have IDs
+  const itemsWithIds: SubscriptionFeatureWithId[] = items.map(item => item.id ? item as SubscriptionFeatureWithId : { ...item, id: crypto.randomUUID() });
+  
   function onAddFeature() {
-    const order = items.length === 0 ? 1 : Math.max(...items.map((o) => o.order)) + 1;
+    const order = itemsWithIds.length === 0 ? 1 : Math.max(...itemsWithIds.map((o) => o.order)) + 1;
     setItems([
-      ...items,
+      ...itemsWithIds,
       {
+        id: crypto.randomUUID(),
         order,
         title: "",
         name: "",
@@ -36,8 +44,8 @@ export default function PricingFeaturesTable({ plans, items, setItems }: Props) 
     ]);
   }
 
-  function changeOrder(item: SubscriptionFeatureDto, index: number, direction: "up" | "down") {
-    const newItems = [...items];
+  function changeOrder(item: SubscriptionFeatureWithId, index: number, direction: "up" | "down") {
+    const newItems = [...itemsWithIds];
     const newIndex = direction === "up" ? index - 1 : index + 1;
     newItems.splice(index, 1);
     newItems.splice(newIndex, 0, item);
@@ -48,12 +56,12 @@ export default function PricingFeaturesTable({ plans, items, setItems }: Props) 
   }
 
   function isLastItem(index: number) {
-    return index === items.length - 1;
+    return index === itemsWithIds.length - 1;
   }
 
   return (
     <div className="space-y-2">
-      <Buttons plans={plans} items={items} setItems={setItems} onAddFeature={onAddFeature} />
+      <Buttons plans={plans} items={itemsWithIds} setItems={setItems} onAddFeature={onAddFeature} />
       <div className="">
         <TableSimple
           headers={[
@@ -117,7 +125,7 @@ export default function PricingFeaturesTable({ plans, items, setItems }: Props) 
               className: "w-32",
               value: (item) => item.title,
               onChange: (title, idx) =>
-                updateItemByIdx(items, setItems, idx, {
+                updateItemByIdx(itemsWithIds, setItems, idx, {
                   title,
                 }),
               inputBorderless: true,
@@ -151,11 +159,11 @@ export default function PricingFeaturesTable({ plans, items, setItems }: Props) 
                 },
               ],
               onChange: (type, idx) => {
-                let value = items[idx].value;
+                let value = itemsWithIds[idx].value;
                 if (Number(type) !== SubscriptionFeatureLimitType.MAX && Number(type) !== SubscriptionFeatureLimitType.MONTHLY) {
                   value = 0;
                 }
-                updateItemByIdx(items, setItems, idx, {
+                updateItemByIdx(itemsWithIds, setItems, idx, {
                   type,
                   value,
                 });
@@ -169,7 +177,7 @@ export default function PricingFeaturesTable({ plans, items, setItems }: Props) 
               inputOptional: true,
               value: (item) => item.name,
               onChange: (name, idx) =>
-                updateItemByIdx(items, setItems, idx, {
+                updateItemByIdx(itemsWithIds, setItems, idx, {
                   name,
                 }),
               inputBorderless: true,
@@ -182,7 +190,7 @@ export default function PricingFeaturesTable({ plans, items, setItems }: Props) 
               value: (item) => item.value,
               editable: (item) => item.type === SubscriptionFeatureLimitType.MAX || item.type === SubscriptionFeatureLimitType.MONTHLY,
               onChange: (value, idx) =>
-                updateItemByIdx(items, setItems, idx, {
+                updateItemByIdx(itemsWithIds, setItems, idx, {
                   value,
                 }),
               inputBorderless: true,
@@ -195,7 +203,7 @@ export default function PricingFeaturesTable({ plans, items, setItems }: Props) 
               inputOptional: true,
               value: (item) => item.href,
               onChange: (href, idx) =>
-                updateItemByIdx(items, setItems, idx, {
+                updateItemByIdx(itemsWithIds, setItems, idx, {
                   href,
                 }),
               inputBorderless: true,
@@ -208,21 +216,21 @@ export default function PricingFeaturesTable({ plans, items, setItems }: Props) 
               inputOptional: true,
               value: (item) => item.badge,
               onChange: (badge, idx) =>
-                updateItemByIdx(items, setItems, idx, {
+                updateItemByIdx(itemsWithIds, setItems, idx, {
                   badge,
                 }),
               inputBorderless: true,
             },
           ]}
-          items={items}
+          items={itemsWithIds}
           actions={[
             {
               title: t("shared.delete"),
-              onClick: (idx) => setItems(items.filter((_x, i) => i !== idx)),
+              onClick: (idx) => setItems(itemsWithIds.filter((_x, i) => i !== idx)),
             },
           ]}
         ></TableSimple>
-        {items.map((item, idx) => {
+        {itemsWithIds.map((item, idx) => {
           return (
             <div key={idx} className=" ">
               <input readOnly hidden type="text" id="features[]" name="features[]" value={JSON.stringify(item)} />
@@ -230,7 +238,7 @@ export default function PricingFeaturesTable({ plans, items, setItems }: Props) 
           );
         })}
       </div>
-      {items.length > 10 && <Buttons plans={plans} items={items} setItems={setItems} onAddFeature={onAddFeature} />}
+      {itemsWithIds.length > 10 && <Buttons plans={plans} items={itemsWithIds} setItems={setItems} onAddFeature={onAddFeature} />}
     </div>
   );
 }
@@ -280,7 +288,8 @@ function Buttons({
                       type="button"
                       onClick={() => {
                         let uniqueFeatures = product.features.filter((feature) => !items.find((item) => item.name === feature.name));
-                        setItems([...items, ...uniqueFeatures]);
+                        const featuresWithIds = uniqueFeatures.map(f => ({ ...f, id: f.id || crypto.randomUUID() }));
+                        setItems([...items, ...featuresWithIds]);
                       }}
                       className={clsx("w-full text-left", active ? "bg-secondary/90 text-foreground" : "text-foreground/80", "block px-4 py-2 text-sm")}
                     >
