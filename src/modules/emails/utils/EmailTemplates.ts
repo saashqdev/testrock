@@ -1,6 +1,7 @@
 import { AppConfigurationDto } from "@/db/models/core/AppConfigurationModel";
 
 type EmailTemplate = {
+  id: string;
   name: string;
   description: string;
   parse: (data: any) => {
@@ -10,6 +11,7 @@ type EmailTemplate = {
 };
 
 const WELCOME_EMAIL = {
+  id: "welcome",
   name: "welcome",
   description: "Welcome email with login link",
   parse: ({ name, appConfiguration, action_url }: { name?: string; appConfiguration: AppConfigurationDto; action_url: string }) => {
@@ -31,6 +33,7 @@ ${appConfiguration.email.supportEmail && `<p>If you have any questions, feel fre
 };
 
 const PASSWORD_RESET_EMAIL = {
+  id: "password-reset",
   name: "password-reset",
   description: "Email sent to users who requested a password reset",
   parse: ({ name, appConfiguration, action_url }: { name?: string; appConfiguration: AppConfigurationDto; action_url: string }) => {
@@ -52,6 +55,7 @@ const PASSWORD_RESET_EMAIL = {
 };
 
 const USER_INVITATION_EMAIL = {
+  id: "user-invitation",
   name: "user-invitation",
   description: "Email sent to users who are invited to join an organization",
   parse: ({
@@ -85,6 +89,7 @@ ${appConfiguration.email.supportEmail && `<p>If you have any questions, feel fre
 };
 
 const VERIFICATION_EMAIL = {
+  id: "email-verification",
   name: "email-verification",
   description: "Email sent to users to verify their email address",
   parse: ({ appConfiguration, name, action_url }: { appConfiguration: AppConfigurationDto; name?: string; action_url: string }) => {
@@ -104,6 +109,7 @@ ${appConfiguration.email.supportEmail && `<p>If you have any questions, feel fre
 };
 
 const ACCOUNT_SETUP_EMAIL = {
+  id: "account-setup",
   name: "account-setup",
   description: "Email sent to users to set up their account",
   parse: ({ appConfiguration, action_url }: { appConfiguration: AppConfigurationDto; action_url: string }) => {

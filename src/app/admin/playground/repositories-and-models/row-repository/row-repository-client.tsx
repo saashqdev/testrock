@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useTransition } from "react";
+import { useTransition } from "react";
 import { toast } from "sonner";
 import LoadingButton from "@/components/ui/buttons/LoadingButton";
 import CodeBlock from "@/components/ui/code/CodeBlock";

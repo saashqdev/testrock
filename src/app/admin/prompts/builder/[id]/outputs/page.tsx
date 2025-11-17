@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import { getServerTranslations } from "@/i18n/server";
 import { PromptFlowOutputWithDetailsDto } from "@/db/models/promptFlows/PromptFlowOutputsModel";
 import { PromptFlowWithDetailsDto } from "@/db/models/promptFlows/PromptFlowsModel";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";

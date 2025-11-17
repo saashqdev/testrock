@@ -8,8 +8,8 @@ import { getTenantIdFromUrl } from "@/utils/services/server/urlService";
 import { getUserInfo } from "@/lib/services/session.server";
 import { getBaseURL } from "@/utils/url.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
-import { db } from "@/db";
 import ClientBlogPost from "./ClientBlogPost";
+import { db } from "@/db";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const params = (await props.params) || {};

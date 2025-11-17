@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import ServerError from "@/components/ui/errors/ServerError";
 import RowsViewRoute from "@/modules/rows/components/RowsViewRoute";
-import { LoaderData, loader, action } from "@/modules/rows/routes/Rows_List.server";
+import { LoaderData, loader as rowsLoader, action as rowsAction } from "@/modules/rows/routes/Rows_List.server";
 import { getEntityPermission } from "@/lib/helpers/PermissionsHelper";
 import { serverTimingHeaders } from "@/modules/metrics/utils/defaultHeaders.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
@@ -13,7 +13,7 @@ import { db } from "@/db";
 export { serverTimingHeaders as headers };
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
-  const data = await loader(props);
+  const data = await rowsLoader(props);
   const loaderData = await data.json() as LoaderData;
   
   // Convert MetaTagsDto array to Metadata object
@@ -28,11 +28,11 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   }
   return metadata;
 }
-export const loader = (props: IServerComponentsProps) => loader(props);
-export const action = (props: IServerComponentsProps) => action(props);
+export const loader = (props: IServerComponentsProps) => rowsLoader(props);
+export const action = (props: IServerComponentsProps) => rowsAction(props);
 
 export default async function (props: IServerComponentsProps) {
-  const response = await loader(props);
+  const response = await rowsLoader(props);
   const data = await response.json() as LoaderData;
   
   // Fetch user data server-side

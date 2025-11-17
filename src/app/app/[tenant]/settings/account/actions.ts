@@ -5,7 +5,7 @@ import { getServerTranslations } from "@/i18n/server";
 import { getTenantIdFromUrl } from "@/utils/services/server/urlService";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { deleteAndCancelTenant } from "@/utils/services/tenantService";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { getUserInfo } from "@/lib/services/session.server";
 import { getActiveTenantSubscriptions } from "@/utils/services/server/subscriptionService";
 import { createCustom } from "@/utils/api/server/RowsApi";

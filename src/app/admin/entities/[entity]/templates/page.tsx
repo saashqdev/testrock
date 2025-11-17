@@ -1,6 +1,5 @@
 import ButtonTertiary from "@/components/ui/buttons/ButtonTertiary";
 import TableSimple from "@/components/ui/tables/TableSimple";
-import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { EntityTemplate } from "@prisma/client";
 import { getTenantIdOrNull } from "@/utils/services/server/urlService";
 import ShowPayloadModalButton from "@/components/ui/json/ShowPayloadModalButton";

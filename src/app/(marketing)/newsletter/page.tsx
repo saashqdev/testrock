@@ -15,12 +15,12 @@ export default async function Newsletter() {
   const settings = await CrmService.getNewsletterFormSettings();
   
   // Get page blocks from NewsletterPage configuration
-  const blocks = blocks({ t });
+  const pageBlocks = blocks({ t });
 
   return (
     <NewsletterClient 
       data={{
-        blocks,
+        blocks: pageBlocks,
         settings,
       }}
     />

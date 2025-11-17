@@ -4,7 +4,6 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { createEntityRelationship } from "./actions";
 import { db } from "@/db";
 
-
 type PageData = {
   title: string;
   entity: EntityWithDetailsDto;

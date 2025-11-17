@@ -5,7 +5,7 @@ import InputFilters from "@/components/ui/input/InputFilters";
 import { getServerTranslations } from "@/i18n/server";
 import { LogWithDetailsDto } from "@/db/models/logs/LogsModel";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
-import { getFiltersFromCurrentUrl, getPaginationFromCurrentUrl } from "@/lib/helpers/RowPaginationHelper";
+import { getPaginationFromCurrentUrl } from "@/lib/helpers/RowPaginationHelper";
 import { getTenantIdOrNull } from "@/utils/services/server/urlService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";

@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import IconWidgets from "@/components/layouts/icons/IconWidgets";
 import ServerError from "@/components/ui/errors/ServerError";
 import SidebarIconsLayout from "@/components/ui/layouts/SidebarIconsLayout";

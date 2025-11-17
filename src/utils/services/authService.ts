@@ -8,7 +8,7 @@ import { getClientIPAddress } from "@/utils/server/IpUtils";
 import { getBaseURL } from "@/utils/url.server";
 import { getUserInfo } from "@/lib/services/session.server";
 import { setTenantTypes } from "@/utils/api/server/TenantTypesApi";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { AccountCreatedDto } from "@/modules/events/dtos/AccountCreatedDto";
 import { autosubscribeToTrialOrFreePlan } from "./server/pricingService";
 import IpAddressServiceServer from "@/modules/ipAddress/services/IpAddressService.server";

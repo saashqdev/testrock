@@ -6,6 +6,7 @@ import TableSimple from "@/components/ui/tables/TableSimple";
 type CrudExample = {
   title: string;
   files: {
+    id: string;
     type: "Route" | "Service" | "DTO" | "Component";
     name: string;
     path: string;
@@ -18,6 +19,7 @@ const examples: CrudExample[] = [
     title: "Fake Projects",
     files: [
       {
+        id: "1",
         type: "Route",
         name: "List",
         path: "app/admin/playground/crud/projects/page.tsx",
@@ -25,6 +27,7 @@ const examples: CrudExample[] = [
         href: "/admin/playground/crud/projects",
       },
       {
+        id: "2",
         type: "Route",
         name: "Overview",
         path: "app/admin/playground/crud/projects/page.tsx",
@@ -32,6 +35,7 @@ const examples: CrudExample[] = [
         href: "/admin/playground/crud/projects?id=1",
       },
       {
+        id: "3",
         type: "Route",
         name: "Create",
         path: "app/admin/playground/crud/projects/new/page.tsx",
@@ -39,6 +43,7 @@ const examples: CrudExample[] = [
         href: "/admin/playground/crud/projects/new",
       },
       {
+        id: "4",
         type: "Route",
         name: "Edit",
         path: "app/admin/playground/crud/projects/[id]/page.tsx",
@@ -46,26 +51,30 @@ const examples: CrudExample[] = [
         description: "Edit project",
       },
       {
+        id: "5",
         type: "Component",
         name: "FakeProjectForm",
         path: "app/modules/fake/fakeProjectsCrud/components/FakeProjectForm.tsx",
         description: "Create or Edit project and Tasks + Complete tasks",
       },
       {
+        id: "6",
         type: "Component",
         name: "FakeProjectOverview",
         path: "app/modules/fake/fakeProjectsCrud/components/FakeProjectOverview.tsx",
         description: "Overview of project + Complete tasks",
       },
       {
+        id: "7",
         type: "Component",
         name: "FakeTasksList",
         path: "app/modules/fake/fakeProjectsCrud/components/FakeTasksList.tsx",
         description: "List of project tasks",
       },
-      { type: "DTO", name: "FakeProjectDto", path: "app/modules/fake/fakeProjectsCrud/dtos/FakeProjectDto.ts", description: "Project DTO" },
-      { type: "DTO", name: "FakeTaskDto", path: "app/modules/fake/fakeProjectsCrud/dtos/FakeTaskDto.ts", description: "Task DTO" },
+      { id: "8", type: "DTO", name: "FakeProjectDto", path: "app/modules/fake/fakeProjectsCrud/dtos/FakeProjectDto.ts", description: "Project DTO" },
+      { id: "9", type: "DTO", name: "FakeTaskDto", path: "app/modules/fake/fakeProjectsCrud/dtos/FakeTaskDto.ts", description: "Task DTO" },
       {
+        id: "10",
         type: "Service",
         name: "FakeCrudService",
         path: "app/modules/fake/fakeProjectsCrud/services/FakeCrudService.ts",
@@ -77,6 +86,7 @@ const examples: CrudExample[] = [
     title: "Contracts Entity",
     files: [
       {
+        id: "11",
         type: "Route",
         name: "List",
         path: "app/admin/playground/crud/contracts/page.tsx",

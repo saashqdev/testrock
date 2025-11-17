@@ -1,12 +1,7 @@
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
 import { getServerTranslations } from "@/i18n/server";
-import { getTenantIdOrNull } from "@/utils/services/server/urlService";
 import { requireAuth } from "@/lib/services/loaders.middleware";
 import { db } from "@/db";
-import UrlUtils from "@/utils/app/UrlUtils";
-import FormHelper from "@/lib/helpers/FormHelper";
-import JsonPropertiesUtils from "@/modules/jsonProperties/utils/JsonPropertiesUtils";
 import NewPortalClient from "./new-portal-client";
 
 type Props = {

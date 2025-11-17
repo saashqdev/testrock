@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { generateMetadata, loader } from "@/modules/blog/routes/api/BlogRoutes.Index.Api";
+import { generateMetadata as generateBlogMetadata, loader } from "@/modules/blog/routes/api/BlogRoutes.Index.Api";
 import BlogView from "@/modules/blog/routes/views/BlogRoutes.Index.View";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   try {
-    const params = (await props.params) || {};
-    return await generateMetadata({ params });
+    const params = await props.params;
+    return await generateBlogMetadata({ params });
   } catch (error) {
     return {};
   }

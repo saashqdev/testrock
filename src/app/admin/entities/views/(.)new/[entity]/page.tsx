@@ -7,7 +7,6 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import NewEntityViewSlideoverWrapper from "../../new/[entity]/NewEntityViewSlideoverWrapper";
 import { db } from "@/db";
 
-
 type LoaderData = {
   allTenants: TenantWithDetailsDto[];
   allUsers: UserWithNamesDto[];

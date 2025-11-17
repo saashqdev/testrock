@@ -20,7 +20,7 @@ import Stripe from "stripe";
 import { SubscriptionUsageBasedPriceDto } from "@/lib/dtos/subscriptions/SubscriptionUsageBasedPriceDto";
 import { TFunction } from "i18next";
 import { setTenantTypes } from "@/utils/api/server/TenantTypesApi";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { SubscriptionSubscribedDto } from "@/modules/events/dtos/SubscriptionSubscribedDto";
 import { SubscriptionPriceDto } from "@/lib/dtos/subscriptions/SubscriptionPriceDto";
 import { cancelTenantSubscription, clearSubscriptionsCache, getActiveTenantSubscriptions } from "./subscriptionService";

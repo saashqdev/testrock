@@ -11,8 +11,8 @@ import { getTenantIdOrNull } from "@/utils/services/server/urlService";
 import NumberUtils from "@/lib/shared/NumberUtils";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { getServerTranslations } from "@/i18n/server";
-import { db } from "@/db";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
+import { db } from "@/db";
 
 type LoaderData = {
   title: string;

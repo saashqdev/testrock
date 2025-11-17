@@ -7,7 +7,7 @@ import { loadEntities } from "@/modules/rows/repositories/server/EntitiesSinglet
 import EntitiesSingleton from "@/modules/rows/repositories/EntitiesSingleton";
 import { get, update, del } from "@/utils/api/server/RowsApi";
 import ApiHelper from "@/lib/helpers/ApiHelper";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { ApiAccessValidation, validateApiKey } from "@/utils/services/apiService";
 import { reportUsage } from "@/utils/services/server/subscriptionService";
 import { RowDeletedDto } from "@/modules/events/dtos/RowDeletedDto";

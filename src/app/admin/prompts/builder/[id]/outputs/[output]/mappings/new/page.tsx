@@ -1,8 +1,5 @@
 import { redirect } from "next/navigation";
 import PromptFlowOutputMappingForm from "@/modules/promptBuilder/components/outputs/PromptFlowOutputMappingForm";
-import { PromptFlowOutputWithDetailsDto } from "@/db/models/promptFlows/PromptFlowOutputsModel";
-import { PromptFlowWithDetailsDto } from "@/db/models/promptFlows/PromptFlowsModel";
-import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
 

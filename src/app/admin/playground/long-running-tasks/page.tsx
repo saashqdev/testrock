@@ -27,7 +27,7 @@ type ActionData = {
 };
 
 type ItemToImportDto = {
-  id?: string;
+  id: string;
   name: string;
   processed: boolean;
 };
@@ -58,7 +58,7 @@ export default function LongRunningTasksPage() {
   useEffect(() => {
     const items: ItemToImportDto[] = [];
     for (let idx = 0; idx < TOTAL_ITEMS; idx++) {
-      items.push({ name: `Item ${idx + 1}`, processed: false });
+      items.push({ id: `temp-${idx}`, name: `Item ${idx + 1}`, processed: false });
     }
     setItems(items);
   }, []);

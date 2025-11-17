@@ -1,6 +1,6 @@
 import ServerError from "@/components/ui/errors/ServerError";
 import RowEditRoute from "@/modules/rows/components/RowEditRoute";
-import { loader, action } from "@/modules/rows/routes/Rows_Edit.server";
+import { loader } from "@/modules/rows/routes/Rows_Edit.server";
 import { serverTimingHeaders } from "@/modules/metrics/utils/defaultHeaders.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { Metadata } from "next";
@@ -14,9 +14,6 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
     title: metaTag?.title || undefined,
   };
 }
-
-export const loader = (props: IServerComponentsProps) => loader(props);
-export const action = (formData: FormData, props?: IServerComponentsProps) => action(formData, props);
 
 export default async function Page(props: IServerComponentsProps) {
   const data = await loader(props);

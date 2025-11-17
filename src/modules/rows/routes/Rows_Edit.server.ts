@@ -13,7 +13,7 @@ import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService
 import RowHelper from "@/lib/helpers/RowHelper";
 import RowsRequestUtils from "../utils/RowsRequestUtils";
 import FormulaService from "@/modules/formulas/services/server/FormulaService";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { RowDeletedDto } from "@/modules/events/dtos/RowDeletedDto";
 import ApiHelper from "@/lib/helpers/ApiHelper";
 import { RowUpdatedDto } from "@/modules/events/dtos/RowUpdatedDto";

@@ -6,7 +6,7 @@ import { getServerTranslations } from "@/i18n/server";
 import UrlUtils from "@/utils/app/UrlUtils";
 import { getApiKeyEntityPermissions } from "@/lib/helpers/server/ApiKeyHelperService";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { getTenantIdFromUrl } from "@/utils/services/server/urlService";
 import { getUserInfo } from "@/lib/services/session.server";
 import { ApiKeyCreatedDto } from "@/modules/events/dtos/ApiKeyCreatedDto";

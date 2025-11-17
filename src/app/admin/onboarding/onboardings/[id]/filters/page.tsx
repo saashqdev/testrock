@@ -10,7 +10,6 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
 import OnboardingFiltersClient from "./filters-client";
 import { MetaTagsDto } from "@/lib/dtos/seo/MetaTagsDto";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const { t } = await getServerTranslations();

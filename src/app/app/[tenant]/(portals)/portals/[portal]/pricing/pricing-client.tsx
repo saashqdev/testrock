@@ -82,7 +82,7 @@ export default function PricingClient({ data, params }: PricingClientProps) {
       ) : null}
       <div>
         <TableSimple
-          items={data.items}
+          items={data.items as (SubscriptionProductDto & { id: string })[]}
           headers={[
             {
               name: "order",

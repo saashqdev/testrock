@@ -39,7 +39,7 @@ export default function SurveyDetailsClient({ data, surveyId }: SurveyDetailsCli
             <div key={idx} className="space-y-1">
               <p className="text-base font-semibold">{surveyItem.title}</p>
               <TableSimple
-                items={surveyItem.options}
+                items={surveyItem.options.map((opt, index) => ({ ...opt, id: index }))}
                 headers={[
                   {
                     name: "title",

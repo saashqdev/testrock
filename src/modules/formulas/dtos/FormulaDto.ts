@@ -1,7 +1,7 @@
 import { Decimal } from "decimal.js";
 
 export type FormulaDto = {
-  id?: string;
+  id: string;
   name: string;
   description: string | null;
   components: FormulaComponentDto[];

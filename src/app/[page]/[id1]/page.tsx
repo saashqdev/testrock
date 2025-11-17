@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getCurrentPage } from "@/modules/pageBlocks/services/server/pagesService";
-import { action } from "@/modules/pageBlocks/services/server/blocksService";
+import { action as handleBlockAction } from "@/modules/pageBlocks/services/server/blocksService";
 import PageBlocks from "@/modules/pageBlocks/components/blocks/PageBlocks";
 import ServerError from "@/components/ui/errors/ServerError";
 import ErrorBanner from "@/components/ui/banners/ErrorBanner";
@@ -37,7 +37,7 @@ export const loader = async (props: IServerComponentsProps) => {
 };
 
 export const action = async (props: IServerComponentsProps) => {
-  return action({ request: props.request!, params: props.params });
+  return handleBlockAction({ request: props.request!, params: props.params });
 };
 
 export default async function Page(props: IServerComponentsProps) {

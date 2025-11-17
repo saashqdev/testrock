@@ -5,7 +5,7 @@ import { getUserInfo } from "@/lib/services/session.server";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { createStripeCustomer } from "@/utils/stripe.server";
 import { TenantUserType } from "@/lib/enums/tenants/TenantUserType";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { AccountDeletedDto } from "@/modules/events/dtos/AccountDeletedDto";
 import { AccountUpdatedDto } from "@/modules/events/dtos/AccountUpdatedDto";
 import { deleteAndCancelTenant } from "@/utils/services/tenantService";

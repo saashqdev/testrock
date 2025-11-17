@@ -121,7 +121,7 @@ export default function ({ data }: { data: CacheLoaderData }) {
             </WarningBanner>
           ) : (
             <TableSimple
-              items={sortedItems()}
+              items={sortedItems().map((item) => ({ ...item, id: item.key }))}
               noRecords={
                 <div className="flex flex-col space-y-1 py-4 text-sm">
                   <div>{t("shared.noRecords")}</div>

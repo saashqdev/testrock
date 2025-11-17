@@ -106,7 +106,7 @@ export default function Component({ data, onAction }: { data: LoaderData; onActi
           </button>
         ) : (
           <TableSimple
-            items={data.items}
+            items={data.items.map((item) => ({ ...item, id: item.page?.id || item.slug }))}
             headers={[
               {
                 name: "slug",

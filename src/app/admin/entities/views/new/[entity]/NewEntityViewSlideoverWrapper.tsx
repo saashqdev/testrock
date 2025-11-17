@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import SlideOverWideEmpty from "@/components/ui/slideOvers/SlideOverWideEmpty";
-import NewEntityViewClient from "../../NewEntityViewClient";
+import NewEntityViewClient from "../NewEntityViewClient";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { TenantWithDetailsDto } from "@/db/models/accounts/TenantsModel";
 import { UserWithNamesDto } from "@/db/models/accounts/UsersModel";

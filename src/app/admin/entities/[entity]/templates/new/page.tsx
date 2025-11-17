@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { headers } from "next/headers";
 import { getTenantIdOrNull } from "@/utils/services/server/urlService";
-import NewEntityTemplateClient from "../NewEntityTemplateClient";
+import NewEntityTemplateClient from "./NewEntityTemplateClient";
 import { db } from "@/db";
 
 type Props = {

@@ -32,7 +32,7 @@ import { DefaultVisibility } from "@/lib/dtos/shared/DefaultVisibility";
 import { storeRowMediaInStorageProvider } from "@/lib/helpers/server/MediaService";
 import { shareWithDefault } from "./RowPermissionsApi";
 import { getRowUserOrApiKey } from "@/lib/helpers/RowEventsHelper";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { RowDto } from "@/modules/rows/repositories/RowDto";
 import { RowCreatedDto } from "@/modules/events/dtos/RowCreatedDto";
 import ApiHelper from "@/lib/helpers/ApiHelper";

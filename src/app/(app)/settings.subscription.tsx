@@ -8,7 +8,6 @@ import {
   getStripeUpcomingInvoices,
 } from "@/utils/stripe.server";
 import { getUserInfo } from "@/lib/services/session.server";
-import { useDashboardData } from "@/lib/state/useDashboardData";
 import { getServerTranslations } from "@/i18n/server";
 import { TenantSubscriptionWithDetailsDto } from "@/db/models/subscriptions/TenantSubscriptionsModel";
 import { TenantDto } from "@/db/models/accounts/TenantsModel";

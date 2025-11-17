@@ -16,7 +16,7 @@ import { cachified, clearCacheKey } from "@/lib/services/cache.server";
 import DateUtils from "@/lib/shared/DateUtils";
 import { TFunction } from "i18next";
 import { SubscriptionCancelledDto } from "@/modules/events/dtos/SubscriptionCancelledDto";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import EmailTemplates from "@/modules/emails/utils/EmailTemplates";
 import { TenantSubscriptionWithDetailsDto } from "@/db/models/subscriptions/TenantSubscriptionsModel";
 

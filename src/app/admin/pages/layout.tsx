@@ -5,8 +5,6 @@ import ViewBoardsEmptyIcon from "@/components/ui/icons/ViewBoardsEmptyIcon";
 import ViewBoardsIcon from "@/components/ui/icons/ViewBoardsIcon";
 import BlockIcon from "@/components/ui/icons/pages/BlockIcon";
 import BlockIconFilled from "@/components/ui/icons/pages/BlockIconFilled";
-import ExperimentIcon from "@/components/ui/icons/tests/ExperimentIcon";
-import ExperimentIconFilled from "@/components/ui/icons/tests/ExperimentIconFilled";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getServerTranslations();

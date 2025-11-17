@@ -1,4 +1,4 @@
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { OnboardingSessionWithDetailsDto } from "@/db/models/onboarding/OnboardingSessionsModel";
 import { OnboardingSessionActionDto } from "../dtos/OnboardingSessionActionDto";
 import { OnboardingCompletedDto } from "@/modules/events/dtos/OnboardingCompletedDto";

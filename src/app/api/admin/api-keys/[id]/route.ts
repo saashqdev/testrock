@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getServerTranslations } from "@/i18n/server";
 import { getApiKeyEntityPermissions } from "@/lib/helpers/server/ApiKeyHelperService";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { getUserInfo } from "@/lib/services/session.server";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { ApiKeyDeletedDto } from "@/modules/events/dtos/ApiKeyDeletedDto";

@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getServerTranslations } from "@/i18n/server";
 import { getDefaultSiteTags } from "@/modules/pageBlocks/utils/defaultSeoMetaTags";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { UserPasswordUpdatedDto } from "@/modules/events/dtos/UserPasswordUpdatedDto";
 import IpAddressServiceServer from "@/modules/ipAddress/services/IpAddressService.server";
 import { createUserSession, getUserInfo } from "@/lib/services/session.server";

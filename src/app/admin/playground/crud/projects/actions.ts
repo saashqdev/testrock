@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { create, update, del, completeTask } from "@/modules/fake/fakeProjectsCrud/services/FakeCrudService";
+import { create, update, del, completeTask as completeTaskService } from "@/modules/fake/fakeProjectsCrud/services/FakeCrudService";
 import { FakeTaskDto } from "@/modules/fake/fakeProjectsCrud/dtos/FakeTaskDto";
 
 type ActionResult = {
@@ -88,7 +88,7 @@ export async function deleteProject(projectId: string): Promise<void> {
 
 export async function completeTask(projectId: string, taskId: string): Promise<ActionResult> {
   try {
-    await completeTask(projectId, taskId);
+    await completeTaskService(projectId, taskId);
     revalidatePath(`/admin/playground/crud/projects/${projectId}`);
     return { success: "Task completed" };
   } catch (e: any) {

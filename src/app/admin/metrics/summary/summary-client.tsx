@@ -17,6 +17,7 @@ import NumberUtils from "@/lib/shared/NumberUtils";
 const defaultGroupBy = ["function"];
 
 type ItemDto = {
+  id: string;
   userId: string | null;
   tenantId: string | null;
   function: string;

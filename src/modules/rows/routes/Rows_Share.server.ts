@@ -9,7 +9,7 @@ import UrlUtils from "@/utils/app/UrlUtils";
 import { UserWithDetailsDto } from "@/db/models/accounts/UsersModel";
 import RowHelper from "@/lib/helpers/RowHelper";
 import RowsRequestUtils from "../utils/RowsRequestUtils";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { RowSharedDto } from "@/modules/events/dtos/RowSharedDto";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";

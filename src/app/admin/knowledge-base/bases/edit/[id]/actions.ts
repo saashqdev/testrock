@@ -2,7 +2,6 @@
 
 import { redirect } from "next/navigation";
 import { KbNavLinkDto } from "@/modules/knowledgeBase/dtos/KbNavLinkDto";
-import KnowledgeBaseService from "@/modules/knowledgeBase/service/KnowledgeBaseService.server";
 import { verifyUserHasPermission } from "@/modules/permissions/services/UserPermissionsService";
 import { db } from "@/db";
 import { revalidatePath } from "next/cache";

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import BlogNewView from "@/modules/blog/routes/views/BlogRoutes.New.View";
-import { generateMetadata, loader } from "@/modules/blog/routes/api/BlogRoutes.New.Api";
+import { generateMetadata as generateBlogMetadata, loader } from "@/modules/blog/routes/api/BlogRoutes.New.Api";
 
 type Props = {
   params: Promise<{ tenant: string }>;
@@ -8,7 +8,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-  return generateMetadata({ params: resolvedParams });
+  return generateBlogMetadata({ params: Promise.resolve(resolvedParams) });
 }
 
 export default async function BlogNewPage({ params }: Props) {

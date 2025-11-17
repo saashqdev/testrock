@@ -1,3 +1,5 @@
+"use server";
+
 import PageSettingsRouteIndex from "@/modules/pageBlocks/components/pages/PageSettingsRouteIndex";
 import { loader, action } from "@/modules/pageBlocks/routes/pages/PageSettings_Index";
 
@@ -14,7 +16,6 @@ export default async function SettingsPage({
   const data = await loader(mockProps);
   
   async function updatePageAction(formData: FormData): Promise<void> {
-    "use server";
     const mockRequest = {
       formData: async () => formData,
     };
@@ -25,7 +26,6 @@ export default async function SettingsPage({
   }
   
   async function deletePageAction(formData: FormData): Promise<void> {
-    "use server";
     const mockRequest = {
       formData: async () => formData,
     };

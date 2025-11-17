@@ -5,7 +5,7 @@ import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService
 import { createUserSession, getUserInfo, setLoggedUser } from "@/lib/services/session.server";
 import bcrypt from "bcryptjs";
 import { deleteUserWithItsTenants } from "@/utils/services/userService";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { AccountDeletedDto } from "@/modules/events/dtos/AccountDeletedDto";
 import { UserPasswordUpdatedDto } from "@/modules/events/dtos/UserPasswordUpdatedDto";
 import { UserProfileDeletedDto } from "@/modules/events/dtos/UserProfileDeletedDto";

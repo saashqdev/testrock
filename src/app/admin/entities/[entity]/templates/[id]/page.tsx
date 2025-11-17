@@ -6,8 +6,8 @@ import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { getTenantIdOrNull } from "@/utils/services/server/urlService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
+import EditEntityTemplateClient from "./EditEntityTemplateClient";
 import { db } from "@/db";
-import EditEntityTemplateClient from "../EditEntityTemplateClient";
 
 type LoaderData = {
   entity: EntityWithDetailsDto;

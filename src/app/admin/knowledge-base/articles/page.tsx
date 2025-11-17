@@ -14,7 +14,6 @@ import InputCheckbox from "@/components/ui/input/InputCheckbox";
 import InputFilters from "@/components/ui/input/InputFilters";
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 import ActionResultModal from "@/components/ui/modals/ActionResultModal";
-import SlideOverWideEmpty from "@/components/ui/slideOvers/SlideOverWideEmpty";
 import TableSimple from "@/components/ui/tables/TableSimple";
 import { KnowledgeBaseArticleWithDetailsDto } from "@/db/models/knowledgeBase/KbArticlesModel"; 
 import { KnowledgeBaseDto } from "@/modules/knowledgeBase/dtos/KnowledgeBaseDto";

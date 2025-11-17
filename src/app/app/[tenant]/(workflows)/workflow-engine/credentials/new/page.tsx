@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import ServerError from "@/components/ui/errors/ServerError";
 import { loader } from "@/modules/workflowEngine/routes/workflow-engine/credentials/credentials.new.api.server";
 import WorkflowsCredentialsNewView from "@/modules/workflowEngine/routes/workflow-engine/credentials/credentials.new.view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";

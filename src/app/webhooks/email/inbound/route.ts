@@ -1,7 +1,7 @@
 import { TenantInboundAddress } from "@prisma/client";
 import { prisma } from "@/db/config/prisma/database";
 import { createSupabaseFile, getSupabaseAttachmentBucket, getSupabaseAttachmentPath } from "@/utils/integrations/supabaseService";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { EmailReceivedDto } from "@/modules/events/dtos/EmailReceivedDto";
 import { db } from "@/db";
 

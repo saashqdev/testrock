@@ -5,7 +5,7 @@ import Link from "next/link";
 import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import { getUserHasPermission } from "@/lib/helpers/PermissionsHelper";
 import TableSimple from "@/components/ui/tables/TableSimple";
-import { useActionState, useEffect, useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import ExternalLinkEmptyIcon from "@/components/ui/icons/ExternalLinkEmptyIcon";
 import ButtonSecondary from "@/components/ui/buttons/ButtonSecondary";
 import { PageConfiguration } from "@/modules/pageBlocks/dtos/PageConfiguration";
@@ -108,7 +108,7 @@ export default function Component({ data, onAction }: { data: LoaderData; onActi
           </button>
         ) : (
           <TableSimple
-            items={data.items}
+            items={data.items.map((item) => ({ ...item, id: item.page?.id ?? item.slug }))}
             headers={[
               {
                 name: "slug",
@@ -119,7 +119,7 @@ export default function Component({ data, onAction }: { data: LoaderData; onActi
                 name: "title",
                 title: "Title",
                 className: "w-full",
-                value: (i) => <div className=" w-40 truncate">{i.page?.metaTags.find((f) => f.name === "title")?.value}</div>,
+                value: (i) => <div className=" w-40 truncate">{i.page?.metaTags.find((f: { name: string }) => f.name === "title")?.value}</div>,
               },
               {
                 name: "blocks",

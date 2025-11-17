@@ -5,7 +5,7 @@ import { RoleWithPermissionsDto } from "@/db/models/permissions/RolesModel";
 import { UserWithRolesDto, UserWithDetailsDto } from "@/db/models/accounts/UsersModel";
 import { getTenantIdFromUrl } from "@/modules/accounts/services/TenantService";
 import { getUserInfo } from "@/lib/services/session.server";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { RoleAssignedDto } from "@/modules/events/dtos/RoleAssignedDto";
 import { RoleUnassignedDto } from "@/modules/events/dtos/RoleUnassignedDto";
 import { requireAuth } from "@/lib/services/loaders.middleware";

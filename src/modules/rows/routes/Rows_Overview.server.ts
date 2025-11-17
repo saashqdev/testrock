@@ -14,7 +14,7 @@ import { createMetrics } from "@/modules/metrics/services/server/MetricTracker";
 import FormulaService from "@/modules/formulas/services/server/FormulaService";
 import PromptBuilderService from "@/modules/promptBuilder/services/server/PromptBuilderService";
 import { PromptExecutionResultDto } from "@/modules/promptBuilder/dtos/PromptExecutionResultDto";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { RowTasksCreatedDto } from "@/modules/events/dtos/RowTasksCreatedDto";
 import { RowTasksUpdatedDto } from "@/modules/events/dtos/RowTasksUpdatedDto";
 import { RowTasksDeletedDto } from "@/modules/events/dtos/RowTasksDeletedDto";

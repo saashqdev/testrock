@@ -3,7 +3,7 @@ import { getServerTranslations } from "@/i18n/server";
 import UrlUtils from "@/utils/app/UrlUtils";
 import { ApiKeyWithDetailsDto } from "@/db/models/apiKeys/ApiKeysModel";
 import { getApiKeyEntityPermissions } from "@/lib/helpers/server/ApiKeyHelperService";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { getUserInfo } from "@/lib/services/session.server";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { getTenantIdFromUrl } from "@/utils/services/server/urlService";

@@ -130,6 +130,7 @@ async function getCandidates(onboarding: OnboardingWithDetailsDto): Promise<Onbo
       const matchingFilters = await getMatchingFilters({ userId: user.id, tenantId: null, filters: onboarding.filters });
       if (matchingFilters.length === onboarding.filters.length) {
         candidates.push({
+          id: `${user.id}-admin`,
           user: user as UserDto,
           tenant: null,
           matchingFilters: matchingFilters.map((m) => {
@@ -152,6 +153,7 @@ async function getCandidates(onboarding: OnboardingWithDetailsDto): Promise<Onbo
       const matchingFilters = await getMatchingFilters({ userId: tenantUser.userId, tenantId: tenantUser.tenantId, filters: onboarding.filters });
       if (matchingFilters.length === onboarding.filters.length) {
         candidates.push({
+          id: `${tenantUser.userId}-${tenantUser.tenantId}`,
           user: tenantUser.user as UserDto,
           tenant: { id: tenant.id, name: tenant.name, slug: tenant.slug },
           matchingFilters: matchingFilters.map((m) => {

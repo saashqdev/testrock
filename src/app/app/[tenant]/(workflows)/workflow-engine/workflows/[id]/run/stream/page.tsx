@@ -2,7 +2,7 @@
 
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { generateMetadata, loader, action } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.stream.api.server";
+import { generateMetadata as generateWorkflowMetadata, loader, action } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.stream.api.server";
 import WorkflowsIdRunStreamView from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.stream.view";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-  return generateMetadata({ params: resolvedParams });
+  return generateWorkflowMetadata({ params: Promise.resolve(resolvedParams) });
 }
 
 export default async function WorkflowsIdRunStreamPage({ params }: Props) {

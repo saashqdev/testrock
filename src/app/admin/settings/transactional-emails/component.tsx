@@ -21,7 +21,7 @@ import { handleEmailAction, handleUpdateAppConfiguration } from "./actions";
 
 type LoaderData = {
   title: string;
-  items: { name: string; description: string }[];
+  items: { id: string; name: string; description: string }[];
   appConfiguration: AppConfigurationDto;
   providers: {
     name: string;

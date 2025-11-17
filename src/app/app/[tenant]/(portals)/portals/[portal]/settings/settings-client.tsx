@@ -15,7 +15,6 @@ import InputSelect from "@/components/ui/input/InputSelect";
 import { defaultThemes } from "@/utils/theme/defaultThemes";
 import clsx from "clsx";
 import InputImage from "@/components/ui/input/InputImage";
-import InputCheckboxWithDescription from "@/components/ui/input/InputCheckboxWithDescription";
 import { useRootData } from "@/lib/state/useRootData";
 import JsonPropertyValuesInput from "@/modules/jsonProperties/components/JsonPropertyValuesInput";
 import { JsonPropertiesValuesDto } from "@/modules/jsonProperties/dtos/JsonPropertiesValuesDto";

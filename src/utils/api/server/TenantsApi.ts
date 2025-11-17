@@ -3,7 +3,7 @@ import { getUserInfo } from "@/lib/services/session.server";
 import { createStripeCustomer } from "@/utils/stripe.server";
 import { createCustom } from "./RowsApi";
 import { setTenantTypes } from "./TenantTypesApi";
-import EventsService from "@/modules/events/services/.server/EventsService";
+import EventsService from "@/modules/events/services/server/EventsService";
 import { AccountCreatedDto } from "@/modules/events/dtos/AccountCreatedDto";
 import { autosubscribeToTrialOrFreePlan } from "@/utils/services/server/pricingService";
 import { db } from "@/db";

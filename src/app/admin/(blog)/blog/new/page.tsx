@@ -1,26 +1,26 @@
 import type { Metadata } from "next";
 import ServerError from "@/components/ui/errors/ServerError";
-import { generateMetadata, loader, action } from "@/modules/blog/routes/api/BlogRoutes.New.Api";
+import { generateMetadata as generateMetadataApi, loader as loaderApi, action as actionApi } from "@/modules/blog/routes/api/BlogRoutes.New.Api";
 import BlogNewView from "@/modules/blog/routes/views/BlogRoutes.New.View";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   try {
-    const params = (await props.params) || {};
-    return await generateMetadata({ params });
+    const params = await props.params;
+    return await generateMetadataApi({ params });
   } catch (error) {
     return {};
   }
 }
 
 export const loader = async (props: IServerComponentsProps) => {
-  const params = (await props.params) || {};
+  const params = await props.params;
   const request = props.request!;
-  return loader({ request, params });
+  return loaderApi({ request, params });
 };
 
 export const action = async (props: IServerComponentsProps) => {
-  return action(props);
+  return actionApi(props);
 };
 
 export default async function BlogNewPage(props: IServerComponentsProps) {

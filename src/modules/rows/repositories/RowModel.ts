@@ -18,6 +18,9 @@ export default class RowModel {
       }
     } catch {}
   }
+  public get id() {
+    return this.row.id;
+  }
   public getEntity() {
     const entities = EntitiesSingleton.getInstance().getEntities();
     const entity = entities.find((entity) => entity.id === this.row.entityId);

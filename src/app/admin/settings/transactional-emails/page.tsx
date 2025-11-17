@@ -9,7 +9,7 @@ import Component from "./component";
 
 type LoaderData = {
   title: string;
-  items: { name: string; description: string }[];
+  items: { id: string; name: string; description: string }[];
   appConfiguration: AppConfigurationDto;
   providers: {
     name: string;
@@ -30,7 +30,7 @@ export default async function TransactionalEmailsPage() {
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
   await verifyUserHasPermission("admin.emails.view");
   // Extract only serializable properties (exclude functions)
-  const items = EmailTemplates.allTemplates.map(({ name, description }) => ({ name, description }));
+  const items = EmailTemplates.allTemplates.map(({ name, description }) => ({ id: name, name, description }));
   const { t } = await getServerTranslations();
   
   const providers = [
