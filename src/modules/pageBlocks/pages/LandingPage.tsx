@@ -36,7 +36,7 @@ export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlo
         style: "bottomImage",
         heading: t("front.hero.heading"),
         subheading: t("front.hero.subheading"),
-        image: "https://qwcsbptoezmuwgyijrxp.supabase.co/storage/v1/object/public/novel/1727286645348-CatStack-og.png",
+        image: "/img/catstack-og.png",
         cta: [
           {
             text: t("front.hero.cta1"),

@@ -72,7 +72,7 @@ export default function HeroVariantBottomImage({ item }: { item: HeroBlockDto })
           </div>
         </div>
         {item.image && (
-          <Image className="mt-10 w-auto max-w-5xl rounded border-2 border-dashed border-gray-800 object-cover object-center" alt="hero" src={item.image} />
+          <Image className="mt-10 w-auto max-w-5xl rounded border-2 border-dashed border-gray-800 object-cover object-center" alt="hero" src={item.image} width={1200} height={630} />
         )}
       </div>
     </section>

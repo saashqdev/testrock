@@ -1,7 +1,7 @@
 import { EntityView } from "@prisma/client";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { EntityViewsWithDetailsDto } from "@/db/models/entityBuilder/EntityViewsModel";
-import { GetRowsData, getAll } from "./RowsApi";
+import { GetRowsData, getAll as getAllRows } from "./RowsApi";
 import { PropertyType } from "@/lib/enums/entities/PropertyType";
 import { db } from "@/db";
 
@@ -38,7 +38,7 @@ export async function getAll({
   }
   return await Promise.all(
     allViews.map(async (entityView) => {
-      let rowsData = await getAll({
+      let rowsData = await getAllRows({
         entity,
         tenantId,
         entityView,
@@ -80,7 +80,7 @@ export async function get(
       return null;
     }
   }
-  const rowsData = await getAll({
+  const rowsData = await getAllRows({
     entity,
     tenantId,
     entityView: view ?? undefined,

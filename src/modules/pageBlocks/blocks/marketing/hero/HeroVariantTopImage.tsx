@@ -19,6 +19,8 @@ export default function HeroVariantTopImage({ item }: { item: HeroBlockDto }) {
             className="mb-10 w-5/6 rounded-lg border-2 border-border object-cover object-center shadow-sm dark:border-gray-600 md:w-3/6"
             alt="hero"
             src={item.image}
+            width={1200}
+            height={630}
           />
         )}
         <div className="w-full text-center lg:w-2/3">

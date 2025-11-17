@@ -1,6 +1,5 @@
 import { RowMedia, Entity, Prisma, RowValue, RowValueMultiple, RowValueRange } from "@prisma/client";
-import { update } from "@/utils/api/server/RowsApi";
-import { db } from "@/db";
+import { update as updateRow } from "@/utils/api/server/RowsApi";
 import { prisma } from "@/db/config/prisma/database";
 import { PropertyWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { RowValueWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
@@ -87,7 +86,7 @@ async function update({
       }
     })
   );
-  return await update(row.id, {
+  return await updateRow(row.id, {
     entity,
     tenantId: row.tenantId,
     rowValues: {
