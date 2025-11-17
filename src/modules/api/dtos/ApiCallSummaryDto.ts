@@ -1,4 +1,5 @@
 export type ApiCallSummaryDto = {
+  id: string;
   tenantId: string | null;
   method: string;
   endpoint: string;
