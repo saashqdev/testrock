@@ -1,8 +1,5 @@
-import { LoaderData, loader } from "../EmailMarketing_Summary";
-
-export type LoaderData = LoaderData;
-
-export const loader = loader;
+export type { LoaderData } from "../EmailMarketing_Summary";
+export { loader } from "../EmailMarketing_Summary";
 
 export async function generateMetadata({ params }: { params: { tenant?: string } }) {
   return {

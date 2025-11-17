@@ -1,10 +1,5 @@
-import { LoaderData, ActionData, loader, action } from "../InboundEmails_List";
-
-export type LoaderData = LoaderData;
-export type ActionData = ActionData;
-
-export const loader = loader;
-export const action = action;
+export type { LoaderData, ActionData } from "../InboundEmails_List";
+export { loader, action } from "../InboundEmails_List";
 
 export async function generateMetadata({ params }: { params: { tenant?: string } }) {
   return {

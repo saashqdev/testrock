@@ -1,8 +1,9 @@
-import { LoaderData, loader } from "../Senders_New";
+import * as Senders_New from "../Senders_New";
 
-export type LoaderData = LoaderData;
+export type LoaderData = Senders_New.LoaderData;
 
-export const loader = loader;
+export const loader = Senders_New.loader;
+export const action = Senders_New.action;
 
 export async function generateMetadata({ params }: { params: { tenant?: string } }) {
   return {

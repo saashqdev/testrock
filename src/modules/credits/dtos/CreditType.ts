@@ -1,4 +1,5 @@
 type CreditTypeDto = {
+  id: string;
   value: string;
   name: string;
   description: string;
@@ -6,6 +7,7 @@ type CreditTypeDto = {
 };
 export const CreditTypes: CreditTypeDto[] = [
   // {
+  //   id: "credit-name",
   //   name: "Credit Name",
   //   value: "credit-name",
   //   description: "Credit Description",

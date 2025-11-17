@@ -184,18 +184,20 @@ function OutboundEmailDateFormat({ date }: { date: Date | null }) {
 }
 
 function OutboundEmailActivity({ email }: { email: OutboundEmailWithDetailsDto }) {
-  const [items, setItems] = useState<{ type: "click" | "open"; createdAt: Date; description: string }[]>([]);
+  const [items, setItems] = useState<{ id: string; type: "click" | "open"; createdAt: Date; description: string }[]>([]);
   useEffect(() => {
-    const items: { type: "click" | "open"; createdAt: Date; description: string }[] = [];
-    email.opens.forEach((o) => {
+    const items: { id: string; type: "click" | "open"; createdAt: Date; description: string }[] = [];
+    email.opens.forEach((o, idx) => {
       items.push({
+        id: `open-${idx}`,
         type: "open",
         createdAt: o.createdAt,
         description: o.firstOpen ? "First open" : "",
       });
     });
-    email.clicks.forEach((c) => {
+    email.clicks.forEach((c, idx) => {
       items.push({
+        id: `click-${idx}`,
         type: "click",
         createdAt: c.createdAt,
         description: c.link,
