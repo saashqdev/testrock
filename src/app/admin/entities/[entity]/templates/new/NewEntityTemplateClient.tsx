@@ -1,13 +1,12 @@
 "use client";
 
 import { useRouter, useParams } from "next/navigation";
-import { useState } from "react";
 import { toast } from "sonner";
 import EntityTemplateForm from "@/components/entities/entityTemplates/EntityTemplateForm";
 import SlideOverWideEmpty from "@/components/ui/slideOvers/SlideOverWideEmpty";
 import UrlUtils from "@/utils/app/UrlUtils";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
-import { createEntityTemplate } from "./actions";
+import { createEntityTemplate } from "../actions";
 
 type NewEntityTemplateClientProps = {
   entity: EntityWithDetailsDto;
