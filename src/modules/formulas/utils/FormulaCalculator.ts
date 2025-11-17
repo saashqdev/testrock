@@ -45,7 +45,7 @@ function calculateFormula(formula: FormulaDto, values: Record<string, FormulaVal
         if (insideParentheses !== null) {
           throw new Error("Invalid formula: parentheses must be used in pairs");
         } else {
-          insideParentheses = { name: "", description: "", resultAs: "number", calculationTrigger: formula.calculationTrigger, components: [] };
+          insideParentheses = { id: "", name: "", description: "", resultAs: "number", calculationTrigger: formula.calculationTrigger, components: [] };
           openParenthesesCount++;
         }
       } else if (parenthesis === "CLOSE") {
