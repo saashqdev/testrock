@@ -3,6 +3,7 @@ import { FormulaDto } from "../dtos/FormulaDto";
 export function defaultFormulas(): FormulaDto[] {
   const formulas: FormulaDto[] = [
     {
+      id: "formula-concatenate",
       name: "Concatenates",
       description: "calculates with texts",
       resultAs: "string",
@@ -16,6 +17,7 @@ export function defaultFormulas(): FormulaDto[] {
       ],
     },
     {
+      id: "formula-boolean",
       name: "Evaluates Booleans",
       description: "calculates with booleans",
       resultAs: "boolean",
@@ -26,6 +28,7 @@ export function defaultFormulas(): FormulaDto[] {
       ],
     },
     {
+      id: "formula-date-add",
       name: "Adds Days to Date",
       description: "calculates with dates",
       resultAs: "date",
@@ -36,12 +39,14 @@ export function defaultFormulas(): FormulaDto[] {
       ],
     },
     {
+      id: "formula-static",
       name: "Assigns Static Value",
       description: "sets static value",
       resultAs: "number",
       components: [{ order: 1, type: "variable", value: "number" }],
     },
     {
+      id: "formula-add",
       name: "Adds Two Numbers",
       description: "calculates addition with two values",
       resultAs: "number",
