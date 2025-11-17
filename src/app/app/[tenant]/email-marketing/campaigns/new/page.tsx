@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import CampaignsNewView from "@/modules/emailMarketing/routes/views/CampaignsNew.View";
-import { ActionData, loader, action, generateMetadata } from "@/modules/emailMarketing/routes/api/CampaignsNew.Api";
+import { ActionData, loader, action, generateMetadata as generateCampaignMetadata } from "@/modules/emailMarketing/routes/api/CampaignsNew.Api";
 
 type Props = {
   params: Promise<{ tenant: string }>;
@@ -9,7 +9,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-  return generateMetadata({ params: resolvedParams });
+  return generateCampaignMetadata({ params: resolvedParams });
 }
 
 export default async function CampaignsNewPage({ params, searchParams }: Props) {
