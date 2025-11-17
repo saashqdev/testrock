@@ -10,7 +10,7 @@ import { IGetMessagesData } from "../services/server/NotificationService";
 export default function NotificationMessagesTable({ items, withPagination = true }: { items: IGetMessagesData | null; withPagination?: boolean }) {
   return (
     <TableSimple
-      items={items?.data ?? []}
+      items={(items?.data ?? []).map((item) => ({ ...item, id: item._id }))}
       pagination={
         !withPagination
           ? undefined

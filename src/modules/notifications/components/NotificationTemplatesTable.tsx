@@ -31,7 +31,7 @@ export default function NotificationTemplatesTable({
   }
   return (
     <TableSimple
-      items={NotificationChannels}
+      items={NotificationChannels.map((channel) => ({ ...channel, id: channel.name }))}
       pagination={{
         page: (items?.page ?? 0) + 1,
         pageSize: items?.pageSize ?? 0,

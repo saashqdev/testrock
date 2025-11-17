@@ -11,7 +11,7 @@ import { IGetSubscribersData } from "../services/server/NotificationService";
 export default function NotificationSubscribersTable({ items }: { items: IGetSubscribersData | null }) {
   return (
     <TableSimple
-      items={items?.data ?? []}
+      items={(items?.data ?? []).map((item) => ({ ...item, id: item._id }))}
       pagination={{
         page: (items?.page ?? 0) + 1,
         pageSize: items?.pageSize ?? 0,
