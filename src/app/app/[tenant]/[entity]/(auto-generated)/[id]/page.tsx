@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import RowOverviewRoute from "@/modules/rows/components/RowOverviewRoute";
 import ServerError from "@/components/ui/errors/ServerError";
-import { LoaderData, loader as rowsOverviewLoader, action as rowsOverviewAction } from "@/modules/rows/routes/Rows_Overview.server";
+import { LoaderData, loader as rowsOverviewLoader } from "@/modules/rows/routes/Rows_Overview.server";
 import { serverTimingHeaders } from "@/modules/metrics/utils/defaultHeaders.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 

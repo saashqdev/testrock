@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import ServerError from "@/components/ui/errors/ServerError";
 import RowsViewRoute from "@/modules/rows/components/RowsViewRoute";
-import { LoaderData, loader, action } from "@/modules/rows/routes/Rows_List.server";
+import * as RowsList from "@/modules/rows/routes/Rows_List.server";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 import { getEntityPermission, getUserHasPermission } from "@/lib/helpers/PermissionsHelper";
 import { serverTimingHeaders } from "@/modules/metrics/utils/defaultHeaders.server";
@@ -10,8 +10,8 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 export { serverTimingHeaders as headers };
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
-  const data = await loader(props);
-  const loaderData = await data.json() as LoaderData;
+  const data = await RowsList.loader(props);
+  const loaderData = await data.json() as RowsList.LoaderData;
   
   // Convert MetaTagsDto array to Metadata object
   const metadata: Metadata = {};
@@ -25,12 +25,12 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   }
   return metadata;
 }
-export const loader = (props: IServerComponentsProps) => loader(props);
-export const action = (props: IServerComponentsProps) => action(props);
+export const loader = (props: IServerComponentsProps) => RowsList.loader(props);
+export const action = (props: IServerComponentsProps) => RowsList.action(props);
 
 export default async function (props: IServerComponentsProps) {
-  const response = await loader(props);
-  const data = await response.json() as LoaderData;
+  const response = await RowsList.loader(props);
+  const data = await response.json() as RowsList.LoaderData;
   const appOrAdminData = useAppOrAdminData();
   return (
     <RowsViewRoute

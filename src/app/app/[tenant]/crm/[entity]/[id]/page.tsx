@@ -1,15 +1,15 @@
 import { Metadata } from "next";
 import RowOverviewRoute from "@/modules/rows/components/RowOverviewRoute";
 import ServerError from "@/components/ui/errors/ServerError";
-import { LoaderData, loader, action } from "@/modules/rows/routes/Rows_Overview.server";
+import * as RowsOverview from "@/modules/rows/routes/Rows_Overview.server";
 import { serverTimingHeaders } from "@/modules/metrics/utils/defaultHeaders.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export { serverTimingHeaders as headers };
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
-  const data = await loader(props);
-  const loaderData = await data.json() as LoaderData;
+  const data = await RowsOverview.loader(props);
+  const loaderData = await data.json() as RowsOverview.LoaderData;
   
   // Convert NextJS-style meta array to Next.js Metadata
   const metadata: Metadata = {};
@@ -28,12 +28,12 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   
   return metadata;
 }
-export const loader = (props: IServerComponentsProps) => loader(props);
-export const action = (props: IServerComponentsProps) => action(props);
+export const loader = (props: IServerComponentsProps) => RowsOverview.loader(props);
+export const action = (props: IServerComponentsProps) => RowsOverview.action(props);
 
 export default async function (props: IServerComponentsProps) {
-  const response = await loader(props);
-  const data = await response.json() as LoaderData;
+  const response = await RowsOverview.loader(props);
+  const data = await response.json() as RowsOverview.LoaderData;
   
   return (
     <RowOverviewRoute

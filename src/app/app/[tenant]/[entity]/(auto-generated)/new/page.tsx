@@ -1,6 +1,6 @@
 import ServerError from "@/components/ui/errors/ServerError";
 import RowNewRoute from "@/modules/rows/components/RowNewRoute";
-import { LoaderData, loader, action } from "@/modules/rows/routes/Rows_New.server";
+import { LoaderData, loader as rowsNewLoader } from "@/modules/rows/routes/Rows_New.server";
 import { serverTimingHeaders } from "@/modules/metrics/utils/defaultHeaders.server";
 import type { Metadata } from "next";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
@@ -8,7 +8,7 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 export { serverTimingHeaders as headers };
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
-  const data = await loader(props);
+  const data = await rowsNewLoader(props);
   const loaderData = await data.json() as LoaderData;
 
   // Convert NextJS-style meta array to Next.js Metadata
@@ -22,11 +22,9 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   }
   return metadata;
 }
-export const loader = (props: IServerComponentsProps) => loader(props);
-export const action = (props: IServerComponentsProps) => action(props);
 
 export default async function Page(props: IServerComponentsProps) {
-  const response = await loader(props);
+  const response = await rowsNewLoader(props);
   const data = await response.json() as LoaderData;
   return <RowNewRoute data={data} />;
 }

@@ -1,5 +1,5 @@
 import RowsImportRoute from "@/modules/rows/components/RowsImportRoute";
-import { LoaderData, loader, action } from "@/modules/rows/routes/Rows_Import.server";
+import { LoaderData, loader as rowsImportLoader } from "@/modules/rows/routes/Rows_Import.server";
 import { serverTimingHeaders } from "@/modules/metrics/utils/defaultHeaders.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import type { Metadata } from "next";
@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 export { serverTimingHeaders as headers };
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
-  const data = await loader(props);
+  const data = await rowsImportLoader(props);
   const loaderData = await data.json() as LoaderData;
 
   // Convert NextJS-style meta array to Next.js Metadata
@@ -21,7 +21,8 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   }
   return metadata;
 }
-export const loader = (props: IServerComponentsProps) => loader(props);
-export const action = (props: IServerComponentsProps) => action(props);
 
-export default () => <RowsImportRoute />;
+export default async function Page(props: IServerComponentsProps) {
+  await rowsImportLoader(props);
+  return <RowsImportRoute />;
+}
