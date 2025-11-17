@@ -79,13 +79,13 @@ export async function validateEntity({
 
   return errors;
 }
-export function getNoCodeRoutes({ request, params }: { request?: Request; params: { group?: string; tenant?: string } }): EntitiesApi.Routes {
+export function getNoCodeRoutes({ request, params }: { request?: Request; params: { group?: string; tenant?: string } }): Routes {
   const url = request ? new URL(request.url) : null;
   const pathname = url?.pathname;
 
   if (params.group) {
     if (pathname?.startsWith(`/admin/g`)) {
-      const routes: EntitiesApi.Routes = {
+      const routes: Routes = {
         list: `/admin/g/${params.group}/:entity`,
         new: `/admin/g/${params.group}/:entity/new`,
         overview: `/admin/g/${params.group}/:entity/:id`,
@@ -97,7 +97,7 @@ export function getNoCodeRoutes({ request, params }: { request?: Request; params
       };
       return routes;
     } else if (pathname?.startsWith(`/app/${params.tenant}/g`)) {
-      const routes: EntitiesApi.Routes = {
+      const routes: Routes = {
         list: `/app/${params?.tenant}/g/${params.group}/:entity`,
         new: `/app/${params?.tenant}/g/${params.group}/:entity/new`,
         overview: `/app/${params?.tenant}/g/${params.group}/:entity/:id`,
@@ -110,7 +110,7 @@ export function getNoCodeRoutes({ request, params }: { request?: Request; params
       return routes;
     }
   } else if (pathname?.startsWith(`/admin/xrm`)) {
-    const routes: EntitiesApi.Routes = {
+    const routes: Routes = {
       list: `/admin/xrm/:entity`,
       new: `/admin/xrm/:entity/new`,
       overview: `/admin/xrm/:entity/:id`,
@@ -121,7 +121,7 @@ export function getNoCodeRoutes({ request, params }: { request?: Request; params
     };
     return routes;
   } else if (pathname?.startsWith(`/admin/crm`)) {
-    const routes: EntitiesApi.Routes = {
+    const routes: Routes = {
       list: `/admin/crm/:entity`,
       new: `/admin/crm/:entity/new`,
       overview: `/admin/crm/:entity/:id`,
@@ -132,7 +132,7 @@ export function getNoCodeRoutes({ request, params }: { request?: Request; params
     };
     return routes;
   } else if (pathname?.startsWith("/admin/")) {
-    const routes: EntitiesApi.Routes = {
+    const routes: Routes = {
       list: `/admin/entities/:entity/no-code/:entity`,
       new: `/admin/entities/:entity/no-code/:entity/new`,
       overview: `/admin/entities/:entity/no-code/:entity/:id`,
@@ -143,7 +143,7 @@ export function getNoCodeRoutes({ request, params }: { request?: Request; params
     };
     return routes;
   } else if (pathname?.startsWith(`/app/${params?.tenant}/crm`)) {
-    const routes: EntitiesApi.Routes = {
+    const routes: Routes = {
       list: `/app/${params?.tenant}/crm/:entity`,
       new: `/app/${params?.tenant}/crm/:entity/new`,
       overview: `/app/${params?.tenant}/crm/:entity/:id`,
@@ -154,7 +154,7 @@ export function getNoCodeRoutes({ request, params }: { request?: Request; params
     };
     return routes;
   }
-  const routes: EntitiesApi.Routes = {
+  const routes: Routes = {
     list: `/app/${params?.tenant}/:entity`,
     new: `/app/${params?.tenant}/:entity/new`,
     overview: `/app/${params?.tenant}/:entity/:id`,

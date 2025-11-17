@@ -264,7 +264,7 @@ export async function getRelationshipRows({
       entity.parentEntities
         .filter((relationship) => RelationshipHelper.getInputType({ fromEntityId: entity.id, relationship }) === "single-select")
         .map((parent) =>
-          RowsApi.getAll({ entity: { id: parent.parentId }, tenantId, userId, urlSearchParams: new URLSearchParams(), pageSize: 100 }).then((rowsData) => {
+          getAll({ entity: { id: parent.parentId }, tenantId, userId, urlSearchParams: new URLSearchParams(), pageSize: 100 }).then((rowsData) => {
             relationshipRows.push({ relationship: parent, rows: rowsData.items });
           })
         )
@@ -277,7 +277,7 @@ export async function getRelationshipRows({
       entity.childEntities
         .filter((relationship) => RelationshipHelper.getInputType({ fromEntityId: entity.id, relationship }) === "single-select")
         .map(async (child) => {
-          const rowsData = await RowsApi.getAll({
+          const rowsData = await getAll({
             entity: { id: child.childId },
             tenantId,
             userId,
@@ -797,7 +797,7 @@ export async function createCustom({
   const rowValues = RowHelper.getRowPropertiesFromForm({ t, entity, form, existing: row });
   if (!row) {
     await time(
-      RowsApi.create({
+      create({
         entity,
         tenantId,
         userId,
@@ -809,7 +809,7 @@ export async function createCustom({
     );
   } else {
     await time(
-      RowsApi.update(row.id, {
+      update(row.id, {
         entity,
         tenantId,
         rowValues,
