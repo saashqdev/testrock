@@ -57,6 +57,7 @@ export default function AdminPricingComponent({ data }: { data: AdminPricingLoad
         const existing = allFeatures.find((f) => f.name === feature.name);
         if (!existing) {
           allFeatures.push({
+            id: feature.id,
             order: feature.order,
             name: feature.name,
             title: feature.title,
