@@ -24,7 +24,7 @@ const nextConfig: NextConfig = {
     // Optimize memory usage
     config.optimization = {
       ...config.optimization,
-      minimize: false, // Disable minification in dev to save memory
+      minimize: true, // Disable minification in dev to save memory
     };
     
     // Exclude Node.js modules from client-side bundle

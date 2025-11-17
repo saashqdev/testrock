@@ -34,6 +34,7 @@ export default function SupabasePlayground({ supabaseConfig }: SupabasePlaygroun
   const [supabaseClient, setSupabaseClient] = useState<SupabaseClient>();
   const [items, setItems] = useState<
     {
+      id: string;
       createdAt: Date;
       schema: string;
       table: string;
@@ -68,6 +69,7 @@ export default function SupabasePlayground({ supabaseConfig }: SupabasePlaygroun
       .on("postgres_changes", { event: "*", schema: "public", table }, (payload) => {
         const newItems = [...items];
         newItems.unshift({
+          id: `${Date.now()}-${Math.random()}`,
           createdAt: new Date(),
           schema: payload.schema,
           table: payload.table,
