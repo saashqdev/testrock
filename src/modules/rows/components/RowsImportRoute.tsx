@@ -26,7 +26,7 @@ type RawDataDto = {
   rows: RawRow[];
   columns: RawColumn[];
 };
-type RawRow = { column: string; value: string }[];
+type RawRow = { id: string; values: { column: string; value: string }[] };
 type RawColumn = { column: string; name?: string };
 
 const initialSteps: StepDto[] = [
@@ -140,7 +140,7 @@ function ImportCsv({
         // if (idx === 0 && firstRowHasHeaders === "firstRowHasHeaders") {
         //   continue;
         // }
-        const rowToImport: RawRow = [];
+        const rowValues: { column: string; value: string }[] = [];
         const item: string[] = Object.values(result);
         item.forEach((value, index) => {
           let column = `Column ${index + 1}`;
@@ -151,9 +151,9 @@ function ImportCsv({
             // replace all double quotes with single quotes
             value = value.replace(/"/g, "");
           }
-          rowToImport.push({ column, value });
+          rowValues.push({ column, value });
         });
-        rawData.rows.push(rowToImport);
+        rawData.rows.push({ id: `row-${idx}`, values: rowValues });
       }
       onImport(rawData);
     };
@@ -319,7 +319,7 @@ function MapFields({ entity, data, onConfirm }: { entity: EntityWithDetailsDto; 
           continue;
         }
         if (column.column === primaryProperty) {
-          const existingRow = uniqueRows.find((r) => r.find((f) => f.column === column.column)?.value === row.find((f) => f.column === column.column)?.value);
+          const existingRow = uniqueRows.find((r) => r.values.find((f) => f.column === column.column)?.value === row.values.find((f) => f.column === column.column)?.value);
           if (existingRow) {
             mapRow = false;
             continue;
@@ -454,7 +454,7 @@ function MapFields({ entity, data, onConfirm }: { entity: EntityWithDetailsDto; 
                       <Fragment key={idxRow}>
                         {idxRow < 5 && (
                           <div className="truncate border border-border" key={idxRow}>
-                            <span className="truncate px-1 text-sm text-muted-foreground">{row.find((r) => r.column === column.column)?.value ?? "?"}</span>
+                            <span className="truncate px-1 text-sm text-muted-foreground">{row.values.find((r) => r.column === column.column)?.value ?? "?"}</span>
                           </div>
                         )}
                       </Fragment>
@@ -522,7 +522,7 @@ function MapFields({ entity, data, onConfirm }: { entity: EntityWithDetailsDto; 
                   return {
                     name: c.column,
                     title: c.column,
-                    value: (item: RawRow) => item?.find((f) => f.column === c.column)?.value ?? "?",
+                    value: (item: RawRow) => item?.values.find((f) => f.column === c.column)?.value ?? "?",
                   };
                 })}
             />
@@ -636,9 +636,10 @@ function Confirm({
     const newItems: ImportRow[] = [];
     data.rows.forEach((row) => {
       const newRow: ImportRow = {
+        id: row.id,
         properties: [],
       };
-      row.forEach((r) => {
+      row.values.forEach((r) => {
         const column = data.columns.find((f) => f.column === r.column);
         if (column?.name) {
           newRow.properties.push({

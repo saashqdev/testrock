@@ -77,6 +77,7 @@ function generateCommonPlan(order: number, model: PricingModel) {
       public: true,
       features: [
         {
+          id: "",
           order: 1,
           title: "pricing.features.users.max",
           name: DefaultAppFeatures.Users,
@@ -85,6 +86,7 @@ function generateCommonPlan(order: number, model: PricingModel) {
           accumulate: false,
         },
         {
+          id: "",
           order: 4,
           title: "pricing.features.prioritySupport.none",
           name: DefaultAppFeatures.PrioritySupport,
@@ -107,6 +109,7 @@ function generateCommonPlan(order: number, model: PricingModel) {
       model,
       features: [
         {
+          id: "",
           order: 1,
           title: "pricing.features.users.max",
           name: DefaultAppFeatures.Users,
@@ -115,6 +118,7 @@ function generateCommonPlan(order: number, model: PricingModel) {
           accumulate: false,
         },
         {
+          id: "",
           order: 4,
           title: "pricing.features.prioritySupport.basic",
           name: DefaultAppFeatures.PrioritySupport,
@@ -136,6 +140,7 @@ function generateCommonPlan(order: number, model: PricingModel) {
       model,
       features: [
         {
+          id: "",
           order: 1,
           title: "pricing.features.users.max",
           name: DefaultAppFeatures.Users,
@@ -144,6 +149,7 @@ function generateCommonPlan(order: number, model: PricingModel) {
           accumulate: false,
         },
         {
+          id: "",
           order: 4,
           title: "pricing.features.prioritySupport.priority",
           name: DefaultAppFeatures.PrioritySupport,
@@ -166,6 +172,7 @@ function generateCommonPlan(order: number, model: PricingModel) {
     public: true,
     features: [
       {
+        id: "",
         order: 1,
         title: "pricing.features.users.one",
         name: DefaultAppFeatures.Users,

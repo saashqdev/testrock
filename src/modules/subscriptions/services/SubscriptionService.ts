@@ -29,6 +29,7 @@ export async function getPlanFeaturesUsage(tenantId: string, tenantSubscription?
       const existing = allFeatures.find((f) => f.name === feature.name);
       if (!existing) {
         allFeatures.push({
+          id: feature.id,
           order: feature.order,
           name: feature.name,
           title: feature.title,
@@ -113,6 +114,7 @@ function mergeFeatures(features: SubscriptionFeatureDto[]) {
     return undefined;
   }
   const mergedFeature: SubscriptionFeatureDto = {
+    id: features[0].id,
     order: features[0].order,
     title: features[0].title,
     name: features[0].name,

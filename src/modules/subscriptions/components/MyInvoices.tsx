@@ -22,7 +22,7 @@ export default function MyInvoices({ items }: Props) {
         <div className="text-sm italic text-gray-500">{t("shared.noRecords")}</div>
       ) : (
         <TableSimple
-          items={items}
+          items={items as Array<Stripe.Invoice & { id: string }>}
           headers={[
             {
               name: "date",

@@ -28,6 +28,7 @@ export default function PromptGroupModal({
   const { t } = useTranslation();
   const [template, setTemplate] = useState<PromptGroupTemplateDto>(
     item || {
+      id: "",
       title: "",
       order: 0,
     }
@@ -36,12 +37,14 @@ export default function PromptGroupModal({
   useEffect(() => {
     if (idx === undefined) {
       setTemplate({
+        id: "",
         title: "",
         order: 0,
       });
     } else {
       setTemplate(
         item || {
+          id: "",
           title: "",
           order: 0,
         }
@@ -62,6 +65,7 @@ export default function PromptGroupModal({
   }
   function onClosing() {
     setTemplate({
+      id: "",
       title: "",
       order: 0,
     });

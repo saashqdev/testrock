@@ -1,6 +1,7 @@
 import { SubscriptionFeatureLimitType } from "@/modules/subscriptions/enums/SubscriptionFeatureLimitType";
 
 export interface SubscriptionFeatureDto {
+  id: any;
   order: number;
   title: string;
   name: string;

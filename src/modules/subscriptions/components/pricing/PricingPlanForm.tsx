@@ -102,6 +102,7 @@ export default function PricingPlanForm({ plans, item, canUpdate = true, canDele
       if (!isPortalPlan) {
         const features: SubscriptionFeatureDto[] = [
           {
+            id: undefined,
             order: 1,
             title: "1 user",
             name: DefaultAppFeatures.Users,
@@ -111,6 +112,7 @@ export default function PricingPlanForm({ plans, item, canUpdate = true, canDele
           },
         ];
         features.push({
+          id: undefined,
           order: features.length + 1,
           title: "Priority support",
           name: DefaultAppFeatures.PrioritySupport,

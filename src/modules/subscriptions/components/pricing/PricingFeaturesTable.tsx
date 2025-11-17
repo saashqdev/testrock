@@ -25,6 +25,7 @@ export default function PricingFeaturesTable({ plans, items, setItems }: Props) 
     setItems([
       ...items,
       {
+        id: crypto.randomUUID(),
         order,
         title: "",
         name: "",
@@ -265,7 +266,9 @@ function Buttons({
                     <button
                       type="button"
                       onClick={() => {
-                        let uniqueFeatures = product.features.filter((feature) => !items.find((item) => item.name === feature.name));
+                        let uniqueFeatures = product.features
+                          .filter((feature) => !items.find((item) => item.name === feature.name))
+                          .map((feature) => ({ ...feature, id: crypto.randomUUID() }));
                         setItems([...items, ...uniqueFeatures]);
                       }}
                       className={clsx("w-full text-left", active ? "bg-gray-100 text-gray-900" : "text-gray-700", "block px-4 py-2 text-sm")}

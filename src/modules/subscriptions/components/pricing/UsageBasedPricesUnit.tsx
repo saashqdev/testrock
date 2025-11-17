@@ -28,11 +28,11 @@ export default function UsageBasedPricesUnit({ item, onUpdate, disabled }: Props
   const [aggregateUsage, setAggregateUsage] = useState(item.aggregateUsage);
   const [tiersMode, setTiersMode] = useState(item.tiersMode);
   const [billingScheme, setBillingScheme] = useState(item.billingScheme);
-  const [allTiers, setAllTiers] = useState<{ from: number; to?: number }[]>(item.tiers);
+  const [allTiers, setAllTiers] = useState<{ id: string; from: number; to?: number }[]>(item.tiers.map((t, idx) => ({ id: `tier-${idx}`, ...t })));
   const [prices, setPrices] = useState(item.prices);
 
-  const [perUnitHeaders, setPerUnitHeaders] = useState<RowHeaderDisplayDto<{ from: number; to?: number }>[]>([]);
-  const [flatFeeHeaders, setFlatFeeHeaders] = useState<RowHeaderDisplayDto<{ from: number; to?: number }>[]>([]);
+  const [perUnitHeaders, setPerUnitHeaders] = useState<RowHeaderDisplayDto<{ id: string; from: number; to?: number }>[]>([]);
+  const [flatFeeHeaders, setFlatFeeHeaders] = useState<RowHeaderDisplayDto<{ id: string; from: number; to?: number }>[]>([]);
 
   useEffect(() => {
     const usageBasedUnit = usageBasedUnits.find((f) => f.name === unit);
@@ -59,21 +59,21 @@ export default function UsageBasedPricesUnit({ item, onUpdate, disabled }: Props
   }, [unit, unitTitle, unitTitlePlural, usageType, aggregateUsage, tiersMode, billingScheme, prices]);
 
   useEffect(() => {
-    const allTiers: { from: number; to?: number }[] = [];
+    const allTiers: { id: string; from: number; to?: number }[] = [];
     if (item) {
-      item.tiers.forEach((tier) => {
+      item.tiers.forEach((tier, idx) => {
         if (!allTiers.find((f) => f.from === tier.from && f.to === tier.to)) {
-          allTiers.push({ from: tier.from, to: tier.to ?? undefined });
+          allTiers.push({ id: `tier-${idx}`, from: tier.from, to: tier.to ?? undefined });
         }
       });
     } else {
       const generateTiers = 3;
       for (let idx = 0; idx < generateTiers; idx++) {
         if (idx === 0) {
-          allTiers.push({ from: 0, to: INCREMENT_BY });
+          allTiers.push({ id: `tier-${idx}`, from: 0, to: INCREMENT_BY });
         } else {
           const to = idx === generateTiers - 1 ? undefined : idx * INCREMENT_BY + INCREMENT_BY;
-          allTiers.push({ from: idx * INCREMENT_BY + 1, to });
+          allTiers.push({ id: `tier-${idx}`, from: idx * INCREMENT_BY + 1, to });
         }
       }
     }
@@ -82,7 +82,7 @@ export default function UsageBasedPricesUnit({ item, onUpdate, disabled }: Props
   }, [item]);
 
   useEffect(() => {
-    let commonHeaders: RowHeaderDisplayDto<{ from: number; to?: number }>[] = [];
+    let commonHeaders: RowHeaderDisplayDto<{ id: string; from: number; to?: number }>[] = [];
     commonHeaders = [
       {
         name: "fromTitle",
@@ -111,8 +111,8 @@ export default function UsageBasedPricesUnit({ item, onUpdate, disabled }: Props
       },
     ];
 
-    let perUnitHeaders: RowHeaderDisplayDto<{ from: number; to?: number }>[] = [...commonHeaders];
-    let flatFeeHeaders: RowHeaderDisplayDto<{ from: number; to?: number }>[] = [...commonHeaders];
+    let perUnitHeaders: RowHeaderDisplayDto<{ id: string; from: number; to?: number }>[] = [...commonHeaders];
+    let flatFeeHeaders: RowHeaderDisplayDto<{ id: string; from: number; to?: number }>[] = [...commonHeaders];
 
     currencies
       .filter((f) => !f.disabled)
@@ -196,7 +196,7 @@ export default function UsageBasedPricesUnit({ item, onUpdate, disabled }: Props
     setPrices([]);
   }
 
-  function updateNewTierLimits(tiers: { from: number; to?: number }[]) {
+  function updateNewTierLimits(tiers: { id: string; from: number; to?: number }[]) {
     for (let idx = 0; idx < tiers.length; idx++) {
       const tier = tiers[idx];
       if (idx === 0) {
@@ -222,13 +222,14 @@ export default function UsageBasedPricesUnit({ item, onUpdate, disabled }: Props
 
   function addTier() {
     if (allTiers.length === 0) {
-      setAllTiers(updateNewTierLimits([{ from: 0, to: undefined }]));
+      setAllTiers(updateNewTierLimits([{ id: 'tier-0', from: 0, to: undefined }]));
     } else {
       const lastTier = allTiers[allTiers.length - 1];
       setAllTiers(
         updateNewTierLimits([
           ...allTiers,
           {
+            id: `tier-${allTiers.length}`,
             from: lastTier.from + INCREMENT_BY,
             to: undefined,
           },

@@ -34,10 +34,11 @@ export default function PromptGroupForm({
   const [templates, setTemplates] = useState<PromptGroupTemplateDto[]>(
     item?.templates.map((f) => {
       return {
+        id: f.id,
         title: f.title,
         order: f.order,
       };
-    }) || [{ order: 1, title: "Template 1" }]
+    }) || [{ id: crypto.randomUUID(), order: 1, title: "Template 1" }]
   );
 
   const mainInput = useRef<RefInputText>(null);
@@ -127,12 +128,12 @@ export default function PromptGroupForm({
                 <button
                   type="button"
                   onClick={() => {
-                    setTemplates([...templates, { title: "Template " + (templates.length + 1), order: templates.length + 1 }]);
+                    setTemplates([...templates, { id: crypto.randomUUID(), title: "Template " + (templates.length + 1), order: templates.length + 1 }]);
                   }}
                   className="mt-2 flex items-center space-x-1 rounded-md border border-border bg-white px-2 py-1 text-xs text-muted-foreground hover:bg-secondary/90 focus:text-gray-800 focus:ring focus:ring-gray-300 focus:ring-offset-1"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m-6 0h6m-6 0H6" />
                   </svg>
                   <span className="font-medium uppercase">{t("shared.add")}</span>
                 </button>

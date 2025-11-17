@@ -44,6 +44,7 @@ export default function FlatPrices({ model, prices, setPrices, disabled, isPorta
         const semiAnnualPrice = currencyPrices.find((f) => f.billingPeriod === SubscriptionBillingPeriod.SEMI_ANNUAL);
         const yearlyPrice = currencyPrices.find((f) => f.billingPeriod === SubscriptionBillingPeriod.YEARLY);
         flatPrices.push({
+          id: currency.value,
           currency: currency.value,
           monthlyPrice: monthlyPrice?.price ? Number(monthlyPrice.price) : undefined,
           yearlyPrice: yearlyPrice?.price ? Number(yearlyPrice.price) : undefined,

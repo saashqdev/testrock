@@ -31,6 +31,7 @@ export const loader = async (props: IServerComponentsProps) => {
 };
 
 export interface ImportRow {
+  id: string;
   properties: { name: string; value: string }[];
   row?: RowWithDetailsDto | null;
   error?: string;
