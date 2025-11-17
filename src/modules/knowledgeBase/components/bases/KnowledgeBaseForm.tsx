@@ -13,6 +13,7 @@ import InputSelect from "@/components/ui/input/InputSelect";
 import InputSelector from "@/components/ui/input/InputSelector";
 import InputText, { RefInputText } from "@/components/ui/input/InputText";
 import { KnowledgeBaseDto } from "@/modules/knowledgeBase/dtos/KnowledgeBaseDto";
+import { KbNavLinkDto } from "@/modules/knowledgeBase/dtos/KbNavLinkDto";
 import UrlUtils from "@/utils/app/UrlUtils";
 import { getColors } from "@/lib/shared/ColorUtils";
 import KbNavLinksTable from "./KbNavLinksTable";
@@ -60,7 +61,7 @@ export default function KnowledgeBaseForm({
   const [languages, setLanguages] = useState<string[]>(item?.languages || [KnowledgeBaseUtils.defaultLanguage]);
   const [logo, setLogo] = useState<"light" | "dark" | string>(item?.logo || "dark");
   const [seoImage, setSeoImage] = useState(item?.seoImage || "");
-  const [links, setLinks] = useState<{ name: string; href: string; order: number }[]>(item?.links || []);
+  const [links, setLinks] = useState<KbNavLinkDto[]>(item?.links || []);
 
   useEffect(() => {
     if (!item) {
