@@ -1,4 +1,4 @@
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { getAll, get, create, del } from "@/utils/api/server/RowsApi";
 import RowHelper, { RowValueCreateDto } from "@/lib/helpers/RowHelper";
 import EntitiesSingleton from "./EntitiesSingleton";
 import RowRepository from "./RowRepository.server";
@@ -14,7 +14,7 @@ export default class EntityRepository {
     if (!entity) {
       throw new Error("Entity not found: " + entityName);
     }
-    const { items } = await RowsApi.getAll({
+    const { items } = await getAll({
       entity,
       tenantId: this.session.tenantId,
       userId: this.session?.userId,
@@ -27,7 +27,7 @@ export default class EntityRepository {
     if (!entity) {
       throw new Error("Entity not found: " + entityName);
     }
-    const existing = await RowsApi.get(rowId, {
+    const existing = await get(rowId, {
       entity,
       tenantId: this.session.tenantId,
       userId: this.session?.userId,
@@ -40,7 +40,7 @@ export default class EntityRepository {
     if (!entity) {
       throw new Error("Entity not found: " + entityName);
     }
-    const row = await RowsApi.create({
+    const row = await create({
       entity,
       tenantId: this.session.tenantId,
       userId: this.session?.userId,
@@ -52,7 +52,7 @@ export default class EntityRepository {
     return new RowRepository(row);
   }
   async deleteRow(entityName: string, rowId: string, options = { checkPermissions: true }) {
-    return RowsApi.del(rowId, {
+    return del(rowId, {
       entity: { name: entityName },
       tenantId: this.session.tenantId,
       userId: this.session?.userId,

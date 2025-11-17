@@ -10,7 +10,7 @@ import { defaultPricingPage } from "../../utils/defaultPages/defaultPricingPage"
 import { defaultLandingPage } from "../../utils/defaultPages/defaultLandingPage";
 import { PageConfiguration } from "../../dtos/PageConfiguration";
 import { PageLoaderData } from "../../dtos/PageBlockData";
-import { PageBlockService } from "./blocksService";
+import { load } from "./blocksService";
 import { defaultBlogPage } from "../../utils/defaultPages/defaultBlogPage";
 import { defaultBlogPostPage } from "../../utils/defaultPages/defaultBlogPostPage";
 import { TFunction } from "i18next";
@@ -191,7 +191,7 @@ export async function getCurrentPage({
     t,
     blocks: page.blocks,
   };
-  return await PageBlockService.load({ request: req, params, t, page: pageResult });
+  return await load({ request: req, params, t, page: pageResult });
 }
 
 export async function getLinkTags(request?: Request) {

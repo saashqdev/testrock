@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import ServerError from "@/components/ui/errors/ServerError";
-import { WorkflowsIdRunManualApi } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.manual.api.server";
+import { loader, action } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.manual.api.server";
 import WorkflowsIdRunManualView from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.manual.view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
-  const data = await WorkflowsIdRunManualApi.loader(props);
+  const data = await loader(props);
   if (data?.metatags && Array.isArray(data.metatags)) {
     const titleTag = data.metatags.find(tag => tag.title);
     const descriptionTag = data.metatags.find(tag => tag.name === 'description');
@@ -19,11 +19,11 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
     description: "Execute workflow manually"
   };
 }
-export const loader = (props: IServerComponentsProps) => WorkflowsIdRunManualApi.loader(props);
-export const action = (props: IServerComponentsProps) => WorkflowsIdRunManualApi.action(props);
+export const loader = (props: IServerComponentsProps) => loader(props);
+export const action = (props: IServerComponentsProps) => action(props);
 
 export default async function WorkflowsIdRunManualPage(props: IServerComponentsProps) {
-  const data = await WorkflowsIdRunManualApi.loader(props);
+  const data = await loader(props);
   const params = await props.params;
   
   // Define ActionData type to match what the view expects
@@ -38,7 +38,7 @@ export default async function WorkflowsIdRunManualPage(props: IServerComponentsP
     "use server";
     try {
       formData.set("action", "execute");
-      const response = await WorkflowsIdRunManualApi.action(props);
+      const response = await action(props);
       
       if (response.ok) {
         const data = await response.json();
@@ -56,7 +56,7 @@ export default async function WorkflowsIdRunManualPage(props: IServerComponentsP
     "use server";
     try {
       formData.set("action", "continue-execution");
-      const response = await WorkflowsIdRunManualApi.action(props);
+      const response = await action(props);
       
       if (response.ok) {
         const data = await response.json();

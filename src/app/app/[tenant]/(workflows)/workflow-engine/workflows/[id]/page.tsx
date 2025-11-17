@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 import ServerError from "@/components/ui/errors/ServerError";
-import { WorkflowsIdIndexApi } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.index.api.server";
+import { loader } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.index.api.server";
 import WorkflowsIdIndexView from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.index.view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import "reactflow/dist/style.css";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
-  const data = await WorkflowsIdIndexApi.loader(props);
+  const data = await loader(props);
   const metatags = data?.metatags || [];
   
   // Convert NextJS meta array format to Next.js Metadata object

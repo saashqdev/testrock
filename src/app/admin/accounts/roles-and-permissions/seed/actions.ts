@@ -1,7 +1,7 @@
 "use server";
 
-import { RolesPermissionsSeed } from "./seed.server";
+import { action } from "./seed.server";
 
 export async function seedRolesPermissionsAction(formData: FormData) {
-  return await RolesPermissionsSeed.action(formData);
+  return await action(formData);
 }

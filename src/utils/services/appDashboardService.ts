@@ -4,7 +4,7 @@ import { Stat } from "@/lib/dtos/stats/Stat";
 import { getStatChangePercentage, getStatChangeType } from "../app/DashboardUtils";
 import { prisma } from "@/db/config/prisma/database";
 import { db } from "@/db";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { GetRowsData, getAll } from "@/utils/api/server/RowsApi";
 import { TenantDto } from "@/db/models/accounts/TenantsModel";
 import { EntityDto } from "@/db/models/entityBuilder/EntitiesModel";
 
@@ -72,7 +72,7 @@ async function getRowsCreatedSince(entityId: string, tenantId: string, gte: Date
 
 export type EntitySummaryDto = {
   order: number;
-  rowsData: RowsApi.GetRowsData;
+  rowsData: GetRowsData;
 };
 export async function getEntitySummaries({
   entities,
@@ -87,7 +87,7 @@ export async function getEntitySummaries({
     entities.map(async ({ name, pageSize }, idx) => {
       const entitySummary = {
         order: idx,
-        rowsData: await RowsApi.getAll({
+        rowsData: await getAll({
           entity: { name },
           tenantId,
           pageSize: pageSize || 3,

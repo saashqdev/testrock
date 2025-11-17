@@ -1,6 +1,6 @@
 import { OnboardingFilter } from "@prisma/client";
 import { languages } from "@/i18n/settings";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { count } from "@/utils/api/server/RowsApi";
 import { getActiveTenantSubscriptions } from "@/utils/services/server/subscriptionService";
 import { OnboardingFilterType } from "../dtos/OnboardingFilterTypes";
 import { db } from "@/db";
@@ -71,7 +71,7 @@ async function matches({ userId, tenantId, filter }: { userId: string; tenantId:
     case "tenant.user.entity.hasCreated":
     case "tenant.user.entity.hasNotCreated":
       try {
-        const rowsCreated = await RowsApi.count({
+        const rowsCreated = await count({
           entity: { id: value ?? "" },
           tenantId: tenantId ?? "",
           userId,

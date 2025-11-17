@@ -5,7 +5,7 @@ import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
 import DateUtils from "../shared/DateUtils";
 import RowHelper from "./RowHelper";
 import { RowHeaderDisplayDto } from "@/lib/dtos/data/RowHeaderDisplayDto";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 import EntityHelper from "./EntityHelper";
 import SimpleBadge from "@/components/ui/badges/SimpleBadge";
 import { Colors } from "@/lib/enums/shared/Colors";
@@ -42,7 +42,7 @@ function displayTenant(): RowHeaderDisplayDto<RowWithDetailsDto> {
 
 function displayFolio(
   entity: EntityWithDetailsDto,
-  routes?: EntitiesApi.Routes,
+  routes?: Routes,
   onClick?: (item: RowWithDetailsDto) => void
 ): RowHeaderDisplayDto<RowWithDetailsDto> {
   return {
@@ -125,7 +125,7 @@ function getDisplayedHeaders({
   columns?: ColumnDto[];
   layout?: string;
   allEntities: EntityWithDetailsDto[];
-  routes?: EntitiesApi.Routes;
+  routes?: Routes;
   onFolioClick?: (item: RowWithDetailsDto) => void;
   onEditClick?: (item: RowWithDetailsDto) => void;
   onRelatedRowClick?: (item: RowWithDetailsDto) => void;

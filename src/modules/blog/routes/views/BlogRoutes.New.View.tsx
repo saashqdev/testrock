@@ -3,13 +3,13 @@
 import { useTranslation } from "react-i18next";
 import PostForm from "@/components/blog/PostForm";
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
-import { BlogRoutesNewApi } from "../api/BlogRoutes.New.Api";
+import { LoaderData } from "../api/BlogRoutes.New.Api";
 import UrlUtils from "@/utils/app/UrlUtils";
 import { useParams } from "next/navigation";
 import CheckPlanFeatureLimit from "@/components/core/settings/subscription/CheckPlanFeatureLimit";
 
 interface BlogNewViewProps {
-  data: BlogRoutesNewApi.LoaderData;
+  data: LoaderData;
 }
 
 export default function BlogNewView({ data }: BlogNewViewProps) {

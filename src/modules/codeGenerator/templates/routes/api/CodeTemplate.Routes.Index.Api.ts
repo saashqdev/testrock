@@ -17,40 +17,39 @@ import { MetaTagsDto } from "@/lib/dtos/seo/MetaTagsDto";`);
 import { ${capitalized}Service } from "../../services/${capitalized}Service";`);
 
   let template = `
-export namespace ${capitalized}RoutesIndexApi {
-  export type LoaderData = {
-    metatags: MetaTagsDto;
-    items: ${capitalized}Dto[];
-    pagination: PaginationDto;
-    filterableProperties?: FilterablePropertyDto[];
-    overviewItem?: ${capitalized}Dto | null;
+export type LoaderData = {
+  metatags: MetaTagsDto;
+  items: ${capitalized}Dto[];
+  pagination: PaginationDto;
+  filterableProperties?: FilterablePropertyDto[];
+  overviewItem?: ${capitalized}Dto | null;
+};
+
+export const loader = async (props: IServerComponentsProps): Promise<LoaderData> => {
+  const { t } = await getServerTranslations();
+  const tenantId = await getTenantIdOrNull({ request, params });
+  const userId = (await getUserInfo(request)).userId;
+  const urlSearchParams = new URL(request.url).searchParams;
+  const { items, pagination } = await ${capitalized}Service.getAll({
+    tenantId,
+    userId,
+    urlSearchParams,
+  });
+  const data: LoaderData = {
+    metatags: [{ title: "${title} | " + process.env.APP_NAME }],
+    items,
+    pagination,
+    filterableProperties: EntityHelper.getFilters({ t, entity: await getEntityByName({ tenantId, name: "${name}" }) }),
   };
-  export const loader = async (props: IServerComponentsProps) => {
-    const { t } = await getServerTranslations();
-    const tenantId = await getTenantIdOrNull({ request, params });
-    const userId = (await getUserInfo(request)).userId;
-    const urlSearchParams = new URL(request.url).searchParams;
-    const { items, pagination } = await ${capitalized}Service.getAll({
+  const overviewId = urlSearchParams.get("overview") ?? "";
+  if (overviewId) {
+    data.overviewItem = await ${capitalized}Service.get(overviewId, {
       tenantId,
       userId,
-      urlSearchParams,
     });
-    const data: LoaderData = {
-      metatags: [{ title: "${title} | " + process.env.APP_NAME }],
-      items,
-      pagination,
-      filterableProperties: EntityHelper.getFilters({ t, entity: await getEntityByName({ tenantId, name: "${name}" }) }),
-    };
-    const overviewId = urlSearchParams.get("overview") ?? "";
-    if (overviewId) {
-      data.overviewItem = await ${capitalized}Service.get(overviewId, {
-        tenantId,
-        userId,
-      });
-    }
-    return data;
-  };
-}`;
+  }
+  return data;
+};`;
 
   const uniqueImports = [...new Set(imports)];
   return [...uniqueImports, template].join("\n");

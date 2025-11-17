@@ -1,7 +1,7 @@
 "use server";
 
 import { getServerTranslations } from "@/i18n/server";
-import { PropertiesApi } from "@/utils/api/server/PropertiesApi";
+import { duplicate } from "@/utils/api/server/PropertiesApi";
 import { getTenantIdOrNull } from "@/utils/services/server/urlService";
 import { requireAuth } from "@/lib/services/loaders.middleware";
 import { db } from "@/db";
@@ -58,7 +58,7 @@ export async function entityPropertyAction(params: any, formData: FormData): Pro
     } else if (action === "duplicate") {
       try {
         const propertyId = formData.get("id")?.toString() ?? "";
-        await PropertiesApi.duplicate({ entity, propertyId });
+        await duplicate({ entity, propertyId });
         return { created: true };
       } catch (e: any) {
         return { error: e.message };

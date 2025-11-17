@@ -10,7 +10,7 @@ import RowTitle from "@/components/entities/rows/RowTitle";
 import RowsList from "@/components/entities/rows/RowsList";
 import InfoBanner from "@/components/ui/banners/InfoBanner";
 import { EntityViewLayoutTypes } from "@/modules/rows/dtos/EntityViewLayoutType";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 import { EntityWithDetailsDto, PropertyWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
 import RowHelper from "@/lib/helpers/RowHelper";
@@ -20,7 +20,7 @@ type PropertiesClientProps = {
   entity: EntityWithDetailsDto;
   properties: PropertyWithDetailsDto[];
   allEntities: EntityWithDetailsDto[];
-  routes: EntitiesApi.Routes;
+  routes: Routes;
 };
 
 export default function PropertiesClient({ entity: initialEntity, properties, allEntities, routes }: PropertiesClientProps) {

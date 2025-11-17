@@ -5,7 +5,7 @@ import { RowDto } from "@/modules/rows/repositories/RowDto";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
 import RowRelationshipRow from "./RowRelationshipRow";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 
 export default function RowRelationshipRowsByEntity({
   entity,
@@ -19,7 +19,7 @@ export default function RowRelationshipRowsByEntity({
   item: RowWithDetailsDto;
   allEntities: EntityWithDetailsDto[];
   onRelatedRowClick?: () => void;
-  routes?: EntitiesApi.Routes;
+  routes?: Routes;
   type: "parents" | "children";
 }) {
   const { t } = useTranslation();

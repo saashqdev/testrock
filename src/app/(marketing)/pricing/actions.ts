@@ -1,6 +1,6 @@
 "use server";
 
-import { PricingBlockService } from "@/modules/pageBlocks/components/blocks/marketing/pricing/PricingBlockService.server";
+import { subscribe } from "@/modules/pageBlocks/components/blocks/marketing/pricing/PricingBlockService.server";
 import { getServerTranslations } from "@/i18n/server";
 import { headers } from "next/headers";
 
@@ -18,7 +18,7 @@ export async function subscribeAction(formData: FormData): Promise<ActionData> {
 
   try {
     const { t } = await getServerTranslations();
-    const response = await PricingBlockService.subscribe({ 
+    const response = await subscribe({ 
       request, 
       params: {}, 
       form: formData, 

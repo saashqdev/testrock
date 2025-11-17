@@ -1,15 +1,15 @@
 import { Metadata } from "next";
-import { WorkflowsIndexApi } from "@/modules/workflowEngine/routes/workflow-engine/workflows.index.api.server";
+import { loader, ActionData, action } from "@/modules/workflowEngine/routes/workflow-engine/workflows.index.api.server";
 import WorkflowsIndexView from "@/modules/workflowEngine/routes/workflow-engine/workflows.index.view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
-  const data = await WorkflowsIndexApi.loader(props);
+  const data = await loader(props);
   return { title: data?.metatags?.[0]?.title || "Workflows" };
 }
 
 // Server Action for handling form submissions
-async function handleWorkflowAction(formData: FormData): Promise<WorkflowsIndexApi.ActionData | void> {
+async function handleWorkflowAction(formData: FormData): Promise<ActionData | void> {
   "use server";
   
   const request = new Request("http://localhost", {
@@ -24,7 +24,7 @@ async function handleWorkflowAction(formData: FormData): Promise<WorkflowsIndexA
   };
   
   try {
-    const result = await WorkflowsIndexApi.action(props);
+    const result = await action(props);
     // If action returns a Response object, extract the JSON data
     if (result instanceof Response) {
       return await result.json();
@@ -37,6 +37,6 @@ async function handleWorkflowAction(formData: FormData): Promise<WorkflowsIndexA
 }
 
 export default async function WorkflowsPage(props: IServerComponentsProps) {
-  const data = await WorkflowsIndexApi.loader(props);
+  const data = await loader(props);
   return <WorkflowsIndexView data={data} onAction={handleWorkflowAction} />;
 }

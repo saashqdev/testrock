@@ -3,7 +3,7 @@ import HeaderBlock from "@/modules/pageBlocks/components/blocks/marketing/header
 import { getServerTranslations } from "@/i18n/server";
 import HeadingBlock from "@/modules/pageBlocks/components/blocks/marketing/heading/HeadingBlock";
 import BlogPostVariantSimple from "@/modules/pageBlocks/components/blocks/marketing/blog/post/BlogPostVariantSimple";
-import { BlogPostBlockService } from "@/modules/pageBlocks/components/blocks/marketing/blog/post/BlogPostBlockService.server";
+import { load } from "@/modules/pageBlocks/components/blocks/marketing/blog/post/BlogPostBlockService.server";
 import { defaultSocials } from "@/modules/pageBlocks/utils/defaultSocials";
 import { Metadata } from "next";
 import { headers } from "next/headers";
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const request = new Request(`${protocol}://${host}/blog/${resolvedParams.slug}`);
   
   try {
-    const blogPostData = await BlogPostBlockService.load({ 
+    const blogPostData = await load({ 
       request, 
       params: resolvedParams, 
       t 
@@ -48,7 +48,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   const protocol = host.includes("localhost") ? "http" : "https";
   const request = new Request(`${protocol}://${host}/blog/${resolvedParams.slug}`);
   
-  const blogPostData = await BlogPostBlockService.load({ 
+  const blogPostData = await load({ 
     request, 
     params: resolvedParams, 
     t 

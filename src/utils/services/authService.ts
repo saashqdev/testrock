@@ -7,7 +7,7 @@ import crypto from "crypto";
 import { getClientIPAddress } from "@/utils/server/IpUtils";
 import { getBaseURL } from "@/utils/url.server";
 import { getUserInfo } from "@/lib/services/session.server";
-import { TenantTypesApi } from "@/utils/api/server/TenantTypesApi";
+import { setTenantTypes } from "@/utils/api/server/TenantTypesApi";
 import EventsService from "@/modules/events/services/.server/EventsService";
 import { AccountCreatedDto } from "@/modules/events/dtos/AccountCreatedDto";
 import { autosubscribeToTrialOrFreePlan } from "./server/pricingService";
@@ -270,7 +270,7 @@ export async function createUserAndTenant({
     },
     roles
   );
-  await TenantTypesApi.setTenantTypes({ tenantId: tenant.id });
+  await setTenantTypes({ tenantId: tenant.id });
 
   await sendEmail({
     to: email,

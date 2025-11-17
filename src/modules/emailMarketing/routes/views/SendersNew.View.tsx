@@ -1,10 +1,10 @@
 "use client";
 
 import SendersNewRoute from "../../components/senders/SendersNewRoute";
-import { Senders_New } from "../Senders_New";
+import { LoaderData } from "../Senders_New";
 
 interface SendersNewViewProps {
-  data: Senders_New.LoaderData;
+  data: LoaderData;
 }
 
 export default function SendersNewView({ data }: SendersNewViewProps) {

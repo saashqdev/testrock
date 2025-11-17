@@ -19,7 +19,7 @@ import { StepDto } from "@/components/ui/steps/StepDto";
 import TableSimple from "@/components/ui/tables/TableSimple";
 import UploadDocuments from "@/components/ui/uploaders/UploadDocument";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
-import { Rows_Import } from "../routes/Rows_Import.server";
+import { ImportRow } from "../routes/Rows_Import.server";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 
 type RawDataDto = {
@@ -585,7 +585,7 @@ function getMediaFromProperty(property: { name: string; value: string }): MediaD
   return null;
 }
 
-function getImportRowStringValue(item: Rows_Import.ImportRow) {
+function getImportRowStringValue(item: ImportRow) {
   item.properties.forEach((property) => {
     const media = getMediaFromProperty(property);
     if (media) {
@@ -608,8 +608,8 @@ function Confirm({
 }) {
   const { t } = useTranslation();
   const appOrAdminData = useAppOrAdminData();
-  const [items, setItems] = useState<Rows_Import.ImportRow[]>([]);
-  const [headers, setHeaders] = useState<RowHeaderDisplayDto<Rows_Import.ImportRow>[]>([]);
+  const [items, setItems] = useState<ImportRow[]>([]);
+  const [headers, setHeaders] = useState<RowHeaderDisplayDto<ImportRow>[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [actionData, setActionData] = useState<any>(null);
   const router = useRouter();
@@ -633,9 +633,9 @@ function Confirm({
   };
 
   useEffect(() => {
-    const newItems: Rows_Import.ImportRow[] = [];
+    const newItems: ImportRow[] = [];
     data.rows.forEach((row) => {
-      const newRow: Rows_Import.ImportRow = {
+      const newRow: ImportRow = {
         properties: [],
       };
       row.forEach((r) => {
@@ -659,7 +659,7 @@ function Confirm({
   }, [actionData]);
 
   useEffect(() => {
-    const newHeaders: RowHeaderDisplayDto<Rows_Import.ImportRow>[] = [
+    const newHeaders: RowHeaderDisplayDto<ImportRow>[] = [
       {
         name: "tenant",
         title: t("models.tenant.object"),

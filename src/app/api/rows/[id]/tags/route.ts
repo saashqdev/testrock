@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Rows_Tags } from '@/modules/rows/routes/Rows_Tags.server';
+import { loader } from "@/modules/rows/routes/Rows_Tags.server";
 import { IServerComponentsProps } from '@/lib/dtos/ServerComponentsProps';
 
 export async function GET(
@@ -14,7 +14,7 @@ export async function GET(
       request,
     };
     
-    const data = await Rows_Tags.loader(props);
+    const data = await loader(props);
     return data;
   } catch (error) {
     console.error('Error fetching row tags data:', error);

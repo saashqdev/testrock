@@ -10,11 +10,11 @@ import { getUserHasPermission } from "@/lib/helpers/PermissionsHelper";
 import TableSimple from "@/components/ui/tables/TableSimple";
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 import { toast } from "sonner";
-import { RolesPermissionsSeed } from "./seed.server";
+import { LoaderData, ActionData } from "./seed.server";
 import { seedRolesPermissionsAction } from "./actions";
 
 interface Props {
-  data: RolesPermissionsSeed.LoaderData;
+  data: LoaderData;
 }
 
 export default function RolesPermissionsSeedView({ data }: Props) {
@@ -23,7 +23,7 @@ export default function RolesPermissionsSeedView({ data }: Props) {
   const modalConfirmSeed = useRef<RefConfirmModal>(null);
 
   const [actionData, formAction, pending] = useActionState(
-    async (_state: RolesPermissionsSeed.ActionData | null, formData: FormData) => {
+    async (_state: ActionData | null, formData: FormData) => {
       return await seedRolesPermissionsAction(formData);
     },
     null

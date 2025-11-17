@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { getAll, get } from "@/utils/api/server/RowsApi";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import RowRepository from "@/modules/rows/repositories/RowRepository.server";
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 async function getData(props: IServerComponentsProps) {
   const request = props.request!;
   await verifyUserHasPermission("admin.entities.view");
-  const companies = await RowsApi.getAll({ entity: { name: "company" } });
+  const companies = await getAll({ entity: { name: "company" } });
   return {
     company: companies.items.length > 0 ? companies.items[0] : null,
   };
@@ -27,7 +27,7 @@ async function updateCompanyAction(formData: FormData) {
   const name = formData.get("name")?.toString() ?? "";
   
   try {
-    const { item } = await RowsApi.get(id, { entity: { name: "company" } });
+    const { item } = await get(id, { entity: { name: "company" } });
     await loadEntities();
     const companyRepository = new RowRepository(item);
     await companyRepository.updateText("name", name);

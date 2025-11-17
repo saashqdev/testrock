@@ -1,13 +1,13 @@
 import { Metadata } from "next";
 import ServerError from "@/components/ui/errors/ServerError";
-import { WorkflowsIdExecutionsApi } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.executions.api.server";
+import { loader } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.executions.api.server";
 import WorkflowsIdExecutionsView from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.executions.view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import "reactflow/dist/style.css";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   try {
-    const data = await WorkflowsIdExecutionsApi.loader(props);
+    const data = await loader(props);
     return {
       title: data?.metatags?.[0]?.title || "Workflow Executions",
       description: data?.metatags?.[0]?.description,
@@ -21,7 +21,7 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   }
 };
 export const loader = async (props: IServerComponentsProps) => {
-  return WorkflowsIdExecutionsApi.loader(props);
+  return loader(props);
 };
 
 // export const action = (args: ActionFunctionArgs) => WorkflowsIdExecutionsApi.action(args);

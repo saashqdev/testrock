@@ -7,32 +7,31 @@ import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
 
-export namespace OnboardingSummaryApi {
-  export type LoaderData = {
-    meta: MetaTagsDto;
-    summary: OnboardingSummaryDto;
-    sessions: {
-      items: OnboardingSessionWithDetailsDto[];
-      metadata: OnboardingFilterMetadataDto;
-    };
+export type LoaderData = {
+  meta: MetaTagsDto;
+  summary: OnboardingSummaryDto;
+  sessions: {
+    items: OnboardingSessionWithDetailsDto[];
+    metadata: OnboardingFilterMetadataDto;
   };
-  export const loader = async (props: IServerComponentsProps) => {
-    const request = props.request!;
-    await verifyUserHasPermission("admin.onboarding.view");
-    const { t } = await getServerTranslations();
+};
+export const loader = async (props: IServerComponentsProps) => {
+  const request = props.request!;
+  await verifyUserHasPermission("admin.onboarding.view");
+  const { t } = await getServerTranslations();
 
-    const data: LoaderData = {
-      meta: [{ title: `${t("onboarding.title")} | ${process.env.APP_NAME}` }],
-      summary: await OnboardingService.getSummary(),
-      sessions: {
-        items: (
-          await db.onboardingSessions.getOnboardingSessionsWithPagination({
-            pagination: { page: 1, pageSize: 10 },
-          })
-        ).items,
-        metadata: await OnboardingService.getMetadata(),
-      },
-    };
-    return data;
+  const data: LoaderData = {
+    meta: [{ title: `${t("onboarding.title")} | ${process.env.APP_NAME}` }],
+    summary: await OnboardingService.getSummary(),
+    sessions: {
+      items: (
+        await db.onboardingSessions.getOnboardingSessionsWithPagination({
+          pagination: { page: 1, pageSize: 10 },
+        })
+      ).items,
+      metadata: await OnboardingService.getMetadata(),
+    },
   };
-}
+  return data;
+};
+

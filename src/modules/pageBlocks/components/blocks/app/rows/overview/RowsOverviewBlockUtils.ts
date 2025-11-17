@@ -1,4 +1,4 @@
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { GetRowData, GetRelationshipRowsData } from "@/utils/api/server/RowsApi";
 import { BlockVariableDto } from "../../../shared/variables/BlockVariableDto";
 
 export type RowsOverviewBlockDto = {
@@ -10,8 +10,8 @@ export type RowsOverviewBlockDto = {
     rowId: BlockVariableDto;
   };
   data: {
-    rowData: RowsApi.GetRowData;
-    relationshipRows: RowsApi.GetRelationshipRowsData;
+    rowData: GetRowData;
+    relationshipRows: GetRelationshipRowsData;
   } | null;
 };
 

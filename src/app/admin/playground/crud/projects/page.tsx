@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getPaginationFromCurrentUrl } from "@/lib/helpers/RowPaginationHelper";
 import { FakeProjectDto } from "@/modules/fake/fakeProjectsCrud/dtos/FakeProjectDto";
-import { FakeProjectService } from "@/modules/fake/fakeProjectsCrud/services/FakeCrudService";
+import { getAll, get } from "@/modules/fake/fakeProjectsCrud/services/FakeCrudService";
 import FakeProjectsClient from "./FakeProjectsClient";
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ async function getData(searchParams: { [key: string]: string | string[] | undefi
   });
 
   const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
-  const { items, pagination } = await FakeProjectService.getAll({
+  const { items, pagination } = await getAll({
     filters: {
       name: urlSearchParams.get("name")?.toString(),
     },
@@ -34,7 +34,7 @@ async function getData(searchParams: { [key: string]: string | string[] | undefi
   let overviewItem: FakeProjectDto | null = null;
   const id = urlSearchParams.get("id") ?? "";
   if (id) {
-    overviewItem = await FakeProjectService.get(id);
+    overviewItem = await get(id);
   }
 
   return {

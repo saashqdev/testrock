@@ -8,7 +8,7 @@ import PageBlocks from "@/modules/pageBlocks/components/blocks/PageBlocks";
 import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import ButtonSecondary from "@/components/ui/buttons/ButtonSecondary";
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
-import { PageBlocks_Index } from "../../routes/pages/PageBlocks_Index";
+import { LoaderData, ActionData } from "../../routes/pages/PageBlocks_Index";
 import { getUserHasPermission } from "@/lib/helpers/PermissionsHelper";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 import ChatGptIcon from "@/components/ui/icons/ai/ChatGptIcon";
@@ -16,12 +16,12 @@ import ChatGptSetParametersButton from "@/modules/ai/components/ChatGptSetParame
 import toast from "react-hot-toast";
 
 interface PageBlocksRouteIndexProps {
-  data: PageBlocks_Index.LoaderData;
+  data: LoaderData;
 }
 
 export default function PageBlocksRouteIndex({ data }: PageBlocksRouteIndexProps) {
   const { t } = useTranslation();
-  const [actionData, setActionData] = useState<PageBlocks_Index.ActionData | null>(null);
+  const [actionData, setActionData] = useState<ActionData | null>(null);
   const appOrAdminData = useAppOrAdminData();
 
   const [searchParams, setSearchParams] = useSearchParams();

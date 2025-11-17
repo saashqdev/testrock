@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import BlogIndexView from "@/modules/blog/routes/views/BlogRoutes.Index.View";
-import { BlogRoutesIndexApi } from "@/modules/blog/routes/api/BlogRoutes.Index.Api";
+import { generateMetadata, loader } from "@/modules/blog/routes/api/BlogRoutes.Index.Api";
 
 type Props = {
   params: Promise<{ tenant: string }>;
@@ -9,7 +9,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-  return BlogRoutesIndexApi.generateMetadata({ params: resolvedParams });
+  return generateMetadata({ params: resolvedParams });
 }
 
 export default async function BlogIndexPage({ params, searchParams }: Props) {
@@ -25,7 +25,7 @@ export default async function BlogIndexPage({ params, searchParams }: Props) {
   });
   
   const request = new Request(url.toString());
-  const data = await BlogRoutesIndexApi.loader({ 
+  const data = await loader({ 
     request, 
     params: resolvedParams 
   });

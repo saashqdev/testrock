@@ -1,19 +1,19 @@
 import PageSettingsRouteIndex from "@/modules/pageBlocks/components/pages/PageSettingsRouteIndex";
-import { PageSettings_Index } from "@/modules/pageBlocks/routes/pages/PageSettings_Index";
+import { loader, action } from "@/modules/pageBlocks/routes/pages/PageSettings_Index";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
-export const loader = (props: IServerComponentsProps) => PageSettings_Index.loader(props);
-export const action = (props: IServerComponentsProps) => PageSettings_Index.action(props);
+export const loader = (props: IServerComponentsProps) => loader(props);
+export const action = (props: IServerComponentsProps) => action(props);
 
 export default async function SettingsPage(props: IServerComponentsProps) {
-  const data = await PageSettings_Index.loader(props);
+  const data = await loader(props);
   
   async function updatePageAction(formData: FormData): Promise<void> {
     "use server";
     const mockRequest = {
       formData: async () => formData,
     };
-    await PageSettings_Index.action({ 
+    await action({ 
       ...props, 
       request: mockRequest as any 
     });
@@ -24,7 +24,7 @@ export default async function SettingsPage(props: IServerComponentsProps) {
     const mockRequest = {
       formData: async () => formData,
     };
-    await PageSettings_Index.action({ 
+    await action({ 
       ...props, 
       request: mockRequest as any 
     });

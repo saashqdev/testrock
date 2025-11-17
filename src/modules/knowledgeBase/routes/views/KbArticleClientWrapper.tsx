@@ -2,12 +2,12 @@
 
 import KbHeader from "../../components/KbHeader";
 import KbArticle from "../../components/articles/KbArticle";
-import { KbRoutesArticleApi } from "../api/KbRoutes.Article.Api";
+import { LoaderData } from "../api/KbRoutes.Article.Api";
 import ButtonSecondary from "@/components/ui/buttons/ButtonSecondary";
 import { KbArticleAction } from "./KbArticleAction";
 
 interface KbArticleClientWrapperProps {
-  data: KbRoutesArticleApi.LoaderData;
+  data: LoaderData;
 }
 
 export default function KbArticleClientWrapper({ data }: KbArticleClientWrapperProps) {

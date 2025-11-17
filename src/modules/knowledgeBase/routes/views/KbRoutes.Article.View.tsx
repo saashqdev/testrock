@@ -1,9 +1,9 @@
-import { KbRoutesArticleApi } from "../api/KbRoutes.Article.Api";
+import { LoaderData } from "../api/KbRoutes.Article.Api";
 import KbDocsLayout from "../../components/layouts/KbDocsLayout";
 import KbArticleClientWrapper from "./KbArticleClientWrapper";
 
 interface KbRoutesArticleViewProps {
-  data: KbRoutesArticleApi.LoaderData;
+  data: LoaderData;
 }
 
 export default function KbRoutesArticleView({ data }: KbRoutesArticleViewProps) {

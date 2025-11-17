@@ -1,5 +1,5 @@
 import EmailMarketingSummaryRoute from "@/modules/emailMarketing/components/EmailMarketingSummaryRoute";
-import { EmailMarketingSummaryApi } from "../api/EmailMarketingSummary.Api";
+import { loader } from "../api/EmailMarketingSummary.Api";
 
 type Props = {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -17,7 +17,7 @@ export default async function EmailMarketingSummaryAdminView({ searchParams }: P
   }
   
   const request = new Request(url.toString());
-  const data = await EmailMarketingSummaryApi.loader({ 
+  const data = await loader({ 
     request, 
     params: Promise.resolve({}) 
   });

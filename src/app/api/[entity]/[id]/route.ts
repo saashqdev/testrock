@@ -5,7 +5,7 @@ import { getServerTranslations } from "@/i18n/server";
 import { createMetrics } from "@/modules/metrics/services/server/MetricTracker";
 import { loadEntities } from "@/modules/rows/repositories/server/EntitiesSingletonService";
 import EntitiesSingleton from "@/modules/rows/repositories/EntitiesSingleton";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { get, update, del } from "@/utils/api/server/RowsApi";
 import ApiHelper from "@/lib/helpers/ApiHelper";
 import EventsService from "@/modules/events/services/.server/EventsService";
 import { ApiAccessValidation, validateApiKey } from "@/utils/services/apiService";
@@ -40,13 +40,13 @@ export async function GET(
 
     const entity = EntitiesSingleton.getEntityByIdNameOrSlug(resolvedParams.entity!);
     const data = await time(
-      RowsApi.get(resolvedParams.id!, {
+      get(resolvedParams.id!, {
         entity,
         tenantId: tenant?.id ?? null,
         userId,
         time,
       }),
-      "RowsApi.get"
+      "get"
     );
     
     if (tenant && tenantApiKey) {
@@ -124,13 +124,13 @@ export async function PUT(
     const tenantId = tenant?.id ?? null;
     
     const data = await time(
-      RowsApi.get(resolvedParams.id!, {
+      get(resolvedParams.id!, {
         entity,
         tenantId,
         userId,
         time,
       }),
-      "RowsApi.get"
+      "get"
     );
     
     if (!data.item) {
@@ -142,13 +142,13 @@ export async function PUT(
     const rowValues = ApiHelper.getRowPropertiesFromJson(t, entity, jsonBody, existing);
     
     const updated = await time(
-      RowsApi.update(resolvedParams.id!, {
+      update(resolvedParams.id!, {
         entity,
         tenantId: tenant?.id ?? null,
         userId,
         rowValues,
       }),
-      "RowsApi.update"
+      "update"
     );
     
     await EventsService.create({
@@ -189,11 +189,11 @@ export async function PUT(
     );
     
     const updatedData = await time(
-      RowsApi.get(resolvedParams.id!, {
+      get(resolvedParams.id!, {
         entity,
         time,
       }),
-      "RowsApi.get"
+      "get"
     );
     
     return NextResponse.json(
@@ -248,13 +248,13 @@ export async function DELETE(
     const tenantId = tenant?.id ?? null;
     
     const data = await time(
-      RowsApi.get(resolvedParams.id!, {
+      get(resolvedParams.id!, {
         entity,
         tenantId,
         userId,
         time,
       }),
-      "RowsApi.get"
+      "get"
     );
     
     if (!data.item) {
@@ -264,13 +264,13 @@ export async function DELETE(
     const existing = data.item;
     
     await time(
-      RowsApi.del(resolvedParams.id!, {
+      del(resolvedParams.id!, {
         entity,
         tenantId,
         userId,
         time,
       }),
-      "RowsApi.del"
+      "del"
     );
     
     await EventsService.create({

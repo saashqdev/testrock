@@ -1,5 +1,5 @@
 import { createMetrics } from "@/modules/metrics/services/server/MetricTracker";
-import { RowRelationshipsApi } from "@/utils/api/server/RowRelationshipsApi";
+import { getRelationship, deleteRelationshipById } from "@/utils/api/server/RowRelationshipsApi";
 import ApiHelper from "@/lib/helpers/ApiHelper";
 import { ApiAccessValidation, validateApiKey } from "@/utils/services/apiService";
 import { db } from "@/db";
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   try {
     apiAccessValidation = await time(validateApiKey(request, { params }), "validateApiKey");
     const { tenant, userId } = apiAccessValidation;
-    const relationship = await RowRelationshipsApi.getRelationship(id, {
+    const relationship = await getRelationship(id, {
       tenantId: tenant?.id ?? null,
       userId,
       time,
@@ -56,7 +56,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
     apiAccessValidation = await time(validateApiKey(request, { params }), "validateApiKey");
     const { tenant, userId } = apiAccessValidation;
     
-    const relationship = await RowRelationshipsApi.getRelationship(id, {
+    const relationship = await getRelationship(id, {
       tenantId: tenant?.id ?? null,
       userId,
       time,
@@ -65,12 +65,12 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
       throw new Error("Relationship not found");
     }
     const item = await time(
-      RowRelationshipsApi.deleteRelationshipById(id, {
+      deleteRelationshipById(id, {
         tenantId: tenant?.id ?? null,
         userId,
         time,
       }),
-      "RowRelationshipsApi.deleteRelationshipById"
+      "deleteRelationshipById"
     );
     return Response.json({ deleted: item }, { status: 200, headers: getServerTimingHeader() });
   } catch (e: any) {

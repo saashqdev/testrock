@@ -10,99 +10,98 @@ import { getBaseURL } from "@/utils/url.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
 
-export namespace WorkflowsIdRunApiApi {
-  export type LoaderData = {
-    metatags: MetaTagsDto;
-    workflow: WorkflowDto;
+export type LoaderData = {
+  metatags: MetaTagsDto;
+  workflow: WorkflowDto;
+};
+export const loader = async (props: IServerComponentsProps) => {
+  const params = (await props.params) || {};
+  const request = props.request!;
+  await requireAuth();
+  const tenantId = await getTenantIdOrNull({ request, params });
+  const workflow = await WorkflowsService.get(params.id!, {
+    tenantId: tenantId?.toString() ?? null,
+  });
+  if (!workflow) {
+    throw redirect(UrlUtils.getModulePath(params, `workflow-engine/workflows`));
+  }
+  const data: LoaderData = {
+    metatags: [{ title: `Run Workflow (API): ${workflow.name} | ${process.env.APP_NAME}` }],
+    workflow,
   };
-  export const loader = async (props: IServerComponentsProps) => {
-    const params = (await props.params) || {};
-    const request = props.request!;
-    await requireAuth();
-    const tenantId = await getTenantIdOrNull({ request, params });
-    const workflow = await WorkflowsService.get(params.id!, {
-      tenantId: tenantId?.toString() ?? null,
-    });
-    if (!workflow) {
-      throw redirect(UrlUtils.getModulePath(params, `workflow-engine/workflows`));
-    }
-    const data: LoaderData = {
-      metatags: [{ title: `Run Workflow (API): ${workflow.name} | ${process.env.APP_NAME}` }],
-      workflow,
-    };
-    return data;
-  };
+  return data;
+};
 
-  export type ActionData = {
-    success?: string;
-    error?: string;
-    execution?: WorkflowExecutionDto;
-  };
-  export const action = async (props: IServerComponentsProps) => {
-    const params = (await props.params) || {};
-    const request = props.request!;
-    await requireAuth();
-    const tenantId = await getTenantIdOrNull({ request, params });
-    const form = await request.formData();
-    const action = form.get("action")?.toString();
+export type ActionData = {
+  success?: string;
+  error?: string;
+  execution?: WorkflowExecutionDto;
+};
+export const action = async (props: IServerComponentsProps) => {
+  const params = (await props.params) || {};
+  const request = props.request!;
+  await requireAuth();
+  const tenantId = await getTenantIdOrNull({ request, params });
+  const form = await request.formData();
+  const action = form.get("action")?.toString();
 
-    let apiKey: string | null = null;
-    if (tenantId === null) {
-      apiKey = process.env.API_ACCESS_TOKEN?.toString() || null;
-      if (!apiKey) {
-        throw new Error(`No API key found`);
-      }
-    } else {
-      const apiKeys = await db.apiKeys.getApiKeys(tenantId);
-      const validApiKey = apiKeys.find((f) => f.active && (f.expires === null || f.expires > new Date()));
-      if (!validApiKey) {
-        throw new Error(`No valid API key found`);
-      }
-      apiKey = validApiKey.key;
+  let apiKey: string | null = null;
+  if (tenantId === null) {
+    apiKey = process.env.API_ACCESS_TOKEN?.toString() || null;
+    if (!apiKey) {
+      throw new Error(`No API key found`);
     }
+  } else {
+    const apiKeys = await db.apiKeys.getApiKeys(tenantId);
+    const validApiKey = apiKeys.find((f) => f.active && (f.expires === null || f.expires > new Date()));
+    if (!validApiKey) {
+      throw new Error(`No valid API key found`);
+    }
+    apiKey = validApiKey.key;
+  }
 
-    if (action === "execute") {
-      try {
-        const input = form.get("input")?.toString() ?? "{}";
-        const url = `${getBaseURL()}/api/workflows/run/${params.id}`;
-        const response = await fetch(url, {
-          method: "POST",
-          body: input,
-          headers: {
-            "Content-Type": "application/json",
-            "X-Api-Key": apiKey,
-          },
-        });
-        const data = await response.json();
-        if (data.error) {
-          throw new Error(data.error);
-        }
-        return Response.json({ execution: data.execution });
-      } catch (e: any) {
-        return Response.json({ error: e.message }, { status: 400 });
+  if (action === "execute") {
+    try {
+      const input = form.get("input")?.toString() ?? "{}";
+      const url = `${getBaseURL()}/api/workflows/run/${params.id}`;
+      const response = await fetch(url, {
+        method: "POST",
+        body: input,
+        headers: {
+          "Content-Type": "application/json",
+          "X-Api-Key": apiKey,
+        },
+      });
+      const data = await response.json();
+      if (data.error) {
+        throw new Error(data.error);
       }
-    } else if (action === "continue-execution") {
-      try {
-        const executionId = form.get("executionId")?.toString() ?? "";
-        const input = form.get("input")?.toString() ?? "{}";
-        const url = `${getBaseURL()}/api/workflows/executions/${executionId}/continue`;
-        const response = await fetch(url, {
-          method: "POST",
-          body: input,
-          headers: {
-            "Content-Type": "application/json",
-            "X-Api-Key": apiKey,
-          },
-        });
-        const data = await response.json();
-        if (data.error) {
-          throw new Error(data.error);
-        }
-        return Response.json({ execution: data.execution });
-      } catch (e: any) {
-        return Response.json({ error: e.message }, { status: 400 });
-      }
+      return Response.json({ execution: data.execution });
+    } catch (e: any) {
+      return Response.json({ error: e.message }, { status: 400 });
     }
-    return Response.json({ error: "Invalid action" }, { status: 400 });
-  };
-}
+  } else if (action === "continue-execution") {
+    try {
+      const executionId = form.get("executionId")?.toString() ?? "";
+      const input = form.get("input")?.toString() ?? "{}";
+      const url = `${getBaseURL()}/api/workflows/executions/${executionId}/continue`;
+      const response = await fetch(url, {
+        method: "POST",
+        body: input,
+        headers: {
+          "Content-Type": "application/json",
+          "X-Api-Key": apiKey,
+        },
+      });
+      const data = await response.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      return Response.json({ execution: data.execution });
+    } catch (e: any) {
+      return Response.json({ error: e.message }, { status: 400 });
+    }
+  }
+  return Response.json({ error: "Invalid action" }, { status: 400 });
+};
+

@@ -1,9 +1,9 @@
 import KbHeader from "../../components/KbHeader";
 import KbCategory from "../../components/categories/KbCategory";
-import { KbRoutesCategoryApi } from "../api/KbRoutes.Category.Api";
+import { LoaderData } from "../api/KbRoutes.Category.Api";
 
 interface KbRoutesCategoryViewProps {
-  data: KbRoutesCategoryApi.LoaderData;
+  data: LoaderData;
 }
 
 export default function KbRoutesCategoryView({ data }: KbRoutesCategoryViewProps) {

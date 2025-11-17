@@ -1,4 +1,4 @@
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { get, create, update, del } from "@/utils/api/server/RowsApi";
 import { BlockExecutionParamsDto } from "../../dtos/BlockExecutionParamsDto";
 import { BlockExecutionResultDto } from "../../dtos/BlockExecutionResultDto";
 import WorkflowsValidationService from "../WorkflowsValidationService";
@@ -107,7 +107,7 @@ async function executeRowGetBlock({ block, workflowContext, session }: BlockExec
   }
   const entity = await EntitiesSingleton.getEntity({ name: entityName });
 
-  const existing = await RowsApi.get(id, {
+  const existing = await get(id, {
     entity,
     tenantId: session.tenantId,
     userId: session.userId ?? undefined,
@@ -144,7 +144,7 @@ async function executeRowCreateBlock({ block, workflowContext, session }: BlockE
   }
   const entity = await EntitiesSingleton.getEntity({ name: entityName });
   const rowValues = ApiHelper.getRowPropertiesFromJson(undefined, entity, row);
-  const created = await RowsApi.create({
+  const created = await create({
     entity,
     tenantId: session.tenantId,
     userId: session.userId ?? undefined,
@@ -188,14 +188,14 @@ async function executeRowUpdateBlock({ block, workflowContext, session }: BlockE
   }
   const entity = await EntitiesSingleton.getEntity({ name: entityName });
 
-  const existing = await RowsApi.get(id, {
+  const existing = await get(id, {
     entity,
     tenantId: session.tenantId,
     userId: session.userId ?? undefined,
   });
 
   const rowValues = ApiHelper.getRowPropertiesFromJson(undefined, entity, data, existing.item);
-  const updated = await RowsApi.update(id, {
+  const updated = await update(id, {
     entity,
     tenantId: session.tenantId,
     userId: session.userId ?? undefined,
@@ -232,13 +232,13 @@ async function executeRowDeleteBlock({ block, workflowContext, session }: BlockE
   const entity = await EntitiesSingleton.getEntity({ name: entityName });
 
   try {
-    const existing = await RowsApi.get(id, {
+    const existing = await get(id, {
       entity,
       tenantId: session.tenantId,
       userId: session.userId ?? undefined,
     });
 
-    await RowsApi.del(id, {
+    await del(id, {
       entity,
       tenantId: session.tenantId,
       userId: session.userId ?? undefined,

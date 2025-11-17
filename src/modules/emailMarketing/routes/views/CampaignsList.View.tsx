@@ -1,10 +1,10 @@
 "use client";
 
 import CampaignsListRoute from "../../components/campaigns/CampaignsListRoute";
-import { Campaigns_List } from "../Campaigns_List";
+import { LoaderData } from "../Campaigns_List";
 
 interface CampaignsListViewProps {
-  data: Campaigns_List.LoaderData;
+  data: LoaderData;
 }
 
 export default function CampaignsListView({ data }: CampaignsListViewProps) {

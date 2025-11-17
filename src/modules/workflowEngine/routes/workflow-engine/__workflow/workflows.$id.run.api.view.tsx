@@ -14,7 +14,7 @@ import WorkflowInputExamplesDropdown from "@/modules/workflowEngine/components/w
 import WorkflowRunDropdown from "@/modules/workflowEngine/components/workflows/buttons/WorkflowRunDropdown";
 import WorkflowUtils from "@/modules/workflowEngine/helpers/WorkflowUtils";
 import UrlUtils from "@/utils/app/UrlUtils";
-import { WorkflowsIdRunApiApi } from "./workflows.$id.run.api.server";
+import { LoaderData } from "./workflows.$id.run.api.server";
 import clsx from "clsx";
 import { WorkflowExecutionDto } from "@/modules/workflowEngine/dtos/WorkflowExecutionDto";
 import ErrorBanner from "@/components/ui/banners/ErrorBanner";
@@ -54,7 +54,7 @@ function ContinueButton({ disabled }: { disabled?: boolean }) {
   );
 }
 
-export default function WorkflowsIdRunApiApiView({ data }: { data: WorkflowsIdRunApiApi.LoaderData }) {
+export default function WorkflowsIdRunApiApiView({ data }: { data: LoaderData }) {
   const params = useParams();
   const [executeState, executeFormAction] = useFormState<ExecuteWorkflowState, FormData>(executeWorkflow, null);
   const [continueState, continueFormAction] = useFormState<ContinueWorkflowState, FormData>(continueWorkflowExecution, null);

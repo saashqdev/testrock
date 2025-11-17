@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import OutboundEmailsListRoute from "@/modules/emailMarketing/components/outboundEmails/OutboundEmailsListRoute";
-import { OutboundEmails_List } from "@/modules/emailMarketing/routes/OutboundEmails_List";
+import { loader } from "@/modules/emailMarketing/routes/OutboundEmails_List";
 import { headers } from "next/headers";
 
 type Props = {
@@ -19,7 +19,7 @@ export default async function ActivityPage({ params, searchParams }: Props) {
   const headersList = await headers();
   const fullUrl = headersList.get("x-url") || "";
   
-  const data = await OutboundEmails_List.loader({ 
+  const data = await loader({ 
     params,
     searchParams,
     request: new Request(fullUrl || "http://localhost")

@@ -4,12 +4,12 @@ import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import Kanban from "@/components/ui/lists/Kanban";
 import UnderConstruction from "@/components/ui/misc/UnderConstruction";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { GetRowsData } from "@/utils/api/server/RowsApi";
 import RowHelper from "@/lib/helpers/RowHelper";
-import { Rows_Relationships } from "../routes/Rows_Relationships.server";
+import { LoaderData } from "../routes/Rows_Relationships.server";
 
 interface RowsRelationshipsRouteProps {
-  data: Rows_Relationships.LoaderData;
+  data: LoaderData;
 }
 
 export default function RowsRelationshipsRoute({ data }: RowsRelationshipsRouteProps) {
@@ -26,7 +26,7 @@ export default function RowsRelationshipsRoute({ data }: RowsRelationshipsRouteP
   );
 }
 
-function EntityRowsRelationships({ data, className }: { data: RowsApi.GetRowsData; className?: string }) {
+function EntityRowsRelationships({ data, className }: { data: GetRowsData; className?: string }) {
   const { t } = useTranslation();
   return (
     <div className={clsx(className)}>

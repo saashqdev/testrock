@@ -3,9 +3,9 @@
 import { useTranslation } from "react-i18next";
 import NumberUtils from "@/lib/shared/NumberUtils";
 import OnboardingSessionsTable from "../../components/OnboardingSessionsTable";
-import { OnboardingSummaryApi } from "../api/OnboardingSummaryApi.server";
+import { LoaderData } from "../api/OnboardingSummaryApi.server";
 
-export default function OnboardingSummaryRoute({ data }: { data: OnboardingSummaryApi.LoaderData }) {
+export default function OnboardingSummaryRoute({ data }: { data: LoaderData }) {
   const { t } = useTranslation();
   return (
     <div className="mx-auto mb-12 max-w-5xl space-y-5 px-4 py-4 sm:px-6 lg:px-8 xl:max-w-7xl">

@@ -1,7 +1,7 @@
-import { OnboardingSessionOverviewApi } from "../../api/sessions/OnboardingSessionOverviewApi.server";
+import { LoaderData } from "../../api/sessions/OnboardingSessionOverviewApi.server";
 
 interface OnboardingSessionOverviewRouteProps {
-  data: OnboardingSessionOverviewApi.LoaderData;
+  data: LoaderData;
 }
 
 export default function OnboardingSessionOverviewRoute({ data }: OnboardingSessionOverviewRouteProps) {

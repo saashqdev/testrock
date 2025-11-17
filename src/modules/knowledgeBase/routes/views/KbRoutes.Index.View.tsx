@@ -1,11 +1,11 @@
-import { KbRoutesIndexApi } from "../api/KbRoutes.Index.Api";
+import { LoaderData } from "../api/KbRoutes.Index.Api";
 import KbHeader from "../../components/KbHeader";
 import KbFeaturedArticles from "../../components/KbFeaturedArticles";
 import KbCategories from "../../components/categories/KbCategories";
 import KbDocsLayout from "../../components/layouts/KbDocsLayout";
 
 interface KbRoutesIndexProps {
-  data: KbRoutesIndexApi.LoaderData;
+  data: LoaderData;
 }
 
 export default function KbRoutesIndex({ data }: KbRoutesIndexProps) {

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { TFunction } from "i18next";
 import { RowDto } from "@/modules/rows/repositories/RowDto";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import EntityHelper from "@/lib/helpers/EntityHelper";
 import RowHelper from "@/lib/helpers/RowHelper";
@@ -19,7 +19,7 @@ export default function RowRelationshipRow({
   entity: EntityWithDetailsDto;
   item: RowDto;
   onRelatedRowClick?: () => void;
-  routes?: EntitiesApi.Routes;
+  routes?: Routes;
   t: TFunction;
 }) {
   return (

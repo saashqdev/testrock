@@ -1,5 +1,5 @@
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { GetEntityData } from "@/utils/api/server/EntitiesApi";
+import { GetRelationshipRowsData } from "@/utils/api/server/RowsApi";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { BlockVariableDto } from "../../../shared/variables/BlockVariableDto";
 
@@ -12,9 +12,9 @@ export type RowsNewBlockDto = {
     redirectTo: BlockVariableDto;
   };
   data: {
-    entityData: EntitiesApi.GetEntityData;
+    entityData: GetEntityData;
     allEntities: EntityWithDetailsDto[];
-    relationshipRows: RowsApi.GetRelationshipRowsData;
+    relationshipRows: GetRelationshipRowsData;
   } | null;
 };
 

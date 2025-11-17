@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getServerTranslations } from "@/i18n/server";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
-import { PropertiesApi } from "@/utils/api/server/PropertiesApi";
+import { getNoCodeRoutes } from "@/utils/api/server/EntitiesApi";
+import { duplicate } from "@/utils/api/server/PropertiesApi";
 import { PropertyWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
@@ -20,7 +20,7 @@ async function getPageData(props: IServerComponentsProps) {
     entity,
     properties: entity.properties,
     allEntities: await db.entities.getAllEntities(null),
-    routes: EntitiesApi.getNoCodeRoutes({ request, params }),
+    routes: getNoCodeRoutes({ request, params }),
   };
 }
 
@@ -86,7 +86,7 @@ export const action = async (props: IServerComponentsProps) => {
     await verifyUserHasPermission("admin.entities.create");
     try {
       const propertyId = form.get("id")?.toString() ?? "";
-      await PropertiesApi.duplicate({ entity, propertyId });
+      await duplicate({ entity, propertyId });
       return Response.json({ created: true });
     } catch (e: any) {
       return badRequest({ error: e.message });

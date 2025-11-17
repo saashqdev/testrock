@@ -4,7 +4,7 @@ import { Colors } from "@/lib/enums/shared/Colors";
 import PropertyForm from "@/components/entities/properties/PropertyForm";
 import { getServerTranslations } from "@/i18n/server";
 import FormulaHelpers from "@/modules/formulas/utils/FormulaHelpers";
-import { PropertiesApi } from "@/utils/api/server/PropertiesApi";
+import { create } from "@/utils/api/server/PropertiesApi";
 import UrlUtils from "@/utils/app/UrlUtils";
 import { PropertyWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { validateProperty } from "@/lib/helpers/PropertyHelper";
@@ -73,7 +73,7 @@ export const action = async (props: IServerComponentsProps) => {
 
   if (action === "create") {
     try {
-      await PropertiesApi.create({
+      await create({
         entityId: entity.id,
         name,
         title,

@@ -1,15 +1,14 @@
-import { InboundEmailEdit } from "../InboundEmailEdit";
+import { LoaderData, ActionData, loader, action } from "../InboundEmailEdit";
 
-export namespace InboundEmailEditApi {
-  export type LoaderData = InboundEmailEdit.LoaderData;
-  export type ActionData = InboundEmailEdit.ActionData;
-  
-  export const loader = InboundEmailEdit.loader;
-  export const action = InboundEmailEdit.action;
-  
-  export async function generateMetadata({ params }: { params: { tenant?: string; id: string } }) {
-    return {
-      title: `Email | ${process.env.APP_NAME}`,
-    };
-  }
+export type LoaderData = LoaderData;
+export type ActionData = ActionData;
+
+export const loader = loader;
+export const action = action;
+
+export async function generateMetadata({ params }: { params: { tenant?: string; id: string } }) {
+  return {
+    title: `Email | ${process.env.APP_NAME}`,
+  };
 }
+

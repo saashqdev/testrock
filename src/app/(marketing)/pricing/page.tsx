@@ -1,17 +1,17 @@
 "use server";
 
 import PageBlocks from "@/modules/pageBlocks/blocks/PageBlocks";
-import { PricingBlockService } from "@/modules/pageBlocks/blocks/marketing/pricing/PricingBlockService.server";
+import { load, subscribe } from "@/modules/pageBlocks/blocks/marketing/pricing/PricingBlockService.server";
 import { getServerTranslations } from "@/i18n/server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
-import { PricingPage } from "@/modules/pageBlocks/pages/PricingPage";
+import { LoaderData, metatags, blocks } from "@/modules/pageBlocks/pages/PricingPage";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { db } from "@/db";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return PricingPage.metatags({ t });
+  return metatags({ t });
 }
 
 const loader = async (props: IServerComponentsProps) => {
@@ -25,9 +25,9 @@ const loader = async (props: IServerComponentsProps) => {
       return redirect("/");
     }
   }
-  const data: PricingPage.LoaderData = {
-    metatags: PricingPage.metatags({ t }),
-    pricingBlockData: await PricingBlockService.load({ searchParams }),
+  const data: LoaderData = {
+    metatags: metatags({ t }),
+    pricingBlockData: await load({ searchParams }),
   };
   return data;
 };
@@ -36,7 +36,7 @@ export const actionPricing = async (prev: any, form: FormData) => {
   const { t } = await getServerTranslations();
   const action = form.get("action");
   if (action === "subscribe") {
-    const response = await PricingBlockService.subscribe({ form, t });
+    const response = await subscribe({ form, t });
     revalidatePath("/pricing");
     return response;
   }
@@ -45,5 +45,5 @@ export const actionPricing = async (prev: any, form: FormData) => {
 export default async function (props: IServerComponentsProps) {
   const { t } = await getServerTranslations();
   const data = await loader(props);
-  return <PageBlocks items={PricingPage.blocks({ data, t })} />;
+  return <PageBlocks items={blocks({ data, t })} />;
 }

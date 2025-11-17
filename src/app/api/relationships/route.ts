@@ -1,5 +1,5 @@
 import { createMetrics } from "@/modules/metrics/services/server/MetricTracker";
-import { RowRelationshipsApi } from "@/utils/api/server/RowRelationshipsApi";
+import { createRelationship } from "@/utils/api/server/RowRelationshipsApi";
 import { ApiAccessValidation, validateApiKey } from "@/utils/services/apiService";
 import { db } from "@/db";
 import { NextRequest } from "next/server";
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
       throw new Error("Child row not found: " + child);
     }
     const item = await time(
-      RowRelationshipsApi.createRelationship({
+      createRelationship({
         parent: parentRow,
         child: childRow,
         time,

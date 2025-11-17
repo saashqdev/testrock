@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import ServerError from "@/components/ui/errors/ServerError";
-import { WorkflowsTemplatesApi } from "@/modules/workflowEngine/routes/workflow-engine/templates.api.server";
+import { loader } from "@/modules/workflowEngine/routes/workflow-engine/templates.api.server";
 import WorkflowsTemplatesView from "@/modules/workflowEngine/routes/workflow-engine/templates.view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
-  const data = await WorkflowsTemplatesApi.loader(props);
+  const data = await loader(props);
   
   // Convert array-based MetaTagsDto to Next.js Metadata format
   if (!data?.metatags || !Array.isArray(data.metatags)) {

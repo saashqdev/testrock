@@ -5,7 +5,7 @@ import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 import TableSimple from "@/components/ui/tables/TableSimple";
 import TabsContainer from "@/components/ui/tabs/TabsContainer";
 import RowController from "@/modules/rows/repositories/RowModel";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { getAll } from "@/utils/api/server/RowsApi";
 import ServerError from "@/components/ui/errors/ServerError";
 import "highlight.js/styles/night-owl.css";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
@@ -22,7 +22,7 @@ async function getData() {
   
   await verifyUserHasPermission("admin.entities.view");
   
-  const companies = await RowsApi.getAll({ entity: { name: "company" } });
+  const companies = await getAll({ entity: { name: "company" } });
   return { companies };
 }
 
@@ -49,7 +49,7 @@ export default async function RowModelPage() {
                 <div>This demo has the following sections:</div>
                 <ol>
                   <li>
-                    <b className="underline">getData</b>: Async function that returns <code>Company</code> rows from <code>RowsApi.getAll</code>.
+                    <b className="underline">getData</b>: Async function that returns <code>Company</code> rows from <code>getAll</code>.
                   </li>
                   <li>
                     <b className="underline">component</b>: Server Component that fetches data and converts the <code>RowWithDetails</code> items to <b>RowModel</b> to use methods like{" "}
@@ -119,7 +119,7 @@ async function getData() {
   
   await verifyUserHasPermission("admin.entities.view");
   
-  const companies = await RowsApi.getAll({ entity: { name: "company" } });
+  const companies = await getAll({ entity: { name: "company" } });
   return { companies };
 }
 

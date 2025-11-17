@@ -1,16 +1,16 @@
 import { Metadata } from "next";
-import { WorkflowsExecutionsApi } from "@/modules/workflowEngine/routes/workflow-engine/executions.api.server";
+import { loader, action } from "@/modules/workflowEngine/routes/workflow-engine/executions.api.server";
 import WorkflowsExecutionsView from "@/modules/workflowEngine/routes/workflow-engine/executions.view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { revalidatePath } from "next/cache";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
-  const data = await WorkflowsExecutionsApi.loader(props);
+  const data = await loader(props);
   return (data?.metatags as Metadata) || {};
 }
 
 export default async function AdminWorkflowExecutionsPage(props: IServerComponentsProps) {
-  const data = await WorkflowsExecutionsApi.loader(props);
+  const data = await loader(props);
   
   // Create a server action function
   async function handleExecutionAction(formData: FormData) {
@@ -29,7 +29,7 @@ export default async function AdminWorkflowExecutionsPage(props: IServerComponen
         request,
       };
 
-      const result = await WorkflowsExecutionsApi.action(actionProps);
+      const result = await action(actionProps);
 
       // Revalidate the current path to refresh data
       revalidatePath("/admin/workflow-engine/executions");

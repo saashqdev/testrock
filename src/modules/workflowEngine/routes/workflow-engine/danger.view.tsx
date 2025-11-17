@@ -2,21 +2,21 @@
 
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { WorkflowsDangerApi } from "./danger.api.server";
+import { LoaderData, ActionData } from "./danger.api.server";
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
 import DropdownOptions from "@/components/ui/dropdowns/DropdownOptions";
 import { Menu } from "@headlessui/react";
 import clsx from "clsx";
 
 interface WorkflowsDangerViewProps {
-  data: WorkflowsDangerApi.LoaderData & {
+  data: LoaderData & {
     handleAction?: (formData: FormData) => Promise<void>;
     isPending?: boolean;
   };
 }
 
 export default function WorkflowsDangerView({ data }: WorkflowsDangerViewProps) {
-  const [actionResult, setActionResult] = useState<WorkflowsDangerApi.ActionData | null>(null);
+  const [actionResult, setActionResult] = useState<ActionData | null>(null);
 
   const confirmReset = useRef<RefConfirmModal>(null);
 

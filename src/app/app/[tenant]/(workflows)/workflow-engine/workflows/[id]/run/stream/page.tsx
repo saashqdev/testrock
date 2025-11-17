@@ -2,7 +2,7 @@
 
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { WorkflowsIdRunStreamApi } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.stream.api.server";
+import { generateMetadata, loader, action } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.stream.api.server";
 import WorkflowsIdRunStreamView from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.stream.view";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-  return WorkflowsIdRunStreamApi.generateMetadata({ params: resolvedParams });
+  return generateMetadata({ params: resolvedParams });
 }
 
 export default async function WorkflowsIdRunStreamPage({ params }: Props) {
@@ -20,7 +20,7 @@ export default async function WorkflowsIdRunStreamPage({ params }: Props) {
   const workflowAction = async (prev: any, formData: FormData) => {
     "use server";
     const request = new Request("", { method: "POST", body: formData });
-    const response = await WorkflowsIdRunStreamApi.action({ 
+    const response = await action({ 
       request, 
       params: Promise.resolve(resolvedParams)
     });
@@ -29,7 +29,7 @@ export default async function WorkflowsIdRunStreamPage({ params }: Props) {
   
   try {
     const request = new Request(`${process.env.NEXTAUTH_URL}/app/${resolvedParams.tenant}/workflow-engine/workflows/${resolvedParams.id}/run/stream`);
-    const response = await WorkflowsIdRunStreamApi.loader({ 
+    const response = await loader({ 
       request, 
       params: Promise.resolve(resolvedParams)
     });

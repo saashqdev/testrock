@@ -6,12 +6,12 @@ import Link from "next/link";
 import CheckPlanFeatureLimit from "@/components/core/settings/subscription/CheckPlanFeatureLimit";
 import RowForm from "@/components/entities/rows/RowForm";
 import NewPageLayout from "@/components/ui/layouts/NewPageLayout";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { GetEntityData, Routes } from "@/utils/api/server/EntitiesApi";
 import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
 import RowHelper from "@/lib/helpers/RowHelper";
 import clsx from "clsx";
 import EntityHelper from "@/lib/helpers/EntityHelper";
-import { Rows_New } from "../routes/Rows_New.server";
+import { LoaderData, ActionData } from "../routes/Rows_New.server";
 import { Fragment, useEffect, useState } from "react";
 import ButtonSecondary from "@/components/ui/buttons/ButtonSecondary";
 import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
@@ -21,13 +21,13 @@ import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 interface Props {
   showBreadcrumb?: boolean;
   className?: string;
-  data?: Rows_New.LoaderData;
+  data?: LoaderData;
 }
 export default function RowNewRoute({ showBreadcrumb = true, className, data: initialData }: Props) {
   const appOrAdminData = useAppOrAdminData();
-  const [data, setData] = useState<Rows_New.LoaderData | null>(initialData || null);
+  const [data, setData] = useState<LoaderData | null>(initialData || null);
   const [loading, setLoading] = useState(!initialData);
-  const [actionData, setActionData] = useState<Rows_New.ActionData | null>(null);
+  const [actionData, setActionData] = useState<ActionData | null>(null);
   const params = useParams();
   const router = useRouter();
   const { t } = useTranslation();
@@ -190,7 +190,7 @@ export default function RowNewRoute({ showBreadcrumb = true, className, data: in
   );
 }
 
-function RowCreated({ entityData, routes, newRow }: { entityData: EntitiesApi.GetEntityData; routes: EntitiesApi.Routes; newRow: RowWithDetailsDto }) {
+function RowCreated({ entityData, routes, newRow }: { entityData: GetEntityData; routes: Routes; newRow: RowWithDetailsDto }) {
   const { t } = useTranslation();
   // const params = useParams();
   return (

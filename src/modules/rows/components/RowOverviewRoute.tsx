@@ -11,12 +11,12 @@ import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 import { getEntityPermission, getUserHasPermission } from "@/lib/helpers/PermissionsHelper";
 import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 import EntityHelper from "@/lib/helpers/EntityHelper";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { GetRowData, GetRelationshipRowsData } from "@/utils/api/server/RowsApi";
 import SlideOverWideEmpty from "@/components/ui/slideOvers/SlideOverWideEmpty";
 import clsx from "clsx";
-import { Rows_Overview } from "../routes/Rows_Overview.server";
+import { ActionData } from "../routes/Rows_Overview.server";
 import toast from "react-hot-toast";
 import ActionResultModal from "@/components/ui/modals/ActionResultModal";
 import RowOverviewHeader from "@/components/entities/rows/RowOverviewHeader";
@@ -33,18 +33,18 @@ type EditRowOptions = {
 };
 
 interface Props {
-  rowData: RowsApi.GetRowData;
+  rowData: GetRowData;
   item: RowWithDetailsDto;
   // permissions: RowPermission[];
-  routes?: EntitiesApi.Routes;
+  routes?: Routes;
   children?: ReactNode;
   title?: ReactNode;
   rowFormChildren?: ReactNode;
   afterRowForm?: ReactNode;
   options?: EditRowOptions;
-  relationshipRows?: RowsApi.GetRelationshipRowsData;
+  relationshipRows?: GetRelationshipRowsData;
   onSubmit?: (formData: FormData) => void;
-  actionData?: Rows_Overview.ActionData | null;
+  actionData?: ActionData | null;
 }
 export default function RowOverviewRoute({
   rowData,
@@ -134,18 +134,18 @@ export default function RowOverviewRoute({
 }
 
 interface EditRowProps {
-  rowData: RowsApi.GetRowData;
+  rowData: GetRowData;
   item: RowWithDetailsDto;
-  routes?: EntitiesApi.Routes;
+  routes?: Routes;
   className: string;
   children?: ReactNode;
   title?: ReactNode;
   options?: EditRowOptions;
   rowFormChildren?: ReactNode;
   afterRowForm?: ReactNode;
-  relationshipRows?: RowsApi.GetRelationshipRowsData;
+  relationshipRows?: GetRelationshipRowsData;
   onSubmit?: (formData: FormData) => void;
-  actionData: Rows_Overview.ActionData | null | undefined;
+  actionData: ActionData | null | undefined;
 }
 function EditRow({
   rowData,

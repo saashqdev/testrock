@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getTenantIdOrNull } from "@/utils/services/server/urlService";
-import { Senders_List } from "@/modules/emailMarketing/routes/Senders_List";
+import { LoaderData, action } from "@/modules/emailMarketing/routes/Senders_List";
 import { db } from "@/db";
 
 export async function GET(request: NextRequest) {
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
       },
     });
     
-    const data: Senders_List.LoaderData = {
+    const data: LoaderData = {
       items,
       hasSetWebhooks: deliveredEmails.length > 0,
     };
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
       headers: request.headers,
     } as any;
     
-    const result = await Senders_List.action({ 
+    const result = await action({ 
       request: mockRequest, 
       params: Promise.resolve(Object.fromEntries(searchParams.entries())) 
     });

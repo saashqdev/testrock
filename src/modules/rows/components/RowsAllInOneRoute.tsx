@@ -11,11 +11,11 @@ import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
 import EntityHelper from "@/lib/helpers/EntityHelper";
 import RowHelper from "@/lib/helpers/RowHelper";
-import { Rows_List } from "../routes/Rows_List.server";
+import { LoaderData } from "../routes/Rows_List.server";
 import RowsViewRoute from "./RowsViewRoute";
 import { getEntityPermission, getUserHasPermission } from "@/lib/helpers/PermissionsHelper";
 
-export default function RowsAllInOneRoute({ data }: { data: Rows_List.LoaderData }) {
+export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
   const { t } = useTranslation();
   const appOrAdminData = useAppOrAdminData();
   const [adding, setAdding] = useState(false);

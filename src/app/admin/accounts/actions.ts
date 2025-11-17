@@ -3,7 +3,7 @@
 import { getServerTranslations } from "@/i18n/server";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { db } from "@/db";
-import { TenantsApi } from "@/utils/api/server/TenantsApi";
+import { create } from "@/utils/api/server/TenantsApi";
 import { TenantUserType } from "@/lib/enums/tenants/TenantUserType";
 import { getExistingSlug } from "@/utils/services/tenantService";
 
@@ -47,7 +47,7 @@ export async function createTenant(formData: FormData) {
     method: "POST",
   });
 
-  const { tenant, user } = await TenantsApi.create({ 
+  const { tenant, user } = await create({ 
     request: mockRequest, 
     form: formData, 
     name, 

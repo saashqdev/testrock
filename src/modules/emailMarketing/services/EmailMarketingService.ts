@@ -1,5 +1,5 @@
 import { Campaign, EmailSender } from "@prisma/client";
-import { EntityViewsApi } from "@/utils/api/server/EntityViewsApi";
+import { get } from "@/utils/api/server/EntityViewsApi";
 import { sendBroadcast } from "@/lib/emails/postmark.server";
 import CrmService, { ContactDto } from "@/modules/crm/services/CrmService";
 import { CampaignWithDetailsDto } from "@/db/models/email/CampaignsModel";
@@ -174,7 +174,7 @@ async function getContactMarketingSubscribersFromView({
   contactViewId: string | undefined;
   tenantId: string | null;
 }): Promise<ContactDto[]> {
-  const contactView = await EntityViewsApi.get(contactViewId, {
+  const contactView = await get(contactViewId, {
     tenantId,
     entityName: "contact",
     pageSize: -1,

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import InboundEmailsListView from "@/modules/emails/routes/views/InboundEmailsList.View";
-import { InboundEmailsListApi } from "@/modules/emails/routes/api/InboundEmailsList.Api";
+import { loader, generateMetadata } from "@/modules/emails/routes/api/InboundEmailsList.Api";
 
 type Props = {
   params: Promise<{ tenant: string }>;
@@ -9,7 +9,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-  return InboundEmailsListApi.generateMetadata({ params: resolvedParams });
+  return generateMetadata({ params: resolvedParams });
 }
 
 export default async function InboundEmailsPage({ params, searchParams }: Props) {
@@ -25,7 +25,7 @@ export default async function InboundEmailsPage({ params, searchParams }: Props)
   });
   
   const request = new Request(url.toString());
-  const data = await InboundEmailsListApi.loader({ 
+  const data = await loader({ 
     request, 
     params: Promise.resolve(resolvedParams) 
   });

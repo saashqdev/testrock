@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import SlideOverWideEmpty from "@/components/ui/slideOvers/SlideOverWideEmpty";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
+import { GetRowsData } from "@/utils/api/server/RowsApi";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
 import EntityHelper from "@/lib/helpers/EntityHelper";
@@ -14,7 +14,7 @@ interface Props {
   entity: EntityWithDetailsDto;
   // listUrl: string;
   // newUrl: string;
-  routes: EntitiesApi.Routes;
+  routes: Routes;
   allEntities: EntityWithDetailsDto[];
   initial?: string;
   onSelected: (row: RowWithDetailsDto) => void;
@@ -28,7 +28,7 @@ export default function RowSelectorFetcher({ entity, routes, allEntities, initia
   const newUrl = EntityHelper.getRoutes({ routes, entity })?.new ?? "";
 
   const [selected, setSelected] = useState<string | null>(initial ?? null);
-  const [data, setData] = useState<{ rowsData: RowsApi.GetRowsData; routes: EntitiesApi.Routes }>();
+  const [data, setData] = useState<{ rowsData: GetRowsData; routes: Routes }>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [adding, setAdding] = useState(false);

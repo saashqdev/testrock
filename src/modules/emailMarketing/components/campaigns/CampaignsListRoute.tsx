@@ -10,10 +10,10 @@ import SentIconFilled from "@/components/ui/icons/emails/SentIconFilled";
 import TableSimple from "@/components/ui/tables/TableSimple";
 import TabsWithIcons from "@/components/ui/tabs/TabsWithIcons";
 import NumberUtils from "@/lib/shared/NumberUtils";
-import { Campaigns_List } from "../../routes/Campaigns_List";
+import { LoaderData } from "../../routes/Campaigns_List";
 
 interface CampaignsListRouteProps {
-  data: Campaigns_List.LoaderData;
+  data: LoaderData;
 }
 
 export default function CampaignsListRoute({ data }: CampaignsListRouteProps) {

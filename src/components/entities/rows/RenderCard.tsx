@@ -2,7 +2,7 @@ import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { ColumnDto } from "@/lib/dtos/data/ColumnDto";
 import RowCard from "./RowCard";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 import clsx from "clsx";
 
 export default function RenderCard({
@@ -20,7 +20,7 @@ export default function RenderCard({
   entity: EntityWithDetailsDto;
   columns: ColumnDto[];
   allEntities: EntityWithDetailsDto[];
-  routes: EntitiesApi.Routes | undefined;
+  routes: Routes | undefined;
   actions?: (row: RowWithDetailsDto) => { title?: string; href?: string; onClick?: () => void; isLoading?: boolean; render?: React.ReactNode }[];
   href?: string | undefined;
 }) {

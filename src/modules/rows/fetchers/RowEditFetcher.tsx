@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import Loading from "@/components/ui/loaders/Loading";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
+import { GetRowData, GetRelationshipRowsData } from "@/utils/api/server/RowsApi";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
@@ -21,10 +21,10 @@ export default function RowEditFetcher({ url, onUpdated, allEntities, onDeleted 
   const appOrAdminData = useAppOrAdminData();
 
   const [data, setData] = useState<{
-    rowData?: RowsApi.GetRowData;
-    routes?: EntitiesApi.Routes;
-    updatedRow?: RowsApi.GetRowData;
-    relationshipRows?: RowsApi.GetRelationshipRowsData;
+    rowData?: GetRowData;
+    routes?: Routes;
+    updatedRow?: GetRowData;
+    relationshipRows?: GetRelationshipRowsData;
   }>();
 
   const [loading, setLoading] = useState(false);

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { WorkflowsIdRunApiApi } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.api.server";
+import { loader, action } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.api.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function GET(
@@ -15,7 +15,7 @@ export async function GET(
       searchParams: Promise.resolve(searchParams),
     };
     
-    const data = await WorkflowsIdRunApiApi.loader(props);
+    const data = await loader(props);
     return NextResponse.json(data);
   } catch (error) {
     console.error("Error in GET /api/workflows/[id]/run/api:", error);
@@ -44,7 +44,7 @@ export async function POST(
       } as any,
     };
     
-    const result = await WorkflowsIdRunApiApi.action(props);
+    const result = await action(props);
     return NextResponse.json(result);
   } catch (error) {
     console.error("Error in POST /api/workflows/[id]/run/api:", error);

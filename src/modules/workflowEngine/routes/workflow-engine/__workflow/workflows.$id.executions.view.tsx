@@ -2,12 +2,12 @@ import Link from "next/link";
 import BreadcrumbSimple from "@/components/ui/breadcrumbs/BreadcrumbSimple";
 import WorkflowRunDropdown from "@/modules/workflowEngine/components/workflows/buttons/WorkflowRunDropdown";
 import UrlUtils from "@/utils/app/UrlUtils";
-import { WorkflowsIdExecutionsApi } from "./workflows.$id.executions.api.server";
+import { loader } from "./workflows.$id.executions.api.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import WorkflowExecutionsClient from "./WorkflowExecutionsClient";
 
 export default async function WorkflowsIdExecutionsView(props: IServerComponentsProps) {
-  const data = await WorkflowsIdExecutionsApi.loader(props);
+  const data = await loader(props);
   const params = (await props.params) || {};
 
   return (

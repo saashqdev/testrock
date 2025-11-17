@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { PropertyType } from "@/lib/enums/entities/PropertyType";
 import { Colors } from "@/lib/enums/shared/Colors";
 import { getServerTranslations } from "@/i18n/server";
-import { PropertiesApi } from "@/utils/api/server/PropertiesApi";
+import { create } from "@/utils/api/server/PropertiesApi";
 import UrlUtils from "@/utils/app/UrlUtils";
 import { validateProperty } from "@/lib/helpers/PropertyHelper";
 import { requireAuth } from "@/lib/services/loaders.middleware";
@@ -66,7 +66,7 @@ export async function createEntityPropertyAction(params: any, formData: FormData
     }
 
     if (action === "create") {
-      await PropertiesApi.create({
+      await create({
         entityId: entity.id,
         name,
         title,

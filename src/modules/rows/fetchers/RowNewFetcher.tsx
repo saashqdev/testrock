@@ -2,8 +2,8 @@ import { useEffect, useState, useCallback, memo } from "react";
 import { useTranslation } from "react-i18next";
 import CheckPlanFeatureLimit from "@/components/core/settings/subscription/CheckPlanFeatureLimit";
 import Loading from "@/components/ui/loaders/Loading";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { GetEntityData, Routes } from "@/utils/api/server/EntitiesApi";
+import { GetRelationshipRowsData } from "@/utils/api/server/RowsApi";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
 import RowForm from "../../../components/entities/rows/RowForm";
@@ -22,9 +22,9 @@ function RowNewFetcher({ url, parentEntity, onCreated, allEntities, customSearch
 
   const [data, setData] = useState<{
     newRow?: RowWithDetailsDto;
-    entityData?: EntitiesApi.GetEntityData;
-    routes?: EntitiesApi.Routes;
-    relationshipRows?: RowsApi.GetRelationshipRowsData;
+    entityData?: GetEntityData;
+    routes?: Routes;
+    relationshipRows?: GetRelationshipRowsData;
   }>();
 
   const [loading, setLoading] = useState(false);

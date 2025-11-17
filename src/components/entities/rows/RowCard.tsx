@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { ColumnDto } from "@/lib/dtos/data/ColumnDto";
 import { RowHeaderDisplayDto } from "@/lib/dtos/data/RowHeaderDisplayDto";
 import ButtonSecondary from "@/components/ui/buttons/ButtonSecondary";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
 import RowDisplayHeaderHelper from "@/lib/helpers/RowDisplayHeaderHelper";
@@ -18,7 +18,7 @@ interface Props {
   layout: string;
   columns?: ColumnDto[];
   allEntities: EntityWithDetailsDto[];
-  routes?: EntitiesApi.Routes;
+  routes?: Routes;
   actions?: (row: RowWithDetailsDto) => {
     title?: string;
     href?: string;

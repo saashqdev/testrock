@@ -4,7 +4,7 @@ import { Params } from "@/types";
 import { PaginationDto } from "@/lib/dtos/data/PaginationDto";
 import { PropertyType } from "@/lib/enums/entities/PropertyType";
 import { FilterDto } from "@/components/ui/input/InputFilters";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import RowFiltersHelper from "./RowFiltersHelper";
 import RowHelper from "./RowHelper";
@@ -90,14 +90,14 @@ function getRoutes({
   entity,
   item,
 }: {
-  routes?: EntitiesApi.Routes;
+  routes?: Routes;
   entity: { slug: string; onEdit: string | null };
   item?: Row;
-}): EntitiesApi.Routes | undefined {
+}): Routes | undefined {
   if (!routes) {
     return undefined;
   }
-  const entityRoutes: EntitiesApi.Routes = {
+  const entityRoutes: Routes = {
     list: routes.list?.split(":entity").join(entity.slug),
     new: routes.new?.split(":entity").join(entity.slug),
     overview: routes.overview
@@ -124,8 +124,8 @@ function getRoutes({
   return entityRoutes;
 }
 
-// function getAdminNoCodeRoutes(): EntitiesApi.Routes {
-//   const routes: EntitiesApi.Routes = {
+// function getAdminNoCodeRoutes(): Routes {
+//   const routes: Routes = {
 //     list: `/admin/entities/:entity/no-code/:entity`,
 //     new: `/admin/entities/:entity/no-code/:entity/new`,
 //     overview: `/admin/entities/:entity/no-code/:entity/:id`,
@@ -136,8 +136,8 @@ function getRoutes({
 //   return routes;
 // }
 
-// function getTenantNoCodeRoutes(tenant: string): EntitiesApi.Routes {
-//   const routes: EntitiesApi.Routes = {
+// function getTenantNoCodeRoutes(tenant: string): Routes {
+//   const routes: Routes = {
 //     list: `/app/${tenant}/:entity`,
 //     new: `/app/${tenant}/:entity/new`,
 //     overview: `/app/${tenant}/:entity/:id`,
@@ -160,7 +160,7 @@ function getLayoutBreadcrumbsMenu({
   type: "edit" | "new" | "overview";
   t: TFunction;
   entity: EntityWithDetailsDto;
-  routes: EntitiesApi.Routes;
+  routes: Routes;
   item: Row | undefined;
   params: Params;
   appOrAdminData: AppOrAdminData;

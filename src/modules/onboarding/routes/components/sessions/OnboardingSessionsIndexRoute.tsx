@@ -7,10 +7,10 @@ import ActionResultModal from "@/components/ui/modals/ActionResultModal";
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
 import OnboardingSessionsTable from "@/modules/onboarding/components/OnboardingSessionsTable";
 import { OnboardingSessionWithDetailsDto } from "@/db/models/onboarding/OnboardingSessionsModel";
-import { OnboardingSessionsIndexApi } from "../../api/sessions/OnboardingSessionsIndexApi.server";
+import { LoaderData } from "../../api/sessions/OnboardingSessionsIndexApi.server";
 
 interface OnboardingSessionsIndexRouteProps {
-  data: OnboardingSessionsIndexApi.LoaderData;
+  data: LoaderData;
 }
 
 export default function OnboardingSessionsIndexRoute({ data }: OnboardingSessionsIndexRouteProps) {

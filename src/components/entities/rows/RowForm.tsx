@@ -16,9 +16,9 @@ import { useTranslation } from "react-i18next";
 import { EntityRelationshipWithDetailsDto } from "@/db/models/entityBuilder/EntityRelationshipsModel";
 import RowListFetcher from "@/modules/rows/fetchers/RowListFetcher";
 import SlideOverWideEmpty from "@/components/ui/slideOvers/SlideOverWideEmpty";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 import EntityHelper from "@/lib/helpers/EntityHelper";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { GetRelationshipRowsData } from "@/utils/api/server/RowsApi";
 import { RowValueMultipleDto } from "@/lib/dtos/entities/RowValueMultipleDto";
 import RelationshipHelper from "@/lib/helpers/RelationshipHelper";
 import RowsList from "./RowsList";
@@ -35,7 +35,7 @@ export interface RefRowForm {
 interface Props {
   entity: EntityWithDetailsDto;
   allEntities: EntityWithDetailsDto[];
-  routes?: EntitiesApi.Routes;
+  routes?: Routes;
   item?: RowWithDetailsDto | null;
   editing?: boolean;
   adding?: boolean;
@@ -47,7 +47,7 @@ interface Props {
   parentEntity?: EntityWithDetailsDto;
   onCreatedRedirect?: string;
   onDelete?: () => void;
-  relationshipRows?: RowsApi.GetRelationshipRowsData;
+  relationshipRows?: GetRelationshipRowsData;
   hiddenProperties?: string[];
   hiddenFields?: {
     [key: string]: string | null | undefined;
@@ -585,8 +585,8 @@ function RelationshipSelector({
   allEntities: EntityWithDetailsDto[];
   onRemoveRelatedRow: (relationship: EntityRelationshipWithDetailsDto, row: RowWithValuesDto) => void;
   readOnly: boolean;
-  routes?: EntitiesApi.Routes;
-  relationshipRows?: RowsApi.GetRelationshipRowsData;
+  routes?: Routes;
+  relationshipRows?: GetRelationshipRowsData;
   addRelationshipRow: (relationship: EntityRelationshipWithDetailsDto, rows: RowWithDetailsDto[]) => void;
   setRelationshipRows: (relationship: EntityRelationshipWithDetailsDto, rows: RowWithDetailsDto[]) => void;
 }) {
@@ -784,8 +784,8 @@ function RowGroups({
   relatedRows: { relationship: EntityRelationshipWithDetailsDto; rows: RowWithValuesDto[] }[];
   editing?: boolean;
   canUpdate?: boolean;
-  routes?: EntitiesApi.Routes;
-  relationshipRows?: RowsApi.GetRelationshipRowsData;
+  routes?: Routes;
+  relationshipRows?: GetRelationshipRowsData;
   setHeaders: Dispatch<SetStateAction<RowValueDto[]>>;
   addRelationshipRow: (relationship: EntityRelationshipWithDetailsDto, rows: RowWithDetailsDto[]) => void;
   setRelationshipRows: (relationship: EntityRelationshipWithDetailsDto, rows: RowWithDetailsDto[]) => void;

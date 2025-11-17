@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import ServerError from "@/components/ui/errors/ServerError";
-import { WorkflowsExecutionsApi } from "@/modules/workflowEngine/routes/workflow-engine/executions.api.server";
+import { loader, action } from "@/modules/workflowEngine/routes/workflow-engine/executions.api.server";
 import WorkflowsExecutionsView from "@/modules/workflowEngine/routes/workflow-engine/executions.view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
-  const data = await WorkflowsExecutionsApi.loader(props);
+  const data = await loader(props);
   const titleMeta = data?.metatags?.find((tag: any) => tag.title);
   return {
     title: titleMeta?.title || "Workflow Executions",
@@ -15,11 +15,11 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 
 export default async function ExecutionsPage(props: IServerComponentsProps) {
   try {
-    const data = await WorkflowsExecutionsApi.loader(props);
+    const data = await loader(props);
     const actionHandler = async (formData: FormData) => {
       "use server";
       try {
-        const response = await WorkflowsExecutionsApi.action({ ...props, request: new Request("", { method: "POST", body: formData }) });
+        const response = await action({ ...props, request: new Request("", { method: "POST", body: formData }) });
         const result = await response.json();
         return result;
       } catch (error) {

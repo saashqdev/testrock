@@ -5,11 +5,11 @@ import ButtonSecondary from "@/components/ui/buttons/ButtonSecondary";
 import TrashEmptyIcon from "@/components/ui/icons/TrashEmptyIcon";
 import EntityHelper from "@/lib/helpers/EntityHelper";
 import RowTitle from "./RowTitle";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { GetRowData } from "@/utils/api/server/RowsApi";
 import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 import { useRouter } from "next/navigation";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
 import { getUserHasPermission, getEntityPermission } from "@/lib/helpers/PermissionsHelper";
 import ShareIcon from "@/components/ui/icons/ShareIcon";
@@ -30,11 +30,11 @@ export default function RowOverviewHeader({
   customActions,
   truncate = true,
 }: {
-  rowData: RowsApi.GetRowData;
+  rowData: GetRowData;
   item: RowWithDetailsDto;
   canUpdate: boolean;
   isEditing: boolean;
-  routes: EntitiesApi.Routes | undefined;
+  routes: Routes | undefined;
   title?: React.ReactNode;
   options?: {
     hideTitle?: boolean;

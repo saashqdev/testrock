@@ -4,11 +4,11 @@ import { useParams } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import PostForm from "@/components/blog/PostForm";
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
-import { BlogRoutesEditApi } from "../api/BlogRoutes.Edit.Api";
+import { LoaderData } from "../api/BlogRoutes.Edit.Api";
 import UrlUtils from "@/utils/app/UrlUtils";
 
 interface BlogEditViewProps {
-  data: BlogRoutesEditApi.LoaderData;
+  data: LoaderData;
 }
 
 export default function BlogEditView({ data }: BlogEditViewProps) {

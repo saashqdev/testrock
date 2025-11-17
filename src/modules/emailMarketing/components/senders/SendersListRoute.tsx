@@ -9,14 +9,14 @@ import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import TableSimple from "@/components/ui/tables/TableSimple";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 import { EmailSenderWithoutApiKeyDto } from "@/db/models/email/EmailSenderModel";
-import { Senders_List } from "../../routes/Senders_List";
+import { LoaderData } from "../../routes/Senders_List";
 import toast from "react-hot-toast";
 import { useRootData } from "@/lib/state/useRootData";
 
 
 export default function SendersListRoute() {
   const { appConfiguration } = useRootData();
-  const [data, setData] = useState<Senders_List.LoaderData | null>(null);
+  const [data, setData] = useState<LoaderData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { t } = useTranslation();

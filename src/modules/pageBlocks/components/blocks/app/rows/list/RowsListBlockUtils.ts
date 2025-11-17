@@ -1,4 +1,4 @@
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { GetRowsData } from "@/utils/api/server/RowsApi";
 import { BlockVariableDto } from "../../../shared/variables/BlockVariableDto";
 
 export type RowsListBlockDto = {
@@ -8,7 +8,7 @@ export type RowsListBlockDto = {
     tenantId: BlockVariableDto;
     pageSize: BlockVariableDto;
   };
-  data: RowsApi.GetRowsData | null;
+  data: GetRowsData | null;
 };
 
 export type RowsListBlockData = RowsListBlockDto["data"];

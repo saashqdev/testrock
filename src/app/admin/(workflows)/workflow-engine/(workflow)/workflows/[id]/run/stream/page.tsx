@@ -1,13 +1,13 @@
 import ServerError from "@/components/ui/errors/ServerError";
-import { WorkflowsIdRunStreamApi } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.stream.api.server";
+import { LoaderData, loader, action } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.stream.api.server";
 import WorkflowsIdRunStreamView from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.stream.view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { Metadata } from "next";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   try {
-    const response = await WorkflowsIdRunStreamApi.loader(props);
-    const data = await response.json() as WorkflowsIdRunStreamApi.LoaderData;
+    const response = await loader(props);
+    const data = await response.json() as LoaderData;
     const metatags = data?.metatags || [];
     
     // Extract metadata from MetaTagsDto format
@@ -27,18 +27,18 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   }
 }
 
-export const loader = (props: IServerComponentsProps) => WorkflowsIdRunStreamApi.loader(props);
-export const action = (props: IServerComponentsProps) => WorkflowsIdRunStreamApi.action(props);
+export const loader = (props: IServerComponentsProps) => loader(props);
+export const action = (props: IServerComponentsProps) => action(props);
 
 export default async function Page(props: IServerComponentsProps) {
   try {
-    const response = await WorkflowsIdRunStreamApi.loader(props);
-    const data = await response.json() as WorkflowsIdRunStreamApi.LoaderData;
+    const response = await loader(props);
+    const data = await response.json() as LoaderData;
     
     const workflowAction = async (prev: any, formData: FormData) => {
       "use server";
       try {
-        const actionResponse = await WorkflowsIdRunStreamApi.action({ 
+        const actionResponse = await action({ 
           ...props, 
           request: new Request(props.request?.url || "", { 
             method: "POST", 

@@ -2,10 +2,10 @@
 
 import { useTranslation } from "react-i18next";
 import InputFilters from "@/components/ui/input/InputFilters";
-import { OutboundEmails_List } from "../../routes/OutboundEmails_List";
+import { LoaderData } from "../../routes/OutboundEmails_List";
 import OutboundEmailsTable from "../OutboundEmailsTable";
 
-export default function OutboundEmailsListRoute({ data }: { data: OutboundEmails_List.LoaderData }) {
+export default function OutboundEmailsListRoute({ data }: { data: LoaderData }) {
   const { t } = useTranslation();
 
   return (

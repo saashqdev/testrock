@@ -9,12 +9,12 @@ import InputCheckboxWithDescription from "@/components/ui/input/InputCheckboxWit
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 import { getUserHasPermission } from "@/lib/helpers/PermissionsHelper";
-import { PageSettings_Index } from "../../routes/pages/PageSettings_Index";
+import { LoaderData } from "../../routes/pages/PageSettings_Index";
 import toast from "react-hot-toast";
 import ButtonTertiary from "@/components/ui/buttons/ButtonTertiary";
 
 interface PageSettingsRouteIndexProps {
-  data: PageSettings_Index.LoaderData;
+  data: LoaderData;
   updatePageAction: (formData: FormData) => Promise<void>;
   deletePageAction: (formData: FormData) => Promise<void>;
 }

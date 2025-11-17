@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { getNoCodeRoutes } from "@/utils/api/server/EntitiesApi";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
@@ -17,7 +17,7 @@ async function getPageData(props: IServerComponentsProps) {
     entity,
     properties: entity.properties,
     allEntities: await db.entities.getAllEntities(null),
-    routes: EntitiesApi.getNoCodeRoutes({ request, params }),
+    routes: getNoCodeRoutes({ request, params }),
   };
 }
 

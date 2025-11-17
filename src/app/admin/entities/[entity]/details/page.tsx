@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import * as Constants from "@/lib/constants";
 import EntityForm from "@/components/entities/EntityForm";
 import { getServerTranslations } from "@/i18n/server";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { validateEntity } from "@/utils/api/server/EntitiesApi";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
@@ -46,7 +46,7 @@ export const action = async (props: IServerComponentsProps) => {
     const onCreated = form.get("onCreated")?.toString() ?? "redirectToOverview";
     const onEdit = form.get("onEdit")?.toString() ?? "editRoute";
 
-    const errors = await EntitiesApi.validateEntity({ tenantId: null, name, slug, order, prefix, entity: item });
+    const errors = await validateEntity({ tenantId: null, name, slug, order, prefix, entity: item });
     if (errors.length > 0) {
       return Response.json({ error: errors.join(", ") }, { status: 400 });
     }

@@ -10,16 +10,16 @@ import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import InputFilters, { FilterDto } from "@/components/ui/input/InputFilters";
 import TabsWithIcons from "@/components/ui/tabs/TabsWithIcons";
 import EntityHelper from "@/lib/helpers/EntityHelper";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 import { EntityViewsWithDetailsDto } from "@//db/models/entityBuilder/EntityViewsModel";
 import { RowWithDetailsDto } from "@//db/models/entityBuilder/RowsModel";
 import { useAppData } from "@/lib/state/useAppData";
 import EntityViewForm from "@/components/entities/views/EntityViewForm";
 import { UserDto } from "@//db/models/accounts/UsersModel";
 import SlideOverWideEmpty from "@/components/ui/slideOvers/SlideOverWideEmpty";
-import { Rows_List } from "../routes/Rows_List.server";
+import { ActionData } from "../routes/Rows_List.server";
 import { toast } from "sonner";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { GetRowsData } from "@/utils/api/server/RowsApi";
 import RunPromptFlowButtons from "@/modules/promptBuilder/components/run/RunPromptFlowButtons";
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
 import TrashIcon from "@/components/ui/icons/TrashIcon";
@@ -27,9 +27,9 @@ import clsx from "clsx";
 
 interface Props {
   title?: ReactNode;
-  rowsData: RowsApi.GetRowsData;
+  rowsData: GetRowsData;
   items: RowWithDetailsDto[];
-  routes?: EntitiesApi.Routes;
+  routes?: Routes;
   onNewRow?: () => void;
   onEditRow?: (item: RowWithDetailsDto) => void;
   saveCustomViews?: boolean;
@@ -40,7 +40,7 @@ interface Props {
     user: UserDto;
     isSuperAdmin: boolean;
   } | null;
-  action?: (prevState: any, formData: FormData) => Promise<Rows_List.ActionData | null>;
+  action?: (prevState: any, formData: FormData) => Promise<ActionData | null>;
 }
 // Default no-op action to avoid creating new function on every render
 const defaultAction = async () => null;

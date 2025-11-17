@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import InboundEmailEditView from "@/modules/emails/routes/views/InboundEmailEdit.View";
-import { InboundEmailEditApi } from "@/modules/emails/routes/api/InboundEmailEdit.Api";
+import { loader, action, generateMetadata } from "@/modules/emails/routes/api/InboundEmailEdit.Api";
 
 type Props = {
   params: Promise<{ tenant: string; id: string }>;
@@ -9,7 +9,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-  return InboundEmailEditApi.generateMetadata({ params: resolvedParams });
+  return generateMetadata({ params: resolvedParams });
 }
 
 export default async function InboundEmailEditPage({ params, searchParams }: Props) {
@@ -25,14 +25,14 @@ export default async function InboundEmailEditPage({ params, searchParams }: Pro
   });
   
   const request = new Request(url.toString());
-  const data = await InboundEmailEditApi.loader({ 
+  const data = await loader({ 
     request, 
     params: Promise.resolve(resolvedParams) 
   });
 
   async function actionHandler(prev: any, formData: FormData) {
     "use server";
-    const result = await InboundEmailEditApi.action({ 
+    const result = await action({ 
       request: new Request(url.toString(), { method: "POST", body: formData }), 
       params: Promise.resolve(resolvedParams) 
     });

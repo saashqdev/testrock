@@ -8,7 +8,7 @@ import { deleteAndCancelTenant } from "@/utils/services/tenantService";
 import EventsService from "@/modules/events/services/.server/EventsService";
 import { getUserInfo } from "@/lib/services/session.server";
 import { getActiveTenantSubscriptions } from "@/utils/services/server/subscriptionService";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { createCustom } from "@/utils/api/server/RowsApi";
 import { storeSupabaseFile } from "@/utils/integrations/supabaseService";
 import { AccountUpdatedDto } from "@/modules/events/dtos/AccountUpdatedDto";
 import { AccountDeletedDto } from "@/modules/events/dtos/AccountDeletedDto";
@@ -73,7 +73,7 @@ export async function action(props: IServerComponentsProps) {
     const tenantSettingsEntity = await db.entities.findEntityByName({ tenantId, name: "tenantSettings" });
     if (tenantSettingsEntity) {
       try {
-        await RowsApi.createCustom({
+        await createCustom({
           entity: tenantSettingsEntity,
           tenantId,
           t,

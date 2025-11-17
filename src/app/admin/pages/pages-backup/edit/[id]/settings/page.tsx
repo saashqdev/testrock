@@ -1,5 +1,5 @@
 import PageSettingsRouteIndex from "@/modules/pageBlocks/components/pages/PageSettingsRouteIndex";
-import { PageSettings_Index } from "@/modules/pageBlocks/routes/pages/PageSettings_Index";
+import { loader, action } from "@/modules/pageBlocks/routes/pages/PageSettings_Index";
 
 export default async function SettingsPage({
   params,
@@ -11,14 +11,14 @@ export default async function SettingsPage({
     params: Promise.resolve({ id }), 
     request: new Request("http://localhost") 
   };
-  const data = await PageSettings_Index.loader(mockProps);
+  const data = await loader(mockProps);
   
   async function updatePageAction(formData: FormData): Promise<void> {
     "use server";
     const mockRequest = {
       formData: async () => formData,
     };
-    await PageSettings_Index.action({ 
+    await action({ 
       ...mockProps, 
       request: mockRequest as any 
     });
@@ -29,7 +29,7 @@ export default async function SettingsPage({
     const mockRequest = {
       formData: async () => formData,
     };
-    await PageSettings_Index.action({ 
+    await action({ 
       ...mockProps, 
       request: mockRequest as any 
     });

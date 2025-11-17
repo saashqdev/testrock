@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import { BlogRoutesIndexApi } from "../api/BlogRoutes.Index.Api";
+import { LoaderData } from "../api/BlogRoutes.Index.Api";
 import PostsTable from "@/components/blog/PostsTable";
 import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import ButtonSecondary from "@/components/ui/buttons/ButtonSecondary";
@@ -10,7 +10,7 @@ import UrlUtils from "@/utils/app/UrlUtils";
 import { useParams } from "next/navigation";
 
 interface BlogIndexViewProps {
-  data: BlogRoutesIndexApi.LoaderData;
+  data: LoaderData;
 }
 
 export default function BlogView({ data }: BlogIndexViewProps) {

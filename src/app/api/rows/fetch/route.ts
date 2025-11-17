@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { RowsApi } from "@/utils/api/server/RowsApi";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { getAll } from "@/utils/api/server/RowsApi";
+import { getNoCodeRoutes } from "@/utils/api/server/EntitiesApi";
 import { getTenantIdFromUrl as getTenantIdFromUrlService } from "@/modules/accounts/services/TenantService";
 import { getUserInfo } from "@/lib/services/session.server";
 import EntitiesSingleton from "@/modules/rows/repositories/EntitiesSingleton";
@@ -37,14 +37,14 @@ export async function GET(request: NextRequest) {
     urlSearchParams.delete("entity");
     urlSearchParams.delete("tenant");
     
-    const rowsData = await RowsApi.getAll({
+    const rowsData = await getAll({
       entity,
       tenantId,
       userId: userInfo.userId,
       urlSearchParams,
     });
     
-    const routes = EntitiesApi.getNoCodeRoutes({
+    const routes = getNoCodeRoutes({
       params: { tenant: tenant ?? undefined },
     });
     

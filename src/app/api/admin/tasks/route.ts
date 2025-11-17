@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { getTasks } from "@/utils/api/server/RowsApi";
 import { db } from "@/db";
 import { getUserInfo } from "@/lib/services/session.server";
 
@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
   try {
     const userInfo = await getUserInfo();
 
-    const tasks = await RowsApi.getTasks({
+    const tasks = await getTasks({
       assignedOrCreatedUserId: userInfo.userId,
     });
 

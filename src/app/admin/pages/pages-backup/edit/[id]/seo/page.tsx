@@ -1,5 +1,5 @@
 import PageMetaTagsRouteIndex from "@/modules/pageBlocks/components/pages/PageMetaTagsRouteIndex";
-import { PageMetaTags_Index } from "@/modules/pageBlocks/routes/pages/PageMetaTags_Index";
+import { loader } from "@/modules/pageBlocks/routes/pages/PageMetaTags_Index";
 
 export default async function SeoPage({
   params,
@@ -11,6 +11,6 @@ export default async function SeoPage({
     params: Promise.resolve({ id }), 
     request: new Request("http://localhost") 
   };
-  const data = await PageMetaTags_Index.loader(mockProps);
+  const data = await loader(mockProps);
   return <PageMetaTagsRouteIndex data={data} />;
 }

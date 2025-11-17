@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { getServerTranslations } from "@/i18n/server";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { GetRowsData, getAll } from "@/utils/api/server/RowsApi";
 import UrlUtils from "@/utils/app/UrlUtils";
 import { getTenantIdOrNull } from "@/utils/services/server/urlService";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes, getNoCodeRoutes } from "@/utils/api/server/EntitiesApi";
 import { requireAuth } from "@/lib/services/loaders.middleware";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
@@ -12,8 +12,8 @@ import AllPageClient from "../all.client";
 
 type LoaderData = {
   title: string;
-  entitiesData: { [entity: string]: RowsApi.GetRowsData };
-  entitiesRoutes: { [entity: string]: EntitiesApi.Routes };
+  entitiesData: { [entity: string]: GetRowsData };
+  entitiesRoutes: { [entity: string]: Routes };
 };
 
 export const loader = async (props: IServerComponentsProps) => {
@@ -36,14 +36,14 @@ export const loader = async (props: IServerComponentsProps) => {
       if (!entity) {
         return;
       }
-      const data = await RowsApi.getAll({
+      const data = await getAll({
         entity,
         tenantId,
         urlSearchParams,
         entityView: allView ?? undefined,
       });
       entitiesData[entity.name] = data;
-      entitiesRoutes[entity.name] = EntitiesApi.getNoCodeRoutes({ request, params });
+      entitiesRoutes[entity.name] = getNoCodeRoutes({ request, params });
       return entitiesData;
     })
   );

@@ -4,8 +4,8 @@ import RowHelper from "@/lib/helpers/RowHelper";
 import { createUserSession, getUserInfo } from "@/lib/services/session.server";
 import HeaderBlock from "@/modules/pageBlocks/components/blocks/marketing/header/HeaderBlock";
 import RowOverviewRoute from "@/modules/rows/components/RowOverviewRoute";
-import { RowsApi } from "@/utils/api/server/RowsApi";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { GetRowData, get, GetRelationshipRowsData, getRelationshipRows } from "@/utils/api/server/RowsApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 import { getBaseURL } from "@/utils/url.server";
 import ServerError from "@/components/ui/errors/ServerError";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
@@ -15,9 +15,9 @@ type PageData = {
   title: string;
   error?: string;
   publicRowData?: {
-    rowData: RowsApi.GetRowData;
-    routes: EntitiesApi.Routes;
-    relationshipRows: RowsApi.GetRelationshipRowsData;
+    rowData: GetRowData;
+    routes: Routes;
+    relationshipRows: GetRelationshipRowsData;
   };
 };
 
@@ -42,7 +42,7 @@ async function getPageData(props: IServerComponentsProps): Promise<PageData> {
     throw redirect("/404?entity=" + params.entity);
   }
   try {
-    const rowData = await RowsApi.get(params.id!, {
+    const rowData = await get(params.id!, {
       entity,
       userId,
     });
@@ -56,7 +56,7 @@ async function getPageData(props: IServerComponentsProps): Promise<PageData> {
         routes: {
           publicUrl: getBaseURL() + `/public/:entity/:id`,
         },
-        relationshipRows: await RowsApi.getRelationshipRows({ entity, tenantId: rowData.item.tenantId, userId }),
+        relationshipRows: await getRelationshipRows({ entity, tenantId: rowData.item.tenantId, userId }),
       },
     };
     return xdata;

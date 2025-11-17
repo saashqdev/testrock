@@ -7,7 +7,7 @@ import { PropertyType } from "@/lib/enums/entities/PropertyType";
 import { RowValueMultipleDto } from "@/lib/dtos/entities/RowValueMultipleDto";
 import { RowValueRangeDto } from "@/lib/dtos/entities/RowValueRangeDto";
 import DateUtils from "@/lib/shared/DateUtils";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { count } from "@/utils/api/server/RowsApi";
 
 async function parseVariables(
   template: string,
@@ -86,7 +86,7 @@ async function getValue(item: PromptBuilderDataDto, allEntities: EntityWithDetai
         throw new Error("Row is required in variable: " + item.variable.name);
       }
       if (propertyName === "countOfRows") {
-        const total = await RowsApi.count({
+        const total = await count({
           entity: { id: item.row.entity.id },
           tenantId: item.row.item.tenantId,
           // userId

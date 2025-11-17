@@ -15,9 +15,9 @@ import SidebarIconsLayout from "@/components/ui/layouts/SidebarIconsLayout";
 import UrlUtils from "@/utils/app/UrlUtils";
 import TemplateIcon from "@/components/ui/icons/entities/TemplateIcon";
 import TemplateIconFilled from "@/components/ui/icons/entities/TemplateIconFilled";
-import { WorkflowEngineApi } from "./workflow-engine.api.server";
+import { LoaderData } from "./workflow-engine.api.server";
 
-export default function WorkflowEngineView({ data }: { data: WorkflowEngineApi.LoaderData }) {
+export default function WorkflowEngineView({ data }: { data: LoaderData }) {
   const params = useParams();
   return (
     <SidebarIconsLayout

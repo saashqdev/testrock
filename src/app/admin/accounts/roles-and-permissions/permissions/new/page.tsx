@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
-import { NewPermission } from "./new.server";
+import { loader } from "./new.server";
 import NewPermissionView from "./new";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -11,6 +11,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function NewPermissionPage(props: IServerComponentsProps) {
-  const data = await NewPermission.loader(props);
+  const data = await loader(props);
   return <NewPermissionView roles={data.roles} />;
 }

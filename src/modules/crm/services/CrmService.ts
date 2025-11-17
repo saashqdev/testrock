@@ -1,8 +1,8 @@
 import { DefaultEntityTypes } from "@/lib/dtos/shared/DefaultEntityTypes";
 import { Colors } from "@/lib/enums/shared/Colors";
 import NotificationService from "@/modules/notifications/services/server/NotificationService";
-import { RowRelationshipsApi } from "@/utils/api/server/RowRelationshipsApi";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { createRelationship } from "@/utils/api/server/RowRelationshipsApi";
+import { create, find, addTag } from "@/utils/api/server/RowsApi";
 import { cachified, clearCacheKey } from "@/lib/services/cache.server";
 import { db } from "@/db";
 import { prisma } from "@/db/config/prisma/database";
@@ -207,7 +207,7 @@ async function createCompany({ tenantId, name, request }: { tenantId: string | n
     entity,
     values: [{ name: "name", value: name }],
   });
-  const row = await RowsApi.create({
+  const row = await create({
     entity,
     tenantId,
     rowValues,
@@ -258,7 +258,7 @@ async function createContact({
       skipValidation: true,
     },
   });
-  return await RowsApi.create({
+  return await create({
     entity,
     tenantId,
     rowValues,
@@ -276,7 +276,7 @@ async function createSubmission({ tenantId, users, message, request }: { tenantI
       { name: "message", value: message },
     ],
   });
-  const row = await RowsApi.create({
+  const row = await create({
     entity,
     tenantId,
     rowValues,
@@ -297,7 +297,7 @@ async function createContactSubmission(
   },
   request: Request
 ) {
-  let contact = await RowsApi.find({
+  let contact = await find({
     entity: { name: "contact" },
     tenantId: null,
     properties: [{ name: "email", value: submission.email }],
@@ -314,7 +314,7 @@ async function createContactSubmission(
       marketingSubscriber: false,
       request,
     });
-    await RowsApi.addTag({ row: contact, tag: { value: "form", color: Colors.BLUE } });
+    await addTag({ row: contact, tag: { value: "form", color: Colors.BLUE } });
   }
   const companyEntity = await db.entities.getEntityByName({ tenantId: null, name: "company" });
   const companies = companyEntity != null ? contact.parentRows.filter((f) => f.parent.entityId === companyEntity.id).map((f) => f.parent) : [];
@@ -324,7 +324,7 @@ async function createContactSubmission(
       name: submission.company,
       request,
     });
-    await RowRelationshipsApi.createRelationship({
+    await createRelationship({
       parent: company,
       child: contact,
     });
@@ -336,7 +336,7 @@ async function createContactSubmission(
     message: submission.message,
     request,
   });
-  await RowRelationshipsApi.createRelationship({
+  await createRelationship({
     parent: contact,
     child: newSubmission,
   });
@@ -408,7 +408,7 @@ async function subscribeToNewsletter({
 
   if (settings.crm) {
     console.log("[Newsletter] Creating contact in CRM");
-    let contact = await RowsApi.find({
+    let contact = await find({
       entity: { name: "contact" },
       tenantId: null,
       properties: [{ name: "email", value: email }],
@@ -426,9 +426,9 @@ async function subscribeToNewsletter({
         request,
       });
       if (source) {
-        await RowsApi.addTag({ row: contact, tag: { value: source, color: Colors.ORANGE } });
+        await addTag({ row: contact, tag: { value: source, color: Colors.ORANGE } });
       } else {
-        await RowsApi.addTag({ row: contact, tag: { value: "newsletter", color: Colors.ORANGE } });
+        await addTag({ row: contact, tag: { value: "newsletter", color: Colors.ORANGE } });
       }
     } else {
       await updateContact(contact.id, { marketingSubscriber: true });

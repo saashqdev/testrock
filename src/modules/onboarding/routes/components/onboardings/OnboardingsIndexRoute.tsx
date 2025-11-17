@@ -11,11 +11,11 @@ import InputText from "@/components/ui/input/InputText";
 import Modal from "@/components/ui/modals/Modal";
 import TabsWithIcons from "@/components/ui/tabs/TabsWithIcons";
 import OnboardingsList from "../../../components/OnboardingsList";
-import { OnboardingIndexApi } from "../../api/onboardings/OnboardingsIndexApi.server";
+import { LoaderData } from "../../api/onboardings/OnboardingsIndexApi.server";
 import { createOnboarding } from "@/app/admin/onboarding/onboardings/actions";
 import ActionResultModal from "@/components/ui/modals/ActionResultModal";
 
-export default function OnboardingsIndexRoute({ data }: { data: OnboardingIndexApi.LoaderData }) {
+export default function OnboardingsIndexRoute({ data }: { data: LoaderData }) {
   const { t } = useTranslation();
   const searchParams = useSearchParams();
 

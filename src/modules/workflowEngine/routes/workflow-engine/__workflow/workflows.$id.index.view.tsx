@@ -4,14 +4,14 @@ import WorkflowUtils from "@/modules/workflowEngine/helpers/WorkflowUtils";
 import SimpleBadge from "@/components/ui/badges/SimpleBadge";
 import UrlUtils from "@/utils/app/UrlUtils";
 import WorkflowRunDropdown from "@/modules/workflowEngine/components/workflows/buttons/WorkflowRunDropdown";
-import { WorkflowsIdIndexApi } from "./workflows.$id.index.api.server";
+import { loader } from "./workflows.$id.index.api.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import WorkflowEditorClient from "./WorkflowEditorClient";
 import WorkflowToggle from "./WorkflowToggle";
 import { toggleWorkflowAction } from "./workflowActions";
 
 export default async function WorkflowsIdIndexView(props: IServerComponentsProps) {
-  const data = await WorkflowsIdIndexApi.loader(props);
+  const data = await loader(props);
   const params = (await props.params) || {};
 
   async function handleToggle(formData: FormData) {

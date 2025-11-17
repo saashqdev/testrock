@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import CampaignsEditView from "@/modules/emailMarketing/routes/views/CampaignsEdit.View";
-import { CampaignsEditApi } from "@/modules/emailMarketing/routes/api/CampaignsEdit.Api";
+import { loader, action, generateMetadata } from "@/modules/emailMarketing/routes/api/CampaignsEdit.Api";
 
 type Props = {
   params: Promise<{ tenant: string; id: string }>;
@@ -9,7 +9,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-  return CampaignsEditApi.generateMetadata({ params: resolvedParams });
+  return generateMetadata({ params: resolvedParams });
 }
 
 export default async function CampaignsEditPage({ params, searchParams }: Props) {
@@ -25,14 +25,14 @@ export default async function CampaignsEditPage({ params, searchParams }: Props)
   });
   
   const request = new Request(url.toString());
-  const data = await CampaignsEditApi.loader({ 
+  const data = await loader({ 
     request, 
     params: Promise.resolve(resolvedParams) 
   });
 
   async function actionHandler(prev: any, formData: FormData) {
     "use server";
-    const result = await CampaignsEditApi.action({ 
+    const result = await action({ 
       request: new Request(url.toString(), { method: "POST", body: formData }), 
       params: Promise.resolve(resolvedParams) 
     });

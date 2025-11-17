@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import ServerError from "@/components/ui/errors/ServerError";
-import { WorkflowsIdRunManualApi } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.manual.api.server";
+import { loader, action } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.manual.api.server";
 import WorkflowsIdRunManualView from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.manual.view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
-  const data = await WorkflowsIdRunManualApi.loader(props);
+  const data = await loader(props);
   return {
     title: data?.metatags?.[0]?.title || "Workflow",
   };
@@ -13,7 +13,7 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 
 export default async function WorkflowsIdRunManualPage(props: IServerComponentsProps) {
   try {
-    const data = await WorkflowsIdRunManualApi.loader(props);
+    const data = await loader(props);
     const params = await props.params;
     
     // Define ActionData type to match what the view expects
@@ -28,7 +28,7 @@ export default async function WorkflowsIdRunManualPage(props: IServerComponentsP
       "use server";
       try {
         formData.set("action", "execute");
-        const response = await WorkflowsIdRunManualApi.action(props);
+        const response = await action(props);
         
         if (response.ok) {
           const data = await response.json();
@@ -46,7 +46,7 @@ export default async function WorkflowsIdRunManualPage(props: IServerComponentsP
       "use server";
       try {
         formData.set("action", "continue-execution");
-        const response = await WorkflowsIdRunManualApi.action(props);
+        const response = await action(props);
         
         if (response.ok) {
           const data = await response.json();

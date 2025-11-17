@@ -12,12 +12,12 @@ import InputText from "@/components/ui/input/InputText";
 import { defaultSeoMetaTags } from "@/modules/pageBlocks/utils/defaultSeoMetaTags";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 import { getUserHasPermission } from "@/lib/helpers/PermissionsHelper";
-import { PageMetaTags_Index } from "../../routes/pages/PageMetaTags_Index";
+import { LoaderData } from "../../routes/pages/PageMetaTags_Index";
 import toast from "react-hot-toast";
 import Image from "next/image";
 
 interface Props {
-  data: PageMetaTags_Index.LoaderData;
+  data: LoaderData;
 }
 
 export default function PageMetaTagsRoute_Index({ data }: Props) {

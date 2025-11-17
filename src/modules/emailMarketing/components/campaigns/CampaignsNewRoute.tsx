@@ -10,17 +10,17 @@ import ButtonSecondary from "@/components/ui/buttons/ButtonSecondary";
 import InputGroup from "@/components/ui/forms/InputGroup";
 import InputSelector from "@/components/ui/input/InputSelector";
 import InputText from "@/components/ui/input/InputText";
-import { EntityViewsApi } from "@/utils/api/server/EntityViewsApi";
+import { GetEntityViewsWithRows } from "@/utils/api/server/EntityViewsApi";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
-import { Campaigns_New } from "../../routes/Campaigns_New";
+import { LoaderData, ActionData } from "../../routes/Campaigns_New";
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 import toast from "react-hot-toast";
 import InputContent from "@/components/ui/input/InputContent";
 
 interface CampaignsNewRouteProps {
-  data: Campaigns_New.LoaderData;
-  action: (prev: any, formData: FormData) => Promise<Campaigns_New.ActionData>;
+  data: LoaderData;
+  action: (prev: any, formData: FormData) => Promise<ActionData>;
 }
 
 export default function CampaignsNewRoute({ data, action }: CampaignsNewRouteProps) {
@@ -38,7 +38,7 @@ export default function CampaignsNewRoute({ data, action }: CampaignsNewRoutePro
   // const [track, setTrack] = useState(true);
 
   const [selectedContactsViewId, setSelectedContactsViewId] = useState<string>(data.contactsViews.length > 0 ? data.contactsViews[0].view?.id ?? "" : "");
-  const [, setSelectedContactsView] = useState<EntityViewsApi.GetEntityViewsWithRows>();
+  const [, setSelectedContactsView] = useState<GetEntityViewsWithRows>();
 
   // const [sender, setSender] = useState<EmailSenderWithoutApiKey>();
   // useEffect(() => {

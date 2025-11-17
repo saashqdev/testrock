@@ -1,4 +1,4 @@
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { create } from "@/utils/api/server/RowsApi";
 import { PromptFlowExecutionWithResultsDto } from "@/db/models/promptFlows/PromptFlowExecutionsModel";
 import { PromptFlowOutputType } from "../dtos/PromptFlowOutputType";
 import RowHelper from "@/lib/helpers/RowHelper";
@@ -9,7 +9,7 @@ import { Params } from "@/types";
 import PromptFlowOutputUtils from "../utils/PromptFlowOutputUtils";
 import RowValueService, { RowValueUpdateDto } from "@/lib/helpers/server/RowValueService";
 import { PropertyType } from "@/lib/enums/entities/PropertyType";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { getNoCodeRoutes } from "@/utils/api/server/EntitiesApi";
 import { db } from "@/db";
 
 async function executeOutputs({
@@ -75,7 +75,7 @@ async function executeOutputs({
                 };
               }),
             });
-            const row = await RowsApi.create({
+            const row = await create({
               entity,
               tenantId: flowExecution.tenantId,
               userId: flowExecution.userId ?? undefined,
@@ -85,7 +85,7 @@ async function executeOutputs({
             // eslint-disable-next-line no-console
             console.log({ row });
 
-            const routes = EntityHelper.getRoutes({ routes: EntitiesApi.getNoCodeRoutes({ request, params }), entity, item: row });
+            const routes = EntityHelper.getRoutes({ routes: getNoCodeRoutes({ request, params }), entity, item: row });
 
             result.createdRows.push({
               entity,
@@ -123,7 +123,7 @@ async function executeOutputs({
               values,
               session,
             });
-            const routes = EntityHelper.getRoutes({ routes: EntitiesApi.getNoCodeRoutes({ request, params }), entity, item });
+            const routes = EntityHelper.getRoutes({ routes: getNoCodeRoutes({ request, params }), entity, item });
             result.updatedRows.push({
               entity,
               row,
@@ -171,7 +171,7 @@ async function executeOutputs({
                 parentId: parentRow.id,
               },
             ];
-            const createdRow = await RowsApi.create({
+            const createdRow = await create({
               entity,
               tenantId: flowExecution.tenantId,
               userId: flowExecution.userId ?? undefined,
@@ -179,7 +179,7 @@ async function executeOutputs({
               request,
             });
 
-            const routes = EntityHelper.getRoutes({ routes: EntitiesApi.getNoCodeRoutes({ request, params }), entity, item: createdRow });
+            const routes = EntityHelper.getRoutes({ routes: getNoCodeRoutes({ request, params }), entity, item: createdRow });
             result.createdRows.push({
               entity,
               row: createdRow,

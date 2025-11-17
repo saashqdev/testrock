@@ -1,4 +1,4 @@
-import { WorkflowsDangerApi } from "@/modules/workflowEngine/routes/workflow-engine/danger.api.server";
+import { action } from "@/modules/workflowEngine/routes/workflow-engine/danger.api.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { NextRequest } from "next/server";
 
@@ -8,5 +8,5 @@ export async function POST(request: NextRequest, context: { params: Promise<any>
     params: context.params,
   };
   
-  return await WorkflowsDangerApi.action(props);
+  return await action(props);
 }

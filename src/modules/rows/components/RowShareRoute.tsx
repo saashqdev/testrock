@@ -1,10 +1,10 @@
 "use client";
 
-import { Rows_Share } from "../routes/Rows_Share.server";
+import { LoaderData } from "../routes/Rows_Share.server";
 import RowSettingsPermissions from "@/components/entities/rows/RowSettingsPermissions";
 
 interface RowShareRouteProps {
-  data: Rows_Share.LoaderData;
+  data: LoaderData;
 }
 
 export default function RowShareRoute({ data }: RowShareRouteProps) {

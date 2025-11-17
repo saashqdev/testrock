@@ -3,16 +3,16 @@
 import { useParams } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 import UrlUtils from "@/utils/app/UrlUtils";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 import { EntitySummaryDto } from "@/utils/services/appDashboardService";
 import RowsList from "../entities/rows/RowsList";
 import EntityIcon from "../layouts/icons/EntityIcon";
 import ButtonSecondary from "../ui/buttons/ButtonSecondary";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { GetRowsData } from "@/utils/api/server/RowsApi";
 
-export default function EntitySummaries({ items, routes }: { items: EntitySummaryDto[]; routes: EntitiesApi.Routes }) {
+export default function EntitySummaries({ items, routes }: { items: EntitySummaryDto[]; routes: Routes }) {
   return (
     <Fragment>
       {items
@@ -24,7 +24,7 @@ export default function EntitySummaries({ items, routes }: { items: EntitySummar
   );
 }
 
-function LatestRows({ rowsData, routes }: { rowsData: RowsApi.GetRowsData; routes: EntitiesApi.Routes }) {
+function LatestRows({ rowsData, routes }: { rowsData: GetRowsData; routes: Routes }) {
   const { t } = useTranslation();
   const appOrAdminData = useAppOrAdminData();
   const params = useParams();

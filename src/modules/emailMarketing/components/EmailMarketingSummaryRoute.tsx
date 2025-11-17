@@ -4,10 +4,10 @@ import { useTranslation } from "react-i18next";
 import { Colors } from "@/lib/enums/shared/Colors";
 import ColorBadge from "@/components/ui/badges/ColorBadge";
 import NumberUtils from "@/lib/shared/NumberUtils";
-import { EmailMarketing_Summary } from "../routes/EmailMarketing_Summary";
+import { LoaderData } from "../routes/EmailMarketing_Summary";
 
 interface EmailMarketingSummaryRouteProps {
-  data: EmailMarketing_Summary.LoaderData;
+  data: LoaderData;
 }
 
 export default function EmailMarketingSummaryRoute({ data }: EmailMarketingSummaryRouteProps) {

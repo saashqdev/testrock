@@ -1,17 +1,17 @@
 import { getServerTranslations } from "@/i18n/server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
-import { PricingBlockService } from "@/modules/pageBlocks/blocks/marketing/pricing/PricingBlockService.server";
+import { load } from "@/modules/pageBlocks/blocks/marketing/pricing/PricingBlockService.server";
 import PageBlocks from "@/modules/pageBlocks/blocks/PageBlocks";
-import { LandingPage } from "@/modules/pageBlocks/pages/LandingPage";
+import { metatags, blocks } from "@/modules/pageBlocks/pages/LandingPage";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return await LandingPage.metatags({ t });
+  return await metatags({ t });
 }
 
 export default async function (props: IServerComponentsProps) {
   const searchParams = await props.searchParams;
   const { t } = await getServerTranslations();
-  const pricingBlockData = await PricingBlockService.load({ searchParams });
-  return <PageBlocks items={LandingPage.blocks({ data: { pricingBlockData }, t })} />;
+  const pricingBlockData = await load({ searchParams });
+  return <PageBlocks items={blocks({ data: { pricingBlockData }, t })} />;
 }

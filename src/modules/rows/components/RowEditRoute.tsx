@@ -8,7 +8,7 @@ import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 import { getEntityPermission, getUserHasPermission } from "@/lib/helpers/PermissionsHelper";
 import NewPageLayout from "@/components/ui/layouts/NewPageLayout";
 import EntityHelper from "@/lib/helpers/EntityHelper";
-import { Rows_Edit } from "../routes/Rows_Edit.server";
+import { LoaderData } from "../routes/Rows_Edit.server";
 
 type EditRowOptions = {
   hideTitle?: boolean;
@@ -27,7 +27,7 @@ interface Props {
   title?: ReactNode;
   rowFormChildren?: ReactNode;
   options?: EditRowOptions;
-  data: Rows_Edit.LoaderData;
+  data: LoaderData;
 }
 
 export default function RowEditRoute({ rowFormChildren, options, children, data }: Props) {

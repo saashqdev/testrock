@@ -32,105 +32,106 @@ import ${capitalized}Helpers from "../../helpers/${capitalized}Helpers";
 import { ${capitalized}Service } from "../../services/${capitalized}Service";`);
 
   let template = `
-export namespace ${capitalized}RoutesEditApi {
-  export type LoaderData = {
-    metatags: MetaTagsDto;
-    item: ${capitalized}Dto;
-    permissions: RowPermissionsDto;
-    {TASKS_LOADER_INTERFACE}
-  };
-  export const loader = async (props: IServerComponentsProps) => {
-    const { t } = await getServerTranslations();
-    const tenantId = await getTenantIdOrNull({ request, params });
-    const userId = (await getUserInfo(request)).userId;
-    const item = await ${capitalized}Service.get(params.id!, {
-      tenantId,
-      userId,
-    });
-    if (!item) {
-      return Response.json({ error: t("shared.notFound"), status: 404 });
-    }
-    const permissions = await getUserRowPermission(item.row, tenantId, userId);
-    if (!permissions.canRead) {
-      return Response.json({ error: t("shared.unauthorized"), status: 404 });
-    }
-    const data: LoaderData = {
-      metatags: [{ title: item.prefix + "-" + NumberUtils.pad(item.row.folio ?? 0, 4) + " | " + process.env.APP_NAME }],
-      item,
-      permissions,
-      {TASKS_LOADER_DATA}
-    };
-    return data;
-  };
+export type LoaderData = {
+  metatags: MetaTagsDto;
+  item: ${capitalized}Dto;
+  permissions: RowPermissionsDto;
+  {TASKS_LOADER_INTERFACE}
+};
 
-  export type ActionData = {
-    success?: string;
-    error?: string;
+export const loader = async (props: IServerComponentsProps) => {
+  const { t } = await getServerTranslations();
+  const tenantId = await getTenantIdOrNull({ request, params });
+  const userId = (await getUserInfo(request)).userId;
+  const item = await ${capitalized}Service.get(params.id!, {
+    tenantId,
+    userId,
+  });
+  if (!item) {
+    return Response.json({ error: t("shared.notFound"), status: 404 });
+  }
+  const permissions = await getUserRowPermission(item.row, tenantId, userId);
+  if (!permissions.canRead) {
+    return Response.json({ error: t("shared.unauthorized"), status: 404 });
+  }
+  const data: LoaderData = {
+    metatags: [{ title: item.prefix + "-" + NumberUtils.pad(item.row.folio ?? 0, 4) + " | " + process.env.APP_NAME }],
+    item,
+    permissions,
+    {TASKS_LOADER_DATA}
   };
-  export const action = async (props: IServerComponentsProps) => {
-    const { t } = await getServerTranslations();
-    const tenantId = await getTenantIdOrNull({ request, params });
-    const userId = (await getUserInfo(request)).userId;
-    const form = await request.formData();
-    const action = form.get("action")?.toString() ?? "";
-    const user = await getUser(userId);
-    const entity = await getEntityByName({ tenantId, name: "${name}" });
-    const item = await getRowById(params.id!);
-    if (!item) {
-      return Response.json({ error: t("shared.notFound"), status: 404 });
-    }
-    if (action === "edit") {
-      try {
-        const { {PROPERTIES_UPDATE_NAMES} } = ${capitalized}Helpers.formToDto(form);
-        await ${capitalized}Service.update(
-          params.id!,
-          { {PROPERTIES_UPDATE_NAMES} },
-          { tenantId, userId }
-        );
-        if (item.createdByUser) {
-          await NotificationService.send({
-            channel: "my-rows",
-            to: item.createdByUser,
-            notification: {
-              from: { user },
-              message: ${"`${user?.email} updated ${RowHelper.getRowFolio(entity, item)}`"},
-              // action: {
-              //   title: t("shared.view"),
-              //   url: "",
-              // },
-            },
-          });
-        }
-        return Response.json({ success: t("shared.updated") });
-      } catch (error: any) {
-        return Response.json({ error: error.message }, { status: 400 });
-      }
-    } else if (action === "delete") {
-      try {
-        await ${capitalized}Service.del(params.id!, {
-          tenantId,
-          userId,
+  return data;
+};
+
+export type ActionData = {
+  success?: string;
+  error?: string;
+};
+
+export const action = async (props: IServerComponentsProps) => {
+  const { t } = await getServerTranslations();
+  const tenantId = await getTenantIdOrNull({ request, params });
+  const userId = (await getUserInfo(request)).userId;
+  const form = await request.formData();
+  const action = form.get("action")?.toString() ?? "";
+  const user = await getUser(userId);
+  const entity = await getEntityByName({ tenantId, name: "${name}" });
+  const item = await getRowById(params.id!);
+  if (!item) {
+    return Response.json({ error: t("shared.notFound"), status: 404 });
+  }
+  if (action === "edit") {
+    try {
+      const { {PROPERTIES_UPDATE_NAMES} } = ${capitalized}Helpers.formToDto(form);
+      await ${capitalized}Service.update(
+        params.id!,
+        { {PROPERTIES_UPDATE_NAMES} },
+        { tenantId, userId }
+      );
+      if (item.createdByUser) {
+        await NotificationService.send({
+          channel: "my-rows",
+          to: item.createdByUser,
+          notification: {
+            from: { user },
+            message: ${"`${user?.email} updated ${RowHelper.getRowFolio(entity, item)}`"},
+            // action: {
+            //   title: t("shared.view"),
+            //   url: "",
+            // },
+          },
         });
-        if (item.createdByUser) {
-          await NotificationService.send({
-            channel: "my-rows",
-            to: item.createdByUser,
-            notification: {
-              from: { user },
-              message: ${"`${user?.email} deleted ${RowHelper.getRowFolio(entity, item)}`"},
-            },
-          });
-        }
-        return redirect(UrlUtils.getParentRoute(new URL(request.url).pathname));
-      } catch (error: any) {
-        return Response.json({ error: error.message }, { status: 400 });
       }
-    } {TASKS_ACTIONS}
-    else {
-      return Response.json({ error: t("shared.invalidForm") }, { status: 400 });
+      return Response.json({ success: t("shared.updated") });
+    } catch (error: any) {
+      return Response.json({ error: error.message }, { status: 400 });
     }
-  };
-}`;
+  } else if (action === "delete") {
+    try {
+      await ${capitalized}Service.del(params.id!, {
+        tenantId,
+        userId,
+      });
+      if (item.createdByUser) {
+        await NotificationService.send({
+          channel: "my-rows",
+          to: item.createdByUser,
+          notification: {
+            from: { user },
+            message: ${"`${user?.email} deleted ${RowHelper.getRowFolio(entity, item)}`"},
+          },
+        });
+      }
+      return redirect(UrlUtils.getParentRoute(new URL(request.url).pathname));
+    } catch (error: any) {
+      return Response.json({ error: error.message }, { status: 400 });
+    }
+  } {TASKS_ACTIONS}
+  else {
+    return Response.json({ error: t("shared.invalidForm") }, { status: 400 });
+  }
+};
+`;
 
   const propertiesUpdateNames: string[] = [];
   entity.properties
@@ -144,51 +145,52 @@ export namespace ${capitalized}RoutesEditApi {
   const tasksLoaderData: string[] = [];
   if (entity.hasTasks) {
     tasksLoaderInterface.push("tasks: RowTaskWithDetails[]");
-    tasksLoaderData.push(`tasks: await getRowTasks(params.id!),`);
+    tasksLoaderData.push("tasks: await getRowTasks(params.id!),");
   }
   template = template.split("{TASKS_LOADER_INTERFACE}").join(tasksLoaderInterface.join("\n      "));
   template = template.split("{TASKS_LOADER_DATA}").join(tasksLoaderData.join("\n      "));
 
   let tasksActions = "";
   if (entity.hasTasks) {
-    tasksActions = `else if (action === "task-new") {
-      const taskTitle = form.get("task-title")?.toString();
-      if (!taskTitle) {
-        return Response.json({ error: t("shared.invalidForm") }, { status: 400 });
-      }
-      const task = await createRowTask({
-        createdByUserId: userId,
-        rowId: item.id,
-        title: taskTitle,
-      });
-      return Response.json({ newTask: task });
-    } else if (action === "task-complete-toggle") {
-      const taskId = form.get("task-id")?.toString() ?? "";
-      const task = await getRowTask(taskId);
-      if (task) {
-        if (task.completed) {
-          await updateRowTask(taskId, {
-            completed: false,
-            completedAt: null,
-            completedByUserId: null,
-          });
-        } else {
-          await updateRowTask(taskId, {
-            completed: true,
-            completedAt: new Date(),
-            completedByUserId: userId,
-          });
-        }
-      }
-      return Response.json({ completedTask: taskId });
-    } else if (action === "task-delete") {
-      const taskId = form.get("task-id")?.toString() ?? "";
-      const task = await getRowTask(taskId);
-      if (task) {
-        await deleteRowTask(taskId);
-      }
-      return Response.json({ deletedTask: taskId });
-    }`;
+    tasksActions = 
+      'else if (action === "task-new") {\n' +
+      '      const taskTitle = form.get("task-title")?.toString();\n' +
+      '      if (!taskTitle) {\n' +
+      '        return Response.json({ error: t("shared.invalidForm") }, { status: 400 });\n' +
+      '      }\n' +
+      '      const task = await createRowTask({\n' +
+      '        createdByUserId: userId,\n' +
+      '        rowId: item.id,\n' +
+      '        title: taskTitle,\n' +
+      '      });\n' +
+      '      return Response.json({ newTask: task });\n' +
+      '    } else if (action === "task-complete-toggle") {\n' +
+      '      const taskId = form.get("task-id")?.toString() ?? "";\n' +
+      '      const task = await getRowTask(taskId);\n' +
+      '      if (task) {\n' +
+      '        if (task.completed) {\n' +
+      '          await updateRowTask(taskId, {\n' +
+      '            completed: false,\n' +
+      '            completedAt: null,\n' +
+      '            completedByUserId: null,\n' +
+      '          });\n' +
+      '        } else {\n' +
+      '          await updateRowTask(taskId, {\n' +
+      '            completed: true,\n' +
+      '            completedAt: new Date(),\n' +
+      '            completedByUserId: userId,\n' +
+      '          });\n' +
+      '        }\n' +
+      '      }\n' +
+      '      return Response.json({ completedTask: taskId });\n' +
+      '    } else if (action === "task-delete") {\n' +
+      '      const taskId = form.get("task-id")?.toString() ?? "";\n' +
+      '      const task = await getRowTask(taskId);\n' +
+      '      if (task) {\n' +
+      '        await deleteRowTask(taskId);\n' +
+      '      }\n' +
+      '      return Response.json({ deletedTask: taskId });\n' +
+      '    }';
   }
   template = template.split("{TASKS_ACTIONS}").join(tasksActions);
 

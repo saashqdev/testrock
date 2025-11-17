@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import ServerError from "@/components/ui/errors/ServerError";
-import { WorkflowsIndexApi } from "@/modules/workflowEngine/routes/workflow-engine/workflows.index.api.server";
+import { loader, ActionData, action } from "@/modules/workflowEngine/routes/workflow-engine/workflows.index.api.server";
 import WorkflowsIndexView from "@/modules/workflowEngine/routes/workflow-engine/workflows.index.view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
-  const data = await WorkflowsIndexApi.loader(props);
+  const data = await loader(props);
   // Convert MetaTagsDto array to Next.js Metadata object
   const titleMeta = data?.metatags?.find((tag: any) => tag.title);
   return {
@@ -15,10 +15,10 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 
 export default async function WorkflowsPage(props: IServerComponentsProps) {
   try {
-    const data = await WorkflowsIndexApi.loader(props);
+    const data = await loader(props);
     
     // Server Action for handling form submissions
-    async function handleWorkflowAction(formData: FormData): Promise<WorkflowsIndexApi.ActionData | void> {
+    async function handleWorkflowAction(formData: FormData): Promise<ActionData | void> {
       "use server";
       
       const request = new Request("http://localhost", {
@@ -33,7 +33,7 @@ export default async function WorkflowsPage(props: IServerComponentsProps) {
       };
       
       try {
-        const result = await WorkflowsIndexApi.action(actionProps);
+        const result = await action(actionProps);
         // If action returns a Response object, extract the JSON data
         if (result instanceof Response) {
           return await result.json();

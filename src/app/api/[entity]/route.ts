@@ -5,7 +5,7 @@ import { getServerTranslations } from "@/i18n/server";
 import { createMetrics } from "@/modules/metrics/services/server/MetricTracker";
 import { loadEntities } from "@/modules/rows/repositories/server/EntitiesSingletonService";
 import EntitiesSingleton from "@/modules/rows/repositories/EntitiesSingleton";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { getAll, create } from "@/utils/api/server/RowsApi";
 import ApiHelper from "@/lib/helpers/ApiHelper";
 import { ApiAccessValidation, validateApiKey } from "@/utils/services/apiService";
 import { reportUsage } from "@/utils/services/server/subscriptionService";
@@ -36,14 +36,14 @@ export async function GET(
     const urlSearchParams = new URL(request.url).searchParams;
     const entity = EntitiesSingleton.getEntityByIdNameOrSlug(resolvedParams.entity!);
     const data = await time(
-      RowsApi.getAll({
+      getAll({
         entity,
         tenantId: tenant?.id ?? null,
         userId,
         urlSearchParams,
         time,
       }),
-      "RowsApi.getAll"
+      "getAll"
     );
     
     if (tenant && tenantApiKey) {
@@ -128,7 +128,7 @@ export async function POST(
     const jsonBody = await time(request.json(), "request.json");
     const rowValues = ApiHelper.getRowPropertiesFromJson(t, entity, jsonBody);
     const item = await time(
-      RowsApi.create({
+      create({
         entity,
         tenantId: tenant?.id ?? null,
         userId,
@@ -136,7 +136,7 @@ export async function POST(
         time,
         request,
       }),
-      "RowsApi.create"
+      "create"
     );
     
     if (tenant && tenantApiKey) {

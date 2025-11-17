@@ -16,48 +16,48 @@ import { MetaTagsDto } from "@/lib/dtos/seo/MetaTagsDto";`);
 import { ${capitalized}Service } from "../../services/${capitalized}Service";`);
 
   let template = `
-export namespace ${capitalized}RoutesNewApi {
-  export type LoaderData = {
-    metatags: MetaTagsDto;
-    featureUsage: PlanFeatureUsageDto | undefined;
-  };
-  export const loader = async (props: IServerComponentsProps) => {
-    const { t } = await getServerTranslations();
-    const tenantId = await getTenantIdOrNull({ request, params });
-    const data: LoaderData = {
-      metatags: [{ title: t("shared.create") + " ${capitalized} | " + process.env.APP_NAME }],
-      featureUsage: tenantId ? await getPlanFeatureUsage(tenantId, "${name}") : undefined,
-    };
-    return data;
-  };
+export type LoaderData = {
+  metatags: MetaTagsDto;
+  featureUsage: PlanFeatureUsageDto | undefined;
+};
 
-  export type ActionData = {
-    success?: string;
-    error?: string;
+export const loader = async (props: IServerComponentsProps): Promise<LoaderData> => {
+  const { t } = await getServerTranslations();
+  const tenantId = await getTenantIdOrNull({ request, params });
+  const data: LoaderData = {
+    metatags: [{ title: t("shared.create") + " ${capitalized} | " + process.env.APP_NAME }],
+    featureUsage: tenantId ? await getPlanFeatureUsage(tenantId, "${name}") : undefined,
   };
-  export const action = async (props: IServerComponentsProps) => {
-    const { t } = await getServerTranslations();
-    const tenantId = await getTenantIdOrNull({ request, params });
-    const { userId } = await getUserInfo(request);
-    const form = await request.formData();
-    const action = form.get("action")?.toString();
-    if (action === "create") {
-      try {
-        const { {PROPERTIES_CREATE_NAMES} } = ${capitalized}Helpers.formToDto(form);
-        {PROPERTIES_CREATE_VALIDATION_REQUIRED}
-        const item = await ${capitalized}Service.create(
-          { {PROPERTIES_CREATE_NAMES} },
-          { userId, tenantId }
-        );
-        return redirect(UrlUtils.getParentRoute(new URL(request.url).pathname) + "/" + item.row.id);
-      } catch (error: any) {
-        return Response.json({ error: error.message }, { status: 400 });
-      }
-    } else {
-      return Response.json({ error: t("shared.invalidForm") }, { status: 400 });
+  return data;
+};
+
+export type ActionData = {
+  success?: string;
+  error?: string;
+};
+
+export const action = async (props: IServerComponentsProps): Promise<Response> => {
+  const { t } = await getServerTranslations();
+  const tenantId = await getTenantIdOrNull({ request, params });
+  const { userId } = await getUserInfo(request);
+  const form = await request.formData();
+  const action = form.get("action")?.toString();
+  if (action === "create") {
+    try {
+      const { {PROPERTIES_CREATE_NAMES} } = ${capitalized}Helpers.formToDto(form);
+      {PROPERTIES_CREATE_VALIDATION_REQUIRED}
+      const item = await ${capitalized}Service.create(
+        { {PROPERTIES_CREATE_NAMES} },
+        { userId, tenantId }
+      );
+      return redirect(UrlUtils.getParentRoute(new URL(request.url).pathname) + "/" + item.row.id);
+    } catch (error: any) {
+      return Response.json({ error: error.message }, { status: 400 });
     }
-  };
-}`;
+  } else {
+    return Response.json({ error: t("shared.invalidForm") }, { status: 400 });
+  }
+};`;
 
   const propertiesCreateNames: string[] = [];
   const propertiesCreateValidationRequired: string[] = [];

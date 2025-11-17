@@ -1,7 +1,7 @@
 import NumberUtils from "@/lib/shared/NumberUtils";
-import { WorkflowEngineIndexApi } from "./index.api.server";
+import { LoaderData } from "./index.api.server";
 
-export default function WorkflowEngineIndexView({ data }: { data: WorkflowEngineIndexApi.LoaderData }) {
+export default function WorkflowEngineIndexView({ data }: { data: LoaderData }) {
   return (
     <div className="mx-auto mb-12 max-w-5xl space-y-5 px-4 py-4 sm:px-6 lg:px-8 xl:max-w-7xl">
       <div className="border-b border-border pb-5">

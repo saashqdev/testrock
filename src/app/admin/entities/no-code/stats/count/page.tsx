@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { getNoCodeRoutes } from "@/utils/api/server/EntitiesApi";
+import { count } from "@/utils/api/server/RowsApi";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import EntityHelper from "@/lib/helpers/EntityHelper";
 import { getTenantIdOrNull } from "@/utils/services/server/urlService";
@@ -54,8 +54,8 @@ export const loader = async (props: IServerComponentsProps) => {
     entities.map(async (entity) => {
       return {
         entity,
-        href: EntityHelper.getRoutes({ routes: EntitiesApi.getNoCodeRoutes({ request, params }), entity })?.list,
-        count: await RowsApi.count({
+        href: EntityHelper.getRoutes({ routes: getNoCodeRoutes({ request, params }), entity })?.list,
+        count: await count({
           entity,
           tenantId,
           userId: userInfo.userId,

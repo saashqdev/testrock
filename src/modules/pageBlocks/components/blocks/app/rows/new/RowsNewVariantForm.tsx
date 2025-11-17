@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import CheckPlanFeatureLimit from "@/components/core/settings/subscription/CheckPlanFeatureLimit";
 import RowForm from "@/components/entities/rows/RowForm";
 import NewPageLayout from "@/components/ui/layouts/NewPageLayout";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { GetEntityData } from "@/utils/api/server/EntitiesApi";
 import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
 import RowHelper from "@/lib/helpers/RowHelper";
 import { RowsNewBlockDto } from "./RowsNewBlockUtils";
@@ -50,7 +50,7 @@ export default function RowsNewVariantForm({
   );
 }
 
-function RowCreated({ entityData, newRow }: { entityData: EntitiesApi.GetEntityData; newRow: RowWithDetailsDto }) {
+function RowCreated({ entityData, newRow }: { entityData: GetEntityData; newRow: RowWithDetailsDto }) {
   const { t } = useTranslation();
   return (
     <div className="mx-auto max-w-2xl space-y-3 px-4 pb-6 pt-3 sm:px-6 lg:px-8">

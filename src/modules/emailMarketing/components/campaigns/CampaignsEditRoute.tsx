@@ -15,14 +15,14 @@ import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 import { RowWithDetailsDto} from "@/db/models/entityBuilder/RowsModel";
-import { Campaigns_Edit } from "../../routes/Campaigns_Edit";
+import { LoaderData, ActionData } from "../../routes/Campaigns_Edit";
 import OutboundEmailsTable from "../OutboundEmailsTable";
 import toast from "react-hot-toast";
 import InputContent from "@/components/ui/input/InputContent";
 
 interface CampaignsEditRouteProps {
-  data: Campaigns_Edit.LoaderData;
-  actionData?: Campaigns_Edit.ActionData;
+  data: LoaderData;
+  actionData?: ActionData;
   onSubmit?: (formData: FormData) => Promise<void>;
 }
 

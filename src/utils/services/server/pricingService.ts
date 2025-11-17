@@ -19,7 +19,7 @@ import { CheckoutSessionStatus, SubscriptionPrice, SubscriptionUsageBasedPrice }
 import Stripe from "stripe";
 import { SubscriptionUsageBasedPriceDto } from "@/lib/dtos/subscriptions/SubscriptionUsageBasedPriceDto";
 import { TFunction } from "i18next";
-import { TenantTypesApi } from "@/utils/api/server/TenantTypesApi";
+import { setTenantTypes } from "@/utils/api/server/TenantTypesApi";
 import EventsService from "@/modules/events/services/.server/EventsService";
 import { SubscriptionSubscribedDto } from "@/modules/events/dtos/SubscriptionSubscribedDto";
 import { SubscriptionPriceDto } from "@/lib/dtos/subscriptions/SubscriptionPriceDto";
@@ -497,7 +497,7 @@ export async function addTenantProductsFromCheckoutSession({
             } satisfies SubscriptionSubscribedDto,
           });
 
-          await TenantTypesApi.setTenantTypes({ tenantId, subscriptionProduct });
+          await setTenantTypes({ tenantId, subscriptionProduct });
         }
       })
     );

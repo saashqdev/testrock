@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { getServerTranslations } from "@/i18n/server";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { validateEntity } from "@/utils/api/server/EntitiesApi";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import * as Constants from "@/lib/constants";
 import { clearAllCache } from "@/lib/services/cache.server";
@@ -46,7 +46,7 @@ export async function createEntityAction(
     const onCreated = formData.get("onCreated")?.toString() ?? "redirectToOverview";
     const onEdit = formData.get("onEdit")?.toString() ?? "editRoute";
 
-    const errors = await EntitiesApi.validateEntity({ tenantId: null, name, slug, order: null, prefix });
+    const errors = await validateEntity({ tenantId: null, name, slug, order: null, prefix });
     if (errors.length > 0) {
       return { error: errors.join(", ") };
     }

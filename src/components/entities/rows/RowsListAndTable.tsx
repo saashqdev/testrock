@@ -10,14 +10,14 @@ import { PaginationDto } from "@/lib/dtos/data/PaginationDto";
 import { ColumnDto } from "@/lib/dtos/data/ColumnDto";
 import RowDisplayHeaderHelper from "@/lib/helpers/RowDisplayHeaderHelper";
 import { RowHeaderActionDto } from "@/lib/dtos/data/RowHeaderActionDto";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 import EntityHelper from "@/lib/helpers/EntityHelper";
 import TrashIcon from "@/components/ui/icons/TrashIcon";
 
 interface Props {
   entity: EntityWithDetailsDto;
   items: RowWithDetailsDto[];
-  routes?: EntitiesApi.Routes;
+  routes?: Routes;
   columns?: ColumnDto[];
   pagination?: PaginationDto;
   className?: string;

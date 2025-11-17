@@ -6,7 +6,7 @@ import LoadingButton from "@/components/ui/buttons/LoadingButton";
 import HoneypotInput from "@/components/ui/honeypot/HoneypotInput";
 import { Input } from "@/components/ui/input";
 import useRootData from "@/lib/state/useRootData";
-import { NewsletterPage } from "@/modules/pageBlocks/pages/NewsletterPage";
+import { actionSubscribe } from "@/modules/pageBlocks/pages/NewsletterPage";
 import { useActionState, useRef, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -14,7 +14,7 @@ export default function NewsletterComponent() {
   const { t } = useTranslation();
   const { csrf } = useRootData();
   // const data = useTypedLoaderData<NewsletterPage.LoaderData>();
-  const [actionData, action, pending] = useActionState(NewsletterPage.actionSubscribe, null);
+  const [actionData, action, pending] = useActionState(actionSubscribe, null);
 
   const formRef = useRef<HTMLFormElement>(null);
 

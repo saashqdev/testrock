@@ -1,11 +1,11 @@
 "use client";
 
 import CampaignsNewRoute from "../../components/campaigns/CampaignsNewRoute";
-import { Campaigns_New } from "../Campaigns_New";
+import { LoaderData, ActionData } from "../Campaigns_New";
 
 interface CampaignsNewViewProps {
-  data: Campaigns_New.LoaderData;
-  action: (prev: any, formData: FormData) => Promise<Campaigns_New.ActionData>;
+  data: LoaderData;
+  action: (prev: any, formData: FormData) => Promise<ActionData>;
 }
 
 export default function CampaignsNewView({ data, action }: CampaignsNewViewProps) {

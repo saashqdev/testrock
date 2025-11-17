@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import ServerError from "@/components/ui/errors/ServerError";
-import { WorkflowsVariablesNewApi } from "@/modules/workflowEngine/routes/workflow-engine/variables/variables.new.api.server";
+import { loader } from "@/modules/workflowEngine/routes/workflow-engine/variables/variables.new.api.server";
 import WorkflowsVariablesNewView from "@/modules/workflowEngine/routes/workflow-engine/variables/variables.new.view";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  await WorkflowsVariablesNewApi.loader({});
+  await loader({});
   return <WorkflowsVariablesNewView />;
 }
 

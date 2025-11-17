@@ -5,8 +5,8 @@ import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import ButtonSecondary from "@/components/ui/buttons/ButtonSecondary";
 import InputFilters from "@/components/ui/input/InputFilters";
 import SlideOverWideEmpty from "@/components/ui/slideOvers/SlideOverWideEmpty";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
+import { GetRowsData } from "@/utils/api/server/RowsApi";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { EntityViewsWithDetailsDto } from "@/db/models/entityBuilder/EntityViewsModel";
 import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
@@ -27,7 +27,7 @@ interface Props {
 }
 export default function RowListFetcher({ currentView, listUrl, newUrl, parentEntity, onSelected, multipleSelection, allEntities }: Props) {
   const { t } = useTranslation();
-  const [data, setData] = useState<{ rowsData: RowsApi.GetRowsData; routes: EntitiesApi.Routes }>();
+  const [data, setData] = useState<{ rowsData: GetRowsData; routes: Routes }>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [adding, setAdding] = useState(false);

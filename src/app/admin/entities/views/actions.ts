@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { getServerTranslations } from "@/i18n/server";
-import { EntityViewsApi } from "@/utils/api/server/EntityViewsApi";
+import { createFromForm, updateFromForm } from "@/utils/api/server/EntityViewsApi";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { getUserInfo } from "@/lib/services/session.server";
 import { db } from "@/db";
@@ -36,7 +36,7 @@ export async function updateEntityView(formData: FormData): Promise<ActionResult
       return { error: "Entity not found" };
     }
 
-    await EntityViewsApi.updateFromForm({ entity, item, form: formData });
+    await updateFromForm({ entity, item, form: formData });
   } catch (e: any) {
     return { error: e.message };
   }
@@ -87,7 +87,7 @@ export async function createEntityView(formData: FormData): Promise<ActionResult
       return { error: "Entity not found" };
     }
 
-    await EntityViewsApi.createFromForm({ entity, form: formData, createdByUserId: userInfo.userId });
+    await createFromForm({ entity, form: formData, createdByUserId: userInfo.userId });
   } catch (e: any) {
     return { error: e.message };
   }

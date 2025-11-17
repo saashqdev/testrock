@@ -5,13 +5,13 @@ import IndexPageLayout from "@/components/ui/layouts/IndexPageLayout";
 import RowsList from "@/components/entities/rows/RowsList";
 import Link from "next/link";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
-import { RowsApi } from "@/utils/api/server/RowsApi";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { GetRowsData } from "@/utils/api/server/RowsApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 
 type LoaderData = {
   title: string;
-  entitiesData: { [entity: string]: RowsApi.GetRowsData };
-  entitiesRoutes: { [entity: string]: EntitiesApi.Routes };
+  entitiesData: { [entity: string]: GetRowsData };
+  entitiesRoutes: { [entity: string]: Routes };
 };
 
 interface AllPageClientProps {

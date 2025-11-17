@@ -13,7 +13,7 @@ import { PromptFlowOutputResultDto } from "../../dtos/PromptFlowOutputResultDto"
 import TemplateApiHelper, { RowAsJson } from "@/lib/helpers/TemplateApiHelper";
 import TemplateApiService from "@/lib/helpers/server/TemplateApiService";
 import { TFunction } from "i18next";
-import { RowRelationshipsApi } from "@/utils/api/server/RowRelationshipsApi";
+import { createRelationship } from "@/utils/api/server/RowRelationshipsApi";
 import HandlebarsService from "../HandlebarsService";
 import PromptBuilderDefault from "../PromptBuilderDefault";
 import { db } from "@/db";
@@ -300,7 +300,7 @@ async function executeFlow({
         }
         const relationship = parentRowEntity.childEntities.find((f) => f.childId === createdRowEntity?.id);
         if (relationship) {
-          await RowRelationshipsApi.createRelationship({
+          await createRelationship({
             parent: row,
             child: createdRow.row,
           });

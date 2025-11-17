@@ -9,7 +9,7 @@ import EventsService from "@/modules/events/services/.server/EventsService";
 import { AccountDeletedDto } from "@/modules/events/dtos/AccountDeletedDto";
 import { AccountUpdatedDto } from "@/modules/events/dtos/AccountUpdatedDto";
 import { deleteAndCancelTenant } from "@/utils/services/tenantService";
-import { RowsApi } from "@/utils/api/server/RowsApi";
+import { createCustom } from "@/utils/api/server/RowsApi";
 import { redirect } from "next/navigation";
 
 type RouteContext = {
@@ -109,7 +109,7 @@ export async function POST(request: NextRequest, context: RouteContext) {
       const tenantSettingsEntity = await db.entities.findEntityByName({ tenantId: null, name: "tenantSettings" });
       if (tenantSettingsEntity) {
         try {
-          await RowsApi.createCustom({
+          await createCustom({
             entity: tenantSettingsEntity,
             tenantId: existing.id,
             t,

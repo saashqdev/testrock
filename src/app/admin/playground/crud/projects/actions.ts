@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { FakeProjectService } from "@/modules/fake/fakeProjectsCrud/services/FakeCrudService";
+import { create, update, del, completeTask } from "@/modules/fake/fakeProjectsCrud/services/FakeCrudService";
 import { FakeTaskDto } from "@/modules/fake/fakeProjectsCrud/dtos/FakeTaskDto";
 
 type ActionResult = {
@@ -28,7 +28,7 @@ export async function createFakeProject(formData: FormData): Promise<ActionResul
       return { error: "Please add at least one task" };
     }
 
-    const item = await FakeProjectService.create({
+    const item = await create({
       name,
       description,
       active,
@@ -60,7 +60,7 @@ export async function updateProject(
       return { error: "Please add at least one task" };
     }
 
-    await FakeProjectService.update(projectId, {
+    await update(projectId, {
       name: data.name,
       description: data.description,
       active: data.active,
@@ -78,7 +78,7 @@ export async function updateProject(
 
 export async function deleteProject(projectId: string): Promise<void> {
   try {
-    await FakeProjectService.del(projectId);
+    await del(projectId);
     revalidatePath("/admin/playground/crud/projects");
     redirect("/admin/playground/crud/projects");
   } catch (e: any) {
@@ -88,7 +88,7 @@ export async function deleteProject(projectId: string): Promise<void> {
 
 export async function completeTask(projectId: string, taskId: string): Promise<ActionResult> {
   try {
-    await FakeProjectService.completeTask(projectId, taskId);
+    await completeTask(projectId, taskId);
     revalidatePath(`/admin/playground/crud/projects/${projectId}`);
     return { success: "Task completed" };
   } catch (e: any) {

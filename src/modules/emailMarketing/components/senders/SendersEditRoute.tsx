@@ -2,11 +2,11 @@
 
 import { useRouter, useParams } from "next/navigation";
 import OpenModal from "@/components/ui/modals/OpenModal";
-import { Senders_Edit } from "../../routes/Senders_Edit";
+import { LoaderData } from "../../routes/Senders_Edit";
 import EmailSenderForm from "../EmailSenderForm";
 
 interface SendersEditRouteProps {
-  data: Senders_Edit.LoaderData;
+  data: LoaderData;
 }
 
 export default function SendersEditRoute({ data }: SendersEditRouteProps) {

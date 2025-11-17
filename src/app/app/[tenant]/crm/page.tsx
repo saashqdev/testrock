@@ -4,7 +4,7 @@ import { Colors } from "@/lib/enums/shared/Colors";
 import RowsList from "@/components/entities/rows/RowsList";
 import ColorBadge from "@/components/ui/badges/ColorBadge";
 import CrmService, { CrmSummaryDto } from "@/modules/crm/services/CrmService";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes, getNoCodeRoutes } from "@/utils/api/server/EntitiesApi";
 import { RowDisplayDefaultProperty } from "@/lib/helpers/PropertyHelper";
 import { requireAuth } from "@/lib/services/loaders.middleware";
 import { getTenantIdOrNull } from "@/utils/services/server/urlService";
@@ -15,7 +15,7 @@ import { getServerTranslations } from "@/i18n/server";
 type LoaderData = {
   title: string;
   summary: CrmSummaryDto;
-  routes: EntitiesApi.Routes;
+  routes: Routes;
 };
 
 export const loader = async (props: IServerComponentsProps) => {
@@ -26,7 +26,7 @@ export const loader = async (props: IServerComponentsProps) => {
   const data: LoaderData = {
     title: `CRM | ${process.env.APP_NAME}`,
     summary: await CrmService.getSummary(tenantId),
-    routes: EntitiesApi.getNoCodeRoutes({ request, params }),
+    routes: getNoCodeRoutes({ request, params }),
   };
   return data;
 };

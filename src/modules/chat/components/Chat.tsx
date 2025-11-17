@@ -6,7 +6,7 @@ import { ChatMessageDto } from "../dtos/ChatMessageDto";
 import ExclamationTriangleIconFilled from "@/components/ui/icons/ExclamationTriangleIconFilled";
 import PdfViewer from "@/components/ui/pdf/PdfViewer";
 import DownloadIcon from "@/components/ui/icons/DownloadIcon";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { marked } from "marked";
 import { Input } from "@/components/ui/input";
@@ -18,7 +18,7 @@ interface Props {
   className?: string;
   entitiesMetadata?: {
     allEntities: EntityWithDetailsDto[];
-    routes: EntitiesApi.Routes | undefined;
+    routes: Routes | undefined;
   };
   scrollToBottom?: boolean;
   defaultMessage?: string;

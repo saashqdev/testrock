@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import { Rows_Tags } from "../routes/Rows_Tags.server";
+import { LoaderData } from "../routes/Rows_Tags.server";
 import RowSettingsTags from "@/components/entities/rows/RowSettingsTags";
 
 export default function RowTagsRoute() {
-  const [data, setData] = useState<Rows_Tags.LoaderData | null>(null);
+  const [data, setData] = useState<LoaderData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const params = useParams();

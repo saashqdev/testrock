@@ -1,11 +1,11 @@
 import { getServerTranslations } from "@/i18n/server";
 import CrmService from "@/modules/crm/services/CrmService";
-import { NewsletterPage } from "@/modules/pageBlocks/pages/NewsletterPage";
+import { metatags, blocks } from "@/modules/pageBlocks/pages/NewsletterPage";
 import NewsletterClient from "./newsletter-client";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return await NewsletterPage.metatags({ t });
+  return await metatags({ t });
 }
 
 export default async function Newsletter() {
@@ -15,7 +15,7 @@ export default async function Newsletter() {
   const settings = await CrmService.getNewsletterFormSettings();
   
   // Get page blocks from NewsletterPage configuration
-  const blocks = NewsletterPage.blocks({ t });
+  const blocks = blocks({ t });
 
   return (
     <NewsletterClient 

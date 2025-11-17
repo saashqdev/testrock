@@ -1,6 +1,6 @@
 "use server";
 
-import { PageBlockService } from "@/modules/pageBlocks/services/server/blocksService";
+import { action } from "@/modules/pageBlocks/services/server/blocksService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 type ActionData = { error?: string; success?: string; authRequired?: boolean };
@@ -18,7 +18,7 @@ export async function handlePageAction(formData: FormData): Promise<ActionData> 
       request,
     };
 
-    const result = await PageBlockService.action(props);
+    const result = await action(props);
 
     if (result instanceof Response) {
       const json = await result.json();

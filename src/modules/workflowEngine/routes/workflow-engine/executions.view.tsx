@@ -14,10 +14,10 @@ import WorkflowResultBadge from "@/modules/workflowEngine/components/executions/
 import { WorkflowExecutionWithDetailsDto } from "@/db/models/workflows/WorkflowExecutionsModel";
 import UrlUtils from "@/utils/app/UrlUtils";
 import DateUtils from "@/lib/shared/DateUtils";
-import { WorkflowsExecutionsApi } from "./executions.api.server";
+import { LoaderData } from "./executions.api.server";
 
 interface WorkflowsExecutionsViewProps {
-  data: WorkflowsExecutionsApi.LoaderData;
+  data: LoaderData;
   action: (formData: FormData) => Promise<{ error?: string; success?: string }>;
 }
 

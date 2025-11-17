@@ -13,16 +13,16 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
 import { WorkflowDto } from "@/modules/workflowEngine/dtos/WorkflowDto";
 import NumberUtils from "@/lib/shared/NumberUtils";
-import { WorkflowsIndexApi } from "./workflows.index.api.server";
+import { LoaderData, ActionData } from "./workflows.index.api.server";
 import UrlUtils from "@/utils/app/UrlUtils";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import TenantBadge from "@/components/core/tenants/TenantBadge";
 
 interface WorkflowsIndexViewProps {
-  data: WorkflowsIndexApi.LoaderData;
-  actionData?: WorkflowsIndexApi.ActionData;
-  onAction?: (formData: FormData) => Promise<WorkflowsIndexApi.ActionData | void>;
+  data: LoaderData;
+  actionData?: ActionData;
+  onAction?: (formData: FormData) => Promise<ActionData | void>;
 }
 
 export default function WorkflowsIndexView({ data, actionData, onAction }: WorkflowsIndexViewProps) {

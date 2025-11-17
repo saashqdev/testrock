@@ -12,7 +12,7 @@ import { Colors } from "@/lib/enums/shared/Colors";
 import { Fragment, useEffect, useState, useMemo, memo } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { EntitiesApi } from "@/utils/api/server/EntitiesApi";
+import { Routes } from "@/utils/api/server/EntitiesApi";
 import GridContainer from "@/components/ui/lists/GridContainer";
 import { EntityViewsWithDetailsDto } from "@/db/models/entityBuilder/EntityViewsModel";
 import EntityHelper from "@/lib/helpers/EntityHelper";
@@ -29,7 +29,7 @@ import RowsLoadMoreCard from "@/components/ui/tables/RowsLoadMoreCard";
 interface Props {
   view: "table" | "board" | "grid" | "card";
   items: RowWithDetailsDto[];
-  routes?: EntitiesApi.Routes;
+  routes?: Routes;
   pagination?: PaginationDto;
   onEditRow?: (row: RowWithDetailsDto) => void;
   currentView?: EntityViewsWithDetailsDto | null;
@@ -443,7 +443,7 @@ function RowsListWrapped({
   );
 }
 
-export function AddMoreCard({ entity, routes, className }: { entity: EntityWithDetailsDto; routes?: EntitiesApi.Routes; className?: string }) {
+export function AddMoreCard({ entity, routes, className }: { entity: EntityWithDetailsDto; routes?: Routes; className?: string }) {
   const { t } = useTranslation();
   return (
     <Fragment>

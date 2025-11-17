@@ -2,7 +2,7 @@ import { RowMedia } from "@prisma/client";
 import { MediaDto } from "@/lib/dtos/entities/MediaDto";
 import { RowValueMultipleDto } from "@/lib/dtos/entities/RowValueMultipleDto";
 import { RowValueRangeDto } from "@/lib/dtos/entities/RowValueRangeDto";
-import { RowRelationshipsApi } from "@/utils/api/server/RowRelationshipsApi";
+import { createRelationship, deleteRelationship } from "@/utils/api/server/RowRelationshipsApi";
 import RowValueService, { RowValueUpdateDto } from "@/lib/helpers/server/RowValueService";
 import EntitiesSingleton from "./EntitiesSingleton";
 import RowModel from "./RowModel";
@@ -83,10 +83,10 @@ export default class RowRepository extends RowModel {
         metadataString = JSON.stringify(options?.metadata);
       } catch {}
     }
-    return await RowRelationshipsApi.createRelationship({ parent: this.row, child: relatedRow, metadata: metadataString, allEntities });
+    return await createRelationship({ parent: this.row, child: relatedRow, metadata: metadataString, allEntities });
   }
   public async removeChild(relatedRow: { id: string; entityId: string } | { id: string; entityName: string }) {
-    const deleted = await RowRelationshipsApi.deleteRelationship({ parent: this.row, child: relatedRow });
+    const deleted = await deleteRelationship({ parent: this.row, child: relatedRow });
     if ((deleted as { count?: number }).count) {
       return;
     }
@@ -110,10 +110,10 @@ export default class RowRepository extends RowModel {
         metadataString = JSON.stringify(options.metadata);
       } catch {}
     }
-    return await RowRelationshipsApi.createRelationship({ parent: relatedRow, child: this.row, metadata: metadataString, allEntities });
+    return await createRelationship({ parent: relatedRow, child: this.row, metadata: metadataString, allEntities });
   }
   public async removeParent(relatedRow: { id: string; entityId: string } | { id: string; entityName: string }) {
-    return await RowRelationshipsApi.deleteRelationship({ parent: relatedRow, child: this.row });
+    return await deleteRelationship({ parent: relatedRow, child: this.row });
   }
   public getParents(entityName: string) {
     const allEntities = EntitiesSingleton.getInstance().getEntities();
