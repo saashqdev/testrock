@@ -8,7 +8,6 @@ function generate({ entity }: { entity: EntityWithDetailsDto }): string {
 import { getServerTranslations } from "@/i18n/server";
 import NotificationService from "@/modules/notifications/services/.server/NotificationService";
 import { create } from "@/utils/api/server/RowCommentsApi";
-import { getEntityByName } from "~/utils/db/entities/entities.db.server";
 import { setRowCommentReaction } from "~/utils/db/entities/rowCommentReaction.db.server";
 import { getRowComment, updateRowComment } from "~/utils/db/entities/rowComments.db.server";
 import { getRowById } from "~/utils/db/entities/rows.db.server";
@@ -20,6 +19,7 @@ import { getTenantIdOrNull } from "@/utils/services/server/urlService";
 import { getUserInfo } from "@/lib/services/session.server";
 import { MetaTagsDto } from "@/lib/dtos/seo/MetaTagsDto";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
+import { db } from "@/db";
 
 export type LoaderData = {
   metatags: MetaTagsDto;
@@ -57,7 +57,7 @@ export const action = async (props: IServerComponentsProps): Promise<Response> =
   const form = await request.formData();
   const action = form.get("action")?.toString() ?? "";
   const user = await getUser(userId);
-  const entity = await getEntityByName({ tenantId, name: "${name}" });
+  const entity = await db.entities.getEntityByName({ tenantId, name: "${name}" });
   if (action === "comment") {
     let comment = form.get("comment")?.toString();
     if (!comment) {
@@ -90,7 +90,7 @@ export const action = async (props: IServerComponentsProps): Promise<Response> =
       return Response.json({ error: t("shared.invalidForm") }, { status: 400 });
     }
     await getRowComment(rowCommentId);
-    await setRowCommentReaction({
+    await db.rowCommentReaction.setRowCommentReaction({
       createdByUserId: userId,
       rowCommentId,
       reaction,

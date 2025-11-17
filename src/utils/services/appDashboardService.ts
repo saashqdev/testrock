@@ -1,5 +1,4 @@
 import { TFunction } from "i18next";
-import { DefaultEntityTypes } from "@/lib/dtos/shared/DefaultEntityTypes";
 import { Stat } from "@/lib/dtos/stats/Stat";
 import { getStatChangePercentage, getStatChangeType } from "../app/DashboardUtils";
 import { prisma } from "@/db/config/prisma/database";

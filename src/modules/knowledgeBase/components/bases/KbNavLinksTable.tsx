@@ -9,15 +9,7 @@ export default function KbNavLinksTable({
   setItems,
 }: {
   items: KbNavLinkDto[];
-  setItems: React.Dispatch<
-    React.SetStateAction<
-      {
-        name: string;
-        href: string;
-        order: number;
-      }[]
-    >
-  >;
+  setItems: React.Dispatch<React.SetStateAction<KbNavLinkDto[]>>;
 }) {
   return (
     <div>
@@ -73,7 +65,7 @@ export default function KbNavLinksTable({
         <button
           type="button"
           onClick={() => {
-            setItems([...items, { name: "Link " + (items.length + 1), href: "/", order: items.length + 1 }]);
+            setItems([...items, { id: crypto.randomUUID(), name: "Link " + (items.length + 1), href: "/", order: items.length + 1 }]);
           }}
           className="focus:ring-3 mt-2 flex items-center space-x-1 rounded-md border border-border bg-background px-2 py-1 text-xs text-muted-foreground hover:bg-secondary/90 focus:text-foreground focus:ring-gray-300 focus:ring-offset-1"
         >

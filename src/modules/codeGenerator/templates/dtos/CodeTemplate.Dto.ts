@@ -6,7 +6,7 @@ function generate({ entity }: { entity: EntityWithDetailsDto }): string {
   const { capitalized } = CodeGeneratorHelper.getNames(entity);
   const imports: string[] = [];
   const code: string[] = [];
-  imports.push(`import { RowWithDetails } from "~/utils/db/entities/rows.db.server";`);
+  imports.push(`import { RowWithDetails } from "@/db/models/entityBuilder/RowsModel";`);
 
   code.push("");
   code.push(`export type ${capitalized}Dto = {`);

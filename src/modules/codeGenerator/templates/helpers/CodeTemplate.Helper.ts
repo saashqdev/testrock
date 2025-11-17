@@ -5,8 +5,8 @@ import CodeGeneratorPropertiesHelper from "../../utils/CodeGeneratorPropertiesHe
 function generate({ entity }: { entity: EntityWithDetailsDto }): string {
   const { capitalized } = CodeGeneratorHelper.getNames(entity);
   const imports: string[] = [];
-  imports.push(`import { EntityWithDetails } from "~/utils/db/entities/entities.db.server";
-import { RowWithDetails } from "~/utils/db/entities/rows.db.server";
+  imports.push(`import { EntityWithDetails } from "@/db/models/entityBuilder/EntitiesModel";
+import { RowWithDetails } from "@/db/models/entityBuilder/RowsModel";
 import FormHelper from "@/lib/helpers/FormHelper";
 import RowValueHelper from "@/lib/helpers/RowValueHelper";`);
   imports.push(`import { ${capitalized}Dto } from "../dtos/${capitalized}Dto";`);
