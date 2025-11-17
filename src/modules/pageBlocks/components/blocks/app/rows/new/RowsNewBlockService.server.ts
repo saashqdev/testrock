@@ -3,7 +3,7 @@ import { getServerTranslations } from "@/i18n/server";
 import { PageBlockActionArgs } from "@/modules/pageBlocks/dtos/PageBlockActionArgs";
 import { PageBlockLoaderArgs } from "@/modules/pageBlocks/dtos/PageBlockLoaderArgs";
 import { get, getNoCodeRoutes } from "@/utils/api/server/EntitiesApi";
-import { getRelationshipRows, create } from "@/utils/api/server/RowsApi";
+import { getRelationshipRows, create as createRow } from "@/utils/api/server/RowsApi";
 import { getEntityPermission } from "@/lib/helpers/PermissionsHelper";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import RowHelper from "@/lib/helpers/RowHelper";
@@ -41,7 +41,7 @@ export async function create({ request, params, form }: PageBlockActionArgs) {
   const { t } = await getServerTranslations();
   await verifyUserHasPermission(getEntityPermission(entity, "create"), tenantId);
   const rowValues = RowHelper.getRowPropertiesFromForm({ t, entity, form });
-  const newRow = await create({
+  const newRow = await createRow({
     entity,
     tenantId,
     userId: userInfo.userId,
