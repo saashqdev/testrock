@@ -15,14 +15,17 @@ interface Props {
 
 export default function MyInvoices({ items }: Props) {
   const { t } = useTranslation();
+  // Filter out invoices without IDs (required by TableSimple)
+  const validInvoices = items.filter((item): item is Stripe.Invoice & { id: string } => !!item.id);
+  
   return (
     <div className="space-y-2">
       <div className="text-sm font-medium">{t("app.subscription.invoices.title")}</div>
-      {items.length === 0 ? (
+      {validInvoices.length === 0 ? (
         <div className="text-sm italic text-muted-foreground">{t("shared.noRecords")}</div>
       ) : (
         <TableSimple
-          items={items}
+          items={validInvoices}
           headers={[
             {
               name: "date",

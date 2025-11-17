@@ -14,7 +14,7 @@ export default function PreviewEntitiesTemplate({ template }: { template: Entiti
   }
   return (
     <TableSimple
-      items={template.entities}
+      items={template.entities.map((e) => ({ ...e, id: e.name }))}
       headers={[
         { name: "prefix", title: "Prefix", value: (i) => i.prefix },
         {
