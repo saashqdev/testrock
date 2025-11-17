@@ -8,7 +8,7 @@ export default function PreviewKbsTemplate({ template }: { template: KnowledgeBa
     <div className="space-y-2">
       <h3 className="font-medium">Knowledge Bases</h3>
       <TableSimple
-        items={template.knowledgeBases}
+        items={template.knowledgeBases.map((kb) => ({ ...kb, id: kb.slug }))}
         headers={[
           { name: "slug", title: "Slug", value: (i) => i.slug },
           {
@@ -27,7 +27,7 @@ export default function PreviewKbsTemplate({ template }: { template: KnowledgeBa
 
       <h3 className="font-medium">Categories</h3>
       <TableSimple
-        items={template.categories}
+        items={template.categories.map((cat) => ({ ...cat, id: cat.slug }))}
         headers={[
           { name: "slug", title: "Slug", value: (i) => i.slug },
           {
@@ -51,7 +51,7 @@ export default function PreviewKbsTemplate({ template }: { template: KnowledgeBa
 
       <h3 className="font-medium">Articles</h3>
       <TableSimple
-        items={template.articles}
+        items={template.articles.map((art) => ({ ...art, id: art.slug }))}
         headers={[
           { name: "slug", title: "Slug", value: (i) => i.slug },
           {
