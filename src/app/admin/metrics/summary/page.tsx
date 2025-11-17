@@ -8,6 +8,7 @@ import MetricsSummaryClient from "./summary-client";
 const defaultGroupBy = ["function"];
 
 type ItemDto = {
+  id: string;
   userId: string | null;
   tenantId: string | null;
   function: string;
@@ -64,7 +65,7 @@ async function getMetricsData(searchParams: URLSearchParams): Promise<LoaderData
         _avg: { duration: "desc" },
       },
     });
-    items = data.map((x) => x as ItemDto);
+    items = data.map((x, index) => ({ ...x, id: `group-${index}` } as ItemDto));
     const userIds: string[] = [];
     const tenantIds: string[] = [];
     for (const item of items) {
