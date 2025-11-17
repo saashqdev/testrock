@@ -14,6 +14,7 @@ import InputCombobox from "@/components/ui/input/InputCombobox";
 import { handleAction, loadData } from "./actions";
 
 type TenantDataDto = {
+  id: string;
   entity: EntityWithDetailsDto;
   tenant: TenantWithDetailsDto;
   activeRows: number;

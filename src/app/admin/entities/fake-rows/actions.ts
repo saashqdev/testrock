@@ -13,6 +13,7 @@ import { db } from "@/db";
 const BATCH_SIZE = 10_000;
 
 type TenantDataDto = {
+  id: string;
   entity: EntityWithDetailsDto;
   tenant: any;
   activeRows: number;
@@ -49,6 +50,7 @@ export async function loadData(): Promise<LoaderData> {
   for (const entity of allEntities) {
     for (const tenant of allTenants) {
       items.push({
+        id: `${entity.id}-${tenant.id}`,
         entity,
         tenant,
         activeRows: activeRows.find((f) => f.entityId === entity.id && f.tenantId === tenant.id)?._count?.id ?? 0,
