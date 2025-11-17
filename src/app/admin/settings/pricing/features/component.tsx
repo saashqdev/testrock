@@ -45,8 +45,8 @@ function getInitialItems(plans: SubscriptionProductDto[]) {
         });
       } else {
         items.push({
-          id: uuidv4(),
           ...feature,
+          id: uuidv4(),
           plans: [
             {
               id: plan.id!,
