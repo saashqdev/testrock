@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import SendersEditView from "@/modules/emailMarketing/routes/views/SendersEdit.View";
-import { loader, generateMetadata } from "@/modules/emailMarketing/routes/api/SendersEdit.Api";
+import * as SendersEditApi from "@/modules/emailMarketing/routes/api/SendersEdit.Api";
 
 type Props = {
   params: Promise<{ tenant: string; id: string }>;
@@ -9,7 +9,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-  return generateMetadata({ params: resolvedParams });
+  return SendersEditApi.generateMetadata({ params: resolvedParams });
 }
 
 export default async function SendersEditPage({ params, searchParams }: Props) {
@@ -25,7 +25,7 @@ export default async function SendersEditPage({ params, searchParams }: Props) {
   });
   
   const request = new Request(url.toString());
-  const data = await loader({ 
+  const data = await SendersEditApi.loader({ 
     request, 
     params 
   });

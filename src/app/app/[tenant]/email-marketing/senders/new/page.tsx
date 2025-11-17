@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import SendersNewView from "@/modules/emailMarketing/routes/views/SendersNew.View";
-import { loader, generateMetadata } from "@/modules/emailMarketing/routes/api/SendersNew.Api";
+import * as SendersNewApi from "@/modules/emailMarketing/routes/api/SendersNew.Api";
 
 type Props = {
   params: Promise<{ tenant: string }>;
@@ -9,7 +9,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-  return generateMetadata({ params: resolvedParams });
+  return SendersNewApi.generateMetadata({ params: resolvedParams });
 }
 
 export default async function SendersNewPage({ params, searchParams }: Props) {
@@ -25,7 +25,7 @@ export default async function SendersNewPage({ params, searchParams }: Props) {
   });
   
   const request = new Request(url.toString());
-  const data = await loader({ 
+  const data = await SendersNewApi.loader({ 
     request, 
     params 
   });
