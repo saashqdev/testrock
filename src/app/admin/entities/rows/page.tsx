@@ -88,18 +88,21 @@ export default async function AdminEntityRowsRoute(props: IServerComponentsProps
   const { t } = await getServerTranslations();
   const data = await getLoaderData(props.searchParams);
 
+  // Serialize data to handle Decimal and Date objects
+  const serializedData = JSON.parse(JSON.stringify(data));
+
   return (
     <div className="mx-auto w-full max-w-5xl space-y-3 px-4 py-2 pb-6 sm:px-6 sm:pt-3 lg:px-8 xl:max-w-full">
       <div className="md:border-border md:border-b md:py-2">
         <div className="flex items-center justify-between">
           <h3 className="text-foreground text-lg font-medium leading-6">{t("models.row.plural")}</h3>
           <div className="flex items-center space-x-2">
-            <InputFilters withSearch={false} filters={data.filterableProperties} />
+            <InputFilters withSearch={false} filters={serializedData.filterableProperties} />
           </div>
         </div>
       </div>
 
-      <RowsTableClient items={data.items} entities={data.entities} pagination={data.pagination} />
+      <RowsTableClient items={serializedData.items} entities={serializedData.entities} pagination={serializedData.pagination} />
     </div>
   );
 }

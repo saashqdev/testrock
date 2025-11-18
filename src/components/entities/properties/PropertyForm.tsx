@@ -27,9 +27,12 @@ interface Props {
   properties: PropertyWithDetailsDto[];
   entities: EntityDto[];
   formulas: FormulaDto[];
+  onSubmit?: (formData: FormData) => Promise<void> | void;
+  onCancel?: () => void;
+  onDelete?: () => Promise<void> | void;
 }
 
-export default function PropertyForm({ item, properties, entities, formulas }: Props) {
+export default function PropertyForm({ item, properties, entities, formulas, onSubmit, onCancel, onDelete }: Props) {
   const { t } = useTranslation();
 
   const selectOptionsForm = useRef<RefPropertyOptionsForm>(null);
@@ -38,7 +41,7 @@ export default function PropertyForm({ item, properties, entities, formulas }: P
 
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(true);
 
-  const [order, setOrder] = useState<number | undefined>(item?.order ?? Math.max(...properties.map((o) => o.order)) + 1);
+  const [order, setOrder] = useState<number | undefined>(item?.order ?? (properties.length > 0 ? Math.max(...properties.map((o) => o.order)) + 1 : 1));
   const [name, setName] = useState<string>(item?.name ?? "");
   const [title, setTitle] = useState<string>(item?.title ?? "");
   const [type, setType] = useState<PropertyType>(item?.type ?? PropertyType.TEXT);
@@ -135,6 +138,9 @@ export default function PropertyForm({ item, properties, entities, formulas }: P
         canDelete={item !== undefined && !item?.isDefault && showAdvancedOptions}
         className="space-y-2 pb-4"
         classNameFooter="px-4"
+        onSubmit={onSubmit}
+        onCancel={onCancel}
+        onDelete={onDelete}
       >
         <input type="hidden" name="order" value={order} hidden readOnly />
 

@@ -24,8 +24,9 @@ interface Props {
   onSelected: (rows: RowWithDetailsDto[]) => void;
   multipleSelection?: boolean;
   allEntities: EntityWithDetailsDto[];
+  previewMode?: boolean;
 }
-export default function RowListFetcher({ currentView, listUrl, newUrl, parentEntity, onSelected, multipleSelection, allEntities }: Props) {
+export default function RowListFetcher({ currentView, listUrl, newUrl, parentEntity, onSelected, multipleSelection, allEntities, previewMode = false }: Props) {
   const { t } = useTranslation();
   const [data, setData] = useState<{ rowsData: GetRowsData; routes: Routes }>();
   const [loading, setLoading] = useState(false);
@@ -36,6 +37,12 @@ export default function RowListFetcher({ currentView, listUrl, newUrl, parentEnt
   const [searchParams] = useSearchParams();
 
   const fetchData = useCallback(async (url: string) => {
+    if (previewMode) {
+      // In preview mode, don't fetch real data
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
@@ -67,7 +74,7 @@ export default function RowListFetcher({ currentView, listUrl, newUrl, parentEnt
     } finally {
       setLoading(false);
     }
-  }, []); // No dependencies needed now
+  }, [previewMode]); // Add previewMode to dependencies
 
   // Combine the two useEffects to avoid double fetching
   useEffect(() => {
@@ -113,7 +120,16 @@ export default function RowListFetcher({ currentView, listUrl, newUrl, parentEnt
 
   return (
     <div>
-      {loading && !data ? (
+      {previewMode ? (
+        <div className="flex items-center justify-center rounded-lg border-2 border-dashed border-border bg-secondary/50 p-12 text-center">
+          <div className="space-y-2">
+            <div className="text-lg font-medium text-muted-foreground">{t("shared.preview")} Mode</div>
+            <div className="text-sm text-muted-foreground">
+              Relationship selection slideout will appear here in actual use
+            </div>
+          </div>
+        </div>
+      ) : loading && !data ? (
         <Loading small loading />
       ) : error ? (
         <div className="text-red-500">Error: {error}</div>

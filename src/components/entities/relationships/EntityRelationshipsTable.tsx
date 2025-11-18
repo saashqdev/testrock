@@ -12,9 +12,11 @@ import NumberUtils from "@/lib/shared/NumberUtils";
 export default function EntityRelationshipsTable({
   items,
   editable,
+  onReorder,
 }: {
   items: (EntityRelationshipWithDetailsDto & { _count: { rows: number } })[];
   editable: boolean;
+  onReorder?: (items: (EntityRelationshipWithDetailsDto & { _count: { rows: number } })[]) => void;
 }) {
   const { t } = useTranslation();
   return (
@@ -26,7 +28,7 @@ export default function EntityRelationshipsTable({
           value: (_item, idx) => (
             <div>
               {/* {item.order} */}
-              <OrderListButtons index={idx} items={items.map((f) => ({ ...f, order: f.order ?? 0 }))} editable={true} />
+              <OrderListButtons index={idx} items={items.map((f) => ({ ...f, order: f.order ?? 0 }))} editable={true} onChange={onReorder} />
             </div>
           ),
         },
@@ -34,7 +36,7 @@ export default function EntityRelationshipsTable({
           name: "type",
           title: "Type",
           value: (item) => (
-            <Link href={item.id} className="font-medium underline">
+            <Link href={`relationships/${item.id}`} className="font-medium underline">
               {t("shared.relationships." + item.type)}
             </Link>
           ),
@@ -95,7 +97,7 @@ export default function EntityRelationshipsTable({
       actions={[
         {
           title: t("shared.edit"),
-          onClickRoute: (_, item) => item.id,
+          onClickRoute: (_, item) => `relationships/${item.id}`,
           hidden: () => !editable,
         },
       ]}

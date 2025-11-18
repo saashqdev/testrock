@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import EntityRelationshipForm from "@/components/entities/relationships/EntityRelationshipForm";
+import EditEntityRelationshipClient from "./EditEntityRelationshipClient";
 import { getServerTranslations } from "@/i18n/server";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { EntityRelationshipWithCountDto } from "@/db/models/entityBuilder/EntityRelationshipsModel";
@@ -92,10 +92,14 @@ export const action = async (props: IServerComponentsProps) => {
 };
 
 export default async function EditEntityRelationshipRoute(props: IServerComponentsProps) {
+  const params = (await props.params) || {};
   const data = await loader(props);
   return (
-    <div>
-      <EntityRelationshipForm entity={data.entity} entities={data.entities} item={data.item} />
-    </div>
+    <EditEntityRelationshipClient 
+      entity={data.entity} 
+      entities={data.entities} 
+      item={data.item}
+      entitySlug={params.entity ?? ""}
+    />
   );
 }

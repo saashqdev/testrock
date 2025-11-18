@@ -343,7 +343,7 @@ function RowsListWrapped({
                       {card}
                     </Link>
                   ) : (
-                    card
+                    <div key={item.id}>{card}</div>
                   );
                   // return (
                   //   <Fragment key={item.id}>
@@ -356,9 +356,9 @@ function RowsListWrapped({
                   // );
                 })}
                 {items.length === 0 ? (
-                  <Fragment>{readOnly ? <EmptyCard className="w-full" /> : <AddMoreCard entity={entity} routes={routes} />}</Fragment>
+                  <Fragment key="empty-state">{readOnly ? <EmptyCard className="w-full" /> : <AddMoreCard entity={entity} routes={routes} />}</Fragment>
                 ) : (
-                  <Fragment>
+                  <Fragment key="load-more">
                     <RowsLoadMoreCard pagination={pagination} currentView={currentView} />
                   </Fragment>
                 )}
@@ -424,15 +424,15 @@ function RowsListWrapped({
                     {card}
                   </Link>
                 ) : (
-                  card
+                  <div key={item.id}>{card}</div>
                 );
               })}
               {items.length === 0 ? (
-                <Fragment>{readOnly ? <EmptyCard className="w-full" /> : <AddMoreCard className="w-64" entity={entity} routes={routes} />}</Fragment>
+                <Fragment key="empty-state">{readOnly ? <EmptyCard className="w-full" /> : <AddMoreCard className="w-64" entity={entity} routes={routes} />}</Fragment>
               ) : (
-                <Fragment>
-                  {!readOnly && <AddMoreCard className="w-64" entity={entity} routes={routes} />}
-                  <RowsLoadMoreCard className="w-64" pagination={pagination} currentView={currentView} />
+                <Fragment key="additional-cards">
+                  {!readOnly && <AddMoreCard key="add-more" className="w-64" entity={entity} routes={routes} />}
+                  <RowsLoadMoreCard key="load-more" className="w-64" pagination={pagination} currentView={currentView} />
                 </Fragment>
               )}
             </div>

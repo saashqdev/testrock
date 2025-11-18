@@ -49,7 +49,7 @@ function getBlockPreviews({ t, entities }: { t: TFunction; entities: EntityWithD
         {
           name: "Count",
           description: "Summary of entity rows",
-          href: "stats/count",
+          href: "/admin/entities/no-code/stats/count",
         },
       ],
     },
@@ -60,7 +60,7 @@ function getBlockPreviews({ t, entities }: { t: TFunction; entities: EntityWithD
         {
           name: "Tasks",
           description: "All tasks",
-          href: "lists/tasks",
+          href: "/admin/entities/no-code/lists/tasks",
         },
         {
           name: "My requests",

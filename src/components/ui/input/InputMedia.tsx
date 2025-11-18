@@ -209,14 +209,26 @@ export default function InputMedia({
               {items
                 .filter((f) => f.type.includes("image"))
                 .map((item) => {
+                  const src = item.publicUrl ?? item.file;
+                  const isDataUrl = src.startsWith('data:');
                   return (
                     <div key={item.name} className="space-y-1">
                       <label className="text-xs text-muted-foreground">{item.title}</label>
-                      <Image
-                        className="shadow-2xs h-12 w-full rounded-md border border-dashed border-border object-contain p-1"
-                        src={item.publicUrl ?? item.file}
-                        alt={item.title}
-                      />
+                      {isDataUrl ? (
+                        <img
+                          className="shadow-2xs h-12 w-full rounded-md border border-dashed border-border object-contain p-1"
+                          src={src}
+                          alt={item.title}
+                        />
+                      ) : (
+                        <Image
+                          className="shadow-2xs h-12 w-full rounded-md border border-dashed border-border object-contain p-1"
+                          src={src}
+                          alt={item.title}
+                          width={150}
+                          height={150}
+                        />
+                      )}
                     </div>
                   );
                 })}

@@ -1094,7 +1094,8 @@
         "hide": "Hide default properties"
       },
       "actions": {
-        "add": "Add custom property"
+        "add": "Add custom property",
+        "edit": "Edit property"
       }
     },
     "relationship": {

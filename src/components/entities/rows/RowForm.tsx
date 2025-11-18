@@ -553,6 +553,7 @@ const RowForm = (
             }}
             multipleSelection={selectedRelatedEntity.multiple}
             allEntities={allEntities}
+            previewMode={!canSubmit}
           />
         )}
       </SlideOverWideEmpty>
@@ -658,29 +659,19 @@ function RelationshipSelector({
         <button
           onClick={() => onFindEntityRows(relationship)}
           type="button"
-          disabled={readOnly}
-          className={clsx(
-            "relative block w-full rounded-lg border-2 border-dashed border-border p-4 text-center",
-            readOnly ? "cursor-not-allowed bg-secondary/90" : "focus:outline-hidden bg-background hover:border-border focus:ring-2 focus:ring-gray-500"
-          )}
+          className="relative block w-full rounded-lg border-2 border-dashed border-border bg-background p-4 text-center hover:border-border focus:outline-hidden focus:ring-2 focus:ring-gray-500"
         >
           <span className="flex items-center space-x-1 text-xs font-normal text-muted-foreground">
-            {readOnly ? (
-              <div>{t("shared.notSet")}</div>
-            ) : (
+            {type === "parent" && (
               <>
-                {type === "parent" && (
-                  <>
-                    <div>{t("shared.select")}</div>
-                    <div className="lowercase">{t(relationship.parent.title)}</div>
-                  </>
-                )}
-                {type === "child" && (
-                  <>
-                    <div>{t("shared.add")}</div>
-                    <div className="lowercase">{t(relationship.child.title)}</div>
-                  </>
-                )}
+                <div>{t("shared.select")}</div>
+                <div className="lowercase">{t(relationship.parent.title)}</div>
+              </>
+            )}
+            {type === "child" && (
+              <>
+                <div>{t("shared.add")}</div>
+                <div className="lowercase">{t(relationship.child.title)}</div>
               </>
             )}
           </span>

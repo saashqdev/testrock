@@ -14,7 +14,6 @@ import { Routes } from "@/utils/api/server/EntitiesApi";
 import { EntityWithDetailsDto, PropertyWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
 import RowHelper from "@/lib/helpers/RowHelper";
-import SlideOverWideEmpty from "@/components/ui/slideOvers/SlideOverWideEmpty";
 
 type PropertiesClientProps = {
   entity: EntityWithDetailsDto;
@@ -36,18 +35,34 @@ export default function PropertiesClient({ entity: initialEntity, properties, al
     setEntity(initialEntity);
 
     const items: RowWithDetailsDto[] = Array.from({ length: 10 }).map((_, idx) => {
-      const item: RowWithDetailsDto = {
+      const item = {
+        id: `fake-item-${idx}`,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        order: idx + 1,
+        entityId: initialEntity.id,
+        tenantId: null,
+        deletedAt: null,
+        folio: idx + 1,
+        createdByUserId: null,
+        createdByApiKeyId: null,
         values: initialEntity.properties.map((property) => {
           return RowHelper.getFakePropertyValue({ property, t, idx: idx + 1 });
         }),
-        folio: idx + 1,
-        createdAt: new Date(),
         createdByUser: {
+          id: "fake-user",
           email: "john.doe@email.com",
           firstName: "John",
           lastName: "Doe",
         },
-      } as RowWithDetailsDto;
+        createdByApiKey: null,
+        tenant: null,
+        parentRows: [],
+        childRows: [],
+        tags: [],
+        permissions: [],
+        sampleCustomEntity: null,
+      } as unknown as RowWithDetailsDto;
       return item;
     });
     setFakeItems(items);
@@ -66,15 +81,15 @@ export default function PropertiesClient({ entity: initialEntity, properties, al
           ) : (
             <div className="space-y-6">
               {fakeItem && (
-                <Fragment>
-                  <div className="space-y-2">
+                <Fragment key="preview-sections">
+                  <div key="row-title" className="space-y-2">
                     <Section title="Row Title" />
                     <div className="border-border text-foreground bg-background rounded-md border p-3 font-medium">
                       <RowTitle entity={entity} item={fakeItem} />
                     </div>
                   </div>
 
-                  <div className="space-y-2">
+                  <div key="form" className="space-y-2">
                     <Section title="Form" />
                     <RowForm entity={entity} item={fakeItem} canSubmit={false} allEntities={allEntities} routes={routes} />
                   </div>
@@ -89,7 +104,7 @@ export default function PropertiesClient({ entity: initialEntity, properties, al
                   <Fragment key={layout.value}>
                     <div className="space-y-2">
                       <Section title={`List - ${layout.name} layout`} />
-                      <RowsList view={layout.value} entity={entity} items={fakeItems} routes={routes} />
+                      <RowsList view={layout.value} entity={entity} items={fakeItems} />
                     </div>
                   </Fragment>
                 );
@@ -98,20 +113,6 @@ export default function PropertiesClient({ entity: initialEntity, properties, al
           )}
         </div>
       </div>
-
-      <SlideOverWideEmpty
-        title={params.id ? t("shared.edit") : t("shared.new")}
-        open={!!<></>}
-        onClose={() => {
-          router.replace(".");
-        }}
-        className="sm:max-w-lg"
-        overflowYScroll={true}
-      >
-        <div className="-mx-1 -mt-3">
-          <div className="space-y-4">{<></>}</div>
-        </div>
-      </SlideOverWideEmpty>
     </div>
   );
 }

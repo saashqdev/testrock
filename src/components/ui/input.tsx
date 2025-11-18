@@ -5,6 +5,9 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 function Input({ className, type, value, ...props }: React.ComponentProps<"input">) {
+  // Convert NaN to empty string to avoid React warning
+  const sanitizedValue = value !== undefined && typeof value === 'number' && isNaN(value) ? '' : value;
+  
   return (
     <input
       type={type}
@@ -16,7 +19,7 @@ function Input({ className, type, value, ...props }: React.ComponentProps<"input
         className
       )}
       {...props}
-      {...(value !== undefined && { value })}
+      {...(sanitizedValue !== undefined && { value: sanitizedValue })}
     />
   )
 }

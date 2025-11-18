@@ -26,6 +26,7 @@ type LoaderData = {
 };
 export const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
+  const searchParams = (await props.searchParams) || {};
   const request = props.request!;  
   const tenantId = await getTenantIdOrNull({ request, params });
   let entities: EntityWithDetailsDto[] = [];
@@ -37,8 +38,7 @@ export const loader = async (props: IServerComponentsProps) => {
   const userInfo = await getUserInfo();
 
   const rowWhere: Prisma.RowWhereInput = {};
-  const searchParams = new URL(request.url).searchParams;
-  const countFilter = searchParams.get("count") ?? defaultFilter;
+  const countFilter = (searchParams.count as string) ?? defaultFilter;
   if (countFilter) {
     if (countFilter === "last-30-days") {
       rowWhere.createdAt = {

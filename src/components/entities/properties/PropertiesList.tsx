@@ -4,7 +4,7 @@ import { PropertiesModel } from "@/db/models/entityBuilder/PropertiesModel";
 import clsx from "clsx";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { PropertyType } from "@/lib/enums/entities/PropertyType";
 import { PropertyWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
@@ -21,6 +21,8 @@ import { defaultDisplayProperties } from "@/lib/helpers/PropertyHelper";
 import EyeIcon from "@/components/ui/icons/EyeIcon";
 import EyeLashIcon from "@/components/ui/icons/EyeLashIcon";
 import DocumentDuplicateIconFilled from "@/components/ui/icons/DocumentDuplicateIconFilled";
+import { setPropertyOrders, deleteProperty, togglePropertyDisplay, duplicateProperty } from "@/app/admin/entities/[entity]/properties/actions";
+import toast from "react-hot-toast";
 
 interface Props {
   items: PropertyWithDetailsDto[];
@@ -30,50 +32,50 @@ interface Props {
 export default function PropertiesList({ items, className }: Props) {
   const { t } = useTranslation();
   const router = useRouter();
+  const params = useParams();
 
   const confirmDelete = useRef<RefConfirmModal>(null);
 
   const [showDefaultFields, setShowDefaultFields] = useState(false);
-
-  const submitForm = async (formData: FormData) => {
-    try {
-      const response = await fetch(window.location.pathname, {
-        method: "POST",
-        body: formData,
-      });
-      
-      if (response.ok) {
-        router.refresh(); // Refresh the page to reflect changes
-      } else {
-        console.error("Form submission failed");
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
-  };
 
   function deleteField(item: PropertiesModel) {
     confirmDelete.current?.setValue(item);
     confirmDelete.current?.show(t("shared.confirmDelete"), t("shared.delete"), t("shared.cancel"), t("shared.warningCannotUndo"));
   }
 
-  function confirmedDelete(item: PropertiesModel) {
-    const form = new FormData();
-    form.set("action", "delete");
-    form.set("id", item.id);
-    submitForm(form);
+  async function confirmedDelete(item: PropertiesModel) {
+    try {
+      await deleteProperty(params.entity as string, item.id);
+      toast.success(t("shared.deleted"));
+    } catch (error: any) {
+      toast.error(error.message || t("shared.error"));
+    }
   }
-  function onToggleDisplay(item: PropertiesModel) {
-    const form = new FormData();
-    form.set("action", "toggle-display");
-    form.set("id", item.id);
-    submitForm(form);
+
+  async function onToggleDisplay(item: PropertiesModel) {
+    try {
+      await togglePropertyDisplay(params.entity as string, item.id);
+    } catch (error: any) {
+      toast.error(error.message || t("shared.error"));
+    }
   }
-  function onDuplicate(item: PropertiesModel) {
-    const form = new FormData();
-    form.set("action", "duplicate");
-    form.set("id", item.id);
-    submitForm(form);
+
+  async function onDuplicate(item: PropertiesModel) {
+    try {
+      await duplicateProperty(params.entity as string, item.id);
+      toast.success(t("shared.success"));
+    } catch (error: any) {
+      toast.error(error.message || t("shared.error"));
+    }
+  }
+
+  async function onReorder(reorderedItems: PropertyWithDetailsDto[]) {
+    try {
+      const orders = reorderedItems.map((item) => ({ id: item.id, order: item.order }));
+      await setPropertyOrders(params.entity as string, orders);
+    } catch (error: any) {
+      toast.error(error.message || t("shared.error"));
+    }
   }
 
   return (
@@ -142,7 +144,7 @@ export default function PropertiesList({ items, className }: Props) {
                     <div className="flex items-center space-x-2 truncate">
                       <div className="flex items-center space-x-3 truncate">
                         <div className="hidden shrink-0 sm:flex">
-                          <OrderListButtons index={idx} items={items.filter((f) => !f.isDefault)} editable={true} />
+                          <OrderListButtons index={idx} items={items.filter((f) => !f.isDefault)} editable={true} onChange={onReorder} />
                         </div>
                         <div className="flex items-center space-x-2">
                           <PropertyBadge type={item.type} className="h-4 w-4 text-muted-foreground" />
@@ -167,7 +169,7 @@ export default function PropertiesList({ items, className }: Props) {
                           )}
                         </button>
                         <Link
-                          href={item.id}
+                          href={`properties/${item.id}`}
                           className="focus:outline-hidden group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                           // onClick={() => update(idx, item)}
                         >
@@ -197,7 +199,7 @@ export default function PropertiesList({ items, className }: Props) {
       </div>
       <div className="mt-3">
         <Link
-          href={`new`}
+          href={`properties/new`}
           className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border px-12 py-6 text-center hover:border-border focus:ring-2 focus:ring-ring focus:ring-offset-2"
         >
           <NewFieldIcon className="mx-auto h-8 text-muted-foreground" />

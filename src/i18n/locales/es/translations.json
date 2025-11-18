@@ -1092,7 +1092,8 @@
         "hide": "Ocultar propiedades predeterminadas"
       },
       "actions": {
-        "add": "Agregar propiedad personalizada"
+        "add": "Agregar propiedad personalizada",
+        "edit": "Editar propiedad"
       }
     },
     "relationship": {

@@ -1,4 +1,4 @@
-import EntityRelationshipForm from "@/components/entities/relationships/EntityRelationshipForm";
+import NewEntityRelationshipClient from "./NewEntityRelationshipClient";
 import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { createEntityRelationship } from "./actions";
@@ -22,12 +22,11 @@ export default async function NewEntityRelationshipRoute(props: IServerComponent
   const createEntityRelationshipWithSlug = createEntityRelationship.bind(null, params.entity!);
 
   return (
-    <div>
-      <EntityRelationshipForm 
-        entity={data.entity} 
-        entities={data.entities}
-        onSubmit={createEntityRelationshipWithSlug}
-      />
-    </div>
+    <NewEntityRelationshipClient
+      entity={data.entity} 
+      entities={data.entities}
+      entitySlug={params.entity ?? ""}
+      onSubmit={createEntityRelationshipWithSlug}
+    />
   );
 }
