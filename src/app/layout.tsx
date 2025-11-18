@@ -8,12 +8,17 @@ import { getRootData } from "@/lib/services/rootData.server";
 import RootDataLayout from "@/context/RootDataLayout";
 import { defaultSiteTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
 import { defaultThemeColor } from "@/lib/themes";
+import { db } from "@/db";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export async function generateMetadata(): Promise<Metadata> {
+  const appConfiguration = await db.appConfiguration.getAppConfiguration();
+  const baseUrl = process.env.NEXT_PUBLIC_URL || appConfiguration.app.url || "http://localhost:3000";
+  
   return {
+    metadataBase: new URL(baseUrl),
     title: defaultSiteTags.title,
     icons: [
       { url: "/android-icon-192x192.png", sizes: "192x192", type: "image/png" },

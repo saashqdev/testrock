@@ -189,6 +189,7 @@ function RowsListWrapped({
   const [options, setOptions] = useState<KanbanColumn<RowWithDetailsDto>[]>([]);
   useEffect(() => {
     if (groupBy?.property) {
+      const propertyName = groupBy.property.name; // Capture property name in closure
       setOptions(
         groupBy.property.options.map((option) => {
           return {
@@ -200,22 +201,22 @@ function RowsListWrapped({
               </div>
             ),
             value: (item: RowWithDetailsDto) => (
-              <RenderCard layout={view} item={item} entity={entity} columns={columns} allEntities={allEntities} routes={routes} actions={actions} />
+              <RenderCard layout={view} item={item} entity={entity} columns={columns} allEntities={allEntities} routes={undefined} actions={undefined} />
             ),
-            onClickRoute: (i: RowWithDetailsDto) => EntityHelper.getRoutes({ routes, entity, item: i })?.edit ?? "",
             onNewRoute: (columnValue: string) => {
-              let newRoute = EntityHelper.getRoutes({ routes, entity })?.new;
-              if (newRoute) {
-                return newRoute + `?${groupBy?.property?.name}=${columnValue}`;
-              }
-              return "";
+              const entityRoutes = EntityHelper.getRoutes({ routes, entity });
+              const newRoute = entityRoutes?.new;
+              const finalUrl = newRoute && propertyName 
+                ? `${newRoute}?${propertyName}=${encodeURIComponent(columnValue)}`
+                : (newRoute ?? "");
+              return finalUrl;
             },
           };
         })
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [groupBy?.property?.id]);
+  }, [groupBy?.property?.id, entity.id, routes?.new, readOnly]);
 
   return (
     <Fragment>
@@ -254,31 +255,57 @@ function RowsListWrapped({
             return false;
           }}
           columns={options}
-          undefinedColumn={{
-            name: t("shared.undefined"),
-            color: Colors.UNDEFINED,
-            title: (
-              <div className="flex items-center space-x-1">
-                <div className="font-bold">{t("shared.undefined")}</div>
-              </div>
-            ),
-            value: (item: RowWithDetailsDto) => {
-              return (
-                <div className="rounded-md bg-background">
-                  <RenderCard
-                    layout={view}
-                    item={item}
-                    entity={entity}
-                    columns={columns}
-                    allEntities={allEntities}
-                    routes={routes}
-                    actions={actions}
-                  />
-                </div>
-              );
-            },
-            onClickRoute: (i: RowWithDetailsDto) => EntityHelper.getRoutes({ routes, entity, item: i })?.edit ?? "",
-          }}
+          undefinedColumn={
+            readOnly
+              ? {
+                  name: t("shared.undefined"),
+                  color: Colors.UNDEFINED,
+                  title: (
+                    <div className="flex items-center space-x-1">
+                      <div className="font-bold">{t("shared.undefined")}</div>
+                    </div>
+                  ),
+                  value: (item: RowWithDetailsDto) => {
+                    return (
+                      <div className="rounded-md bg-background">
+                        <RenderCard
+                          layout={view}
+                          item={item}
+                          entity={entity}
+                          columns={columns}
+                          allEntities={allEntities}
+                          routes={undefined}
+                          actions={undefined}
+                        />
+                      </div>
+                    );
+                  },
+                }
+              : {
+                  name: t("shared.undefined"),
+                  color: Colors.UNDEFINED,
+                  title: (
+                    <div className="flex items-center space-x-1">
+                      <div className="font-bold">{t("shared.undefined")}</div>
+                    </div>
+                  ),
+                  value: (item: RowWithDetailsDto) => {
+                    return (
+                      <div className="rounded-md bg-background">
+                        <RenderCard
+                          layout={view}
+                          item={item}
+                          entity={entity}
+                          columns={columns}
+                          allEntities={allEntities}
+                          routes={undefined}
+                          actions={undefined}
+                        />
+                      </div>
+                    );
+                  },
+                }
+          }
           column={groupBy.property?.name ?? ""}
           renderEmpty={<EmptyCard className="w-full" />}
         />
@@ -307,7 +334,7 @@ function RowsListWrapped({
           )} */}
               <GridContainer {...(currentView ? EntityViewHelper.getGridLayout(currentView) : { columns: 3, gap: "xs" })}>
                 {items.map((item) => {
-                  const href = onClickRoute ? onClickRoute(item) : EntityHelper.getRoutes({ routes, entity, item })?.overview ?? undefined;
+                  const href = readOnly ? undefined : (onClickRoute ? onClickRoute(item) : EntityHelper.getRoutes({ routes, entity, item })?.overview ?? undefined);
                   if (onSelected && selectedRows !== undefined) {
                     return (
                       <ButtonSelectWrapper key={item.id} item={item} onSelected={onSelected} selectedRows={selectedRows}>
@@ -317,8 +344,8 @@ function RowsListWrapped({
                           entity={entity}
                           columns={columns}
                           allEntities={allEntities}
-                          routes={routes}
-                          actions={actions}
+                          routes={undefined}
+                          actions={undefined}
                         />
                       </ButtonSelectWrapper>
                     );
@@ -332,8 +359,8 @@ function RowsListWrapped({
                         entity={entity}
                         columns={columns}
                         allEntities={allEntities}
-                        routes={routes}
-                        actions={actions}
+                        routes={href ? undefined : routes}
+                        actions={href ? undefined : actions}
                         href={href}
                       />
                     </div>
@@ -393,14 +420,14 @@ function RowsListWrapped({
                           entity={entity}
                           columns={columns}
                           allEntities={allEntities}
-                          routes={routes}
-                          actions={actions}
+                          routes={undefined}
+                          actions={undefined}
                         />
                       </div>
                     </ButtonSelectWrapper>
                   );
                 }
-                const href = onClickRoute ? onClickRoute(item) : EntityHelper.getRoutes({ routes, entity, item })?.overview ?? undefined;
+                const href = readOnly ? undefined : (onClickRoute ? onClickRoute(item) : EntityHelper.getRoutes({ routes, entity, item })?.overview ?? undefined);
                 const card = (
                   <div className={clsx(className, "group relative rounded-md text-left", href && "hover:bg-secondary")}>
                     <div className={className}>
@@ -411,8 +438,8 @@ function RowsListWrapped({
                         entity={entity}
                         columns={columns}
                         allEntities={allEntities}
-                        routes={routes}
-                        actions={actions}
+                        routes={href ? undefined : routes}
+                        actions={href ? undefined : actions}
                         href={href}
                       />
                     </div>

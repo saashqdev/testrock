@@ -110,10 +110,12 @@ function KanbanColumnCard<T>({ idx, columns, column, items, classNameWidth }: Ka
               <div key={idx} className="hover:bg-secondary group w-full text-left shadow-2xs">
                 {column?.onClickRoute ? (
                   <Link href={column.onClickRoute(item)}>{column.value(item)}</Link>
-                ) : (
-                  <button type="button" onClick={() => column?.onClick && column?.onClick(item)}>
+                ) : column?.onClick ? (
+                  <button type="button" onClick={() => column.onClick && column.onClick(item)}>
                     {column.value(item)}
                   </button>
+                ) : (
+                  <div>{column.value(item)}</div>
                 )}
               </div>
             );

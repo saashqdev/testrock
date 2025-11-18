@@ -104,7 +104,7 @@ export default function PropertiesClient({ entity: initialEntity, properties, al
                   <Fragment key={layout.value}>
                     <div className="space-y-2">
                       <Section title={`List - ${layout.name} layout`} />
-                      <RowsList view={layout.value} entity={entity} items={fakeItems} />
+                      <RowsList view={layout.value} entity={entity} items={fakeItems} routes={routes} readOnly={true} />
                     </div>
                   </Fragment>
                 );
