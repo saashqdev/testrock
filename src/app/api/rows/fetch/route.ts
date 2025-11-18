@@ -45,6 +45,7 @@ export async function GET(request: NextRequest) {
     });
     
     const routes = getNoCodeRoutes({
+      request,
       params: { tenant: tenant ?? undefined },
     });
     

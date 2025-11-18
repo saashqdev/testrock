@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import ServerError from "@/components/ui/errors/ServerError";
 import RowsViewRoute from "@/modules/rows/components/RowsViewRoute";
 import { LoaderData, loader as rowsListLoader, action as rowsListAction } from "@/modules/rows/routes/Rows_List.server";
-import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 import { getEntityPermission, getUserHasPermission } from "@/lib/helpers/PermissionsHelper";
 import { serverTimingHeaders } from "@/modules/metrics/utils/defaultHeaders.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
@@ -29,7 +28,14 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 export default async function (props: IServerComponentsProps) {
   const response = await rowsListLoader(props);
   const data = await response.json() as LoaderData;
-  const appOrAdminData = useAppOrAdminData();
+  
+  // Build appOrAdminData structure for permission checking
+  const appOrAdminData = {
+    user: data.user,
+    isSuperAdmin: data.isSuperAdmin,
+    permissions: data.permissions,
+  };
+  
   return (
     <RowsViewRoute
       key={data.rowsData.entity.id}
@@ -41,8 +47,8 @@ export default async function (props: IServerComponentsProps) {
         create: getUserHasPermission(appOrAdminData, getEntityPermission(data.rowsData.entity, "create")),
       }}
       currentSession={{
-        user: appOrAdminData?.user!,
-        isSuperAdmin: appOrAdminData?.isSuperAdmin ?? false,
+        user: data.user,
+        isSuperAdmin: data.isSuperAdmin,
       }}
     />
   );

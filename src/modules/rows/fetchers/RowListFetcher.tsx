@@ -84,20 +84,34 @@ export default function RowListFetcher({ currentView, listUrl, newUrl, parentEnt
     let tenantSlug = "";
     
     const listUrlMatch = listUrl.match(/\/app\/([^\/]+)\/([^\/\?]+)|\/admin\/entities\/([^\/]+)/);
+    
     if (listUrlMatch) {
       tenantSlug = listUrlMatch[1] || "";
       entitySlug = listUrlMatch[2] || listUrlMatch[3] || "";
     }
     
-    const params = new URLSearchParams(searchParams?.toString() ?? "");
+    // Start fresh to avoid inheriting undefined values from searchParams
+    const params = new URLSearchParams();
+    
+    // Only add parameters if they have actual values
     if (entitySlug) {
       params.set("entity", entitySlug);
     }
-    if (tenantSlug) {
+    // Only set tenant if it's actually present (not for admin routes)
+    if (tenantSlug && tenantSlug !== "") {
       params.set("tenant", tenantSlug);
     }
     if (currentView) {
       params.set("v", currentView.name);
+    }
+    
+    // Add any other search params that aren't entity/tenant/v
+    if (searchParams) {
+      for (const [key, value] of searchParams.entries()) {
+        if (key !== 'entity' && key !== 'tenant' && key !== 'v' && value && value !== 'undefined') {
+          params.set(key, value);
+        }
+      }
     }
     
     const url = `/api/rows/fetch?${params.toString()}`;

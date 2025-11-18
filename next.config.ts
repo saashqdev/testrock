@@ -21,12 +21,6 @@ const nextConfig: NextConfig = {
        handlebars: "handlebars/dist/cjs/handlebars",
     };
     
-    // Optimize memory usage
-    config.optimization = {
-      ...config.optimization,
-      minimize: true, // Disable minification in dev to save memory
-    };
-    
     // Exclude Node.js modules from client-side bundle
     if (!isServer) {
       config.resolve.fallback = {
@@ -36,15 +30,14 @@ const nextConfig: NextConfig = {
         fs: false,
         dns: false,
         child_process: false,
+        crypto: false,
+        stream: false,
+        http: false,
+        https: false,
+        zlib: false,
+        path: false,
+        os: false,
       };
-      
-      // Mark these as external to prevent bundling
-      config.externals = config.externals || [];
-      config.externals.push({
-        redis: 'commonjs redis',
-        '@redis/client': 'commonjs @redis/client',
-        'cachified-redis-adapter': 'commonjs cachified-redis-adapter',
-      });
     }
     
     return config;
@@ -97,7 +90,15 @@ const nextConfig: NextConfig = {
   },
   
   // Ensure server-only modules are not bundled for client
-  serverExternalPackages: ['redis', '@redis/client', 'cachified-redis-adapter', '@prisma/client'],
+  serverExternalPackages: [
+    'redis', 
+    '@redis/client', 
+    'cachified-redis-adapter', 
+    '@prisma/client',
+    'bcryptjs',
+    'handlebars',
+    'nodemailer',
+  ],
 };
 
 export default nextConfig;

@@ -545,7 +545,7 @@ const RowForm = (
           <RowListFetcher
             currentView={selectedRelatedEntity.view}
             listUrl={EntityHelper.getRoutes({ routes, entity: selectedRelatedEntity.entity })?.list + "?view=null"}
-            newUrl={EntityHelper.getRoutes({ routes, entity: selectedRelatedEntity.entity })?.new ?? ""}
+            newUrl={`/api/entities/${selectedRelatedEntity.entity.slug}/rows/new${routes?.list?.includes('/admin/') ? '?admin=true' : ''}`}
             parentEntity={entity}
             onSelected={(rows) => {
               addRelationshipRow(searchingRelationshipRows, rows);

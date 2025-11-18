@@ -82,6 +82,10 @@ export async function validateEntity({
 export function getNoCodeRoutes({ request, params }: { request?: Request; params: { group?: string; tenant?: string } }): Routes {
   const url = request ? new URL(request.url) : null;
   const pathname = url?.pathname;
+  
+  // Check if admin context via query parameter or referer header
+  const isAdminContext = url?.searchParams.get('admin') === 'true' || 
+                        request?.headers.get('referer')?.includes('/admin/');
 
   if (params.group) {
     if (pathname?.startsWith(`/admin/g`)) {
@@ -154,6 +158,21 @@ export function getNoCodeRoutes({ request, params }: { request?: Request; params
     };
     return routes;
   }
+  
+  // If admin context detected but not a special path, use admin entity routes
+  if (isAdminContext) {
+    const routes: Routes = {
+      list: `/admin/entities/:entity/no-code/:entity`,
+      new: `/admin/entities/:entity/no-code/:entity/new`,
+      overview: `/admin/entities/:entity/no-code/:entity/:id`,
+      edit: `/admin/entities/:entity/no-code/:entity/:id/edit`,
+      import: `/admin/entities/:entity/no-code/:entity/import`,
+      export: `/admin/entities/:entity/no-code/:entity/export`,
+      publicUrl: getBaseURL() + `/public/:entity/:id`,
+    };
+    return routes;
+  }
+  
   const routes: Routes = {
     list: `/app/${params?.tenant}/:entity`,
     new: `/app/${params?.tenant}/:entity/new`,

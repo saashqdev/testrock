@@ -41,7 +41,7 @@ export default function NewEntityTemplateClient({ entity, entitySlug }: NewEntit
   }
   
   return (
-    <SlideOverWideEmpty title="New Entity Template" open={true} className="sm:max-w-lg" onClose={close}>
+    <SlideOverWideEmpty title="New Entity Template" open={true} className="2xl" onClose={close}>
       <EntityTemplateForm entity={entity} onSubmit={handleSubmit} />
     </SlideOverWideEmpty>
   );

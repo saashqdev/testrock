@@ -10,10 +10,17 @@ export default function LogDetailsButton({ item }: { item: LogWithDetailsDto }) 
   const [open, setOpen] = useState(false);
 
   function stringifyDetails() {
+    if (!item.details) {
+      return "No details available";
+    }
+    
     try {
-      return JSON.stringify(JSON.parse(item.details?.toString() ?? "{}"), null, "\t");
+      // If it's already a string that looks like JSON, parse and re-stringify with formatting
+      const parsed = typeof item.details === "string" ? JSON.parse(item.details) : item.details;
+      return JSON.stringify(parsed, null, 2);
     } catch (e) {
-      return item.details;
+      // If parsing fails, return the raw details
+      return item.details.toString();
     }
   }
   return (
@@ -33,7 +40,7 @@ export default function LogDetailsButton({ item }: { item: LogWithDetailsDto }) 
             <button
               type="button"
               onClick={() => {
-                navigator.clipboard.writeText(item.details ?? "");
+                navigator.clipboard.writeText(stringifyDetails() ?? "");
               }}
               className="bg-theme-100 text-theme-700 hover:bg-theme-200 focus:ring-ring inline-flex items-center rounded-md border border-transparent px-3 py-2 text-sm font-medium leading-4 focus:outline-hidden focus:ring-2 focus:ring-offset-2"
             >
@@ -41,8 +48,8 @@ export default function LogDetailsButton({ item }: { item: LogWithDetailsDto }) 
             </button>
           </div>
         </div>
-        <div className="prose bg-foreground/90 border-border mt-2 rounded-lg border-2 border-dashed">
-          <pre>{stringifyDetails()}</pre>
+        <div className="bg-muted border-border mt-2 max-h-96 overflow-auto rounded-lg border-2 border-dashed p-4">
+          <pre className="text-foreground text-xs whitespace-pre-wrap break-all">{stringifyDetails()}</pre>
         </div>
       </Modal>
     </>

@@ -20,6 +20,7 @@ import { RowUpdatedDto } from "@/modules/events/dtos/RowUpdatedDto";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { AdminUser } from "@prisma/client";
 import { db } from "@/db";
+import { headers } from "next/headers";
 
 export type LoaderData = {
   meta: MetaTagsDto;
@@ -30,7 +31,10 @@ export type LoaderData = {
 };
 export const loader = async (props: IServerComponentsProps): Promise<LoaderData> => {
   const params = (await props.params) || {};
-  const request = props.request!;
+  const headersList = await headers();
+  const request = new Request("http://localhost", {
+    headers: headersList,
+  });
   const { time, getServerTimingHeader } = await createMetrics({ request, params }, `[Rows_Edit] ${params?.entity}`);
   const { t, userId, tenantId, entity } = await RowsRequestUtils.getLoader(props);
   const user = (await time(getUser(userId), "getUser")) as { admin?: AdminUser } | null;

@@ -146,9 +146,10 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
         onClose={handleCloseAdding}
       >
         <RowNewFetcher
-          url={EntityHelper.getRoutes({ routes: data.routes, entity: data.rowsData.entity })?.new ?? ""}
+          url={`/api/entities/${data.rowsData.entity.slug}/rows/new?admin=true`}
           onCreated={onCreated}
           allEntities={allEntities}
+          routes={data.routes}
         />
         
         {/* Quick action buttons for companies - shown after save */}
@@ -225,7 +226,7 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
         }
       >
         <RowEditFetcher
-          url={EntityHelper.getRoutes({ routes: data.routes, entity: data.rowsData.entity, item: editing })?.edit ?? ""}
+          url={editing ? `/api/entities/${data.rowsData.entity.slug}/rows/${editing.id}/edit?admin=true` : ""}
           allEntities={allEntities}
           onUpdated={onUpdated}
           onDeleted={() => onDeleted(editing)}
@@ -246,9 +247,10 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
               <p className="font-medium">Note: This contact will be linked to the company after you save.</p>
             </div>
             <RowNewFetcher
-              url={`/admin/entities/${contactEntity.slug}/no-code/${contactEntity.slug}/new`}
+              url={`/api/entities/${contactEntity.slug}/rows/new?admin=true`}
               onCreated={handleContactCreated}
               allEntities={allEntities}
+              routes={data.routes}
             />
           </div>
         </SlideOverWideEmpty>
@@ -268,9 +270,10 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
               <p className="font-medium">Note: This opportunity will be linked to the company after you save.</p>
             </div>
             <RowNewFetcher
-              url={`/admin/entities/${opportunityEntity.slug}/no-code/${opportunityEntity.slug}/new`}
+              url={`/api/entities/${opportunityEntity.slug}/rows/new?admin=true`}
               onCreated={handleOpportunityCreated}
               allEntities={allEntities}
+              routes={data.routes}
             />
           </div>
         </SlideOverWideEmpty>

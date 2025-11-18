@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
 import ButtonTertiary from "@/components/ui/buttons/ButtonTertiary";
-import TableSimple from "@/components/ui/tables/TableSimple";
 import { EntityWebhookWithDetailsDto } from "@/db/models/entityBuilder/EntityWebhooksModel";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
 import { getServerTranslations } from "@/i18n/server";
+import WebhooksTable from "./WebhooksTable";
 
 type LoaderData = {
   items: EntityWebhookWithDetailsDto[];
@@ -33,47 +33,7 @@ export default async function EditEntityIndexRoute(props: IServerComponentsProps
     <>
       <div className="space-y-3">
         <h3 className="text-foreground text-sm font-medium leading-3">Webhooks</h3>
-        <TableSimple
-          headers={[
-            {
-              title: "Action",
-              name: "action",
-              value: (item) => item.action,
-            },
-            {
-              title: "Method",
-              name: "method",
-              value: (item) => item.method,
-            },
-            {
-              title: "Endpoint",
-              name: "endpoint",
-              className: "w-full",
-              value: (item) => item.endpoint,
-            },
-            {
-              title: "Logs",
-              name: "logs",
-              className: "w-full",
-              value: (item) => item._count.logs,
-            },
-          ]}
-          items={data.items}
-          actions={[
-            {
-              title: t("shared.edit"),
-              onClickRoute: (idx, item) => item.id,
-            },
-          ]}
-        ></TableSimple>
-        <div className="w-fu flex justify-start">
-          <ButtonTertiary to="new">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
-            <span className="font-medium uppercase">{t("shared.add")}</span>
-          </ButtonTertiary>
-        </div>
+        <WebhooksTable items={data.items} withActions={true} showAddButton={true} />
       </div>
     </>
   );

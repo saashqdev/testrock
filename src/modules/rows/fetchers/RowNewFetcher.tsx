@@ -79,13 +79,41 @@ function RowNewFetcher({ url, parentEntity, onCreated, allEntities, customSearch
     setError(null);
 
     try {
+      console.log('[RowNewFetcher] Submitting to:', url);
       const response = await fetch(url, {
         method: "POST",
         body: formData,
       });
 
+      console.log('[RowNewFetcher] Response status:', response.status);
+      console.log('[RowNewFetcher] Response content-type:', response.headers.get('content-type'));
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        let errorMessage = `HTTP error! status: ${response.status}`;
+        try {
+          const contentType = response.headers.get('content-type');
+          if (contentType?.includes('application/json')) {
+            const errorData = await response.json();
+            console.error('[RowNewFetcher] Error response JSON:', errorData);
+            errorMessage = errorData.error || errorMessage;
+          } else {
+            const text = await response.text();
+            console.error('[RowNewFetcher] Error response text:', text.substring(0, 500));
+            errorMessage = text.substring(0, 200) || errorMessage;
+          }
+        } catch (parseError) {
+          console.error('[RowNewFetcher] Could not parse error response:', parseError);
+        }
+        throw new Error(errorMessage);
+      }
+
+      // Check if response is JSON before parsing
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text();
+        console.error('[RowNewFetcher] Expected JSON but got:', contentType);
+        console.error('[RowNewFetcher] Response body:', text.substring(0, 200));
+        throw new Error(`Expected JSON response but got ${contentType || 'unknown'}`);
       }
 
       const result = await response.json();

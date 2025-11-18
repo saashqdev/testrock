@@ -8,6 +8,7 @@ import { getUserInfo } from "@/lib/services/session.server";
 import DateUtils from "@/lib/shared/DateUtils";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
+import { headers } from "next/headers";
 import CountPageComponent from "./CountPageComponent";
 
 enum FilterType {
@@ -27,7 +28,10 @@ type LoaderData = {
 export const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
   const searchParams = (await props.searchParams) || {};
-  const request = props.request!;  
+  const headersList = await headers();
+  const request = new Request("http://localhost", {
+    headers: headersList,
+  });
   const tenantId = await getTenantIdOrNull({ request, params });
   let entities: EntityWithDetailsDto[] = [];
   if (tenantId) {

@@ -23,6 +23,7 @@ import { RowCommentsReactedDto } from "@/modules/events/dtos/RowCommentsReactedD
 import { RowCommentsDeletedDto } from "@/modules/events/dtos/RowCommentsDeletedDto";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
+import { headers } from "next/headers";
 
 export type LoaderData = {
   meta: MetaTagsDto;
@@ -32,7 +33,10 @@ export type LoaderData = {
 };
 export const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
-  const request = props.request!;    
+  const headersList = await headers();
+  const request = new Request("http://localhost", {
+    headers: headersList,
+  });    
   const { time, getServerTimingHeader } = await createMetrics({ request, params }, `[Rows_Overview] ${params.entity}`);
   const { t, userId, tenantId, entity } = await RowsRequestUtils.getLoader({ request, params: props.params });
   await time(verifyUserHasPermission(getEntityPermission(entity, "read"), tenantId), "verifyUserHasPermission");
@@ -74,7 +78,10 @@ export type ActionData = {
 };
 export const action = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
-  const request = props.request!;
+  const headersList = await headers();
+  const request = new Request("http://localhost", {
+    headers: headersList,
+  });
   const { time, getServerTimingHeader } = await createMetrics({ request, params }, `[Rows_Overview] ${params.entity}`);
   const { t, userId, tenantId, entity, form } = await RowsRequestUtils.getAction({ request, params: props.params });
   const action = form.get("action")?.toString() ?? "";

@@ -15,11 +15,16 @@ import { EntityView } from "@prisma/client";
 import { PromptExecutionResultDto } from "@/modules/promptBuilder/dtos/PromptExecutionResultDto";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
+import { UserDto } from "@/lib/dtos/UserDto";
+import { DefaultPermission } from "@/lib/dtos/shared/DefaultPermissions";
 
 export type LoaderData = {
   meta: MetaTagsDto;
   rowsData: GetRowsData;
   routes: Routes;
+  user: UserDto;
+  isSuperAdmin: boolean;
+  permissions: DefaultPermission[];
 };
 export const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
@@ -66,10 +71,18 @@ export const loader = async (props: IServerComponentsProps) => {
     FormulaService.trigger({ trigger: "BEFORE_LISTED", rows: rowsData.items, entity: rowsData.entity, session: { tenantId, userId }, t }),
     "FormulaService.trigger.BEFORE_LISTED"
   );
+  
+  const user = await db.users.getUser(userId);
+  const isSuperAdmin = user?.admin === true;
+  const allPermissions = await db.userRoles.getPermissionsByUser(userId, tenantId);
+  
   const data: LoaderData = {
     meta: [{ title: `${t(entity.titlePlural)} | ${process.env.APP_NAME}` }],
     rowsData,
     routes: getNoCodeRoutes({ request, params }),
+    user,
+    isSuperAdmin,
+    permissions: allPermissions.map((f) => f as DefaultPermission),
   };
   return Response.json(data, { headers: getServerTimingHeader() });
 };
@@ -83,7 +96,10 @@ export type ActionData = {
 };
 export const action = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
-  const request = props.request!;    
+  const headersList = await headers();
+  const request = new Request("http://localhost", {
+    headers: headersList,
+  });
   const { time, getServerTimingHeader } = await createMetrics({ request, params }, `[Rows_List] ${params.entity}`);
   const { t, userId, tenantId, entity, form } = await RowsRequestUtils.getAction({ request, params: props.params });
   const action = form.get("action")?.toString() ?? "";

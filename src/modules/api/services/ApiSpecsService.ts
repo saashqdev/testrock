@@ -21,7 +21,7 @@ async function generateSpecs({ request }: { request: Request }): Promise<ApiSpec
   return {
     endpoints,
     openApi: generateOpenApiSpecs({ entities, t }),
-    postmanCollection: generatePostmanCollection({ request, entities, t }),
+    postmanCollection: await generatePostmanCollection({ entities, t }),
   };
 }
 
@@ -341,7 +341,7 @@ function generateEntitySwaggerSpec({ entity, properties, t }: { entity: EntityWi
   };
 }
 
-async function generatePostmanCollection({ request, entities, t }: { request: Request; entities: EntityWithDetailsDto[]; t: TFunction }) {
+async function generatePostmanCollection({ entities, t }: { entities: EntityWithDetailsDto[]; t: TFunction }) {
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
   const serverUrl = appConfiguration.app.url;
 

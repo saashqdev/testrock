@@ -9,10 +9,14 @@ import { getEntityPermission } from "@/lib/helpers/PermissionsHelper";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import RowsRequestUtils from "../utils/RowsRequestUtils";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
+import { headers } from "next/headers";
 
 export const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
-  const request = props.request!;
+  const headersList = await headers();
+  const request = new Request("http://localhost", {
+    headers: headersList,
+  });
   const { time, getServerTimingHeader } = await createMetrics({ request, params }, `[Rows_Export] ${params?.entity}`);
   const { t, userId, tenantId, entity } = await RowsRequestUtils.getLoader({ request, params: props.params });
   await time(verifyUserHasPermission(getEntityPermission(entity, "view"), tenantId), "verifyUserHasPermission");

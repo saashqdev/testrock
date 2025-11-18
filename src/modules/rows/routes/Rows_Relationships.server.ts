@@ -12,9 +12,15 @@ export type LoaderData = {
   entitiesData: { rowsData: GetRowsData }[];
   routes: Routes;
 };
+import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
+import { headers } from "next/headers";
+
 export const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
-  const request = props.request!; 
+  const headersList = await headers();
+  const request = new Request("http://localhost", {
+    headers: headersList,
+  }); 
   const { time, getServerTimingHeader } = await createMetrics({ request, params }, `[Rows_Relationships] ${params.entity}`);
   const { userId, tenantId, entity } = await RowsRequestUtils.getLoader({ request, params: props.params });
   await time(verifyUserHasPermission(getEntityPermission(entity, "view"), tenantId), "verifyUserHasPermission");
