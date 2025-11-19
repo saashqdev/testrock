@@ -17,9 +17,11 @@ import EntityViewLayoutBadge from "./EntityViewLayoutBadge";
 export default function EntityViewsTable({
   items,
   onClickRoute,
+  currentSearch,
 }: {
   items: EntityViewsWithTenantAndUserDto[];
   onClickRoute?: (item: EntityViewsWithTenantAndUserDto) => string;
+  currentSearch?: string;
 }) {
   const { t } = useTranslation();
   return (
@@ -64,14 +66,18 @@ export default function EntityViewsTable({
           name: "title",
           title: t("models.view.title"),
           className: "w-full",
-          value: (i) => (
-            <div className="flex flex-col">
-              <Link href={`/admin/entities/views/${i.id}`} className="hover:underline">
-                {t(i.title)}
-              </Link>
-              {/* <div className="text-xs text-muted-foreground">{i.name}</div> */}
-            </div>
-          ),
+          value: (i) => {
+            const params = new URLSearchParams(currentSearch || "");
+            params.set("edit", i.id);
+            return (
+              <div className="flex flex-col">
+                <Link href={`/admin/entities/views?${params.toString()}`} className="hover:underline">
+                  {t(i.title)}
+                </Link>
+                {/* <div className="text-xs text-muted-foreground">{i.name}</div> */}
+              </div>
+            );
+          },
         },
         {
           name: "appliesTo",

@@ -109,6 +109,7 @@ export default function EntityViewsClient({ items, pagination, filterablePropert
     >
       <EntityViewsTable
         items={items}
+        currentSearch={search}
         onClickRoute={(i) => {
           const params = new URLSearchParams(search);
           params.set("edit", i.id);
