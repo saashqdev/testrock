@@ -8,11 +8,7 @@ function generate({ entity }: { entity: EntityWithDetailsDto }): string {
 import { getServerTranslations } from "@/i18n/server";
 import NotificationService from "@/modules/notifications/services/.server/NotificationService";
 import { create } from "@/utils/api/server/RowCommentsApi";
-import { setRowCommentReaction } from "~/utils/db/entities/rowCommentReaction.db.server";
-import { getRowComment, updateRowComment } from "~/utils/db/entities/rowComments.db.server";
-import { getRowById } from "~/utils/db/entities/rows.db.server";
-import { LogWithDetails, getRowLogsById } from "~/utils/db/logs.db.server";
-import { getUser } from "~/utils/db/users.db.server";
+import { LogWithDetailsDto } from "@/db/models/logs/LogsModel";
 import { getUserRowPermission } from "@/lib/helpers/server/PermissionsService";
 import RowHelper from "@/lib/helpers/RowHelper";
 import { getTenantIdOrNull } from "@/utils/services/server/urlService";
@@ -23,7 +19,7 @@ import { db } from "@/db";
 
 export type LoaderData = {
   metatags: MetaTagsDto;
-  logs: LogWithDetails[];
+  logs: LogWithDetailsDto[];
   permissions: RowPermissionsDto;
 };
 
@@ -33,11 +29,11 @@ export const loader = async (props: IServerComponentsProps): Promise<LoaderData>
   const tenantId = await getTenantIdOrNull({ request, params });
   const userId = (await getUserInfo(request)).userId;
   const { t } = await getServerTranslations();
-  const row = await getRowById(params.id!);
+  const row = await db.rows.getRowById(params.id!);
   const permissions = await getUserRowPermission(row!, tenantId, userId);
   const data: LoaderData = {
     metatags: [{ title: t("shared.activity") + " | " + process.env.APP_NAME }],
-    logs: await getRowLogsById(params.id!),
+    logs: await db.logs.getRowLogsById(params.id!),
     permissions,
   };
   return data;
@@ -56,7 +52,7 @@ export const action = async (props: IServerComponentsProps): Promise<Response> =
   const tenantId = await getTenantIdOrNull({ request, params });
   const form = await request.formData();
   const action = form.get("action")?.toString() ?? "";
-  const user = await getUser(userId);
+  const user = await db.users.getUser(userId);
   const entity = await db.entities.getEntityByName({ tenantId, name: "${name}" });
   if (action === "comment") {
     let comment = form.get("comment")?.toString();
@@ -67,7 +63,7 @@ export const action = async (props: IServerComponentsProps): Promise<Response> =
       comment,
       userId,
     });
-    const item = await getRowById(params.id!);
+    const item = await db.rows.getRowById(params.id!);
     if (item!.createdByUser) {
       await NotificationService.send({
         channel: "my-rows",
@@ -89,7 +85,7 @@ export const action = async (props: IServerComponentsProps): Promise<Response> =
     if (!rowCommentId || !reaction) {
       return Response.json({ error: t("shared.invalidForm") }, { status: 400 });
     }
-    await getRowComment(rowCommentId);
+    await db.rowComments.getRowComment(rowCommentId);
     await db.rowCommentReaction.setRowCommentReaction({
       createdByUserId: userId,
       rowCommentId,
@@ -101,7 +97,7 @@ export const action = async (props: IServerComponentsProps): Promise<Response> =
     if (!rowCommentId) {
       return Response.json({ error: t("shared.invalidForm") }, { status: 400 });
     }
-    await updateRowComment(rowCommentId, { isDeleted: true });
+    await db.rowComments.updateRowComment(rowCommentId, { isDeleted: true });
     return Response.json({ deletedComment: rowCommentId });
   } else {
     return Response.json({ error: t("shared.invalidForm") }, { status: 400 });

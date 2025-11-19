@@ -103,7 +103,7 @@ export default function ArticleClientComponent({
           onClose={() => {
             router.replace(".");
           }}
-          className="sm:max-w-lg"
+          size="2xl"
           overflowYScroll={true}
         >
           <div className="-mx-1 -mt-3">

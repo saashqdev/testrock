@@ -231,7 +231,7 @@ async function getRouteFiles({ type, entity, moduleDirectory }: CodeGeneratorOpt
     },
     {
       type: "route",
-      file: `$id.tsx`,
+      file: `[id].tsx`,
       content: CodeTemplateRoutesEditComponent.generate({ entity, moduleLocation }),
       description: "Route: Orchestrates Edit API and View",
     },

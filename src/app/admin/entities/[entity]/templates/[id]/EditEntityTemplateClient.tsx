@@ -22,7 +22,7 @@ export default function EditEntityTemplateClient({ entity, item, entitySlug }: E
   }
   
   return (
-    <SlideOverWideEmpty title="Edit Entity Template" open={true} className="sm:max-w-lg" onClose={close}>
+    <SlideOverWideEmpty title="Edit Entity Template" open={true} size="2xl" onClose={close}>
       <EntityTemplateForm entity={entity} item={item} />
     </SlideOverWideEmpty>
   );

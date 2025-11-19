@@ -38,7 +38,7 @@ export default async function CodeGeneratorPage(props: IServerComponentsProps) {
               return (
                 <Link
                   key={item.name}
-                  href={`files/${item.name}`}
+                  href={`/admin/entities/code-generator/files/${item.name}`}
                   className="border-border focus:bg-background hover:border-border relative flex w-full flex-col justify-center space-y-2 rounded-lg border-2 border-dashed p-3 text-center focus:border-2 focus:border-gray-600 focus:outline-hidden"
                 >
                   <div className="text-foreground block text-sm font-medium">{t(item.titlePlural)}</div>

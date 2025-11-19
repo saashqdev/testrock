@@ -48,13 +48,13 @@ export default function RolesClient({ data, children }: RolesClientProps) {
       {/* <InputSearchWithURL onNewRoute={getUserHasPermission(adminData, "admin.roles.create") ? "new" : undefined} /> */}
       <RolesTable items={data.items} canUpdate={getUserHasPermission(adminData, "admin.roles.update")} />
 
-      <SlideOverWideEmpty
-        title={params.id ? t("shared.edit") : t("shared.new")}
-        open={isNestedRoute}
+            <SlideOverWideEmpty
+        title={params.id ? "Edit Role" : "New Role"}
+        open={!!params.id || params.new}
         onClose={() => {
-          router.push("/admin/accounts/roles-and-permissions/roles");
+          router.replace(".");
         }}
-        className="sm:max-w-lg"
+        size="2xl"
         overflowYScroll={true}
       >
         <div className="-mx-1 -mt-3">
