@@ -69,34 +69,63 @@ async function getRedisClient() {
 }
 
 async function getCache() {
-  if (cacheAdapter) return cacheAdapter;
-  
   const cacheType = getCacheConfig();
   if (cacheType !== "redis") {
     return null;
   }
 
   const redis = await getRedisClient();
-  const { redisCacheAdapter } = await import("cachified-redis-adapter");
-  cacheAdapter = redisCacheAdapter(redis);
+  if (!redis) {
+    return null;
+  }
+
+  // Check if redis client is still connected
+  if (!redis.isOpen) {
+    console.warn("Redis client is closed, resetting connection");
+    redisClient = null;
+    cacheAdapter = null;
+    return null;
+  }
+
+  // Only create cache adapter if we don't have one or if it's stale
+  if (!cacheAdapter) {
+    const { redisCacheAdapter } = await import("cachified-redis-adapter");
+    cacheAdapter = redisCacheAdapter(redis);
+  }
+  
   return cacheAdapter;
 }
 
 export const cache = {
   get: async (key: string) => {
-    const cacheInstance = await getCache();
-    if (!cacheInstance) return undefined;
-    return cacheInstance.get(key);
+    try {
+      const cacheInstance = await getCache();
+      if (!cacheInstance) return undefined;
+      return await cacheInstance.get(key);
+    } catch (err) {
+      console.error("Cache get error:", err);
+      return undefined;
+    }
   },
   set: async (key: string, value: any) => {
-    const cacheInstance = await getCache();
-    if (!cacheInstance) return;
-    return cacheInstance.set(key, value);
+    try {
+      const cacheInstance = await getCache();
+      if (!cacheInstance) return;
+      return await cacheInstance.set(key, value);
+    } catch (err) {
+      console.error("Cache set error:", err);
+      return;
+    }
   },
   delete: async (key: string) => {
-    const cacheInstance = await getCache();
-    if (!cacheInstance) return;
-    return cacheInstance.delete(key);
+    try {
+      const cacheInstance = await getCache();
+      if (!cacheInstance) return;
+      return await cacheInstance.delete(key);
+    } catch (err) {
+      console.error("Cache delete error:", err);
+      return;
+    }
   },
 };
 
@@ -111,21 +140,33 @@ export async function cachified<Value>(
     return options.getFreshValue(options);
   }
   
-  const cacheInstance = await getCache();
-  
-  // If cache instance is null, fallback to getting fresh value
-  if (!cacheInstance) {
+  try {
+    const cacheInstance = await getCache();
+    
+    // If cache instance is null, fallback to getting fresh value
+    if (!cacheInstance) {
+      // @ts-ignore
+      return options.getFreshValue(options);
+    }
+    
+    return await originalCachified(
+      {
+        ...options,
+        cache: cacheInstance,
+      },
+      CACHE_LOGGING_ENABLED ? verboseReporter() : undefined
+    );
+  } catch (err: any) {
+    if (err.message?.includes("closed")) {
+      console.warn("Redis client closed, resetting connection and fetching fresh value");
+      redisClient = null;
+      cacheAdapter = null;
+    } else {
+      console.error("Cache error, falling back to fresh value:", err);
+    }
     // @ts-ignore
     return options.getFreshValue(options);
   }
-  
-  return originalCachified(
-    {
-      ...options,
-      cache: cacheInstance,
-    },
-    CACHE_LOGGING_ENABLED ? verboseReporter() : undefined
-  );
 }
 
 export async function clearCacheKey(key: string): Promise<void> {
@@ -149,34 +190,41 @@ export async function getCachedValues() {
   if (!cacheType) {
     return [];
   }
-  const redis = await getRedisClient();
-  if (!redis) {
+  try {
+    const redis = await getRedisClient();
+    if (!redis || !redis.isOpen) {
+      return [];
+    }
+    const allKeys = await redis.keys("*");
+    const cachedValues: CachedValue[] = [];
+    for (const key of allKeys) {
+      if (cachedValues.find((x) => x.key === key)) {
+        continue;
+      }
+      const value = await redis.get(key);
+      if (!value) {
+        continue;
+      }
+      const sizeBytes = new TextEncoder().encode(JSON.stringify(value)).length;
+      const sizeMb = sizeBytes / 1024 / 1024;
+      // const createdTime = value.metadata.createdTime;
+      // const createdAt = new Date(createdTime);
+      // const cachedValue = { key, value: value.value, sizeMb, createdAt, createdTime };
+      cachedValues.push({
+        key,
+        value,
+        sizeMb,
+        createdAt: new Date(),
+        createdTime: Date.now(),
+      });
+    }
+    return cachedValues;
+  } catch (err) {
+    console.error("Error getting cached values:", err);
+    redisClient = null;
+    cacheAdapter = null;
     return [];
   }
-  const allKeys = await redis.keys("*");
-  const cachedValues: CachedValue[] = [];
-  for (const key of allKeys) {
-    if (cachedValues.find((x) => x.key === key)) {
-      continue;
-    }
-    const value = await redis.get(key);
-    if (!value) {
-      continue;
-    }
-    const sizeBytes = new TextEncoder().encode(JSON.stringify(value)).length;
-    const sizeMb = sizeBytes / 1024 / 1024;
-    // const createdTime = value.metadata.createdTime;
-    // const createdAt = new Date(createdTime);
-    // const cachedValue = { key, value: value.value, sizeMb, createdAt, createdTime };
-    cachedValues.push({
-      key,
-      value,
-      sizeMb,
-      createdAt: new Date(),
-      createdTime: Date.now(),
-    });
-  }
-  return cachedValues;
 }
 
 export async function clearAllCache() {
@@ -184,9 +232,15 @@ export async function clearAllCache() {
   if (!cacheType) {
     return;
   }
-  const redis = await getRedisClient();
-  if (!redis) {
-    return;
+  try {
+    const redis = await getRedisClient();
+    if (!redis || !redis.isOpen) {
+      return;
+    }
+    await redis.flushAll();
+  } catch (err) {
+    console.error("Error clearing cache:", err);
+    redisClient = null;
+    cacheAdapter = null;
   }
-  await redis.flushAll();
 }
