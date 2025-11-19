@@ -56,7 +56,7 @@ export default async function ({ children }: { children: React.ReactNode }) {
         {
           name: t("settings.admin.transactionalEmails.title"),
           // description: t("settings.admin.transactionalEmails.description"),
-          href: "/admin/settings/emails",
+          href: "/admin/settings/transactional-emails",
           icon: <EmailIcon className="h-5 w-5 flex-shrink-0 text-muted-foreground" aria-hidden="true" />,
           iconSelected: <EmailIcon className="h-5 w-5 flex-shrink-0 text-foreground" aria-hidden="true" />,
         },

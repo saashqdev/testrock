@@ -16,7 +16,6 @@ import RefreshIcon from "@/components/ui/icons/RefreshIcon";
 import InputSearch from "@/components/ui/input/InputSearch";
 import ShowPayloadModalButton from "@/components/ui/json/ShowPayloadModalButton";
 import WarningBanner from "@/components/ui/banners/WarningBanner";
-import { defaultAppConfiguration } from "@/modules/core/data/defaultAppConfiguration";
 
 export default function ({ data }: { data: CacheLoaderData }) {
   const { t } = useTranslation();
@@ -115,7 +114,7 @@ export default function ({ data }: { data: CacheLoaderData }) {
         </div>
 
         <div className="flex-grow space-y-2 overflow-auto p-1">
-          {!defaultAppConfiguration.app.cache ? (
+          {!data.cacheEnabled ? (
             <WarningBanner title={t("shared.warning")}>
               Cache is disabled. Enable it on the file: <code>src/modules/core/data/defaultAppConfiguration.ts</code>
             </WarningBanner>

@@ -29,21 +29,11 @@ export default function InputCheckboxWithDescription({
   disabled = false,
   autoFocus,
 }: Props) {
-  // const [checked, setChecked] = useState(value ?? false);
-
-  // useEffect(() => {
-  //   if (value !== checked) {
-  //     setChecked(value ?? false);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [value]);
-
-  // useEffect(() => {
-  //   if (onChange && value !== checked) {
-  //     onChange(checked);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [checked]);
+  // Determine if this is a controlled component at mount time and stick with it
+  const [isControlled] = useState(() => value !== undefined);
+  
+  // For controlled components, ensure value is always defined
+  const checkedValue = isControlled ? (value ?? false) : undefined;
 
   return (
     <div className={clsx("relative flex items-start pb-4 pt-2", className)}>
@@ -65,7 +55,7 @@ export default function InputCheckboxWithDescription({
           aria-describedby={name + "-description"}
           name={name}
           className="peer h-4 w-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
-          checked={value ?? defaultValue}
+          {...(isControlled ? { checked: checkedValue } : { defaultChecked: defaultValue })}
           onChange={onChange ? (e) => onChange(e.target.checked) : undefined}
           disabled={disabled}
           autoFocus={autoFocus}

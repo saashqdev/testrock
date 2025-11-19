@@ -121,29 +121,29 @@ export default function TransactionalEmailsClient({ initialData }: Transactional
   return (
     <EditPageLayout
       title={
-        <BackButtonWithTitle href="/admin/settings">
+        <div className="flex w-full items-center justify-between gap-4">
+          <BackButtonWithTitle href="/admin/settings">
+            <div className="flex items-center gap-2">
+              <div>{t("settings.admin.transactionalEmails.title")}</div>
+              {initialData.appConfiguration.email.provider ? (
+                <Badge variant="secondary" className="border border-blue-300 bg-blue-50 text-blue-800">
+                  {initialData.appConfiguration.email.provider}
+                </Badge>
+              ) : (
+                <Badge variant="destructive">No provider configured</Badge>
+              )}
+            </div>
+          </BackButtonWithTitle>
           <div className="flex items-center gap-2">
-            <div>{t("settings.admin.transactionalEmails.title")}</div>
-            {initialData.appConfiguration.email.provider ? (
-              <Badge variant="secondary" className="border border-blue-300 bg-blue-50 text-blue-800">
-                {initialData.appConfiguration.email.provider}
-              </Badge>
-            ) : (
-              <Badge variant="destructive">No provider configured</Badge>
+            <Button variant="ghost" onClick={() => setOpenSettings(true)}>
+              <GearIcon className="h-4 w-4" />
+            </Button>
+            {initialData.appConfiguration.email.provider === "postmark" && (
+              <ButtonPrimary disabled={isSubmitting || isPending} type="button" onClick={createPostmarkEmailTemplates}>
+                Create Postmark templates
+              </ButtonPrimary>
             )}
           </div>
-        </BackButtonWithTitle>
-      }
-      buttons={
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" onClick={() => setOpenSettings(true)}>
-            <GearIcon className="h-4 w-4" />
-          </Button>
-          {initialData.appConfiguration.email.provider === "postmark" && (
-            <ButtonPrimary disabled={isSubmitting || isPending} type="button" onClick={createPostmarkEmailTemplates}>
-              Create Postmark templates
-            </ButtonPrimary>
-          )}
         </div>
       }
     >

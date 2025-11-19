@@ -5,6 +5,7 @@ import Component from "./component";
 import { CachedValue, getCachedValues } from "@/lib/services/cache.server";
 import { UserDto } from "@/db/models";
 import { db } from "@/db";
+import { defaultAppConfiguration } from "@/modules/core/data/defaultAppConfiguration";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
@@ -17,6 +18,7 @@ export type CacheLoaderData = {
   cachedValues: CachedValue[];
   allTenants: { id: string; name: string; slug: string }[];
   allUsers: UserDto[];
+  cacheEnabled: boolean;
 };
 const loader = async () => {
   await verifyUserHasPermission("admin.settings.general.update");
@@ -30,6 +32,7 @@ const loader = async () => {
     cachedValues,
     allTenants,
     allUsers,
+    cacheEnabled: !!defaultAppConfiguration.app.cache,
   };
   return data;
 };
