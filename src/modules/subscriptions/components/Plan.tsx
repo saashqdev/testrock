@@ -458,6 +458,12 @@ interface SubscribeOrBuyButtonProps {
 }
 function SubscribeOrBuyButton({ isPreview, model, price, badge, disabled, loading, onClick, alreadyOwned, isUpgrade, isDowngrade }: SubscribeOrBuyButtonProps) {
   const { t } = useTranslation();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <button
       type="button"
@@ -465,7 +471,7 @@ function SubscribeOrBuyButton({ isPreview, model, price, badge, disabled, loadin
       onClick={onClick}
       className={clsx(
         "truncate",
-        loading && "base-spinner cursor-not-allowed",
+        mounted && loading && "base-spinner cursor-not-allowed",
         badge && !disabled
           ? "group flex w-full items-center justify-center space-x-2 rounded-md border border-primary-foreground bg-primary px-8 py-2 text-sm font-medium text-primary-foreground"
           : "group flex w-full items-center justify-center space-x-2 rounded-md border border-foreground bg-background px-8 py-2 text-sm font-medium text-foreground",
@@ -473,6 +479,7 @@ function SubscribeOrBuyButton({ isPreview, model, price, badge, disabled, loadin
         !badge && !disabled && "hover:border-foreground hover:bg-secondary",
         disabled && "cursor-not-allowed opacity-70"
       )}
+      suppressHydrationWarning
     >
       {alreadyOwned ? (
         <>{model === PricingModel.ONCE ? t("pricing.buyAgain") : t("pricing.alreadyOwned")}</>

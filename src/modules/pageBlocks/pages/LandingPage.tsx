@@ -22,9 +22,7 @@ export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlo
         textMd: "CatStack: Next.js + Prisma + Postgres",
         href: "https://catstack.dev/stack/nextjs/prisma/postgres",
         cta: [
-          { text: "Next.js", href: "https://nextjs.catstack.dev", isPrimary: true },
-          { text: "Remix", href: "https://remix.catstack.dev", isPrimary: false },
-          { text: "SvelteKit", href: "https://sveltekit.catstack.dev", isPrimary: false },
+          { text: "Next.js", href: "https://nextjs.com", isPrimary: true },
         ],
       },
     },
