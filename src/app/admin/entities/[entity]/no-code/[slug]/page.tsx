@@ -30,10 +30,21 @@ export default async function (props: IServerComponentsProps) {
   const data = await response.json() as LoaderData;
   
   // Build appOrAdminData structure for permission checking
+  // Only user, isSuperAdmin, and permissions are actually used by getUserHasPermission
   const appOrAdminData = {
     user: data.user,
     isSuperAdmin: data.isSuperAdmin,
     permissions: data.permissions,
+    myTenants: [],
+    currentTenant: null,
+    allRoles: [],
+    roles: [],
+    entities: [],
+    entityGroups: [],
+    isSuperUser: false,
+    myGroups: [],
+    onboardingSession: null,
+    tenantTypes: [],
   };
   
   return (
