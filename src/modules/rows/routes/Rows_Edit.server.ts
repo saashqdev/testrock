@@ -32,7 +32,8 @@ export type LoaderData = {
 export const loader = async (props: IServerComponentsProps): Promise<LoaderData> => {
   const params = (await props.params) || {};
   const headersList = await headers();
-  const request = new Request("http://localhost", {
+  const url = headersList.get("x-url") || headersList.get("referer") || "http://localhost";
+  const request = new Request(url, {
     headers: headersList,
   });
   const { time, getServerTimingHeader } = await createMetrics({ request, params }, `[Rows_Edit] ${params?.entity}`);
@@ -73,7 +74,9 @@ export const action = async (formData: FormData, props?: IServerComponentsProps)
   "use server";
 
   // Create a proper request object for compatibility with existing utilities
-  const request = new Request("http://localhost", {
+  const headersList = await headers();
+  const url = headersList.get("x-url") || headersList.get("referer") || "http://localhost";
+  const request = new Request(url, {
     method: "POST",
   });
 

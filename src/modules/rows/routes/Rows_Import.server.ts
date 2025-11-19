@@ -19,7 +19,8 @@ export type LoaderData = {
 export const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
   const headersList = await headers();
-  const request = new Request("http://localhost", {
+  const url = headersList.get("x-url") || headersList.get("referer") || "http://localhost";
+  const request = new Request(url, {
     headers: headersList,
   });    
   const { t, tenantId, entity } = await RowsRequestUtils.getLoader({ request, params: props.params });
@@ -47,7 +48,8 @@ export type ActionData = {
 export const action = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
   const headersList = await headers();
-  const request = new Request("http://localhost", {
+  const url = headersList.get("x-url") || headersList.get("referer") || "http://localhost";
+  const request = new Request(url, {
     headers: headersList,
   });    
   const { t, userId, tenantId, entity, form } = await RowsRequestUtils.getAction({ request, params: props.params });

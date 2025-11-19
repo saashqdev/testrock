@@ -34,7 +34,8 @@ export type LoaderData = {
 export const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
   const headersList = await headers();
-  const request = new Request("http://localhost", {
+  const url = headersList.get("x-url") || headersList.get("referer") || "http://localhost";
+  const request = new Request(url, {
     headers: headersList,
   });    
   const { time, getServerTimingHeader } = await createMetrics({ request, params }, `[Rows_Overview] ${params.entity}`);
@@ -79,7 +80,8 @@ export type ActionData = {
 export const action = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
   const headersList = await headers();
-  const request = new Request("http://localhost", {
+  const url = headersList.get("x-url") || headersList.get("referer") || "http://localhost";
+  const request = new Request(url, {
     headers: headersList,
   });
   const { time, getServerTimingHeader } = await createMetrics({ request, params }, `[Rows_Overview] ${params.entity}`);
