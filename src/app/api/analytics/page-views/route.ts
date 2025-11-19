@@ -49,14 +49,29 @@ export async function POST(request: NextRequest) {
 
     let userAnalyticsId = analyticsSessionInfo?.userAnalyticsId ?? jsonBody.analytics.userAnalyticsId;
     if (!userAnalyticsId) {
-      return NextResponse.json({ error: "Invalid Analytics Cookie" }, { status: 401 });
+      // Generate a new analytics ID if none exists
+      const { randomBytes } = await import("crypto");
+      userAnalyticsId = randomBytes(16).toString("hex");
+    }
+
+    // Set the analytics cookie if it doesn't exist
+    if (!analyticsSessionInfo?.userAnalyticsId) {
+      const { cookies } = await import("next/headers");
+      const cookieStore = await cookies();
+      cookieStore.set("therock_analytics", userAnalyticsId, {
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+        maxAge: 60 * 60 * 24 * 30, // 30 days
+        httpOnly: true,
+      });
     }
 
     const settings = await prisma.analyticsSettings.findFirst({});
     const ignoredPages = settings?.ignorePages?.split(",") ?? [];
 
     if (ignoredPages.find((f) => f !== "" && jsonBody.url.includes(f))) {
-      return NextResponse.json({ error: "Ignored URL" }, { status: 204 });
+      return new NextResponse(null, { status: 204 });
     }
     const uniqueVisitor = await AnalyticsService.getOrCreateUniqueVisitor({
       cookie: userAnalyticsId,
@@ -80,6 +95,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true }, { status: 201 });
   } catch (e: any) {
+    console.error("Analytics page-views error:", e.message, e.stack);
     return NextResponse.json({ error: e.message }, { status: 400 });
   }
 }

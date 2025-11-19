@@ -8,8 +8,8 @@ import { prisma } from "@/db/config/prisma/database";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import RowFiltersHelper from "@/lib/helpers/RowFiltersHelper";
 import { getFiltersFromCurrentUrl, getPaginationFromCurrentUrl } from "@/lib/helpers/RowPaginationHelper";
-import { db } from "@/db";
 import AnalyticsEventsClient from "./component";
+import { db } from "@/db";
 
 type LoaderData = {
   items: (AnalyticsEvent & { uniqueVisitor: AnalyticsUniqueVisitor })[];

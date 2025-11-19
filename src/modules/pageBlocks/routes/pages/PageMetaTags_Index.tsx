@@ -56,13 +56,20 @@ export const action = async (props: IServerComponentsProps) => {
       return JSON.parse(f.toString());
     });
     try {
-      if (page?.id) {
-        for (const { content, order } of metaTags) {
-          await db.pageMetaTags.updateMetaTag(page.id, { value: content, order });
-        }
+      // Delete existing meta tags and recreate them
+      await db.pageMetaTags.deleteMetaTags(page);
+      
+      // Create all meta tags
+      for (const { name, content, order } of metaTags) {
+        await db.pageMetaTags.createMetaTag({ 
+          name, 
+          value: content, 
+          order, 
+          pageId: page?.id || null 
+        });
       }
+      
       return Response.json({ success: "Meta tags updated successfully", metaTags });
-      // return redirect(params.tenant ? `/app/${params.tenant}/settings/pages` : `/admin/pages`);
     } catch (e: any) {
       return Response.json({ error: e.message }, { status: 400 });
     }

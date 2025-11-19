@@ -4,6 +4,7 @@ import { UserWithoutPasswordDto } from "@/db/models";
 import { MetaTagsDto } from "@/lib/dtos/MetaTagsDto";
 import type { UserSession } from "@/lib/services/session.server";
 import { AppConfigurationDto } from "@/db/models/core/AppConfigurationModel";
+import { AnalyticsInfoDto } from "@/lib/dtos/marketing/AnalyticsInfoDto";
 import { createContext, useContext } from "react";
 
 export type RootDataDto = {
@@ -21,6 +22,7 @@ export type RootDataDto = {
   appConfiguration: AppConfigurationDto;
   csrf?: string;
   featureFlags: string[];
+  analytics?: AnalyticsInfoDto;
 };
 
 export const RootDataContext = createContext<RootDataDto | null>(null);

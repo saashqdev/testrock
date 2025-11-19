@@ -27,12 +27,15 @@ export async function createCookieSessionStorage() {
 }
 
 export async function getAnalyticsSession(request: Request) {
-  return sessionStorage.getSession(request.headers.get("Cookie"));
+  // Parse cookies from request header
+  const cookieHeader = request.headers.get("Cookie") || "";
+  const cookieStore = await cookies();
+  return cookieStore;
 }
 
 export async function getAnalyticsInfo(request: Request): Promise<AnalyticsSession> {
-  const session = await getAnalyticsSession(request);
-  const userAnalyticsId = session.get("userAnalyticsId") ?? null;
+  const cookieStore = await cookies();
+  const userAnalyticsId = cookieStore.get("therock_analytics")?.value ?? null;
   return {
     userAnalyticsId,
   };

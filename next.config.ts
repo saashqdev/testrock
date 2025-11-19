@@ -98,6 +98,7 @@ const nextConfig: NextConfig = {
     'bcryptjs',
     'handlebars',
     'nodemailer',
+    'postmark',
   ],
 };
 

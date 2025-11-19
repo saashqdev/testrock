@@ -29,9 +29,18 @@ const MetricCard = ({ label, value }: { label: string; value: string | number })
 
 const Metrics = ({ authenticated, overview, rootUrl }: { authenticated: Boolean; overview: AnalyticsOverviewDto; rootUrl?: string }) => {
   const { t } = useTranslation();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Render without links initially to match SSR, then hydrate with links
+  const shouldShowLinks = isMounted && authenticated;
+
   return (
     <dl className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-      {authenticated ? (
+      {shouldShowLinks ? (
         <>
           <Link href={`${rootUrl ?? ""}visitors`} className="group">
             <MetricCard label={t("analytics.uniqueVisitors")} value={overview.uniqueVisitors} />

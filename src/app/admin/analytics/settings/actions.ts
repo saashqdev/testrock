@@ -1,8 +1,11 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/db/config/prisma/database";
+import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 
 export async function deleteAllAnalytics() {
+  await verifyUserHasPermission("admin.analytics.view");
   await prisma.analyticsUniqueVisitor.deleteMany({});
   await prisma.analyticsPageView.deleteMany({});
   await prisma.analyticsEvent.deleteMany({});
@@ -10,6 +13,8 @@ export async function deleteAllAnalytics() {
 }
 
 export async function updateSettings(formData: FormData) {
+  await verifyUserHasPermission("admin.analytics.view");
+  
   let settings = await prisma.analyticsSettings.findFirst({});
   if (!settings) {
     settings = await prisma.analyticsSettings.create({ 
@@ -20,8 +25,8 @@ export async function updateSettings(formData: FormData) {
   const action = formData.get("action");
   
   if (action === "set-settings") {
-    const isPublicStr = formData.get("public");
-    const isPublic = isPublicStr === "true" || isPublicStr === "on";
+    const isPublicStr = formData.get("public")?.toString() ?? "false";
+    const isPublic = isPublicStr === "true";
     const ignorePage = formData.get("ignore-page")?.toString() ?? "";
     let ignorePages = settings.ignorePages.split(",");
     if (ignorePage !== "" && !ignorePages.includes(ignorePage)) {
@@ -34,6 +39,7 @@ export async function updateSettings(formData: FormData) {
         ignorePages: ignorePages.join(","),
       },
     });
+    revalidatePath("/admin/analytics/settings");
     return { setSettingsSuccess: true };
   }
   

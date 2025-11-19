@@ -27,7 +27,7 @@ export default function PageMetaTagsRoute_Index({ data }: Props) {
   const appOrAdminData = useAppOrAdminData();
 
   const [metaTags, setMetaTags] = useState<{ name: string; content: string; order: number }[]>(data.metaTags);
-  const [canUpdate] = useState(getUserHasPermission(appOrAdminData, "admin.settings.seo.update"));
+  const [canUpdate] = useState(getUserHasPermission(appOrAdminData, "admin.pages.update"));
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Handle form submission with Next.js patterns
@@ -35,7 +35,7 @@ export default function PageMetaTagsRoute_Index({ data }: Props) {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch(window.location.pathname, {
+      const response = await fetch(window.location.pathname + '/api', {
         method: 'POST',
         body: formData,
       });

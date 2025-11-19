@@ -3,11 +3,13 @@ import { getServerTranslations } from "@/i18n/server";
 import { AnalyticsSettings } from "@prisma/client";
 import { prisma } from "@/db/config/prisma/database";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
+import { getBaseURL } from "@/utils/url.server";
 import AdminAnalyticsSettingsClient from "./component";
 
 type LoaderData = {
   settings: AnalyticsSettings;
   isLocalDev: boolean;
+  serverUrl: string;
 };
 
 export async function generateMetadata() {
@@ -25,9 +27,11 @@ async function getSettingsData(): Promise<LoaderData> {
       data: { public: false, ignorePages: "/admin/analytics", onlyPages: "" } 
     });
   }
+  const serverUrl = await getBaseURL();
   const data: LoaderData = {
     settings,
     isLocalDev: process.env.NODE_ENV === "development",
+    serverUrl,
   };
   return data;
 }

@@ -11,13 +11,13 @@ import InputText from "@/components/ui/input/InputText";
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
 import SettingSection from "@/components/ui/sections/SettingSection";
-import { useRootData } from "@/lib/state/useRootData";
 import Tabs from "@/components/ui/tabs/Tabs";
 import { deleteAllAnalytics, updateSettings } from "./actions";
 
 type LoaderData = {
   settings: AnalyticsSettings;
   isLocalDev: boolean;
+  serverUrl: string;
 };
 
 type ActionData = {
@@ -26,7 +26,7 @@ type ActionData = {
   setSettingsSuccess?: boolean;
 };
 
-export default function AdminAnalyticsSettingsClient({ settings, isLocalDev }: LoaderData) {
+export default function AdminAnalyticsSettingsClient({ settings, isLocalDev, serverUrl }: LoaderData) {
   const { t } = useTranslation();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -40,10 +40,8 @@ export default function AdminAnalyticsSettingsClient({ settings, isLocalDev }: L
   const [isPublic, setIsPublic] = useState(settings.public);
 
   useEffect(() => {
-    if (!isPending) {
-      formRef.current?.reset();
-    }
-  }, [isPending]);
+    setIsPublic(settings.public);
+  }, [settings.public]);
 
   function removeIgnoredPage(item: string) {
     startTransition(async () => {
@@ -77,7 +75,6 @@ export default function AdminAnalyticsSettingsClient({ settings, isLocalDev }: L
     });
   }
 
-  const rootData = useRootData();
   const textToType = `delete all analytics data`;
   return (
     <>
@@ -99,15 +96,16 @@ export default function AdminAnalyticsSettingsClient({ settings, isLocalDev }: L
           <SettingSection title="Preferences" description="Set your analytics preferences.">
             <form ref={formRef} onSubmit={handleSubmit}>
               <input hidden readOnly name="action" value="set-settings" />
+              <input hidden readOnly name="public" value={isPublic.toString()} />
               <div className="space-y-2">
                 <InputCheckboxWithDescription
-                  name="public"
+                  name="public-checkbox"
                   title={t("shared.public")}
                   description={
                     <div className="text-muted-foreground">
                       Share your stats on a public URL at{" "}
-                      <a className="underline" target="_blank" rel="noreferrer" href={rootData.serverUrl + "/analytics"}>
-                        {rootData.serverUrl + "/analytics"}
+                      <a className="underline" target="_blank" rel="noreferrer" href={serverUrl + "/analytics"}>
+                        {serverUrl + "/analytics"}
                       </a>
                     </div>
                   }
