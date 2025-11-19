@@ -104,7 +104,7 @@ export default function ApiKeysTable({ entities, items, withTenant, canCreate }:
 
   return (
     <div className="space-y-2">
-      <InputSearch value={searchInput} onChange={setSearchInput} onNewRoute={canCreate ? "new" : ""} />
+      <InputSearch value={searchInput} onChange={setSearchInput} onNewRoute={canCreate ? "/admin/api/keys/new" : ""} />
       {(() => {
         if (filteredItems().length === 0) {
           return (

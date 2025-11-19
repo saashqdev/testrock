@@ -1,7 +1,6 @@
-import Link from "next/link";
 import WarningBanner from "@/components/ui/banners/WarningBanner";
 import IndexPageLayout from "@/components/ui/layouts/IndexPageLayout";
-import TableSimple from "@/components/ui/tables/TableSimple";
+import CrudExamplesTable from "./CrudExamplesTable";
 
 type CrudExample = {
   title: string;
@@ -100,52 +99,7 @@ export default function CrudPage() {
   return (
     <IndexPageLayout title="CRUD examples">
       <WarningBanner title="Warning" text="Data is not saved in the database, created, updated or deleted data is not persisted. This is just for UI and UX." />
-      {examples.map((example, idx) => {
-        return (
-          <div key={idx} className="space-y-2">
-            <h2 className="text-foreground font-medium">{example.title}</h2>
-            <TableSimple
-              items={example.files}
-              headers={[
-                {
-                  name: "type",
-                  title: "Type",
-                  value: (item) => item.type,
-                },
-                {
-                  name: "name",
-                  title: "Name",
-                  value: (item) => (
-                    <div>
-                      {item.href ? (
-                        <Link className="font-medium underline" href={item.href}>
-                          {item.name}
-                        </Link>
-                      ) : (
-                        item.name
-                      )}
-                    </div>
-                  ),
-                },
-                {
-                  name: "description",
-                  title: "Description",
-                  value: (item) => item.description,
-                },
-                {
-                  name: "path",
-                  title: "Path",
-                  value: (item) => (
-                    <div className="prose">
-                      <code className="select-all">{item.path}</code>
-                    </div>
-                  ),
-                },
-              ]}
-            />
-          </div>
-        );
-      })}
+      <CrudExamplesTable examples={examples} />
     </IndexPageLayout>
   );
 }

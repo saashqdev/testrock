@@ -6,6 +6,10 @@ export type ChatMessageDto = {
     | { loading: boolean }
     | {
         file: { file: string; name: string; type: string };
+      }
+    | {
+        text: string;
+        file: { file: string; name: string; type: string };
       };
   createdAt: Date;
 };

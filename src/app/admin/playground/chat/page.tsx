@@ -8,11 +8,6 @@ import { ChatMessageDto } from "@/modules/chat/dtos/ChatMessageDto";
 const defaultChat: ChatDto = {
   messages: [
     {
-      position: "right",
-      createdAt: new Date(),
-      data: { text: "Text in Right" },
-    },
-    {
       position: "left",
       createdAt: new Date(),
       data: { text: "Text in Left" },
@@ -21,6 +16,7 @@ const defaultChat: ChatDto = {
       position: "right",
       createdAt: new Date(),
       data: {
+        text: "Text in Right",
         file: {
           file: "https://pdfobject.com/pdf/sample.pdf",
           name: "sample.pdf",

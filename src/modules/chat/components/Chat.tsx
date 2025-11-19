@@ -71,11 +71,24 @@ export default function Chat({
             <div
               key={idx}
               // ref={idx === messages.length - 1 ? messagesEndRef : undefined}
-              className={clsx("flex", message.position === "right" ? "justify-end" : "justify-start")}
+              className={clsx("flex flex-col space-y-1", message.position === "right" ? "items-end" : "items-start")}
             >
+              {"file" in message.data && "text" in message.data && (
+                <div
+                  className={clsx(
+                    "text-foreground min-w-[200px] max-w-lg rounded-lg border px-2 py-1.5 shadow-xs",
+                    message.position === "right" ? "border-border bg-background" : "border-border bg-background"
+                  )}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="prose dark:prose-dark flex-1 sm:text-sm" dangerouslySetInnerHTML={{ __html: marked(message.data.text) }} />
+                    <div className="text-muted-foreground shrink-0 text-xs">{formatTime(new Date(message.createdAt))}</div>
+                  </div>
+                </div>
+              )}
               <div
                 className={clsx(
-                  "text-foreground group relative max-w-lg rounded-lg border px-2 py-1.5 shadow-xs",
+                  "text-foreground group min-w-[200px] max-w-lg rounded-lg border px-2 py-1.5 shadow-xs",
                   message.position === "right" ? "border-border bg-background" : "border-border bg-background"
                 )}
               >
@@ -87,12 +100,17 @@ export default function Chat({
                       <div className="sm:text-sm">{message.data.error}</div>
                     </div>
                   )}
-                  {"text" in message.data && (
-                    <div className="prose dark:prose-dark pr-12 sm:text-sm" dangerouslySetInnerHTML={{ __html: marked(message.data.text) }} />
+                  {"text" in message.data && !("file" in message.data) && (
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="prose dark:prose-dark flex-1 sm:text-sm" dangerouslySetInnerHTML={{ __html: marked(message.data.text) }} />
+                      <div className="text-muted-foreground shrink-0 text-xs">{formatTime(new Date(message.createdAt))}</div>
+                    </div>
                   )}
-                  {"file" in message.data && <FileBubble file={message.data.file} />}
-
-                  <div className="text-muted-foreground absolute bottom-1 right-2 text-xs">{formatTime(new Date(message.createdAt))}</div>
+                  {"file" in message.data && (
+                    <div>
+                      <FileBubble file={message.data.file} />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

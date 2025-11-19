@@ -65,7 +65,6 @@ export default function WorkflowRunDropdown({ workflow }: { workflow: WorkflowDt
                     ) : (
                       <Link
                         href={option.value}
-                        type="button"
                         onClick={(e) => {
                           close();
                         }}

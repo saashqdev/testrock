@@ -2,7 +2,7 @@
 
 import { Tenant } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 import ApiKeyCreatedModal from "@/components/core/apiKeys/ApiKeyCreatedModal";
 import ApiKeyForm from "@/components/core/apiKeys/ApiKeyForm";
 import OpenModal from "@/components/ui/modals/OpenModal";
@@ -24,7 +24,7 @@ interface AdminApiNewKeyClientProps {
 export default function AdminApiNewKeyClient({ tenants }: AdminApiNewKeyClientProps) {
   const router = useRouter();
   const adminData = useAdminData();
-  const [state, formAction] = useFormState<ActionData | null, FormData>(createApiKey, null);
+  const [state, formAction] = useActionState<ActionData | null, FormData>(createApiKey, null);
 
   return (
     <>

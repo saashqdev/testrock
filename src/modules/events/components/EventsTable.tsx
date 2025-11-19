@@ -37,7 +37,7 @@ export default function EventsTable({ items, pagination }: Props) {
         actions={[
           {
             title: t("shared.details"),
-            onClickRoute: (_, i) => i.id,
+            onClickRoute: (_, i) => `/admin/events/${i.id}`,
           },
         ]}
         pagination={pagination}
@@ -121,7 +121,7 @@ export default function EventsTable({ items, pagination }: Props) {
               </h3>
               <div className="flex items-center space-x-2">
                 <div className="text-sm text-muted-foreground">{DateUtils.dateYMDHMS(selectedData.createdAt)}</div>
-                <Link href={selectedData.id} className="text-muted-foreground hover:text-foreground/80">
+                <Link href={`/admin/events/${selectedData.id}`} className="text-muted-foreground hover:text-foreground/80">
                   <ExternalLinkEmptyIcon className="h-5 w-5" />
                 </Link>
               </div>

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { loader } from "@/modules/workflowEngine/routes/workflow-engine.api.server";
-import WorkflowEngineView from "@/modules/workflowEngine/routes/workflow-engine.view";
+import { loader } from "@/modules/workflowEngine/routes/workflow-engine/index.api.server";
+import WorkflowEngineIndexView from "@/modules/workflowEngine/routes/workflow-engine/index.view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
@@ -11,5 +11,5 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 
 export default async function WorkflowEnginePage(props: IServerComponentsProps) {
   const data = await loader(props);
-  return <WorkflowEngineView data={data} />;
+  return <WorkflowEngineIndexView data={data} />;
 }

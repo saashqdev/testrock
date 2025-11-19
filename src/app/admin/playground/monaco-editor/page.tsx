@@ -1,4 +1,3 @@
-import { EntityWithDetailsDto } from "@/db/models/entityBuilder/EntitiesModel";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
@@ -9,5 +8,8 @@ export default async function PlaygroundMonacoEditorPage(props: IServerComponent
   await verifyUserHasPermission("admin.entities.view");
   const allEntities = await db.entities.getAllEntities(null);
 
-  return <MonacoEditorClient allEntities={allEntities} />;
+  // Serialize entities for client component - convert to plain objects
+  const serializedEntities = JSON.parse(JSON.stringify(allEntities));
+
+  return <MonacoEditorClient allEntities={serializedEntities} />;
 }

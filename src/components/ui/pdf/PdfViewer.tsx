@@ -38,7 +38,7 @@ export default function PdfViewer({ className, file, onRemoveFile, fileName = ""
     const script = document.createElement("script");
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js";
     script.onload = () => {
-      if (window.pdfjsLib.GlobalWorkerOptions) {
+      if (window.pdfjsLib && window.pdfjsLib.GlobalWorkerOptions) {
         window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.worker.min.js";
       }
     };
