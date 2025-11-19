@@ -209,7 +209,7 @@ export default function ({ data, children }: { data: AppSettingsMembersLoaderDat
           // navigate(".", { replace: true });
           router.replace(pathname);
         }}
-        className="sm:max-w-sm"
+        size="2xl"
         overflowYScroll={true}
       >
         <div className="-mx-1 -mt-3">

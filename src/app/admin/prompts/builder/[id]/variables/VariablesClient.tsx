@@ -141,7 +141,7 @@ export default function VariablesPage({ item, items, children }: PageProps) {
         title={modalTitle}
         open={isModalOpen}
         onClose={closeModal}
-        className="sm:max-w-sm"
+        size="2xl"
         overflowYScroll={true}
       >
         <div className="-mx-1 -mt-3">

@@ -244,7 +244,7 @@ function RowsViewRoute({ title, rowsData, items, routes, onNewRow, onEditRow, sa
       <div className="z-50">
         <SlideOverWideEmpty
           title={editingView ? "Edit view" : `New ${t(rowsData.entity.title)} view`}
-          className="sm:max-w-2xl"
+          size="2xl"
           open={showCustomViewModal}
           onClose={() => setShowCustomViewModal(false)}
         >

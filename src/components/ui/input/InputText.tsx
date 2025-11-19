@@ -187,7 +187,8 @@ const InputText = (props: InputTextProps, ref: Ref<RefInputText>) => {
             <Editor
               theme={editorTheme}
               className={clsx(
-                "block w-full min-w-0 flex-1 rounded-md border-border focus:border-border focus:ring-ring sm:text-sm",
+                "block w-full min-w-0 flex-1 rounded-md sm:text-sm",
+                !borderless && "border border-border focus:border-border focus:ring-ring",
                 actualEditorSize === "sm" && "h-32",
                 actualEditorSize === "md" && "h-64",
                 actualEditorSize === "lg" && "h-96",
@@ -196,8 +197,7 @@ const InputText = (props: InputTextProps, ref: Ref<RefInputText>) => {
                 actualEditorSize === "screen" && "h-screen",
                 className,
                 classNameBg,
-                editorHideLineNumbers && "-ml-10",
-                borderless && "border-transparent"
+                editorHideLineNumbers && "-ml-10"
               )}
               defaultLanguage={editorLanguage}
               language={editorLanguage}

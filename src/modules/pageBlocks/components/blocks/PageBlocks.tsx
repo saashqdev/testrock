@@ -231,6 +231,7 @@ export default function PageBlocks({
 
         {editor?.add && <AddBlockButton className={clsx(items.length === 0 && "py-8")} onAdd={(type) => addBlock(type)} />}
         <SlideOverWideEmpty
+          size="2xl"
           title={editingBlock ? getType(editingBlock).toLowerCase() : ""}
           open={editingBlock !== undefined}
           onClose={() => setEditingBlock(undefined)}

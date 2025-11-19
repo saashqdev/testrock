@@ -60,7 +60,7 @@ export default function PromptGroupForm({
         onClose={() => {
           router.push("/admin/prompts/groups");
         }}
-        className="sm:max-w-sm"
+        size="2xl"
         overflowYScroll={true}
       >
         <form

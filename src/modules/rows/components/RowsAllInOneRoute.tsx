@@ -149,7 +149,6 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
           url={`/api/entities/${data.rowsData.entity.slug}/rows/new?admin=true`}
           onCreated={onCreated}
           allEntities={allEntities}
-          routes={data.routes}
         />
         
         {/* Quick action buttons for companies - shown after save */}
@@ -186,7 +185,7 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
 
       <SlideOverWideEmpty
         title={editing ? RowHelper.getRowFolio(data.rowsData?.entity, editing) : ""}
-        className="max-w-md"
+        size="2xl"
         open={!!editing}
         onClose={handleCloseEditing}
         buttons={
@@ -237,7 +236,7 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
       {data.rowsData.entity.slug === "companies" && contactEntity && (
         <SlideOverWideEmpty
           title={t("shared.add") + " " + t("models.contact.object")}
-          size="xl"
+          size="2xl"
           position={2}
           open={addingContact}
           onClose={handleCloseAddingContact}
@@ -250,7 +249,6 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
               url={`/api/entities/${contactEntity.slug}/rows/new?admin=true`}
               onCreated={handleContactCreated}
               allEntities={allEntities}
-              routes={data.routes}
             />
           </div>
         </SlideOverWideEmpty>
@@ -260,7 +258,7 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
       {data.rowsData.entity.slug === "companies" && opportunityEntity && (
         <SlideOverWideEmpty
           title={t("shared.add") + " " + t("models.opportunity.object")}
-          size="xl"
+          size="2xl"
           position={2}
           open={addingOpportunity}
           onClose={handleCloseAddingOpportunity}
@@ -273,7 +271,6 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
               url={`/api/entities/${opportunityEntity.slug}/rows/new?admin=true`}
               onCreated={handleOpportunityCreated}
               allEntities={allEntities}
-              routes={data.routes}
             />
           </div>
         </SlideOverWideEmpty>

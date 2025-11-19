@@ -195,7 +195,7 @@ export default function ArticlesClient({ data, params, onNewArticle, onDuplicate
         onClose={() => {
           router.replace(".");
         }}
-        className="sm:max-w-sm"
+        size="2xl"
         overflowYScroll={true}
       >
         <div className="-mx-1 -mt-3">

@@ -36,7 +36,7 @@ export default function WorkflowsVariablesIdView({ data }: WorkflowsVariablesIdV
   }
 
   return (
-    <SlideOverWideEmpty title="Edit Variable" className="sm:max-w-sm" open={true} onClose={close}>
+    <SlideOverWideEmpty title="Edit Variable" size="2xl" open={true} onClose={close}>
       <WorkflowVariableForm item={data.item} action={action} pending={pending} tenantId={tenantId} />
     </SlideOverWideEmpty>
   );

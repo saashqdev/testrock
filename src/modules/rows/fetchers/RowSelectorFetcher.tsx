@@ -129,7 +129,7 @@ export default function RowSelectorFetcher({ entity, routes, allEntities, initia
 
       <SlideOverWideEmpty
         title={t("shared.create") + " " + t(data?.rowsData?.entity.title ?? "")}
-        className="max-w-md"
+        size="2xl"
         open={adding}
         onClose={() => {
           setAdding(false);

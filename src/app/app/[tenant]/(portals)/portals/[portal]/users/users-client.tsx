@@ -150,7 +150,7 @@ export default function UsersClient({ data, children }: Props) {
           setIsSlideOverOpen(false);
           router.push(".");
         }}
-        className="sm:max-w-sm"
+        size="2xl"
         overflowYScroll={true}
         title={params.userId ? t("shared.edit") : t("shared.new")}
       >

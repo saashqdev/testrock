@@ -155,8 +155,8 @@ export default function RunPromptFlowButtons({ idx, type, promptFlows, row, disa
 
       <div className="z-50">
         <SlideOverWideEmpty
+          size="2xl"
           title={isSettingPromptFlowVariables?.actionTitle ?? "Run prompt flow"}
-          className="sm:max-w-sm"
           open={!!isSettingPromptFlowVariables}
           onClose={() => setIsSettingPromptFlowVariables(null)}
         >

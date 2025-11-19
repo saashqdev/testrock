@@ -32,7 +32,7 @@ export default function NewEntityViewSlideoverWrapper({ data, searchParams }: Ne
       title={`New ${data.entity.title} view`}
       open={true}
       onClose={handleClose}
-      className="sm:max-w-2xl"
+      size="2xl"
       overflowYScroll={true}
     >
       <div className="-mx-1 -mt-3">

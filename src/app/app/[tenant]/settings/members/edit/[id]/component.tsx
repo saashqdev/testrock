@@ -62,7 +62,7 @@ export default function ({ data }: { data: AppSettingsMembersEditLoaderData }) {
       onClose={() => {
         router.replace(`/app/${params.tenant}/settings/members`);
       }}
-      className="sm:max-w-sm"
+      size="2xl"
       overflowYScroll={true}
     >
       <div className="-mx-1 -mt-3">

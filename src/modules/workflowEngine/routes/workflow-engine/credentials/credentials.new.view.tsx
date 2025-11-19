@@ -12,7 +12,7 @@ export default function WorkflowsCredentialsNewView() {
     router.push(UrlUtils.getModulePath(params, `workflow-engine/credentials`));
   }
   return (
-    <SlideOverWideEmpty title="New Credential" className="sm:max-w-sm" open={true} onClose={close}>
+    <SlideOverWideEmpty title="New Credential" size="2xl" open={true} onClose={close}>
       <WorkflowCredentialForm />
     </SlideOverWideEmpty>
   );

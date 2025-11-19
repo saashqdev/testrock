@@ -157,7 +157,7 @@ export default function FakeProjectsClient({ initialData }: FakeProjectsClientPr
             setOverviewItem(undefined);
           }, 100);
         }}
-        className="sm:max-w-sm"
+        size="2xl"
         buttons={
           <>
             <Link

@@ -100,7 +100,7 @@ export default function ConditionsGroupsInfo({
       )}
 
       <SlideOverWideEmpty
-        className="sm:max-w-2xl"
+        size="2xl"
         title={!selectedConditionsGroup ? "" : type === "if" ? "If Condition" : `Case ${selectedConditionsGroup.index + 1}`}
         open={!!selectedConditionsGroup}
         onClose={() => setSelectedConditionsGroup(null)}
@@ -118,7 +118,7 @@ export default function ConditionsGroupsInfo({
       </SlideOverWideEmpty>
 
       <SlideOverWideEmpty
-        className="sm:max-w-2xl"
+        size="2xl"
         title={"Add case " + (block.conditionGroups.length + 1)}
         open={addingNewGroup}
         onClose={() => setAddingNewGroup(false)}

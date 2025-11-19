@@ -64,7 +64,7 @@ export default function NewGroupRoute() {
     <SlideOverWideEmpty
       title="Create User Group"
       open={true}
-      className="sm:max-w-sm"
+      size="2xl"
       onClose={() => router.push(UrlUtils.currentTenantUrl(params, "settings/members"))}
     >
       <GroupForm allUsers={data.tenantUsers} onSubmit={handleSubmit} />

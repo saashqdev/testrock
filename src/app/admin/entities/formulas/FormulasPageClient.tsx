@@ -299,7 +299,7 @@ export default function FormulasPageClient({ initialData }: FormulasPageClientPr
           setShowSlideOver(false);
           setEditingFormulaId(null);
         }}
-        className="sm:max-w-2xl"
+        size="2xl"
         overflowYScroll={true}
       >
         <div className="p-4">

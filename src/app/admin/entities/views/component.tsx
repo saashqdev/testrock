@@ -125,7 +125,7 @@ export default function EntityViewsClient({ items, pagination, filterablePropert
           newParams.delete("entity");
           router.push("/admin/entities/views" + (newParams.toString() ? `?${newParams.toString()}` : ""));
         }}
-        className="sm:max-w-2xl"
+        size="2xl"
         overflowYScroll={true}
       >
         <div className="-mx-1 -mt-3">

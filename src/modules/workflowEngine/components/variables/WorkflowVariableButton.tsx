@@ -32,7 +32,7 @@ export default function WorkflowVariableButton({
           />
         </svg>
       </button>
-      <SlideOverWideEmpty className="sm:max-w-sm" title="Variables" open={isOpen} onClose={() => setIsOpen(false)}>
+      <SlideOverWideEmpty size="2xl" title="Variables" open={isOpen} onClose={() => setIsOpen(false)}>
         <VariableList
           workflow={workflow}
           block={block}

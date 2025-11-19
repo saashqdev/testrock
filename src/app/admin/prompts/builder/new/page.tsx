@@ -44,7 +44,7 @@ export default function NewPromptFlowPage() {
         onClose={() => {
           router.push("/admin/prompts/builder");
         }}
-        className="sm:max-w-sm"
+        size="2xl"
         overflowYScroll={true}
       >
         <PromptFlowForm promptFlowGroups={data.promptFlowGroups} item={undefined} allEntities={data.allEntities} />

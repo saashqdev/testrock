@@ -61,7 +61,7 @@ const InputDate = (
   useImperativeHandle(ref, () => ({ input }));
   const input = useRef<HTMLInputElement>(null);
 
-  const [actualValue, setActualValue] = useState<Date | undefined>(undefined);
+  const [actualValue, setActualValue] = useState<Date | undefined>(value ?? defaultValue);
 
   useEffect(() => {
     if (defaultValue) {
@@ -136,7 +136,7 @@ const InputDate = (
             id={name}
             name={name}
             required={required}
-            value={actualValue?.toISOString().split("T")[0]}
+            value={actualValue?.toISOString().split("T")[0] ?? ""}
             onChange={(e) => {
               const date = new Date(e.target.value);
               if (date) {
@@ -155,7 +155,7 @@ const InputDate = (
               <input
                 type="hidden"
                 name={name}
-                value={actualValue?.toISOString().split("T")[0]}
+                value={actualValue?.toISOString().split("T")[0] ?? ""}
                 required={required}
                 disabled={actualValue === undefined}
                 hidden

@@ -48,9 +48,9 @@ export default function RolesClient({ data, children }: RolesClientProps) {
       {/* <InputSearchWithURL onNewRoute={getUserHasPermission(adminData, "admin.roles.create") ? "new" : undefined} /> */}
       <RolesTable items={data.items} canUpdate={getUserHasPermission(adminData, "admin.roles.update")} />
 
-            <SlideOverWideEmpty
+      <SlideOverWideEmpty
         title={params.id ? "Edit Role" : "New Role"}
-        open={!!params.id || params.new}
+        open={!!params.id || !!params.new}
         onClose={() => {
           router.replace(".");
         }}

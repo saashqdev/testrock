@@ -52,7 +52,7 @@ export default function PostForm({ item, categories, tags, canUpdate = true, can
 
   const [title, setTitle] = useState(item?.title ?? "");
   const [slug, setSlug] = useState(item?.slug ?? "");
-  const [category, setCategory] = useState<string | number | undefined>(categories.length === 1 ? categories[0].id : undefined);
+  const [category, setCategory] = useState<string | number | undefined>(item?.categoryId ?? (categories.length === 1 ? categories[0].id : ""));
   const [postTags, setPostTags] = useState("");
   const [date, setDate] = useState<Date | undefined>(item?.date ?? new Date());
   const [description, setDescription] = useState(item?.description ?? "");
@@ -67,12 +67,7 @@ export default function PostForm({ item, categories, tags, canUpdate = true, can
     //   inputTitle.current?.input.current?.focus();
     // }, 100);
 
-    if (!item) {
-      if (categories.length === 1) {
-        setCategory(categories[0].id);
-      }
-    } else {
-      setCategory(item.categoryId ?? undefined);
+    if (item) {
       setPostTags(item?.tags.map((postTag) => postTag.tag.name).join(",") ?? "");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -208,6 +203,7 @@ export default function PostForm({ item, categories, tags, canUpdate = true, can
                   editorLanguage="markdown"
                   // editorTheme="light"
                   editorSize="screen"
+                  borderless={true}
                   name="content"
                   value={content}
                   setValue={(e) => {
@@ -304,7 +300,7 @@ export default function PostForm({ item, categories, tags, canUpdate = true, can
 
               {image && (
                 <div className="col-span-12">
-                  <Image className="xl:border-border overflow-hidden rounded-lg shadow-xl xl:border-b" src={image} alt={t("models.post.image")} />
+                  <Image className="xl:border-border overflow-hidden rounded-lg shadow-xl xl:border-b" src={image} alt={t("models.post.image")} width={800} height={400} />
                   <ButtonTertiary disabled={!canUpdate} onClick={() => setImage("")}>
                     {t("shared.delete")}
                   </ButtonTertiary>

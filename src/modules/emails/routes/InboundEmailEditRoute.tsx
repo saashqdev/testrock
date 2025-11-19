@@ -47,7 +47,7 @@ export default function InboundEmailRoute({ data, onDeleteAction }: InboundEmail
   return (
     <div>
       <SlideOverWideEmpty
-        className="max-w-2xl"
+        size="2xl"
         title={data.item.subject}
         description={DateUtils.dateAgo(data.item.date)}
         open={true}

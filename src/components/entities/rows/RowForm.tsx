@@ -537,6 +537,7 @@ const RowForm = (
       <SlideOverWideEmpty
         withTitle={false}
         withClose={false}
+        size="2xl"
         title={t("shared.select")}
         open={searchingRelationshipRows !== undefined}
         onClose={() => setSearchingRelationshipRows(undefined)}

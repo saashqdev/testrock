@@ -162,7 +162,7 @@ function Wrapper({
       </div>
 
       <SlideOverWideEmpty
-        className="sm:max-w-2xl"
+        size="2xl"
         position={2}
         title={"What do you want to generate"}
         open={showHelp}
@@ -178,7 +178,7 @@ function Wrapper({
 
       {promptTemplate && promptFlow && (
         <SlideOverWideEmpty
-          className="sm:max-w-2xl"
+          size="2xl"
           position={2}
           title={"Try: " + promptTemplate.title + " - " + promptFlow.title}
           open={showTest}

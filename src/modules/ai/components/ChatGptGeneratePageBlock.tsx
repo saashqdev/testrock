@@ -173,7 +173,7 @@ export default function ChatGptGeneratePageBlock({ page, block, onGenerated, onE
         )}
       </ButtonSecondary>
 
-      <SlideOverWideEmpty title="ChatGPT Block Generator" open={isSettingParameters} onClose={() => setIsSettingParameters(false)}>
+      <SlideOverWideEmpty title="ChatGPT Block Generator" size="2xl" open={isSettingParameters} onClose={() => setIsSettingParameters(false)}>
         <div>
           <Tabs
             asLinks={false}

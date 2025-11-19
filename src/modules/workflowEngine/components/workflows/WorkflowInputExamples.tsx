@@ -125,12 +125,12 @@ export default function WorkflowInputExamples({ workflow }: { workflow: Workflow
         open={!!selectedInputExample}
         title={"Edit input example: " + selectedInputExample?.title}
         onClose={() => setSelectedInputExample(null)}
-        className="sm:max-w-sm"
+        size="2xl"
       >
         <WorkflowInputExampleForm item={selectedInputExample} onSave={onUpdate} onDelete={onDelete} onCancel={() => setSelectedInputExample(null)} />
       </SlideOverWideEmpty>
 
-      <SlideOverWideEmpty open={addingInputExample} title={"Add input example"} onClose={() => setAddingInputExample(false)} className="sm:max-w-sm">
+      <SlideOverWideEmpty open={addingInputExample} title={"Add input example"} onClose={() => setAddingInputExample(false)} size="2xl">
         <WorkflowInputExampleForm item={null} onSave={onCreate} onCancel={() => setAddingInputExample(false)} />
       </SlideOverWideEmpty>
     </div>

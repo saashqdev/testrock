@@ -129,7 +129,7 @@ export default function AccountTypesComponent({ children }: AccountTypesComponen
         onClose={() => {
           router.replace("/admin/settings/accounts/types");
         }}
-        className="sm:max-w-sm"
+        size="2xl"
         overflowYScroll={true}
       >
         <div className="-mx-1 -mt-3">

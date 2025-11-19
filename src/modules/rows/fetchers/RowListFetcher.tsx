@@ -108,8 +108,10 @@ export default function RowListFetcher({ currentView, listUrl, newUrl, parentEnt
     // Add any other search params that aren't entity/tenant/v
     if (searchParams) {
       for (const [key, value] of searchParams.entries()) {
-        if (key !== 'entity' && key !== 'tenant' && key !== 'v' && value && value !== 'undefined') {
-          params.set(key, value);
+        const stringKey = String(key);
+        const stringValue = String(value);
+        if (stringKey !== 'entity' && stringKey !== 'tenant' && stringKey !== 'v' && stringValue && stringValue !== 'undefined') {
+          params.set(stringKey, stringValue);
         }
       }
     }
@@ -197,7 +199,7 @@ export default function RowListFetcher({ currentView, listUrl, newUrl, parentEnt
       )}
       <SlideOverWideEmpty
         title={t("shared.create") + " " + t(data?.rowsData?.entity.title ?? "")}
-        className="max-w-md"
+        size="2xl"
         open={adding}
         onClose={() => setAdding(false)}
       >

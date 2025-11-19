@@ -95,7 +95,7 @@ export default function ${capitalized}RoutesIndexView() {
             setOverviewItem(undefined);
           }, 100);
         }}
-        className="sm:max-w-md"
+        size="2xl"
         buttons={
           <>
             <Link

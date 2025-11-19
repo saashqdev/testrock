@@ -28,7 +28,7 @@ export default function EditGroupClient({ data }: EditGroupClientProps) {
     <SlideOverWideEmpty
       title="Edit User Group"
       open={true}
-      className="sm:max-w-sm"
+      size="2xl"
       onClose={() => router.push(UrlUtils.currentTenantUrl(params, "settings/members"))}
     >
       <GroupForm

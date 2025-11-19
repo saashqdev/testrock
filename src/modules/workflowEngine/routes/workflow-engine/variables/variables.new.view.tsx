@@ -12,7 +12,7 @@ export default function WorkflowsVariablesNewView() {
     router.push(UrlUtils.getModulePath(params, `workflow-engine/variables`));
   }
   return (
-    <SlideOverWideEmpty title="New Variable" className="sm:max-w-sm" open={true} onClose={close}>
+    <SlideOverWideEmpty title="New Variable" size="2xl" open={true} onClose={close}>
       <WorkflowVariableForm />
     </SlideOverWideEmpty>
   );

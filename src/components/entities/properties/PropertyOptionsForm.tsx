@@ -107,7 +107,7 @@ const PropertyOptionsForm = ({ title, onSet }: Props, ref: Ref<RefPropertyOption
   }
 
   return (
-    <SlideOverWideEmpty title={`Options: ${t(title)}`} open={open} onClose={() => setOpen(false)}>
+    <SlideOverWideEmpty title={`Options: ${t(title)}`} size="2xl" open={open} onClose={() => setOpen(false)}>
       <div className="">
         <div>
           <div className="mt-3 sm:mt-5">

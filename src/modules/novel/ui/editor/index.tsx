@@ -233,7 +233,7 @@ export default function NovelEditor({
           <div className="z-50">
             <SlideOverWideEmpty
               title={selectedPrompt?.prompt.actionTitle ?? "Run prompt flow"}
-              className="sm:max-w-2xl"
+              size="2xl"
               open={!!selectedPrompt}
               onClose={() => setSelectedPrompt(null)}
             >
