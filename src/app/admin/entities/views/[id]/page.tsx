@@ -5,6 +5,10 @@ export default async function EntityViewPage(props: IServerComponentsProps) {
   const params = await props.params;
   const searchParams = await props.searchParams;
   
+  if (!params?.id) {
+    throw redirect("/admin/entities/views");
+  }
+  
   // Build query string preserving any existing params
   const queryParams = new URLSearchParams();
   if (searchParams) {
