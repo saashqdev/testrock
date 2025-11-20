@@ -48,14 +48,15 @@ export async function loadRootData({ request, params }: { request: Request; para
   }
 
   const headers = new Headers();
-  let userAnalyticsId = analyticsSession.get("userAnalyticsId");
+  let userAnalyticsId = analyticsSession.get("userAnalyticsId")?.value;
   // Session changes will be handled through the session service
   // if (CookieHelper.hasConsent(userInfo, CookieCategory.ANALYTICS)) {
   if (!userAnalyticsId) {
     userAnalyticsId = generateAnalyticsUserId();
     analyticsSession.set("userAnalyticsId", userAnalyticsId);
   }
-  headers.append("Set-Cookie", await commitAnalyticsSession(analyticsSession));
+  // Commit analytics session through cookie store
+  // headers.append("Set-Cookie", await commitAnalyticsSession(analyticsSession));
   // } else {
   //   headers.append("Set-Cookie", await destroyAnalyticsSession(analyticsSession));
   // }

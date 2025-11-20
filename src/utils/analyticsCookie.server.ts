@@ -35,7 +35,7 @@ export async function getAnalyticsSession(request: Request) {
 
 export async function getAnalyticsInfo(request: Request): Promise<AnalyticsSession> {
   const cookieStore = await cookies();
-  const userAnalyticsId = cookieStore.get("therock_analytics")?.value ?? null;
+  const userAnalyticsId = cookieStore.get("therock_analytics")?.value ?? "";
   return {
     userAnalyticsId,
   };
@@ -61,6 +61,6 @@ export async function destroyAnalyticsSession(session: Session) {
   return await sessionStorage.destroySession(session);
 }
 
-export async function generateAnalyticsUserId() {
+export function generateAnalyticsUserId() {
   return randomBytes(100).toString("base64");
 }
