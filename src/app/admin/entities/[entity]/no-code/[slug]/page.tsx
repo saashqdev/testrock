@@ -29,6 +29,10 @@ export default async function (props: IServerComponentsProps) {
   const response = await rowsListLoader(props);
   const data = await response.json() as LoaderData;
   
+  if (!data.user) {
+    return <ServerError />;
+  }
+  
   // Build appOrAdminData structure for permission checking
   // Only user, isSuperAdmin, and permissions are actually used by getUserHasPermission
   const appOrAdminData = {
