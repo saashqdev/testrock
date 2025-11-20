@@ -75,7 +75,7 @@ export async function validateApiKey(request: Request, params: IServerComponents
       }
     }
     if (tenantId !== null) {
-      const userTenants = await db.tenants.getMyTenants(user.id);
+      const userTenants = user.admin ? await db.tenants.adminGetAllTenants() : await db.tenants.getMyTenants(user.id);
       if (!userTenants.find((t) => t.id === tenantId || t.slug === tenantId)) {
         console.log(`User ${user.email} is not a member of ${tenantId}`);
         throw Error("Unauthorized");

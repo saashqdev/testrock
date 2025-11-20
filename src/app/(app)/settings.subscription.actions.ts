@@ -28,7 +28,7 @@ async function getTenantAndValidate() {
     throw new Error("Invalid user");
   }
 
-  const myTenants = await db.tenants.getMyTenants(userInfo.userId);
+  const myTenants = user.admin ? await db.tenants.adminGetAllTenants() : await db.tenants.getMyTenants(userInfo.userId);
   if (myTenants.length === 0) {
     redirect("/settings/profile");
   }

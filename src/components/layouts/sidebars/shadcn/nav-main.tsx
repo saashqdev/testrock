@@ -20,6 +20,7 @@ import {
 import SidebarIcon from "../../icons/SidebarIcon";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSidebarTitle } from "@/lib/state/useSidebarTitle";
 
 export function NavMain({
   items,
@@ -39,10 +40,66 @@ export function NavMain({
   const { t } = useTranslation();
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
+  const { setActiveTitle } = useSidebarTitle();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Update active title when pathname changes
+  useEffect(() => {
+    if (!mounted) return;
+    
+    let bestMatch: { title: string; parentTitle?: string; pathLength: number } | null = null;
+    
+    // Find the active menu item based on pathname
+    for (const group of items) {
+      for (const item of group.items) {
+        // Check sub-items first (more specific match)
+        if (item.items && item.items.length > 0) {
+          for (const subItem of item.items) {
+            if (subItem.path && pathname) {
+              const matchesExact = pathname === subItem.path;
+              const matchesPrefix = pathname.startsWith(subItem.path);
+              
+              if (matchesExact || matchesPrefix) {
+                const pathLength = subItem.path.length;
+                // Keep the longest matching path (most specific)
+                if (!bestMatch || pathLength > bestMatch.pathLength) {
+                  bestMatch = {
+                    title: t(subItem.title),
+                    parentTitle: t(item.title),
+                    pathLength,
+                  };
+                }
+              }
+            }
+          }
+        }
+        
+        // Check main items
+        if (item.path && pathname) {
+          const matchesExact = pathname === item.path;
+          const matchesPrefix = pathname.startsWith(item.path);
+          
+          if (matchesExact || matchesPrefix) {
+            const pathLength = item.path.length;
+            // Only use if no better match found
+            if (!bestMatch || (pathLength > bestMatch.pathLength && !bestMatch.parentTitle)) {
+              bestMatch = {
+                title: t(item.title),
+                pathLength,
+              };
+            }
+          }
+        }
+      }
+    }
+    
+    if (bestMatch) {
+      setActiveTitle(bestMatch.title, bestMatch.parentTitle);
+    }
+  }, [pathname, items, mounted, t, setActiveTitle]);
 
   return (
     <Fragment>

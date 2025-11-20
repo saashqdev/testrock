@@ -8,6 +8,7 @@ import { requireAuth } from "@/lib/services/loaders.middleware";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
 import GroupsComponent from "./component";
+import TitleDataLayout from "@/context/TitleDataLayout";
 
 type PageData = {
   items: GroupWithDetailsDto[];
@@ -23,6 +24,7 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 export default async function GroupsPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   await requireAuth();
+  const { t } = await getServerTranslations();
   const tenantId = await getTenantIdFromUrl(params);
   const userInfo = await getUserInfo();
 
@@ -43,5 +45,11 @@ export default async function GroupsPage(props: IServerComponentsProps) {
     items,
   };
 
-  return <GroupsComponent data={data} />;
+  const title = `${t("models.group.plural")} | ${process.env.APP_NAME}`;
+
+  return (
+    <TitleDataLayout data={{ title }}>
+      <GroupsComponent data={data} />
+    </TitleDataLayout>
+  );
 }

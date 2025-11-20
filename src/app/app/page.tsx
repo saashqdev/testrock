@@ -28,7 +28,8 @@ const loader = async () => {
     tenants: (user as any).tenants ?? [],
     roles: (user as any).roles ?? [],
   };
-  const myTenants = await db.tenant.getMyTenants(userInfo.userId!);
+  // Admin users get access to all tenants
+  const myTenants = user.admin ? await db.tenant.adminGetAllTenants() : await db.tenant.getMyTenants(userInfo.userId!);
   if (myTenants.length === 1) {
     return redirect("/app/" + encodeURIComponent(myTenants[0].slug) + "/dashboard");
   }

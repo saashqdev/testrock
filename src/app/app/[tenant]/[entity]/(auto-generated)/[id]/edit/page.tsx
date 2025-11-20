@@ -4,6 +4,7 @@ import { loader } from "@/modules/rows/routes/Rows_Edit.server";
 import { serverTimingHeaders } from "@/modules/metrics/utils/defaultHeaders.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { Metadata } from "next";
+import TitleDataLayout from "@/context/TitleDataLayout";
 
 export { serverTimingHeaders as headers };
 
@@ -17,7 +18,13 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 
 export default async function Page(props: IServerComponentsProps) {
   const data = await loader(props);
-  return <RowEditRoute data={data} />;
+  const title = data?.meta?.[0]?.title || "";
+  
+  return (
+    <TitleDataLayout data={{ title }}>
+      <RowEditRoute data={data} />
+    </TitleDataLayout>
+  );
 }
 
 export function ErrorBoundary() {

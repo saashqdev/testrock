@@ -6,7 +6,8 @@ import { db } from "@/db";
 import { clearCacheKey } from "@/lib/services/cache.server";
 
 export async function deleteUserWithItsTenants(id: string) {
-  const userTenants = await db.tenants.getMyTenants(id);
+  const user = await db.users.getUser(id);
+  const userTenants = user?.admin ? await db.tenants.adminGetAllTenants() : await db.tenants.getMyTenants(id);
   const deletedAccounts = await Promise.all(
     userTenants.map(async (tenant) => {
       const tenantUsers = await db.tenants.getTenantWithUsers(tenant.id);

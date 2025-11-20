@@ -17,11 +17,12 @@ import Stripe from "stripe";
 import { stripeService } from "@/modules/subscriptions/services/StripeService";
 import { promiseHash } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
+import TitleDataLayout from "@/context/TitleDataLayout";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
   return getMetaTags({
-    title: `${t("settings.members.actions.new")} | ${defaultSiteTags.title}`,
+    title: `${t("settings.subscription.title")} | ${defaultSiteTags.title}`,
   });
 }
 
@@ -115,6 +116,13 @@ export const actionAppSettingsSubscription = async (prev: any, form: FormData) =
 };
 
 export default async function () {
+  const { t } = await getServerTranslations();
   const data = await loader();
-  return <Component data={data} />;
+  const title = `${t("settings.subscription.title")} | ${defaultSiteTags.title}`;
+  
+  return (
+    <TitleDataLayout data={{ title }}>
+      <Component data={data} />
+    </TitleDataLayout>
+  );
 }

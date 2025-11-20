@@ -35,7 +35,7 @@ const loader = async (props: IServerComponentsProps): Promise<AdminDataDto> => {
     entityGroups: db.entityGroups.getAllEntityGroups(),
     myGroups: db.groups.getMyGroups(userInfo.userId, null), // Admin can see all groups
     tenantTypes: db.tenantTypes.getAllTenantTypes(),
-    myTenants: db.tenants.getMyTenants(user.id),
+    myTenants: db.tenants.adminGetAllTenants(), // Admin users get access to all tenants
   });
   const data: AdminDataDto = {
     user,

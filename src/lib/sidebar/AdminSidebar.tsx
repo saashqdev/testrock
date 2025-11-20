@@ -48,7 +48,7 @@ export const AdminSidebar = ({ appConfiguration, myTenants }: Props): SideBarIte
           },
           {
             title: "app.sidebar.rolesAndPermissions",
-            path: "/admin/accounts/roles-and-permissions",
+            path: "/admin/accounts/roles-and-permissions/roles",
             items: [],
             permission: "admin.roles.view",
           },

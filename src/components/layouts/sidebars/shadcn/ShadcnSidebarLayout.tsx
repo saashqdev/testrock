@@ -18,6 +18,7 @@ import { AdminSidebar } from "@/lib/sidebar/AdminSidebar";
 import { AppSidebar } from "@/lib/sidebar/AppSidebar";
 import { DocsSidebar } from "@/lib/sidebar/DocsSidebar";
 import { SidebarGroupDto } from "@/lib/sidebar/SidebarGroupDto";
+import { SidebarTitleContext } from "@/lib/state/useSidebarTitle";
 
 export default function ShadcnSidebarLayout({
   children,
@@ -29,7 +30,7 @@ export default function ShadcnSidebarLayout({
   menuItems?: SideBarItem[];
 }) {
   const params = useParams();
-  const title = useTitleData() ?? "";
+  const pageTitle = useTitleData() ?? "";
   const rootData = useRootData();
   const appOrAdminData = useAppOrAdminData();
 
@@ -39,10 +40,16 @@ export default function ShadcnSidebarLayout({
 
   const [onboardingModalOpen, setOnboardingModalOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [activeSidebarTitle, setActiveSidebarTitle] = useState("");
+  const [activeSidebarParentTitle, setActiveSidebarParentTitle] = useState("");
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Use sidebar title if available, otherwise fall back to page title
+  const displayTitle = activeSidebarTitle || pageTitle;
+  const hasParentTitle = activeSidebarParentTitle && activeSidebarTitle;
 
   function onOpenCommandPalette() {
     query.toggle();
@@ -82,37 +89,56 @@ export default function ShadcnSidebarLayout({
 
   return (
     <div suppressHydrationWarning>
-      <SidebarProvider>
-        <OnboardingSession open={onboardingModalOpen} setOpen={setOnboardingModalOpen} />
-        <ShadcnAppSidebar layout={layout} items={menuItems} />
-        <SidebarInset className="overflow-hidden">
-          <header className="border-border flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-            <div className="flex items-center gap-2 truncate px-4">
-              <SidebarTrigger className="-ml-1" />
-              {title && <Separator orientation="vertical" className="mr-2 h-4" />}
-              <Breadcrumb className="truncate">
-                <BreadcrumbList className="truncate">
-                  <BreadcrumbItem className="block truncate">
-                    <BreadcrumbPage className="truncate">{title}</BreadcrumbPage>
-                  </BreadcrumbItem>
-                  {/* <BreadcrumbSeparator className="hidden md:block" />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                  </BreadcrumbItem> */}
-                </BreadcrumbList>
-              </Breadcrumb>
-            </div>
-            <div className="ml-auto px-3">
-              <NavActions layout={layout} onOpenCommandPalette={onOpenCommandPalette} setOnboardingModalOpen={setOnboardingModalOpen} />
-            </div>
-          </header>
-          <main ref={mainElement} className="flex-1 focus:outline-hidden" tabIndex={0}>
-            <div key={params.tenant?.toString()} className="pb-20 sm:pb-0">
-              {children}
-            </div>
-          </main>
-        </SidebarInset>
-      </SidebarProvider>
+      <SidebarTitleContext.Provider 
+        value={{ 
+          activeTitle: activeSidebarTitle, 
+          activeParentTitle: activeSidebarParentTitle,
+          setActiveTitle: (title: string, parentTitle?: string) => {
+            setActiveSidebarTitle(title);
+            setActiveSidebarParentTitle(parentTitle || "");
+          }
+        }}
+      >
+        <SidebarProvider>
+          <OnboardingSession open={onboardingModalOpen} setOpen={setOnboardingModalOpen} />
+          <ShadcnAppSidebar layout={layout} items={menuItems} />
+          <SidebarInset className="overflow-hidden">
+            <header className="border-border flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+              <div className="flex items-center gap-2 truncate px-4">
+                <SidebarTrigger className="-ml-1" />
+                {displayTitle && <Separator orientation="vertical" className="mr-2 h-4" />}
+                <Breadcrumb className="truncate">
+                  <BreadcrumbList className="truncate">
+                    {hasParentTitle ? (
+                      <>
+                        <BreadcrumbItem className="hidden md:block">
+                          <BreadcrumbLink className="truncate">{activeSidebarParentTitle}</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator className="hidden md:block" />
+                        <BreadcrumbItem className="block truncate">
+                          <BreadcrumbPage className="truncate">{displayTitle}</BreadcrumbPage>
+                        </BreadcrumbItem>
+                      </>
+                    ) : (
+                      <BreadcrumbItem className="block truncate">
+                        <BreadcrumbPage className="truncate">{displayTitle}</BreadcrumbPage>
+                      </BreadcrumbItem>
+                    )}
+                  </BreadcrumbList>
+                </Breadcrumb>
+              </div>
+              <div className="ml-auto px-3">
+                <NavActions layout={layout} onOpenCommandPalette={onOpenCommandPalette} setOnboardingModalOpen={setOnboardingModalOpen} />
+              </div>
+            </header>
+            <main ref={mainElement} className="flex-1 focus:outline-hidden" tabIndex={0}>
+              <div key={params.tenant?.toString()} className="pb-20 sm:pb-0">
+                {children}
+              </div>
+            </main>
+          </SidebarInset>
+        </SidebarProvider>
+      </SidebarTitleContext.Provider>
     </div>
   );
 }

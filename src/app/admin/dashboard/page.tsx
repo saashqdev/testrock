@@ -14,6 +14,7 @@ import { createMetrics } from "@/modules/metrics/services/server/MetricTracker";
 import { promiseHash } from "@/utils/promises/promiseHash";
 import Component from "./component";
 import { db } from "@/db";
+import TitleDataLayout from "@/context/TitleDataLayout";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
@@ -92,5 +93,9 @@ async function load(props: IServerComponentsProps): Promise<AdminDashboardLoader
 export default async function AdminDashboardPage(props: IServerComponentsProps) {
   const data = await load(props);
 
-  return <Component data={data} />;
+  return (
+    <TitleDataLayout data={{ title: data.title }}>
+      <Component data={data} />
+    </TitleDataLayout>
+  );
 }

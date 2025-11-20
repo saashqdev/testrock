@@ -89,7 +89,7 @@ const loader = async () => {
 
   let { myTenants, mySubscription, allPermissions, superUserRole, superAdminRole, allRoles, roles, entities, entityGroups, myGroups, tenantTypes } = await promiseHash(
     {
-      myTenants: db.tenants.getMyTenants(user.id),
+      myTenants: user.admin ? db.tenants.adminGetAllTenants() : db.tenants.getMyTenants(user.id),
       mySubscription: getActiveTenantSubscriptions(tenantId.id),
       allPermissions: db.userRoles.getPermissionsByUser(userInfo.userId, tenantId.id),
       superUserRole: db.userRoles.getUserRoleInTenant(userInfo.userId, tenantId.id, AppRoleEnum.SuperUser),

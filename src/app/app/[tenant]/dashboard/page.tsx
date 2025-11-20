@@ -12,6 +12,7 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
 import { DashboardLoaderData, loadDashboardData } from "@/lib/state/useDashboardData.server";
 import DashboardClient from "./component";
+import TitleDataLayout from "@/context/TitleDataLayout";
 
 export { serverTimingHeaders as headers };
 
@@ -48,7 +49,11 @@ export default async function DashboardPage(props: IServerComponentsProps) {
     stats,
   };
 
-  return <DashboardClient data={data} />;
+  return (
+    <TitleDataLayout data={{ title: data.title }}>
+      <DashboardClient data={data} />
+    </TitleDataLayout>
+  );
 }
 
 export function ErrorBoundary() {

@@ -11,7 +11,8 @@ export default async function MySubscriptionPage() {
     throw redirect(`/login?redirect=${encodeURIComponent("/my-subscription")}`);
   }
   
-  const myTenants = await db.tenants.getMyTenants(userInfo.userId);
+  const user = await db.users.getUser(userInfo.userId);
+  const myTenants = user?.admin ? await db.tenants.adminGetAllTenants() : await db.tenants.getMyTenants(userInfo.userId);
   
   if (myTenants.length === 0 && user.admin) {
     redirect("/admin");

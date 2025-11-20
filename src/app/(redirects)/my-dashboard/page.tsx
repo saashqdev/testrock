@@ -12,7 +12,8 @@ export default async function MyDashboardRedirect() {
     redirect(`/login?redirect=${encodeURIComponent("/my-dashboard")}`);
   }
   
-  const myTenants = await db.tenants.getMyTenants(userInfo.userId);
+  const user = await db.users.getUser(userInfo.userId);
+  const myTenants = user?.admin ? await db.tenants.adminGetAllTenants() : await db.tenants.getMyTenants(userInfo.userId);
   
   if (myTenants.length === 0 && user.admin) {
     redirect("/admin");

@@ -6,6 +6,7 @@ import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 import { getEntityPermission, getUserHasPermission } from "@/lib/helpers/PermissionsHelper";
 import { serverTimingHeaders } from "@/modules/metrics/utils/defaultHeaders.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
+import TitleDataLayout from "@/context/TitleDataLayout";
 
 export { serverTimingHeaders as headers };
 
@@ -30,21 +31,35 @@ export default async function (props: IServerComponentsProps) {
   const response = await rowsListLoader(props);
   const data = await response.json() as LoaderData;
   const appOrAdminData = useAppOrAdminData();
+  
+  // Extract title from meta tags
+  let title = "";
+  if (data?.meta) {
+    for (const tag of data.meta) {
+      if ('title' in tag && tag.title) {
+        title = tag.title;
+        break;
+      }
+    }
+  }
+  
   return (
-    <RowsViewRoute
-      key={data.rowsData.entity.id}
-      rowsData={data.rowsData}
-      items={data.rowsData.items}
-      routes={data.routes}
-      saveCustomViews={true}
-      permissions={{
-        create: getUserHasPermission(appOrAdminData, getEntityPermission(data.rowsData.entity, "create")),
-      }}
-      currentSession={{
-        user: appOrAdminData?.user!,
-        isSuperAdmin: appOrAdminData?.isSuperAdmin ?? false,
-      }}
-    />
+    <TitleDataLayout data={{ title }}>
+      <RowsViewRoute
+        key={data.rowsData.entity.id}
+        rowsData={data.rowsData}
+        items={data.rowsData.items}
+        routes={data.routes}
+        saveCustomViews={true}
+        permissions={{
+          create: getUserHasPermission(appOrAdminData, getEntityPermission(data.rowsData.entity, "create")),
+        }}
+        currentSession={{
+          user: appOrAdminData?.user!,
+          isSuperAdmin: appOrAdminData?.isSuperAdmin ?? false,
+        }}
+      />
+    </TitleDataLayout>
   );
 }
 

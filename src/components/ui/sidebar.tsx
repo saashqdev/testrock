@@ -439,15 +439,12 @@ function SidebarMenuButton({
     };
   }
 
-  // Don't render tooltip during SSR to avoid hydration mismatch
-  if (!mounted) {
-    return button;
-  }
-
+  // Always render with Tooltip wrapper to avoid hydration mismatch
+  // But only show tooltip content when mounted
   return (
     <Tooltip>
       <TooltipTrigger asChild>{button}</TooltipTrigger>
-      <TooltipContent side="right" align="center" hidden={state !== "collapsed" || isMobile} {...tooltip} />
+      {mounted && <TooltipContent side="right" align="center" hidden={state !== "collapsed" || isMobile} {...tooltip} />}
     </Tooltip>
   );
 }

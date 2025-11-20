@@ -22,6 +22,7 @@ import { GroupWithDetailsDto } from "@/db/models/permissions/GroupsModel";
 import { getUserPermission } from "@/lib/helpers/server/PermissionsService";
 import { createUserSession, setLoggedUser } from "@/lib/services/session.server";
 import { redirect } from "next/navigation";
+import TitleDataLayout from "@/context/TitleDataLayout";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
@@ -162,6 +163,13 @@ export const actionAppSettingsMembersLayout = async (prev: any, form: FormData) 
 };
 
 export default async function ({ children }: IServerComponentsProps) {
+  const { t } = await getServerTranslations();
   const data = await loader();
-  return <Component data={data}>{children}</Component>;
+  const title = `${t("settings.members.title")} | ${defaultSiteTags.title}`;
+  
+  return (
+    <TitleDataLayout data={{ title }}>
+      <Component data={data}>{children}</Component>
+    </TitleDataLayout>
+  );
 }

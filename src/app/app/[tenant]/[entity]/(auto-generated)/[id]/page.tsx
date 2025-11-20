@@ -4,6 +4,7 @@ import ServerError from "@/components/ui/errors/ServerError";
 import { LoaderData, loader as rowsOverviewLoader } from "@/modules/rows/routes/Rows_Overview.server";
 import { serverTimingHeaders } from "@/modules/metrics/utils/defaultHeaders.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
+import TitleDataLayout from "@/context/TitleDataLayout";
 
 export { serverTimingHeaders as headers };
 
@@ -33,13 +34,26 @@ export default async function (props: IServerComponentsProps) {
   const response = await rowsOverviewLoader(props);
   const data = await response.json() as LoaderData;
   
+  // Extract title from meta tags
+  let title = "";
+  if (data?.meta) {
+    for (const meta of data.meta) {
+      if ('title' in meta && meta.title) {
+        title = meta.title;
+        break;
+      }
+    }
+  }
+  
   return (
-    <RowOverviewRoute
-      rowData={data.rowData}
-      item={data.rowData.item}
-      routes={data.routes}
-      relationshipRows={data.relationshipRows}
-    />
+    <TitleDataLayout data={{ title }}>
+      <RowOverviewRoute
+        rowData={data.rowData}
+        item={data.rowData.item}
+        routes={data.routes}
+        relationshipRows={data.relationshipRows}
+      />
+    </TitleDataLayout>
   );
 }
 
