@@ -15,9 +15,9 @@ export async function GET(request: NextRequest, context: { params: Promise<{ ent
       request,
     };
     
-    const response = await loader(props);
-    console.log('[API /api/entities/[entity]/rows/[id]/edit GET] Response status:', response.status);
-    return response;
+    const data = await loader(props);
+    console.log('[API /api/entities/[entity]/rows/[id]/edit GET] Data loaded successfully');
+    return NextResponse.json(data);
   } catch (error) {
     console.error('[API /api/entities/[entity]/rows/[id]/edit GET] Error:', error);
     return NextResponse.json({ error: error instanceof Error ? error.message : 'Unknown error' }, { status: 500 });
@@ -31,15 +31,17 @@ export async function POST(request: NextRequest, context: { params: Promise<{ en
     
     console.log('[API /api/entities/[entity]/rows/[id]/edit POST] Entity:', params.entity, 'ID:', params.id);
     
+    const formData = await request.formData();
+    
     const props: IServerComponentsProps = {
       params: context.params,
       searchParams: Promise.resolve(searchParams),
       request,
     };
     
-    const response = await action(props);
-    console.log('[API /api/entities/[entity]/rows/[id]/edit POST] Response status:', response.status);
-    return response;
+    const result = await action(formData, props);
+    console.log('[API /api/entities/[entity]/rows/[id]/edit POST] Action completed successfully');
+    return NextResponse.json(result);
   } catch (error) {
     console.error('[API /api/entities/[entity]/rows/[id]/edit POST] Error:', error);
     return NextResponse.json({ error: error instanceof Error ? error.message : 'Unknown error' }, { status: 500 });
