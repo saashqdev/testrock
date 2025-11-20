@@ -230,7 +230,7 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
                                 className={clsx(
                                   "group mt-1 flex items-center space-x-4 rounded-sm px-4 py-2 text-base leading-5 transition duration-150 ease-in-out  focus:outline-hidden",
                                   isCurrent(menuItem) && cssStates().selected,
-                                  !isCurrent(menuItem) && "text-slate-200 hover:bg-slate-800 focus:bg-slate-800"
+                                  !isCurrent(menuItem) && "text-slate-200 hover:bg-slate-800 focus:bg-slate-400"
                                 )}
                                 onClick={onSelected}
                               >
