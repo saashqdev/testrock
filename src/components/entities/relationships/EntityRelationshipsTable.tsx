@@ -28,7 +28,20 @@ export default function EntityRelationshipsTable({
           value: (_item, idx) => (
             <div>
               {/* {item.order} */}
-              <OrderListButtons index={idx} items={items.map((f) => ({ ...f, order: f.order ?? 0 }))} editable={true} onChange={onReorder} />
+              <OrderListButtons
+                index={idx}
+                items={items.map((f) => ({ id: f.id, order: f.order ?? 0 }))}
+                editable={true}
+                onChange={(orderedItems) => {
+                  if (onReorder) {
+                    const reordered = orderedItems.map((orderedItem) => {
+                      const original = items.find((f) => f.id === orderedItem.id)!;
+                      return { ...original, order: orderedItem.order };
+                    });
+                    onReorder(reordered);
+                  }
+                }}
+              />
             </div>
           ),
         },
