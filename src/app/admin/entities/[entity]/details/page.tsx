@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
 import * as Constants from "@/lib/constants";
-import EntityForm from "@/components/entities/EntityForm";
 import { getServerTranslations } from "@/i18n/server";
 import { validateEntity } from "@/utils/api/server/EntitiesApi";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
+import EntityFormSlideout from "./EntityFormSlideout";
 
 export const action = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
@@ -102,5 +102,5 @@ export default async function EditEntityIndexRoute(props: IServerComponentsProps
     redirect("/admin/entities");
   }
 
-  return <EntityForm item={item} />;
+  return <EntityFormSlideout item={item} />;
 }
