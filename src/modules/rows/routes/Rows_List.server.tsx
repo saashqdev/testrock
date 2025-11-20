@@ -15,14 +15,14 @@ import { EntityView } from "@prisma/client";
 import { PromptExecutionResultDto } from "@/modules/promptBuilder/dtos/PromptExecutionResultDto";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
-import { UserDto } from "@/lib/dtos/UserDto";
+import { UserWithoutPasswordDto } from "@/db/models/accounts/UsersModel";
 import { DefaultPermission } from "@/lib/dtos/shared/DefaultPermissions";
 
 export type LoaderData = {
   meta: MetaTagsDto;
   rowsData: GetRowsData;
   routes: Routes;
-  user: UserDto;
+  user: UserWithoutPasswordDto | null;
   isSuperAdmin: boolean;
   permissions: DefaultPermission[];
 };
@@ -73,7 +73,7 @@ export const loader = async (props: IServerComponentsProps) => {
   );
   
   const user = await db.users.getUser(userId);
-  const isSuperAdmin = user?.admin === true;
+  const isSuperAdmin = !!user?.admin;
   const allPermissions = await db.userRoles.getPermissionsByUser(userId, tenantId);
   
   const data: LoaderData = {
