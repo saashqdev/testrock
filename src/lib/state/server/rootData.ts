@@ -52,7 +52,7 @@ export async function loadRootData({ request, params }: { request: Request; para
   // Session changes will be handled through the session service
   // if (CookieHelper.hasConsent(userInfo, CookieCategory.ANALYTICS)) {
   if (!userAnalyticsId) {
-    userAnalyticsId = generateAnalyticsUserId();
+    userAnalyticsId = await generateAnalyticsUserId();
     analyticsSession.set("userAnalyticsId", userAnalyticsId);
   }
   // Commit analytics session through cookie store
