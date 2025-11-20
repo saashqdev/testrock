@@ -69,10 +69,9 @@ export default function PropertiesList({ items, className }: Props) {
     }
   }
 
-  async function onReorder(reorderedItems: PropertyWithDetailsDto[]) {
+  async function onReorder(reorderedItems: { id: string; order: number }[]) {
     try {
-      const orders = reorderedItems.map((item) => ({ id: item.id, order: item.order }));
-      await setPropertyOrders(params.entity as string, orders);
+      await setPropertyOrders(params.entity as string, reorderedItems);
     } catch (error: any) {
       toast.error(error.message || t("shared.error"));
     }
