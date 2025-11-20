@@ -25,6 +25,8 @@ import Modal from "@/components/ui/modals/Modal";
 import StarsIconFilled from "@/components/ui/icons/StarsIconFilled";
 import { useAppData } from "@/lib/state/useAppData";
 import OnboardingButton from "../../buttons/OnboardingButton";
+import AddFeedbackButton from "../../buttons/AddFeedbackButton";
+import ThemeSelector from "@/components/ui/selectors/ThemeSelector";
 import { toast } from "sonner";
 import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import { Textarea } from "@/components/ui/textarea";
@@ -48,6 +50,11 @@ export function NavActions({
   const params = useParams();
 
   const [isOpen, setIsOpen] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   function hasSubscription() {
     // Only check subscription in app layout context
@@ -78,7 +85,7 @@ export function NavActions({
       )}
 
       <div className="flex items-center space-x-2 md:ml-6">
-        {appConfiguration?.onboarding?.enabled && appOrAdminData?.onboardingSession && (
+        {mounted && appConfiguration?.onboarding?.enabled && appOrAdminData?.onboardingSession && (
           <OnboardingButton item={appOrAdminData?.onboardingSession} onClick={() => setOnboardingModalOpen(true)} />
         )}
 
@@ -103,36 +110,16 @@ export function NavActions({
         )}
 
         {/* NavBar Button: Notifications */}
-        {appConfiguration?.notifications?.enabled && (layout === "admin" || layout === "app") && appOrAdminData?.user && (
+        {mounted && 
+         appConfiguration?.notifications?.enabled && 
+         rootData?.appConfiguration?.notifications?.novuAppId && 
+         (layout === "admin" || layout === "app") && 
+         appOrAdminData?.user && (
           <Inbox
-            applicationIdentifier={rootData?.appConfiguration?.notifications?.novuAppId || ""}
-            subscriberId={appOrAdminData?.user.id || ""}
+            applicationIdentifier={rootData.appConfiguration.notifications.novuAppId}
+            subscriberId={appOrAdminData.user.id}
             routerPush={(path: string) => router.push(path)}
-            appearance={{
-              baseTheme: rootData.userSession.lightOrDarkMode === "dark" ? dark : undefined,
-              elements: { popoverTrigger: { padding: "0rem" } },
-            }}
-            renderBell={(unreadCount) => (
-              <div className="text-foreground/70 px-2 py-0.5">
-                <Button variant="ghost" size="sm" className="relative">
-                  <svg className="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      fillRule="evenodd"
-                      d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  {unreadCount?.toString() !== "0" && (
-                    <span className="absolute inset-0 -mr-6 object-right-top">
-                      <div className="border-background bg-primary text-primary-foreground inline-flex items-center rounded-full border-2 px-1.5 py-0.5 text-xs leading-4 font-semibold">
-                        {unreadCount?.toString()}
-                      </div>
-                    </span>
-                  )}
-                </Button>
-              </div>
-            )}
-          ></Inbox>
+          />
         )}
 
         {/* NavBar Button: Search */}
@@ -181,7 +168,7 @@ export function NavActions({
         {/* {(layout === "app" || layout === "admin") && <ProfileButton user={appOrAdminData?.user} layout={layout} />} */}
 
         {/* NavBar Button: Theme Selector */}
-        {/* {rootData.debug && <ThemeSelector variant="secondary" />} */}
+        <ThemeSelector variant="secondary" />
 
         {/* NavBar Button: Quick Actions */}
         {/* {layout === "app" && <QuickActionsButton entities={appOrAdminData?.entities?.filter((f) => f.showInSidebar)} />} */}
@@ -257,29 +244,6 @@ export function NavActions({
         </Popover>
       </div>
     </div>
-  );
-}
-
-function AddFeedbackButton() {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [isMounted, setIsMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  return (
-    <>
-      <Button onClick={() => setIsOpen(!isOpen)} variant="ghost" size="icon" className="text-muted-foreground">
-        <span className="sr-only">Feedback</span>
-        <StarsIconFilled className="size-5 p-0.5" />
-      </Button>
-      {isMounted && (
-        <Modal open={isOpen} setOpen={setIsOpen} size="sm">
-          <FeedbackForm isOpen={isOpen} onClose={() => setIsOpen(false)} />
-        </Modal>
-      )}
-    </>
   );
 }
 

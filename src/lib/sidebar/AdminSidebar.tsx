@@ -210,7 +210,6 @@ export const AdminSidebar = ({ appConfiguration }: Props): SideBarItem[] => [
   {
     title: "",
     path: "",
-    // isSecondary: true,
     items: [
       {
         title: "app.sidebar.settings",

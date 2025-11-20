@@ -1,14 +1,23 @@
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "../../../ui/sidebar";
+"use client";
+
+import { Sidebar, SidebarContent, SidebarInset, SidebarProvider, SidebarTrigger } from "../../../ui/sidebar";
 import { ShadcnAppSidebar } from "./app-sidebar";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { SideBarItem } from "@/lib/sidebar/SidebarItem";
 import { useParams } from "next/navigation";
 import { useTitleData } from "@/lib/state/useTitleData";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { NavActions } from "./nav-actions";
+import { NavSecondary } from "./nav-secondary";
 import { useKBar } from "kbar";
 import OnboardingSession from "@/modules/onboarding/components/OnboardingSession";
 import { Separator } from "@/components/ui/separator";
+import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
+import { useRootData } from "@/lib/state/useRootData";
+import { AdminSidebar } from "@/lib/sidebar/AdminSidebar";
+import { AppSidebar } from "@/lib/sidebar/AppSidebar";
+import { DocsSidebar } from "@/lib/sidebar/DocsSidebar";
+import { SidebarGroupDto } from "@/lib/sidebar/SidebarGroupDto";
 
 export default function ShadcnSidebarLayout({
   children,
@@ -21,47 +30,89 @@ export default function ShadcnSidebarLayout({
 }) {
   const params = useParams();
   const title = useTitleData() ?? "";
+  const rootData = useRootData();
+  const appOrAdminData = useAppOrAdminData();
 
   const mainElement = useRef<HTMLElement>(null);
 
   const { query } = useKBar();
 
   const [onboardingModalOpen, setOnboardingModalOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   function onOpenCommandPalette() {
     query.toggle();
   }
+
+  // Get secondary menu items
+  const getSecondaryMenu = (): SidebarGroupDto | null => {
+    let menu: SideBarItem[] = [];
+    if (menuItems) {
+      menu = menuItems;
+    } else if (layout === "admin") {
+      menu = AdminSidebar({ appConfiguration: rootData.appConfiguration });
+    } else if (layout === "app") {
+      menu = AppSidebar({
+        tenantId: Array.isArray(params.tenant) ? params.tenant[0] : params.tenant ?? "",
+        entities: appOrAdminData?.entities ?? [],
+        entityGroups: appOrAdminData?.entityGroups ?? [],
+        appConfiguration: rootData.appConfiguration,
+      });
+    } else if (layout === "docs") {
+      menu = DocsSidebar();
+    }
+
+    const secondaryGroup = menu.find((item) => item.isSecondary);
+    if (!secondaryGroup || !secondaryGroup.items || secondaryGroup.items.length === 0) {
+      return null;
+    }
+
+    return {
+      title: secondaryGroup.title?.toString() || "",
+      items: secondaryGroup.items,
+      type: "secondary",
+    };
+  };
+
+  const navSecondary = getSecondaryMenu();
+
   return (
-    <SidebarProvider>
-      <OnboardingSession open={onboardingModalOpen} setOpen={setOnboardingModalOpen} />
-      <ShadcnAppSidebar layout={layout} items={menuItems} />
-      <SidebarInset className="overflow-hidden">
-        <header className="border-border flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 truncate px-4">
-            <SidebarTrigger className="-ml-1" />
-            {title && <Separator orientation="vertical" className="mr-2 h-4" />}
-            <Breadcrumb className="truncate">
-              <BreadcrumbList className="truncate">
-                <BreadcrumbItem className="block truncate">
-                  <BreadcrumbPage className="truncate">{title}</BreadcrumbPage>
-                </BreadcrumbItem>
-                {/* <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem> */}
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-          <div className="ml-auto px-3">
-            <NavActions layout={layout} onOpenCommandPalette={onOpenCommandPalette} setOnboardingModalOpen={setOnboardingModalOpen} />
-          </div>
-        </header>
-        <main ref={mainElement} className="flex-1 focus:outline-hidden" tabIndex={0}>
-          <div key={params.tenant?.toString()} className="pb-20 sm:pb-0">
-            {children}
-          </div>
-        </main>
-      </SidebarInset>
-    </SidebarProvider>
+    <div suppressHydrationWarning>
+      <SidebarProvider>
+        <OnboardingSession open={onboardingModalOpen} setOpen={setOnboardingModalOpen} />
+        <ShadcnAppSidebar layout={layout} items={menuItems} />
+        <SidebarInset className="overflow-hidden">
+          <header className="border-border flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+            <div className="flex items-center gap-2 truncate px-4">
+              <SidebarTrigger className="-ml-1" />
+              {title && <Separator orientation="vertical" className="mr-2 h-4" />}
+              <Breadcrumb className="truncate">
+                <BreadcrumbList className="truncate">
+                  <BreadcrumbItem className="block truncate">
+                    <BreadcrumbPage className="truncate">{title}</BreadcrumbPage>
+                  </BreadcrumbItem>
+                  {/* <BreadcrumbSeparator className="hidden md:block" />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  </BreadcrumbItem> */}
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+            <div className="ml-auto px-3">
+              <NavActions layout={layout} onOpenCommandPalette={onOpenCommandPalette} setOnboardingModalOpen={setOnboardingModalOpen} />
+            </div>
+          </header>
+          <main ref={mainElement} className="flex-1 focus:outline-hidden" tabIndex={0}>
+            <div key={params.tenant?.toString()} className="pb-20 sm:pb-0">
+              {children}
+            </div>
+          </main>
+        </SidebarInset>
+      </SidebarProvider>
+    </div>
   );
 }

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 
 import { SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { SidebarGroupDto } from "@/lib/sidebar/SidebarGroupDto";
@@ -18,6 +19,7 @@ export function NavSecondary({
   // }[];
   item: SidebarGroupDto;
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
+  const { t } = useTranslation();
   const appOrAdminData = useAppOrAdminData();
   return (
     <SidebarGroup {...props}>
@@ -34,7 +36,7 @@ export function NavSecondary({
                 <Link href={item.path}>
                   {/* <item.icon /> */}
                   {(item.icon !== undefined || item.entityIcon !== undefined) && <SidebarIcon className="h-5 w-5 " item={item} />}
-                  <span>{item.title}</span>
+                  <span>{t(item.title)}</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

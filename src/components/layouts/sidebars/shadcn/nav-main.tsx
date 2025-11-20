@@ -3,6 +3,7 @@
 import { ChevronRight, type LucideIcon } from "lucide-react";
 import { Fragment, useEffect, useState } from "react";
 import { SidebarGroupDto } from "@/lib/sidebar/SidebarGroupDto";
+import { useTranslation } from "react-i18next";
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
@@ -35,6 +36,7 @@ export function NavMain({
   // }[];
   items: SidebarGroupDto[];
 }) {
+  const { t } = useTranslation();
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
 
@@ -87,7 +89,7 @@ export function NavMain({
 
       {items.map((group, idxGroup) => (
         <SidebarGroup key={`group-${idxGroup}-${group.title || ''}`}>
-          {group.title && <SidebarGroupLabel>{group.title}</SidebarGroupLabel>}
+          {group.title && <SidebarGroupLabel>{t(group.title)}</SidebarGroupLabel>}
           <SidebarMenu>
             {group.items.map((item, idx) => {
               const itemKey = `item-${idxGroup}-${idx}-${item.path}`;
@@ -100,7 +102,7 @@ export function NavMain({
                       <Link href={item.path}>
                         {/* <item.icon /> */}
                         {(item.icon !== undefined || item.entityIcon !== undefined) && <SidebarIcon className="size-4" item={item} />}
-                        <span suppressHydrationWarning>{item.title}</span>
+                        <span suppressHydrationWarning>{t(item.title)}</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -114,11 +116,11 @@ export function NavMain({
                 <Collapsible key={itemKey} asChild defaultOpen={isActive} className="group/collapsible" suppressHydrationWarning>
                   <SidebarMenuItem>
                     <CollapsibleTrigger asChild>
-                      <SidebarMenuButton tooltip={item.title} suppressHydrationWarning>
+                      <SidebarMenuButton tooltip={t(item.title)} suppressHydrationWarning>
                         {/* <Link to={item.path}> */}
                         {/* <item.icon /> */}
                         {(item.icon !== undefined || item.entityIcon !== undefined) && <SidebarIcon className="size-4" item={item} />}
-                        <span suppressHydrationWarning>{item.title}</span>
+                        <span suppressHydrationWarning>{t(item.title)}</span>
                         <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
 
                         {/* </Link> */}
@@ -130,7 +132,7 @@ export function NavMain({
                           <SidebarMenuSubItem key={`subitem-${idxGroup}-${idx}-${subIdx}-${subItem.path}`}>
                             <SidebarMenuSubButton asChild suppressHydrationWarning>
                               <Link href={subItem.path}>
-                                <span suppressHydrationWarning>{subItem.title}</span>
+                                <span suppressHydrationWarning>{t(subItem.title)}</span>
                               </Link>
                             </SidebarMenuSubButton>
                           </SidebarMenuSubItem>

@@ -23,6 +23,7 @@ import { SidebarGroupDto } from "@/lib/sidebar/SidebarGroupDto";
 import { TeamSwitcher } from "./team-switcher";
 import { DARK_SIDEBAR_IN_LIGHT_MODE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
 
 export function ShadcnAppSidebar({
   ...props
@@ -36,6 +37,11 @@ export function ShadcnAppSidebar({
   const appOrAdminData = useAppOrAdminData();
   const params = useParams();
   const appConfiguration = rootData.appConfiguration;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const getMenuItems = () => {
     let menu: SideBarItem[] = [];
@@ -164,8 +170,8 @@ export function ShadcnAppSidebar({
   };
 
   const navMain = getMenu().filter((f) => f.type === "main");
-  const navSecondary = getMenu().find((f) => f.type === "secondary") || { items: [] };
   const navQuickLinks = getMenu().find((f) => f.type === "quick-link");
+  const navSecondary = getMenu().find((f) => f.type === "secondary");
 
   return (
     <Sidebar
@@ -173,8 +179,9 @@ export function ShadcnAppSidebar({
       collapsible="offcanvas"
       {...props}
       className={cn(DARK_SIDEBAR_IN_LIGHT_MODE && "dark")} // force dark mode
+      suppressHydrationWarning
     >
-      <SidebarHeader>
+      <SidebarHeader suppressHydrationWarning>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
@@ -207,14 +214,23 @@ export function ShadcnAppSidebar({
         )} */}
         {props.layout === "app" && appOrAdminData?.currentTenant && <TeamSwitcher key={Array.isArray(params.tenant) ? params.tenant[0] : params.tenant} size="md" tenants={appOrAdminData?.myTenants ?? []} />}
       </SidebarHeader>
-      <SidebarContent>
-        <NavMain items={navMain} />
-        {navQuickLinks && <NavQuickLinks item={navQuickLinks} />}
-        <NavSecondary item={navSecondary} />
-      </SidebarContent>
-      <SidebarFooter>
-        {appOrAdminData?.user && <NavUser layout={props.layout} user={appOrAdminData.user} />}
-      </SidebarFooter>
+      {mounted ? (
+        <>
+          <SidebarContent suppressHydrationWarning>
+            <NavMain items={navMain} />
+            {navQuickLinks && <NavQuickLinks item={navQuickLinks} />}
+            {navSecondary && <NavSecondary item={navSecondary} />}
+          </SidebarContent>
+          <SidebarFooter suppressHydrationWarning>
+            {appOrAdminData?.user && <NavUser layout={props.layout} user={appOrAdminData.user} />}
+          </SidebarFooter>
+        </>
+      ) : (
+        <>
+          <SidebarContent suppressHydrationWarning />
+          <SidebarFooter suppressHydrationWarning />
+        </>
+      )}
     </Sidebar>
   );
 }

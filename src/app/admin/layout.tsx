@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
 import { getCurrentUrl } from "@/lib/services/url.server";
-import SidebarLayout from "@/components/layouts/SidebarLayout";
+import ShadcnSidebarLayout from "@/components/layouts/sidebars/shadcn/ShadcnSidebarLayout";
 
 const loader = async (props: IServerComponentsProps): Promise<AdminDataDto> => {
   const userInfo = await getUserInfo();
@@ -59,9 +59,9 @@ export default async function (props: IServerComponentsProps) {
   const adminData = await loader(props);
   return (
     <AdminDataLayout data={adminData}>
-      <div suppressHydrationWarning>
-        <SidebarLayout layout="admin">{props.children}</SidebarLayout>
-      </div>
+      <ShadcnSidebarLayout layout="admin">
+        {props.children}
+      </ShadcnSidebarLayout>
     </AdminDataLayout>
   );
 }
