@@ -61,6 +61,6 @@ export async function destroyAnalyticsSession(session: Session) {
   return await sessionStorage.destroySession(session);
 }
 
-export function generateAnalyticsUserId() {
+export async function generateAnalyticsUserId() {
   return randomBytes(100).toString("base64");
 }
