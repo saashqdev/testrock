@@ -51,16 +51,11 @@ function Button({
     isLoading?: boolean
   }) {
   const Comp = asChild ? Slot : "button"
-  const [mounted, setMounted] = React.useState(false)
-
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
 
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }), mounted && isLoading && "base-spinner")}
+      className={cn(buttonVariants({ variant, size, className }), isLoading && "base-spinner")}
       {...props}
     />
   )

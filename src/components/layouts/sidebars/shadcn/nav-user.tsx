@@ -23,6 +23,7 @@ import UserUtils from "@/utils/app/UserUtils";
 import { useRootData } from "@/lib/state/useRootData";
 import DarkModeToggle from "@/components/ui/toggles/DarkModeToggle";
 import { DARK_MODE_IN_APP } from "@/lib/constants";
+import { actionToggleScheme } from "@/app/(marketing)/actions";
 
 export function NavUser({
   user,
@@ -36,24 +37,12 @@ export function NavUser({
   const { userSession } = useRootData();
 
   const params = useParams();
-  let pathname = usePathname();
+  const pathname = usePathname();
 
   const onThemeToggle = async () => {
-    const isDarkMode = userSession?.lightOrDarkMode === "dark";
-    
-    // Call the server action to toggle theme
-    try {
-      await fetch("/api/toggle-theme", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ lightOrDarkMode: isDarkMode ? "light" : "dark" }),
-      });
-      
-      // Reload to apply theme
-      window.location.reload();
-    } catch (error) {
-      console.error("Failed to toggle theme:", error);
-    }
+    const formData = new FormData();
+    formData.append("redirectTo", pathname || "/");
+    await actionToggleScheme(formData);
   };
 
   return (
@@ -135,8 +124,38 @@ export function NavUser({
             ) : null}
 
             {DARK_MODE_IN_APP && (
-              <DropdownMenuItem className="gap-2" onClick={onThemeToggle}>
-                <DarkModeToggle className="mr-2 size-4" />
+              <DropdownMenuItem onClick={onThemeToggle}>
+                {userSession?.lightOrDarkMode === "dark" ? (
+                  <svg
+                    className="mr-2 h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    className="mr-2 h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"
+                    />
+                  </svg>
+                )}
                 {userSession?.lightOrDarkMode === "dark" ? "Light Mode" : "Dark Mode"}
               </DropdownMenuItem>
             )}
