@@ -9,7 +9,7 @@ interface NewEntityRelationshipClientProps {
   entity: EntityWithDetailsDto;
   entities: EntityWithDetailsDto[];
   entitySlug: string;
-  onSubmit: (formData: FormData) => Promise<void>;
+  onSubmit: (formData: FormData) => Promise<{ error?: string } | void>;
 }
 
 export default function NewEntityRelationshipClient({ entity, entities, entitySlug, onSubmit }: NewEntityRelationshipClientProps) {
