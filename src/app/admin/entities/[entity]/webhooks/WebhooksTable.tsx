@@ -2,10 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import TableSimple from "@/components/ui/tables/TableSimple";
+import TableSimple, { RowHeaderDisplayDto, RowHeaderActionDto } from "@/components/ui/tables/TableSimple";
 import { EntityWebhookWithDetailsDto } from "@/db/models/entityBuilder/EntityWebhooksModel";
-import { RowHeaderDisplayDto } from "@/lib/dtos/data/RowHeaderDisplayDto";
-import { RowHeaderActionDto } from "@/components/ui/tables/TableSimple";
 import Modal from "@/components/ui/modals/Modal";
 import EntityWebhookForm from "@/components/entities/webhooks/EntityWebhookForm";
 import ButtonTertiary from "@/components/ui/buttons/ButtonTertiary";
