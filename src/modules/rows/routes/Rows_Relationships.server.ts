@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { Routes, getNoCodeRoutes } from "@/utils/api/server/EntitiesApi";
 import { GetRowsData, getAll } from "@/utils/api/server/RowsApi";
 import UrlUtils from "@/utils/app/UrlUtils";
