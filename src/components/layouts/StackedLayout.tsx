@@ -17,6 +17,7 @@ import LogoLight from "@/assets/img/logo-light.png";
 import { useAppData } from "@/lib/state/useAppData";
 import UrlUtils from "@/utils/app/UrlUtils";
 import { useRootData } from "@/lib/state/useRootData";
+import { useAdminData } from "@/lib/state/useAdminData";
 
 interface Props {
   layout: "app" | "admin";
@@ -26,6 +27,7 @@ interface Props {
 export default function StackedLayout({ layout, children }: Props) {
   const params = useParams();
   const appData = useAppData();
+  const adminData = useAdminData();
   const rootData = useRootData();
   const { t } = useTranslation();
   const router = useRouter();
@@ -36,7 +38,7 @@ export default function StackedLayout({ layout, children }: Props) {
 
   useEffect(() => {
     if (layout === "admin") {
-      setMenu(AdminSidebar({ appConfiguration: rootData.appConfiguration }));
+      setMenu(AdminSidebar({ appConfiguration: rootData.appConfiguration, myTenants: adminData?.myTenants }));
     } else {
       setMenu(
         AppSidebar({

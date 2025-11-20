@@ -3,7 +3,7 @@ import { AdminSidebar } from "./AdminSidebar";
 
 describe("AdminSidebar", () => {
   it("returns an array of sidebar items", () => {
-    const sidebar = AdminSidebar({ appConfiguration: null });
+    const sidebar = AdminSidebar({ appConfiguration: null, myTenants: undefined });
 
     expect(Array.isArray(sidebar)).toBe(true);
 

@@ -6,6 +6,7 @@ import clsx from "@/lib/shared/ClassesUtils";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { Command } from "@/lib/dtos/layout/Command";
+import { useAdminData } from "@/lib/state/useAdminData";
 
 interface Props {
   isOpen: boolean;
@@ -15,6 +16,7 @@ interface Props {
 export default function AppCommandPalette({ onClosed, isOpen }: Props) {
   const { t } = useTranslation();
   const router = useRouter();
+  const adminData = useAdminData();
 
   const commands: Command[] = [
     {
@@ -36,10 +38,10 @@ export default function AppCommandPalette({ onClosed, isOpen }: Props) {
     {
       command: "Z",
       title: "Switch to App",
-      description: "Go to /app",
+      description: adminData?.myTenants && adminData.myTenants.length > 0 ? `Go to ${adminData.myTenants[0].name}` : "Go to /app",
       bgClassName: "bg-indigo-600",
       textClassName: "text-indigo-200",
-      toPath: "/app",
+      toPath: adminData?.myTenants && adminData.myTenants.length > 0 ? `/app/${adminData.myTenants[0].slug}/dashboard` : "/app",
     },
   ];
 

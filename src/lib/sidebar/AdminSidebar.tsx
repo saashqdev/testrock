@@ -2,12 +2,14 @@ import { SideBarItem } from "./SidebarItem";
 import { SvgIcon } from "../enums/shared/SvgIcon";
 import ExperimentIconFilled from "@/components/ui/icons/tests/ExperimentIconFilled";
 import { AppConfigurationDto } from "@/db/models/core/AppConfigurationModel";
+import { TenantDto } from "@/db/models/accounts/TenantsModel";
 
 type Props = {
   appConfiguration: AppConfigurationDto | null;
+  myTenants?: TenantDto[];
 };
 
-export const AdminSidebar = ({ appConfiguration }: Props): SideBarItem[] => [
+export const AdminSidebar = ({ appConfiguration, myTenants }: Props): SideBarItem[] => [
   {
     title: "",
     path: "",
@@ -232,7 +234,7 @@ export const AdminSidebar = ({ appConfiguration }: Props): SideBarItem[] => [
       },
       {
         title: "admin.switchToApp",
-        path: "/app",
+        path: myTenants && myTenants.length > 0 ? `/app/${myTenants[0].slug}/dashboard` : "/app",
         icon: SvgIcon.APP,
         exact: true,
       },

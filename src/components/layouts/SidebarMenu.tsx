@@ -48,7 +48,8 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
       menu = menuItems;
     } else if (layout === "admin") {
       menu = AdminSidebar({ 
-        appConfiguration: rootData?.appConfiguration
+        appConfiguration: rootData?.appConfiguration,
+        myTenants: adminData?.myTenants
       });
     } else if (layout === "app") {
       menu = AppSidebar({

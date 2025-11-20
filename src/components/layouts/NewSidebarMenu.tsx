@@ -72,7 +72,8 @@ export default function NewSidebarMenu({ layout, children, onOpenCommandPalette,
               scheme: rootData.theme.scheme as "light" | "dark" | "system"
             }
           }
-        } : null
+        } : null,
+        myTenants: appOrAdminData?.myTenants
       });
     } else if (layout === "app") {
       menu = AppSidebar({

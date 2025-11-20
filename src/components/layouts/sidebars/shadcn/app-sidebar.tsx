@@ -48,7 +48,7 @@ export function ShadcnAppSidebar({
     if (props.items) {
       menu = props.items;
     } else if (props.layout === "admin") {
-      menu = AdminSidebar({ appConfiguration: rootData.appConfiguration });
+      menu = AdminSidebar({ appConfiguration: rootData.appConfiguration, myTenants: appOrAdminData?.myTenants });
     } else if (props.layout === "app") {
       menu = AppSidebar({
         tenantId: Array.isArray(params.tenant) ? params.tenant[0] : params.tenant ?? "",

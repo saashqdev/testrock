@@ -54,7 +54,7 @@ export default function ShadcnSidebarLayout({
     if (menuItems) {
       menu = menuItems;
     } else if (layout === "admin") {
-      menu = AdminSidebar({ appConfiguration: rootData.appConfiguration });
+      menu = AdminSidebar({ appConfiguration: rootData.appConfiguration, myTenants: appOrAdminData?.myTenants });
     } else if (layout === "app") {
       menu = AppSidebar({
         tenantId: Array.isArray(params.tenant) ? params.tenant[0] : params.tenant ?? "",

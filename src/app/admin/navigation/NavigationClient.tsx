@@ -24,7 +24,7 @@ export default function NavigationClient() {
 
   useEffect(() => {
     setItems([]);
-    AdminSidebar({ appConfiguration: rootData.appConfiguration }).forEach((admin) => {
+    AdminSidebar({ appConfiguration: rootData.appConfiguration, myTenants: adminData?.myTenants }).forEach((admin) => {
       admin.items?.forEach((item) => {
         setItems((items) => [...items, item]);
       });
