@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import ServerError from "@/components/ui/errors/ServerError";
 import RowsViewRoute from "@/modules/rows/components/RowsViewRoute";
 import { LoaderData, loader as rowsListLoader, action as rowsListAction } from "@/modules/rows/routes/Rows_List.server";
-import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
-import { getEntityPermission, getUserHasPermission } from "@/lib/helpers/PermissionsHelper";
+import { getEntityPermission } from "@/lib/helpers/PermissionsHelper";
 import { serverTimingHeaders } from "@/modules/metrics/utils/defaultHeaders.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import TitleDataLayout from "@/context/TitleDataLayout";
@@ -30,7 +29,6 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 export default async function (props: IServerComponentsProps) {
   const response = await rowsListLoader(props);
   const data = await response.json() as LoaderData;
-  const appOrAdminData = useAppOrAdminData();
   
   // Extract title from meta tags
   let title = "";
@@ -43,6 +41,10 @@ export default async function (props: IServerComponentsProps) {
     }
   }
   
+  // Check if user has create permission
+  const createPermission = getEntityPermission(data.rowsData.entity, "create");
+  const hasCreatePermission = data.permissions.some(p => p === createPermission);
+  
   return (
     <TitleDataLayout data={{ title }}>
       <RowsViewRoute
@@ -52,12 +54,12 @@ export default async function (props: IServerComponentsProps) {
         routes={data.routes}
         saveCustomViews={true}
         permissions={{
-          create: getUserHasPermission(appOrAdminData, getEntityPermission(data.rowsData.entity, "create")),
+          create: hasCreatePermission,
         }}
-        currentSession={{
-          user: appOrAdminData?.user!,
-          isSuperAdmin: appOrAdminData?.isSuperAdmin ?? false,
-        }}
+        currentSession={data.user ? {
+          user: data.user,
+          isSuperAdmin: data.isSuperAdmin,
+        } : null}
       />
     </TitleDataLayout>
   );

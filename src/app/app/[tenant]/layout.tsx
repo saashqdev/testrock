@@ -155,7 +155,7 @@ export default async function (props: IServerComponentsProps) {
   
   return (
     <AppDataLayout data={appData}>
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-[#fafafa]">
         <AppLayout layout="app" type={sidebarType}>
           {props.children}
         </AppLayout>

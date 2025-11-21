@@ -12,7 +12,7 @@ import MySubscriptionFeatures from "@/modules/subscriptions/components/MySubscri
 import MyUpcomingInvoice from "@/modules/subscriptions/components/MyUpcomingInvoice";
 import SettingSection from "@/components/ui/sections/SettingSection";
 import { TenantDto, TenantSubscriptionProductWithDetailsDto, TenantSubscriptionWithDetailsDto } from "@/db/models";
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useTransition } from "react";
 import { actionAppSettingsSubscription } from "@/app/app/[tenant]/settings/subscription/page";
 import { toast } from "sonner";
 
@@ -33,6 +33,7 @@ export default function SubscriptionSettings({
 }) {
   const { t } = useTranslation();
   const [actionData, action] = useActionState(actionAppSettingsSubscription, null);
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     if (actionData?.error) {
@@ -46,13 +47,17 @@ export default function SubscriptionSettings({
     const form = new FormData();
     form.set("action", "cancel");
     form.set("tenant-subscription-product-id", item.id);
-    action(form);
+    startTransition(() => {
+      action(form);
+    });
   }
 
   function onOpenCustomerPortal() {
     const form = new FormData();
     form.set("action", "open-customer-portal");
-    action(form);
+    startTransition(() => {
+      action(form);
+    });
   }
 
   return (
