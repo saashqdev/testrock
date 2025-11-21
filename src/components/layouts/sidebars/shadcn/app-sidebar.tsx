@@ -219,9 +219,9 @@ export function ShadcnAppSidebar({
           <SidebarContent suppressHydrationWarning>
             <NavMain items={navMain} />
             {navQuickLinks && <NavQuickLinks item={navQuickLinks} />}
-            {navSecondary && <NavSecondary item={navSecondary} />}
           </SidebarContent>
           <SidebarFooter suppressHydrationWarning>
+            {navSecondary && <NavSecondary item={navSecondary} />}
             {appOrAdminData?.user && <NavUser layout={props.layout} user={appOrAdminData.user} />}
           </SidebarFooter>
         </>

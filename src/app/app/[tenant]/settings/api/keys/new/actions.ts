@@ -23,7 +23,8 @@ type ActionData = {
 export async function createApiKey(params: any, formData: FormData): Promise<ActionData> {
   try {
     const { t } = await getServerTranslations();
-    const tenantId = await getTenantIdFromUrl(params);
+    const tenantSlug = params.tenant || params;
+    const tenantId = await getTenantIdFromUrl(tenantSlug);
     
     // Create a mock Request object for permission verification
     const headersList = await headers();
@@ -35,11 +36,11 @@ export async function createApiKey(params: any, formData: FormData): Promise<Act
     await verifyUserHasPermission("app.settings.apiKeys.create", tenantId);
     
     const userInfo = await getUserInfo();
-    const tenant = await db.tenants.getTenant(tenantId);
     const currentUser = await db.users.getUser(userInfo.userId);
 
-    if (!tenant || !currentUser) {
-      return { error: t("shared.notFound") };
+    if (!currentUser) {
+      console.error("User not found:", userInfo.userId);
+      return { error: "User not found" };
     }
 
     const action = formData.get("action")?.toString() ?? "";
@@ -89,11 +90,20 @@ export async function createApiKey(params: any, formData: FormData): Promise<Act
       
       await db.logs.createLog(request, tenantId, "API Key Created", JSON.stringify({ id: apiKey.id, alias, expirationDate, active, entities }));
       
-      redirect(UrlUtils.currentTenantUrl(params, "settings/api/keys"));
+      return {
+        apiKey: {
+          key: apiKey.key,
+          alias: apiKey.alias,
+        },
+      };
     } else {
       return { error: t("shared.invalidForm") };
     }
   } catch (error) {
+    // Re-throw redirect errors
+    if (error instanceof Error && error.message === 'NEXT_REDIRECT') {
+      throw error;
+    }
     console.error("Error creating API key:", error);
     return { error: error instanceof Error ? error.message : "An error occurred" };
   }

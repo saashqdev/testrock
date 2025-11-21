@@ -68,15 +68,19 @@ function SidebarProvider({
 
   // This is the internal state of the sidebar.
   // We use openProp and setOpenProp for control from outside the component.
-  const [_open, _setOpen] = React.useState(() => {
+  const getInitialState = () => {
+    // On server, use defaultOpen
     if (typeof window === "undefined") return defaultOpen;
-    // Read from cookie on client side
+    
+    // On client initial render, check cookie immediately
     const cookie = document.cookie.split("; ").find((row) => row.startsWith(`${SIDEBAR_COOKIE_NAME}=`));
     if (cookie) {
       return cookie.split("=")[1] === "true";
     }
     return defaultOpen;
-  });
+  };
+  
+  const [_open, _setOpen] = React.useState(getInitialState);
   const open = openProp ?? _open;
   const setOpen = React.useCallback(
     (value: boolean | ((value: boolean) => boolean)) => {
@@ -207,6 +211,7 @@ function Sidebar({
       data-variant={variant}
       data-side={side}
       data-slot="sidebar"
+      suppressHydrationWarning
     >
       {/* This is what handles the sidebar gap on desktop */}
       <div
@@ -214,8 +219,10 @@ function Sidebar({
         style={{
           width: state === "collapsed" && collapsible === "offcanvas" ? "0" : "var(--sidebar-width)",
         }}
+        suppressHydrationWarning
         className={cn(
-          "relative bg-transparent transition-[width] duration-200 ease-linear",
+          "relative bg-transparent",
+          mounted && "transition-[width] duration-200 ease-linear",
           "group-data-[side=right]:rotate-180",
           variant === "floating" || variant === "inset"
             ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]"
@@ -229,19 +236,22 @@ function Sidebar({
           right: side === "right" && (state === "collapsed" && collapsible === "offcanvas") ? "calc(var(--sidebar-width) * -1)" : side === "right" ? "0" : undefined,
         }}
         className={cn(
-          "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex",
+          "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) md:flex",
+          mounted && "transition-[left,right,width] duration-200 ease-linear",
           // Adjust the padding for floating and inset variants.
           variant === "floating" || variant === "inset"
             ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]"
             : "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l",
           className
         )}
+        suppressHydrationWarning
         {...props}
       >
         <div
           data-sidebar="sidebar"
           data-slot="sidebar-inner"
-          className="bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm"
+          className="bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col overflow-x-clip group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm"
+          suppressHydrationWarning
         >
           {children}
         </div>
@@ -332,7 +342,7 @@ function SidebarContent({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="sidebar-content"
       data-sidebar="content"
-      className={cn("flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden", className)}
+      className={cn("flex min-h-0 flex-1 flex-col gap-2 overflow-x-hidden overflow-y-auto group-data-[collapsible=icon]:overflow-hidden", className)}
       {...props}
     />
   );
@@ -387,7 +397,7 @@ function SidebarMenu({ className, ...props }: React.ComponentProps<"ul">) {
 }
 
 function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
-  return <li data-slot="sidebar-menu-item" data-sidebar="menu-item" className={cn("group/menu-item relative", className)} {...props} />;
+  return <li data-slot="sidebar-menu-item" data-sidebar="menu-item" className={cn("group/menu-item relative overflow-hidden", className)} {...props} />;
 }
 
 const sidebarMenuButtonVariants = cva(

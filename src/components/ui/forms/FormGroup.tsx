@@ -162,18 +162,15 @@ const FormGroup = (
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.stopPropagation();
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
     if (confirmationPrompt) {
+      e.stopPropagation();
+      e.preventDefault();
+      const formData = new FormData(e.currentTarget);
       setFormData(formData);
       confirmSubmit.current?.show(confirmationPrompt.title, confirmationPrompt.yesTitle, confirmationPrompt.noTitle, confirmationPrompt.description);
-    } else {
-      if (onSubmit !== undefined) {
-        setIsSubmitting(true);
-        await onSubmit(formData);
-      }
     }
+    // If no confirmation prompt and onSubmit exists, let the form action handle it naturally
+    // This allows useActionState to work correctly with the action prop
   }
 
   async function yesSubmit() {
@@ -186,7 +183,14 @@ const FormGroup = (
   }
 
   return (
-    <form ref={formRef} method="post" acceptCharset="utf-8" className={clsx(className, "py-1")} onSubmit={handleSubmit}>
+    <form 
+      ref={formRef} 
+      {...(onSubmit && !confirmationPrompt ? {} : { method: "post" })}
+      acceptCharset="utf-8" 
+      className={clsx(className, "py-1")} 
+      onSubmit={confirmationPrompt ? handleSubmit : undefined}
+      action={!confirmationPrompt && onSubmit ? (onSubmit as any) : undefined}
+    >
       <input type="hidden" name="action" value={id ? actionNames?.update ?? "edit" : actionNames?.create ?? "create"} hidden readOnly />
       <input type="hidden" name="id" value={id ?? ""} hidden readOnly />
       <div className="space-y-3">

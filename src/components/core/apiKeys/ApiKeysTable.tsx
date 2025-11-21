@@ -3,6 +3,7 @@
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "next/navigation";
 import { DefaultEntityTypes } from "@/lib/dtos/shared/DefaultEntityTypes";
 import ButtonTertiary from "@/components/ui/buttons/ButtonTertiary";
 import EmptyState from "@/components/ui/emptyState/EmptyState";
@@ -11,6 +12,7 @@ import { ApiKeyWithDetailsDto } from "@/db/models/apiKeys/ApiKeysModel";
 import { EntityDto } from "@/db/models/entityBuilder/EntitiesModel";
 import DateUtils from "@/lib/shared/DateUtils";
 import NumberUtils from "@/lib/shared/NumberUtils";
+import UrlUtils from "@/utils/app/UrlUtils";
 
 interface Props {
   entities: EntityDto[];
@@ -24,6 +26,7 @@ type Header = {
 };
 export default function ApiKeysTable({ entities, items, withTenant, canCreate }: Props) {
   const { t } = useTranslation();
+  const params = useParams();
 
   const [copiedKey, setCopiedKey] = useState("");
   const [searchInput, setSearchInput] = useState("");
@@ -102,9 +105,19 @@ export default function ApiKeysTable({ entities, items, withTenant, canCreate }:
     return item.expires && item.expires < now;
   }
 
+  const getNewRoute = () => {
+    if (!canCreate) return "";
+    // Check if we're in tenant context (params has tenant property)
+    if (params?.tenant) {
+      return UrlUtils.getModulePath(params, "api/keys/new");
+    }
+    // Otherwise, we're in admin context
+    return "/admin/api/keys/new";
+  };
+
   return (
     <div className="space-y-2">
-      <InputSearch value={searchInput} onChange={setSearchInput} onNewRoute={canCreate ? "/admin/api/keys/new" : ""} />
+      <InputSearch value={searchInput} onChange={setSearchInput} onNewRoute={getNewRoute()} />
       {(() => {
         if (filteredItems().length === 0) {
           return (

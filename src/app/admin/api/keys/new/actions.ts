@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { getServerTranslations } from "@/i18n/server";
 import { getApiKeyEntityPermissions } from "@/lib/helpers/server/ApiKeyHelperService";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
@@ -24,6 +25,13 @@ export async function createApiKey(prevState: ActionData | null, formData: FormD
     
     const { t } = await getServerTranslations();
     const currentUser = await db.users.getUser(userInfo.userId);
+    
+    // Construct Request object for logging and events
+    const headersList = await headers();
+    const request = new Request(`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}/admin/api/keys/new`, {
+      method: 'POST',
+      headers: headersList as any,
+    });
 
     const action = formData.get("action")?.toString() ?? "";
     if (action === "create") {
@@ -54,9 +62,9 @@ export async function createApiKey(prevState: ActionData | null, formData: FormD
         },
         entities
       );
-      await db.logs.createAdminLog(null as any, "API Key Created", JSON.stringify({ id: apiKey.id, tenantId, alias, expirationDate, active, entities }));
+      await db.logs.createAdminLog(request, "API Key Created", JSON.stringify({ id: apiKey.id, tenantId, alias, expirationDate, active, entities }));
       await EventsService.create({
-        request: null as any,
+        request: request,
         event: "api_key.created",
         tenantId,
         userId: currentUser?.id ?? "",

@@ -18,11 +18,10 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 
 export default async function UnauthorizedPermissionPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
-  const request = props.request!;
+  const searchParams = await props.searchParams;
   const { t } = await getServerTranslations();
   const permission = await db.permissions.getPermissionName(params.permission ?? "");
-  const searchParams = new URLSearchParams(new URL(request.url).search);
-  const redirectTo = searchParams.get("redirect")?.toString();
+  const redirectTo = searchParams?.redirect?.toString();
   const userInfo = await getUserInfo();
   
   if (redirectTo) {

@@ -64,13 +64,15 @@ const loader = async (): Promise<AppSettingsSubscriptionLoaderData> => {
     myPaymentMethods: stripeService.getStripePaymentMethods(tenantSubscription.stripeCustomerId),
     myFeatures: getPlanFeaturesUsage(tenantId),
   });
+  
+  // Serialize Stripe objects to plain JSON for Client Components
   const data: AppSettingsSubscriptionLoaderData = {
-    customer,
+    customer: customer ? JSON.parse(JSON.stringify(customer)) : null,
     myFeatures,
-    myInvoices,
-    myPayments,
-    myUpcomingInvoice,
-    myPaymentMethods,
+    myInvoices: JSON.parse(JSON.stringify(myInvoices)),
+    myPayments: JSON.parse(JSON.stringify(myPayments)),
+    myUpcomingInvoice: myUpcomingInvoice ? JSON.parse(JSON.stringify(myUpcomingInvoice)) : null,
+    myPaymentMethods: JSON.parse(JSON.stringify(myPaymentMethods)),
   };
   return data;
 };

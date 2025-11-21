@@ -30,7 +30,7 @@ export const defaultAppConfiguration: AppConfigurationDto = {
       tenantHome: "/app/:tenant/",
       tenantTypes: false,
       surveys: false,
-      tenantApiKeys: false,
+      tenantApiKeys: true,
       tenantEntityCustomization: false,
       tenantBlogs: false,
       tenantWorkflows: false,

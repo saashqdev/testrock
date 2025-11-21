@@ -26,7 +26,7 @@ import { getUserHasPermission } from "@/lib/helpers/PermissionsHelper";
 import UrlUtils from "@/lib/utils/UrlUtils";
 import { CreditTypes } from "@/modules/usage/dtos/CreditType";
 import { useParams } from "next/navigation";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useRootData } from "@/lib/state/useRootData";
 
 export default function ({ data, children }: { data: AppSettingsLayoutLoaderData; children: React.ReactNode }) {
@@ -34,6 +34,12 @@ export default function ({ data, children }: { data: AppSettingsLayoutLoaderData
   const appData = useAppData();
   const rootData = useRootData();
   const params = useParams();
+  const [isClient, setIsClient] = useState(false);
+
+  // Ensure component only renders with actual data after hydration
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const getTabs = () => {
     const tabs: IconDto[] = [];
@@ -132,6 +138,11 @@ export default function ({ data, children }: { data: AppSettingsLayoutLoaderData
     }
     return tabs;
   };
+
+  // Wait for client-side hydration to avoid mismatch
+  if (!isClient) {
+    return <div>{children}</div>;
+  }
 
   return (
     <SidebarIconsLayout label={{ align: "right" }} items={getTabs()}>

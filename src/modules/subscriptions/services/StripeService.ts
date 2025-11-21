@@ -163,8 +163,7 @@ class StripeService {
         customer: id,
       });
     } catch (e: any) {
-      // eslint-disable-next-line no-console
-      console.error("Could not get stripe upcoming invoice", e.message);
+      // No upcoming invoice is a normal case, not an error
       return null;
     }
   }
