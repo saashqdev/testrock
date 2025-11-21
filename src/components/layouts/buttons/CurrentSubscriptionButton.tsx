@@ -5,6 +5,7 @@ import { useAppData } from "@/lib/state/useAppData";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import clsx from "@/lib/shared/ClassesUtils";
+import UrlUtils from "@/lib/utils/UrlUtils";
 
 export default function CurrentSubscriptionButton() {
   const params = useParams();
@@ -23,7 +24,7 @@ export default function CurrentSubscriptionButton() {
         <div className="hidden divide-x divide-gray-300 rounded-sm shadow-none lg:inline-flex">
           <div className="relative z-0 inline-flex rounded-full text-xs shadow-none sm:text-sm">
             <Link
-              href={!params.tenant ? "" : "/subscribe/" + params.tenant}
+              href={!params.tenant ? "" : UrlUtils.currentTenantUrl(params, "pricing")}
               className={clsx(
                 "text-muted-foreground bg-secondary border-border relative inline-flex items-center space-x-1 rounded-md border p-2 font-medium shadow-inner hover:bg-teal-50 hover:text-teal-800 focus:z-10 focus:bg-teal-100 focus:text-teal-900 focus:outline-hidden",
                 hasSubscription() &&

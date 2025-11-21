@@ -17,7 +17,7 @@ import { useRootData } from "@/lib/state/useRootData";
 import { usePathname, useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import UrlUtils from "@/utils/app/UrlUtils";
+import UrlUtils from "@/lib/utils/UrlUtils";
 import { GearIcon } from "@radix-ui/react-icons";
 import { Inbox } from "@novu/react";
 import { dark } from "@novu/react/themes";
@@ -93,7 +93,7 @@ export function NavActions({
         {layout === "app" && getUserHasPermission(appOrAdminData, "app.settings.subscription.update") && (
           <React.Fragment>
             {!hasSubscription() && (
-              <Link href={!params.tenant ? "" : "/subscribe/" + params.tenant}>
+              <Link href={!params.tenant ? "" : UrlUtils.currentTenantUrl(params, "pricing")}>
                 <Button variant="outline" size="sm">
                   <span>{t("pricing.subscribe")} </span>
                   <svg xmlns="http://www.w3.org/2000/svg" className="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">

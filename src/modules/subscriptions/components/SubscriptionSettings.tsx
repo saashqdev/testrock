@@ -15,6 +15,8 @@ import { TenantDto, TenantSubscriptionProductWithDetailsDto, TenantSubscriptionW
 import { useActionState, useEffect, useTransition } from "react";
 import { actionAppSettingsSubscription } from "@/app/app/[tenant]/settings/subscription/page";
 import { toast } from "sonner";
+import { useParams } from "next/navigation";
+import UrlUtils from "@/lib/utils/UrlUtils";
 
 export default function SubscriptionSettings({
   currentTenant,
@@ -32,6 +34,7 @@ export default function SubscriptionSettings({
   myUpcomingInvoice: Stripe.Invoice | null;
 }) {
   const { t } = useTranslation();
+  const params = useParams();
   const [actionData, action] = useActionState(actionAppSettingsSubscription, null);
   const [isPending, startTransition] = useTransition();
 
@@ -69,7 +72,7 @@ export default function SubscriptionSettings({
             <div>{t("settings.subscription.description")}</div>
             <div>
               {mySubscription?.products && mySubscription.products.length > 0 && (
-                <Link href={`/subscribe/${currentTenant.slug}`} className="text-theme-600 underline">
+                <Link href={UrlUtils.currentTenantUrl(params, "pricing")} className="text-theme-600 underline">
                   {t("settings.subscription.viewAllProducts")}
                 </Link>
               )}

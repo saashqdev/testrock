@@ -21,7 +21,7 @@ export default function AppDataLayout({ children, data }: { children: React.Reac
   useEffect(() => {
     if (!UrlUtils.stripTrailingSlash(pathname).startsWith(`/app/${params.tenant}/settings`)) {
       if (appConfiguration.subscription.required && data.mySubscription?.products.length === 0) {
-        router.push(`/subscribe/${params.tenant}?error=subscription_required`);
+        router.push(UrlUtils.currentTenantUrl(params, "pricing?error=subscription_required"));
       }
     }
   }, [pathname]);

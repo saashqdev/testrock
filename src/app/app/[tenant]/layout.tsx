@@ -106,7 +106,7 @@ const loader = async () => {
   if (!UrlUtils.stripTrailingSlash(url.pathname).startsWith(`/app/${tenantSlug}/settings`)) {
     const appConfiguration = await db.appConfiguration.getAppConfiguration();
     if (appConfiguration.subscription.required && mySubscription?.products.length === 0) {
-      throw redirect(`/subscribe/${tenantSlug}?error=subscription_required`);
+      throw redirect(`/app/${tenantSlug}/pricing?error=subscription_required`);
     }
   }
 

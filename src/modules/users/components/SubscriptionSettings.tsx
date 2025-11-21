@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useTransition } from "react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
@@ -16,6 +16,7 @@ import SettingSection from "@/components/ui/sections/SettingSection";
 import { TenantSubscriptionProductWithDetailsDto } from "@/db/models/subscriptions/TenantSubscriptionProductsModel";
 import { TenantSubscriptionWithDetailsDto } from "@/db/models/subscriptions/TenantSubscriptionsModel";
 import { TenantDto } from "@/db/models/accounts/TenantsModel";
+import UrlUtils from "@/lib/utils/UrlUtils";
 
 export default function SubscriptionSettings({
   currentTenant,
@@ -38,6 +39,7 @@ export default function SubscriptionSettings({
 }) {
   const { t } = useTranslation();
   const router = useRouter();
+  const params = useParams();
   const [isPending, startTransition] = useTransition();
 
   async function onCancel(item: TenantSubscriptionProductWithDetailsDto) {
@@ -117,7 +119,7 @@ export default function SubscriptionSettings({
             <div>{t("settings.subscription.description")}</div>
             <div>
               {mySubscription?.products && mySubscription.products.length > 0 && (
-                <Link href={`/subscribe/${currentTenant.slug}`} className="text-theme-600 underline">
+                <Link href={UrlUtils.currentTenantUrl(params, "pricing")} className="text-theme-600 underline">
                   {t("settings.subscription.viewAllProducts")}
                 </Link>
               )}

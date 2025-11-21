@@ -5,6 +5,8 @@ import WarningBanner from "@/components/ui/banners/WarningBanner";
 import Link from "next/link";
 import TenantProduct from "./TenantProduct";
 import { TenantSubscriptionProductWithDetailsDto } from "@/db/models";
+import { useParams } from "next/navigation";
+import UrlUtils from "@/lib/utils/UrlUtils";
 
 interface Props {
   currentTenant: { slug: string };
@@ -14,13 +16,14 @@ interface Props {
 
 export default function MyProducts({ currentTenant, items, onCancel }: Props) {
   const { t } = useTranslation();
+  const params = useParams();
 
   return (
     <div>
       {items.length === 0 ? (
         <>
           <WarningBanner title={t("settings.subscription.noSubscription")} text={""}>
-            <Link href={`/subscribe/${currentTenant.slug}`} className="underline">
+            <Link href={UrlUtils.currentTenantUrl(params, "pricing")} className="underline">
               {t("settings.subscription.viewAllProducts")}.
             </Link>
           </WarningBanner>
@@ -34,7 +37,7 @@ export default function MyProducts({ currentTenant, items, onCancel }: Props) {
           </div>
 
           {/* <div className="flex justify-end mt-2 text-sm">
-            <Link href={`/subscribe/${appData.currentTenant.slug}`} className="underline">
+            <Link href={UrlUtils.currentTenantUrl(params, "pricing")} className="underline">
               {t("settings.subscription.viewAllProducts")}
             </Link>
           </div> */}

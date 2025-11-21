@@ -73,11 +73,11 @@ export default function PricingPlanForm({ plans, item, canUpdate = true, canDele
 
   const [order, setOrder] = useState<number | undefined>(item?.order ?? getNextOrder());
   const [title, setTitle] = useState(item?.title ?? "");
-  const [description, setDescription] = useState(item?.description ?? "");
-  const [groupTitle, setGroupTitle] = useState(item?.groupTitle ?? "");
-  const [groupDescription, setGroupDescription] = useState(item?.groupDescription ?? "");
+  const [description, setDescription] = useState(item?.description || "");
+  const [groupTitle, setGroupTitle] = useState(item?.groupTitle || "");
+  const [groupDescription, setGroupDescription] = useState(item?.groupDescription || "");
   const [model, setModel] = useState(item?.model ?? PricingModel.FLAT_RATE);
-  const [badge, setBadge] = useState(item?.badge ?? "");
+  const [badge, setBadge] = useState(item?.badge || "");
   const [isPublic, setIsPublic] = useState(item?.public ?? false);
   const [features, setFeatures] = useState<SubscriptionFeatureDto[]>([]);
   const [billingAddressCollection, setBillingAddressCollection] = useState(item?.billingAddressCollection === "required" ? true : false);

@@ -23,7 +23,7 @@ export default function AppTenantPage() {
   useEffect(() => {
     if (!UrlUtils.stripTrailingSlash(pathname).startsWith(`/app/${params.tenant}/settings`)) {
       if (appConfiguration.subscription.required && appData?.mySubscription?.products.length === 0) {
-        router.push(`/subscribe/${params.tenant}?error=subscription_required`);
+        router.push(UrlUtils.currentTenantUrl(params, "pricing?error=subscription_required"));
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
