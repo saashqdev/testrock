@@ -64,7 +64,7 @@ export function TeamSwitcher({ tenants, size = "md" }: { tenants: TenantDto[]; s
                 <span className="truncate font-semibold">{activeTenant?.name}</span>
                 {size === "md" && <span className="truncate text-xs">{activeTenantDescription}</span>}
               </div>
-              <ChevronsUpDown className="ml-auto" />
+              <ChevronsUpDown className="ml-auto size-4 shrink-0" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent

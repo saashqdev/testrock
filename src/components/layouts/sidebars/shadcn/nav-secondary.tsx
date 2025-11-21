@@ -35,7 +35,7 @@ export function NavSecondary({
               <SidebarMenuButton asChild>
                 <Link href={item.path}>
                   {/* <item.icon /> */}
-                  {(item.icon !== undefined || item.entityIcon !== undefined) && <SidebarIcon className="h-5 w-5 " item={item} />}
+                  {(item.icon !== undefined || item.entityIcon !== undefined) && <SidebarIcon className="size-4 shrink-0" item={item} />}
                   <span>{t(item.title)}</span>
                 </Link>
               </SidebarMenuButton>

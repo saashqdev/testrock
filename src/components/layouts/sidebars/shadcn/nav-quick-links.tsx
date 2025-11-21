@@ -29,7 +29,7 @@ export function NavQuickLinks({
           <SidebarMenuItem key={item.path}>
             <SidebarMenuButton asChild>
               <a href={item.path}>
-                {(item.icon !== undefined || item.entityIcon !== undefined) && <SidebarIcon className="h-5 w-5 " item={item} />}
+                {(item.icon !== undefined || item.entityIcon !== undefined) && <SidebarIcon className="size-4 shrink-0" item={item} />}
                 <span>{t(item.title)}</span>
               </a>
             </SidebarMenuButton>

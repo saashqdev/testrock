@@ -73,7 +73,7 @@ export default function ({ data }: { data: AppSettingsMembersEditLoaderData }) {
                 return <div>{t("shared.notFound")}</div>;
               } else if (data.member) {
                 return (
-                  <form action={action} method="post" className="space-y-4">
+                  <form action={action} className="space-y-4">
                     <input hidden type="text" name="action" value="edit" readOnly />
                     <div className="grid grid-cols-2 gap-2">
                       <div className="col-span-2">

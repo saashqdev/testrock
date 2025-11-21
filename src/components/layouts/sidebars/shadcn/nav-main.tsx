@@ -154,12 +154,12 @@ export function NavMain({
               
               if (!hasSubItems) {
                 return (
-                  <SidebarMenuItem key={itemKey}>
+                  <SidebarMenuItem key={itemKey} className="overflow-x-clip">
                     <SidebarMenuButton asChild suppressHydrationWarning>
                       <Link href={item.path}>
                         {/* <item.icon /> */}
-                        {(item.icon !== undefined || item.entityIcon !== undefined) && <SidebarIcon className="size-4" item={item} />}
-                        <span suppressHydrationWarning>{t(item.title)}</span>
+                        {(item.icon !== undefined || item.entityIcon !== undefined) && <SidebarIcon className="size-4 shrink-0" item={item} />}
+                        <span suppressHydrationWarning className="truncate">{t(item.title)}</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -171,14 +171,14 @@ export function NavMain({
               
               return (
                 <Collapsible key={itemKey} asChild defaultOpen={isActive} className="group/collapsible" suppressHydrationWarning>
-                  <SidebarMenuItem>
+                  <SidebarMenuItem className="overflow-x-clip">
                     <CollapsibleTrigger asChild>
-                      <SidebarMenuButton tooltip={t(item.title)} suppressHydrationWarning>
+                      <SidebarMenuButton tooltip={t(item.title)} suppressHydrationWarning className="pr-2">
                         {/* <Link to={item.path}> */}
                         {/* <item.icon /> */}
-                        {(item.icon !== undefined || item.entityIcon !== undefined) && <SidebarIcon className="size-4" item={item} />}
-                        <span suppressHydrationWarning>{t(item.title)}</span>
-                        <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                        {(item.icon !== undefined || item.entityIcon !== undefined) && <SidebarIcon className="size-4 shrink-0" item={item} />}
+                        <span suppressHydrationWarning className="truncate flex-1 min-w-0">{t(item.title)}</span>
+                        <ChevronRight className="size-4 shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
 
                         {/* </Link> */}
                       </SidebarMenuButton>

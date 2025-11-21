@@ -190,15 +190,15 @@ export function ShadcnAppSidebar({
               // className="dark:hover:bg-transparent dark:active:bg-transparent"
             >
               <Link href={"/"} className="flex justify-center">
-                <div className="flex shrink-0 items-center justify-center border-b border-transparent">
+                <div className="flex shrink-0 items-center justify-center border-b border-transparent max-w-full">
                   {/* <Logo size="h-8 p-1 w-auto" /> */}
                   <Image
-                    className={"mx-auto hidden h-10 w-auto p-1.5 dark:flex"}
+                    className={"mx-auto hidden h-10 w-auto max-w-full p-1.5 dark:flex"}
                     src={appConfiguration?.branding?.logoDarkMode || appConfiguration?.branding?.logo || LogoDark}
                     alt="Logo"
                   />
                   <Image
-                    className={"mx-auto h-10 w-auto p-1.5 dark:hidden"}
+                    className={"mx-auto h-10 w-auto max-w-full p-1.5 dark:hidden"}
                     src={appConfiguration?.branding?.logoDarkMode || appConfiguration?.branding?.logo || LogoLight}
                     alt="Logo"
                   />

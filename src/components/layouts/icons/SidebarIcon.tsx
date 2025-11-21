@@ -48,7 +48,7 @@ interface Props {
 
 export default function SidebarIcon({ className, item }: Props) {
   return (
-    <span>
+    <>
       {typeof item.icon !== "number" && item.icon}
 
       {/* Core */}
@@ -89,6 +89,6 @@ export default function SidebarIcon({ className, item }: Props) {
       {item.icon === SvgIcon.METRICS && <IconMetrics className={clsx(className, "")} />}
       {item.icon === SvgIcon.PORTALS && <IconPortals className={clsx(className, "")} />}
       {item.icon === SvgIcon.WIDGETS && <IconWidgets className={clsx(className, "")} />}
-    </span>
+    </>
   );
 }
