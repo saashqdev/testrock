@@ -11,7 +11,7 @@ export default function SettingSection({
   title,
   description,
   children,
-  className = "border border-gray-200 shadow-sm px-4 py-5 bg-white sm:p-6 rounded-md",
+  className = "border shadow-sm px-4 py-5 bg-card sm:p-6 rounded-md",
   size = "md",
 }: Props) {
   return (

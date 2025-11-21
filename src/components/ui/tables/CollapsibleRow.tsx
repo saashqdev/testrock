@@ -34,8 +34,8 @@ export default function CollapsibleRow({ value, title, children, onRemove, initi
     <div
       className={clsx(
         className,
-        "rounded-md border-2 border-dashed border-gray-300 bg-white p-2",
-        draggable && "hover:cursor-move hover:border-dashed hover:border-gray-800 hover:bg-gray-100"
+        "rounded-md border-2 border-dashed border-border bg-card p-2",
+        draggable && "hover:cursor-move hover:border-dashed hover:border-gray-800 dark:hover:border-gray-200 hover:bg-muted/50"
       )}
     >
       <div className="flex items-center justify-between space-x-2">

@@ -17,7 +17,7 @@ export default function ({ data }: { data: AppIndexLoaderData }) {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-[#fafafa]">
+    <div className="min-h-screen bg-background">
       <div className="pt-20">
         <div className="mx-auto max-w-7xl px-4 pt-2 sm:px-6 lg:px-8">
           <div className="flex flex-shrink-0 justify-center">

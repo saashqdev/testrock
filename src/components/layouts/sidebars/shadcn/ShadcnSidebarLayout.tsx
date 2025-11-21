@@ -103,7 +103,7 @@ export default function ShadcnSidebarLayout({
           <OnboardingSession open={onboardingModalOpen} setOpen={setOnboardingModalOpen} />
           <ShadcnAppSidebar layout={layout} items={menuItems} />
           <SidebarInset className="overflow-hidden">
-            <header className="bg-white border-border flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+            <header className="bg-background border-border flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
               <div className="flex items-center gap-2 truncate px-4">
                 <SidebarTrigger className="-ml-1" />
                 {displayTitle && <Separator orientation="vertical" className="mr-2 h-4" />}
@@ -131,7 +131,7 @@ export default function ShadcnSidebarLayout({
                 <NavActions layout={layout} onOpenCommandPalette={onOpenCommandPalette} setOnboardingModalOpen={setOnboardingModalOpen} />
               </div>
             </header>
-            <main ref={mainElement} className="bg-white flex-1 focus:outline-hidden" tabIndex={0}>
+            <main ref={mainElement} className="bg-background flex-1 focus:outline-hidden" tabIndex={0}>
               <div key={params.tenant?.toString()} className="pb-20 sm:pb-0">
                 {children}
               </div>

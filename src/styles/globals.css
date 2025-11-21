@@ -166,6 +166,5 @@
 
 html,
 body {
-  @apply text-foreground;
-  background-color: #fafafa;
+  @apply text-foreground bg-background;
 }

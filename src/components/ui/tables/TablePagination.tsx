@@ -62,7 +62,7 @@ export default function TablePagination({ page, pageSize, totalItems, totalPages
 
   return (
     <div
-      className="flex items-center justify-end border-t bg-gray-50 px-4 py-3 text-xs uppercase tracking-wide text-gray-500 sm:justify-between"
+      className="flex items-center justify-end border-t bg-muted/50 px-4 py-3 text-xs uppercase tracking-wide text-muted-foreground sm:justify-between"
       aria-label="Pagination"
     >
       <div className="hidden sm:block">
@@ -78,8 +78,8 @@ export default function TablePagination({ page, pageSize, totalItems, totalPages
           id="pageSize"
           name="pageSize"
           className={clsx(
-            "focus:border-accent-500 focus:ring-accent-500 inline-flex items-center justify-center rounded border border-gray-200 bg-white text-xs",
-            page === 1 ? "cursor-not-allowed opacity-90" : "hover:border-gray-300 hover:bg-gray-50"
+            "focus:border-accent-500 focus:ring-accent-500 inline-flex items-center justify-center rounded border bg-background text-xs",
+            page === 1 ? "cursor-not-allowed opacity-90" : "hover:border-gray-300 hover:bg-muted/50"
           )}
           onChange={(e) => setState({ ...state, page: 1, pageSize: Number(e.currentTarget.value) })}
           value={state.pageSize}
@@ -98,8 +98,8 @@ export default function TablePagination({ page, pageSize, totalItems, totalPages
             disabled={page === 1}
             onClick={() => setState({ ...state, page: page - 1 })}
             className={clsx(
-              "inline-flex h-8 w-8 items-center justify-center rounded border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-gray-500",
-              page === 1 ? "cursor-not-allowed opacity-90" : "hover:border-gray-300 hover:bg-gray-50"
+              "inline-flex h-8 w-8 items-center justify-center rounded border bg-background focus:outline-none focus:ring-2 focus:ring-gray-500",
+              page === 1 ? "cursor-not-allowed opacity-90" : "hover:border-gray-300 hover:bg-muted/50"
             )}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
@@ -133,8 +133,8 @@ export default function TablePagination({ page, pageSize, totalItems, totalPages
           <button
             type="button"
             className={clsx(
-              "inline-flex h-8 w-8 items-center justify-center rounded border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-gray-500",
-              page >= totalPages ? "cursor-not-allowed opacity-90" : "hover:border-gray-300 hover:bg-gray-50"
+              "inline-flex h-8 w-8 items-center justify-center rounded border bg-background focus:outline-none focus:ring-2 focus:ring-gray-500",
+              page >= totalPages ? "cursor-not-allowed opacity-90" : "hover:border-gray-300 hover:bg-muted/50"
             )}
             disabled={page >= totalPages}
             onClick={() => setState({ ...state, page: page + 1 })}
