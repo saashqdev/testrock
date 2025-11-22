@@ -19,6 +19,7 @@ type PortalWithCounts = PortalWithCountDto & {
 
 type LoaderData = {
   items: PortalWithCounts[];
+  error?: string;
 };
 
 type Props = {
@@ -43,12 +44,21 @@ async function getData(params: { tenant: string }): Promise<LoaderData> {
     throw Response.json({ error: "You don't have access to this feature" }, { status: 403 });
   }
   if (!process.env.PORTAL_SERVER_URL) {
-    throw new Error("PORTAL_SERVER_URL is not defined");
+    return {
+      items: [],
+      error: "Portal server URL is not configured. Please set the PORTAL_SERVER_URL environment variable."
+    };
   }
   const tenantId = await getTenantIdFromUrl(params);
   const items: PortalWithCounts[] = await db.portals.getAllTenantPortals({ tenantId });
   for (const item of items) {
-    item.portalUrl = PortalServer.getPortalUrl(item);
+    try {
+      item.portalUrl = PortalServer.getPortalUrl(item);
+    } catch (error) {
+      // If PORTAL_SERVER_URL is not set and the portal doesn't have a custom domain,
+      // we can't generate a URL - this will be shown as an error in the UI
+      item.portalUrl = undefined;
+    }
     item._count = {
       ...item._count,
       visitors: await prisma.analyticsUniqueVisitor.count({ where: { portalId: item.id } }),

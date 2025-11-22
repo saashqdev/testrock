@@ -8,11 +8,13 @@ import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import UrlUtils from "@/utils/app/UrlUtils";
 import { useRootData } from "@/lib/state/useRootData";
 import WarningBanner from "@/components/ui/banners/WarningBanner";
+import ErrorBanner from "@/components/ui/banners/ErrorBanner";
 import EmptyState from "@/components/ui/emptyState/EmptyState";
 import ExternalLinkEmptyIcon from "@/components/ui/icons/ExternalLinkEmptyIcon";
 import EyeIcon from "@/components/ui/icons/EyeIcon";
 import { PortalWithCountDto } from "@/db/models/portals/PortalsModel";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 type PortalWithCounts = PortalWithCountDto & {
   portalUrl?: string;
@@ -25,6 +27,7 @@ type PortalWithCounts = PortalWithCountDto & {
 
 type LoaderData = {
   items: PortalWithCounts[];
+  error?: string;
 };
 
 export default function PortalsClient({ data }: { data: LoaderData }) {
@@ -32,30 +35,43 @@ export default function PortalsClient({ data }: { data: LoaderData }) {
   const rootData = useRootData();
   const params = useParams();
   const portalsConfig = rootData.appConfiguration.portals;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <EditPageLayout
       title={t("models.portal.plural")}
       buttons={
         <>
-          <ButtonPrimary to={UrlUtils.getModulePath(params, `portals/new`)}>{t("shared.new")}</ButtonPrimary>
+          {mounted && !data.error && (
+            <ButtonPrimary to={UrlUtils.getModulePath(params, `portals/new`)}>{t("shared.new")}</ButtonPrimary>
+          )}
         </>
       }
     >
-      {!rootData.appConfiguration.portals?.enabled && (
+      {mounted && !rootData.appConfiguration.portals?.enabled && (
         <WarningBanner title={t("shared.warning")}>
           Portals are not enabled. Enabled it at <code className="font-bold">db/repositories/prisma/AppConfigurationDbPrisma.ts</code>.
         </WarningBanner>
       )}
 
-      {data.items.length === 0 ? (
+      {data.error && (
+        <ErrorBanner title={t("shared.error")} text={data.error} />
+      )}
+
+      {!data.error && data.items.length === 0 && (
         <EmptyState
           className="bg-white"
           captions={{
             thereAreNo: t("shared.noRecords"),
           }}
         />
-      ) : (
+      )}
+
+      {!data.error && data.items.length > 0 && (
         <div className="space-y-2">
           {data.items.map((item) => {
             return (
