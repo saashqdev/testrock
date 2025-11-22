@@ -23,7 +23,7 @@ export function NavQuickLinks({
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>{t(item.title)}</SidebarGroupLabel>
+      <SidebarGroupLabel>{item.title ? t(item.title) : ""}</SidebarGroupLabel>
       <SidebarMenu>
         {item.items.map((item) => (
           <SidebarMenuItem key={item.path}>
