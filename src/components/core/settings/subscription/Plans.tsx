@@ -2,17 +2,16 @@
 
 import { SubscriptionBillingPeriod } from "@/lib/enums/subscriptions/SubscriptionBillingPeriod";
 import clsx from "@/lib/shared/ClassesUtils";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition, useRef, useLayoutEffect } from "react";
 import { SubscriptionProductDto } from "@/lib/dtos/subscriptions/SubscriptionProductDto";
 import Plan from "./Plan";
 import ToggleBillingPeriod from "./ToggleBillingPeriod";
 import CurrencyToggle from "@/components/ui/toggles/CurrencyToggle";
 import { PricingModel } from "@/lib/enums/subscriptions/PricingModel";
-import { getBillingPeriodParams, getYearlyDiscount } from "@/lib/helpers/PricingHelper";
+import { getYearlyDiscount } from "@/lib/helpers/PricingHelper";
 import { TenantSubscriptionWithDetailsDto } from "@/db/models/subscriptions/TenantSubscriptionsModel";
 import { SubscriptionPriceDto } from "@/lib/dtos/subscriptions/SubscriptionPriceDto";
 import Stripe from "stripe";
-import { useSearchParams, useRouter } from "next/navigation";
 
 interface Props {
   items: SubscriptionProductDto[];
@@ -20,24 +19,33 @@ interface Props {
   canSubmit?: boolean;
   className?: string;
   stripeCoupon: Stripe.Coupon | null;
-  currenciesAndPeriod: {
-    currencies: { value: string; options: string[] };
-    billingPeriods: { value: SubscriptionBillingPeriod; options: SubscriptionBillingPeriod[] };
-  };
+  initialCurrency: string;
+  availableCurrencies: string[];
+  initialBillingPeriod: SubscriptionBillingPeriod;
+  availableBillingPeriods: SubscriptionBillingPeriod[];
   onClickFeature?: (name: string) => void;
 }
-export default function Plans({ items, tenantSubscription, canSubmit, className, stripeCoupon, currenciesAndPeriod, onClickFeature }: Props) {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const [currency, setCurrency] = useState(currenciesAndPeriod.currencies.value);
-  const [billingPeriod, setBillingPeriod] = useState<SubscriptionBillingPeriod>(currenciesAndPeriod.billingPeriods.value);
+export default function Plans({ items, tenantSubscription, canSubmit, className, stripeCoupon, initialCurrency, availableCurrencies, initialBillingPeriod, availableBillingPeriods, onClickFeature }: Props) {
+  const [isPending, startTransition] = useTransition();
+  // Use initial values only - no reactive dependency on props
+  const [currency, setCurrency] = useState(initialCurrency);
+  const [billingPeriod, setBillingPeriod] = useState<SubscriptionBillingPeriod>(initialBillingPeriod);
+  const scrollPositionRef = useRef({ x: 0, y: 0 });
+
+  // Remove reactive effect that could trigger re-renders from parent state changes
 
   useEffect(() => {
-    if (currency !== currenciesAndPeriod.currencies.value) {
-      setCurrency(currenciesAndPeriod.currencies.value);
+    // Disable scroll restoration
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currenciesAndPeriod.currencies.value]);
+  }, []);
+
+  // Lock scroll position during any state changes
+  useLayoutEffect(() => {
+    scrollPositionRef.current = { x: window.scrollX, y: window.scrollY };
+    window.scrollTo(scrollPositionRef.current.x, scrollPositionRef.current.y);
+  }, [currency, billingPeriod]);
 
   function getRecurringPrices() {
     let prices: SubscriptionPriceDto[] = [];
@@ -70,18 +78,16 @@ export default function Plans({ items, tenantSubscription, canSubmit, className,
   }
 
   return (
-    <div className={clsx(className)}>
-      <div className="flex items-center justify-between">
+    <div className={clsx(className)} style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
+      <div className="flex items-center justify-between" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
         <div>
           <CurrencyToggle
             value={currency}
             onChange={(e) => {
-              const newSearchParams = new URLSearchParams(searchParams?.toString() || "");
-              newSearchParams.set("c", e.toString());
-              router.push(`${window.location.pathname}?${newSearchParams.toString()}`, { scroll: false });
+              // Simple state update without scroll locking - not needed when URL isn't changing
               setCurrency(e);
             }}
-            possibleCurrencies={currenciesAndPeriod.currencies.options}
+            possibleCurrencies={availableCurrencies}
             darkMode
           />
         </div>
@@ -92,14 +98,11 @@ export default function Plans({ items, tenantSubscription, canSubmit, className,
             size="sm"
             billingPeriod={billingPeriod}
             onChange={(e) => {
-              // console.log("Set billing period: ", SubscriptionBillingPeriod[e]);
-              const newSearchParams = new URLSearchParams(searchParams?.toString() || "");
-              newSearchParams.set("b", getBillingPeriodParams(e));
-              router.push(`${window.location.pathname}?${newSearchParams.toString()}`, { scroll: false });
+              // Simple state update without scroll locking - not needed when URL isn't changing
               setBillingPeriod(e);
             }}
             yearlyDiscount={getYearlyDiscount(getRecurringPrices(), currency)}
-            possibleBillingPeriods={currenciesAndPeriod.billingPeriods.options}
+            possibleBillingPeriods={availableBillingPeriods}
             darkMode
           />
         </div>

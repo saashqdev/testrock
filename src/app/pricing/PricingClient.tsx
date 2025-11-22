@@ -1,27 +1,12 @@
 "use client";
-
-import { useEffect } from "react";
-import { useFormState } from "react-dom";
-import toast from "react-hot-toast";
 import PricingVariantSimple from "@/modules/pageBlocks/components/blocks/marketing/pricing/PricingVariantSimple";
-import { PricingBlockDto } from "@/modules/pageBlocks/components/blocks/marketing/pricing/PricingBlockUtils";
+import { PricingBlockData } from "@/modules/pageBlocks/blocks/marketing/pricing/PricingBlockDto";
 
 interface PricingClientProps {
-  data: {
-    pricingData: PricingBlockDto["data"];
-  };
-  action: (prev: any, formData: FormData) => Promise<any>;
+  pricingData: PricingBlockData;
 }
 
-export default function PricingClient({ data, action }: PricingClientProps) {
-  const [actionData, formAction] = useFormState(action, null);
-
-  useEffect(() => {
-    if (actionData?.error) {
-      toast.error(actionData.error);
-    }
-  }, [actionData?.error]);
-
+export default function PricingClient({ pricingData }: PricingClientProps) {
   return (
     <PricingVariantSimple
       item={{
@@ -32,7 +17,7 @@ export default function PricingClient({ data, action }: PricingClientProps) {
           description: "pricing.customPlanDescription",
           features: ["+12 users", "Unlimited API calls", "Priority support"],
         },
-        data: data.pricingData,
+        data: pricingData,
       }}
     />
   );

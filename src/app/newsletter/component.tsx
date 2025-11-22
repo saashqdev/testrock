@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { useTranslation } from "react-i18next";
 import FooterBlock from "@/modules/pageBlocks/components/blocks/marketing/footer/FooterBlock";
 import HeaderBlock from "@/modules/pageBlocks/components/blocks/marketing/header/HeaderBlock";

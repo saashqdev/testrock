@@ -366,7 +366,7 @@
       "topText": "Next.js + Prisma + Postgres",
       "cta1": "Get started",
       "cta2": "Contact us",
-      "headline1": "The Remix (React Router 7) SaaS Boilerplate",
+      "headline1": "The NextJS 15 (App Router) SaaS Boilerplate",
       "headline2": "Launch production-ready SaaS apps with +25 built-in features, such as: Admin dashboard, App portal, Stripe, Blog, Page Builder, Knowledge Base, Workflows, Analytics, Entity Builder, Email Marketing, Notifications, Onboarding, Feature Flags, Cache and Metrics.",
       "headline3": "",
       "subheadline1": "Build → Market → Manage your SaaS",
@@ -377,7 +377,7 @@
       "components": "Components",
       "blog": "Blog",
       "contact": "Contact us",
-      "startHint": "This demo is hosted on Vercel + Supabase.",
+      "startHint": "This demo is hosted on Hetzner.",
       "cta": "Get started",
       "changelog": "Changelog"
     },

@@ -67,7 +67,10 @@ export default function PlansGrouped({ items, tenantSubscription, canSubmit, str
                   canSubmit={canSubmit}
                   className="space-y-4"
                   stripeCoupon={stripeCoupon}
-                  currenciesAndPeriod={currenciesAndPeriod}
+                  initialCurrency={currenciesAndPeriod.currencies.value}
+                  availableCurrencies={currenciesAndPeriod.currencies.options}
+                  initialBillingPeriod={currenciesAndPeriod.billingPeriods.value}
+                  availableBillingPeriods={currenciesAndPeriod.billingPeriods.options}
                   onClickFeature={(name) => {
                     setShowFeatureInfo(name);
                     setShowFeatureInfoModal(true);

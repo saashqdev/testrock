@@ -3,7 +3,7 @@
 import { action as serverAction, ActionData } from "./Contact.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
-export async function handleContactAction(formData: FormData): Promise<ActionData> {
+async function executeContactAction(formData: FormData): Promise<ActionData> {
   try {
     const request = new Request("http://localhost", {
       method: "POST",
@@ -28,4 +28,14 @@ export async function handleContactAction(formData: FormData): Promise<ActionDat
     console.error("Contact action error:", error);
     return { error: error.message || "An error occurred" };
   }
+}
+
+// For useActionState hook (requires prevState parameter)
+export async function actionContact(prevState: any, formData: FormData): Promise<ActionData> {
+  return executeContactAction(formData);
+}
+
+// For direct calls (without prevState)
+export async function handleContactAction(formData: FormData): Promise<ActionData> {
+  return executeContactAction(formData);
 }

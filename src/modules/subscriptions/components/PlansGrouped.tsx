@@ -20,9 +20,8 @@ interface Props {
     currencies: { value: string; options: string[] };
     billingPeriods: { value: SubscriptionBillingPeriod; options: SubscriptionBillingPeriod[] };
   };
-  serverAction: IServerAction | null;
 }
-export default function PlansGrouped({ items, tenantSubscription, canSubmit, stripeCoupon, currenciesAndPeriod, serverAction }: Props) {
+export default function PlansGrouped({ items, tenantSubscription, canSubmit, stripeCoupon, currenciesAndPeriod }: Props) {
   const [showFeatureInfoModal, setShowFeatureInfoModal] = useState<boolean>(false);
   const [showFeatureInfo, setShowFeatureInfo] = useState<string | null>(null);
   const groups = () => {
@@ -69,12 +68,14 @@ export default function PlansGrouped({ items, tenantSubscription, canSubmit, str
                   canSubmit={canSubmit}
                   className="space-y-4"
                   stripeCoupon={stripeCoupon}
-                  currenciesAndPeriod={currenciesAndPeriod}
+                  initialCurrency={currenciesAndPeriod.currencies.value}
+                  availableCurrencies={currenciesAndPeriod.currencies.options}
+                  initialBillingPeriod={currenciesAndPeriod.billingPeriods.value}
+                  availableBillingPeriods={currenciesAndPeriod.billingPeriods.options}
                   onClickFeature={(name) => {
                     setShowFeatureInfo(name);
                     setShowFeatureInfoModal(true);
                   }}
-                  serverAction={serverAction}
                 />
               </div>
             </Fragment>

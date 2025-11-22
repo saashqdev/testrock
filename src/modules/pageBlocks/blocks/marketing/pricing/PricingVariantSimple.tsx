@@ -10,7 +10,6 @@ import useRootData from "@/lib/state/useRootData";
 import { PricingBlockDto } from "./PricingBlockDto";
 import PricingContactUs from "./shared/PricingContactUs";
 import clsx from "clsx";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { IServerAction } from "@/lib/dtos/ServerComponentsProps";
 
 export default function PricingVariantSimple({ item, serverAction }: { item: PricingBlockDto; serverAction: IServerAction }) {
@@ -18,15 +17,10 @@ export default function PricingVariantSimple({ item, serverAction }: { item: Pri
   const rootData = useRootData();
 
   const confirmModal = useRef<RefConfirmModal>(null);
-  const searchParams = useSearchParams();
-  const search = new URLSearchParams(searchParams.toString());
-  const router = useRouter();
-  const pathname = usePathname();
 
   function onApplyCoupon(coupon: string) {
-    search.set("coupon", coupon);
-    router.replace(`${pathname}?${searchParams.toString()}`);
-    // setSearchParams({ coupon });
+    // Coupon functionality disabled to prevent scroll jumping
+    console.log("Apply coupon:", coupon);
   }
   return (
     <div className="container mx-auto px-5">
@@ -79,11 +73,10 @@ export default function PricingVariantSimple({ item, serverAction }: { item: Pri
               canSubmit={!rootData.authenticated && rootData.appConfiguration.subscription.allowSubscribeBeforeSignUp}
               stripeCoupon={item.data.coupon?.stripeCoupon || null}
               currenciesAndPeriod={item.data.currenciesAndPeriod}
-              serverAction={serverAction}
             />
           </main>
         )}
-        {item.contactUs && !searchParams.get("plan") && <PricingContactUs item={item.contactUs} />}
+        {item.contactUs && <PricingContactUs item={item.contactUs} />}
         <ConfirmModal ref={confirmModal} onYes={onApplyCoupon} inputType="string" placeholder={t("pricing.coupons.typeCode")} />
       </div>
     </div>

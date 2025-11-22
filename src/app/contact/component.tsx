@@ -2,7 +2,7 @@
 
 import FooterBlock from "@/modules/pageBlocks/components/blocks/marketing/footer/FooterBlock";
 import HeaderBlock from "@/modules/pageBlocks/components/blocks/marketing/header/HeaderBlock";
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { useTranslation } from "react-i18next";
 import OpenSuccessModal from "@/components/ui/modals/OpenSuccessModal";
 import OpenErrorModal from "@/components/ui/modals/OpenErrorModal";
@@ -14,7 +14,6 @@ import InputText from "@/components/ui/input/InputText";
 import InputSelect from "@/components/ui/input/InputSelect";
 import { LoaderData } from "./Contact.server";
 import { handleContactAction } from "./actions";
-import { PageClientData } from "@/modules/pageBlocks/dtos/PageBlockData";
 
 interface ContactClientProps {
   data: Omit<LoaderData, "t">;

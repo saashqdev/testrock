@@ -262,7 +262,7 @@ export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlo
     // Testimonials
     {
       testimonials: {
-        style: "simple",
+        style: "scroll",
         headline: "Read what our clients have to say",
         subheadline: `You'll want to build every SaaS idea on your backlog!`,
         items: defaultTestimonials,

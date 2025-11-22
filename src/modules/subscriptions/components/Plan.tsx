@@ -17,7 +17,7 @@ import Stripe from "stripe";
 import PlanFeatureDescription from "./PlanFeatureDescription";
 import PricingUtils from "@/modules/subscriptions/utils/PricingUtils";
 import InputNumber from "@/components/ui/input/InputNumber";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { IServerAction } from "@/lib/dtos/ServerComponentsProps";
 
 interface Props {
@@ -63,8 +63,6 @@ export default function Plan({
   serverAction,
 }: Props) {
   const { t } = useTranslation();
-  const search = useSearchParams();
-  const searchParams = new URLSearchParams(search.toString());
   const rootData = useRootData();
   const params = useParams();
 
@@ -172,7 +170,7 @@ export default function Plan({
     }
     const coupon = getCoupon();
     if (coupon) {
-      form.set("coupon", searchParams.get("coupon")?.toString() ?? "");
+      form.set("coupon", stripeCoupon?.id ?? "");
     }
     if (isUpgrade) {
       form.set("is-upgrade", "true");

@@ -12,7 +12,6 @@ import PricingUtils from "@/modules/subscriptions/utils/PricingUtils";
 import { SubscriptionPriceDto } from "@/modules/subscriptions/dtos/SubscriptionPriceDto";
 import Stripe from "stripe";
 import { TenantSubscriptionWithDetailsDto } from "@/db/models";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { IServerAction } from "@/lib/dtos/ServerComponentsProps";
 
 interface Props {
@@ -21,28 +20,25 @@ interface Props {
   canSubmit?: boolean;
   className?: string;
   stripeCoupon: Stripe.Coupon | null;
-  currenciesAndPeriod: {
-    currencies: { value: string; options: string[] };
-    billingPeriods: { value: SubscriptionBillingPeriod; options: SubscriptionBillingPeriod[] };
-  };
+  initialCurrency: string;
+  availableCurrencies: string[];
+  initialBillingPeriod: SubscriptionBillingPeriod;
+  availableBillingPeriods: SubscriptionBillingPeriod[];
   onClickFeature?: (name: string) => void;
   serverAction: IServerAction | null;
 }
-export default function Plans({ items, tenantSubscription, canSubmit, className, stripeCoupon, currenciesAndPeriod, onClickFeature, serverAction }: Props) {
-  const searchParams = useSearchParams();
-  const search = new URLSearchParams(searchParams.toString());
-  const router = useRouter();
-  const pathname = usePathname();
+export default function Plans({ items, tenantSubscription, canSubmit, className, stripeCoupon, initialCurrency, availableCurrencies, initialBillingPeriod, availableBillingPeriods, onClickFeature, serverAction }: Props) {
   const [products] = useState(items);
-  const [currency, setCurrency] = useState(currenciesAndPeriod.currencies.value);
-  const [billingPeriod, setBillingPeriod] = useState<SubscriptionBillingPeriod>(currenciesAndPeriod.billingPeriods.value);
+  // Use initial values only - no reactive dependency on props
+  const [currency, setCurrency] = useState(initialCurrency);
+  const [billingPeriod, setBillingPeriod] = useState<SubscriptionBillingPeriod>(initialBillingPeriod);
 
   useEffect(() => {
-    if (currency !== currenciesAndPeriod.currencies.value) {
-      setCurrency(currenciesAndPeriod.currencies.value);
+    // Disable scroll restoration
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currenciesAndPeriod.currencies.value]);
+  }, []);
 
   function getRecurringPrices() {
     let prices: SubscriptionPriceDto[] = [];
@@ -82,15 +78,9 @@ export default function Plans({ items, tenantSubscription, canSubmit, className,
             value={currency}
             onChange={(e) => {
               const newCurrency = typeof e === "function" ? e(currency) : e;
-              search.set("c", newCurrency);
-              router.replace(`${pathname}?${search.toString()}`);
-              // searchParams.set("c", e.toString());
-              // setSearchParams(searchParams, {
-              //   preventScrollReset: true,
-              // });
               setCurrency(newCurrency);
             }}
-            possibleCurrencies={currenciesAndPeriod.currencies.options}
+            possibleCurrencies={availableCurrencies}
             darkMode
           />
         </div>
@@ -99,17 +89,10 @@ export default function Plans({ items, tenantSubscription, canSubmit, className,
             size="sm"
             billingPeriod={billingPeriod}
             onChange={(e) => {
-              // console.log("Set billing period: ", SubscriptionBillingPeriod[e]);
-              search.set("b", PricingUtils.getBillingPeriodParams(e));
-              router.replace(`${pathname}?${search.toString()}`);
-              // searchParams.set("b", PricingUtils.getBillingPeriodParams(e));
-              // setSearchParams(searchParams, {
-              //   preventScrollReset: true,
-              // });
               setBillingPeriod(e);
             }}
             yearlyDiscount={PricingUtils.getYearlyDiscount(getRecurringPrices(), currency)}
-            possibleBillingPeriods={currenciesAndPeriod.billingPeriods.options}
+            possibleBillingPeriods={availableBillingPeriods}
             darkMode
           />
         </div>

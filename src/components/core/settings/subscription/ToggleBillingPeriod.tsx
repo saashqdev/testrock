@@ -39,7 +39,9 @@ export default function ToggleBillingPeriod({
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [currency]);
 
-  function setBillingPeriod(item: SubscriptionBillingPeriod) {
+  function setBillingPeriod(item: SubscriptionBillingPeriod, e?: React.MouseEvent) {
+    e?.preventDefault();
+    e?.stopPropagation();
     if (billingPeriod !== item) {
       onChange(item);
     }
@@ -58,7 +60,16 @@ export default function ToggleBillingPeriod({
     <Fragment>
       {isMonthlyOrYearly ? (
         <div className={clsx("flex items-center justify-center space-x-4", className)}>
-          <button type="button" className="text-sm font-medium" onClick={() => setBillingPeriod(SubscriptionBillingPeriod.MONTHLY)}>
+          <button 
+            type="button" 
+            className="text-sm font-medium" 
+            style={{ scrollMargin: 0 }}
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={(e) => {
+              (e.currentTarget as HTMLButtonElement).blur();
+              setBillingPeriod(SubscriptionBillingPeriod.MONTHLY, e);
+            }}
+          >
             {t("pricing.MONTHLY")}
           </button>
           <button
@@ -68,9 +79,15 @@ export default function ToggleBillingPeriod({
               "focus:outline-hidden relative rounded-full focus:ring-2 focus:ring-primary focus:ring-offset-2",
               disabled && "cursor-not-allowed opacity-80"
             )}
-            onClick={() =>
-              setBillingPeriod(billingPeriod === SubscriptionBillingPeriod.MONTHLY ? SubscriptionBillingPeriod.YEARLY : SubscriptionBillingPeriod.MONTHLY)
-            }
+            style={{ scrollMargin: 0 }}
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              // Blur to prevent focus scroll
+              (e.currentTarget as HTMLButtonElement).blur();
+              setBillingPeriod(billingPeriod === SubscriptionBillingPeriod.MONTHLY ? SubscriptionBillingPeriod.YEARLY : SubscriptionBillingPeriod.MONTHLY, e);
+            }}
           >
             <div className={clsx("outline-hidden rounded-full bg-primary shadow-md transition", size === "sm" && "h-4 w-8", size === "md" && "h-8 w-16")}></div>
             <div
@@ -84,7 +101,16 @@ export default function ToggleBillingPeriod({
               )}
             ></div>
           </button>
-          <button type="button" className="text-sm font-medium" onClick={() => setBillingPeriod(SubscriptionBillingPeriod.YEARLY)}>
+          <button 
+            type="button" 
+            className="text-sm font-medium"
+            style={{ scrollMargin: 0 }}
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={(e) => {
+              (e.currentTarget as HTMLButtonElement).blur();
+              setBillingPeriod(SubscriptionBillingPeriod.YEARLY, e);
+            }}
+          >
             {t("pricing.YEARLY")}{" "}
             {yearlyDiscount && (
               <span className="ml-1 inline-flex items-center rounded-md bg-teal-100 px-2.5 py-0.5 text-sm font-medium text-teal-800">{yearlyDiscount}</span>

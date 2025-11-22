@@ -10,8 +10,8 @@ export async function generateMetadata() {
 }
 
 export default async function (props: IServerComponentsProps) {
-  const searchParams = await props.searchParams;
+  // Don't read searchParams to prevent page re-render on URL changes (causes scroll jumping)
   const { t } = await getServerTranslations();
-  const pricingBlockData = await load({ searchParams });
+  const pricingBlockData = await load({ searchParams: undefined });
   return <PageBlocks items={blocks({ data: { pricingBlockData }, t })} />;
 }

@@ -9,7 +9,7 @@ import NumberUtils from "@/lib/shared/NumberUtils";
 import { SubscriptionPriceDto } from "@/lib/dtos/subscriptions/SubscriptionPriceDto";
 import { SubscriptionUsageBasedPriceDto } from "@/lib/dtos/subscriptions/SubscriptionUsageBasedPriceDto";
 import { SubscriptionProductDto } from "@/lib/dtos/subscriptions/SubscriptionProductDto";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Fragment, useEffect, useRef, useState } from "react";
 import ErrorModal, { RefErrorModal } from "@/components/ui/modals/ErrorModal";
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
@@ -64,7 +64,6 @@ export default function Plan({
   onClickFeature,
 }: Props) {
   const { t } = useTranslation();
-  const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const rootData = useRootData();
@@ -177,7 +176,7 @@ export default function Plan({
     }
     const coupon = getCoupon();
     if (coupon) {
-      formData.set("coupon", searchParams.get("coupon")?.toString() ?? "");
+      formData.set("coupon", stripeCoupon?.id ?? "");
     }
     if (isUpgrade) {
       formData.set("is-upgrade", "true");

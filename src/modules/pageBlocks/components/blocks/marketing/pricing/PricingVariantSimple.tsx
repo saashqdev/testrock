@@ -1,6 +1,5 @@
 "use client";
 
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import PlansGrouped from "@/components/core/settings/subscription/plans/PlansGrouped";
@@ -15,17 +14,13 @@ import clsx from "clsx";
 export default function PricingVariantSimple({ item }: { item: PricingBlockDto }) {
   const { t } = useTranslation();
   const rootData = useRootData();
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
   const confirmModal = useRef<RefConfirmModal>(null);
   // function onShowCoupon() {
   //   confirmModal.current?.show(t("pricing.coupons.object"));
   // }
   function onApplyCoupon(coupon: string) {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("coupon", coupon);
-    router.push(pathname + "?" + params.toString());
+    // Coupon functionality can be implemented without URL changes if needed
+    console.log("Apply coupon:", coupon);
   }
   return (
     <>
@@ -82,7 +77,7 @@ export default function PricingVariantSimple({ item }: { item: PricingBlockDto }
               />
             </main>
           )}
-          {item.contactUs && !searchParams.get("plan") && <PricingContactUs item={item.contactUs} />}
+          {item.contactUs && <PricingContactUs item={item.contactUs} />}
           <ConfirmModal ref={confirmModal} onYes={onApplyCoupon} inputType="string" placeholder={t("pricing.coupons.typeCode")} />
         </div>
       </div>
