@@ -27,13 +27,13 @@ export default function GalleryVariantCarousel({ item }: { item: GalleryBlockDto
 }
 
 interface CarouselProps {
-  items: { type?: string; title?: string; src: string }[];
+  items: { type?: string; title?: string; src: string; width?: number; height?: number }[];
   size?: "sm" | "md" | "lg" | "full";
 }
 
 function CustomCarousel({ items, size = "full" }: CarouselProps) {
   const [currentIndex] = useState(0);
-  const [currentItem, setCurrentItem] = useState<{ type?: string; title?: string; src: string } | undefined>(undefined);
+  const [currentItem, setCurrentItem] = useState<{ type?: string; title?: string; src: string; width?: number; height?: number } | undefined>(undefined);
   const [, setCurrentSrc] = useState<string | undefined>(undefined);
 
   useEffect(() => {
@@ -83,6 +83,8 @@ export function CarouselItems({ items, size }: CarouselProps) {
                     className={clsx("min-h-full w-full object-cover md:h-auto", size === "sm" && "h-48", size === "md" && "h-64", size === "lg" && "h-96")}
                     src={item.src}
                     alt={item.title ?? ""}
+                    width={item.width ?? 1200}
+                    height={item.height ?? 630}
                   />
                 )}
                 {item?.type === "video" && (

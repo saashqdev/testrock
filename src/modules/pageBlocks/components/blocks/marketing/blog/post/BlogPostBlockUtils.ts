@@ -1,5 +1,5 @@
 import { SocialsBlockDto } from "@/modules/pageBlocks/components/blocks/shared/socials/SocialsBlockDto";
-import { defaultSocials } from "@/modules/pageBlocks/utils/defaultSocials";
+import { defaultSocials } from "@/modules/pageBlocks/pages/defaultSocials";
 import { BlockVariableDto } from "../../../shared/variables/BlockVariableDto";
 import { MetaTagsDto } from "@/lib/dtos/seo/MetaTagsDto";
 import { BlogPostDto } from "@/modules/blog/dtos/BlogPostDto";

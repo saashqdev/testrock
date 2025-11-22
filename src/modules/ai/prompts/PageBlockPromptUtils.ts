@@ -1,6 +1,6 @@
 import { PageBlockDto } from "@/modules/pageBlocks/dtos/PageBlockDto";
 import { PageConfiguration } from "@/modules/pageBlocks/dtos/PageConfiguration";
-import { getDefaultSiteTags } from "@/modules/pageBlocks/utils/defaultSeoMetaTags";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 
 const siteTags = getDefaultSiteTags();
 function getDefaultPrompt(page: PageConfiguration | undefined, block?: PageBlockDto) {

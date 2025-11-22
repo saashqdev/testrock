@@ -31,15 +31,8 @@ export default function NewsletterComponent() {
   }, [actionData]);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="sm:align-center sm:flex sm:flex-col">
-        <div className="relative mx-auto w-full max-w-xl overflow-hidden px-2 py-12 sm:py-6">
-          <div className="text-center">
-            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{t("front.newsletter.title")}</h1>
-            <p className="mt-4 text-lg leading-6 text-muted-foreground">{t("front.newsletter.headline")}</p>
-          </div>
-          <div className="mx-auto mt-12 max-w-xl">
-            <form
+    <div className="mx-auto max-w-xl">
+      <form
               action={action}
               ref={formRef}
               aria-hidden={actionData?.success ? true : false}
@@ -86,13 +79,10 @@ export default function NewsletterComponent() {
                   {pending ? t("front.newsletter.subscribing") + "..." : t("front.newsletter.subscribe")}
                 </LoadingButton>
               </div>
-            </form>
-            <div className="mt-2">
-              {actionResult?.success && <SuccessBanner title={t("front.newsletter.subscribed")} text={actionResult.success} />}
-              {actionResult?.error && <ErrorBanner title={t("shared.error")} text={actionResult.error} />}
-            </div>
-          </div>
-        </div>
+      </form>
+      <div className="mt-2">
+        {actionResult?.success && <SuccessBanner title={t("front.newsletter.subscribed")} text={actionResult.success} />}
+        {actionResult?.error && <ErrorBanner title={t("shared.error")} text={actionResult.error} />}
       </div>
     </div>
   );

@@ -4,19 +4,8 @@ import { InfiniteSlider } from "@/components/motion-primitives/infinite-slider";
 import { ProgressiveBlur } from "@/components/motion-primitives/progressive-blur";
 import { LogoCloudDto } from "@/modules/pageBlocks/components/blocks/marketing/logoClouds/LogoCloudsBlockUtils";
 
-import LogoReact from "@/assets/logos/colors/react.png";
-import LogoTailwind from "@/assets/logos/colors/tailwindcss.png";
-import LogoPrisma from "@/assets/logos/colors/prisma.png";
-import LogoPrismaDark from "@/assets/logos/colors/prisma-dark.png";
-import LogoStripe from "@/assets/logos/colors/stripe.png";
-import LogoPostmark from "@/assets/logos/colors/postmark.png";
-import LogoNextJS from "@/assets/logos/colors/remix.png";
-import LogoNextJSDark from "@/assets/logos/colors/remix-dark.png";
-import LogoTypescript from "@/assets/logos/colors/typescript.png";
-import LogoVite from "@/assets/logos/colors/vite.png";
 import { cn } from "@/lib/utils";
 import StripeIcon from "@/components/ui/icons/StripeIcon";
-import Link from "next/link";
 
 export default function LogoCloudsVariantScroll({ items }: { items: LogoCloudDto[] }) {
   return (

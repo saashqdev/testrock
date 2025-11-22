@@ -15,7 +15,7 @@ import InputCheckboxWithDescription from "@/components/ui/input/InputCheckboxWit
 import SimpleBadge from "@/components/ui/badges/SimpleBadge";
 import { Colors } from "@/lib/enums/shared/Colors";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
-import { defaultPages } from "@/modules/pageBlocks/utils/defaultPages";
+import { defaultPages } from "@/modules/pageBlocks/pages/defaultPages";
 import toast from "react-hot-toast";
 
 type LoaderData = {

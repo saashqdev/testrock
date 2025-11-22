@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { getServerTranslations } from "@/i18n/server";
 import { sendEmail } from "@/modules/emails/services/EmailService";
 import { getBaseURL } from "@/utils/url.server";
-import { getDefaultSiteTags } from "@/modules/pageBlocks/utils/defaultSeoMetaTags";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import EmailTemplates from "@/modules/emails/utils/EmailTemplates";
 import { db } from "@/db";
 import ForgotPasswordForm from "./component";

@@ -3,7 +3,7 @@ import HeaderBlock from "@/modules/pageBlocks/components/blocks/marketing/header
 import FooterBlock from "@/modules/pageBlocks/components/blocks/marketing/footer/FooterBlock";
 import { MetaTagsDto } from "@/lib/dtos/seo/MetaTagsDto";
 import { getLinkTags } from "@/modules/pageBlocks/services/server/pagesService";
-import { getDefaultSiteTags } from "@/modules/pageBlocks/utils/defaultSeoMetaTags";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { SurveyDto, SurveyItemDto } from "@/modules/surveys/dtos/SurveyDtos";
 import { SurveyWithDetailsDto } from "@/db/models/helpDesk/SurveysModel";
 import SurveyUtils from "@/modules/surveys/utils/SurveyUtils";

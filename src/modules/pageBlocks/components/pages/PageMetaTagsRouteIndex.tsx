@@ -9,7 +9,7 @@ import ButtonTertiary from "@/components/ui/buttons/ButtonTertiary";
 import LoadingButton from "@/components/ui/buttons/LoadingButton";
 import XIcon from "@/components/ui/icons/XIcon";
 import InputText from "@/components/ui/input/InputText";
-import { defaultSeoMetaTags } from "@/modules/pageBlocks/utils/defaultSeoMetaTags";
+import { defaultSeoMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
 import { getUserHasPermission } from "@/lib/helpers/PermissionsHelper";
 import { LoaderData } from "../../routes/pages/PageMetaTags_Index";

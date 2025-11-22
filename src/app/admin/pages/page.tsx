@@ -3,7 +3,7 @@ import { getServerTranslations } from "@/i18n/server";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { PageConfiguration } from "@/modules/pageBlocks/dtos/PageConfiguration";
 import { getPageConfiguration, createDefaultPages } from "@/modules/pageBlocks/services/server/pagesService";
-import { defaultPages } from "@/modules/pageBlocks/utils/defaultPages";
+import { defaultPages } from "@/modules/pageBlocks/pages/defaultPages";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
 import { revalidatePath } from "next/cache";

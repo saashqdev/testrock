@@ -4,7 +4,7 @@ import FooterBlock from "@/modules/pageBlocks/components/blocks/marketing/footer
 import PreviewIcon from "@/components/ui/logo-and-icon/PreviewIcon";
 import HeadingBlock from "@/modules/pageBlocks/components/blocks/marketing/heading/HeadingBlock";
 import PreviewLogo from "@/components/ui/logo-and-icon/PreviewLogo";
-import { getDefaultSiteTags } from "@/modules/pageBlocks/utils/defaultSeoMetaTags";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 
 export async function generateMetadata(): Promise<Metadata> {

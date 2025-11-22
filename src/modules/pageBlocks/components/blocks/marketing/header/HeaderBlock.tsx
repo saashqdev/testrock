@@ -1,7 +1,7 @@
 "use client";
 
 import { HeaderBlockDto } from "@/modules/pageBlocks/components/blocks/marketing/header/HeaderBlockUtils";
-import { defaultHeader } from "@/modules/pageBlocks/utils/defaultHeader";
+import { defaultHeader } from "@/modules/pageBlocks/pages/defaultHeader";
 import HeaderVariantSimple from "./HeaderVariantSimple";
 import { useTranslation } from "react-i18next";
 

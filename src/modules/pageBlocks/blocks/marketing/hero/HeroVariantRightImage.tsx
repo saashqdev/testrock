@@ -29,8 +29,8 @@ export default function HeroVariantRightImage({ item }: { item: HeroBlockDto }) 
               </span>
             )}
           </div>
-          <h1 className="title-font mb-4 text-3xl font-bold sm:text-4xl md:text-5xl md:font-extrabold">{t(item.heading)}</h1>
-          <h2 className="mb-8 leading-relaxed text-muted-foreground">{t(item.subheading)}</h2>
+          <h1 className="title-font mb-4 text-3xl font-bold sm:text-4xl md:text-5xl md:font-extrabold">{t(item.headline)}</h1>
+          <h2 className="mb-8 leading-relaxed text-muted-foreground">{t(item.description)}</h2>
           <div className="flex flex-wrap justify-center gap-4">
             {item.cta.map((item, idx) => {
               return (

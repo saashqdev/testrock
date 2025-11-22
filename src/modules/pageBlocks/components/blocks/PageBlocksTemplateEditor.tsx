@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import InputText from "@/components/ui/input/InputText";
-import { defaultLandingPage } from "../../utils/defaultPages/defaultLandingPage";
+import { defaultLandingPage } from "../../pages/defaultPages/defaultLandingPage";
 import { PageBlockDto } from "@/modules/pageBlocks/dtos/PageBlockDto";
-import { defaultPricingPage } from "../../utils/defaultPages/defaultPricingPage";
-import { defaultBlogPage } from "../../utils/defaultPages/defaultBlogPage";
+import { defaultPricingPage } from "../../pages/defaultPages/defaultPricingPage";
+import { defaultBlogPage } from "../../pages/defaultPages/defaultBlogPage";
 
 type TemplateDto = {
   title: string;

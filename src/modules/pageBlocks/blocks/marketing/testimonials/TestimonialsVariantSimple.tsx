@@ -81,7 +81,7 @@ export default function TestimonialsVariantSimple({ item }: { item: Testimonials
                   </p>
                   <div className="inline-flex items-center gap-4">
                     {testimonial.avatar && (
-                      <Image alt="testimonial" src={testimonial.avatar} className="h-12 w-12 flex-shrink-0 rounded-full object-cover object-center" />
+                      <Image alt="testimonial" src={testimonial.avatar} width={48} height={48} className="h-12 w-12 flex-shrink-0 rounded-full object-cover object-center" />
                     )}
                     <span className="flex flex-grow flex-col">
                       <LinkOrAhref

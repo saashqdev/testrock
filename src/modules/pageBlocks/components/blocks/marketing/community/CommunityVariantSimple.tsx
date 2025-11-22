@@ -58,7 +58,7 @@ export default function CommunityVariantSimple({ item }: { item: CommunityBlockD
                   const card = (
                     <li key={member.user}>
                       <div className="space-y-4">
-                        <Image className="mx-auto h-10 w-10 shrink-0 rounded-full sm:h-12 sm:w-12 lg:h-14 lg:w-14" src={member.avatar_url} alt={member.user} />
+                        <Image className="mx-auto h-10 w-10 shrink-0 rounded-full sm:h-12 sm:w-12 lg:h-14 lg:w-14" src={member.avatar_url} alt={member.user} width={56} height={56} />
                         {item.withName && (
                           <div>
                             <div className="mt-2 text-xs font-medium lg:text-sm">

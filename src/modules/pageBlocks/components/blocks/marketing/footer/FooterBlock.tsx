@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 import { FooterBlockDto } from "@/modules/pageBlocks/components/blocks/marketing/footer/FooterBlockUtils";
-import { defaultFooter } from "@/modules/pageBlocks/utils/defaultFooter";
+import { defaultFooter } from "@/modules/pageBlocks/pages/defaultFooter";
 import FooterVariantColumns from "./FooterVariantColumns";
 import FooterVariantSimple from "./FooterVariantSimple";
 

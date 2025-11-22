@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import HeaderBlock from "@/modules/pageBlocks/components/blocks/marketing/header/HeaderBlock";
 import FooterBlock from "@/modules/pageBlocks/components/blocks/marketing/footer/FooterBlock";
-import { getDefaultSiteTags } from "@/modules/pageBlocks/utils/defaultSeoMetaTags";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import EmptyState from "@/components/ui/emptyState/EmptyState";
 import { getBaseURL } from "@/utils/url.server";
 import { getServerTranslations } from "@/i18n/server";

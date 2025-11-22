@@ -29,8 +29,8 @@ export default function HeroVariantBottomImage({ item }: { item: HeroBlockDto })
               </span>
             )}
           </div>
-          {item.heading && <h1 className="title-font mb-4 max-w-5xl text-4xl font-bold sm:text-5xl md:text-6xl md:font-black">{t(item.heading)}</h1>}
-          {item.subheading && <h2 className="mb-8 max-w-5xl text-lg leading-relaxed md:text-xl">{t(item.subheading)}</h2>}
+          {item.headline && <h1 className="title-font mb-4 max-w-5xl text-4xl font-bold sm:text-5xl md:text-6xl md:font-black">{t(item.headline)}</h1>}
+          {item.description && <h2 className="mb-8 max-w-5xl text-lg leading-relaxed md:text-xl">{t(item.description)}</h2>}
 
           <div className="flex flex-wrap justify-center gap-4">
             {item.cta.map((item, idx) => {

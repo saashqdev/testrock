@@ -38,8 +38,8 @@ export default function HeroVariantTopImage({ item }: { item: HeroBlockDto }) {
               </span>
             )}
           </div>
-          {item.heading && <h1 className="title-font mb-4 text-3xl font-bold sm:text-4xl md:text-5xl md:font-extrabold">{t(item.heading)}</h1>}
-          {item.subheading && <p className="mb-8 leading-relaxed text-muted-foreground">{t(item.subheading)}</p>}
+          {item.headline && <h1 className="title-font mb-4 text-3xl font-bold sm:text-4xl md:text-5xl md:font-extrabold">{t(item.headline)}</h1>}
+          {item.description && <p className="mb-8 leading-relaxed text-muted-foreground">{t(item.description)}</p>}
 
           <div className="flex flex-wrap justify-center gap-4">
             {item.cta.map((item, idx) => {

@@ -4,7 +4,7 @@ import { getServerTranslations } from "@/i18n/server";
 import HeadingBlock from "@/modules/pageBlocks/components/blocks/marketing/heading/HeadingBlock";
 import BlogPostVariantSimple from "@/modules/pageBlocks/components/blocks/marketing/blog/post/BlogPostVariantSimple";
 import { load } from "@/modules/pageBlocks/components/blocks/marketing/blog/post/BlogPostBlockService.server";
-import { defaultSocials } from "@/modules/pageBlocks/utils/defaultSocials";
+import { defaultSocials } from "@/modules/pageBlocks/pages/defaultSocials";
 import { Metadata } from "next";
 import { headers } from "next/headers";
 

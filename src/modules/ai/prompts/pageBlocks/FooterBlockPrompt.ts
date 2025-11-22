@@ -2,7 +2,7 @@ export default `
 ### START: INTERFACES ###
 
 import { SocialsBlockDto } from "@/modules/pageBlocks/components/blocks/shared/socials/SocialsBlockDto";
-import { defaultSocials } from "@/modules/pageBlocks/utils/defaultSocials";
+import { defaultSocials } from "@/modules/pageBlocks/pages/defaultSocials";
 
 export type FooterBlockDto = {
   style: FooterBlockStyle;

@@ -2,20 +2,22 @@ import { TFunction } from "i18next";
 import { MetaTagsDto } from "@/lib/dtos/MetaTagsDto";
 import { PageBlockDto } from "../blocks/PageBlockDto";
 import { PricingBlockData } from "../blocks/marketing/pricing/PricingBlockDto";
-import { defaultFooter } from "../defaultBlocks/defaultFooter";
-import { defaultHeader } from "../defaultBlocks/defaultHeader";
+import { defaultFooter } from "./defaultFooter";
+import { defaultHeader } from "./defaultHeader";
 import { defaultSiteTags, getMetaTags } from "../seo/SeoMetaTagsUtils";
 
 export type LoaderData = {
   metatags: MetaTagsDto;
   pricingBlockData: PricingBlockData;
 };
+
 export function metatags({ t }: { t: TFunction }): MetaTagsDto {
   return getMetaTags({
     title: `${t("front.pricing.title")} | ${defaultSiteTags.title}`,
     description: `${t("front.pricing.headline")}`,
   });
 }
+
 export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlockDto[] {
   return [
     // Header
@@ -50,4 +52,3 @@ export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlo
     },
   ];
 }
-

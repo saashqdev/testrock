@@ -1,7 +1,7 @@
 export type HeroBlockDto = {
   style: HeroBlockStyle;
-  heading: string;
-  subheading: string;
+  headline: string;
+  description: string;
   topText?: TextWithLinkDto;
   image?: string;
   cta: {

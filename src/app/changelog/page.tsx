@@ -8,7 +8,7 @@ import { getCurrentPage } from "@/modules/pageBlocks/services/server/pagesServic
 import PageBlocks from "@/modules/pageBlocks/components/blocks/PageBlocks";
 import { PageLoaderData } from "@/modules/pageBlocks/dtos/PageBlockData";
 import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
-import { defaultChangelog } from "@/modules/pageBlocks/utils/defaultChangelog";
+import { defaultChangelog } from "@/modules/pageBlocks/pages/defaultChangelog";
 import { getServerTranslations } from "@/i18n/server";
 import Link from "next/link";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";

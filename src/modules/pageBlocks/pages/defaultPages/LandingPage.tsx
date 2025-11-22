@@ -37,8 +37,8 @@ export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlo
     {
       hero: {
         style: "simple",
-        heading: t("front.hero.headline1"),
-        subheading: t("front.hero.headline2"),
+        headline: t("front.hero.headline1"),
+        description: t("front.hero.headline2"),
         image: "http://localhost/1703743532626-analytics%20(2).png",
         cta: [
           {
@@ -72,18 +72,18 @@ export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlo
         logos: [
           {
             alt: "NextJS",
-            href: "https://remix.run/ref=therock.com",
-            src: "https://yahooder.sirv.com/therock/logos/clouds/colors/remix.png",
+            href: "https://nextjs.com/ref=therock.com",
+            src: "/img/logos/clouds/colors/nextjs.png",
           },
           {
             alt: "Tailwind CSS",
             href: "https://tailwindcss.com/ref=therock.com",
-            src: "https://yahooder.sirv.com/therock/logos/clouds/colors/tailwindcss.png",
+            src: "/img/logos/clouds/colors/tailwindcss.png",
           },
           {
             alt: "Prisma",
             href: "https://www.prisma.io/?via=alexandro",
-            src: "https://yahooder.sirv.com/therock/logos/clouds/colors/prisma.png",
+            src: "/img/logos/clouds/colors/prisma.png",
           },
         ],
       },
@@ -268,6 +268,14 @@ export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlo
         items: defaultTestimonials,
       },
     },
+    // Newsletter
+    {
+      newsletter: {
+        style: "simple",
+        headline: t("front.newsletter.title"),
+        subheadline: t("front.newsletter.headline"),
+      },
+    },    
     // Faq
     {
       faq: {
