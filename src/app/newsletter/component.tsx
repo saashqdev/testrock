@@ -17,7 +17,7 @@ import { LoaderData } from "./Newsletter.server";
 import { handleNewsletterAction } from "./actions";
 
 interface NewsletterClientProps {
-  data: LoaderData;
+  data: Omit<LoaderData, "t">;
 }
 
 export default function NewsletterClient({ data }: NewsletterClientProps) {

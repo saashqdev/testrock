@@ -8,3 +8,12 @@ export type PageLoaderData = PageConfiguration & {
   // i18n: Record<string, Language>;
   t: TFunction;
 };
+
+// Helper type to remove non-serializable functions for client components
+export type PageClientData = Omit<PageLoaderData, "t">;
+
+// Helper function to strip non-serializable data before passing to client components
+export function toClientData(data: PageLoaderData): PageClientData {
+  const { t, ...clientData } = data;
+  return clientData;
+}

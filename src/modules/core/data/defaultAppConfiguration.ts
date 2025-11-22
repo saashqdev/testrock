@@ -71,8 +71,8 @@ export const defaultAppConfiguration: AppConfigurationDto = {
   },
   cookies: { enabled: true },
   notifications: {
-    enabled: false,
-    novuAppId: "",
+    enabled: true,
+    novuAppId: "0CnFfmt66SHL",
   },
   onboarding: {
     enabled: true,

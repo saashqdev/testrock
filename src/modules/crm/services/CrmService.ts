@@ -206,6 +206,9 @@ async function createCompany({ tenantId, name, request }: { tenantId: string | n
   const rowValues = RowHelper.getRowPropertiesFromForm({
     entity,
     values: [{ name: "name", value: name }],
+    options: {
+      skipValidation: true, // Skip validation since we're only providing specific fields
+    },
   });
   const row = await create({
     entity,
@@ -275,6 +278,9 @@ async function createSubmission({ tenantId, users, message, request }: { tenantI
       { name: "users", value: users },
       { name: "message", value: message },
     ],
+    options: {
+      skipValidation: true, // Skip validation since we're only providing specific fields
+    },
   });
   const row = await create({
     entity,

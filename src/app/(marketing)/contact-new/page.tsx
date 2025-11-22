@@ -5,6 +5,7 @@ import CrmService from "@/modules/crm/services/CrmService";
 import { ContactPageClient } from "./ContactPageClient";
 import ServerError from "@/components/ui/errors/ServerError";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
+import { toClientData } from "@/modules/pageBlocks/dtos/PageBlockData";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const request = props.request!;
@@ -25,7 +26,7 @@ export default async function ContactRoute(props: IServerComponentsProps) {
     settings,
   };
   
-  return <ContactPageClient data={data} />;
+  return <ContactPageClient data={toClientData(data) as any} />;
 }
 
 export function ErrorBoundary() {

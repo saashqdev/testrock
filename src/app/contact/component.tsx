@@ -14,9 +14,10 @@ import InputText from "@/components/ui/input/InputText";
 import InputSelect from "@/components/ui/input/InputSelect";
 import { LoaderData } from "./Contact.server";
 import { handleContactAction } from "./actions";
+import { PageClientData } from "@/modules/pageBlocks/dtos/PageBlockData";
 
 interface ContactClientProps {
-  data: LoaderData;
+  data: Omit<LoaderData, "t">;
 }
 
 export default function ContactClient({ data }: ContactClientProps) {

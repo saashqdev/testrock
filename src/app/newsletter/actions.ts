@@ -2,11 +2,20 @@
 
 import { action as serverAction, ActionData } from "./Newsletter.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
+import { headers } from "next/headers";
 
 export async function handleNewsletterAction(formData: FormData): Promise<ActionData> {
   try {
-    const request = new Request("http://localhost", {
+    // Get headers to construct a proper request with cookies for CSRF validation
+    const headersList = await headers();
+    const host = headersList.get("host") || "localhost:3000";
+    const protocol = headersList.get("x-forwarded-proto") || "http";
+    const url = `${protocol}://${host}/newsletter`;
+    
+    // Create request with headers (including cookies)
+    const request = new Request(url, {
       method: "POST",
+      headers: headersList,
       body: formData,
     });
 

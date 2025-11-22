@@ -81,7 +81,7 @@ export class AppConfigurationDbPrisma implements IAppConfigurationDb {
         multiple: true,
       },
       cookies: {
-        enabled: false,
+        enabled: true,
       },
       notifications: {
         enabled: !!process.env.NOTIFICATIONS_NOVU_APP_ID && !!process.env.NOTIFICATIONS_NOVU_API_KEY,
@@ -94,7 +94,7 @@ export class AppConfigurationDbPrisma implements IAppConfigurationDb {
         enabled: true,
       },
       metrics: {
-        enabled: false,
+        enabled: true,
         logToConsole: false,
         saveToDatabase: false,
         ignoreUrls: ["/build", "/admin/metrics"],

@@ -21,7 +21,7 @@ type LoaderData = PageLoaderData & {
 };
 
 type ContactPageClientProps = {
-  data: LoaderData;
+  data: Omit<LoaderData, "t">;
 };
 
 export function ContactPageClient({ data }: ContactPageClientProps) {

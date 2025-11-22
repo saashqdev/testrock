@@ -178,7 +178,19 @@ export async function commitSession(session: UserSession) {
 }
 
 export async function generateCSRFToken() {
-  return randomBytes(100).toString("base64");
+  const token = randomBytes(100).toString("base64");
+  const cookieStore = await cookies();
+  
+  // Set the CSRF token as a cookie
+  cookieStore.set("csrf", token, {
+    httpOnly: false, // Must be accessible to JavaScript for form submission
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7, // 7 days
+  });
+  
+  return token;
 }
 
 export async function validateCSRFToken(request: Request) {

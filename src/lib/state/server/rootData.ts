@@ -88,6 +88,7 @@ export async function loadRootData({ request, params }: { request: Request; para
     isStripeTest: process.env.STRIPE_SK?.toString().startsWith("sk_test_") ?? true,
     chatWebsiteId: process.env.CRISP_CHAT_WEBSITE_ID?.toString(),
     appConfiguration,
+    csrf, // Add the CSRF token to the data sent to the client
     featureFlags: appConfiguration.featureFlags.enabled ? await FeatureFlagsService.getCurrentFeatureFlags({ request, params, userAnalyticsId }) : [],
   };
 
