@@ -1,6 +1,13 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+// Generate a random token using Web Crypto API (Edge Runtime compatible)
+function generateCSRFToken(): string {
+  const array = new Uint8Array(100);
+  crypto.getRandomValues(array);
+  return btoa(String.fromCharCode(...array));
+}
+
 export function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-url", request.url);
@@ -13,5 +20,19 @@ export function middleware(request: NextRequest) {
   }
   requestHeaders.set("x-tenant-slug", tenantSlug);
 
-  return NextResponse.next({ request: { headers: requestHeaders } });
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
+  
+  // Set CSRF token cookie if it doesn't exist
+  if (!request.cookies.get("csrf")) {
+    const token = generateCSRFToken();
+    response.cookies.set("csrf", token, {
+      httpOnly: false, // Must be accessible to JavaScript for form submission
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    });
+  }
+
+  return response;
 }

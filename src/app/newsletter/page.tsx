@@ -1,9 +1,8 @@
 import { Metadata } from "next";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
-import { loader } from "./Newsletter.server";
+import { loader, ClientLoaderData } from "./Newsletter.server";
 import NewsletterClient from "./component";
 import ServerError from "@/components/ui/errors/ServerError";
-import { toClientData } from "@/modules/pageBlocks/dtos/PageBlockData";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const data = await loader(props);
@@ -16,7 +15,9 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 
 export default async function NewsletterPage(props: IServerComponentsProps) {
   const data = await loader(props);
-  return <NewsletterClient data={toClientData(data) as any} />;
+  // Strip non-serializable data (t function) before passing to client
+  const { t, ...clientData } = data;
+  return <NewsletterClient data={clientData as ClientLoaderData} />;
 }
 
 export function ErrorBoundary() {

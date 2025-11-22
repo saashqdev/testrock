@@ -1,6 +1,6 @@
 "server-only";
 
-import { getUserInfo } from "@/lib/services/session.server";
+import { getUserInfo, getCSRFToken } from "@/lib/services/session.server";
 import { defaultSiteTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
 import { getBaseURL, getDomainName } from "@/lib/services/url.server";
 import i18next from "i18next";
@@ -17,6 +17,9 @@ export async function getRootData(): Promise<RootDataDto> {
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
   // Feature flags require request context, so return empty array when not available
   const featureFlags: string[] = [];
+  
+  // Get existing CSRF token (doesn't try to set cookie in Server Component)
+  const csrf = await getCSRFToken();
 
   // Get analytics info if enabled
   let analytics: AnalyticsInfoDto | undefined = undefined;
@@ -68,6 +71,7 @@ export async function getRootData(): Promise<RootDataDto> {
     chatWebsiteId: process.env.CRISP_CHAT_WEBSITE_ID?.toString(),
     featureFlags,
     analytics,
+    csrf,
     appConfiguration: {
       ...appConfiguration,
       app: {

@@ -178,19 +178,38 @@ export async function commitSession(session: UserSession) {
 }
 
 export async function generateCSRFToken() {
-  const token = randomBytes(100).toString("base64");
   const cookieStore = await cookies();
   
-  // Set the CSRF token as a cookie
-  cookieStore.set("csrf", token, {
-    httpOnly: false, // Must be accessible to JavaScript for form submission
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7, // 7 days
-  });
+  // Check if CSRF token already exists
+  const existingToken = cookieStore.get("csrf")?.value;
+  if (existingToken) {
+    return existingToken;
+  }
+  
+  // Generate new token
+  const token = randomBytes(100).toString("base64");
+  
+  // Set the CSRF token as a cookie (only works in Server Actions/Route Handlers)
+  try {
+    cookieStore.set("csrf", token, {
+      httpOnly: false, // Must be accessible to JavaScript for form submission
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    });
+  } catch (e) {
+    // If we can't set the cookie (e.g., in Server Component), return the existing or empty string
+    // The cookie will be set on first Server Action call
+    console.warn("Could not set CSRF cookie in this context");
+  }
   
   return token;
+}
+
+export async function getCSRFToken() {
+  const cookieStore = await cookies();
+  return cookieStore.get("csrf")?.value || "";
 }
 
 export async function validateCSRFToken(request: Request) {

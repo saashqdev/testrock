@@ -13,11 +13,11 @@ import RecaptchaWrapper from "@/components/recaptcha/RecaptchaWrapper";
 import HoneypotInput from "@/components/ui/honeypot/HoneypotInput";
 import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import InputText from "@/components/ui/input/InputText";
-import { LoaderData } from "./Newsletter.server";
+import { ClientLoaderData } from "./Newsletter.server";
 import { handleNewsletterAction } from "./actions";
 
 interface NewsletterClientProps {
-  data: Omit<LoaderData, "t">;
+  data: ClientLoaderData;
 }
 
 export default function NewsletterClient({ data }: NewsletterClientProps) {

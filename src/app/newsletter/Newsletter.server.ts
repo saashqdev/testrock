@@ -1,13 +1,19 @@
 import { getServerTranslations } from "@/i18n/server";
 import CrmService, { NewsletterFormSettings } from "@/modules/crm/services/CrmService";
 import { getCurrentPage } from "@/modules/pageBlocks/services/server/pagesService";
-import { PageLoaderData } from "@/modules/pageBlocks/dtos/PageBlockData";
+import { PageLoaderData, PageClientData } from "@/modules/pageBlocks/dtos/PageBlockData";
 import { validateCSRFToken } from "@/lib/services/session.server";
 import IpAddressServiceServer from "@/modules/ipAddress/services/IpAddressService.server";
 import UserUtils from "@/utils/app/UserUtils";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
+// Server loader returns PageLoaderData (with t function)
 export type LoaderData = PageLoaderData & {
+  settings: NewsletterFormSettings;
+};
+
+// Client data without non-serializable functions
+export type ClientLoaderData = PageClientData & {
   settings: NewsletterFormSettings;
 };
 
