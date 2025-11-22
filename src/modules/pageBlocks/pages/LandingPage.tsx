@@ -55,7 +55,7 @@ export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlo
     // Logo Clouds
     {
       logoClouds: {
-        style: "custom",
+        style: "scroll",
         headline: t("front.logoClouds.title"),
       },
     },

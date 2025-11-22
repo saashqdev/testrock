@@ -1,20 +1,21 @@
-import LogoReact from "@/assets/logos/react.png";
-import LogoTailwind from "@/assets/logos/tailwindcss.png";
-import LogoPrisma from "@/assets/logos/prisma.png";
-import LogoPrismaDark from "@/assets/logos/prisma-dark.png";
-import LogoStripe from "@/assets/logos/stripe.png";
-import LogoPostmark from "@/assets/logos/postmark.png";
-import LogoTypescript from "@/assets/logos/typescript.png";
+import LogoReact from "@/assets/logos/colors/react.png";
+import LogoTailwind from "@/assets/logos/colors/tailwindcss.png";
+import LogoPrisma from "@/assets/logos/colors/prisma.png";
+import LogoPrismaDark from "@/assets/logos/colors/prisma-dark.png";
+import LogoStripe from "@/assets/logos/colors/stripe.png";
+import LogoPostmark from "@/assets/logos/colors/postmark.png";
+import LogoRemix from "@/assets/logos/colors/remix.png";
+import LogoRemixDark from "@/assets/logos/colors/remix-dark.png";
+import LogoTypescript from "@/assets/logos/colors/typescript.png";
+import LogoVite from "@/assets/logos/colors/vite.png";
 import ButtonEvent from "@/components/ui/buttons/ButtonEvent";
 import Image from "next/image";
-import NextJsLight from "@/components/brand/NextJsLight";
-import NextJsDark from "@/components/brand/NextJsDark";
 
 export default function LogoCloudsVariantCustom() {
   return (
     <div className="py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-4 gap-8 md:grid-cols-4 lg:grid-cols-7">
+        <div className="grid grid-cols-4 gap-8 md:grid-cols-4 lg:grid-cols-8">
           <div className="order-none col-span-1 flex justify-center">
             <ButtonEvent
               event={{
@@ -59,8 +60,8 @@ export default function LogoCloudsVariantCustom() {
               target="_blank"
               rel="noreferrer"
             >
-              <Image className="h-10 object-cover dark:hidden md:h-14" src={LogoPrisma} alt="Next" />
-              <Image className="hidden h-10 object-cover dark:block md:h-14" src={LogoPrismaDark} alt="Next" />
+              <Image className="h-10 object-cover dark:hidden md:h-14" src={LogoPrisma} alt="Remix" />
+              <Image className="hidden h-10 object-cover dark:block md:h-14" src={LogoPrismaDark} alt="Remix" />
             </ButtonEvent>
           </div>
           <div className="order-first col-span-1 flex justify-center lg:order-none">
@@ -68,15 +69,15 @@ export default function LogoCloudsVariantCustom() {
               event={{
                 action: "click",
                 category: "logo-clouds",
-                label: "next.js",
-                value: "https://nextjs.org",
+                label: "remix",
+                value: "https://remix.run",
               }}
-              to="https://nextjs.org"
+              to="https://remix.run"
               target="_blank"
               rel="noreferrer"
             >
-              <NextJsLight className="h-10 w-fit object-cover dark:hidden md:h-14" />
-              <NextJsDark className="hidden h-10 w-fit object-cover dark:block md:h-14" />
+              <Image className="h-10 object-cover dark:hidden md:h-14" src={LogoRemix} alt="Remix" />
+              <Image className="hidden h-10 object-cover dark:block md:h-14" src={LogoRemixDark} alt="Remix" />
             </ButtonEvent>
           </div>
           <div className="order-none col-span-1 flex justify-center">
@@ -92,6 +93,22 @@ export default function LogoCloudsVariantCustom() {
               rel="noreferrer"
             >
               <Image className="h-10 object-cover md:h-14" src={LogoTailwind} alt="Tailwind CSS" />
+            </ButtonEvent>
+          </div>
+
+          <div className="order-none col-span-1 flex justify-center">
+            <ButtonEvent
+              event={{
+                action: "click",
+                category: "logo-clouds",
+                label: "vite",
+                value: "https://vitejs.dev",
+              }}
+              to="https://vitejs.dev"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Image className="h-10 object-cover md:h-14" src={LogoVite} alt="Vite" />
             </ButtonEvent>
           </div>
 

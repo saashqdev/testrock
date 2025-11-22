@@ -15,5 +15,6 @@ export const LogoCloudsBlockStyles = [
   { value: "custom", name: "Custom" },
   { value: "simple", name: "Simple" },
   { value: "withBrand", name: "With Brand" },
+  { value: "scroll", name: "Scroll" },
 ] as const;
 export type LogoCloudsBlockStyle = (typeof LogoCloudsBlockStyles)[number]["value"];

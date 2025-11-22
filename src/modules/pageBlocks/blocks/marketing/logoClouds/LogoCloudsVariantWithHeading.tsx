@@ -1,13 +1,10 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
-
 import { useTranslation } from "react-i18next";
-import { LogoCloudDto } from "@/modules/pageBlocks/blocks/marketing/logoClouds/LogoCloudsBlockDto";
+import { LogoCloudDto } from "@/modules/pageBlocks/components/blocks/marketing/logoClouds/LogoCloudsBlockUtils";
 
 export default function LogoCloudsVariantWithHeading({ headline, items }: { headline?: string; items: LogoCloudDto[] }) {
   const { t } = useTranslation();
   return (
-    <div className="rounded-lg py-8 text-foreground ring-2 ring-ring">
+    <div className="ring-ring text-foreground rounded-lg py-8 ring-2">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
         <div className="lg:grid lg:grid-cols-2 lg:gap-8">
           {headline && <h2 className="mx-auto max-w-md text-center text-3xl font-bold tracking-tight lg:max-w-xl lg:text-left">{t(headline)}</h2>}
@@ -18,7 +15,7 @@ export default function LogoCloudsVariantWithHeading({ headline, items }: { head
                   <a
                     key={idx}
                     href={item.href}
-                    className="ml-8 mt-4 flex flex-shrink-0 flex-grow justify-center lg:ml-4 lg:flex-grow-0"
+                    className="ml-8 mt-4 flex shrink-0 grow justify-center lg:ml-4 lg:grow-0"
                     target="_blank"
                     rel="noreferrer"
                   >
