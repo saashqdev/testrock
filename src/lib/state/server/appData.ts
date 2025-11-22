@@ -32,6 +32,7 @@ export async function loadAppData({ request, params, t, time = timeFake }: { req
   if (UrlUtils.stripTrailingSlash(url.pathname) === UrlUtils.stripTrailingSlash(UrlUtils.currentTenantUrl(params))) {
     throw redirect(UrlUtils.currentTenantUrl(params, "dashboard"));
   }
+  
   const { user, currentTenant } = await time(
     promiseHash({
       user: db.users.getUser(userInfo?.userId),

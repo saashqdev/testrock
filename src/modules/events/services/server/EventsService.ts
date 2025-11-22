@@ -154,12 +154,17 @@ async function onEvent(params: ICreateApplicationEvent & { description: string }
         break;
       }
       case "subscription.subscribed": {
+        // Send notification to admin roles about new subscription
+        // This is non-critical - subscription is already processed
         await NotificationService.sendToRoles({
           channel: "admin-subscriptions",
           tenantId,
           notification: {
             message: params.description,
           },
+        }).catch((error) => {
+          // Log but don't throw - notification failure shouldn't break subscription flow
+          console.warn("[EventsService] Failed to send subscription notification:", error.message);
         });
         break;
       }

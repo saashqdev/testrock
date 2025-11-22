@@ -279,7 +279,15 @@ export type CheckoutSessionResponse = {
 };
 export async function getAcquiredItemsFromCheckoutSession(session_id: string | null): Promise<CheckoutSessionResponse | null> {
   const session = await getStripeSession(session_id ?? "");
-  if (!session || session.status !== "complete") {
+  if (!session) {
+    console.log("[getAcquiredItemsFromCheckoutSession] Stripe session not found", { session_id });
+    return null;
+  }
+  if (session.status !== "complete") {
+    console.log("[getAcquiredItemsFromCheckoutSession] Session not complete", { 
+      session_id, 
+      status: session.status 
+    });
     return null;
   }
   const prices: { flatPrice?: SubscriptionPrice; usageBasedPrice?: SubscriptionUsageBasedPrice; quantity?: number }[] = [];

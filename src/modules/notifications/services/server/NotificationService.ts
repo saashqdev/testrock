@@ -229,8 +229,17 @@ async function send({ channel, to, notification }: { channel: string; to: INotif
       },
     });
   } catch (e: any) {
-    // eslint-disable-next-line no-console
-    console.error("[NotificationService.send()] Error: " + e.message);
+    // Novu workflow might not exist or payload validation failed
+    // This is non-critical - log as warning instead of error
+    if (process.env.NODE_ENV === "development") {
+      console.warn(
+        `[NotificationService.send()] Failed to send notification via Novu:`,
+        `\n  Channel: ${channel}`,
+        `\n  To: ${to.email}`,
+        `\n  Error: ${e.message}`,
+        `\n  Tip: Ensure the Novu workflow '${channel}' exists and NOTIFICATIONS_NOVU_API_KEY is configured`
+      );
+    }
   }
 }
 
