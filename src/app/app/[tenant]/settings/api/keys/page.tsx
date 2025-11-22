@@ -16,7 +16,7 @@ type PageData = {
 export default async function AdminApiKeysRoute(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const request = props.request!;
-  const tenantId = await getTenantIdFromUrl(params.tenant);
+  const tenantId = await getTenantIdFromUrl(params);
   await verifyUserHasPermission("app.settings.apiKeys.view", tenantId);
   const apiKeys = await db.apiKeys.getApiKeys(tenantId);
   const featurePlanUsage = await getPlanFeatureUsage(tenantId, DefaultFeatures.API);
