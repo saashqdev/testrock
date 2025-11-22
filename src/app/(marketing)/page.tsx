@@ -2,7 +2,7 @@ import { getServerTranslations } from "@/i18n/server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { load } from "@/modules/pageBlocks/blocks/marketing/pricing/PricingBlockService.server";
 import PageBlocks from "@/modules/pageBlocks/blocks/PageBlocks";
-import { metatags, blocks } from "@/modules/pageBlocks/pages/LandingPage";
+import { metatags, blocks } from "@/modules/pageBlocks/pages/defaultPages/LandingPage";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
