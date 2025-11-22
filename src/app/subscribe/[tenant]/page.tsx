@@ -14,6 +14,7 @@ import { SubscriptionBillingPeriod } from "@/lib/enums/subscriptions/Subscriptio
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import SubscribeView from "./component";
 import { db } from "@/db";
+import { headers } from "next/headers";
 
 type LoaderData = AppLoaderData & {
   title: string;
@@ -27,24 +28,45 @@ type LoaderData = AppLoaderData & {
 
 export const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
-  const request = props.request!;
+  const searchParams = (await props.searchParams) || {};
   const { t } = await getServerTranslations();
+  
+  // Check if tenant slug exists
+  if (!params.tenant) {
+    throw redirect(`/app`);
+  }
+  
   const tenantId = await getTenantIdFromUrl(params);
+  
+  // If tenant not found, getTenantIdFromUrl returns empty string
+  if (!tenantId) {
+    throw redirect(`/app`);
+  }
+  
   const userInfo = await getUserInfo();
 
   const user = await db.users.getUser(userInfo.userId);
   if (!user) {
     throw redirect(`/login`);
   }
+  
   const tenant = await db.tenants.getTenant(tenantId);
   if (!tenant) {
     throw redirect(`/app`);
   }
 
-  const appData = await loadAppData({ request, params, t });
+  // Get URL from headers for loadAppData
+  const headersList = await headers();
+  const host = headersList.get("host") || "localhost:3000";
+  const protocol = headersList.get("x-forwarded-proto") || "http";
+  const pathname = headersList.get("x-pathname") || `/subscribe/${params.tenant}`;
+  const searchString = Object.keys(searchParams).length > 0 
+    ? "?" + new URLSearchParams(searchParams as Record<string, string>).toString()
+    : "";
+  const mockRequest = new Request(`${protocol}://${host}${pathname}${searchString}`);
+  const appData = await loadAppData({ request: mockRequest, params, t });
   let items = await db.subscriptionProducts.getAllSubscriptionProducts(true);
-  const searchParams = new URL(request.url).searchParams;
-  const planParam = searchParams.get("plan")?.toString();
+  const planParam = typeof searchParams.plan === 'string' ? searchParams.plan : undefined;
   if (planParam) {
     const filteredItemsRaw = await db.subscriptionProducts.getSubscriptionProductsInIds([planParam]);
     items = filteredItemsRaw.map((item: any) => ({
@@ -56,7 +78,7 @@ export const loader = async (props: IServerComponentsProps) => {
     }));
   }
 
-  const couponParam = searchParams.get("coupon");
+  const couponParam = typeof searchParams.coupon === 'string' ? searchParams.coupon : undefined;
   let coupon: { error?: string; stripeCoupon?: Stripe.Coupon | null } | undefined = undefined;
   if (couponParam) {
     try {
@@ -76,8 +98,8 @@ export const loader = async (props: IServerComponentsProps) => {
     }
   }
 
-  const defaultCurrency = getDefaultCurrency(request);
-  const defaultBillingPeriod = getDefaultBillingPeriod(request);
+  const defaultCurrency = getDefaultCurrency(mockRequest);
+  const defaultBillingPeriod = getDefaultBillingPeriod(mockRequest);
 
   const data: LoaderData = {
     title: `${t("pricing.subscribe")} | ${process.env.APP_NAME}`,

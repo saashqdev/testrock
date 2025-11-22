@@ -72,7 +72,7 @@ export default function SubscriptionSettings({
             <div>{t("settings.subscription.description")}</div>
             <div>
               {mySubscription?.products && mySubscription.products.length > 0 && (
-                <Link href={UrlUtils.currentTenantUrl(params, "pricing")} className="text-theme-600 underline">
+                <Link href={`/subscribe/${params.tenant}`} className="text-theme-600 underline">
                   {t("settings.subscription.viewAllProducts")}
                 </Link>
               )}

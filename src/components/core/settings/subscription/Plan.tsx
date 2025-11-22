@@ -186,44 +186,58 @@ export default function Plan({
     }
 
     try {
-      const response = await fetch(pathname, {
+      AnalyticsHelper.addEvent({
+        url: pathname,
+        route: pathname,
+        rootData: {
+          userSession: rootData.userSession,
+          appConfiguration: {
+            ...rootData.appConfiguration,
+            app: {
+              ...rootData.appConfiguration.app,
+              theme: typeof rootData.appConfiguration.app.theme === 'string' 
+                ? { color: rootData.appConfiguration.app.theme, scheme: "system" as const }
+                : rootData.appConfiguration.app.theme
+            }
+          },
+        },
+        action: "click-plan",
+        category: "user",
+        label: "pricing",
+        value: t(product?.title ?? ""),
+      });
+
+      // Extract tenant from pathname (e.g., /subscribe/acme-corp-3 -> acme-corp-3)
+      const tenantSlug = pathname.split('/').filter(Boolean)[1];
+      const response = await fetch(`/api/subscribe/${tenantSlug}`, {
         method: "POST",
         body: formData,
       });
       
+      const data = await response.json();
+      
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        console.error("Subscription error response:", data);
+        throw new Error(data.error || `HTTP error! status: ${response.status}`);
       }
       
-      // Handle successful response here
-      // You might want to redirect or show success message
-    } catch (error) {
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
+      // Redirect to Stripe Checkout
+      if (data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      
+      throw new Error("No checkout URL received");
+      
+    } catch (error: any) {
       console.error("Subscription error:", error);
-      errorModal.current?.show("Error", "Failed to process subscription. Please try again.");
-    } finally {
+      errorModal.current?.show("Error", error.message || "Failed to process subscription. Please try again.");
       setIsLoading(false);
     }
-
-    AnalyticsHelper.addEvent({
-      url: pathname,
-      route: pathname,
-      rootData: {
-        userSession: rootData.userSession,
-        appConfiguration: {
-          ...rootData.appConfiguration,
-          app: {
-            ...rootData.appConfiguration.app,
-            theme: typeof rootData.appConfiguration.app.theme === 'string' 
-              ? { color: rootData.appConfiguration.app.theme, scheme: "system" as const }
-              : rootData.appConfiguration.app.theme
-          }
-        },
-      },
-      action: "click-plan",
-      category: "user",
-      label: "pricing",
-      value: t(product?.title ?? ""),
-    });
   }
   function confirmed(product: SubscriptionProductDto | undefined) {
     if (!product) {

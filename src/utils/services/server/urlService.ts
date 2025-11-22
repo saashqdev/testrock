@@ -9,7 +9,7 @@ import { cachified, clearCacheKey } from "@/lib/services/cache.server";
 import { Params } from "@/types";
 
 export async function getTenantIdFromUrl(params: Params) {
-  const tenant = params;
+  const { tenant } = params;
   let tenantId = "";
   let tenantFromParams = await cachified({
     key: `tenantIdOrSlug:${tenant}`,

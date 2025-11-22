@@ -22,8 +22,8 @@ export default function MyProducts({ currentTenant, items, onCancel }: Props) {
     <div>
       {items.length === 0 ? (
         <>
-          <WarningBanner title={t("settings.subscription.noSubscription")} text={""}>
-            <Link href={UrlUtils.currentTenantUrl(params, "pricing")} className="underline">
+          <WarningBanner title={t("settings.subscription.noSubscription")} text="">
+            <Link href={`/subscribe/${params.tenant}`} className="underline">
               {t("settings.subscription.viewAllProducts")}.
             </Link>
           </WarningBanner>
