@@ -267,7 +267,7 @@ async function addTopComments(files: CodeGeneratorFileDto[]) {
     const comments: string[] = [];
     comments.push(file.description);
     comments.push("Date: " + DateUtils.dateYMD(new Date()));
-    comments.push("Version: TheRock v" + Constants.APP_VERSION);
+    comments.push("Version: NextRock v" + Constants.APP_VERSION);
     file.content = comments.map((comment) => `// ${comment}`).join("\n") + "\n\n" + file.content;
   });
 }

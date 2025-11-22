@@ -57,7 +57,7 @@ export class AppPortalConfigurationDbPrisma implements IAppPortalConfigurationDb
       domains: {
         enabled: true,
         provider: "fly",
-        portalAppId: "therock-portal",
+        portalAppId: "NextRock-portal",
         records: {
           A: "66.241.125.25",
           AAAA: "2a09:8280:1::31:5dc2:0",

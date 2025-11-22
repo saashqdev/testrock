@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
     'http://37.27.181.216:3000',
     'http://192.168.2.36',
     'http://192.168.2.36:3000',
-    'https://therock.saashq.org',
+    'https://NextRock.saashq.org',
   ],
   
   webpack: (config, { isServer }) => {

@@ -26,9 +26,9 @@ export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlo
     {
       banner: {
         style: "top",
-        text: "TheRock demo site.",
-        textMd: "This is the TheRock demo site.",
-        cta: [{ text: "TheRock", href: "https://therock.com/?ref=demo.therock.com", isPrimary: true, target: "_blank" }],
+        text: "NextRock demo site.",
+        textMd: "This is the NextRock demo site.",
+        cta: [{ text: "NextRock", href: "https://NextRock.com/?ref=demo.NextRock.com", isPrimary: true, target: "_blank" }],
       },
     },
     // Header
@@ -72,12 +72,12 @@ export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlo
         logos: [
           {
             alt: "NextJS",
-            href: "https://nextjs.com/ref=therock.com",
+            href: "https://nextjs.com/ref=NextRock.com",
             src: "/img/logos/clouds/colors/nextjs.png",
           },
           {
             alt: "Tailwind CSS",
-            href: "https://tailwindcss.com/ref=therock.com",
+            href: "https://tailwindcss.com/ref=NextRock.com",
             src: "/img/logos/clouds/colors/tailwindcss.png",
           },
           {
@@ -121,42 +121,42 @@ export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlo
           // {
           //   name: "NextJS v2",
           //   description: "Focused on web standards and modern web app UX.",
-          //   link: { text: t("shared.readDocs"), href: "https://remix.run/docs/en/main?ref=therock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://remix.run/docs/en/main?ref=NextRock.com", target: "_blank" },
           // },
           // {
           //   name: "React v18",
           //   description: "A JavaScript library for building user interfaces.",
-          //   link: { text: t("shared.readDocs"), href: "https://react.dev/?ref=therock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://react.dev/?ref=NextRock.com", target: "_blank" },
           // },
           // {
           //   name: "Tailwind CSS v3",
           //   description: "The best utility-first CSS framework.",
-          //   link: { text: t("shared.readDocs"), href: "https://tailwindcss.com/docs/utility-first?ref=therock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://tailwindcss.com/docs/utility-first?ref=NextRock.com", target: "_blank" },
           // },
           // {
           //   name: "Vite v5",
           //   description: "Next Generation Frontend Tooling.",
-          //   link: { text: t("shared.readDocs"), href: "https://vitejs.dev/guide/?ref=therock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://vitejs.dev/guide/?ref=NextRock.com", target: "_blank" },
           // },
           // {
           //   name: "Prisma v5",
           //   description: "Next-generation Node.js and TypeScript ORM.",
-          //   link: { text: t("shared.readDocs"), href: "https://www.prisma.io/docs?ref=therock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://www.prisma.io/docs?ref=NextRock.com", target: "_blank" },
           // },
           // {
           //   name: "Stripe",
           //   description: "The best payment processor out there.",
-          //   link: { text: t("shared.readDocs"), href: "https://stripe.com/docs?ref=therock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://stripe.com/docs?ref=NextRock.com", target: "_blank" },
           // },
           // {
           //   name: "Postmark",
           //   description: "Email delivery for web apps, done right.",
-          //   link: { text: t("shared.readDocs"), href: "https://postmarkapp.com/support?ref=therock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://postmarkapp.com/support?ref=NextRock.com", target: "_blank" },
           // },
           // {
           //   name: "Novu",
           //   description: "The open-source notification infrastructure",
-          //   // link: { text: t("shared.readDocs"), href: "https://novu.co//support?ref=therock.com", target: "_blank" },
+          //   // link: { text: t("shared.readDocs"), href: "https://novu.co//support?ref=NextRock.com", target: "_blank" },
           // },
           {
             name: "Admin Dashboard",
@@ -178,7 +178,7 @@ export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlo
               items: [
                 {
                   name: "Stripe",
-                  img: "https://yahooder.sirv.com/therock/logos/stripe.png",
+                  img: "https://yahooder.sirv.com/NextRock/logos/stripe.png",
                 },
               ],
             },
@@ -212,7 +212,7 @@ export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlo
             //   items: [
             //     {
             //       name: "Code",
-            //       // img: "https://yahooder.sirv.com/therock/logos/postman.png",
+            //       // img: "https://yahooder.sirv.com/NextRock/logos/postman.png",
             //     },
             //   ],
             // },
@@ -233,7 +233,7 @@ export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlo
     {
       community: {
         style: "simple",
-        headline: "Join the TheRock community!",
+        headline: "Join the NextRock community!",
         subheadline: "We're all looking to build successful SaaS applications.",
         withName: false,
         // grid: {
@@ -251,7 +251,7 @@ export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlo
           },
           {
             text: "Youtube channel",
-            href: "https://www.youtube.com/@therock",
+            href: "https://www.youtube.com/@NextRock",
           },
         ],
         data: {

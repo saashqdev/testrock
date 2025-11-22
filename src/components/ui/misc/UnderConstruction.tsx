@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import TheRockProFeature from "./TheRockProFeature";
+import NextRockProFeature from "./NextRockProFeature";
 
 export default function UnderConstruction({ title, description, proFeature }: { title?: string; description?: string; proFeature?: boolean }) {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ export default function UnderConstruction({ title, description, proFeature }: { 
         </div>
       )}
       {description && <div className="text-muted-foreground text-sm">{description}</div>}
-      {proFeature && <TheRockProFeature />}
+      {proFeature && <NextRockProFeature />}
       <div className="flex flex-col justify-center space-y-4 rounded-md border-2 border-dashed border-yellow-300 bg-yellow-50 py-6 text-center font-medium dark:bg-yellow-100 dark:text-yellow-800">
         <div>{t("shared.underConstruction")} 🚧</div>
       </div>

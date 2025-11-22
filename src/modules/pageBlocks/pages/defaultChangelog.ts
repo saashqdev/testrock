@@ -6,13 +6,13 @@ export function defaultChangelog({ t }: { t: TFunction }): ChangelogItem[] {
   const items: ChangelogItem[] = [
     {
       date: "Sep 31th, 2024",
-      title: "TheRock v1.4.0 🎉",
-      url: "https://therock.com/changelog",
+      title: "NextRock v1.4.0 🎉",
+      url: "https://NextRock.com/changelog",
       description: "Your description here",
       videos: [
         {
-          title: "TheRock Channel",
-          url: "https://www.youtube.com/@therock",
+          title: "NextRock Channel",
+          url: "https://www.youtube.com/@NextRock",
           target: "_blank",
         },
       ],
@@ -21,7 +21,7 @@ export function defaultChangelog({ t }: { t: TFunction }): ChangelogItem[] {
           title: "Added new feature",
           img: [
             {
-              title: "TheRock Cover",
+              title: "NextRock Cover",
               img: getDefaultSiteTags().image,
             },
           ],

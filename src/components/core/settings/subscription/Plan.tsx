@@ -243,9 +243,9 @@ export default function Plan({
       return;
     }
     if (product?.title.includes("Core") || product?.title.includes("Enterprise") || product?.title.includes("Pro")) {
-      window.location.href = "https://alexandromg.gumroad.com/l/TheRock";
+      window.location.href = "https://alexandromg.gumroad.com/l/NextRock";
     } else {
-      window.location.href = "https://alexandromg.gumroad.com/l/TheRockDevelopment";
+      window.location.href = "https://alexandromg.gumroad.com/l/NextRockDevelopment";
     }
   }
   function isDisabled() {

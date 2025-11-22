@@ -19,7 +19,7 @@ export default async function () {
           <ol className="space-y-2">
             <li>
               Create a Rewardful account (use{" "}
-              <a href="https://www.rewardful.com/?via=therock" target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">
+              <a href="https://www.rewardful.com/?via=NextRock" target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">
                 my link
               </a>{" "}
               and get a discount).
@@ -31,7 +31,7 @@ export default async function () {
               Set <b>affiliates.providers.rewardfulApiKey</b> <i>(you can find it in your Rewardful company settings)</i>.
             </li>
             <li>
-              Set <b>affiliates.signUpLink</b> <i>(i.e. https://therock.getrewardful.com/signup)</i>.
+              Set <b>affiliates.signUpLink</b> <i>(i.e. https://NextRock.getrewardful.com/signup)</i>.
             </li>
             <li>
               Set <b>affiliates.percentage</b> and <b>affiliates.plans</b>.

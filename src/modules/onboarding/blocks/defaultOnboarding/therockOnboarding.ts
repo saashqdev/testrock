@@ -1,11 +1,11 @@
 import { OnboardingStepBlockDto } from "../OnboardingBlockUtils";
 
-export const therockOnboardingStepBlocks: OnboardingStepBlockDto[] = [
+export const NextRockOnboardingStepBlocks: OnboardingStepBlockDto[] = [
   {
     id: "1",
     title: "Welcome!",
     description:
-      "This onboarding's purpose is to showcase the Onboarding feature in TheRock Pro 🚀.\n\n- **Filters**: Automatically _(or manually)_ create sessions\n- **Steps**: Each step can have _Links_, _Gallery_ or _Input_\n- **Links**: Use links with variables like _$tenant_ or _$user_\n- **Activity**: Sessions are tracked for statistics _(e.g. link-click)_\n- **Markdown**: HTML and Markdown syntax support\n\nOnce you've set your onboarding flow, you can Activate it and it will appear as a modal for your end-users, which can _(or cannot)_ be dismissed.",
+      "This onboarding's purpose is to showcase the Onboarding feature in NextRock Pro 🚀.\n\n- **Filters**: Automatically _(or manually)_ create sessions\n- **Steps**: Each step can have _Links_, _Gallery_ or _Input_\n- **Links**: Use links with variables like _$tenant_ or _$user_\n- **Activity**: Sessions are tracked for statistics _(e.g. link-click)_\n- **Markdown**: HTML and Markdown syntax support\n\nOnce you've set your onboarding flow, you can Activate it and it will appear as a modal for your end-users, which can _(or cannot)_ be dismissed.",
     links: [],
     gallery: [],
     input: [],
@@ -43,7 +43,7 @@ export const therockOnboardingStepBlocks: OnboardingStepBlockDto[] = [
       },
       {
         text: "New tab link",
-        href: "https://therock.com",
+        href: "https://NextRock.com",
         isPrimary: false,
         target: "_blank",
       },
@@ -68,7 +68,7 @@ export const therockOnboardingStepBlocks: OnboardingStepBlockDto[] = [
         id: "2",
         type: "image",
         title: "Admin Portal",
-        src: "https://yahooder.sirv.com/therock/seo/admin-portal.png",
+        src: "https://yahooder.sirv.com/NextRock/seo/admin-portal.png",
       },
     ],
     input: [],

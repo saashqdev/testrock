@@ -60,7 +60,7 @@ export const action = async (props: IServerComponentsProps) => {
 Link: <a href='https://www.google.com'>Google</a> <br/>
 Custom unsubscribe link: <a href="{{{ pm:unsubscribe }}}">Unsubscribe from this list</a> </br>
 `,
-        textBody: `This is a test email with a link: https://www.therock.com.
+        textBody: `This is a test email with a link: https://www.NextRock.com.
 `,
         track: true,
         metadata: {

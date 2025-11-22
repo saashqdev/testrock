@@ -13,7 +13,7 @@ import CollapsibleRow from "@/components/ui/tables/CollapsibleRow";
 import OnboardingStepUtils from "@/modules/onboarding/utils/OnboardingStepUtils";
 import GridBlockForm from "@/modules/pageBlocks/components/blocks/shared/grid/GridBlockForm";
 import StringUtils from "@/lib/shared/StringUtils";
-import { therockOnboardingStepBlocks } from "./defaultOnboarding/therockOnboarding";
+import { NextRockOnboardingStepBlocks } from "./defaultOnboarding/NextRockOnboarding";
 import {
   defaultOnboardingBlock,
   defaultOnboardingStepBlock,
@@ -139,7 +139,7 @@ export default function OnboardingBlockForm({ item, onUpdate }: { item?: Onboard
                   {t("shared.clear")}
                 </ButtonTertiary>
               ) : (
-                <ButtonTertiary onClick={() => setState({ ...state, steps: therockOnboardingStepBlocks })}>Load sample steps</ButtonTertiary>
+                <ButtonTertiary onClick={() => setState({ ...state, steps: NextRockOnboardingStepBlocks })}>Load sample steps</ButtonTertiary>
               )}
             </div>
           </div>

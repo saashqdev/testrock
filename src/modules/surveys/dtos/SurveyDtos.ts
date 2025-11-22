@@ -31,7 +31,7 @@ export type SurveyItemDto = {
 };
 
 export type SurveyItemResultDto = {
-  item: string; // What TheRock Edition are you using?
+  item: string; // What NextRock Edition are you using?
   values: string[]; // ["Core"]
   other?: string;
 };

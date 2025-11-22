@@ -32,20 +32,20 @@ ${"```json"}
       "logos": [
         {
           alt: "Tailwind CSS",
-          href: "https://tailwindcss.com/ref=therock.com",
-          src: "https://therock.com/build/_assets/tailwindcss-G3OQBAVI.png",
+          href: "https://tailwindcss.com/ref=NextRock.com",
+          src: "https://NextRock.com/build/_assets/tailwindcss-G3OQBAVI.png",
         },
         {
           alt: "NextJS",
-          href: "https://remix.run/ref=therock.com",
-          src: "https://therock.com/build/_assets/remix-4ESNCVZ5.png",
-          srcDark: "https://therock.com/build/_assets/remix-dark-U2ASPSOI.png",
+          href: "https://remix.run/ref=NextRock.com",
+          src: "https://NextRock.com/build/_assets/remix-4ESNCVZ5.png",
+          srcDark: "https://NextRock.com/build/_assets/remix-dark-U2ASPSOI.png",
         },
         {
           alt: "Prisma",
           href: "https://www.prisma.io/?via=alexandro",
-          src: "https://therock.com/build/_assets/prisma-ATY77GXX.png",
-          srcDark: "https://therock.com/build/_assets/prisma-dark-3FBYDJ4J.png",
+          src: "https://NextRock.com/build/_assets/prisma-ATY77GXX.png",
+          srcDark: "https://NextRock.com/build/_assets/prisma-dark-3FBYDJ4J.png",
         },
       ],
     }

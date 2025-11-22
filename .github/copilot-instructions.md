@@ -1,7 +1,7 @@
-# Copilot Instructions for CatStack/TheRock
+# Copilot Instructions for CatStack/NextRock
 
 ## Project Overview
-**CatStack** (aka "TheRock") is a Next.js 15 SaaS boilerplate featuring multi-tenancy, dynamic entity builder, workflow engine, and subscription management. Built on App Router with React Server Components, Prisma ORM, PostgreSQL, and TypeScript.
+**CatStack** (aka "NextRock") is a Next.js 15 SaaS boilerplate featuring multi-tenancy, dynamic entity builder, workflow engine, and subscription management. Built on App Router with React Server Components, Prisma ORM, PostgreSQL, and TypeScript.
 
 ## Critical Architecture Patterns
 

@@ -34,7 +34,7 @@ export async function getRootData(): Promise<RootDataDto> {
       
       // Read existing analytics cookie (don't try to set it here - that happens in the API route)
       const cookieStore = await cookies();
-      const userAnalyticsId = cookieStore.get("therock_analytics")?.value || await generateAnalyticsUserId();
+      const userAnalyticsId = cookieStore.get("NextRock_analytics")?.value || await generateAnalyticsUserId();
       
       analytics = await AnalyticsService.getFromRequest({
         appConfiguration,

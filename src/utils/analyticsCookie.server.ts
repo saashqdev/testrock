@@ -16,7 +16,7 @@ if (!sessionSecret) {
 export async function createCookieSessionStorage() {
   const cookieStore = await cookies();
   if (typeof sessionSecret === "string") {
-    cookieStore.set("therock_analytics", sessionSecret, {
+    cookieStore.set("NextRock_analytics", sessionSecret, {
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
@@ -35,7 +35,7 @@ export async function getAnalyticsSession(request: Request) {
 
 export async function getAnalyticsInfo(request: Request): Promise<AnalyticsSession> {
   const cookieStore = await cookies();
-  const userAnalyticsId = cookieStore.get("therock_analytics")?.value ?? "";
+  const userAnalyticsId = cookieStore.get("NextRock_analytics")?.value ?? "";
   return {
     userAnalyticsId,
   };

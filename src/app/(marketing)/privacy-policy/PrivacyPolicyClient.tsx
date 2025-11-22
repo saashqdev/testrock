@@ -30,10 +30,10 @@ export default function PrivacyPolicyClient() {
                 {t("cookies.settings")}
               </button>
               <p>
-                Your privacy is important to us. It is TheRock&#39; policy to respect your privacy and comply with any applicable law and regulation
+                Your privacy is important to us. It is NextRock&#39; policy to respect your privacy and comply with any applicable law and regulation
                 regarding any personal information we may collect about you, including across our website,{" "}
-                <a className="text-black dark:text-white" href="https://therock.com">
-                  https://therock.com
+                <a className="text-black dark:text-white" href="https://NextRock.com">
+                  https://NextRock.com
                 </a>
                 , and other sites we own and operate.
               </p>
@@ -179,7 +179,7 @@ export default function PrivacyPolicyClient() {
               <p>
                 TheDevs
                 <br />
-                hello@therock.com
+                hello@NextRock.com
               </p>
             </div>
           </div>

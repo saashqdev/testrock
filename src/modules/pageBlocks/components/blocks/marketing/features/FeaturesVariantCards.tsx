@@ -70,7 +70,7 @@ export default function FeaturesVariantCards({ item }: { item: FeaturesBlockDto 
             <div>
               <div className="flex justify-center space-x-2">
                 <Link
-                  href="https://core.therock.com/?ref=therock.com&utm_medium=features&utm_campaign=v0-9-3"
+                  href="https://core.NextRock.com/?ref=NextRock.com&utm_medium=features&utm_campaign=v0-9-3"
                   target="_blank"
                   className="shadow-2xs focus:outline-hidden inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:hover:bg-gray-700"
                 >
@@ -78,7 +78,7 @@ export default function FeaturesVariantCards({ item }: { item: FeaturesBlockDto 
                 </Link>
 
                 <Link
-                  href="https://pro.therock.com/?ref=therock.com&utm_medium=features&utm_campaign=v0-9-3"
+                  href="https://pro.NextRock.com/?ref=NextRock.com&utm_medium=features&utm_campaign=v0-9-3"
                   target="_blank"
                   className="shadow-2xs focus:outline-hidden inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:hover:bg-gray-700"
                 >

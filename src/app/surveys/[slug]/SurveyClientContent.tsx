@@ -208,7 +208,7 @@ function SurveyGroup({
       <Modal size="sm" open={showModal} setOpen={() => setShowModal(false)}>
         <div className="space-y-4">
           <h3 className="text-xl font-semibold">Thanks for your feedback!</h3>
-          <p className="text-muted-foreground">Subscribe to TheRock&apos;s newsletter to get product updates and more.</p>
+          <p className="text-muted-foreground">Subscribe to NextRock&apos;s newsletter to get product updates and more.</p>
           <NewsletterForm onClose={() => setShowModal(false)} />
         </div>
       </Modal>

@@ -105,8 +105,8 @@ const SAMPLE: KnowledgeBasesTemplateDto = {
       knowledgeBaseSlug: "docs",
       categorySlug: "introduction",
       categorySectionOrder: null,
-      slug: "therock-v0.8.9-knowledge-base",
-      title: "TheRock v0.8.9 - Knowledge Base",
+      slug: "NextRock-v0.8.9-knowledge-base",
+      title: "NextRock v0.8.9 - Knowledge Base",
       description: "",
       order: 0,
       contentDraft:

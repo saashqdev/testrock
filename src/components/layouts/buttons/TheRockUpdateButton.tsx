@@ -1,7 +1,7 @@
 import Link from "next/link";
 import clsx from "@/lib/shared/ClassesUtils";
 
-export default function TheRockUpdateButton({ hasUpdate }: { hasUpdate: boolean }) {
+export default function NextRockUpdateButton({ hasUpdate }: { hasUpdate: boolean }) {
   return (
     <>
       {hasUpdate && (

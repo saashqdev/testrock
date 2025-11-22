@@ -422,15 +422,15 @@
     },
     "roadmap": {
       "title": "Roadmap",
-      "headline": "Entérate del estatus actual de TheRock."
+      "headline": "Entérate del estatus actual de NextRock."
     },
     "faq": {
       "title": "Preguntas más frecuentes",
       "headline": "Agrega tus propias preguntas y respuestas para ayudar a tus usuarios a entender tu SaaS.",
-      "subheadline": "Preguntas frecuentes acerca de TheRock.",
+      "subheadline": "Preguntas frecuentes acerca de NextRock.",
       "questions": {
         "q1": "¿Cómo obtengo el código después de la compra?",
-        "a1": "Serás invitado al repositorio TheRock en GitHub. Si compraste TheRock Pro también serás invitado al repositorio TheRock-pro.",
+        "a1": "Serás invitado al repositorio NextRock en GitHub. Si compraste NextRock Pro también serás invitado al repositorio NextRock-pro.",
         "q2": "¿Puedo obtener un reembolso?",
         "a2": "Debido a la naturaleza del desarrollo de software como un servicio personalizado, no ofrecemos reembolsos."
       }

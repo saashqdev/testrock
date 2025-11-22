@@ -14,7 +14,7 @@ export default function PreviewInputTextWithMonacoEditor() {
 
   _Image_:
 
-  ![TheRock](https://yahooder.sirv.com/therock/seo/cover-dark.png)
+  ![NextRock](https://yahooder.sirv.com/NextRock/seo/cover-dark.png)
   `);
   return (
     <div id="input-text">

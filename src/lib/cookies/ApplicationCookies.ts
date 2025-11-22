@@ -25,7 +25,7 @@ const allApplicationCookies: ApplicationCookie[] = [
   },
   {
     category: CookieCategory.ANALYTICS,
-    name: "therock_analytics",
+    name: "NextRock_analytics",
     expiry: "1 month",
     type: "https",
     description: "User tracking ID for page views and events. This help us understand how you use the website.",

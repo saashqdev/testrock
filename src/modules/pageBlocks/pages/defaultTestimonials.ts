@@ -5,8 +5,8 @@ export const defaultTestimonials: TestimonialDto[] = [
     role: "CEO",
     company: "Piloterr",
     companyUrl: "https://www.piloterr.com/",
-    logoLightMode: "https://yahooder.sirv.com/therock/testimonials/piloterr-light.png",
-    logoDarkMode: "https://yahooder.sirv.com/therock/testimonials/piloterr-dark.png",
+    logoLightMode: "https://yahooder.sirv.com/NextRock/testimonials/piloterr-light.png",
+    logoDarkMode: "https://yahooder.sirv.com/NextRock/testimonials/piloterr-dark.png",
     name: "Josselin Liebe",
     personalWebsite: "https://josselinlie.be/",
     avatar: "https://avatars.githubusercontent.com/u/15314417?v=4",
@@ -44,7 +44,7 @@ export const defaultTestimonials: TestimonialDto[] = [
     name: "Praney Behl",
     createdAt: new Date("2024-01-06T17:47:00"),
     title: "Can't praise it enough!",
-    quote: `SassRock is a great Saas starter template. The codebase is massive and packs a ton of features, sometime feels like way too many :) Alex, TheRock's dev is an awesome guy, he is very active and responsive to questions, concerns and feature requests.
+    quote: `SassRock is a great Saas starter template. The codebase is massive and packs a ton of features, sometime feels like way too many :) Alex, NextRock's dev is an awesome guy, he is very active and responsive to questions, concerns and feature requests.
 
 Highly recommended product for your next Saas project!`,
     quoteUrl: "https://www.trustpilot.com/reviews/6599e69a47c3817c3c44c93b",
@@ -55,7 +55,7 @@ Highly recommended product for your next Saas project!`,
     name: "EBM",
     title: "Great Code, Great Support",
     quote:
-      "TheRock isn't just another boilerplate – it's a game-changer. This platform comes packed with every feature imaginable, saving you from the headache of starting from scratch. Alex, the developer behind TheRock, sets a new standard in responsiveness. Questions or custom requests? He's lightning-fast in his support, making the journey of building a customized SaaS project an absolute breeze. The flexibility and adaptability of TheRock allowed me to dive straight into the customization I needed, without wrestling with the mundane, standard aspects. It's a full-throttle, feature-rich solution coupled with unparalleled developer support that elevates it far above the rest.",
+      "NextRock isn't just another boilerplate – it's a game-changer. This platform comes packed with every feature imaginable, saving you from the headache of starting from scratch. Alex, the developer behind NextRock, sets a new standard in responsiveness. Questions or custom requests? He's lightning-fast in his support, making the journey of building a customized SaaS project an absolute breeze. The flexibility and adaptability of NextRock allowed me to dive straight into the customization I needed, without wrestling with the mundane, standard aspects. It's a full-throttle, feature-rich solution coupled with unparalleled developer support that elevates it far above the rest.",
     quoteUrl: "https://www.trustpilot.com/reviews/659d92dac51d82576c9f58b8",
     createdAt: new Date("2024-01-09T14:25:00"),
     avatar: "https://avatars.githubusercontent.com/u/15159651?v=4",
@@ -65,7 +65,7 @@ Highly recommended product for your next Saas project!`,
     name: "Charlie X",
     title: "Game-changing boilerplate for ambitious founders",
     quote:
-      "TheRock has really blown me away, going beyond what I was hoping for. It's an amazing tool that helps you start your projects super quickly. Is it worth the price? Absolutely. Can it grow with your needs? For sure. I'm not exactly a pro developer, and I find most boilerplates useless. But TheRock is different. It's really easy to use and comes with everything you need, like handling user accounts, helping you organize your info, and managing your marketing —all without extra costs that usually add up to more than $10 a month with other services. I'm really excited to use TheRock for not just one, but several projects. It's not just good; it's a real game-changer for people like me.",
+      "NextRock has really blown me away, going beyond what I was hoping for. It's an amazing tool that helps you start your projects super quickly. Is it worth the price? Absolutely. Can it grow with your needs? For sure. I'm not exactly a pro developer, and I find most boilerplates useless. But NextRock is different. It's really easy to use and comes with everything you need, like handling user accounts, helping you organize your info, and managing your marketing —all without extra costs that usually add up to more than $10 a month with other services. I'm really excited to use NextRock for not just one, but several projects. It's not just good; it's a real game-changer for people like me.",
     quoteUrl: "",
     companyUrl: "https://twitter.com/charliexfi",
     createdAt: new Date("2024-03-19T14:25:00"),

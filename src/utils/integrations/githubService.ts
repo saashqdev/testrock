@@ -22,7 +22,7 @@
 //     await octokit.rest.users.getAuthenticated();
 //     const { data } = await octokit.rest.repos.listReleases({
 //       owner: "TheDevs",
-//       repo: "therock",
+//       repo: "NextRock",
 //     });
 //     if (data.length > 0) {
 //       return {
@@ -42,7 +42,7 @@
 //     await octokit.rest.users.getAuthenticated();
 //     const { data } = await octokit.rest.repos.listReleases({
 //       owner: "TheDevs",
-//       repo: "therock",
+//       repo: "NextRock",
 //     });
 //     return data.map((i) => {
 //       return {
@@ -64,7 +64,7 @@
 //     await octokit.rest.users.getAuthenticated();
 //     const { data } = await octokit.rest.repos.listCollaborators({
 //       owner: "TheDevs",
-//       repo: "therock",
+//       repo: "NextRock",
 //       per_page: 100,
 //     });
 //     return data;
@@ -82,7 +82,7 @@
 //     // iterate through each response
 //     const issues = await octokit.paginate(octokit.rest.issues.listForRepo, {
 //       owner: "TheDevs",
-//       repo: "therock",
+//       repo: "NextRock",
 //       per_page: 100,
 //       state: "all",
 //     });

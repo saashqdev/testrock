@@ -13,9 +13,9 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
     {
       banner: {
         style: "top",
-        text: "TheRock demo site.",
-        textMd: "This is the TheRock demo site.",
-        cta: [{ text: "TheRock", href: "https://therock.com/?ref=demo.therock.com", isPrimary: true, target: "_blank" }],
+        text: "NextRock demo site.",
+        textMd: "This is the NextRock demo site.",
+        cta: [{ text: "NextRock", href: "https://NextRock.com/?ref=demo.NextRock.com", isPrimary: true, target: "_blank" }],
       },
     },
     // Header
@@ -59,18 +59,18 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
         logos: [
           {
             alt: "NextJS",
-            href: "https://remix.run/ref=therock.com",
-            src: "https://yahooder.sirv.com/therock/logos/clouds/colors/remix.png",
+            href: "https://remix.run/ref=NextRock.com",
+            src: "https://yahooder.sirv.com/NextRock/logos/clouds/colors/remix.png",
           },
           {
             alt: "Tailwind CSS",
-            href: "https://tailwindcss.com/ref=therock.com",
-            src: "https://yahooder.sirv.com/therock/logos/clouds/colors/tailwindcss.png",
+            href: "https://tailwindcss.com/ref=NextRock.com",
+            src: "https://yahooder.sirv.com/NextRock/logos/clouds/colors/tailwindcss.png",
           },
           {
             alt: "Prisma",
             href: "https://www.prisma.io/?via=alexandro",
-            src: "https://yahooder.sirv.com/therock/logos/clouds/colors/prisma.png",
+            src: "https://yahooder.sirv.com/NextRock/logos/clouds/colors/prisma.png",
           },
         ],
       },
@@ -108,42 +108,42 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
           // {
           //   name: "NextJS v2",
           //   description: "Focused on web standards and modern web app UX.",
-          //   link: { text: t("shared.readDocs"), href: "https://remix.run/docs/en/main?ref=therock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://remix.run/docs/en/main?ref=NextRock.com", target: "_blank" },
           // },
           // {
           //   name: "React v18",
           //   description: "A JavaScript library for building user interfaces.",
-          //   link: { text: t("shared.readDocs"), href: "https://react.dev/?ref=therock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://react.dev/?ref=NextRock.com", target: "_blank" },
           // },
           // {
           //   name: "Tailwind CSS v3",
           //   description: "The best utility-first CSS framework.",
-          //   link: { text: t("shared.readDocs"), href: "https://tailwindcss.com/docs/utility-first?ref=therock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://tailwindcss.com/docs/utility-first?ref=NextRock.com", target: "_blank" },
           // },
           // {
           //   name: "Vite v5",
           //   description: "Next Generation Frontend Tooling.",
-          //   link: { text: t("shared.readDocs"), href: "https://vitejs.dev/guide/?ref=therock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://vitejs.dev/guide/?ref=NextRock.com", target: "_blank" },
           // },
           // {
           //   name: "Prisma v5",
           //   description: "Next-generation Node.js and TypeScript ORM.",
-          //   link: { text: t("shared.readDocs"), href: "https://www.prisma.io/docs?ref=therock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://www.prisma.io/docs?ref=NextRock.com", target: "_blank" },
           // },
           // {
           //   name: "Stripe",
           //   description: "The best payment processor out there.",
-          //   link: { text: t("shared.readDocs"), href: "https://stripe.com/docs?ref=therock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://stripe.com/docs?ref=NextRock.com", target: "_blank" },
           // },
           // {
           //   name: "Postmark",
           //   description: "Email delivery for web apps, done right.",
-          //   link: { text: t("shared.readDocs"), href: "https://postmarkapp.com/support?ref=therock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://postmarkapp.com/support?ref=NextRock.com", target: "_blank" },
           // },
           // {
           //   name: "Novu",
           //   description: "The open-source notification infrastructure",
-          //   // link: { text: t("shared.readDocs"), href: "https://novu.co//support?ref=therock.com", target: "_blank" },
+          //   // link: { text: t("shared.readDocs"), href: "https://novu.co//support?ref=NextRock.com", target: "_blank" },
           // },
           {
             name: "Admin Dashboard",
@@ -165,7 +165,7 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
               items: [
                 {
                   name: "Stripe",
-                  img: "https://yahooder.sirv.com/therock/logos/stripe.png",
+                  img: "https://yahooder.sirv.com/NextRock/logos/stripe.png",
                 },
               ],
             },
@@ -199,7 +199,7 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
             //   items: [
             //     {
             //       name: "Code",
-            //       // img: "https://yahooder.sirv.com/therock/logos/postman.png",
+            //       // img: "https://yahooder.sirv.com/NextRock/logos/postman.png",
             //     },
             //   ],
             // },
@@ -219,7 +219,7 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
     {
       community: {
         style: "simple",
-        headline: "Join the TheRock community!",
+        headline: "Join the NextRock community!",
         subheadline: "We're all looking to build successful SaaS applications.",
         withName: false,
         // grid: {
@@ -237,7 +237,7 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
           },
           {
             text: "Youtube channel",
-            href: "https://www.youtube.com/@therock",
+            href: "https://www.youtube.com/@NextRock",
           },
         ],
       },

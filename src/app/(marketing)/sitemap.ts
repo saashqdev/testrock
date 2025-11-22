@@ -11,7 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/pricing`, lastModified: new Date() },
     { url: `${baseUrl}/terms-and-conditions`, lastModified: new Date() },
     { url: `${baseUrl}/privacy-policy`, lastModified: new Date() },
-    { url: `${baseUrl}/catstack-vs-therock`, lastModified: new Date() },
+    { url: `${baseUrl}/catstack-vs-NextRock`, lastModified: new Date() },
     { url: `${baseUrl}/brand`, lastModified: new Date() },
   ];
   if (defaultAppConfiguration.affiliates?.provider.rewardfulApiKey) {

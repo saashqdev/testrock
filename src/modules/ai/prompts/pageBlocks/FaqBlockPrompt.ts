@@ -27,7 +27,7 @@ ${"```json"}
     {
       "question": "How do I get the code after purchasing?",
       "answer":
-        "You will be invited to the therock-core repository on GitHub. If you bought TheRock Pro you will also be invited to the therock-pro repository.",
+        "You will be invited to the NextRock-core repository on GitHub. If you bought NextRock Pro you will also be invited to the NextRock-pro repository.",
     },
     {
       "question": "Will there be updates every month?",
@@ -40,7 +40,7 @@ ${"```json"}
     {
       "question": "Is it really a perpetual license for unlimited websites?",
       "answer":
-        "Yes, you don't need a subscription to use TheRock for your SaaS app development. Subscription is only required to get access to the private repository to get updates.",
+        "Yes, you don't need a subscription to use NextRock for your SaaS app development. Subscription is only required to get access to the private repository to get updates.",
     },
     {
       "question": "Will I still get updates after my subscription expires?",

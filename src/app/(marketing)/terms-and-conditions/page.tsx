@@ -26,7 +26,7 @@ export default async function () {
                 <h3>Introduction</h3>
 
                 <p>
-                  These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, TheRock accessible at catstack.dev.
+                  These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, NextRock accessible at catstack.dev.
                 </p>
 
                 <p>
@@ -41,7 +41,7 @@ export default async function () {
                 <h3>Intellectual Property Rights</h3>
 
                 <p>
-                  Other than the content you own, under these Terms, TheRock and/or its licensors own all the intellectual property rights and materials
+                  Other than the content you own, under these Terms, NextRock and/or its licensors own all the intellectual property rights and materials
                   contained in this Website.
                 </p>
 
@@ -66,7 +66,7 @@ export default async function () {
                 </ul>
 
                 <p>
-                  Certain areas of this Website are restricted from being access by you and TheRock may further restrict access by you to any areas of this
+                  Certain areas of this Website are restricted from being access by you and NextRock may further restrict access by you to any areas of this
                   Website, at any time, in absolute discretion. Any user ID and password you may have for this Website are confidential and you must maintain
                   confidentiality as well.
                 </p>
@@ -75,12 +75,12 @@ export default async function () {
 
                 <p>
                   In these Website Standard Terms and Conditions, &quot;Your Content&quot; shall mean any audio, video text, images or other material you choose
-                  to display on this Website. By displaying Your Content, you grant TheRock a non-exclusive, worldwide irrevocable, sub licensable license to
+                  to display on this Website. By displaying Your Content, you grant NextRock a non-exclusive, worldwide irrevocable, sub licensable license to
                   use, reproduce, adapt, publish, translate and distribute it in any and all media.
                 </p>
 
                 <p>
-                  Your Content must be your own and must not be invading any third-party’s rights. TheRock reserves the right to remove any of Your Content from
+                  Your Content must be your own and must not be invading any third-party’s rights. NextRock reserves the right to remove any of Your Content from
                   this Website at any time without notice.
                 </p>
 
@@ -91,15 +91,15 @@ export default async function () {
                 <h3>No warranties</h3>
 
                 <p>
-                  This Website is provided &quot;as is,&quot; with all faults, and TheRock express no representations or warranties, of any kind related to this
+                  This Website is provided &quot;as is,&quot; with all faults, and NextRock express no representations or warranties, of any kind related to this
                   Website or the materials contained on this Website. Also, nothing contained on this Website shall be interpreted as advising you.
                 </p>
 
                 <h3>Limitation of liability</h3>
 
                 <p>
-                  In no event shall TheRock, nor any of its officers, directors and employees, shall be held liable for anything arising out of or in any way
-                  connected with your use of this Website whether such liability is under contract. TheRock, including its officers, directors and employees
+                  In no event shall NextRock, nor any of its officers, directors and employees, shall be held liable for anything arising out of or in any way
+                  connected with your use of this Website whether such liability is under contract. NextRock, including its officers, directors and employees
                   shall not be held liable for any indirect, consequential or special liability arising out of or in any way related to your use of this
                   Website.
                 </p>
@@ -107,7 +107,7 @@ export default async function () {
                 <h3>Indemnification</h3>
 
                 <p>
-                  You hereby indemnify to the fullest extent TheRock from and against any and/or all liabilities, costs, demands, causes of action, damages and
+                  You hereby indemnify to the fullest extent NextRock from and against any and/or all liabilities, costs, demands, causes of action, damages and
                   expenses arising in any way related to your breach of any of the provisions of these Terms.
                 </p>
 
@@ -121,21 +121,21 @@ export default async function () {
                 <h3>Variation of Terms</h3>
 
                 <p>
-                  TheRock is permitted to revise these Terms at any time as it sees fit, and by using this Website you are expected to review these Terms on a
+                  NextRock is permitted to revise these Terms at any time as it sees fit, and by using this Website you are expected to review these Terms on a
                   regular basis.
                 </p>
 
                 <h3>Assignment</h3>
 
                 <p>
-                  The TheRock is allowed to assign, transfer, and subcontract its rights and/or obligations under these Terms without any notification. However,
+                  The NextRock is allowed to assign, transfer, and subcontract its rights and/or obligations under these Terms without any notification. However,
                   you are not allowed to assign, transfer, or subcontract any of your rights and/or obligations under these Terms.
                 </p>
 
                 <h3>Entire Agreement</h3>
 
                 <p>
-                  These Terms constitute the entire agreement between TheRock and you in relation to your use of this Website, and supersede all prior
+                  These Terms constitute the entire agreement between NextRock and you in relation to your use of this Website, and supersede all prior
                   agreements and understandings.
                 </p>
 

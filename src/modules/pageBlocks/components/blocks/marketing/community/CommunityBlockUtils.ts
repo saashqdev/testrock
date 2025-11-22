@@ -33,7 +33,7 @@ export const defaultCommunityBlock: CommunityBlockDto = {
     },
     {
       text: "YouTube",
-      href: "https://youtube.com/@therock",
+      href: "https://youtube.com/@NextRock",
     },
     {
       text: "Discord",

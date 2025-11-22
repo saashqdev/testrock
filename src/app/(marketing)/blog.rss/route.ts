@@ -26,9 +26,9 @@ export async function GET() {
   const rssString = `
     <rss xmlns:blogChannel="${blogUrl}" version="2.0">
       <channel>
-        <title>TheRock - Blog</title>
+        <title>NextRock - Blog</title>
         <link>${blogUrl}</link>
-        <description>Read the latest articles about TheRock - The NextJS SaaS kit</description>
+        <description>Read the latest articles about NextRock - The NextJS SaaS kit</description>
         <language>en-us</language>
         <generator>TheDevs</generator>
         <ttl>40</ttl>

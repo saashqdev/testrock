@@ -24,8 +24,8 @@ export default function PlaygroundPage() {
 
       <p>
         If you want to see more examples, ask for access to the{" "}
-        <a href="https://tools.therock.com" target="_blank" rel="noreferrer">
-          TheRock Tools
+        <a href="https://tools.NextRock.com" target="_blank" rel="noreferrer">
+          NextRock Tools
         </a>{" "}
         repository, which is a collection of tools and services that require external dependencies, such as{" "}
         <a href="https://github.com/naptha/tesseract.js/">Tesseract.js</a> for frontend OCR,{" "}

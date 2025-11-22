@@ -13,9 +13,9 @@ export class AppConfigurationDbPrisma implements IAppConfigurationDb {
     const { t } = await getServerTranslations();
     const defaultEmailConfig: AppConfigurationDto["email"] = {
       provider: "postmark", // postmark, resend, or sendgrid
-      fromEmail: "thedevs@therock.com",
-      fromName: "TheDevs @ TheRock",
-      supportEmail: "the.devs@therock.dev",
+      fromEmail: "thedevs@NextRock.com",
+      fromName: "TheDevs @ NextRock",
+      supportEmail: "the.devs@NextRock.dev",
     };
     const conf: AppConfigurationDto = {
       app: {

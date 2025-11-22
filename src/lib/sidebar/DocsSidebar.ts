@@ -293,8 +293,8 @@ export const DocsSidebar = (): SideBarItem[] => {
           path: "",
           items: [
             {
-              title: "TheRock releases",
-              path: "/docs/learning-center/guides/upgrade/therock-releases",
+              title: "NextRock releases",
+              path: "/docs/learning-center/guides/upgrade/NextRock-releases",
             },
             {
               title: "Customize Theme",

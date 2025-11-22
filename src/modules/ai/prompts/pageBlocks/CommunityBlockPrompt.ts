@@ -48,7 +48,7 @@ ${"```json"}
     },
     {
       "text": "YouTube",
-      "href": "https://youtube.com/@therock",
+      "href": "https://youtube.com/@NextRock",
     },
     {
       "text": "Discord",

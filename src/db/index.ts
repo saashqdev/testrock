@@ -11,7 +11,7 @@ import { UserRegistrationAttemptDbPrisma } from "./repositories/prisma/UserRegis
 import { ITenantIpAddressDb } from "./interfaces/accounts/ITenantIpAddressDb";
 import { TenantIpAddressDbPrisma } from "./repositories/prisma/TenantIpAddressDbPrisma";
 
-// TheRock Additions
+// NextRock Additions
 import { IWorkflowsDb } from "./interfaces/workflows/IWorkflowsDb";
 import { WorkflowsDbPrisma } from "./repositories/prisma/WorkflowsDbPrisma";
 import { IWorkflowVariableDb } from "./interfaces/workflows/IWorkflowVariableDb";
@@ -287,7 +287,7 @@ export class Database {
     if (!providerValue) {
       throw new Error("provider is not defined. Valid values are: prisma");
     }
-    // console.log("[TheRock] Using database ORM: " + providerValue);
+    // console.log("[NextRock] Using database ORM: " + providerValue);
     switch (providerValue) {
       case "prisma":
         this.provider = "prisma";

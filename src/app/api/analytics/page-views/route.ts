@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     if (!analyticsSessionInfo?.userAnalyticsId) {
       const { cookies } = await import("next/headers");
       const cookieStore = await cookies();
-      cookieStore.set("therock_analytics", userAnalyticsId, {
+      cookieStore.set("NextRock_analytics", userAnalyticsId, {
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
         path: "/",

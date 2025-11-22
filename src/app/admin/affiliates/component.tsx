@@ -18,8 +18,8 @@ export default function ({ data }: { data: AffiliatesLoaderData }) {
           <ol className="space-y-2">
             <li>
               1. Create a Rewardful account (use{" "}
-              <a href="https://www.rewardful.com/?via=therock" target="_blank" rel="noreferrer" className=" font-bold text-blue-600 underline">
-                therock&apos;s link
+              <a href="https://www.rewardful.com/?via=NextRock" target="_blank" rel="noreferrer" className=" font-bold text-blue-600 underline">
+                NextRock&apos;s link
               </a>{" "}
               and get a discount).
             </li>
@@ -30,7 +30,7 @@ export default function ({ data }: { data: AffiliatesLoaderData }) {
               3. Set <b>affiliates.providers.rewardfulApiKey</b> <i>(you can find it in your Rewardful company settings)</i>.
             </li>
             <li>
-              4. Set <b>affiliates.signUpLink</b> <i>(i.e. https://therock.getrewardful.com/signup)</i>.
+              4. Set <b>affiliates.signUpLink</b> <i>(i.e. https://NextRock.getrewardful.com/signup)</i>.
             </li>
             <li>
               5. Set <b>affiliates.percentage</b> and <b>affiliates.plans</b>.

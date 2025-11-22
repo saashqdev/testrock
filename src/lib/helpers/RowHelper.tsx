@@ -689,7 +689,7 @@ const getFakePropertyValue = ({ property, idx, t }: { property: PropertyWithDeta
       if (property.subtype === "email") {
         rowValue.textValue = `john.doe.${idx}@company.com`;
       } else if (property.subtype === "url") {
-        rowValue.textValue = "https://therock.com";
+        rowValue.textValue = "https://NextRock.com";
       } else if (property.subtype === "phone") {
         rowValue.textValue = "+1 123 456 7890";
       } else {
