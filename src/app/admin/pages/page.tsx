@@ -14,7 +14,6 @@ type LoaderData = {
 };
 
 export const loader = async (props: IServerComponentsProps) => {
-  const params = (await props.params) || {};
   const request = props.request!;
   const { t } = await getServerTranslations();
   await verifyUserHasPermission("admin.pages.view");
