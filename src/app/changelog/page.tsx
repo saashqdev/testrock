@@ -3,7 +3,7 @@ import HeaderBlock from "@/modules/pageBlocks/components/blocks/marketing/header
 import { Metadata } from "next";
 import ChangelogIssues, { ChangelogItem } from "@/components/changelog/ChangelogIssues";
 import UrlUtils from "@/utils/app/UrlUtils";
-import { getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { defaultSeoMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getCurrentPage } from "@/modules/pageBlocks/services/server/pagesService";
 import PageBlocks from "@/modules/pageBlocks/components/blocks/PageBlocks";
 import { PageLoaderData } from "@/modules/pageBlocks/dtos/PageBlockData";
@@ -20,20 +20,36 @@ type LoaderData = PageLoaderData & {
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const request = props.request!;
   const params = (await props.params) || {};
+  const { t } = await getServerTranslations();
   const page = await getCurrentPage({ request, params, slug: "/changelog" });
 
-  // Convert array-based metatags to Next.js Metadata format
+  // Convert MetaTagsDto array to Metadata object
+  const metadata: Metadata = {};
+  
   if (page?.page?.metaTags && page.page.metaTags.length > 0) {
-    const firstTitleTag = page.page.metaTags.find((tag) => tag.name === "title");
-    const firstDescTag = page.page.metaTags.find((tag) => tag.name === "description");
-
-    return defaultSeoMetaTags({
-      title: firstTitleTag?.value,
-      description: firstDescTag?.value,
-    });
+    const titleTag = page.page.metaTags.find((tag) => tag.name === "title");
+    const descTag = page.page.metaTags.find((tag) => tag.name === "description");
+    
+    if (titleTag?.value) {
+      metadata.title = titleTag.value;
+    }
+    if (descTag?.value) {
+      metadata.description = descTag.value;
+    }
+  } else {
+    // Use default meta tags
+    const defaultTags = defaultSeoMetaTags({ t, slug: "/changelog" });
+    for (const tag of defaultTags) {
+      if ("title" in tag && tag.title) {
+        metadata.title = tag.title;
+      }
+      if ("name" in tag && tag.name === "description" && tag.content) {
+        metadata.description = tag.content;
+      }
+    }
   }
-
-  return getMetaTags();
+  
+  return metadata;
 }
 
 async function getChangelogData(props: IServerComponentsProps): Promise<LoaderData> {

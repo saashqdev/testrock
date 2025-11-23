@@ -1,7 +1,7 @@
 import { BlogCategory, BlogTag } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
-import { getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { MetaTagsDto } from "@/lib/dtos/seo/MetaTagsDto";
 import { getServerTranslations } from "@/i18n/server";
 import { getCategory, createCategory } from "@/utils/api/server/BlogApi";
 import FormHelper from "@/lib/helpers/FormHelper";
@@ -18,15 +18,17 @@ export const generateMetadata = async ({ params }: { params: any }): Promise<Met
   const tenantId = await getTenantIdOrNull({ request: {} as Request, params });
   const item = await db.blog.getBlogPost({ tenantId, idOrSlug: params.id ?? "" });
 
-  return defaultSeoMetaTags({
+  return {
     title: item ? `${item.title} | Blog | ${process.env.APP_NAME}` : `Blog | ${process.env.APP_NAME}`,
     description: item?.description || undefined,
-    image: item?.image || undefined,
-  });
+    openGraph: item?.image ? {
+      images: [item.image],
+    } : undefined,
+  };
 };
 
 export type LoaderData = {
-  metatags: Metadata;
+  metatags: MetaTagsDto;
   item: BlogPostWithDetailsDto;
   categories: BlogCategory[];
   tags: BlogTag[];
@@ -40,7 +42,7 @@ export const loader = async ({ request, params }: { request: Request; params: an
   }
 
   const data: LoaderData = {
-    metatags: getMetaTags({ title: `Blog | ${process.env.APP_NAME}` }),
+    metatags: [{ title: `Blog | ${process.env.APP_NAME}` }],
     item,
     categories: await db.blogCategories.getAllBlogCategories(tenantId),
     tags: await db.blogTags.getAllBlogTags(tenantId),

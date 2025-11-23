@@ -8,9 +8,21 @@ import Component from "./component";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("models.subscription.object")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  const defaultTags = defaultSeoMetaTags({ t });
+  
+  // Convert MetaTagsDto array to Metadata object
+  const metadata: any = {};
+  for (const tag of defaultTags) {
+    if ("title" in tag && tag.title) {
+      metadata.title = `${t("models.subscription.object")} | ${siteTags.title}`;
+    }
+    if ("name" in tag && tag.name === "description" && tag.content) {
+      metadata.description = tag.content;
+    }
+  }
+  
+  return metadata;
 }
 
 export default async function SubscriptionDetailPage(props: IServerComponentsProps) {
