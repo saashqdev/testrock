@@ -5,8 +5,8 @@
 
 ## Critical Architecture Patterns
 
-### 1. Remix-Inspired Server Component Pattern
-**This is NOT standard Next.js** - the codebase uses a custom Remix-like pattern:
+### 1. NextJS-Inspired Server Component Pattern
+**This is NOT standard Next.js** - the codebase uses a custom NextJS-like pattern:
 
 ```typescript
 // Pattern in src/modules/**/routes/*.server.ts

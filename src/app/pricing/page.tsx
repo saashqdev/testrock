@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getServerTranslations } from "@/i18n/server";
-import { load } from "@/modules/pageBlocks/blocks/marketing/pricing/PricingBlockService.server";
+import { load } from "@/modules/pageBlocks/components/blocks/marketing/pricing/PricingBlockService.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import PricingPage from "./PricingPage";
 
@@ -13,8 +13,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page(props: IServerComponentsProps) {
-  // Don't read searchParams here to avoid re-rendering on client-side URL changes
-  const pricingData = await load({ searchParams: undefined });
+  const { t } = await getServerTranslations();
+  
+  // Create a request object for the pricing loader
+  const request = new Request(new URL("http://localhost/pricing"));
+  const pricingData = await load({ request, params: {}, t });
   
   if (!pricingData) {
     return <div>Error loading pricing data</div>;

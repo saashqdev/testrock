@@ -13,7 +13,7 @@ import CollapsibleRow from "@/components/ui/tables/CollapsibleRow";
 import OnboardingStepUtils from "@/modules/onboarding/utils/OnboardingStepUtils";
 import GridBlockForm from "@/modules/pageBlocks/components/blocks/shared/grid/GridBlockForm";
 import StringUtils from "@/lib/shared/StringUtils";
-import { NextRockOnboardingStepBlocks } from "./defaultOnboarding/NextRockOnboarding";
+import { NextRockOnboardingStepBlocks } from "./defaultOnboarding/nextrockOnboarding";
 import {
   defaultOnboardingBlock,
   defaultOnboardingStepBlock,

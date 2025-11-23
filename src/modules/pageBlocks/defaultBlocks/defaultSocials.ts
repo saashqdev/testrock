@@ -1,4 +1,4 @@
-import { SocialsBlockDto } from "../blocks/marketing/socials/SocialsBlockDto";
+import { SocialsBlockDto } from "../components/blocks/marketing/socials/SocialsBlockDto";
 
 export const defaultSocials: SocialsBlockDto = {
   // instagram: "",

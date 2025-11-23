@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
 import ErrorBanner from "@/components/ui/banners/ErrorBanner";
 import WarningBanner from "@/components/ui/banners/WarningBanner";
 import { PageBlockDto } from "@/modules/pageBlocks/dtos/PageBlockDto";
@@ -8,6 +9,11 @@ import StringUtils from "@/lib/shared/StringUtils";
 
 export default function PageBlockBoundary({ item }: { item: PageBlockDto }) {
   const { t } = useTranslation();
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   function getType() {
     if (!item) {
       return "Not set";
@@ -33,6 +39,11 @@ export default function PageBlockBoundary({ item }: { item: PageBlockDto }) {
     // @ts-ignore
     return item[getType()].data;
   }
+  // Don't render anything on server to prevent hydration mismatch
+  if (!mounted) {
+    return null;
+  }
+  
   return (
     <>
       {item.error ? (

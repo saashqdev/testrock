@@ -6,8 +6,9 @@ import * as Constants from "@/lib/constants";
 import { defaultTestimonials } from "../defaultTestimonials";
 import { defaultGallery } from "../defaultGallery";
 import { defaultFaq } from "../defaultFaq";
+import { PricingBlockDto } from "@/modules/pageBlocks/components/blocks/marketing/pricing/PricingBlockUtils";
 
-export function defaultLandingPage({ t }: { t: TFunction }) {
+export function defaultLandingPage({ t, pricingData }: { t: TFunction; pricingData?: PricingBlockDto["data"] }) {
   const blocks: PageBlockDto[] = [
     // Banner
     {
@@ -15,7 +16,7 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
         style: "top",
         text: "NextRock demo site.",
         textMd: "This is the NextRock demo site.",
-        cta: [{ text: "NextRock", href: "https://nextrock.com/?ref=demo.NextRock.com", isPrimary: true, target: "_blank" }],
+        cta: [{ text: "NextRock", href: "https://nextrock.com/?ref=demo.nextrock.com", isPrimary: true, target: "_blank" }],
       },
     },
     // Header
@@ -26,7 +27,7 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
         style: "simple",
         headline: t("front.hero.headline1"),
         description: t("front.hero.headline2"),
-        image: "http://localhost/1703743532626-analytics%20(2).png",
+        image: "https://qwcsbptoezmuwgyijrxp.supabase.co/storage/v1/object/public/novel/1703743532626-analytics%20(2).png",
         cta: [
           {
             text: t("front.hero.buy"),
@@ -59,18 +60,18 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
         logos: [
           {
             alt: "NextJS",
-            href: "https://remix.run/ref=NextRock.com",
-            src: "https://yahooder.sirv.com/NextRock/logos/clouds/colors/remix.png",
+            href: "https://nextjs.com/ref=nextrock.com",
+            src: "/img/logos/clouds/colors/nextjs.png",
           },
           {
             alt: "Tailwind CSS",
-            href: "https://tailwindcss.com/ref=NextRock.com",
-            src: "https://yahooder.sirv.com/NextRock/logos/clouds/colors/tailwindcss.png",
+            href: "https://tailwindcss.com/ref=nextrock.com",
+            src: "/img/logos/clouds/colors/tailwindcss.png",
           },
           {
             alt: "Prisma",
-            href: "https://www.prisma.io/?via=alexandro",
-            src: "https://yahooder.sirv.com/NextRock/logos/clouds/colors/prisma.png",
+            href: "https://www.prisma.io/?via=nextrock",
+            src: "/img/logos/clouds/colors/prisma.png",
           },
         ],
       },
@@ -108,47 +109,47 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
           // {
           //   name: "NextJS v2",
           //   description: "Focused on web standards and modern web app UX.",
-          //   link: { text: t("shared.readDocs"), href: "https://remix.run/docs/en/main?ref=NextRock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://nextjs.com/docs/en/main?ref=nextrock.com", target: "_blank" },
           // },
           // {
-          //   name: "React v18",
+          //   name: "React v19",
           //   description: "A JavaScript library for building user interfaces.",
-          //   link: { text: t("shared.readDocs"), href: "https://react.dev/?ref=NextRock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://react.dev/?ref=nextrock.com", target: "_blank" },
           // },
           // {
-          //   name: "Tailwind CSS v3",
+          //   name: "Tailwind CSS v4",
           //   description: "The best utility-first CSS framework.",
-          //   link: { text: t("shared.readDocs"), href: "https://tailwindcss.com/docs/utility-first?ref=NextRock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://tailwindcss.com/docs/utility-first?ref=nextrock.com", target: "_blank" },
           // },
           // {
           //   name: "Vite v5",
           //   description: "Next Generation Frontend Tooling.",
-          //   link: { text: t("shared.readDocs"), href: "https://vitejs.dev/guide/?ref=NextRock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://vitejs.dev/guide/?ref=nextrock.com", target: "_blank" },
           // },
           // {
-          //   name: "Prisma v5",
+          //   name: "Prisma v7",
           //   description: "Next-generation Node.js and TypeScript ORM.",
-          //   link: { text: t("shared.readDocs"), href: "https://www.prisma.io/docs?ref=NextRock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://www.prisma.io/docs?ref=nextrock.com", target: "_blank" },
           // },
           // {
           //   name: "Stripe",
           //   description: "The best payment processor out there.",
-          //   link: { text: t("shared.readDocs"), href: "https://stripe.com/docs?ref=NextRock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://stripe.com/docs?ref=nextrock.com", target: "_blank" },
           // },
           // {
           //   name: "Postmark",
           //   description: "Email delivery for web apps, done right.",
-          //   link: { text: t("shared.readDocs"), href: "https://postmarkapp.com/support?ref=NextRock.com", target: "_blank" },
+          //   link: { text: t("shared.readDocs"), href: "https://postmarkapp.com/support?ref=nextrock.com", target: "_blank" },
           // },
           // {
           //   name: "Novu",
           //   description: "The open-source notification infrastructure",
-          //   // link: { text: t("shared.readDocs"), href: "https://novu.co//support?ref=NextRock.com", target: "_blank" },
+          //   // link: { text: t("shared.readDocs"), href: "https://novu.co//support?ref=nextrock.com", target: "_blank" },
           // },
           {
             name: "Admin Dashboard",
             description: "Manage your tenants, users, blog, analytics, logs, subscriptions, and more.",
-            img: `http://localhost/1703743532626-analytics%20(2).png`,
+            img: `https://qwcsbptoezmuwgyijrxp.supabase.co/storage/v1/object/public/novel/1703743532626-analytics%20(2).png`,
             link: { text: t("shared.learnMore"), href: "/docs/articles/admin-portal" },
             subFeatures: [{ name: "Manage: Accounts, Users..." }, { name: "Market: Blog, Email Marketing..." }, { name: "Build: Entities, Workflows..." }],
             highlight: { text: "40 hours saved" },
@@ -156,7 +157,7 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
           {
             name: "Stripe Subscriptions",
             description: "Stripe Flat-rate, Per-seat, One-time, and Usage-based pricing models + coupons.",
-            img: `http://localhost/1704917949886-my-subscription.png`,
+            img: `https://qwcsbptoezmuwgyijrxp.supabase.co/storage/v1/object/public/novel/1704917949886-my-subscription.png`,
             link: { text: t("shared.learnMore"), href: "/docs/articles/subscriptions" },
             subFeatures: [{ name: "Flat-rate & Per-seat" }, { name: "Usage-based" }, { name: "One-time" }],
             highlight: { text: "100 hours saved" },
@@ -165,7 +166,7 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
               items: [
                 {
                   name: "Stripe",
-                  img: "https://yahooder.sirv.com/NextRock/logos/stripe.png",
+                  img: "https://yahooder.sirv.com/nextrock/logos/stripe.png",
                 },
               ],
             },
@@ -173,7 +174,7 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
           {
             name: "App Portal",
             description: "The end-user portal with the core features of your SaaS.",
-            img: `http://localhost/1703830927472-app-portal-dashboard.png`,
+            img: `https://qwcsbptoezmuwgyijrxp.supabase.co/storage/v1/object/public/novel/1703830927472-app-portal-dashboard.png`,
             link: { text: t("shared.learnMore"), href: "/docs/articles/app-portal" },
             subFeatures: [{ name: "Dashboard" }, { name: "Members & Subscription" }, { name: "User & Account Settings" }],
             highlight: { text: "40 hours saved" },
@@ -190,7 +191,7 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
           {
             name: "No-code Entity Builder",
             description: "Custom entities/properties with autogenerated CRUD, Views, API, and more.",
-            img: `http://localhost/1704595476624-entities.png`,
+            img: `https://qwcsbptoezmuwgyijrxp.supabase.co/storage/v1/object/public/novel/1704595476624-entities.png`,
             link: { text: t("shared.learnMore"), href: "/docs/articles/entity-builder" },
             subFeatures: [{ name: "Custom Properties" }, { name: "Autogenerated CRUD & API" }, { name: "Workflow Events" }],
             highlight: { text: "80 hours saved" },
@@ -199,7 +200,7 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
             //   items: [
             //     {
             //       name: "Code",
-            //       // img: "https://yahooder.sirv.com/NextRock/logos/postman.png",
+            //       // img: "https://yahooder.sirv.com/nextrock/logos/postman.png",
             //     },
             //   ],
             // },
@@ -213,6 +214,7 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
         style: "simple",
         headline: t("front.pricing.title"),
         subheadline: t("front.pricing.headline"),
+        data: pricingData ?? null,
       },
     },
     // Community
@@ -233,11 +235,11 @@ export function defaultLandingPage({ t }: { t: TFunction }) {
           },
           {
             text: "Join Discord",
-            href: "https://discord.gg/KMkjU2BFn9",
+            href: "https://discord.gg/KMkjU2BFn8",
           },
           {
-            text: "Youtube channel",
-            href: "https://www.youtube.com/@NextRock",
+            text: "YouTube channel",
+            href: "https://www.youtube.com/@nextrock",
           },
         ],
       },

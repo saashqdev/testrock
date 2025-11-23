@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import FooterBlock from "@/modules/pageBlocks/blocks/marketing/footer/FooterBlock";
+import FooterBlock from "@/modules/pageBlocks/components/blocks/marketing/footer/FooterBlock";
 import Logo from "@/components/brand/Logo";
 
 interface Props {

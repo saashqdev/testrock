@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import PlansGrouped from "@/components/core/settings/subscription/plans/PlansGrouped";
 import InfoBanner from "@/components/ui/banners/InfoBanner";
@@ -15,6 +15,11 @@ export default function PricingVariantSimple({ item }: { item: PricingBlockDto }
   const { t } = useTranslation();
   const rootData = useRootData();
   const confirmModal = useRef<RefConfirmModal>(null);
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   // function onShowCoupon() {
   //   confirmModal.current?.show(t("pricing.coupons.object"));
   // }
@@ -22,6 +27,30 @@ export default function PricingVariantSimple({ item }: { item: PricingBlockDto }
     // Coupon functionality can be implemented without URL changes if needed
     console.log("Apply coupon:", coupon);
   }
+  
+  // Don't render dynamic content on server to prevent hydration mismatch
+  if (!mounted) {
+    return (
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        {(item.headline || item.subheadline) && (
+          <div
+            className={clsx(
+              "space-y-5",
+              (!item.position || item.position === "center") && "text-center sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl",
+              item.position === "left" && "text-left",
+              item.position === "right" && "text-right"
+            )}
+          >
+            <div className="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl">
+              {item.headline && <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{item.headline}</h2>}
+              {item.subheadline && <p className="text-xl text-muted-foreground">{item.subheadline}</p>}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+  
   return (
     <>
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
