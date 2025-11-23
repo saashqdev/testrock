@@ -16,7 +16,7 @@ export default function PreviewBanners() {
       <WarningBanner
         title="WarningBanner with Redirect"
         text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod..."
-        redirect="https://NextRock.com"
+        redirect="https://nextrock.com"
       />
     </div>
   );

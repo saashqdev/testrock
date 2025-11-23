@@ -223,7 +223,7 @@ const defaultHtmlBody = `<p>This is a test email.</p>
     target="_blank"
     rel="noopener noreferrer"
     class="underline text-blue-500"
-    href="https://NextRock.com"
+    href="https://nextrock.com"
     >A link</a
   >.
 </p>

@@ -19,7 +19,7 @@ const getCacheStrategy = (): "memory" | "redis" | null => {
 
 export const defaultAppConfiguration: AppConfigurationDto = {
   app: {
-    name: "Next.js NextRock Demo",
+    name: "NextRock Demo",
     url: "http://localhost:3000",
     orm: "prisma",
     domain: "",
@@ -40,9 +40,9 @@ export const defaultAppConfiguration: AppConfigurationDto = {
   },
   email: {
     provider: "postmark",
-    fromEmail: "thedevs@NextRock.dev",
+    fromEmail: "thedevs@nextrock.dev",
     fromName: "TheDevs @ NextRock",
-    supportEmail: "catstack.dev@gmail.com",
+    supportEmail: "nextrock.dev@gmail.com",
   },
   auth: {
     requireEmailVerification: false,
@@ -97,7 +97,7 @@ export const defaultAppConfiguration: AppConfigurationDto = {
   reviews: undefined,
   launches: {
     producthunt: {
-      url: "https://www.producthunt.com/posts/catstack?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-catstack",
+      url: "https://www.producthunt.com/posts/nextrock?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-nextrock",
       title: "NextRock",
       postId: "491901",
       theme: "neutral",

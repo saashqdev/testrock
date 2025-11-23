@@ -10,11 +10,11 @@ type SiteTags = {
   twitterSite?: string;
 };
 export const defaultSiteTags: SiteTags = {
-  title: "Next.js CatStack Demo",
-  description: "Build, launch, succeed, repeat with Next.js, Tailwind CSS, shadcn/ui, Prisma, Stripe, Postmark. and Resend.",
+  title: "NextRock Demo",
+  description: "Build, launch, repeat with Next.js, Tailwind CSS, shadcn/ui, Prisma, Stripe, Postmark. and Resend.",
   keywords: "nextjs,saas,tailwindcss,prisma,react,typescript,boilerplate,saas-kit,saas-boilerplate,saas-starter-kit,stripe,postmark",
-  image: "/img/catstack-og.png",
-  thumbnail: "/img/catstack-thumbnail.jpg",
+  image: "/img/nextrock-og.png",
+  thumbnail: "/img/nextrock-thumbnail.jpg",
   twitterCreator: "@TheDevs",
   twitterSite: "",
 };

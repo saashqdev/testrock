@@ -1,17 +1,11 @@
-import HeaderBlock from "@/modules/pageBlocks/blocks/marketing/header/HeaderBlock";
-import FooterBlock from "@/modules/pageBlocks/blocks/marketing/footer/FooterBlock";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
-import { getServerTranslations } from "@/i18n/server";
+"use client";
 
-export async function generateMetadata() {
-  const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("front.terms.title")} | ${defaultSiteTags.title}`,
-  });
-}
+import { useTranslation } from "react-i18next";
+import HeaderBlock from "@/modules/pageBlocks/components/blocks/marketing/header/HeaderBlock";
+import FooterBlock from "@/modules/pageBlocks/components/blocks/marketing/footer/FooterBlock";
 
-export default async function () {
-  const { t } = await getServerTranslations();
+export default function TermsAndConditionsClient() {
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -20,25 +14,28 @@ export default async function () {
         <div className="min-h-screen py-6">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             <div className="sm:align-center space-y-4 sm:flex sm:flex-col">
-              <div className="prose mx-auto text-muted-foreground dark:prose-dark">
-                <h1 className="flex justify-center text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">{t("front.terms.title")}</h1>
+              <div className="prose text-muted-foreground mx-auto">
+                <h1 className="flex justify-center text-3xl font-extrabold tracking-tight sm:text-4xl">{t("front.terms.title")}</h1>
 
-                <h3>Introduction</h3>
+                <h3 className="text-black dark:text-white">Introduction</h3>
 
                 <p>
-                  These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, NextRock accessible at catstack.dev.
+                  These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, NextRock accessible at NextRock.com.
                 </p>
 
                 <p>
                   These Terms will be applied fully and affect to your use of this Website. By using this Website, you agreed to accept all terms and conditions
                   written in here. You must not use this Website if you disagree with any of these Website Standard Terms and Conditions. These Terms and
                   Conditions have been generated with the help of the{" "}
-                  <a href="https://www.termsandcondiitionssample.com">Terms And Conditiions Sample Generator</a>.
+                  <a className="text-black dark:text-white" href="https://www.termsandcondiitionssample.com">
+                    Terms And Conditiions Sample Generator
+                  </a>
+                  .
                 </p>
 
                 <p>Minors or people below 18 years old are not allowed to use this Website.</p>
 
-                <h3>Intellectual Property Rights</h3>
+                <h3 className="text-black dark:text-white">Intellectual Property Rights</h3>
 
                 <p>
                   Other than the content you own, under these Terms, NextRock and/or its licensors own all the intellectual property rights and materials
@@ -47,7 +44,7 @@ export default async function () {
 
                 <p>You are granted limited license only for purposes of viewing the material contained on this Website.</p>
 
-                <h3>Restrictions</h3>
+                <h3 className="text-black dark:text-white">Restrictions</h3>
 
                 <p>You are specifically restricted from all of the following:</p>
 
@@ -71,7 +68,7 @@ export default async function () {
                   confidentiality as well.
                 </p>
 
-                <h3>Your Content</h3>
+                <h3 className="text-black dark:text-white">Your Content</h3>
 
                 <p>
                   In these Website Standard Terms and Conditions, &quot;Your Content&quot; shall mean any audio, video text, images or other material you choose
@@ -80,22 +77,22 @@ export default async function () {
                 </p>
 
                 <p>
-                  Your Content must be your own and must not be invading any third-party’s rights. NextRock reserves the right to remove any of Your Content from
-                  this Website at any time without notice.
+                  Your Content must be your own and must not be invading any third-party's rights. NextRock reserves the right to remove any of Your Content
+                  from this Website at any time without notice.
                 </p>
 
-                <h3>Your Privacy</h3>
+                <h3 className="text-black dark:text-white">Your Privacy</h3>
 
                 <p>Please read Privacy Policy.</p>
 
-                <h3>No warranties</h3>
+                <h3 className="text-black dark:text-white">No warranties</h3>
 
                 <p>
-                  This Website is provided &quot;as is,&quot; with all faults, and NextRock express no representations or warranties, of any kind related to this
-                  Website or the materials contained on this Website. Also, nothing contained on this Website shall be interpreted as advising you.
+                  This Website is provided &quot;as is,&quot; with all faults, and NextRock express no representations or warranties, of any kind related to
+                  this Website or the materials contained on this Website. Also, nothing contained on this Website shall be interpreted as advising you.
                 </p>
 
-                <h3>Limitation of liability</h3>
+                <h3 className="text-black dark:text-white">Limitation of liability</h3>
 
                 <p>
                   In no event shall NextRock, nor any of its officers, directors and employees, shall be held liable for anything arising out of or in any way
@@ -104,42 +101,42 @@ export default async function () {
                   Website.
                 </p>
 
-                <h3>Indemnification</h3>
+                <h3 className="text-black dark:text-white">Indemnification</h3>
 
                 <p>
                   You hereby indemnify to the fullest extent NextRock from and against any and/or all liabilities, costs, demands, causes of action, damages and
                   expenses arising in any way related to your breach of any of the provisions of these Terms.
                 </p>
 
-                <h3>Severability</h3>
+                <h3 className="text-black dark:text-white">Severability</h3>
 
                 <p>
                   If any provision of these Terms is found to be invalid under any applicable law, such provisions shall be deleted without affecting the
                   remaining provisions herein.
                 </p>
 
-                <h3>Variation of Terms</h3>
+                <h3 className="text-black dark:text-white">Variation of Terms</h3>
 
                 <p>
                   NextRock is permitted to revise these Terms at any time as it sees fit, and by using this Website you are expected to review these Terms on a
                   regular basis.
                 </p>
 
-                <h3>Assignment</h3>
+                <h3 className="text-black dark:text-white">Assignment</h3>
 
                 <p>
-                  The NextRock is allowed to assign, transfer, and subcontract its rights and/or obligations under these Terms without any notification. However,
-                  you are not allowed to assign, transfer, or subcontract any of your rights and/or obligations under these Terms.
+                  The NextRock is allowed to assign, transfer, and subcontract its rights and/or obligations under these Terms without any notification.
+                  However, you are not allowed to assign, transfer, or subcontract any of your rights and/or obligations under these Terms.
                 </p>
 
-                <h3>Entire Agreement</h3>
+                <h3 className="text-black dark:text-white">Entire Agreement</h3>
 
                 <p>
                   These Terms constitute the entire agreement between NextRock and you in relation to your use of this Website, and supersede all prior
                   agreements and understandings.
                 </p>
 
-                <h3>Governing Law & Jurisdiction</h3>
+                <h3 className="text-black dark:text-white">Governing Law & Jurisdiction</h3>
 
                 <p>
                   These Terms will be governed by and interpreted in accordance with the laws of the State of us, and you submit to the non-exclusive

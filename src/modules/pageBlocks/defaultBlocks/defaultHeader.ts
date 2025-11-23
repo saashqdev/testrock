@@ -16,7 +16,7 @@ export function defaultHeader({ t }: { t: TFunction }): HeaderBlockDto {
         items: [
           { path: "/contact", title: "front.navbar.contact" },
           { path: "/newsletter", title: "Newsletter" },
-          { path: "/catstack-vs-NextRock", title: "CatStack vs NextRock" },
+          { path: "/nextrock-vs-NextRock", title: "NextRock vs NextRock" },
         ],
       },
     ],

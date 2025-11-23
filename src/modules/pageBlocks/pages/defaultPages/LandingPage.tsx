@@ -28,7 +28,7 @@ export function blocks({ data, t }: { data: LoaderData; t: TFunction }): PageBlo
         style: "top",
         text: "NextRock demo site.",
         textMd: "This is the NextRock demo site.",
-        cta: [{ text: "NextRock", href: "https://NextRock.com/?ref=demo.NextRock.com", isPrimary: true, target: "_blank" }],
+        cta: [{ text: "NextRock", href: "https://nextrock.com/?ref=demo.NextRock.com", isPrimary: true, target: "_blank" }],
       },
     },
     // Header

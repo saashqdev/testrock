@@ -43,7 +43,7 @@ export const NextRockOnboardingStepBlocks: OnboardingStepBlockDto[] = [
       },
       {
         text: "New tab link",
-        href: "https://NextRock.com",
+        href: "https://nextrock.com",
         isPrimary: false,
         target: "_blank",
       },

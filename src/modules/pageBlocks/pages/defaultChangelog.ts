@@ -7,7 +7,7 @@ export function defaultChangelog({ t }: { t: TFunction }): ChangelogItem[] {
     {
       date: "Sep 31th, 2024",
       title: "NextRock v1.4.0 🎉",
-      url: "https://NextRock.com/changelog",
+      url: "https://nextrock.com/changelog",
       description: "Your description here",
       videos: [
         {
