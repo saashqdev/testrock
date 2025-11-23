@@ -9,9 +9,10 @@ import Component from "./component";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("models.subscription.plural")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `${t("models.subscription.plural")} | ${siteTags.title}`,
+  };
 }
 
 export default async function SubscriptionsPage(props: IServerComponentsProps) {
