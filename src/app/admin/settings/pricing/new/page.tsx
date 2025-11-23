@@ -6,9 +6,10 @@ import Component from "./component";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("admin.pricing.new")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `${t("admin.pricing.new")} | ${siteTags.title}`,
+  };
 }
 
 const loader = async () => {

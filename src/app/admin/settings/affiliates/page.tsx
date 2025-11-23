@@ -5,9 +5,10 @@ import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/page
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("affiliates.title")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `${t("affiliates.title")} | ${siteTags.title}`,
+  };
 }
 
 export default async function () {

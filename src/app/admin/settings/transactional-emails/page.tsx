@@ -20,9 +20,10 @@ type LoaderData = {
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("settings.admin.transactionalEmails.title")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `${t("settings.admin.transactionalEmails.title")} | ${siteTags.title}`,
+  };
 }
 
 export default async function TransactionalEmailsPage() {
@@ -60,8 +61,9 @@ export default async function TransactionalEmailsPage() {
     },
   };
 
+  const siteTags = getDefaultSiteTags();
   const data: LoaderData = {
-    title: `${t("settings.admin.transactionalEmails.title")} | ${getDefaultSiteTags.title}`,
+    title: `${t("settings.admin.transactionalEmails.title")} | ${siteTags.title}`,
     items,
     appConfiguration: serializedAppConfiguration,
     providers,

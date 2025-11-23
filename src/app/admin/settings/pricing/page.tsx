@@ -1,5 +1,5 @@
 import { verifyUserHasPermission } from "@/modules/permissions/services/UserPermissionsService";
-import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { db } from "@/db";
 import { SubscriptionProductDto } from "@/modules/subscriptions/dtos/SubscriptionProductDto";
@@ -8,9 +8,10 @@ import Component from "./component";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("admin.pricing.title")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `${t("admin.pricing.title")} | ${siteTags.title}`,
+  };
 }
 
 export type PricingLoaderData = {
@@ -25,9 +26,10 @@ const loader = async (): Promise<PricingLoaderData> => {
   }
   await verifyUserHasPermission("admin.pricing.view");
   const { t } = await getServerTranslations();
+  const siteTags = getDefaultSiteTags();
 
   const data: PricingLoaderData = {
-    title: `${t("admin.pricing.title")} | ${getDefaultSiteTags.title}`,
+    title: `${t("admin.pricing.title")} | ${siteTags.title}`,
     isStripeTest: process.env.STRIPE_SK?.toString().startsWith("sk_test_") ?? true,
     items: (await db.subscriptionProducts.getAllSubscriptionProductsWithTenants()).map((item) => ({
       ...item,

@@ -8,9 +8,10 @@ import Component from "./component";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `Pricing Features | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `Pricing Features | ${siteTags.title}`,
+  };
 }
 
 export type PricingFeaturesLoaderData = {
