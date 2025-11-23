@@ -50,7 +50,7 @@ export default function PrivacyPolicyClient() {
                 </p>
                 <h4 className="text-black dark:text-white">Log Data</h4>
                 <p>
-                  When you visit our website, our servers may automatically log the standard data provided by your web browser. It may include your device's
+                  When you visit our website, our servers may automatically log the standard data provided by your web browser. It may include your device&apos;s
                   Internet Protocol (IP) address, your browser type and version, the pages you visit, the time and date of your visit, the time spent on each
                   page, other details about your visit, and technical details that occur in conjunction with any errors you may encounter.
                 </p>
@@ -97,7 +97,7 @@ export default function PrivacyPolicyClient() {
                   However, if necessary, we may retain your personal information for our compliance with a legal, accounting, or reporting obligation or for
                   archiving purposes in the public interest, scientific, or historical research purposes or statistical purposes.
                 </p>
-                <h3 className="text-black dark:text-white">Children's Privacy</h3>
+                <h3 className="text-black dark:text-white">Children&apos;s Privacy</h3>
                 <p>
                   We do not aim any of our products or services directly at children under the age of 13, and we do not knowingly collect personal information
                   about children under 13.
@@ -139,7 +139,7 @@ export default function PrivacyPolicyClient() {
                 </p>
                 <p>
                   If we receive personal information about you from a third party, we will protect it as set out in this privacy policy. If you are a third
-                  party providing personal information about somebody else, you represent and warrant that you have such person's consent to provide the
+                  party providing personal information about somebody else, you represent and warrant that you have such person&apos;s consent to provide the
                   personal information to us.
                 </p>
                 <p>

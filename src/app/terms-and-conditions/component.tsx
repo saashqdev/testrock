@@ -77,7 +77,7 @@ export default function TermsAndConditionsClient() {
                 </p>
 
                 <p>
-                  Your Content must be your own and must not be invading any third-party's rights. NextRock reserves the right to remove any of Your Content
+                  Your Content must be your own and must not be invading any third-party&apos;s rights. NextRock reserves the right to remove any of Your Content
                   from this Website at any time without notice.
                 </p>
 
