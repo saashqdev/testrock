@@ -1,7 +1,7 @@
 "server-only";
 
 import { getUserInfo, getCSRFToken } from "@/lib/services/session.server";
-import { defaultSiteTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getBaseURL, getDomainName } from "@/lib/services/url.server";
 import i18next from "i18next";
 import { RootDataDto } from "@/lib/state/useRootData";
@@ -54,7 +54,7 @@ export async function getRootData(): Promise<RootDataDto> {
 
   return {
     metatags: {
-      title: `${defaultSiteTags.title}`,
+      title: `${getDefaultSiteTags().title}`,
     },
     user,
     theme: {

@@ -6,7 +6,6 @@ import ServerError from "@/components/ui/errors/ServerError";
 import ErrorBanner from "@/components/ui/banners/ErrorBanner";
 import { getTenantIdFromUrl } from "@/utils/services/server/urlService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
-import { getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const params = (await props.params) || {};
@@ -19,13 +18,15 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
     const firstTitleTag = page.page.metaTags.find((tag) => tag.name === "title");
     const firstDescTag = page.page.metaTags.find((tag) => tag.name === "description");
 
-    return getMetaTags({
-      title: firstTitleTag?.value,
+    return {
+      title: firstTitleTag?.value || params.page,
       description: firstDescTag?.value,
-    });
+    };
   }
 
-  return getMetaTags();
+  return {
+    title: params.page || "Page",
+  };
 }
 
 export default async function TenantPage(props: IServerComponentsProps) {

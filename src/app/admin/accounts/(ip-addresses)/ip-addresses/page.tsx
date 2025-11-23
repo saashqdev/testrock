@@ -1,4 +1,4 @@
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { getPaginationFromCurrentUrl } from "@/lib/helpers/RowPaginationHelper";
@@ -6,12 +6,13 @@ import { prisma } from "@/db/config/prisma/database";
 import { db } from "@/db";
 import Component from "./component";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
+import { Metadata } from "next";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("models.ipAddress.plural")} | ${defaultSiteTags.title}`,
-  });
+  return {
+    title: `${t("models.ipAddress.plural")} | ${getDefaultSiteTags().title}`,
+  };
 }
 
 export default async function IpAddressesPage(props: IServerComponentsProps) {

@@ -6,7 +6,7 @@ import { getUserInfo } from "@/lib/services/session.server";
 import { Metadata } from "next";
 import { getRootData } from "@/lib/services/rootData.server";
 import RootDataLayout from "@/context/RootDataLayout";
-import { defaultSiteTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { defaultThemeColor } from "@/lib/themes";
 import { db } from "@/db";
 
@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     metadataBase: new URL(baseUrl),
-    title: defaultSiteTags.title,
+    title: getDefaultSiteTags().title,
     icons: [
       { url: "/android-icon-192x192.png", sizes: "192x192", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
