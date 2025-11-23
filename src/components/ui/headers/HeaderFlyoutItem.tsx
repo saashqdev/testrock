@@ -5,7 +5,7 @@ import { Popover, Transition } from "@headlessui/react";
 import clsx from "clsx";
 import ChevronDownIcon from "../../ui/icons/ChevronDownIcon";
 import { useTranslation } from "react-i18next";
-import { NavbarItemDto } from "@/modules/pageBlocks/blocks/marketing/header/HeaderBlockDto";
+import { NavbarItemDto } from "@/modules/pageBlocks/components/blocks/marketing/header/HeaderBlockUtils";
 import ButtonEvent from "../buttons/ButtonEvent";
 
 interface Props {
