@@ -34,10 +34,16 @@ export default function WorkflowsTemplatesView() {
     setSuccess(null);
 
     try {
-      const response = await fetch(window.location.pathname, {
+      const response = await fetch("/api/admin/workflow-engine/templates", {
         method: "POST",
         body: formData,
       });
+
+      // Check if response is JSON
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Invalid response format. Please refresh the page and try again.");
+      }
 
       const result = await response.json();
 
@@ -49,12 +55,14 @@ export default function WorkflowsTemplatesView() {
         setSuccess(result.success);
       }
 
-      // Handle redirect if needed (similar to NextJS redirect behavior)
-      if (response.redirected) {
+      // Handle redirect if provided in response
+      if (result.redirectUrl) {
+        router.push(result.redirectUrl);
+      } else if (response.redirected) {
         router.push(response.url);
       }
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || "An error occurred");
     } finally {
       setIsLoading(false);
     }

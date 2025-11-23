@@ -60,7 +60,10 @@ export default function WorkflowsIdRunStreamView({ data, workflowAction }: Workf
     }
   }, [actionData]);
 
-  function onExecute() {
+  function onExecute(e?: React.FormEvent) {
+    if (e) {
+      e.preventDefault();
+    }
     const form = new FormData();
     form.append("action", "execute");
     form.append("input", inputData);
@@ -88,7 +91,7 @@ export default function WorkflowsIdRunStreamView({ data, workflowAction }: Workf
         <div className="flex justify-between space-x-2">
           <div className="text-lg font-semibold">Run Workflow in Streaming Mode</div>
         </div>
-        <div>
+        <form onSubmit={onExecute}>
           <div className="space-y-1">
             <div className="flex items-center justify-between space-x-2">
               <div className="text-sm font-medium">{selectedTemplate || "Input Data"}</div>
@@ -107,11 +110,11 @@ export default function WorkflowsIdRunStreamView({ data, workflowAction }: Workf
             </div>
           </div>
           <div className="flex justify-end pt-2">
-            <LoadingButton onClick={onExecute} disabled={!WorkflowUtils.canRun(data.workflow)} isLoading={isRunning || pending}>
+            <LoadingButton type="submit" disabled={!WorkflowUtils.canRun(data.workflow)} isLoading={isRunning || pending}>
               Run {!WorkflowUtils.canRun(data.workflow) && <span className="ml-1 text-xs opacity-50"> (not live)</span>}
             </LoadingButton>
           </div>
-        </div>
+        </form>
 
         {executionId && <WorkflowStreamProgress key={executionId} workflowExecutionId={executionId} onCompleted={() => setIsRunning(false)} />}
 

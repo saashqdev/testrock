@@ -52,13 +52,16 @@ export const action = async (props: IServerComponentsProps) => {
         throw Error("Could not create workflow");
       }
       if (workflows.length === 1) {
-        throw redirect(UrlUtils.getModulePath(params, `workflow-engine/workflows/${workflows[0].id}`));
+        return Response.json({
+          success: `Created workflow "${workflows[0].name}"`,
+          redirectUrl: UrlUtils.getModulePath(params, `workflow-engine/workflows/${workflows[0].id}`),
+        });
       }
       return Response.json({
         success: `Created ${workflows.length} workflows`,
       });
     } catch (error: any) {
-      return Response.json({ error: error.message }, { status: 400 });
+      return Response.json({ error: error?.message || error?.toString() || "An error occurred" }, { status: 400 });
     }
   } else if (action === "create") {
     try {
@@ -79,7 +82,7 @@ export const action = async (props: IServerComponentsProps) => {
         }),
       });
     } catch (error: any) {
-      return Response.json({ error: error.message }, { status: 400 });
+      return Response.json({ error: error?.message || error?.toString() || "An error occurred" }, { status: 400 });
     }
   } else {
     return Response.json({ error: "Invalid form" }, { status: 400 });

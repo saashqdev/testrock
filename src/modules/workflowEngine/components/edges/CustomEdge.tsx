@@ -1,11 +1,11 @@
 "use client";
 
-import { Fragment, useContext } from "react";
+import { useContext, memo } from "react";
 import { BaseEdge, EdgeLabelRenderer, EdgeProps, getStraightPath } from "reactflow";
 import WorkflowContext from "../../context/WorkflowContext";
 import clsx from "clsx";
 
-export default function CustomEdge({ id, data, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, style = {}, markerEnd }: EdgeProps) {
+function CustomEdge({ id, data, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, style = {}, markerEnd }: EdgeProps) {
   const { isReadOnly, onEdgeDelete } = useContext(WorkflowContext);
   const [edgePath, labelX, labelY] = getStraightPath({
     sourceX,
@@ -71,31 +71,31 @@ export default function CustomEdge({ id, data, sourceX, sourceY, targetX, target
               </span>
             </button>
           ) : (
-            <Fragment>
-              {!isReadOnly && (
-                <button
-                  className="rounded-full bg-background"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onEdgeDelete(id);
-                  }}
+            !isReadOnly && (
+              <button
+                className="rounded-full bg-background"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEdgeDelete(id);
+                }}
+              >
+                <svg
+                  className="h-4 w-4 text-muted-foreground"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
                 >
-                  <svg
-                    className="h-4 w-4 text-muted-foreground"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </button>
-              )}
-            </Fragment>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </button>
+            )
           )}
         </div>
       </EdgeLabelRenderer>
     </>
   );
 }
+
+export default memo(CustomEdge);

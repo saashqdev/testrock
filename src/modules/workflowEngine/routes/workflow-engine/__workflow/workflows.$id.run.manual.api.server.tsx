@@ -55,8 +55,11 @@ export const action = async (props: IServerComponentsProps) => {
       if (input) {
         try {
           inputData = JSON.parse(input);
-        } catch {
-          throw Error("Input data is not valid JSON: " + input);
+        } catch (parseError: any) {
+          return Response.json(
+            { error: "Input data is not valid JSON: " + (parseError?.message || "Invalid JSON format") },
+            { status: 400 }
+          );
         }
       }
       const execution = await WorkflowsExecutionsService.execute(params.id!, {
@@ -78,7 +81,7 @@ export const action = async (props: IServerComponentsProps) => {
       }
       return Response.json({ success: "Workflow executed", execution });
     } catch (e: any) {
-      return Response.json({ error: e.message }, { status: 400 });
+      return Response.json({ error: e?.message || e?.toString() || "An error occurred during workflow execution" }, { status: 400 });
     }
   } else if (action === "continue-execution") {
     try {
@@ -93,7 +96,7 @@ export const action = async (props: IServerComponentsProps) => {
       }
       return Response.json({ success: "Workflow executed", execution });
     } catch (e: any) {
-      return Response.json({ error: e.message }, { status: 400 });
+      return Response.json({ error: e?.message || e?.toString() || "An error occurred during workflow execution" }, { status: 400 });
     }
   }
   return Response.json({ error: "Invalid action" }, { status: 400 });

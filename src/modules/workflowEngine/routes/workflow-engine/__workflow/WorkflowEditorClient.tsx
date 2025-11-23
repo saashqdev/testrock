@@ -64,9 +64,10 @@ export default function WorkflowEditorClient({ workflow: initialWorkflow }: Work
   useEffect(() => {
     setWorkflow(initialWorkflow);
     if (selectedBlock) {
-      setSelectedBlock(initialWorkflow.blocks.find((x) => x.id === selectedBlock.id) ?? null);
+      const updatedBlock = initialWorkflow.blocks.find((x) => x.id === selectedBlock.id);
+      setSelectedBlock(updatedBlock ?? null);
     }
-  }, [initialWorkflow, selectedBlock]);
+  }, [initialWorkflow]);
 
   useEffect(() => {
     if (selectedBlock === null && addingNextBlockFrom !== null) {

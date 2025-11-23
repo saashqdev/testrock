@@ -156,8 +156,7 @@ export async function connectBlocksAction(prev: ActionState, formData: FormData)
       throw new Error("Workflow not found");
     }
 
-    // TODO: Implement connect blocks logic in service
-    // await WorkflowsService.connectBlocks({ fromBlockId, toBlockId, condition });
+    await WorkflowsService.connectBlocks({ fromBlockId, toBlockId, condition: condition || "" });
 
     revalidatePath(`/workflow-engine/workflows/${workflowId}`);
 
@@ -183,8 +182,12 @@ export async function deleteBlockAction(prev: ActionState, formData: FormData): 
       throw new Error("Missing required fields");
     }
 
-    // TODO: Implement delete block logic in service
-    // await WorkflowsService.deleteBlock(blockId);
+    const workflow = await WorkflowsService.get(workflowId, { tenantId });
+    if (!workflow) {
+      throw new Error("Workflow not found");
+    }
+
+    await WorkflowsService.deleteBlock(blockId, { workflow });
 
     revalidatePath(`/workflow-engine/workflows/${workflowId}`);
 
@@ -216,12 +219,11 @@ export async function deleteConnectionAction(prev: ActionState, formData: FormDa
       throw new Error("Missing connection information");
     }
 
-    // TODO: Implement delete connection logic in service
-    // if (connectionId) {
-    //   await WorkflowsService.deleteConnection(connectionId);
-    // } else {
-    //   await WorkflowsService.deleteConnection({ fromBlockId, toBlockId });
-    // }
+    if (connectionId) {
+      await WorkflowsService.deleteConnection({ id: connectionId });
+    } else if (fromBlockId && toBlockId) {
+      await WorkflowsService.deleteConnection({ fromBlockId, toBlockId });
+    }
 
     revalidatePath(`/workflow-engine/workflows/${workflowId}`);
 
@@ -248,10 +250,19 @@ export async function updateConditionsGroupsAction(prev: ActionState, formData: 
       throw new Error("Missing required fields");
     }
 
+    const workflow = await WorkflowsService.get(workflowId, { tenantId });
+    if (!workflow) {
+      throw new Error("Workflow not found");
+    }
+
+    const block = workflow.blocks.find((x) => x.id === blockId);
+    if (!block) {
+      throw new Error("Block not found");
+    }
+
     const conditionsGroups = JSON.parse(conditionsGroupsData) as WorkflowConditionsGroupDto[];
 
-    // TODO: Implement update conditions groups logic in service
-    // await WorkflowsService.updateConditionsGroups(blockId, conditionsGroups);
+    await WorkflowsService.updateConditionsGroups(block, conditionsGroups);
 
     revalidatePath(`/workflow-engine/workflows/${workflowId}`);
 
@@ -277,12 +288,20 @@ export async function toggleWorkflowAction(prev: ActionState, formData: FormData
       throw new Error("Missing workflow ID");
     }
 
-    // TODO: Implement toggle workflow logic in service
-    // await WorkflowsService.toggle(workflowId, enabled);
+    const workflow = await WorkflowsService.get(workflowId, { tenantId });
+    if (!workflow) {
+      throw new Error("Workflow not found");
+    }
+
+    if (enabled && workflow.status === "draft") {
+      await WorkflowsService.update(workflowId, { status: "live" }, { tenantId });
+    } else if (!enabled && workflow.status === "live") {
+      await WorkflowsService.update(workflowId, { status: "draft" }, { tenantId });
+    }
 
     revalidatePath(`/workflow-engine/workflows/${workflowId}`);
 
-    return { success: enabled ? "Workflow enabled" : "Workflow disabled" };
+    return { success: enabled ? "Workflow is now live" : "Workflow is now a draft" };
   } catch (error: any) {
     return { error: error.message };
   }

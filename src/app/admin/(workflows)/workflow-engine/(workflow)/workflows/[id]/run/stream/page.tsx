@@ -42,9 +42,10 @@ export default async function Page(props: IServerComponentsProps) {
     const workflowAction = async (prev: any, formData: FormData) => {
       "use server";
       try {
+        const resolvedParams = await props.params;
         const actionResponse = await serverAction({
           ...props,
-          request: new Request(props.request?.url || "", {
+          request: new Request(props.request?.url || `http://localhost/admin/workflow-engine/workflows/${resolvedParams?.id}/run/stream`, {
             method: "POST",
             body: formData,
           }),
@@ -54,10 +55,10 @@ export default async function Page(props: IServerComponentsProps) {
           return await actionResponse.json();
         } else {
           const errorData = await actionResponse.json();
-          return { error: errorData.error || "An error occurred" };
+          return { error: typeof errorData.error === 'string' ? errorData.error : JSON.stringify(errorData.error) || "An error occurred" };
         }
       } catch (error: any) {
-        return { error: error.message || "An error occurred" };
+        return { error: error?.message || error?.toString() || "An error occurred" };
       }
     };
 

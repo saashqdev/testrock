@@ -36,17 +36,23 @@ export default async function WorkflowsIdRunManualPage(props: IServerComponentsP
     "use server";
     try {
       formData.set("action", "execute");
-      const response = await WorkflowsIdRunManualApi.action(props);
+      const response = await WorkflowsIdRunManualApi.action({
+        ...props,
+        request: new Request(props.request?.url || `http://localhost/admin/workflow-engine/workflows/${params.id}/run/manual`, {
+          method: "POST",
+          body: formData,
+        }),
+      });
 
       if (response.ok) {
         const data = await response.json();
         return data;
       } else {
         const errorData = await response.json();
-        return { error: errorData.error || "An error occurred" };
+        return { error: typeof errorData.error === 'string' ? errorData.error : JSON.stringify(errorData.error) || "An error occurred" };
       }
     } catch (error: any) {
-      return { error: error.message || "An error occurred" };
+      return { error: error?.message || error?.toString() || "An error occurred" };
     }
   };
 
@@ -54,17 +60,23 @@ export default async function WorkflowsIdRunManualPage(props: IServerComponentsP
     "use server";
     try {
       formData.set("action", "continue-execution");
-      const response = await WorkflowsIdRunManualApi.action(props);
+      const response = await WorkflowsIdRunManualApi.action({
+        ...props,
+        request: new Request(props.request?.url || `http://localhost/admin/workflow-engine/workflows/${params.id}/run/manual`, {
+          method: "POST",
+          body: formData,
+        }),
+      });
 
       if (response.ok) {
         const data = await response.json();
         return data;
       } else {
         const errorData = await response.json();
-        return { error: errorData.error || "An error occurred" };
+        return { error: typeof errorData.error === 'string' ? errorData.error : JSON.stringify(errorData.error) || "An error occurred" };
       }
     } catch (error: any) {
-      return { error: error.message || "An error occurred" };
+      return { error: error?.message || error?.toString() || "An error occurred" };
     }
   };
 

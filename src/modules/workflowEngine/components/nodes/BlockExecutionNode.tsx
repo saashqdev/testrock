@@ -4,13 +4,13 @@ import { Position, Handle, NodeProps } from "reactflow";
 import { WorkflowBlockDto } from "../../dtos/WorkflowBlockDto";
 import { WorkflowBlockTypes } from "../../dtos/WorkflowBlockTypes";
 import WorkflowContext from "../../context/WorkflowContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, memo } from "react";
 import WorkflowBlockUtils from "../../helpers/WorkflowBlockUtils";
 import { WorkflowDto } from "../../dtos/WorkflowDto";
 import clsx from "clsx";
 import { WorkflowBlockExecutionDto } from "../../dtos/WorkflowBlockExecutionDto";
 
-export default function BlockExecutionNode({ id, data }: NodeProps) {
+function BlockExecutionNode({ id, data }: NodeProps) {
   const { isNodeSelected } = useContext(WorkflowContext);
   const block = data.block as WorkflowBlockDto;
   const workflow = data.workflow as WorkflowDto;
@@ -87,3 +87,5 @@ export default function BlockExecutionNode({ id, data }: NodeProps) {
     </button>
   );
 }
+
+export default memo(BlockExecutionNode);

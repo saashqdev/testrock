@@ -23,13 +23,12 @@ export default function WorkflowInputExamplesDropdown({
             return (
               <Menu.Item key={inputExample.id}>
                 {({ active }) => (
-                  <button
-                    type="button"
+                  <div
                     onClick={() => onSelected(inputExample)}
-                    className={clsx("w-full truncate text-left", active ? "bg-secondary/90 text-foreground" : "text-foreground/80", "block px-4 py-2 text-sm")}
+                    className={clsx("w-full cursor-pointer truncate text-left", active ? "bg-secondary/90 text-foreground" : "text-foreground/80", "block px-4 py-2 text-sm")}
                   >
                     {inputExample.title}
-                  </button>
+                  </div>
                 )}
               </Menu.Item>
             );

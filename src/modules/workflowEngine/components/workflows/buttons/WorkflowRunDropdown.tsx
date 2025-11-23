@@ -46,39 +46,36 @@ export default function WorkflowRunDropdown({ workflow }: { workflow: WorkflowDt
           ].map((option) => {
             return (
               <Menu.Item key={option.name}>
-                {({ active, close }) => (
-                  <Fragment>
-                    {option.disabled ? (
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          close();
-                        }}
-                        className={clsx(
-                          "w-full truncate text-left hover:bg-secondary/90",
-                          active ? "bg-secondary/90 text-foreground" : "text-foreground/80",
-                          "block px-4 py-2 text-sm"
-                        )}
-                      >
-                        {option.name}
-                      </button>
-                    ) : (
-                      <Link
-                        href={option.value}
-                        onClick={(e) => {
-                          close();
-                        }}
-                        className={clsx(
-                          "w-full truncate text-left hover:bg-secondary/90",
-                          active ? "bg-secondary/90 text-foreground" : "text-foreground/80",
-                          "block px-4 py-2 text-sm"
-                        )}
-                      >
-                        {option.name}
-                      </Link>
-                    )}
-                  </Fragment>
-                )}
+                {({ active, close }) =>
+                  option.disabled ? (
+                    <div
+                      onClick={(e) => {
+                        close();
+                      }}
+                      className={clsx(
+                        "w-full truncate text-left",
+                        active ? "bg-secondary/90 text-foreground" : "text-foreground/80",
+                        "block cursor-not-allowed px-4 py-2 text-sm opacity-50"
+                      )}
+                    >
+                      {option.name}
+                    </div>
+                  ) : (
+                    <Link
+                      href={option.value}
+                      onClick={(e) => {
+                        close();
+                      }}
+                      className={clsx(
+                        "w-full truncate text-left hover:bg-secondary/90",
+                        active ? "bg-secondary/90 text-foreground" : "text-foreground/80",
+                        "block px-4 py-2 text-sm"
+                      )}
+                    >
+                      {option.name}
+                    </Link>
+                  )
+                }
               </Menu.Item>
             );
           })}

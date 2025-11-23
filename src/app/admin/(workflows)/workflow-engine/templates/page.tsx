@@ -12,6 +12,11 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 }
 
 export default async function WorkflowTemplatesPage(props: IServerComponentsProps) {
-  const data = await loader(props);
-  return <WorkflowsTemplatesView />;
+  try {
+    const data = await loader(props);
+    return <WorkflowsTemplatesView />;
+  } catch (error) {
+    // If requireAuth throws a redirect, let it propagate
+    throw error;
+  }
 }

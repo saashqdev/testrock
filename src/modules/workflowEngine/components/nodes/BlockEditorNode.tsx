@@ -4,13 +4,13 @@ import { Position, Handle, NodeProps } from "reactflow";
 import { WorkflowBlockDto } from "../../dtos/WorkflowBlockDto";
 import { WorkflowBlockTypes } from "../../dtos/WorkflowBlockTypes";
 import WorkflowContext from "../../context/WorkflowContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, memo } from "react";
 import WorkflowBlockUtils from "../../helpers/WorkflowBlockUtils";
 import { WorkflowDto } from "../../dtos/WorkflowDto";
 import clsx from "clsx";
 import { useParams } from "next/navigation";
 
-export default function BlockEditorNode({ id, data }: NodeProps) {
+function BlockEditorNode({ id, data }: NodeProps) {
   const params = useParams();
   const { onNodeDelete, isNodeSelected } = useContext(WorkflowContext);
   const block = data.block as WorkflowBlockDto;
@@ -29,13 +29,13 @@ export default function BlockEditorNode({ id, data }: NodeProps) {
     return <div>Unknown block type: {block.type}</div>;
   }
   return (
-    <button
-      type="button"
+    <div
       className={clsx(
         "relative flex h-[80px] w-[250px] flex-col justify-center rounded-md border p-2 text-left focus:ring-1 focus:ring-blue-600 focus:ring-offset-2",
         isNodeSelected(id) ? "bg-blue-50 ring-1 ring-blue-600 ring-offset-2" : "bg-background",
         errors.length ? "border-red-300" : "border-border"
       )}
+      tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === "Delete" || e.key === "Backspace") {
           e.preventDefault();
@@ -99,6 +99,8 @@ export default function BlockEditorNode({ id, data }: NodeProps) {
           }}
         />
       </div>
-    </button>
+    </div>
   );
 }
+
+export default memo(BlockEditorNode);

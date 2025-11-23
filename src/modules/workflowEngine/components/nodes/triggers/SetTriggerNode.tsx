@@ -1,6 +1,7 @@
 import { NodeProps } from "reactflow";
+import { memo } from "react";
 
-export default function SetTriggerNode(_: NodeProps) {
+function SetTriggerNode(_: NodeProps) {
   return (
     <div className="h-20 w-64 rounded-md border border-dashed border-border bg-slate-100 ring-1 ring-blue-600 ring-offset-2">
       <div className="flex h-full flex-col justify-center space-y-1">
@@ -9,3 +10,5 @@ export default function SetTriggerNode(_: NodeProps) {
     </div>
   );
 }
+
+export default memo(SetTriggerNode);

@@ -1,6 +1,5 @@
 "use client";
 
-import { Fragment } from "react";
 import { WorkflowDto } from "../../dtos/WorkflowDto";
 import { WorkflowExecutionDto } from "../../dtos/WorkflowExecutionDto";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
@@ -86,38 +85,13 @@ export default function WorkflowExecutionsSidebar({ workflow, selectedBlock, sel
 
             {selectedExecution.error && <ErrorBanner title="Error" text={selectedExecution.error} />}
 
-            <Fragment>
-              <div className="space-y-3">
-                <div className="text-sm font-medium text-foreground/80">Workflow Params</div>
-                <div className="space-y-1">
-                  <div className="overflow-hidden">
-                    {typeof window !== "undefined" && (
-                      <Editor
-                        value={selectedExecution.input ? JSON.stringify(selectedExecution.input, null, 2) : "{}"}
-                        language="json"
-                        options={{
-                          fontSize: 12,
-                          renderValidationDecorations: "off",
-                          wordWrap: "on",
-                          unusualLineTerminators: "off",
-                          tabSize: 2,
-                        }}
-                        className="-ml-10 block h-32 w-full min-w-0 flex-1 rounded-md border-border focus:border-border focus:ring-ring sm:text-sm"
-                        theme="vs-dark"
-                      />
-                    )}
-                  </div>
-                </div>
-              </div>
-            </Fragment>
-            <Fragment>
-              <div className="border-t border-border"></div>
-              <div className="space-y-3">
-                <div className="text-sm font-medium text-foreground/80">Workflow Output</div>
-                <div className="space-y-1">
-                  <div className="overflow-hidden">
+            <div className="space-y-3">
+              <div className="text-sm font-medium text-foreground/80">Workflow Params</div>
+              <div className="space-y-1">
+                <div className="overflow-hidden">
+                  {typeof window !== "undefined" && (
                     <Editor
-                      value={selectedExecution.input ? JSON.stringify(selectedExecution.output, null, 2) : "{}"}
+                      value={selectedExecution.input ? JSON.stringify(selectedExecution.input, null, 2) : "{}"}
                       language="json"
                       options={{
                         fontSize: 12,
@@ -129,10 +103,32 @@ export default function WorkflowExecutionsSidebar({ workflow, selectedBlock, sel
                       className="-ml-10 block h-32 w-full min-w-0 flex-1 rounded-md border-border focus:border-border focus:ring-ring sm:text-sm"
                       theme="vs-dark"
                     />
-                  </div>
+                  )}
                 </div>
               </div>
-            </Fragment>
+            </div>
+
+            <div className="border-t border-border"></div>
+            <div className="space-y-3">
+              <div className="text-sm font-medium text-foreground/80">Workflow Output</div>
+              <div className="space-y-1">
+                <div className="overflow-hidden">
+                  <Editor
+                    value={selectedExecution.input ? JSON.stringify(selectedExecution.output, null, 2) : "{}"}
+                    language="json"
+                    options={{
+                      fontSize: 12,
+                      renderValidationDecorations: "off",
+                      wordWrap: "on",
+                      unusualLineTerminators: "off",
+                      tabSize: 2,
+                    }}
+                    className="-ml-10 block h-32 w-full min-w-0 flex-1 rounded-md border-border focus:border-border focus:ring-ring sm:text-sm"
+                    theme="vs-dark"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
