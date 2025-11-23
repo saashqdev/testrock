@@ -59,4 +59,3 @@ export async function setTenantTypes({
 //     entityGroups = newGroups;
 //   }
 // }
-

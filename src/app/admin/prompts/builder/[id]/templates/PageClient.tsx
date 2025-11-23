@@ -33,11 +33,11 @@ type ActionData = {
   success?: string;
 };
 
-export default function PromptBuilderTemplatesPageClient({ 
-  data, 
-  handleAction 
-}: { 
-  data: LoaderData; 
+export default function PromptBuilderTemplatesPageClient({
+  data,
+  handleAction,
+}: {
+  data: LoaderData;
   handleAction: (formData: FormData) => Promise<ActionData>;
 }) {
   const { t } = useTranslation();
@@ -137,7 +137,7 @@ export default function PromptBuilderTemplatesPageClient({
         <div className="flex flex-col space-y-2 lg:flex-row lg:space-x-2 lg:space-y-0">
           <div className="overflow-y-auto lg:w-3/12">
             <div className="overflow-y-auto">
-              <ul className="border-border divide-y divide-gray-100 overflow-y-scroll rounded-md border bg-white">
+              <ul className="divide-y divide-gray-100 overflow-y-scroll rounded-md border border-border bg-white">
                 {templates
                   .sort((a, b) => a.order - b.order)
                   .map((item, idx) => (
@@ -150,8 +150,8 @@ export default function PromptBuilderTemplatesPageClient({
                         className={clsx(
                           "w-full cursor-pointer truncate rounded-sm border-2 border-dashed px-2 py-1 text-left text-sm",
                           selectedIdx === idx
-                            ? "bg-secondary/90 border-transparent text-gray-900 "
-                            : "text-muted-foreground hover:bg-secondary/90 border-transparent"
+                            ? "border-transparent bg-secondary/90 text-gray-900"
+                            : "border-transparent text-muted-foreground hover:bg-secondary/90"
                         )}
                       >
                         <div className="group flex h-7 items-center justify-between space-x-1">
@@ -196,8 +196,8 @@ export default function PromptBuilderTemplatesPageClient({
                             >
                               <TrashIcon
                                 className={clsx(
-                                  "text-muted-foreground h-4 w-4",
-                                  templates.length === 1 ? "cursor-not-allowed" : "hover:text-muted-foreground cursor-pointer"
+                                  "h-4 w-4 text-muted-foreground",
+                                  templates.length === 1 ? "cursor-not-allowed" : "cursor-pointer hover:text-muted-foreground"
                                 )}
                               />
                             </button>
@@ -211,8 +211,8 @@ export default function PromptBuilderTemplatesPageClient({
                     type="button"
                     onClick={addTemplate}
                     className={clsx(
-                      "w-full  cursor-pointer truncate rounded-sm border-2 border-dashed px-2 py-1 text-left text-sm",
-                      "text-muted-foreground hover:bg-secondary/90 border-transparent"
+                      "w-full cursor-pointer truncate rounded-sm border-2 border-dashed px-2 py-1 text-left text-sm",
+                      "border-transparent text-muted-foreground hover:bg-secondary/90"
                     )}
                   >
                     <div className="flex items-center justify-center space-x-3">
@@ -229,7 +229,7 @@ export default function PromptBuilderTemplatesPageClient({
             <div className="space-y-2">
               {inputEntity && (
                 <div>
-                  <div className="text-muted-foreground mb-1 flex items-center space-x-1 truncate text-xs font-medium">
+                  <div className="mb-1 flex items-center space-x-1 truncate text-xs font-medium text-muted-foreground">
                     {!data.sampleSourceRow && <ExclamationTriangleIcon className="h-4 w-4 flex-shrink-0 text-yellow-600" />}
                     <div className="truncate">
                       Select a sample <strong>{t(inputEntity.title)}</strong> row to use as sample data for the prompt.

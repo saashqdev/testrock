@@ -10,4 +10,3 @@ export async function load(_: PageBlockLoaderArgs) {
     getFreshValue: () => db.blog.getAllBlogPosts({ tenantId: null, published: true }),
   });
 }
-

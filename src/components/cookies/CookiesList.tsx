@@ -27,20 +27,20 @@ export default function CookiesList({
     setOpenCategories(newOpenCategories);
   }
   return (
-    <div className={clsx("border-border text-foreground bg-secondary overflow-hidden overflow-y-auto rounded-md border", !editing && "max-h-72")}>
+    <div className={clsx("overflow-hidden overflow-y-auto rounded-md border border-border bg-secondary text-foreground", !editing && "max-h-72")}>
       {allCookieCategories.map((category, idx) => {
         return (
           <Fragment key={category}>
             <div
               className={clsx(
-                "hover:bg-secondary border-border bg-background flex items-center justify-between px-4 py-2",
+                "flex items-center justify-between border-border bg-background px-4 py-2 hover:bg-secondary",
                 idx < allCookieCategories.length - 1 && "border-b"
               )}
             >
               <button type="button" onClick={() => toggleOpenCategory(category)} className="flex w-full items-center space-x-2 px-2 py-3 font-medium">
                 <div>{isCategoryOpen(category) ? "-" : "+"}</div>
                 <div>{t("cookies.categories." + CookieCategory[category] + ".name")}</div>
-                <div className="text-muted-foreground text-xs font-normal">
+                <div className="text-xs font-normal text-muted-foreground">
                   ({allApplicationCookies.filter((f) => f.category === category).length} cookies){" "}
                 </div>
               </button>
@@ -54,27 +54,27 @@ export default function CookiesList({
             </div>
             {isCategoryOpen(category) && (
               <div className="space-y-2 px-4 py-4 pb-2">
-                <div className="text-muted-foreground text-sm">{t("cookies.categories." + CookieCategory[category] + ".description")}</div>
+                <div className="text-sm text-muted-foreground">{t("cookies.categories." + CookieCategory[category] + ".description")}</div>
 
                 {allApplicationCookies
                   .filter((f) => f.category === category)
                   .map((item) => {
                     return (
-                      <div key={item.name} className="border-border bg-secondary/90 space-y-2 rounded-md border border-dashed p-2 py-2">
+                      <div key={item.name} className="space-y-2 rounded-md border border-dashed border-border bg-secondary/90 p-2 py-2">
                         <div className="flex items-baseline justify-between font-bold">
                           <div>{item.name}</div>
                           {item.href?.startsWith("http") ? (
-                            <a target="_blank" rel="noreferrer" href={item.href} className="text-theme-500 text-xs underline">
+                            <a target="_blank" rel="noreferrer" href={item.href} className="text-xs text-theme-500 underline">
                               {t("shared.learnMore")}
                             </a>
                           ) : item.href ? (
-                            <Link href={item.href} className="text-theme-500 text-xs underline">
+                            <Link href={item.href} className="text-xs text-theme-500 underline">
                               {t("shared.learnMore")}
                             </Link>
                           ) : null}
                         </div>
-                        <div className="text-muted-foreground text-sm font-light">{item.description}</div>
-                        <div className="border-border w-full border-t" />
+                        <div className="text-sm font-light text-muted-foreground">{item.description}</div>
+                        <div className="w-full border-t border-border" />
                         <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
                           <div>
                             <span className="font-medium">{t("shared.expiry")}:</span> {item.expiry ?? "?"}

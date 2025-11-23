@@ -286,7 +286,7 @@ function ImportCsv({
             <button
               type="button"
               onClick={downloadSample}
-              className="bg-theme-100 text-theme-700 hover:bg-theme-200 focus:outline-hidden inline-flex items-center rounded border border-transparent px-2.5 py-1.5 text-xs font-medium focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              className="focus:outline-hidden inline-flex items-center rounded border border-transparent bg-theme-100 px-2.5 py-1.5 text-xs font-medium text-theme-700 hover:bg-theme-200 focus:ring-2 focus:ring-ring focus:ring-offset-2"
             >
               Download sample
             </button>
@@ -319,7 +319,9 @@ function MapFields({ entity, data, onConfirm }: { entity: EntityWithDetailsDto; 
           continue;
         }
         if (column.column === primaryProperty) {
-          const existingRow = uniqueRows.find((r) => r.values.find((f) => f.column === column.column)?.value === row.values.find((f) => f.column === column.column)?.value);
+          const existingRow = uniqueRows.find(
+            (r) => r.values.find((f) => f.column === column.column)?.value === row.values.find((f) => f.column === column.column)?.value
+          );
           if (existingRow) {
             mapRow = false;
             continue;
@@ -454,7 +456,9 @@ function MapFields({ entity, data, onConfirm }: { entity: EntityWithDetailsDto; 
                       <Fragment key={idxRow}>
                         {idxRow < 5 && (
                           <div className="truncate border border-border" key={idxRow}>
-                            <span className="truncate px-1 text-sm text-muted-foreground">{row.values.find((r) => r.column === column.column)?.value ?? "?"}</span>
+                            <span className="truncate px-1 text-sm text-muted-foreground">
+                              {row.values.find((r) => r.column === column.column)?.value ?? "?"}
+                            </span>
                           </div>
                         )}
                       </Fragment>
@@ -601,7 +605,7 @@ function Confirm({
   onBack,
   selectedTenant,
 }: {
-  entity: EntityWithDetailsDto
+  entity: EntityWithDetailsDto;
   data: RawDataDto;
   onBack: () => void;
   selectedTenant: { id: string; name: string; slug: string } | null;
@@ -619,14 +623,14 @@ function Confirm({
     setIsSubmitting(true);
     try {
       // You'll need to implement the actual API call here
-      const response = await fetch('/api/rows/import', {
-        method: 'POST',
+      const response = await fetch("/api/rows/import", {
+        method: "POST",
         body: formData,
       });
       const result = await response.json();
       setActionData(result);
     } catch (error) {
-      console.error('Import failed:', error);
+      console.error("Import failed:", error);
     } finally {
       setIsSubmitting(false);
     }

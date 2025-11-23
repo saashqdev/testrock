@@ -9,7 +9,7 @@ export default async function NewFormulaPage() {
   // Server Action for creating formula
   async function createNewFormula(formData: FormData) {
     "use server";
-    
+
     await verifyUserHasPermission(null as any, "admin.formulas.create");
     const { t } = await getServerTranslations();
 

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { createContext, useContext } from "react";
 import { TenantUserWithUserDto } from "@/db/models/accounts/TenantsModel";
@@ -18,11 +18,11 @@ export const MembersDataContext = createContext<MembersDataDto | null>(null);
 
 export default function useMembersData(): MembersDataDto {
   const context = useContext(MembersDataContext);
-  
-  if (typeof window === 'undefined') {
+
+  if (typeof window === "undefined") {
     throw new Error("useMembersData cannot be used during SSR");
   }
-  
+
   if (!context) {
     throw new Error("useMembersData must be used within a MembersDataContext.Provider");
   }
@@ -31,4 +31,3 @@ export default function useMembersData(): MembersDataDto {
 
 // Named export for consistency
 export { useMembersData };
-

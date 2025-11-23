@@ -5,7 +5,7 @@ export default function KbSkeletons({ n = 5 }: { n?: number }) {
     <div className="space-y-3">
       {Array.from({ length: n }).map((_, i) => {
         return (
-          <div key={i} className="hover:border-theme-500 group rounded-md border border-border bg-background">
+          <div key={i} className="group rounded-md border border-border bg-background hover:border-theme-500">
             <div className="w-full">
               <div className="flex items-center space-x-8 p-6">
                 <div className="shrink-0">

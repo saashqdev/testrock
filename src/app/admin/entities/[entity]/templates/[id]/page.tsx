@@ -16,7 +16,7 @@ type LoaderData = {
 
 async function getLoaderData(props: IServerComponentsProps): Promise<LoaderData> {
   const params = (await props.params) || {};
-  const request = props.request!;  
+  const request = props.request!;
   await verifyUserHasPermission("admin.entities.view");
   const tenantId = await getTenantIdOrNull({ request, params });
   const entity = await db.entities.getEntityBySlug({ tenantId, slug: params.entity ?? "" });
@@ -36,7 +36,7 @@ type ActionData = {
 const badRequest = (data: ActionData) => Response.json(data, { status: 400 });
 export const action = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
-  const request = props.request!;  
+  const request = props.request!;
   await verifyUserHasPermission("admin.entities.update");
   const { t } = await getServerTranslations();
   const tenantId = await getTenantIdOrNull({ request, params });
@@ -69,10 +69,9 @@ export const action = async (props: IServerComponentsProps) => {
   return badRequest({ error: t("shared.invalidForm") });
 };
 
-
 export default async function EditEntityTemplateRoute(props: IServerComponentsProps) {
   const data = await getLoaderData(props);
   const params = (await props.params) || {};
-  
+
   return <EditEntityTemplateClient entity={data.entity} item={data.item} entitySlug={params.entity ?? ""} />;
 }

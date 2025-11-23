@@ -123,7 +123,7 @@ export default function PostsTable({ blogPath, items, views }: Props) {
                     {item.author.firstName} {item.author.lastName}
                   </div>
                 ) : (
-                  <div className="text-muted-foreground text-xs italic hover:underline">No author</div>
+                  <div className="text-xs italic text-muted-foreground hover:underline">No author</div>
                 )}
               </div>
             ),

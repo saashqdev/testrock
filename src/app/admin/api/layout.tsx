@@ -61,9 +61,7 @@ export default async function ApiLayout({ children }: { children: React.ReactNod
         },
       ]}
     >
-      <IndexPageLayout>
-        {children}
-      </IndexPageLayout>
+      <IndexPageLayout>{children}</IndexPageLayout>
     </SidebarIconsLayout>
   );
 }

@@ -18,7 +18,7 @@ export default function EditEntityRelationshipsClient({ items }: EditEntityRelat
   return (
     <>
       <div className="space-y-3">
-        <h3 className="text-foreground text-sm font-medium leading-3">{t("models.relationship.plural")}</h3>
+        <h3 className="text-sm font-medium leading-3 text-foreground">{t("models.relationship.plural")}</h3>
         <EntityRelationshipsTable items={items} editable={true} />
         <div className="w-fu flex justify-start">
           <ButtonTertiary to="new">
@@ -32,7 +32,7 @@ export default function EditEntityRelationshipsClient({ items }: EditEntityRelat
 
       <SlideOverWideEmpty
         title={""}
-        open={!!<></>}
+        open={!!(<></>)}
         onClose={() => {
           router.replace(".");
         }}

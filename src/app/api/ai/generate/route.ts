@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const params = Object.fromEntries(searchParams.entries());
   const { time, getServerTimingHeader } = await createMetrics({ request, params }, "ai.generate");
-  
+
   let { prompt, systemContent, model, temperature, max_tokens } = (await request.json()) as {
     prompt?: string;
     systemContent?: string;

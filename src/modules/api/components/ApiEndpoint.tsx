@@ -13,7 +13,7 @@ export default function ApiEndpoint({ item }: { item: ApiEndpointDto }) {
           <div className="space-y-2">
             {item.responseSchema && (
               <>
-                <div className="text-foreground text-sm font-bold">Response Schema</div>
+                <div className="text-sm font-bold text-foreground">Response Schema</div>
                 <div className="h-96 overflow-auto p-2">
                   <MonacoEditor value={item.responseSchema} onChange={() => {}} theme="vs-dark" language="json" />
                 </div>
@@ -21,7 +21,7 @@ export default function ApiEndpoint({ item }: { item: ApiEndpointDto }) {
             )}
             {item.bodyExample && (
               <>
-                <div className="text-foreground text-sm font-bold">Body Example</div>
+                <div className="text-sm font-bold text-foreground">Body Example</div>
                 <div className="h-96 overflow-auto p-2">
                   <MonacoEditor value={item.bodyExample} onChange={() => {}} theme="vs-dark" language="json" />
                 </div>

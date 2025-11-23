@@ -46,7 +46,7 @@ export default function EditPropertyClient({ item, properties, entities, formula
     if (!confirm(t("shared.confirmDelete"))) {
       return;
     }
-    
+
     try {
       await deletePropertyAction(params.entity as string, params.id as string);
       toast.success(t("shared.deleted"));
@@ -57,17 +57,11 @@ export default function EditPropertyClient({ item, properties, entities, formula
   }
 
   return (
-    <SlideOverWideEmpty 
-      title={t("models.property.actions.edit")} 
-      open={isOpen} 
-      onClose={close}
-      size="3xl"
-      overflowYScroll={true}
-    >
-      <PropertyForm 
+    <SlideOverWideEmpty title={t("models.property.actions.edit")} open={isOpen} onClose={close} size="3xl" overflowYScroll={true}>
+      <PropertyForm
         item={item}
-        properties={properties} 
-        entities={entities} 
+        properties={properties}
+        entities={entities}
         formulas={formulas}
         onSubmit={handleSubmit}
         onCancel={close}

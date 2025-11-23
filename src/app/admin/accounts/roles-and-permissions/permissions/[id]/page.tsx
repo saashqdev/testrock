@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getServerTranslations } from "@/i18n/server";
-import { PermissionsWithRolesDto } from "@/db/models/permissions/PermissionsModel"; 
+import { PermissionsWithRolesDto } from "@/db/models/permissions/PermissionsModel";
 import { RoleWithPermissionsDto } from "@/db/models/permissions/RolesModel";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";

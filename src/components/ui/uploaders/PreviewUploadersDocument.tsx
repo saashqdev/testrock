@@ -10,7 +10,7 @@ export default function PreviewUploadersDocument() {
   }
   return (
     <div id="uploaders" className="space-y-1">
-      <div className="border-border bg-background border border-dashed p-6">
+      <div className="border border-dashed border-border bg-background p-6">
         <div className="w-full space-y-2">
           <UploadDocuments multiple={true} onDroppedFiles={droppedDocuments} onDropped={droppedDocument} />
         </div>

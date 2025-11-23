@@ -14,9 +14,9 @@ type ActionData = {
 export async function editKnowledgeBase(id: string, formData: FormData): Promise<ActionData> {
   try {
     await verifyUserHasPermission("admin.kb.update");
-    
+
     const item = await db.knowledgeBase.getKnowledgeBaseById(id);
-    
+
     if (!item) {
       redirect("/admin/knowledge-base/bases");
     }
@@ -65,7 +65,7 @@ export async function editKnowledgeBase(id: string, formData: FormData): Promise
         logo,
         seoImage,
       });
-      
+
       revalidatePath("/admin/knowledge-base/bases");
       redirect("/admin/knowledge-base/bases");
     } catch (e: any) {
@@ -79,9 +79,9 @@ export async function editKnowledgeBase(id: string, formData: FormData): Promise
 export async function deleteKnowledgeBase(id: string): Promise<ActionData> {
   try {
     await verifyUserHasPermission("admin.kb.delete");
-    
+
     const item = await db.knowledgeBase.getKnowledgeBaseById(id);
-    
+
     if (!item) {
       redirect("/admin/knowledge-base/bases");
     }

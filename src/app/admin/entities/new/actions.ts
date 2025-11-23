@@ -13,10 +13,7 @@ type ActionData = {
   success?: string;
 };
 
-export async function createEntityAction(
-  prevState: ActionData | null,
-  formData: FormData
-): Promise<ActionData> {
+export async function createEntityAction(prevState: ActionData | null, formData: FormData): Promise<ActionData> {
   await verifyUserHasPermission("admin.entities.create");
   const { t } = await getServerTranslations();
   const action = formData.get("action")?.toString() ?? "";
@@ -78,7 +75,7 @@ export async function createEntityAction(
       await db.permissions.createEntityPermissions(entity);
 
       await clearAllCache();
-      
+
       if (entity) {
         redirect(`/admin/entities/${slug}/properties`);
       } else {

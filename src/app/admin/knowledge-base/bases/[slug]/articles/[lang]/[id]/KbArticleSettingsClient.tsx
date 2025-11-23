@@ -37,13 +37,13 @@ export default function KbArticleSettingsClient({
   async function onConfirmedDelete() {
     const form = new FormData();
     form.set("action", "delete");
-    
+
     try {
       const response = await fetch(`/api/admin/knowledge-base/bases/${slug}/articles/${lang}/${item.id}`, {
         method: "POST",
         body: form,
       });
-      
+
       if (response.ok) {
         const data = await response.json();
         if (data.redirectUrl) {
@@ -63,13 +63,13 @@ export default function KbArticleSettingsClient({
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    
+
     try {
       const response = await fetch(`/api/admin/knowledge-base/bases/${slug}/articles/${lang}/${item.id}`, {
         method: "POST",
         body: formData,
       });
-      
+
       if (response.ok) {
         const data = await response.json();
         if (data.redirectUrl) {

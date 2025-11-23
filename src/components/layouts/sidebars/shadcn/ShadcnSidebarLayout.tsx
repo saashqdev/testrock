@@ -64,7 +64,7 @@ export default function ShadcnSidebarLayout({
       menu = AdminSidebar({ appConfiguration: rootData.appConfiguration, myTenants: appOrAdminData?.myTenants });
     } else if (layout === "app") {
       menu = AppSidebar({
-        tenantId: Array.isArray(params.tenant) ? params.tenant[0] : params.tenant ?? "",
+        tenantId: Array.isArray(params.tenant) ? params.tenant[0] : (params.tenant ?? ""),
         entities: appOrAdminData?.entities ?? [],
         entityGroups: appOrAdminData?.entityGroups ?? [],
         appConfiguration: rootData.appConfiguration,
@@ -89,21 +89,21 @@ export default function ShadcnSidebarLayout({
 
   return (
     <div suppressHydrationWarning>
-      <SidebarTitleContext.Provider 
-        value={{ 
-          activeTitle: activeSidebarTitle, 
+      <SidebarTitleContext.Provider
+        value={{
+          activeTitle: activeSidebarTitle,
           activeParentTitle: activeSidebarParentTitle,
           setActiveTitle: (title: string, parentTitle?: string) => {
             setActiveSidebarTitle(title);
             setActiveSidebarParentTitle(parentTitle || "");
-          }
+          },
         }}
       >
         <SidebarProvider>
           <OnboardingSession open={onboardingModalOpen} setOpen={setOnboardingModalOpen} />
           <ShadcnAppSidebar layout={layout} items={menuItems} />
           <SidebarInset className="overflow-hidden">
-            <header className="bg-background border-border flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+            <header className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-16 shrink-0 items-center gap-2 border-b border-border bg-background transition-[width,height] ease-linear">
               <div className="flex items-center gap-2 truncate px-4">
                 <SidebarTrigger className="-ml-1" />
                 {displayTitle && <Separator orientation="vertical" className="mr-2 h-4" />}
@@ -131,7 +131,7 @@ export default function ShadcnSidebarLayout({
                 <NavActions layout={layout} onOpenCommandPalette={onOpenCommandPalette} setOnboardingModalOpen={setOnboardingModalOpen} />
               </div>
             </header>
-            <main ref={mainElement} className="bg-background flex-1 focus:outline-hidden" tabIndex={0}>
+            <main ref={mainElement} className="focus:outline-hidden flex-1 bg-background" tabIndex={0}>
               <div key={params.tenant?.toString()} className="pb-20 sm:pb-0">
                 {children}
               </div>

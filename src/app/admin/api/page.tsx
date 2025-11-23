@@ -23,13 +23,13 @@ async function getData(searchParams: URLSearchParams): Promise<LoaderData> {
   await verifyUserHasPermission("admin.apiKeys.view");
   try {
     const headersList = await headers();
-    const request = new Request(`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}?${searchParams.toString()}`, {
+    const request = new Request(`${process.env.NEXT_PUBLIC_URL || "http://localhost:3000"}?${searchParams.toString()}`, {
       headers: headersList as any,
     });
-    
-    const { items, allTenants, filterableProperties } = await ApiKeyLogService.getSummary({ 
-      request, 
-      params: {} 
+
+    const { items, allTenants, filterableProperties } = await ApiKeyLogService.getSummary({
+      request,
+      params: {},
     });
     const data: LoaderData = {
       items,
@@ -42,19 +42,15 @@ async function getData(searchParams: URLSearchParams): Promise<LoaderData> {
   }
 }
 
-export default async function AdminApiPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default async function AdminApiPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const { t } = await getServerTranslations();
   const params = await searchParams;
   const urlSearchParams = new URLSearchParams();
-  
+
   Object.entries(params).forEach(([key, value]) => {
     if (value) {
       if (Array.isArray(value)) {
-        value.forEach(v => urlSearchParams.append(key, v));
+        value.forEach((v) => urlSearchParams.append(key, v));
       } else {
         urlSearchParams.append(key, value);
       }

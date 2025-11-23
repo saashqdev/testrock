@@ -75,10 +75,10 @@ export default function Component({ items, pagination, blacklistedIps }: Compone
             value: (i) => (
               <div className="flex flex-col">
                 <div className="font-medium">
-                  {i.ip} {i.type && <span className="text-muted-foreground text-xs font-light">({i.type})</span>}{" "}
+                  {i.ip} {i.type && <span className="text-xs font-light text-muted-foreground">({i.type})</span>}{" "}
                   {blacklistedIps.includes(i.ip) && <SimpleBadge title="Blacklisted" color={Colors.RED} />}
                 </div>
-                <div className="text-muted-foreground text-xs">{i.provider}</div>
+                <div className="text-xs text-muted-foreground">{i.provider}</div>
               </div>
             ),
           },
@@ -88,7 +88,7 @@ export default function Component({ items, pagination, blacklistedIps }: Compone
             value: (i) => (
               <div className="flex flex-col">
                 <div className="font-medium">{i.countryCode}</div>
-                <div className="text-muted-foreground text-xs">{i.countryName}</div>
+                <div className="text-xs text-muted-foreground">{i.countryName}</div>
               </div>
             ),
           },
@@ -98,7 +98,7 @@ export default function Component({ items, pagination, blacklistedIps }: Compone
             value: (i) => (
               <div className="flex flex-col">
                 <div className="font-medium">{i.regionCode}</div>
-                <div className="text-muted-foreground text-xs">{i.regionName}</div>
+                <div className="text-xs text-muted-foreground">{i.regionName}</div>
               </div>
             ),
           },
@@ -108,7 +108,7 @@ export default function Component({ items, pagination, blacklistedIps }: Compone
             value: (i) => (
               <div className="flex flex-col">
                 <div className="font-medium">{i.city}</div>
-                <div className="text-muted-foreground text-xs">{i.zipCode}</div>
+                <div className="text-xs text-muted-foreground">{i.zipCode}</div>
               </div>
             ),
           },

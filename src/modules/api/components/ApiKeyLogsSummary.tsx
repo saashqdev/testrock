@@ -135,7 +135,7 @@ export default function ApiKeyLogsSummary({ data }: Props) {
       title: "Avg. duration",
       value: (item) =>
         item._avg.duration === null ? (
-          <span className="text-muted-foreground text-xs italic">-</span>
+          <span className="text-xs italic text-muted-foreground">-</span>
         ) : (
           <div>{NumberUtils.custom(Number(item._avg.duration), "0,0.001")} ms</div>
         ),
@@ -145,7 +145,7 @@ export default function ApiKeyLogsSummary({ data }: Props) {
       title: "Speed",
       value: (item) =>
         item._avg.duration === null ? (
-          <span className="text-muted-foreground text-xs italic">-</span>
+          <span className="text-xs italic text-muted-foreground">-</span>
         ) : (
           <ApiCallSpeedBadge duration={Number(item._avg.duration)} />
         ),

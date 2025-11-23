@@ -28,7 +28,7 @@ export default async function BrandPage() {
             subheadline: t("front.brand.description"),
           }}
         />
-        <div className="bg-background container mx-auto max-w-3xl space-y-6 py-8">
+        <div className="container mx-auto max-w-3xl space-y-6 bg-background py-8">
           <div className="space-y-2">
             <div className="font-black">{t("shared.icon")}</div>
             <PreviewIcon />

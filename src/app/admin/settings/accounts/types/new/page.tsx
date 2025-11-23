@@ -23,7 +23,7 @@ async function getPageData(): Promise<PageData> {
 
 export async function createTenantType(formData: FormData) {
   "use server";
-  
+
   await verifyUserHasPermission("admin.accountTypes.create");
   const { t } = await getServerTranslations();
   const action = formData.get("action")?.toString();
@@ -59,10 +59,7 @@ export default async function NewTenantTypePage() {
   const data = await getPageData();
   return (
     <div>
-      <TenantTypeForm 
-        allSubscriptionProducts={data.allSubscriptionProducts}
-        action={createTenantType}
-      />
+      <TenantTypeForm allSubscriptionProducts={data.allSubscriptionProducts} action={createTenantType} />
     </div>
   );
 }

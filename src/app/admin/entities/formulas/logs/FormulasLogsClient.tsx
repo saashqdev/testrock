@@ -204,7 +204,7 @@ export default function FormulaLogsClient({ data }: FormulaLogsClientProps) {
               title: t("shared.createdAt"),
               value: (item) => DateUtils.dateYMDHMS(item.createdAt),
               formattedValue: (item) => (
-                <div className="text-muted-foreground text-xs">{item.createdAt && <span>{DateUtils.dateYMDHMS(item.createdAt)}</span>}</div>
+                <div className="text-xs text-muted-foreground">{item.createdAt && <span>{DateUtils.dateYMDHMS(item.createdAt)}</span>}</div>
               ),
             },
           ]}

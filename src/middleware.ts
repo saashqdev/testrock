@@ -21,7 +21,7 @@ export function middleware(request: NextRequest) {
   requestHeaders.set("x-tenant-slug", tenantSlug);
 
   const response = NextResponse.next({ request: { headers: requestHeaders } });
-  
+
   // Set CSRF token cookie if it doesn't exist
   if (!request.cookies.get("csrf")) {
     const token = generateCSRFToken();

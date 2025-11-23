@@ -6,20 +6,20 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const data = await loader(props);
-  
+
   // Convert MetaTagsDto array to Next.js Metadata format
   const metadata: Metadata = {};
-  
+
   if (data?.metatags && Array.isArray(data.metatags)) {
     data.metatags.forEach((tag: any) => {
-      if ('title' in tag) {
+      if ("title" in tag) {
         metadata.title = tag.title;
-      } else if ('name' in tag && tag.name === 'description') {
+      } else if ("name" in tag && tag.name === "description") {
         metadata.description = tag.content;
       }
     });
   }
-  
+
   return metadata;
 }
 

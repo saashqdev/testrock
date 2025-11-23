@@ -45,7 +45,7 @@ export default function RowRepositoryClient({ company, updateCompanyAction }: Ro
             {
               name: "Explanation",
               render: (
-                <div className="prose border-border bg-background rounded-md border p-3">
+                <div className="prose rounded-md border border-border bg-background p-3">
                   <div>This demo has the following sections:</div>
                   <ol>
                     <li>
@@ -85,7 +85,7 @@ await companyRepository.updateText("name", "New name");`}
             {
               name: "Demo",
               render: (
-                <div className="border-border bg-background space-y-1 rounded-md border p-3">
+                <div className="space-y-1 rounded-md border border-border bg-background p-3">
                   <h3 className="font-medium">Update First Company</h3>
                   <div className="space-y-1">
                     {!companyModel ? (

@@ -103,7 +103,7 @@ export default function RunPromptFlowButtons({ idx, type, promptFlows, row, disa
           isLoading={isPending && currentFormData?.get("action") === "run-prompt-flow"}
           button={
             <div className={clsx(className)}>
-              <StarsIconFilled className="text-theme-500 h-4 w-4" />
+              <StarsIconFilled className="h-4 w-4 text-theme-500" />
             </div>
           }
           options={
@@ -145,7 +145,7 @@ export default function RunPromptFlowButtons({ idx, type, promptFlows, row, disa
             >
               {children ?? (
                 <div className={clsx(className)}>
-                  {type === "edit" ? <div className="text-xs">{item.actionTitle}</div> : <StarsIconFilled className="text-theme-500 h-3 w-3" />}
+                  {type === "edit" ? <div className="text-xs">{item.actionTitle}</div> : <StarsIconFilled className="h-3 w-3 text-theme-500" />}
                 </div>
               )}
             </ButtonSecondary>

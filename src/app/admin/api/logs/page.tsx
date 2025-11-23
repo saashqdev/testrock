@@ -16,13 +16,13 @@ type LoaderData = {
 export const loader = async (searchParams: URLSearchParams) => {
   await verifyUserHasPermission("admin.apiKeys.view");
   const headersList = await headers();
-  const request = new Request(`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}?${searchParams.toString()}`, {
+  const request = new Request(`${process.env.NEXT_PUBLIC_URL || "http://localhost:3000"}?${searchParams.toString()}`, {
     headers: headersList as any,
   });
-  
-  const { items, filterableProperties, pagination } = await ApiKeyLogService.getDetails({ 
-    request, 
-    params: {} 
+
+  const { items, filterableProperties, pagination } = await ApiKeyLogService.getDetails({
+    request,
+    params: {},
   });
   const data: LoaderData = {
     items,
@@ -32,18 +32,14 @@ export const loader = async (searchParams: URLSearchParams) => {
   return data;
 };
 
-export default async function AdminApiLogsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default async function AdminApiLogsPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const params = await searchParams;
   const urlSearchParams = new URLSearchParams();
-  
+
   Object.entries(params).forEach(([key, value]) => {
     if (value) {
       if (Array.isArray(value)) {
-        value.forEach(v => urlSearchParams.append(key, v));
+        value.forEach((v) => urlSearchParams.append(key, v));
       } else {
         urlSearchParams.append(key, value);
       }
@@ -51,7 +47,7 @@ export default async function AdminApiLogsPage({
   });
 
   const data = await loader(urlSearchParams);
-  
+
   return (
     <EditPageLayout title="API Calls">
       <ApiKeyLogsDetails data={data} />

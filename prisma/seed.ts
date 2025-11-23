@@ -103,7 +103,7 @@ async function seed() {
   }
 
   // Permissions
-  await seedRolesAndPermissions(adminUser.email);  
+  await seedRolesAndPermissions(adminUser.email);
 
   console.log("✅ Seed completed successfully!");
   await prisma.$disconnect();
@@ -169,10 +169,10 @@ async function createTenant(slug: string, name: string, users: { id: string; typ
     console.log(`ℹ️ Tenant already exists`, slug);
     return tenant;
   }
-  
+
   // Generate a simple inbound address
   const address = await getAvailableTenantInboundAddress(name);
-  
+
   tenant = await prisma.tenant.create({
     data: {
       name,

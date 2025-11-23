@@ -17,7 +17,7 @@ export default function MyInvoices({ items }: Props) {
   const { t } = useTranslation();
   // Filter out invoices without IDs (required by TableSimple)
   const validInvoices = items.filter((item): item is Stripe.Invoice & { id: string } => !!item.id);
-  
+
   return (
     <div className="space-y-2">
       <div className="text-sm font-medium">{t("app.subscription.invoices.title")}</div>

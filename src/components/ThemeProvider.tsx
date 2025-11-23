@@ -15,7 +15,7 @@ export default function ThemeProvider({ scheme, theme }: ThemeProviderProps) {
     const htmlElement = document.documentElement;
     const shouldBeDark = scheme === "dark";
     const isDark = htmlElement.classList.contains("dark");
-    
+
     // Only update if there's a mismatch
     if (shouldBeDark && !isDark) {
       htmlElement.classList.add("dark");
@@ -26,7 +26,7 @@ export default function ThemeProvider({ scheme, theme }: ThemeProviderProps) {
     // Handle theme classes
     const currentThemeClass = `theme-${theme}`;
     const themeClasses = Array.from(htmlElement.classList).filter((cls) => cls.startsWith("theme-"));
-    
+
     // Only update if the theme class is different
     if (!themeClasses.includes(currentThemeClass)) {
       themeClasses.forEach((cls) => htmlElement.classList.remove(cls));

@@ -84,7 +84,7 @@ export default function FormulaForm({ item, onDelete, updateFormula, deleteFormu
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    
+
     if (!updateFormula) {
       // Fallback to traditional form submission if no Server Action provided
       e.currentTarget.submit();
@@ -92,9 +92,9 @@ export default function FormulaForm({ item, onDelete, updateFormula, deleteFormu
     }
 
     setError(null);
-    
+
     const formData = new FormData(e.currentTarget);
-    
+
     startTransition(async () => {
       try {
         await updateFormula(formData);
@@ -112,11 +112,7 @@ export default function FormulaForm({ item, onDelete, updateFormula, deleteFormu
           return <input type="hidden" name="components[]" value={JSON.stringify(component)} key={index} hidden readOnly />;
         })}
 
-        {error && (
-          <div className="mb-4 rounded-md bg-destructive/10 p-3 text-sm text-destructive">
-            {error}
-          </div>
-        )}
+        {error && <div className="mb-4 rounded-md bg-destructive/10 p-3 text-sm text-destructive">{error}</div>}
 
         <div className="grid grid-cols-2 gap-2">
           <InputText autoFocus name="name" title="Name" value={name} setValue={setName} required />
@@ -193,10 +189,7 @@ export default function FormulaForm({ item, onDelete, updateFormula, deleteFormu
             )}
           </div>
           <div className="flex space-x-2">
-            <ButtonSecondary 
-              onClick={() => onCancel ? onCancel() : router.push("/admin/entities/formulas")} 
-              disabled={isPending}
-            >
+            <ButtonSecondary onClick={() => (onCancel ? onCancel() : router.push("/admin/entities/formulas"))} disabled={isPending}>
               {t("shared.cancel")}
             </ButtonSecondary>
             <LoadingButton actionName={getActionName()} type="submit" disabled={isPending}>

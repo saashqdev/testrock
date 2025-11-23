@@ -37,7 +37,7 @@ export default function NotificationChannelsPage({ items }: PageProps) {
     startTransition(async () => {
       try {
         const result = await handleNotificationAction(formData);
-        
+
         if (result.error) {
           toast.error(result.error);
         } else if (result.success) {
@@ -66,9 +66,9 @@ export default function NotificationChannelsPage({ items }: PageProps) {
   return (
     <>
       <div className="mx-auto w-full max-w-5xl space-y-3 px-4 py-2 pb-6 sm:px-6 sm:pt-3 lg:px-8 xl:max-w-full">
-        <div className="md:border-border md:border-b md:py-2">
+        <div className="md:border-b md:border-border md:py-2">
           <div className="flex items-center justify-between">
-            <h3 className="text-foreground text-lg font-medium leading-6">Channels / Notification templates</h3>
+            <h3 className="text-lg font-medium leading-6 text-foreground">Channels / Notification templates</h3>
             {!showSetup && <ButtonSecondary onClick={() => setShowSetup(true)}>Show set up instructions</ButtonSecondary>}
           </div>
         </div>
@@ -89,9 +89,7 @@ function SetUpInstructions() {
   return (
     <InfoBanner title="Default In-app Notifications" text="">
       <div className="space-y-2">
-        <div>
-          Follow the setup instructions for notification channels.
-        </div>
+        <div>Follow the setup instructions for notification channels.</div>
       </div>
     </InfoBanner>
   );

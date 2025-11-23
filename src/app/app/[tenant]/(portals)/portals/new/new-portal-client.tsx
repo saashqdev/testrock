@@ -20,7 +20,7 @@ export default function NewPortalClient() {
   const portalsConfig = rootData.appConfiguration.portals;
 
   const mainInput = useRef<RefInputText>(null);
-  
+
   useEffect(() => {
     setTimeout(() => {
       mainInput.current?.input.current?.focus();
@@ -102,8 +102,8 @@ export default function NewPortalClient() {
                 required
                 className="rounded-r-none"
                 button={
-                  <div className="bg-secondary/90 rounded rounded-l-none border border-l-0 px-3 py-1">
-                    <kbd className="border-border text-muted-foreground inline-flex items-center justify-center px-1 text-center font-sans text-xs font-medium">
+                  <div className="rounded rounded-l-none border border-l-0 bg-secondary/90 px-3 py-1">
+                    <kbd className="inline-flex items-center justify-center border-border px-1 text-center font-sans text-xs font-medium text-muted-foreground">
                       .{rootData.appConfiguration.app.domain}
                     </kbd>
                   </div>

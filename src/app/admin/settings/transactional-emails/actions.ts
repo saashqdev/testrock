@@ -42,7 +42,7 @@ export async function handleEmailAction(formData: FormData): Promise<ActionResul
         }
 
         await createPostmarkEmailTemplates(alias);
-        
+
         revalidatePath("/admin/settings/transactional-emails");
         return { success: "Template created" };
       } catch (e: any) {
@@ -56,7 +56,7 @@ export async function handleEmailAction(formData: FormData): Promise<ActionResul
           return { error: `Alias ${alias} not found` };
         }
         await deleteEmailTemplate(alias);
-        
+
         revalidatePath("/admin/settings/transactional-emails");
         return { success: "Template deleted" };
       } catch (e: any) {
@@ -75,7 +75,7 @@ export async function handleEmailAction(formData: FormData): Promise<ActionResul
 
       const appConfiguration = await db.appConfiguration.getAppConfiguration();
       const user = await requireUser({} as any);
-      
+
       try {
         await sendEmail({
           to: email,
@@ -113,9 +113,9 @@ export async function handleUpdateAppConfiguration(formData: FormData): Promise<
       emailFromName: formData.get("emailFromName")?.toString(),
       emailSupportEmail: formData.get("emailSupportEmail")?.toString(),
     };
-    
+
     await db.appConfiguration.updateAppConfiguration(data);
-    
+
     const apiKey = formData.get("apiKey")?.toString();
     if (data.emailProvider && apiKey !== undefined && apiKey !== "") {
       await prisma.credential.upsert({
@@ -124,7 +124,7 @@ export async function handleUpdateAppConfiguration(formData: FormData): Promise<
         create: { name: data.emailProvider, value: apiKey },
       });
     }
-    
+
     revalidatePath("/admin/settings/transactional-emails");
     return { success: t("shared.updated") };
   } catch (error: any) {

@@ -47,8 +47,8 @@ export default async function KnowledgeBasePage(props: IServerComponentsProps) {
   const data = await getData(props);
   return (
     <div className="mx-auto mb-12 max-w-5xl space-y-5 px-4 py-4 sm:px-6 lg:px-8 xl:max-w-7xl">
-      <div className="border-border border-b pb-5">
-        <h3 className="text-foreground text-lg leading-6 font-medium">Overview</h3>
+      <div className="border-b border-border pb-5">
+        <h3 className="text-lg font-medium leading-6 text-foreground">Overview</h3>
       </div>
       <dl className="grid gap-2 sm:grid-cols-3">
         <SummaryCard title="Knowledge Bases" value={data.summary.kbsTotal} />
@@ -64,11 +64,11 @@ export default async function KnowledgeBasePage(props: IServerComponentsProps) {
 
 function SummaryCard({ title, value }: { title: string; value: number }) {
   return (
-    <div className="bg-card border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs">
-      <dt className="text-muted-foreground truncate text-xs font-medium uppercase">
+    <div className="shadow-xs overflow-hidden rounded-lg border border-border bg-card px-4 py-3">
+      <dt className="truncate text-xs font-medium uppercase text-muted-foreground">
         <div>{title}</div>
       </dt>
-      <dd className="text-foreground mt-1 truncate text-2xl font-semibold">{NumberUtils.intFormat(value)}</dd>
+      <dd className="mt-1 truncate text-2xl font-semibold text-foreground">{NumberUtils.intFormat(value)}</dd>
     </div>
   );
 }

@@ -26,16 +26,16 @@ type PageData = {
 async function getData(props: IServerComponentsProps): Promise<PageData> {
   const params = (await props.params) || {};
   await verifyUserHasPermission("admin.onboarding.update");
-  
+
   const item = await db.onboarding.getOnboarding(params.id!);
   if (!item) {
     redirect("/admin/onboarding/onboardings");
   }
-  
+
   const items = await db.onboardingSessions.getOnboardingSessions({
     onboardingId: item.id,
   });
-  
+
   return {
     item,
     items,
@@ -45,26 +45,26 @@ async function getData(props: IServerComponentsProps): Promise<PageData> {
 
 async function deleteSession(id: string) {
   "use server";
-  
+
   const { t } = await getServerTranslations();
-  
+
   if (!id) {
     return { error: "Session ID is required" };
   }
-  
+
   const session = await db.onboardingSessions.getOnboardingSession(id);
   if (!session) {
     return { error: "Session not found" };
   }
-  
+
   await db.onboardingSessionStep.deleteOnboardingSessionSteps(session.sessionSteps.map((s) => s.id));
   await db.onboardingSessions.deleteOnboardingSession(id);
-  
+
   return { success: "Onboarding session deleted" };
 }
 
 export default async function OnboardingSessionsPage(props: IServerComponentsProps) {
   const data = await getData(props);
-  
+
   return <OnboardingSessionsClient data={data} deleteSession={deleteSession} />;
 }

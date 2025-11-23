@@ -1,12 +1,14 @@
 export interface IPromptFlowInputVariablesDb {
-  getPromptFlowVariables(promptFlowId: string): Promise<{
-    name: string;
-    id: string;
-    promptFlowId: string;
-    type: string;
-    title: string;
-    isRequired: boolean;
-  }[]>;  
+  getPromptFlowVariables(promptFlowId: string): Promise<
+    {
+      name: string;
+      id: string;
+      promptFlowId: string;
+      type: string;
+      title: string;
+      isRequired: boolean;
+    }[]
+  >;
   getPromptFlowVariable(id: string): Promise<{
     name: string;
     id: string;

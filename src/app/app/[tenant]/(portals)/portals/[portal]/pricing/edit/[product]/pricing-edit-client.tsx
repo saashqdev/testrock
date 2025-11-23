@@ -53,13 +53,7 @@ export default function PricingEditClient({ data, params, submitAction }: Pricin
       ]}
     >
       <form action={formAction}>
-        <PricingPlanForm 
-          item={data.item} 
-          plans={data.plans} 
-          canUpdate={true} 
-          canDelete={true} 
-          isPortalPlan={true}
-        />
+        <PricingPlanForm item={data.item} plans={data.plans} canUpdate={true} canDelete={true} isPortalPlan={true} />
       </form>
     </EditPageLayout>
   );

@@ -11,18 +11,18 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 // Server Action for handling form submissions
 async function handleWorkflowAction(formData: FormData): Promise<ActionData | void> {
   "use server";
-  
+
   const request = new Request("http://localhost", {
     method: "POST",
     body: formData,
   });
-  
+
   const props: IServerComponentsProps = {
     params: Promise.resolve({}),
     searchParams: Promise.resolve({}),
     request,
   };
-  
+
   try {
     const result = await action(props);
     // If action returns a Response object, extract the JSON data

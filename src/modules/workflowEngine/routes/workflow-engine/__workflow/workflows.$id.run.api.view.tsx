@@ -216,7 +216,7 @@ export default function WorkflowsIdRunApiApiView({ data }: { data: LoaderData })
                       value={waitingBlockInput}
                       onChange={(e) => setWaitingBlockInput(e.currentTarget.value)}
                       className={clsx(
-                        "focus:ring-theme-600 block w-full rounded-md border-0 py-3 pr-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-muted-foreground focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
+                        "block w-full rounded-md border-0 py-3 pr-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-theme-600 sm:text-sm sm:leading-6",
                         "bg-white"
                       )}
                       placeholder={execution.waitingBlock.input.placeholder}

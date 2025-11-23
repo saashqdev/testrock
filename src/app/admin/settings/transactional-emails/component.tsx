@@ -53,13 +53,13 @@ export default function TransactionalEmailsClient({ initialData }: Transactional
     if (!email || email.trim() === "") {
       return;
     }
-    
+
     setIsSubmitting(true);
     const formData = new FormData();
     formData.set("action", "send-test");
     formData.set("template", templateName);
     formData.set("email", email);
-    
+
     startTransition(async () => {
       const result = await handleEmailAction(formData);
       setIsSubmitting(false);
@@ -75,7 +75,7 @@ export default function TransactionalEmailsClient({ initialData }: Transactional
     setIsSubmitting(true);
     const formData = new FormData();
     formData.set("action", "create-postmark-email-templates");
-    
+
     startTransition(async () => {
       const result = await handleEmailAction(formData);
       setIsSubmitting(false);
@@ -90,9 +90,9 @@ export default function TransactionalEmailsClient({ initialData }: Transactional
   async function handleSubmitSettings(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSubmitting(true);
-    
+
     const formData = new FormData(event.currentTarget);
-    
+
     startTransition(async () => {
       const result = await handleUpdateAppConfiguration(formData);
       setIsSubmitting(false);
@@ -210,11 +210,23 @@ export default function TransactionalEmailsClient({ initialData }: Transactional
             </div>
             <div className="sm:col-span-6">
               <Label className="mb-1 block text-xs">From name</Label>
-              <Input autoComplete="name" name="emailFromName" defaultValue={initialData.appConfiguration.email.fromName} placeholder="" className="bg-background" />
+              <Input
+                autoComplete="name"
+                name="emailFromName"
+                defaultValue={initialData.appConfiguration.email.fromName}
+                placeholder=""
+                className="bg-background"
+              />
             </div>
             <div className="sm:col-span-12">
               <Label className="mb-1 block text-xs">Support email</Label>
-              <Input type="email" name="emailSupportEmail" defaultValue={initialData.appConfiguration.email.supportEmail} placeholder="" className="bg-background" />
+              <Input
+                type="email"
+                name="emailSupportEmail"
+                defaultValue={initialData.appConfiguration.email.supportEmail}
+                placeholder=""
+                className="bg-background"
+              />
             </div>
 
             {settingApiKey && (
@@ -236,12 +248,7 @@ export default function TransactionalEmailsClient({ initialData }: Transactional
                 <div className="flex justify-start text-left">Change API Key</div>
               </Button>
             </div>
-            <Button
-              variant="outline"
-              type="submit"
-              disabled={isSubmitting || isPending}
-              className={cn((isSubmitting || isPending) && "base-spinner")}
-            >
+            <Button variant="outline" type="submit" disabled={isSubmitting || isPending} className={cn((isSubmitting || isPending) && "base-spinner")}>
               {t("shared.save")}
             </Button>
           </div>

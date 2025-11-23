@@ -19,9 +19,9 @@ const AudioOrVideoPlayer = ({ url, type }: { url: string; type: "audio" | "video
   return (
     <div className="w-full">
       {type === "video" ? (
-        <video ref={videoRef} src={url} controls className="border-border bg-secondary/90 w-full rounded-md border shadow-2xs" />
+        <video ref={videoRef} src={url} controls className="shadow-2xs w-full rounded-md border border-border bg-secondary/90" />
       ) : type === "audio" ? (
-        <audio ref={audioRef} src={url} controls className="border-border bg-secondary/90 w-full rounded-md border shadow-2xs" />
+        <audio ref={audioRef} src={url} controls className="shadow-2xs w-full rounded-md border border-border bg-secondary/90" />
       ) : null}
     </div>
   );

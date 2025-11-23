@@ -76,7 +76,7 @@ export default function SidebarLayout({ layout, children, menuItems, className =
 
       <div
         suppressHydrationWarning
-        className={clsx("text-foreground bg-secondary/90 flex overflow-hidden", className)}
+        className={clsx("flex overflow-hidden bg-secondary/90 text-foreground", className)}
         style={{
           colorScheme: "light",
         }}
@@ -96,7 +96,7 @@ export default function SidebarLayout({ layout, children, menuItems, className =
                 leaveTo="opacity-0"
               >
                 <div className="fixed inset-0">
-                  <div className="bg-foreground/90 absolute inset-0 opacity-75" />
+                  <div className="absolute inset-0 bg-foreground/90 opacity-75" />
                 </div>
               </Transition>
 
@@ -113,7 +113,7 @@ export default function SidebarLayout({ layout, children, menuItems, className =
                 <div className="relative flex w-full max-w-xs flex-1 flex-col bg-gray-900">
                   <div className="absolute right-0 top-0 -mr-14 mt-2 p-1">
                     <button
-                      className="flex h-12 w-12 items-center justify-center rounded-sm focus:bg-gray-600 focus:outline-hidden"
+                      className="focus:outline-hidden flex h-12 w-12 items-center justify-center rounded-sm focus:bg-gray-600"
                       aria-label="Close sidebar"
                       onClick={() => setSidebarOpen(!sidebarOpen)}
                     >
@@ -149,11 +149,11 @@ export default function SidebarLayout({ layout, children, menuItems, className =
           className={
             sidebarOpen
               ? "hidden transition duration-1000 ease-in"
-              : "border-border dark:border-border hidden overflow-x-hidden border-r shadow-2xs md:flex md:shrink-0 dark:border-r-0 dark:shadow-lg"
+              : "shadow-2xs hidden overflow-x-hidden border-r border-border dark:border-r-0 dark:border-border dark:shadow-lg md:flex md:shrink-0"
           }
         >
           <div className="flex w-64 flex-col">
-            <div className="bg-theme-600 flex h-0 flex-1 flex-col shadow-md">
+            <div className="flex h-0 flex-1 flex-col bg-theme-600 shadow-md">
               <div className="flex flex-1 flex-col overflow-y-auto">
                 <nav className="flex-1 select-none space-y-3 bg-gray-900 px-2 py-4">
                   <div className="flex flex-col space-y-2">
@@ -172,9 +172,9 @@ export default function SidebarLayout({ layout, children, menuItems, className =
 
         {/*Content */}
         <div className="flex w-0 flex-1 flex-col overflow-hidden">
-          <div className="border-border bg-background relative flex h-14 shrink-0 border-b shadow-inner">
+          <div className="relative flex h-14 shrink-0 border-b border-border bg-background shadow-inner">
             <button
-              className="border-border text-muted-foreground focus:text-muted-foreground focus:bg-secondary/90 border-r px-4 focus:outline-hidden"
+              className="focus:outline-hidden border-r border-border px-4 text-muted-foreground focus:bg-secondary/90 focus:text-muted-foreground"
               aria-label="Open sidebar"
               onClick={() => setSidebarOpen(!sidebarOpen)}
             >
@@ -200,7 +200,7 @@ export default function SidebarLayout({ layout, children, menuItems, className =
             />
           </div>
 
-          <main ref={mainElement} className="bg-secondary flex-1 overflow-y-auto focus:outline-hidden" tabIndex={0}>
+          <main ref={mainElement} className="focus:outline-hidden flex-1 overflow-y-auto bg-secondary" tabIndex={0}>
             <div key={Array.isArray(params?.tenant) ? params.tenant.join("-") : params?.tenant} className="pb-20 sm:pb-0">
               {children}
             </div>
@@ -261,9 +261,7 @@ function NavBar({
         {buttons.search && <SearchButton onClick={onOpenCommandPalette} />}
         {layout === "app" && buttons.feedback && <AddFeedbackButton />}
         {layout === "app" && buttons.chatSupport && <ChatSupportButton />}
-        {layout === "app" && buttons.quickActions && (
-          <QuickActionsButton entities={appOrAdminData?.entities?.filter((f) => f.showInSidebar) || []} />
-        )}
+        {layout === "app" && buttons.quickActions && <QuickActionsButton entities={appOrAdminData?.entities?.filter((f) => f.showInSidebar) || []} />}
         {(layout === "app" || layout === "admin") && <ThemeSelector variant="secondary" />}
         {(layout === "app" || layout === "admin") && <ProfileButton user={appOrAdminData?.user} layout={layout} />}
       </div>

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { createContext, useContext, useEffect, useRef } from "react";
 import { TenantUserType } from "@/lib/enums/tenants/TenantUserType";
@@ -20,19 +20,19 @@ export const AppDataContext = createContext<AppDataDto | null>(null);
 
 export default function useAppData(): AppLoaderData | null {
   const context = useContext(AppDataContext);
-  
+
   // Only set entities singleton when context.entities actually changes
   const entitiesRef = useRef<EntityWithDetailsDto[] | null>(null);
-  
+
   useEffect(() => {
     if (context?.entities && context.entities !== entitiesRef.current) {
       entitiesRef.current = context.entities;
       EntitiesSingleton.getInstance().setEntities(context.entities);
     }
   }, [context?.entities]);
-  
+
   if (!context) {
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       // During SSR, return a minimal object with default values that match the expected structure
       // This ensures consistent rendering between server and client
       return {

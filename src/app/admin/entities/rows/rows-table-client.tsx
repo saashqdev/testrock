@@ -46,7 +46,7 @@ export default function RowsTableClient({ items, entities, pagination }: RowsTab
               {item.tenant ? (
                 <Link
                   href={UrlUtils.currentTenantUrl({ tenant: item.tenant.slug }, "")}
-                  className="focus:bg-secondary/90 hover:border-border rounded-md border-b border-dashed border-transparent"
+                  className="rounded-md border-b border-dashed border-transparent hover:border-border focus:bg-secondary/90"
                 >
                   {item.tenant.name}
                 </Link>
@@ -76,7 +76,7 @@ export default function RowsTableClient({ items, entities, pagination }: RowsTab
           title: t("models.log.plural"),
           value: (item) => (
             <Link href={"/admin/entities/logs?rowId=" + item.id}>
-              <ActivityHistoryIcon className="hover:text-theme-800 text-muted-foreground h-4 w-4" />
+              <ActivityHistoryIcon className="h-4 w-4 text-muted-foreground hover:text-theme-800" />
             </Link>
           ),
         },

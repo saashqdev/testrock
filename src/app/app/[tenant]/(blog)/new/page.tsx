@@ -13,13 +13,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogNewPage({ params }: Props) {
   const resolvedParams = await params;
-  
+
   // Create a mock request object for the loader
   const request = new Request(`${process.env.NEXTAUTH_URL}/app/${resolvedParams.tenant}/blog/new`);
-  const data = await loader({ 
-    request, 
-    params: resolvedParams 
+  const data = await loader({
+    request,
+    params: resolvedParams,
   });
-  
+
   return <BlogNewView data={data} />;
 }

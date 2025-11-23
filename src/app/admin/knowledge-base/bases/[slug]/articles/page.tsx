@@ -29,10 +29,10 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
   if (!knowledgeBase) {
     return redirect("/admin/knowledge-base/bases");
   }
-  
+
   // Use default language if not specified
-  const defaultLang = knowledgeBase.defaultLanguage || knowledgeBase.languages[0] || 'en';
-  
+  const defaultLang = knowledgeBase.defaultLanguage || knowledgeBase.languages[0] || "en";
+
   const urlSearchParams = new URL(request.url).searchParams;
   const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
   const filterableProperties: FilterablePropertyDto[] = [
@@ -93,7 +93,7 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
 async function handleNewArticle(kb: KnowledgeBaseDto, params: any, userId: string) {
   "use server";
   await verifyUserHasPermission(undefined as any, "admin.kb.create");
-  const defaultLang = kb.defaultLanguage || kb.languages[0] || 'en';
+  const defaultLang = kb.defaultLanguage || kb.languages[0] || "en";
   const created = await KnowledgeBaseService.newArticle({
     kb,
     params: { ...params, lang: defaultLang },
@@ -106,7 +106,7 @@ async function handleNewArticle(kb: KnowledgeBaseDto, params: any, userId: strin
 async function handleDuplicate(kb: KnowledgeBaseDto, articleId: string) {
   "use server";
   await verifyUserHasPermission(undefined as any, "admin.kb.create");
-  const defaultLang = kb.defaultLanguage || kb.languages[0] || 'en';
+  const defaultLang = kb.defaultLanguage || kb.languages[0] || "en";
   const item = await KnowledgeBaseService.duplicateArticle({ kb, language: defaultLang, articleId });
   redirect(`/admin/knowledge-base/bases/${kb.slug}/articles/${defaultLang}/${item.id}`);
 }
@@ -114,7 +114,7 @@ async function handleDuplicate(kb: KnowledgeBaseDto, articleId: string) {
 async function handleToggleFeatured(itemId: string, isFeatured: boolean, kb: KnowledgeBaseDto) {
   "use server";
   await verifyUserHasPermission(undefined as any, "admin.kb.update");
-  
+
   const item = await db.kbArticles.getKbArticleById(itemId);
   if (!item) {
     throw new Error("Not found");
@@ -145,19 +145,19 @@ async function handleToggleFeatured(itemId: string, isFeatured: boolean, kb: Kno
 export default async function ArticlesPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const request = props.request!;
-  
+
   await verifyUserHasPermission("admin.kb.view");
-  
+
   const data = await getData(props);
   const userInfo = await getUserInfo();
-  
+
   // Add default language to params
-  const defaultLang = data.knowledgeBase.defaultLanguage || data.knowledgeBase.languages[0] || 'en';
+  const defaultLang = data.knowledgeBase.defaultLanguage || data.knowledgeBase.languages[0] || "en";
   const paramsWithLang = { ...params, lang: defaultLang };
 
   return (
-    <ArticlesClient 
-      data={data} 
+    <ArticlesClient
+      data={data}
       params={paramsWithLang}
       onNewArticle={async () => {
         "use server";

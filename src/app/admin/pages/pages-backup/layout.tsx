@@ -14,14 +14,10 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function AdminPagesLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function AdminPagesLayout({ children }: { children: React.ReactNode }) {
   await verifyUserHasPermission("admin.pages.view");
   const { t } = await getServerTranslations();
-  
+
   return (
     <SidebarIconsLayout
       label={{ align: "right" }}

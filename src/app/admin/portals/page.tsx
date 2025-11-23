@@ -58,12 +58,5 @@ export default async function AdminPortalsPage(props: IServerComponentsProps) {
 
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
 
-  return (
-    <Component
-      items={itemsWithUrl}
-      filterableProperties={filterableProperties}
-      pagination={pagination}
-      appConfiguration={appConfiguration}
-    />
-  );
+  return <Component items={itemsWithUrl} filterableProperties={filterableProperties} pagination={pagination} appConfiguration={appConfiguration} />;
 }

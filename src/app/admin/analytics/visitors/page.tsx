@@ -63,8 +63,8 @@ async function getVisitorsData(searchParams: { [key: string]: string | string[] 
 }
 
 export default async function AdminAnalyticsVisitorsPage(props: IServerComponentsProps) {
-  const searchParams = await props.searchParams || {};
+  const searchParams = (await props.searchParams) || {};
   const data = await getVisitorsData(searchParams);
-  
+
   return <AdminAnalyticsVisitorsClient data={data} />;
 }

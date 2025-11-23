@@ -71,7 +71,7 @@ export default function HeroVariantRightImage({ item }: { item: HeroBlockDto }) 
           </div>
         </div>
         <div className="dark:border-border-300 w-5/6 rounded-lg border-2 border-dashed border-border md:w-1/2 lg:w-full lg:max-w-lg">
-          <Image className="object-cover h-96 rounded" alt="hero" src={item.image ?? "https://dummyimage.com/720x600"} />
+          <Image className="h-96 rounded object-cover" alt="hero" src={item.image ?? "https://dummyimage.com/720x600"} />
         </div>
       </div>
     </section>

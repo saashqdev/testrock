@@ -59,7 +59,7 @@ export default function Component({ data, onAction }: { data: LoaderData; onActi
   function pendingDefaultPages() {
     return defaultPages.filter((defaultPage) => !data.items.find((f) => f.slug === defaultPage));
   }
-  
+
   function onCreateDefault() {
     const form = new FormData();
     form.append("action", "create-default");
@@ -70,13 +70,13 @@ export default function Component({ data, onAction }: { data: LoaderData; onActi
       }
     });
   }
-  
+
   return (
     <div>
       <div className="mx-auto mb-12 max-w-5xl space-y-5 px-4 py-4 sm:px-6 lg:px-8 xl:max-w-7xl">
-        <div className="md:border-border md:border-b md:py-2">
+        <div className="md:border-b md:border-border md:py-2">
           <div className="flex items-center justify-between">
-            <h3 className="text-foreground text-lg font-medium leading-6">{t("pages.title")}</h3>
+            <h3 className="text-lg font-medium leading-6 text-foreground">{t("pages.title")}</h3>
             <div className="flex items-center space-x-2">
               {pendingDefaultPages().length > 0 && pendingDefaultPages().length !== defaultPages.length && (
                 <ButtonSecondary onClick={onCreateDefault} disabled={pending}>
@@ -95,11 +95,11 @@ export default function Component({ data, onAction }: { data: LoaderData; onActi
             type="button"
             onClick={onCreateDefault}
             disabled={pending}
-            className="border-border hover:border-border relative block w-full rounded-lg border-2 border-dashed p-12 text-center focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
+            className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border p-12 text-center hover:border-border focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
           >
             <div className="flex flex-col space-y-2">
-              <div className="text-foreground text-sm font-medium">{t("pages.actions.createDefault")}</div>
-              <div className="text-muted-foreground text-sm">
+              <div className="text-sm font-medium text-foreground">{t("pages.actions.createDefault")}</div>
+              <div className="text-sm text-muted-foreground">
                 {t("pages.actions.createDefaultDescription")}: {defaultPages.join(", ")}
               </div>
             </div>
@@ -114,7 +114,7 @@ export default function Component({ data, onAction }: { data: LoaderData; onActi
                 value: (item) => (
                   <div className="flex flex-col">
                     <div className="flex items-center space-x-2">
-                      <div className="text-foreground font-medium">{item.slug}</div>
+                      <div className="font-medium text-foreground">{item.slug}</div>
                       {item.page?.isPublished && (
                         <Link href={item.slug} target="_blank" className="text-muted-foreground hover:text-foreground">
                           <ExternalLinkEmptyIcon className="h-4 w-4" />
@@ -122,7 +122,10 @@ export default function Component({ data, onAction }: { data: LoaderData; onActi
                       )}
                     </div>
                     {item.page?.isPublished !== undefined && (
-                      <SimpleBadge title={item.page.isPublished ? t("shared.published") : t("shared.draft")} color={item.page.isPublished ? Colors.GREEN : Colors.GRAY} />
+                      <SimpleBadge
+                        title={item.page.isPublished ? t("shared.published") : t("shared.draft")}
+                        color={item.page.isPublished ? Colors.GREEN : Colors.GRAY}
+                      />
                     )}
                   </div>
                 ),
@@ -172,14 +175,14 @@ function AddPageForm({
     <form onSubmit={onSubmit} className="inline-block w-full overflow-hidden p-1 text-left align-bottom sm:align-middle">
       <input type="hidden" name="action" value="new" readOnly hidden />
       <div className="space-y-2">
-        <div className="border-border border-b px-4 py-5 sm:p-6">
+        <div className="border-b border-border px-4 py-5 sm:p-6">
           <div className="grid grid-cols-6 gap-2">
             <div className="col-span-6">
-              <label htmlFor="slug" className="text-foreground block text-xs font-medium sm:text-sm">
+              <label htmlFor="slug" className="block text-xs font-medium text-foreground sm:text-sm">
                 {t("pages.slug")}
               </label>
               <div className="mt-1 flex rounded-md shadow-sm">
-                <span className="border-border bg-muted text-muted-foreground inline-flex items-center rounded-l-md border border-r-0 px-3 text-sm">/</span>
+                <span className="inline-flex items-center rounded-l-md border border-r-0 border-border bg-muted px-3 text-sm text-muted-foreground">/</span>
                 <input
                   type="text"
                   id="slug"
@@ -189,13 +192,15 @@ function AddPageForm({
                   value={slug}
                   onChange={(e) => setSlug(e.target.value)}
                   className={clsx(
-                    "border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-accent-foreground focus:ring-accent-foreground block w-full min-w-0 flex-1 rounded-none rounded-r-md border px-3 py-2 text-sm focus:outline-none focus:ring-1 sm:text-sm",
+                    "block w-full min-w-0 flex-1 rounded-none rounded-r-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-accent-foreground focus:outline-none focus:ring-1 focus:ring-accent-foreground sm:text-sm",
                     isSubpage1 && "rounded-r-none border-r-0"
                   )}
                   placeholder="pricing"
                 />
                 {isSubpage1 && (
-                  <span className="border-border bg-muted text-muted-foreground inline-flex items-center rounded-r-md border border-l-0 px-3 text-sm">/:id</span>
+                  <span className="inline-flex items-center rounded-r-md border border-l-0 border-border bg-muted px-3 text-sm text-muted-foreground">
+                    /:id
+                  </span>
                 )}
               </div>
             </div>
@@ -215,7 +220,7 @@ function AddPageForm({
             </div>
           </div>
         </div>
-        <div className="bg-muted flex justify-between space-x-2 px-4 py-3 sm:px-6">
+        <div className="flex justify-between space-x-2 bg-muted px-4 py-3 sm:px-6">
           <div></div>
           <div className="flex space-x-2">
             <ButtonSecondary disabled={disabled} type="button" onClick={onCancel}>

@@ -18,7 +18,7 @@ export default function RowsLoadMoreCard({
   const [searchParams] = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams?.toString() || "");
   const router = useRouter();
-  
+
   function theresMore() {
     if (!pagination) {
       return false;
@@ -31,7 +31,7 @@ export default function RowsLoadMoreCard({
         <div className={className}>
           <button
             type="button"
-            className="border-border hover:border-border group inline-block h-full w-full truncate rounded-md border-2 border-dashed p-4 text-left align-middle shadow-2xs hover:border-dotted hover:bg-slate-100"
+            className="shadow-2xs group inline-block h-full w-full truncate rounded-md border-2 border-dashed border-border p-4 text-left align-middle hover:border-dotted hover:border-border hover:bg-slate-100"
             onClick={() => {
               if (!pagination) {
                 return;
@@ -52,7 +52,7 @@ export default function RowsLoadMoreCard({
               router.push(`${window.location.pathname}?${newSearchParams.toString()}`, { scroll: false });
             }}
           >
-            <div className="text-foreground/80 mx-auto flex justify-center text-center align-middle text-sm font-medium">{t("shared.loadMore")}</div>
+            <div className="mx-auto flex justify-center text-center align-middle text-sm font-medium text-foreground/80">{t("shared.loadMore")}</div>
           </button>
         </div>
       )}

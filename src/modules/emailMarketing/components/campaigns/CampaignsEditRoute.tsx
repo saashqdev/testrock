@@ -14,7 +14,7 @@ import InputText from "@/components/ui/input/InputText";
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
-import { RowWithDetailsDto} from "@/db/models/entityBuilder/RowsModel";
+import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
 import { LoaderData, ActionData } from "../../routes/Campaigns_Edit";
 import OutboundEmailsTable from "../OutboundEmailsTable";
 import toast from "react-hot-toast";
@@ -318,14 +318,14 @@ export default function CampaignsEditRoute({ data, actionData, onSubmit }: Campa
             <div className="">
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <div className="text-foreground text-sm font-medium">
+                  <div className="text-sm font-medium text-foreground">
                     {filteredRecipients().length === 1 ? t("emails.object") : t("emails.plural", { 0: data.item.recipients.length })} (
                     {data.item.recipients.length})
                   </div>
                 </div>
 
                 <InputSearch value={searchInput} onChange={setSearchInput} />
-                <div className="bg-background max-h-96 overflow-auto rounded-md shadow-md">
+                <div className="max-h-96 overflow-auto rounded-md bg-background shadow-md">
                   <OutboundEmailsTable allEntities={data.allEntities} items={filteredRecipients()} />
                 </div>
                 <div className="flex justify-end">
@@ -342,12 +342,7 @@ export default function CampaignsEditRoute({ data, actionData, onSubmit }: Campa
               <div className="flex items-center justify-between">
                 <div>
                   {data.item.status === "draft" && (
-                    <ButtonSecondary
-                      destructive
-                      onClick={onDelete}
-                      disabled={data.item.status !== "draft" || isSubmitting}
-                      className="truncate"
-                    >
+                    <ButtonSecondary destructive onClick={onDelete} disabled={data.item.status !== "draft" || isSubmitting} className="truncate">
                       {t("shared.delete")}
                     </ButtonSecondary>
                   )}

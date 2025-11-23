@@ -29,9 +29,9 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
   const resolvedParams = await props.params;
   const params = resolvedParams || {};
   const request = props.request!;
-  
+
   await requireAuth();
-  
+
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
   if (!appConfiguration.portals?.pricing) {
     throw Response.json({ error: "Pricing is not enabled" }, { status: 400 });
@@ -39,11 +39,11 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
 
   const tenantId = await getTenantIdOrNull({ request, params });
   const item = await db.portals.getPortalById(tenantId, params.portal!);
-  
+
   if (!item) {
     redirect(UrlUtils.getModulePath(params, "portals"));
   }
-  
+
   let stripeAccount: Stripe.Account | null = null;
   try {
     stripeAccount = item.stripeAccountId ? await StripeConnectServer.getStripeAccount(item.stripeAccountId) : null;
@@ -57,7 +57,7 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
 
   const portalUrl = PortalServer.getPortalUrl(item);
   const items = await db.portalSubscriptionProducts.getAllPortalSubscriptionProductsWithUsers(item.id);
-  
+
   const data: LoaderData = {
     item,
     stripeAccount,
@@ -66,7 +66,7 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
     }),
     portalUrl,
   };
-  
+
   return data;
 }
 

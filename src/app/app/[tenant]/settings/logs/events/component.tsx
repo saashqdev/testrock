@@ -18,10 +18,5 @@ interface EventsClientWrapperProps {
 }
 
 export default function EventsClientWrapper({ data, params }: EventsClientWrapperProps) {
-  return (
-    <EventsTable 
-      items={data.items} 
-      pagination={data.pagination}
-    />
-  );
+  return <EventsTable items={data.items} pagination={data.pagination} />;
 }

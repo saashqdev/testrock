@@ -25,7 +25,7 @@ export default function GroupsComponent({ data }: GroupsComponentProps) {
     <div className="mx-auto w-full max-w-5xl space-y-3 px-4 py-2 pb-6 sm:px-6 sm:pt-3 lg:px-8 xl:max-w-full">
       <div className="">
         <div className="flex items-center justify-between">
-          <h3 className="text-foreground text-lg font-medium leading-6">{t("models.group.plural")}</h3>
+          <h3 className="text-lg font-medium leading-6 text-foreground">{t("models.group.plural")}</h3>
           {getUserHasPermission(appData, "app.settings.groups.full") && (
             <div className="flex items-center space-x-2">
               <ButtonPrimary to="new">{t("shared.new")}</ButtonPrimary>
@@ -43,7 +43,7 @@ export default function GroupsComponent({ data }: GroupsComponentProps) {
             value: (item) => (
               <div className="flex flex-col">
                 <div>{item.name}</div>
-                {item.description && <div className="text-muted-foreground text-xs">{item.description}</div>}
+                {item.description && <div className="text-xs text-muted-foreground">{item.description}</div>}
               </div>
             ),
           },

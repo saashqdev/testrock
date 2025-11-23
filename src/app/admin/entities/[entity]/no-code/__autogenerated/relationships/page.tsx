@@ -8,7 +8,7 @@ export { serverTimingHeaders as headers };
 
 export default async function Page(props: IServerComponentsProps) {
   const response = await rowsRelationshipsLoader(props);
-  const data = await response.json() as LoaderData;
+  const data = (await response.json()) as LoaderData;
   return <RowsRelationshipsRoute data={data} />;
 }
 

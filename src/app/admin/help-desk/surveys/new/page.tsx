@@ -16,24 +16,24 @@ type ActionData = {
 
 export async function createSurveyAction(prev: any, formData: FormData): Promise<ActionData> {
   "use server";
-  
+
   await requireAuth();
   await verifyUserHasPermission("admin.surveys");
   const { t } = await getServerTranslations();
-  
+
   const action = formData.get("action");
-  
+
   if (action === "create") {
     try {
       const item: SurveyDto = JSON.parse(formData.get("item") as string);
       const tenantId = formData.get("tenantId")?.toString() || null;
-      
+
       if (!item.title || !item.slug) {
         throw new Error("Title and slug are required");
       } else if (item.items.length === 0) {
         throw new Error("At least one item is required");
       }
-      
+
       await db.surveys.createSurvey({
         tenantId,
         title: item.title,
@@ -60,13 +60,13 @@ export async function createSurveyAction(prev: any, formData: FormData): Promise
           })),
         })),
       });
-      
+
       return { success: t("shared.created") };
     } catch (e: any) {
       return { error: e.message };
     }
   }
-  
+
   return { error: "Invalid action" };
 }
 
@@ -79,6 +79,6 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function NewSurveyPage(props: IServerComponentsProps) {
   await requireAuth();
   await verifyUserHasPermission("admin.surveys");
-  
+
   return <NewSurveyClient action={createSurveyAction} />;
 }

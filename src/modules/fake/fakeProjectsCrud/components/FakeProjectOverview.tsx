@@ -17,17 +17,17 @@ export default function FakeProjectOverview({
   actionData?: { error?: string; success?: string };
 }) {
   return (
-    <div className="text-foreground/80 space-y-2 text-sm">
+    <div className="space-y-2 text-sm text-foreground/80">
       <div>
-        <b className="text-muted-foreground text-xs font-bold uppercase">Name</b>
+        <b className="text-xs font-bold uppercase text-muted-foreground">Name</b>
         <InputText readOnly defaultValue={item.name} />
       </div>
       <div>
-        <b className="text-muted-foreground text-xs font-bold uppercase">Description</b>
+        <b className="text-xs font-bold uppercase text-muted-foreground">Description</b>
         <InputText readOnly defaultValue={item.description} rows={3} />
       </div>
       <div>
-        <b className="text-muted-foreground text-xs font-bold uppercase">Tasks</b>
+        <b className="text-xs font-bold uppercase text-muted-foreground">Tasks</b>
 
         <FakeTasksList items={item.tasks} onComplete={onCompleteTask} />
       </div>

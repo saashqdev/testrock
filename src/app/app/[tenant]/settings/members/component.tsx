@@ -191,7 +191,7 @@ export default function ({ data, children }: { data: AppSettingsMembersLoaderDat
           {/*Separator */}
           <div className="block">
             <div className="py-5">
-              <div className="border-border border-t"></div>{" "}
+              <div className="border-t border-border"></div>{" "}
             </div>
           </div>
 

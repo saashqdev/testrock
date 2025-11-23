@@ -41,10 +41,10 @@ export default function OutputMappingClient({ data, params }: OutputMappingClien
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           action: "edit",
           promptTemplateId,
-          propertyId
+          propertyId,
         }),
       });
 

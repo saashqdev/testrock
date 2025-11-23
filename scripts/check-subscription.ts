@@ -4,7 +4,7 @@ import { prisma } from "@/db/config/prisma/database";
 async function checkSubscription() {
   try {
     const tenantSlug = process.argv[2] || "acme-corp-3";
-    
+
     console.log(`\n🔍 Checking subscription for tenant: ${tenantSlug}\n`);
 
     // Get tenant
@@ -64,7 +64,7 @@ async function checkSubscription() {
         console.log(`   - Ends At: ${product.endsAt || "N/A"}`);
         console.log(`   - Current Period: ${product.currentPeriodStart || "N/A"} to ${product.currentPeriodEnd || "N/A"}`);
         console.log(`   - From Checkout: ${product.fromCheckoutSessionId || "N/A"}`);
-        
+
         // Check if it would be filtered out
         if (product.endsAt && new Date(product.endsAt) <= new Date()) {
           console.log(`   ⚠️  This product is EXPIRED (ends at ${product.endsAt})`);
@@ -102,13 +102,12 @@ async function checkSubscription() {
       const activeProducts = activeSubscription.products.filter((f) => !f.endsAt || new Date(f.endsAt) > new Date());
       console.log(`   Total products: ${activeSubscription.products.length}`);
       console.log(`   Active products (after filter): ${activeProducts.length}`);
-      
+
       if (activeProducts.length === 0 && activeSubscription.products.length > 0) {
         console.log(`\n   ⚠️  WARNING: All products are filtered out!`);
         console.log(`   This explains why "No active subscriptions" is shown.`);
       }
     }
-
   } catch (error) {
     console.error("Error:", error);
     process.exit(1);

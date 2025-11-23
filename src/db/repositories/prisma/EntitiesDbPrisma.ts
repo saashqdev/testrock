@@ -63,7 +63,7 @@ export class EntitiesDbPrisma implements IEntitiesDb {
 
   async getAllEntities(tenantId: string | null, includeSystem?: boolean): Promise<EntityWithDetailsDto[]> {
     const cacheKey = `entities:all:${tenantId}:${includeSystem}`;
-    
+
     // TEMPORARY: Disable caching to avoid memory issues during dev
     // Cache for 30 minutes in production
     const allEntities = await cachified({
@@ -125,7 +125,7 @@ export class EntitiesDbPrisma implements IEntitiesDb {
         });
       },
     });
-    
+
     EntitiesSingleton.getInstance().setEntities(allEntities);
     return allEntities;
   }

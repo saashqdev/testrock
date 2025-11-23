@@ -86,4 +86,3 @@ export async function setAccess(id: string, access: RowAccess) {
 export async function del(id: string) {
   return await db.rowPermissions.deleteRowPermissionById(id);
 }
-

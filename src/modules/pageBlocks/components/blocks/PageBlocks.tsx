@@ -153,7 +153,7 @@ export default function PageBlocks({
                 {editor && (
                   <div
                     className={clsx(
-                      "border-theme-500 bg-theme-50 sticky top-0 z-10 w-full border-2 border-dashed p-2 px-2 py-2 opacity-90 shadow-inner",
+                      "sticky top-0 z-10 w-full border-2 border-dashed border-theme-500 bg-theme-50 p-2 px-2 py-2 opacity-90 shadow-inner",
                       item.banner ? "flex" : "hidden group-hover:flex"
                     )}
                   >
@@ -251,7 +251,7 @@ function AddBlockButton({ onAdd, className, disabled }: { onAdd: (type: string) 
     <div className={className}>
       <div className="relative">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="border-theme-300 w-full border-t dark:border-border" />
+          <div className="w-full border-t border-theme-300 dark:border-border" />
         </div>
         <div className="relative flex justify-center">
           <button
@@ -259,11 +259,11 @@ function AddBlockButton({ onAdd, className, disabled }: { onAdd: (type: string) 
             onClick={() => setAdding(true)}
             type="button"
             className={clsx(
-              "border-theme-300 bg-theme-50 hover:bg-theme-100 dark:bg-theme-900 shadow-2xs focus:outline-hidden inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-medium leading-5 text-foreground/80 focus:ring-2 focus:ring-ring focus:ring-offset-2 dark:border-border",
+              "shadow-2xs focus:outline-hidden inline-flex items-center rounded-full border border-theme-300 bg-theme-50 px-4 py-1.5 text-sm font-medium leading-5 text-foreground/80 hover:bg-theme-100 focus:ring-2 focus:ring-ring focus:ring-offset-2 dark:border-border dark:bg-theme-900",
               disabled && "cursor-not-allowed opacity-50"
             )}
           >
-            <PlusIcon className="text-theme-400 dark:text-theme-600 h-5 w-5" aria-hidden="true" />
+            <PlusIcon className="h-5 w-5 text-theme-400 dark:text-theme-600" aria-hidden="true" />
           </button>
         </div>
       </div>

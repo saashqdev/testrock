@@ -11,18 +11,18 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   const params = (await props.params) || {};
   const request = props.request!;
   const { t } = await getServerTranslations();
-  
+
   try {
     const knowledgeBase = await KnowledgeBaseService.get({
       slug: params.slug!,
       request,
     });
     const item = await db.kbArticles.getKbArticleById(params.id!);
-    
+
     if (!knowledgeBase || !item) {
       return { title: t("knowledgeBase.title") };
     }
-    
+
     return {
       title: `${t("shared.settings")}: ${item.title} | ${knowledgeBase.title} | ${t("knowledgeBase.title")} | ${process.env.APP_NAME}`,
     };
@@ -34,23 +34,23 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 export default async function KbArticleSettingsPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const request = props.request!;
-  
+
   await verifyUserHasPermission("admin.kb.view");
-  
+
   const knowledgeBase = await KnowledgeBaseService.get({
     slug: params.slug!,
     request,
   });
-  
+
   if (!knowledgeBase) {
     redirect("/admin/knowledge-base/bases");
   }
-  
+
   const item = await db.kbArticles.getKbArticleById(params.id!);
   if (!item) {
     redirect(`/admin/knowledge-base/bases/${params.slug!}/articles`);
   }
-  
+
   const allCategories = await db.kbCategories.getAllKnowledgeBaseCategoriesSimple();
   const allArticles = await db.kbArticles.getAllKnowledgeBaseArticlesSimple();
   const allKnowledgeBases = await db.knowledgeBase.getAllKnowledgeBaseNames();

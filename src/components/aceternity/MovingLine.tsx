@@ -17,7 +17,7 @@ export const MovingLine = () => {
 
   const PATH = "M0.5 0.980671L0.5 1566.02";
   return (
-    <div className="mx-auto flex w-full max-w-4xl flex-row items-start space-x-10 " ref={ref}>
+    <div className="mx-auto flex w-full max-w-4xl flex-row items-start space-x-10" ref={ref}>
       <svg width="1" height="1567" viewBox="0 0 1 1567" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
         <path d={PATH} stroke="url(#paint0_linear_207_38)" />
         <defs>
@@ -56,12 +56,12 @@ export const MovingLine = () => {
 
 export const Content = () => {
   return (
-    <div className="content mb-10 w-full ">
-      <p className="text-2xl font-bold text-white  ">The path follows the scroll</p>
-      <p className="text-base font-normal text-neutral-300  ">If you look closely, you can see the path is being animated.</p>
-      <div className="flex w-full space-x-4 ">
-        <div className="mt-4 h-40 w-full rounded-md bg-linear-to-tr from-slate-800 to-slate-700 md:h-96" />
-        <div className="mt-4 h-40 w-full rounded-md bg-linear-to-tr from-slate-800 to-slate-700 md:h-96" />
+    <div className="content mb-10 w-full">
+      <p className="text-2xl font-bold text-white">The path follows the scroll</p>
+      <p className="text-base font-normal text-neutral-300">If you look closely, you can see the path is being animated.</p>
+      <div className="flex w-full space-x-4">
+        <div className="bg-linear-to-tr mt-4 h-40 w-full rounded-md from-slate-800 to-slate-700 md:h-96" />
+        <div className="bg-linear-to-tr mt-4 h-40 w-full rounded-md from-slate-800 to-slate-700 md:h-96" />
       </div>
     </div>
   );

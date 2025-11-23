@@ -11,13 +11,7 @@ import { RowWithDetailsDto } from "@/db/models/entityBuilder/RowsModel";
 import RowHelper from "@/lib/helpers/RowHelper";
 import { RowsNewBlockDto } from "./RowsNewBlockUtils";
 
-export default function RowsNewVariantForm({ 
-  item, 
-  actionData 
-}: { 
-  item: RowsNewBlockDto;
-  actionData?: { saveAndAdd?: boolean; newRow?: RowWithDetailsDto };
-}) {
+export default function RowsNewVariantForm({ item, actionData }: { item: RowsNewBlockDto; actionData?: { saveAndAdd?: boolean; newRow?: RowWithDetailsDto } }) {
   return (
     <>
       {item.data && (
@@ -85,7 +79,7 @@ function RowCreated({ entityData, newRow }: { entityData: GetEntityData; newRow:
       <div className="mt-2 flex justify-end space-x-2">
         <Link
           href="."
-          className="bg-theme-100 text-theme-700 hover:bg-theme-200 focus:outline-hidden inline-flex items-center rounded-md border border-border px-3 py-2 text-sm font-medium leading-4 focus:ring-2 focus:ring-ring focus:ring-offset-2"
+          className="focus:outline-hidden inline-flex items-center rounded-md border border-border bg-theme-100 px-3 py-2 text-sm font-medium leading-4 text-theme-700 hover:bg-theme-200 focus:ring-2 focus:ring-ring focus:ring-offset-2"
         >
           {t("shared.addAnother")}
         </Link>

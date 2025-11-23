@@ -30,7 +30,7 @@ export default function PageEditClient({ data, params, submitAction }: PageEditC
   const router = useRouter();
   const confirmDelete = useRef<RefConfirmModal>(null);
   const [state, formAction] = useActionState(submitAction, { error: undefined, success: undefined });
-  
+
   const [attributes] = useState<JsonPropertiesValuesDto>((data.page?.attributes ?? {}) as JsonPropertiesValuesDto);
 
   useEffect(() => {
@@ -57,9 +57,9 @@ export default function PageEditClient({ data, params, submitAction }: PageEditC
   async function onDeleteConfirm() {
     const form = new FormData();
     form.set("action", "delete");
-    
+
     const result = await submitAction(null, form);
-    
+
     if (result?.error) {
       toast.error(result.error);
     } else if (result?.success) {
@@ -77,7 +77,7 @@ export default function PageEditClient({ data, params, submitAction }: PageEditC
           <div className="space-y-2">
             <JsonPropertyValuesInput prefix="attributes" properties={data.pageConfig.properties} attributes={attributes} />
           </div>
-          
+
           <div className="mt-5 flex justify-between space-x-2">
             <div>
               {data.page && (

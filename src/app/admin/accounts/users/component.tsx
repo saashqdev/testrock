@@ -35,7 +35,7 @@ export default function Component({ items, filterableProperties, pagination, las
   const modalType = searchParams?.get("modal");
   const isModalOpen = modalType === "edit" || modalType === "new" || modalType === "roles";
   const selectedUserId = searchParams?.get("userId");
-  const selectedUser = items.find(item => item.id === selectedUserId);
+  const selectedUser = items.find((item) => item.id === selectedUserId);
 
   return (
     <EditPageLayout
@@ -43,9 +43,9 @@ export default function Component({ items, filterableProperties, pagination, las
       buttons={
         <>
           <InputFilters size="sm" filters={filterableProperties} />
-          <Button 
-            type="button" 
-            variant="default" 
+          <Button
+            type="button"
+            variant="default"
             size="sm"
             onClick={() => {
               const newSearchParams = new URLSearchParams(searchParams?.toString() || "");
@@ -82,13 +82,13 @@ export default function Component({ items, filterableProperties, pagination, las
 
       <SlideOverWideEmpty
         title={
-          modalType === "new" 
-            ? t("shared.new") + " " + t("models.user.object") 
+          modalType === "new"
+            ? t("shared.new") + " " + t("models.user.object")
             : modalType === "roles" && selectedUser
-            ? t("admin.users.setAdminRoles") + " - " + selectedUser.email
-            : selectedUser 
-            ? `${t("shared.edit")} ${selectedUser.email}` 
-            : "Edit User"
+              ? t("admin.users.setAdminRoles") + " - " + selectedUser.email
+              : selectedUser
+                ? `${t("shared.edit")} ${selectedUser.email}`
+                : "Edit User"
         }
         open={isModalOpen}
         onClose={() => {

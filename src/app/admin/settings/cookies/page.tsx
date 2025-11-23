@@ -14,6 +14,6 @@ export async function generateMetadata() {
 export default async function () {
   await verifyUserHasPermission("admin.settings.cookies.view");
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
-  
+
   return <Component appConfiguration={appConfiguration} />;
 }

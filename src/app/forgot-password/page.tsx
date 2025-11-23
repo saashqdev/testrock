@@ -23,7 +23,7 @@ type ActionData = {
 
 async function forgotPasswordAction(prevState: ActionData | null, formData: FormData): Promise<ActionData> {
   "use server";
-  
+
   const email = formData.get("email")?.toString();
 
   if (!email) {

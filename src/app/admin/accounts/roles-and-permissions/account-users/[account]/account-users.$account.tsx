@@ -66,7 +66,7 @@ type ActionData = {
 
 async function handleAction(props: IServerComponentsProps, prev: any, formData: FormData): Promise<ActionData> {
   "use server";
-  
+
   const params = (await props.params) || {};
   await verifyUserHasPermission("admin.roles.set");
   const { t } = await getServerTranslations();
@@ -98,9 +98,9 @@ async function handleAction(props: IServerComponentsProps, prev: any, formData: 
 
 export default async function AdminAccountUsersFromTenant(props: IServerComponentsProps) {
   const data = await loader(props);
-  
+
   // Create a bound action that includes props
   const action = handleAction.bind(null, props);
-  
+
   return <AdminAccountUsersFromTenantClient data={data} action={action} />;
 }

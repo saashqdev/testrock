@@ -148,12 +148,12 @@ const FormGroup = (
       form.set("action", actionNames?.delete ?? "delete");
       form.set("id", id ?? "");
       form.set("redirect", deleteRedirect ?? "");
-      
+
       if (onSubmit) {
         setIsSubmitting(true);
         onSubmit(form);
       }
-      
+
       // If you have a delete redirect, navigate to it
       if (deleteRedirect) {
         router.push(deleteRedirect);
@@ -183,15 +183,15 @@ const FormGroup = (
   }
 
   return (
-    <form 
-      ref={formRef} 
+    <form
+      ref={formRef}
       {...(onSubmit && !confirmationPrompt ? {} : { method: "post" })}
-      acceptCharset="utf-8" 
-      className={clsx(className, "py-1")} 
+      acceptCharset="utf-8"
+      className={clsx(className, "py-1")}
       onSubmit={confirmationPrompt ? handleSubmit : undefined}
       action={!confirmationPrompt && onSubmit ? (onSubmit as any) : undefined}
     >
-      <input type="hidden" name="action" value={id ? actionNames?.update ?? "edit" : actionNames?.create ?? "create"} hidden readOnly />
+      <input type="hidden" name="action" value={id ? (actionNames?.update ?? "edit") : (actionNames?.create ?? "create")} hidden readOnly />
       <input type="hidden" name="id" value={id ?? ""} hidden readOnly />
       <div className="space-y-3">
         {children}

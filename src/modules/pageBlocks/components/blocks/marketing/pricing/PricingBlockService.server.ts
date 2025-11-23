@@ -88,4 +88,3 @@ export async function subscribe({ request, form, t }: PageBlockActionArgs) {
     return Response.json({ error: t(e.message) }, { status: 400 });
   }
 }
-

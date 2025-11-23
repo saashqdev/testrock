@@ -26,7 +26,7 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
   await requireAuth();
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
-  
+
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
   if (!appConfiguration.portals?.analytics) {
     throw Response.json({ error: "Analytics are not enabled" }, { status: 400 });
@@ -34,17 +34,17 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
 
   const tenantId = await getTenantIdFromUrl(resolvedParams);
   const item = await db.portals.getPortalById(tenantId, resolvedParams.portal);
-  
+
   if (!item) {
     redirect(UrlUtils.getModulePath(resolvedParams, "portals"));
   }
-  
+
   const portalUrl = PortalServer.getPortalUrl(item);
-  
+
   // Create a mock request for period helper
   const url = new URL(`http://localhost?${new URLSearchParams(resolvedSearchParams as any).toString()}`);
   const mockRequest = { url: url.toString() } as Request;
-  
+
   const overview = await AnalyticsService.getAnalyticsOverview({
     withUsers: false,
     period: PeriodHelper.getPeriodFromRequest({ request: mockRequest }),

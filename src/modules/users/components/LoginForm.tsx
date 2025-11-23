@@ -55,7 +55,7 @@ function LoginFormFields({
           defaultValue={actionData?.fields?.email}
         />
         {actionData?.fieldErrors?.email ? (
-          <p className="text-destructive-foreground py-2 text-xs" role="alert" id="email-error">
+          <p className="py-2 text-xs text-destructive-foreground" role="alert" id="email-error">
             {actionData.fieldErrors.email}
           </p>
         ) : null}
@@ -71,13 +71,13 @@ function LoginFormFields({
           defaultValue={actionData?.fields?.password}
         />
         {actionData?.fieldErrors?.password ? (
-          <p className="text-destructive-foreground py-2 text-xs" role="alert" id="password-error">
+          <p className="py-2 text-xs text-destructive-foreground" role="alert" id="password-error">
             {actionData.fieldErrors.password}
           </p>
         ) : null}
       </div>
       <div className="flex items-center justify-between">
-        <Link href="/forgot-password" className="text-foreground inline-block align-baseline text-xs font-medium hover:underline">
+        <Link href="/forgot-password" className="inline-block align-baseline text-xs font-medium text-foreground hover:underline">
           {t("account.login.forgot")}
         </Link>
         <LoadingButton className="block w-full" type="submit" actionName="login">
@@ -110,7 +110,7 @@ export default function LoginForm({
   const searchParams = useSearchParams();
 
   const emailInput = useRef<RefInputText>(null);
-  
+
   useEffect(() => {
     if (appConfiguration.auth.authMethods.emailPassword.enabled) {
       setTimeout(() => {
@@ -118,19 +118,22 @@ export default function LoginForm({
       }, 300);
     }
   }, [appConfiguration.auth?.authMethods.emailPassword.enabled]);
-  
+
   return (
     <div className="space-y-5">
       <div className="flex flex-col items-center">
         <h1 className="text-left text-2xl font-extrabold">{t("account.login.headline")}</h1>
         <p className="mt-1 text-left">
-          <Link href={appConfiguration.subscription?.allowSignUpBeforeSubscribe ? "/register" : "/pricing"} className="text-primary font-medium hover:underline">
+          <Link
+            href={appConfiguration.subscription?.allowSignUpBeforeSubscribe ? "/register" : "/pricing"}
+            className="font-medium text-primary hover:underline"
+          >
             {t("account.login.orRegister")}
           </Link>
         </p>
       </div>
 
-      <div className="border-border mx-auto flex flex-col items-center space-y-6 rounded-lg border p-6">
+      <div className="mx-auto flex flex-col items-center space-y-6 rounded-lg border border-border p-6">
         {/* <!-- SSO: START --> */}
         {(appConfiguration.auth.authMethods.github.enabled || appConfiguration.auth.authMethods.google.enabled) && (
           <>
@@ -139,7 +142,7 @@ export default function LoginForm({
               {appConfiguration.auth.authMethods.github.enabled && (
                 <div>
                   <a
-                    className="focus-visible:ring-ring inline-flex h-9 w-full items-center justify-center whitespace-nowrap rounded-md bg-black px-4 py-2 text-sm font-medium text-white transition-colors focus-visible:outline-hidden focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 dark:border dark:border-white/10"
+                    className="focus-visible:outline-hidden inline-flex h-9 w-full items-center justify-center whitespace-nowrap rounded-md bg-black px-4 py-2 text-sm font-medium text-white transition-colors focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 dark:border dark:border-white/10"
                     href={appConfiguration.auth.authMethods.github.authorizationURL}
                   >
                     <GitHubIcon className="mr-2 h-4 w-4 text-white" /> {t("auth.github.button")}
@@ -152,7 +155,7 @@ export default function LoginForm({
                 <form action="/oauth/google" method="post">
                   <button
                     type="submit"
-                    className="focus-visible:ring-ring inline-flex h-9 w-full items-center justify-center whitespace-nowrap rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#2e70d9] focus-visible:outline-hidden focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 dark:focus:ring-blue-700"
+                    className="focus-visible:outline-hidden inline-flex h-9 w-full items-center justify-center whitespace-nowrap rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#2e70d9] focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 dark:focus:ring-blue-700"
                   >
                     <GoogleIcon className="mr-2 h-4 w-4 text-white" /> {t("auth.google.button")}
                   </button>
@@ -162,7 +165,7 @@ export default function LoginForm({
             </div>
 
             {appConfiguration.auth.authMethods.emailPassword.enabled && (
-              <div className="border-border w-full border-t-2 border-dotted dark:border-gray-900"></div>
+              <div className="w-full border-t-2 border-dotted border-border dark:border-gray-900"></div>
             )}
           </>
         )}

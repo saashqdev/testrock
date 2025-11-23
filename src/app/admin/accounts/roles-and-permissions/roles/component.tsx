@@ -31,27 +31,27 @@ export default function RolesClient({ data }: RolesClientProps) {
   const adminData = useAdminData();
   const router = useRouter();
   const searchParams = useSearchParams();
-  
-  const modal = searchParams.get('modal');
-  const roleId = searchParams.get('roleId');
-  const isModalOpen = modal === 'new' || (modal === 'edit' && !!roleId);
-  
+
+  const modal = searchParams.get("modal");
+  const roleId = searchParams.get("roleId");
+  const isModalOpen = modal === "new" || (modal === "edit" && !!roleId);
+
   const [selectedRole, setSelectedRole] = useState<RoleWithPermissionsAndUsersDto | undefined>();
-  
+
   // Load role data when editing
   useEffect(() => {
-    if (modal === 'edit' && roleId) {
-      const role = data.items.find(r => r.id === roleId);
+    if (modal === "edit" && roleId) {
+      const role = data.items.find((r) => r.id === roleId);
       setSelectedRole(role);
     } else {
       setSelectedRole(undefined);
     }
   }, [modal, roleId, data.items]);
-  
+
   function closeModal() {
     const params = new URLSearchParams(searchParams.toString());
-    params.delete('modal');
-    params.delete('roleId');
+    params.delete("modal");
+    params.delete("roleId");
     router.push(`/admin/accounts/roles-and-permissions/roles?${params.toString()}`);
     router.refresh();
   }
@@ -70,20 +70,10 @@ export default function RolesClient({ data }: RolesClientProps) {
       {/* <InputSearchWithURL onNewRoute={getUserHasPermission(adminData, "admin.roles.create") ? "new" : undefined} /> */}
       <RolesTable items={data.items} canUpdate={getUserHasPermission(adminData, "admin.roles.update")} />
 
-      <SlideOverWideEmpty
-        title={roleId ? t("shared.edit") : t("shared.new")}
-        open={isModalOpen}
-        onClose={closeModal}
-        size="2xl"
-        overflowYScroll={true}
-      >
+      <SlideOverWideEmpty title={roleId ? t("shared.edit") : t("shared.new")} open={isModalOpen} onClose={closeModal} size="2xl" overflowYScroll={true}>
         <div className="-mx-1 -mt-3">
           <div className="space-y-4">
-            <RoleForm 
-              item={selectedRole}
-              permissions={data.permissions} 
-              onCancel={closeModal}
-            />
+            <RoleForm item={selectedRole} permissions={data.permissions} onCancel={closeModal} />
           </div>
         </div>
       </SlideOverWideEmpty>

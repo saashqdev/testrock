@@ -39,25 +39,28 @@ export default function DashboardClient({ data }: DashboardClientProps) {
     }
   }, []);
 
-  const handlePeriodChange = useCallback((value: React.SetStateAction<string | number | undefined>) => {
-    const newValue = typeof value === 'function' ? value(currentPeriod) : value;
-    setCurrentPeriod(newValue);
-    
-    const params = new URLSearchParams(window.location.search);
-    if (newValue && newValue !== defaultPeriodFilter) {
-      params.set("period", newValue.toString());
-    } else {
-      params.delete("period");
-    }
-    const queryString = params.toString();
-    router.push(queryString ? `${pathname}?${queryString}` : pathname);
-  }, [router, pathname, currentPeriod]);
+  const handlePeriodChange = useCallback(
+    (value: React.SetStateAction<string | number | undefined>) => {
+      const newValue = typeof value === "function" ? value(currentPeriod) : value;
+      setCurrentPeriod(newValue);
+
+      const params = new URLSearchParams(window.location.search);
+      if (newValue && newValue !== defaultPeriodFilter) {
+        params.set("period", newValue.toString());
+      } else {
+        params.delete("period");
+      }
+      const queryString = params.toString();
+      router.push(queryString ? `${pathname}?${queryString}` : pathname);
+    },
+    [router, pathname, currentPeriod]
+  );
 
   return (
     <main className="relative z-0 flex-1 pb-8">
       {/*Page header */}
       {appData?.user && (
-        <div className="bg-background border-border hidden border-b md:block">
+        <div className="hidden border-b border-border bg-background md:block">
           <ProfileBanner user={appData.user} />
         </div>
       )}
@@ -68,7 +71,7 @@ export default function DashboardClient({ data }: DashboardClientProps) {
             {data.stats.length > 0 && (
               <div className="space-y-3 truncate p-1">
                 <div className="flex items-center justify-between space-x-2">
-                  <h3 className="text-foreground grow leading-4 font-medium">{t("app.dashboard.summary")}</h3>
+                  <h3 className="grow font-medium leading-4 text-foreground">{t("app.dashboard.summary")}</h3>
                   <div>
                     <InputSelect
                       className="w-44"

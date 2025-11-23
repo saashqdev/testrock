@@ -11,14 +11,12 @@ if (!i18next.isInitialized) {
   i18next
     .use(initReactI18next)
     .use(LanguageDetector)
-    .use(resourcesToBackend((language: string, namespace: string) => 
-      import(`./locales/${language}/${namespace}.json`)
-    ))
+    .use(resourcesToBackend((language: string, namespace: string) => import(`./locales/${language}/${namespace}.json`)))
     .init({
       ...getOptions(),
-      detection: { 
+      detection: {
         caches: ["cookie"],
-        order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'path', 'subdomain']
+        order: ["querystring", "cookie", "localStorage", "navigator", "htmlTag", "path", "subdomain"],
       },
       react: {
         useSuspense: false, // Disable suspense to prevent SSR issues

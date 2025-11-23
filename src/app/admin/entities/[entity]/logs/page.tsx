@@ -15,17 +15,17 @@ type LoaderData = {
 export default async function EditEntityIndexRoute(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const request = props.request!;
-  
+
   await verifyUserHasPermission("admin.entities.view");
   const item = await db.entities.getEntityBySlug({ tenantId: null, slug: params.entity ?? "" });
   if (!item) {
     redirect("/admin/entities");
   }
-  
+
   const urlSearchParams = new URL(request.url).searchParams;
   const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
   const { items, pagination } = await db.logs.getAllRowLogs({ entityId: item.id, pagination: currentPagination });
-  
+
   return (
     <div>
       <LogsTable withTenant={true} items={items} pagination={pagination} />

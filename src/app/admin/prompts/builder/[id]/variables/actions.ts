@@ -15,7 +15,7 @@ export async function deleteVariableAction(id: string) {
 
 export async function handleVariableAction(form: FormData, variableId: string, promptId: string) {
   const action = form.get("action")?.toString();
-  
+
   const item = await db.promptFlowInputVariables.getPromptFlowVariable(variableId);
   if (!item) {
     redirect(`/admin/prompts/builder/${promptId}/variables`);
@@ -27,18 +27,18 @@ export async function handleVariableAction(form: FormData, variableId: string, p
       const name = form.get("name")?.toString() ?? "";
       const title = form.get("title")?.toString() ?? "";
       const isRequired = FormHelper.getBoolean(form, "isRequired") ?? false;
-      
+
       if (!type || !name || !title) {
         throw Error("Type, name, and title are required");
       }
-      
+
       await db.promptFlowInputVariables.updatePromptFlowVariable(item.id, {
         type,
         name,
         title,
         isRequired,
       });
-      
+
       redirect(`/admin/prompts/builder/${promptId}/variables`);
     } catch (e: any) {
       return { error: e.message };

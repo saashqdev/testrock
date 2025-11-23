@@ -6,7 +6,7 @@ import NewPropertyClient from "@/app/admin/entities/[entity]/properties/new/NewP
 export default async function NewEntityPropertyRoute(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const entity = await db.entities.getEntityBySlug({ tenantId: null, slug: params.entity! });
-  
+
   if (!entity) {
     return null;
   }

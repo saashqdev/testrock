@@ -29,7 +29,7 @@ export default function ServerError({ error }: { error?: any }) {
   }
   return (
     <div className="px-4 py-4">
-      <div className="border-border bg-background text-foreground mx-auto w-full space-y-2 rounded-md border-2 border-dashed p-12 text-center shadow-md">
+      <div className="mx-auto w-full space-y-2 rounded-md border-2 border-dashed border-border bg-background p-12 text-center text-foreground shadow-md">
         <div className="flex flex-col justify-center space-y-1 break-words">
           <div className="mx-auto text-red-500">
             <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
@@ -49,7 +49,7 @@ export default function ServerError({ error }: { error?: any }) {
         {errorStack && (
           <div className="pt-4">
             {/* @ts-ignore */}
-            <div className="border-border text-muted-foreground break-words border-t border-dashed pt-3 text-left text-sm">{errorStack}</div>
+            <div className="break-words border-t border-dashed border-border pt-3 text-left text-sm text-muted-foreground">{errorStack}</div>
           </div>
         )}
       </div>

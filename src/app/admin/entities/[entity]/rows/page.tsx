@@ -55,7 +55,7 @@ export default async function EditEntityIndexRoute(props: IServerComponentsProps
   const serializedData = JSON.parse(JSON.stringify(data));
   return (
     <div className="space-y-3">
-      <h3 className="text-foreground text-sm font-medium leading-3">Rows</h3>
+      <h3 className="text-sm font-medium leading-3 text-foreground">Rows</h3>
       <AdminEntityRowsList entity={serializedData.entity} items={serializedData.items} pagination={serializedData.pagination} />
     </div>
   );

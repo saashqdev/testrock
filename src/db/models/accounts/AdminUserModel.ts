@@ -1,3 +1,3 @@
 export type AdminUserModel = {
-    userId: string;
-}
+  userId: string;
+};

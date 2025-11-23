@@ -25,7 +25,7 @@ type LoaderData =
 
 async function getData(props: IServerComponentsProps): Promise<LoaderData> {
   const params = (await props.params) || {};
-  const request = props.request!;  
+  const request = props.request!;
   const tenantId = await getTenantIdFromUrl(params);
   await verifyUserHasPermission("app.settings.apiKeys.view", tenantId);
   try {
@@ -48,13 +48,13 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
 export default async function ApiSettingsPage(props: IServerComponentsProps) {
   const { t } = await getServerTranslations();
   const params = (await props.params) || {};
-  
+
   // Create request object from headers
   const headersList = await headers();
   const request = new Request(headersList.get("x-url") || "", {
     headers: headersList,
   });
-  
+
   const data = await getData({ ...props, request });
   return (
     <EditPageLayout

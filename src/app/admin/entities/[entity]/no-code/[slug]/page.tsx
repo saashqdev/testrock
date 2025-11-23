@@ -10,13 +10,13 @@ export { serverTimingHeaders as headers };
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const data = await rowsListLoader(props);
-  const loaderData = await data.json() as LoaderData;
-  
+  const loaderData = (await data.json()) as LoaderData;
+
   // Convert MetaTagsDto array to Metadata object
   const metadata: Metadata = {};
   if (loaderData?.meta) {
     for (const tag of loaderData.meta) {
-      if ('title' in tag) {
+      if ("title" in tag) {
         metadata.title = tag.title;
       }
       // Add more conversions as needed
@@ -27,12 +27,12 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 
 export default async function (props: IServerComponentsProps) {
   const response = await rowsListLoader(props);
-  const data = await response.json() as LoaderData;
-  
+  const data = (await response.json()) as LoaderData;
+
   if (!data.user) {
     return <ServerError />;
   }
-  
+
   // Build appOrAdminData structure for permission checking
   // Only user, isSuperAdmin, and permissions are actually used by getUserHasPermission
   const appOrAdminData = {
@@ -50,7 +50,7 @@ export default async function (props: IServerComponentsProps) {
     onboardingSession: null,
     tenantTypes: [],
   };
-  
+
   return (
     <RowsViewRoute
       key={data.rowsData.entity.id}

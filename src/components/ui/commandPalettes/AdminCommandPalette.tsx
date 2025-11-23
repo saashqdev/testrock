@@ -190,14 +190,14 @@ export default function AppCommandPalette({ onClosed, isOpen }: Props) {
           >
             <Combobox
               as="div"
-              className="bg-background divide-border mx-auto max-w-xl transform divide-y overflow-hidden rounded-xl shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
+              className="mx-auto max-w-xl transform divide-y divide-border overflow-hidden rounded-xl bg-background shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
               onChange={onChange}
               value={query}
             >
               <div className="relative">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="text-muted-foreground pointer-events-none absolute left-4 top-3.5 h-5 w-5"
+                  className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-muted-foreground"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -208,7 +208,7 @@ export default function AppCommandPalette({ onClosed, isOpen }: Props) {
                   />
                 </svg>
                 <Combobox.Input
-                  className="text-foreground h-12 w-full border-0 bg-transparent pl-11 pr-4 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                  className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-foreground placeholder-gray-400 focus:ring-0 sm:text-sm"
                   placeholder={commandSearchTitle}
                   onChange={(event) => setQuery(event.target.value)}
                   autoComplete="off"
@@ -243,7 +243,7 @@ export default function AppCommandPalette({ onClosed, isOpen }: Props) {
                 <div className="px-6 py-14 text-center text-sm sm:px-14">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="text-muted-foreground mx-auto h-6 w-6"
+                    className="mx-auto h-6 w-6 text-muted-foreground"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -255,8 +255,8 @@ export default function AppCommandPalette({ onClosed, isOpen }: Props) {
                       d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
                     />
                   </svg>
-                  <p className="text-foreground mt-4 font-semibold">{t("app.commands.empty.title")}</p>
-                  <p className="text-muted-foreground mt-2">{t("app.commands.empty.description")}</p>
+                  <p className="mt-4 font-semibold text-foreground">{t("app.commands.empty.title")}</p>
+                  <p className="mt-2 text-muted-foreground">{t("app.commands.empty.description")}</p>
                 </div>
               )}
               {/* <div className="mt-4 flex py-4">

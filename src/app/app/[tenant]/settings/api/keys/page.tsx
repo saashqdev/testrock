@@ -20,7 +20,7 @@ export default async function AdminApiKeysRoute(props: IServerComponentsProps) {
   await verifyUserHasPermission("app.settings.apiKeys.view", tenantId);
   const apiKeys = await db.apiKeys.getApiKeys(tenantId);
   const featurePlanUsage = await getPlanFeatureUsage(tenantId, DefaultFeatures.API);
-  
+
   const data: PageData = {
     apiKeys,
     featurePlanUsage,

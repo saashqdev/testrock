@@ -20,4 +20,3 @@ export async function load({ request, params, block }: PageBlockLoaderArgs): Pro
   });
   return rowsData;
 }
-

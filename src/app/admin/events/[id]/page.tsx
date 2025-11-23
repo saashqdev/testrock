@@ -10,10 +10,10 @@ import { getServerTranslations } from "@/i18n/server";
 export default async function AdminEventDetailsRoute(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const { t } = await getServerTranslations();
-  
+
   await verifyUserHasPermission("admin.events.view");
   const item = await db.events.getEvent(params.id ?? "");
-  
+
   if (!item) {
     redirect(UrlUtils.getModulePath(params, "logs/events"));
   }

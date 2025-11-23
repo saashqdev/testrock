@@ -42,9 +42,9 @@ export default function AccountUsersView({ tenants }: AccountUsersViewProps) {
             title: t("models.tenant.object"),
             value: (i) => (
               <div className="max-w-sm truncate">
-                <div className="text-foreground flex items-center space-x-1 truncate font-medium">{i.name}</div>
+                <div className="flex items-center space-x-1 truncate font-medium text-foreground">{i.name}</div>
 
-                <div className="text-muted-foreground text-xs">
+                <div className="text-xs text-muted-foreground">
                   <span>/{i.slug}</span>
                 </div>
               </div>

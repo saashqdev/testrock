@@ -24,10 +24,5 @@ type Props = {
 };
 
 export default function SubscriptionClientWrapper({ data }: Props) {
-  return (
-    <SubscriptionSettings
-      {...data}
-      permissions={{ viewInvoices: true }}
-    />
-  );
+  return <SubscriptionSettings {...data} permissions={{ viewInvoices: true }} />;
 }

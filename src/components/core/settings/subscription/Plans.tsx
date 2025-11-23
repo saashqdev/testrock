@@ -25,7 +25,18 @@ interface Props {
   availableBillingPeriods: SubscriptionBillingPeriod[];
   onClickFeature?: (name: string) => void;
 }
-export default function Plans({ items, tenantSubscription, canSubmit, className, stripeCoupon, initialCurrency, availableCurrencies, initialBillingPeriod, availableBillingPeriods, onClickFeature }: Props) {
+export default function Plans({
+  items,
+  tenantSubscription,
+  canSubmit,
+  className,
+  stripeCoupon,
+  initialCurrency,
+  availableCurrencies,
+  initialBillingPeriod,
+  availableBillingPeriods,
+  onClickFeature,
+}: Props) {
   const [isPending, startTransition] = useTransition();
   // Use initial values only - no reactive dependency on props
   const [currency, setCurrency] = useState(initialCurrency);
@@ -36,8 +47,8 @@ export default function Plans({ items, tenantSubscription, canSubmit, className,
 
   useEffect(() => {
     // Disable scroll restoration
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
     }
   }, []);
 
@@ -78,8 +89,8 @@ export default function Plans({ items, tenantSubscription, canSubmit, className,
   }
 
   return (
-    <div className={clsx(className)} style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
-      <div className="flex items-center justify-between" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
+    <div className={clsx(className)} style={{ willChange: "transform", transform: "translateZ(0)" }}>
+      <div className="flex items-center justify-between" style={{ willChange: "transform", transform: "translateZ(0)" }}>
         <div>
           <CurrencyToggle
             value={currency}

@@ -22,12 +22,7 @@ type ArticleEditClientProps = {
   updateArticle: (formData: FormData) => Promise<ActionData | void>;
 };
 
-export default function ArticleEditClient({
-  knowledgeBase,
-  item,
-  params,
-  updateArticle,
-}: ArticleEditClientProps) {
+export default function ArticleEditClient({ knowledgeBase, item, params, updateArticle }: ArticleEditClientProps) {
   const router = useRouter();
   const [actionData, setActionData] = useState<ActionData | undefined>();
 

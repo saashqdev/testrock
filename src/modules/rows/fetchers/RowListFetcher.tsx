@@ -36,45 +36,48 @@ export default function RowListFetcher({ currentView, listUrl, newUrl, parentEnt
   const [selectedRows, setSelectedRows] = useState<RowWithDetailsDto[]>([]);
   const [searchParams] = useSearchParams();
 
-  const fetchData = useCallback(async (url: string) => {
-    if (previewMode) {
-      // In preview mode, don't fetch real data
-      setLoading(false);
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+  const fetchData = useCallback(
+    async (url: string) => {
+      if (previewMode) {
+        // In preview mode, don't fetch real data
+        setLoading(false);
+        return;
       }
 
-      const result = await response.json();
-      setData(result);
+      setLoading(true);
+      setError(null);
 
-      if (result.rowsData) {
-        setRows(result.rowsData.items);
-        // DON'T update selectedRows here - let user selections persist
-        // The only time we need to update is if a selected row no longer exists in the new data
-        // But that can cause issues, so we'll just leave selectedRows alone
-        // User selections are managed entirely by onRowsSelected callback
+      try {
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        setData(result);
+
+        if (result.rowsData) {
+          setRows(result.rowsData.items);
+          // DON'T update selectedRows here - let user selections persist
+          // The only time we need to update is if a selected row no longer exists in the new data
+          // But that can cause issues, so we'll just leave selectedRows alone
+          // User selections are managed entirely by onRowsSelected callback
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "An error occurred");
+        console.error("Error fetching data:", err);
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
-      console.error("Error fetching data:", err);
-    } finally {
-      setLoading(false);
-    }
-  }, [previewMode]); // Add previewMode to dependencies
+    },
+    [previewMode]
+  ); // Add previewMode to dependencies
 
   // Combine the two useEffects to avoid double fetching
   useEffect(() => {
@@ -82,17 +85,17 @@ export default function RowListFetcher({ currentView, listUrl, newUrl, parentEnt
     // listUrl format: /app/{tenant}/{entity} or /admin/entities/{entity}/no-code/{entity}
     let entitySlug = "";
     let tenantSlug = "";
-    
+
     const listUrlMatch = listUrl.match(/\/app\/([^\/]+)\/([^\/\?]+)|\/admin\/entities\/([^\/]+)/);
-    
+
     if (listUrlMatch) {
       tenantSlug = listUrlMatch[1] || "";
       entitySlug = listUrlMatch[2] || listUrlMatch[3] || "";
     }
-    
+
     // Start fresh to avoid inheriting undefined values from searchParams
     const params = new URLSearchParams();
-    
+
     // Only add parameters if they have actual values
     if (entitySlug) {
       params.set("entity", entitySlug);
@@ -104,18 +107,18 @@ export default function RowListFetcher({ currentView, listUrl, newUrl, parentEnt
     if (currentView) {
       params.set("v", currentView.name);
     }
-    
+
     // Add any other search params that aren't entity/tenant/v
     if (searchParams) {
       for (const [key, value] of searchParams.entries()) {
         const stringKey = String(key);
         const stringValue = String(value);
-        if (stringKey !== 'entity' && stringKey !== 'tenant' && stringKey !== 'v' && stringValue && stringValue !== 'undefined') {
+        if (stringKey !== "entity" && stringKey !== "tenant" && stringKey !== "v" && stringValue && stringValue !== "undefined") {
           params.set(stringKey, stringValue);
         }
       }
     }
-    
+
     const url = `/api/rows/fetch?${params.toString()}`;
     fetchData(url);
   }, [searchParams, currentView, listUrl, fetchData]);
@@ -130,9 +133,12 @@ export default function RowListFetcher({ currentView, listUrl, newUrl, parentEnt
     setAdding(false);
   }, []);
 
-  const onConfirm = useCallback((rows: RowWithDetailsDto[]) => {
-    onSelected(rows);
-  }, [onSelected]);
+  const onConfirm = useCallback(
+    (rows: RowWithDetailsDto[]) => {
+      onSelected(rows);
+    },
+    [onSelected]
+  );
 
   return (
     <div>
@@ -140,9 +146,7 @@ export default function RowListFetcher({ currentView, listUrl, newUrl, parentEnt
         <div className="flex items-center justify-center rounded-lg border-2 border-dashed border-border bg-secondary/50 p-12 text-center">
           <div className="space-y-2">
             <div className="text-lg font-medium text-muted-foreground">{t("shared.preview")} Mode</div>
-            <div className="text-sm text-muted-foreground">
-              Relationship selection slideout will appear here in actual use
-            </div>
+            <div className="text-sm text-muted-foreground">Relationship selection slideout will appear here in actual use</div>
           </div>
         </div>
       ) : loading && !data ? (
@@ -197,12 +201,7 @@ export default function RowListFetcher({ currentView, listUrl, newUrl, parentEnt
       ) : (
         <div>{t("shared.unknownError")}</div>
       )}
-      <SlideOverWideEmpty
-        title={t("shared.create") + " " + t(data?.rowsData?.entity.title ?? "")}
-        size="2xl"
-        open={adding}
-        onClose={() => setAdding(false)}
-      >
+      <SlideOverWideEmpty title={t("shared.create") + " " + t(data?.rowsData?.entity.title ?? "")} size="2xl" open={adding} onClose={() => setAdding(false)}>
         <RowNewFetcher url={newUrl} parentEntity={parentEntity} onCreated={onCreated} allEntities={allEntities} />
       </SlideOverWideEmpty>
     </div>

@@ -37,20 +37,17 @@ async function load(props: IServerComponentsProps): Promise<AdminDashboardLoader
   const params = (await props.params) || {};
   const searchParams = (await props.searchParams) || {};
   const request = props.request;
-  
+
   await requireAuth();
-  
-  const { time, getServerTimingHeader } = await createMetrics(
-    { request: request || new Request("http://localhost"), params }, 
-    "admin.dashboard"
-  );
+
+  const { time, getServerTimingHeader } = await createMetrics({ request: request || new Request("http://localhost"), params }, "admin.dashboard");
 
   // Convert searchParams to URLSearchParams for compatibility
   const urlSearchParams = new URLSearchParams();
   Object.entries(searchParams).forEach(([key, value]) => {
     if (value) {
       if (Array.isArray(value)) {
-        value.forEach(v => urlSearchParams.append(key, v));
+        value.forEach((v) => urlSearchParams.append(key, v));
       } else {
         urlSearchParams.set(key, value);
       }
@@ -62,20 +59,14 @@ async function load(props: IServerComponentsProps): Promise<AdminDashboardLoader
   const { t } = await time(getServerTranslations(), "getTranslations");
 
   // Get period from searchParams
-  const period = typeof searchParams.period === 'string' ? searchParams.period : defaultPeriodFilter;
+  const period = typeof searchParams.period === "string" ? searchParams.period : defaultPeriodFilter;
   const gte = PeriodHelper.getCreatedAt(period as PeriodFilter).gte;
 
   const { stats, setupSteps, tenants } = await time(
     promiseHash({
-      stats: time(
-        getAdminDashboardStats({ gte }),
-        "admin.dashboard.details.getAdminDashboardStats"
-      ),
+      stats: time(getAdminDashboardStats({ gte }), "admin.dashboard.details.getAdminDashboardStats"),
       setupSteps: time(getSetupSteps(), "admin.dashboard.details.getSetupSteps"),
-      tenants: time(
-        db.tenants.adminGetAllTenantsWithUsage(undefined, currentPagination), 
-        "admin.dashboard.details.adminGetAllTenantsWithUsage"
-      ),
+      tenants: time(db.tenants.adminGetAllTenantsWithUsage(undefined, currentPagination), "admin.dashboard.details.adminGetAllTenantsWithUsage"),
     }),
     "admin.dashboard.details"
   );
@@ -86,7 +77,7 @@ async function load(props: IServerComponentsProps): Promise<AdminDashboardLoader
     setupSteps,
     tenants,
   };
-  
+
   return data;
 }
 

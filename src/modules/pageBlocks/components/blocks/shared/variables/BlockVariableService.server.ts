@@ -10,7 +10,7 @@ export function getValue({ request, params, variable }: { request: Request; para
     value = variable?.value ?? null;
   } else if (variable.type === "param" && variable.param) {
     const paramValue = params[variable.param];
-    value = Array.isArray(paramValue) ? paramValue[0] ?? null : paramValue ?? null;
+    value = Array.isArray(paramValue) ? (paramValue[0] ?? null) : (paramValue ?? null);
   } else if (variable.type === "query") {
     const searchParams = new URL(request.url).searchParams;
     value = searchParams.get(variable.query || "")?.toString() ?? null;
@@ -34,4 +34,3 @@ export function getValue({ request, params, variable }: { request: Request; para
 //   });
 //   return values;
 // }
-

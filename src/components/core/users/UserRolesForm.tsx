@@ -21,9 +21,7 @@ export default function UserRolesForm({ user, adminRoles, onSuccess, onCancel }:
   const { t } = useTranslation();
   const [isPending, startTransition] = useTransition();
 
-  const [selectedRoles, setSelectedRoles] = useState<string[]>(
-    user.roles?.filter((f) => f.role.type === "admin").map((r) => r.role.id) || []
-  );
+  const [selectedRoles, setSelectedRoles] = useState<string[]>(user.roles?.filter((f) => f.role.type === "admin").map((r) => r.role.id) || []);
   const [actionData, setActionData] = useState<{ error?: string; success?: string } | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -47,7 +45,7 @@ export default function UserRolesForm({ user, adminRoles, onSuccess, onCancel }:
   function hasSomeAdminRoles() {
     return adminRoles.some((ar) => selectedRoles?.includes(ar.id));
   }
-  
+
   function hasAllAdminRoles() {
     return adminRoles.every((ar) => selectedRoles?.includes(ar.id));
   }
@@ -55,8 +53,8 @@ export default function UserRolesForm({ user, adminRoles, onSuccess, onCancel }:
   return (
     <>
       <form onSubmit={handleSubmit} className="inline-block w-full overflow-hidden p-1 text-left align-bottom sm:align-middle">
-        <div className="border-border flex items-center justify-between space-x-2 border-b pb-2">
-          <div className="text-foreground/80 text-lg font-medium">{t("models.role.plural")}</div>
+        <div className="flex items-center justify-between space-x-2 border-b border-border pb-2">
+          <div className="text-lg font-medium text-foreground/80">{t("models.role.plural")}</div>
           <div className="flex items-center space-x-2">
             <ButtonSecondary disabled={!hasSomeAdminRoles()} onClick={() => setSelectedRoles([])}>
               {t("shared.clear")}
@@ -67,7 +65,7 @@ export default function UserRolesForm({ user, adminRoles, onSuccess, onCancel }:
             </ButtonSecondary>
           </div>
         </div>
-        <div className="relative mt-1 rounded-md shadow-2xs">
+        <div className="shadow-2xs relative mt-1 rounded-md">
           {adminRoles?.map((role, idx) => (
             <InputCheckboxWithDescription
               key={idx}

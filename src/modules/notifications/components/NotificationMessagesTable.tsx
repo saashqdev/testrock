@@ -37,12 +37,12 @@ export default function NotificationMessagesTable({ items, withPagination = true
         {
           name: "seen",
           title: "Seen",
-          value: (i) => <div>{i.seen ? <CheckIcon className="text-theme-500 h-4 w-4" /> : <XIcon className="h-4 w-4 text-muted-foreground" />}</div>,
+          value: (i) => <div>{i.seen ? <CheckIcon className="h-4 w-4 text-theme-500" /> : <XIcon className="h-4 w-4 text-muted-foreground" />}</div>,
         },
         {
           name: "read",
           title: "Read",
-          value: (i) => <div>{i.read ? <CheckIcon className="text-theme-500 h-4 w-4" /> : <XIcon className="h-4 w-4 text-muted-foreground" />}</div>,
+          value: (i) => <div>{i.read ? <CheckIcon className="h-4 w-4 text-theme-500" /> : <XIcon className="h-4 w-4 text-muted-foreground" />}</div>,
         },
         {
           name: "payload",

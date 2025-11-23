@@ -45,7 +45,7 @@ async function getRedisClient() {
           console.error("Redis error:", err);
           // Don't crash the app on Redis errors
         });
-        
+
         try {
           await redisClient.connect();
           await redisClient.set("cat", "stack");
@@ -92,7 +92,7 @@ async function getCache() {
     const { redisCacheAdapter } = await import("cachified-redis-adapter");
     cacheAdapter = redisCacheAdapter(redis);
   }
-  
+
   return cacheAdapter;
 }
 
@@ -139,16 +139,16 @@ export async function cachified<Value>(
     // @ts-ignore
     return options.getFreshValue(options);
   }
-  
+
   try {
     const cacheInstance = await getCache();
-    
+
     // If cache instance is null, fallback to getting fresh value
     if (!cacheInstance) {
       // @ts-ignore
       return options.getFreshValue(options);
     }
-    
+
     return await originalCachified(
       {
         ...options,

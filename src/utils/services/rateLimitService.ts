@@ -36,7 +36,7 @@ export async function rateLimitByKey({
 
   const minuteData = await cache.get(minuteKey);
   const secondData = await cache.get(secondKey);
-  
+
   let minuteCount = (minuteData?.value as number) || 0;
   let secondCount = (secondData?.value as number) || 0;
 

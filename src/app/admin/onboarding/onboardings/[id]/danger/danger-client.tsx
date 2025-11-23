@@ -39,7 +39,7 @@ export default function DangerZone({ item }: DangerZoneProps) {
     startTransition(async () => {
       try {
         const result = await deleteOnboarding(item.id);
-        
+
         if (result?.error) {
           setActionData({ error: result.error });
         } else {
@@ -62,11 +62,7 @@ export default function DangerZone({ item }: DangerZoneProps) {
       {item.active && <ErrorBanner title={t("shared.warning")} text="You cannot delete an active onboarding." />}
 
       <InputGroup title={t("shared.dangerZone")} className="bg-red-50">
-        <ButtonSecondary 
-          disabled={item.active || !getUserHasPermission(appOrAdminData, "admin.onboarding.delete") || isPending} 
-          destructive 
-          onClick={onDelete}
-        >
+        <ButtonSecondary disabled={item.active || !getUserHasPermission(appOrAdminData, "admin.onboarding.delete") || isPending} destructive onClick={onDelete}>
           {isPending ? t("shared.deleting") || "Deleting..." : t("shared.delete")}
         </ButtonSecondary>
       </InputGroup>

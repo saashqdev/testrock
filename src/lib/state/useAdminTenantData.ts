@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Tenant, TenantUser } from "@prisma/client";
 import { createContext, useContext } from "react";
@@ -14,11 +14,11 @@ export const AdminTenantDataContext = createContext<AdminTenantDataDto | null>(n
 
 export default function useAdminTenantData(): AdminTenantLoaderData {
   const context = useContext(AdminTenantDataContext);
-  
-  if (typeof window === 'undefined') {
+
+  if (typeof window === "undefined") {
     throw new Error("useAdminTenantData cannot be used during SSR");
   }
-  
+
   if (!context) {
     throw new Error("useAdminTenantData must be used within an AdminTenantDataContext.Provider");
   }

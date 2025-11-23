@@ -32,18 +32,18 @@ export default function EditUserClient({ user: initialUser }: Props) {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    
+
     startTransition(async () => {
       const formData = new FormData(e.currentTarget);
-      
+
       try {
         const response = await fetch(`/api/portals/${params.portal}/users/${user.id}/update`, {
           method: "POST",
           body: formData,
         });
-        
+
         const result = await response.json();
-        
+
         if (result.success) {
           toast.success(result.success);
           router.push(UrlUtils.currentTenantUrl(params, `portals/${params.portal}/users`));
@@ -69,9 +69,9 @@ export default function EditUserClient({ user: initialUser }: Props) {
         const response = await fetch(`/api/portals/${params.portal}/users/${user.id}/delete`, {
           method: "POST",
         });
-        
+
         const result = await response.json();
-        
+
         if (result.success) {
           toast.success(result.success);
           router.push(UrlUtils.currentTenantUrl(params, `portals/${params.portal}/users`));

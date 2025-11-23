@@ -314,7 +314,7 @@ export async function seedRolesAndPermissions(adminEmail?: string): Promise<void
   const entities = await db.entities.getAllEntities(null);
   await Promise.all(
     entities.map(async (entity) => {
-      return (getEntityPermissions(entity)).map(async (permission) => {
+      return getEntityPermissions(entity).map(async (permission) => {
         const entityPermission = {
           inRoles: [DefaultAdminRoles.SuperAdmin, DefaultAppRoles.SuperUser, DefaultAppRoles.Admin, DefaultAppRoles.User].map((f) => f.toString()),
           name: permission.name as DefaultPermission,

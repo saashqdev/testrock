@@ -12,7 +12,7 @@ type PageProps = {
 // Server action for form submission
 async function updatePromptGroup(formData: FormData) {
   "use server";
-  
+
   const { t } = await getServerTranslations();
   const action = formData.get("action")?.toString();
   const id = formData.get("id")?.toString();
@@ -64,10 +64,10 @@ async function updatePromptGroup(formData: FormData) {
 export default async function PromptGroupEditPage(props: PageProps) {
   const params = await props.params;
   const searchParams = await props.searchParams;
-  
+
   // Fetch data server-side
   const item = await db.promptFlowGroups.getPromptFlowGroup(params.id);
-  
+
   if (!item) {
     redirect("/admin/prompts/groups");
   }
@@ -76,11 +76,5 @@ export default async function PromptGroupEditPage(props: PageProps) {
   const error = searchParams?.error as string | undefined;
   const success = searchParams?.success as string | undefined;
 
-  return (
-    <PromptGroupEditClient 
-      item={item} 
-      actionData={error || success ? { error, success } : undefined}
-      updatePromptGroup={updatePromptGroup}
-    />
-  );
+  return <PromptGroupEditClient item={item} actionData={error || success ? { error, success } : undefined} updatePromptGroup={updatePromptGroup} />;
 }

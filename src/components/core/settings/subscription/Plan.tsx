@@ -162,9 +162,9 @@ export default function Plan({
   const confirmModal = useRef<RefConfirmModal>(null);
   async function onClick() {
     if (isLoading) return;
-    
+
     setIsLoading(true);
-    
+
     const formData = new FormData();
     formData.set("action", "subscribe");
     formData.set("product-id", product?.id?.toString() ?? "");
@@ -194,10 +194,11 @@ export default function Plan({
             ...rootData.appConfiguration,
             app: {
               ...rootData.appConfiguration.app,
-              theme: typeof rootData.appConfiguration.app.theme === 'string' 
-                ? { color: rootData.appConfiguration.app.theme, scheme: "system" as const }
-                : rootData.appConfiguration.app.theme
-            }
+              theme:
+                typeof rootData.appConfiguration.app.theme === "string"
+                  ? { color: rootData.appConfiguration.app.theme, scheme: "system" as const }
+                  : rootData.appConfiguration.app.theme,
+            },
           },
         },
         action: "click-plan",
@@ -207,31 +208,30 @@ export default function Plan({
       });
 
       // Extract tenant from pathname (e.g., /subscribe/acme-corp-3 -> acme-corp-3)
-      const tenantSlug = pathname.split('/').filter(Boolean)[1];
+      const tenantSlug = pathname.split("/").filter(Boolean)[1];
       const response = await fetch(`/api/subscribe/${tenantSlug}`, {
         method: "POST",
         body: formData,
       });
-      
+
       const data = await response.json();
-      
+
       if (!response.ok) {
         console.error("Subscription error response:", data);
         throw new Error(data.error || `HTTP error! status: ${response.status}`);
       }
-      
+
       if (data.error) {
         throw new Error(data.error);
       }
-      
+
       // Redirect to Stripe Checkout
       if (data.url) {
         window.location.href = data.url;
         return;
       }
-      
+
       throw new Error("No checkout URL received");
-      
     } catch (error: any) {
       console.error("Subscription error:", error);
       errorModal.current?.show("Error", error.message || "Failed to process subscription. Please try again.");

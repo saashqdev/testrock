@@ -6,7 +6,7 @@ import BycicleIcon from "@/components/ui/icons/onboardings/BycicleIcon";
 
 export default function OnboardingButton({ item, onClick }: { item: OnboardingSessionWithDetailsDto; onClick?: () => void }) {
   if (!item?.onboarding) return null;
-  
+
   return (
     <div className="inline-flex divide-x divide-theme-300 rounded-full shadow-none sm:rounded-md">
       <div className="relative z-0 inline-flex rounded-full text-xs shadow-none sm:text-sm">
@@ -14,8 +14,8 @@ export default function OnboardingButton({ item, onClick }: { item: OnboardingSe
           type="button"
           onClick={onClick}
           className={clsx(
-            "relative inline-flex items-center rounded-full border border-theme-100 bg-theme-50 p-2 font-medium text-theme-500 shadow-inner hover:bg-theme-100 hover:text-theme-800 focus:z-10 focus:bg-theme-100 focus:text-theme-900 focus:outline-hidden sm:rounded-md",
-            "flex px-3 text-theme-900 hover:bg-theme-200 hover:text-theme-800 focus:z-10 focus:bg-theme-100 focus:text-theme-900 focus:outline-hidden"
+            "focus:outline-hidden relative inline-flex items-center rounded-full border border-theme-100 bg-theme-50 p-2 font-medium text-theme-500 shadow-inner hover:bg-theme-100 hover:text-theme-800 focus:z-10 focus:bg-theme-100 focus:text-theme-900 sm:rounded-md",
+            "focus:outline-hidden flex px-3 text-theme-900 hover:bg-theme-200 hover:text-theme-800 focus:z-10 focus:bg-theme-100 focus:text-theme-900"
           )}
           aria-haspopup="listbox"
           aria-expanded="true"

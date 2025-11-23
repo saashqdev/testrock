@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default async function SupabasePlaygroundPage() {
   await requireAuth();
-  
+
   const supabaseConfig = {
     url: process.env.SUPABASE_API_URL,
     key: process.env.SUPABASE_ANON_PUBLIC_KEY,

@@ -7,13 +7,7 @@ import UrlUtils from "@/utils/app/UrlUtils";
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 
 // Client Component for interactive functionality
-export default function PageEditLayout({ 
-  children, 
-  params 
-}: { 
-  children: ReactNode;
-  params: Promise<{ id: string }>;
-}) {
+export default function PageEditLayout({ children, params }: { children: ReactNode; params: Promise<{ id: string }> }) {
   const { t } = useTranslation();
   const pathname = usePathname();
   const router = useRouter();

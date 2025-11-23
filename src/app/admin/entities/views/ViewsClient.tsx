@@ -91,10 +91,10 @@ export default function EntityViewsClient({ items, pagination, filterablePropert
                       {({ active }) => (
                         <Link
                           href={`/admin/entities/views/new/${f.name}${search}`}
-                          className={clsx("w-full truncate", active ? "text-foreground bg-secondary/90" : "text-foreground/80", "block px-4 py-2 text-sm")}
+                          className={clsx("w-full truncate", active ? "bg-secondary/90 text-foreground" : "text-foreground/80", "block px-4 py-2 text-sm")}
                         >
                           <div className="truncate">
-                            {t(f.title)} <span className="text-muted-foreground text-xs">({f.name})</span>
+                            {t(f.title)} <span className="text-xs text-muted-foreground">({f.name})</span>
                           </div>
                         </Link>
                       )}
@@ -130,16 +130,29 @@ export default function EntityViewsClient({ items, pagination, filterablePropert
       >
         <div className="-mx-1 -mt-3">
           <div className="space-y-4">
-            {searchParams.get("edit") && <EntityViewSlideoverContent viewId={searchParams.get("edit")!} items={items} entities={entities} onClose={() => {
-              const newParams = new URLSearchParams(search);
-              newParams.delete("edit");
-              router.push("/admin/entities/views" + (newParams.toString() ? `?${newParams.toString()}` : ""));
-            }} />}
-            {searchParams.get("entity") && <NewEntityViewSlideoverContent entityName={searchParams.get("entity")!} entities={entities} onClose={() => {
-              const newParams = new URLSearchParams(search);
-              newParams.delete("entity");
-              router.push("/admin/entities/views" + (newParams.toString() ? `?${newParams.toString()}` : ""));
-            }} />}
+            {searchParams.get("edit") && (
+              <EntityViewSlideoverContent
+                viewId={searchParams.get("edit")!}
+                items={items}
+                entities={entities}
+                onClose={() => {
+                  const newParams = new URLSearchParams(search);
+                  newParams.delete("edit");
+                  router.push("/admin/entities/views" + (newParams.toString() ? `?${newParams.toString()}` : ""));
+                }}
+              />
+            )}
+            {searchParams.get("entity") && (
+              <NewEntityViewSlideoverContent
+                entityName={searchParams.get("entity")!}
+                entities={entities}
+                onClose={() => {
+                  const newParams = new URLSearchParams(search);
+                  newParams.delete("entity");
+                  router.push("/admin/entities/views" + (newParams.toString() ? `?${newParams.toString()}` : ""));
+                }}
+              />
+            )}
           </div>
         </div>
       </SlideOverWideEmpty>
@@ -148,13 +161,13 @@ export default function EntityViewsClient({ items, pagination, filterablePropert
 }
 
 // Component for editing an existing entity view
-function EntityViewSlideoverContent({ 
-  viewId, 
+function EntityViewSlideoverContent({
+  viewId,
   items,
   entities,
-  onClose 
-}: { 
-  viewId: string; 
+  onClose,
+}: {
+  viewId: string;
   items: EntityViewsWithTenantAndUserDto[];
   entities: EntityWithDetailsDto[];
   onClose: () => void;
@@ -166,7 +179,7 @@ function EntityViewSlideoverContent({
   const [userId, setUserId] = useState<string | null>(null);
 
   // Find the item in the provided items list
-  const item = items.find(i => i.id === viewId);
+  const item = items.find((i) => i.id === viewId);
 
   useEffect(() => {
     if (item) {
@@ -231,9 +244,11 @@ function EntityViewSlideoverContent({
     return (
       <div className="p-4">
         <div>Loading entity data...</div>
-        <div className="text-xs text-muted-foreground mt-2">
-          Entity ID: {item.entityId}<br />
-          Available entities: {entities.length}<br />
+        <div className="mt-2 text-xs text-muted-foreground">
+          Entity ID: {item.entityId}
+          <br />
+          Available entities: {entities.length}
+          <br />
           Check console for details
         </div>
       </div>
@@ -255,18 +270,10 @@ function EntityViewSlideoverContent({
 }
 
 // Component for creating a new entity view
-function NewEntityViewSlideoverContent({ 
-  entityName, 
-  entities, 
-  onClose 
-}: { 
-  entityName: string; 
-  entities: EntityWithDetailsDto[];
-  onClose: () => void;
-}) {
+function NewEntityViewSlideoverContent({ entityName, entities, onClose }: { entityName: string; entities: EntityWithDetailsDto[]; onClose: () => void }) {
   const { toast } = useToast();
   const searchParams = useSearchParams();
-  
+
   // Determine type from URL params (default, tenant, user, system)
   const typeFromUrl = searchParams.get("type");
   let isSystem = false;
@@ -284,7 +291,7 @@ function NewEntityViewSlideoverContent({
   const entity = entities.find((e) => e.name === entityName);
 
   if (!entity) {
-    console.error("Entity not found:", { entityName, availableEntities: entities.map(e => e.name) });
+    console.error("Entity not found:", { entityName, availableEntities: entities.map((e) => e.name) });
     return <div className="p-4">Entity not found: {entityName}</div>;
   }
 
@@ -292,7 +299,7 @@ function NewEntityViewSlideoverContent({
 
   async function handleSubmit(formData: FormData) {
     formData.set("entityId", entityId);
-    
+
     try {
       const result = await createEntityView(formData);
       if (result?.error) {

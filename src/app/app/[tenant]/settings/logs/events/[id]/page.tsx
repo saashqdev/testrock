@@ -15,7 +15,7 @@ type LoaderData = {
 
 async function getEventData(props: IServerComponentsProps): Promise<LoaderData> {
   const params = (await props.params) || {};
-  const request = props.request!;  
+  const request = props.request!;
   const tenantId = await getTenantIdFromUrl(params);
   await verifyUserHasPermission("app.settings.auditTrails.view", tenantId);
   const item = await db.events.getEvent(params.id ?? "");
@@ -32,7 +32,7 @@ export default async function AppEventDetailsRoute(props: IServerComponentsProps
   const { t } = await getServerTranslations();
   const data = await getEventData(props);
   const params = (await props.params) || {};
-  
+
   return (
     <EditPageLayout
       title={t("models.event.object")}

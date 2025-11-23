@@ -41,10 +41,7 @@ export default function FeatureFlagForm({
 }) {
   const { t } = useTranslation();
   const router = useRouter();
-  const [state, formAction] = useActionState<{ error?: string; success?: string }, FormData>(
-    action || (async () => ({})),
-    {}
-  );
+  const [state, formAction] = useActionState<{ error?: string; success?: string }, FormData>(action || (async () => ({})), {});
 
   const [showFilterModal, setShowFilterModal] = useState<{
     item?: { type: FeatureFlagsFilterType; value: string | null; action: string | null };

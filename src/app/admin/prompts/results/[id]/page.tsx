@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const resolvedParams = await params;
   const { t } = await getServerTranslations();
   const item = await db.promptFlows.getPromptFlowWithExecutions(resolvedParams.id ?? "");
-  
+
   if (!item) {
     return { title: "Not Found" };
   }
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 export default async function PromptResultsPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
   const item = await db.promptFlows.getPromptFlowWithExecutions(resolvedParams.id ?? "");
-  
+
   if (!item) {
     redirect("/admin/prompts/builder");
   }

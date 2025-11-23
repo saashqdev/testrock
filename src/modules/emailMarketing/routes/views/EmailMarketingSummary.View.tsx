@@ -16,11 +16,11 @@ export default async function EmailMarketingSummaryView({ params, searchParams }
       }
     });
   }
-  
+
   const request = new Request(url.toString());
-  const data = await loader({ 
-    request, 
-    params: Promise.resolve(params)
+  const data = await loader({
+    request,
+    params: Promise.resolve(params),
   });
 
   return <EmailMarketingSummaryRoute data={data} />;

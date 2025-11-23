@@ -2,13 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/services/loaders.middleware";
 import { db } from "@/db";
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ portal: string; userId: string }> }
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ portal: string; userId: string }> }) {
   try {
     await requireAuth();
-    
+
     const { portal, userId } = await params;
 
     const portalData = await db.portals.getPortalById(null, portal);

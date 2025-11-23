@@ -33,9 +33,7 @@ export default function FakeProjectsClient({ initialData }: FakeProjectsClientPr
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
-  const [overviewItem, setOverviewItem] = useState<FakeProjectDto | undefined>(
-    initialData.overviewItem ?? undefined
-  );
+  const [overviewItem, setOverviewItem] = useState<FakeProjectDto | undefined>(initialData.overviewItem ?? undefined);
   const [actionData, setActionData] = useState<{ success?: string; error?: string }>();
 
   useEffect(() => {
@@ -116,7 +114,7 @@ export default function FakeProjectsClient({ initialData }: FakeProjectsClientPr
                 <Link href={`${item.id}`} className="hover:underline">
                   <div className="flex flex-col truncate">
                     <div className="truncate">{item.name}</div>
-                    <div className="text-muted-foreground truncate text-xs">{item.description}</div>
+                    <div className="truncate text-xs text-muted-foreground">{item.description}</div>
                   </div>
                 </Link>
               </div>
@@ -125,12 +123,7 @@ export default function FakeProjectsClient({ initialData }: FakeProjectsClientPr
           {
             name: "active",
             title: "Active",
-            value: (item) =>
-              item.active ? (
-                <SimpleBadge title="Active" color={Colors.GREEN} />
-              ) : (
-                <SimpleBadge title="Archived" color={Colors.GRAY} />
-              ),
+            value: (item) => (item.active ? <SimpleBadge title="Active" color={Colors.GREEN} /> : <SimpleBadge title="Archived" color={Colors.GRAY} />),
           },
           {
             name: "tasks",
@@ -162,7 +155,7 @@ export default function FakeProjectsClient({ initialData }: FakeProjectsClientPr
           <>
             <Link
               href={`${overviewItem?.id}`}
-              className="hover:text-muted-foreground text-muted-foreground bg-background rounded-md focus:outline-hidden focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+              className="focus:outline-hidden rounded-md bg-background text-muted-foreground hover:text-muted-foreground focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
             >
               <span className="sr-only">Close panel</span>
               <ExternalLinkEmptyIcon className="h-6 w-6" aria-hidden="true" />

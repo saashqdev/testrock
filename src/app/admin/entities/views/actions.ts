@@ -21,7 +21,7 @@ export async function updateEntityView(formData: FormData): Promise<ActionResult
     const protocol = headersList.get("x-forwarded-proto") || "http";
     const url = `${protocol}://${host}/admin/entities/views`;
     const request = new Request(url);
-    
+
     await verifyUserHasPermission("admin.entities.update");
 
     const id = formData.get("id")?.toString() ?? "";
@@ -40,7 +40,7 @@ export async function updateEntityView(formData: FormData): Promise<ActionResult
   } catch (e: any) {
     return { error: e.message };
   }
-  
+
   redirect(`/admin/entities/views`);
 }
 
@@ -52,7 +52,7 @@ export async function deleteEntityView(formData: FormData): Promise<ActionResult
     const protocol = headersList.get("x-forwarded-proto") || "http";
     const url = `${protocol}://${host}/admin/entities/views`;
     const request = new Request(url);
-    
+
     await verifyUserHasPermission("admin.entities.update");
 
     const id = formData.get("id")?.toString() ?? "";
@@ -65,7 +65,7 @@ export async function deleteEntityView(formData: FormData): Promise<ActionResult
   } catch (e: any) {
     return { error: e.message };
   }
-  
+
   redirect(`/admin/entities/views`);
 }
 
@@ -77,7 +77,7 @@ export async function createEntityView(formData: FormData): Promise<ActionResult
     const protocol = headersList.get("x-forwarded-proto") || "http";
     const url = `${protocol}://${host}/admin/entities/views`;
     const request = new Request(url);
-    
+
     await verifyUserHasPermission("admin.entities.update");
 
     const userInfo = await getUserInfo();
@@ -91,6 +91,6 @@ export async function createEntityView(formData: FormData): Promise<ActionResult
   } catch (e: any) {
     return { error: e.message };
   }
-  
+
   redirect(`/admin/entities/views`);
 }

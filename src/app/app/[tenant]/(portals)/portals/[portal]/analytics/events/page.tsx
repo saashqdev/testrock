@@ -36,21 +36,21 @@ export default async function AnalyticsEventsPage({ params, searchParams }: Prop
   const { t } = await getServerTranslations();
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
-  
+
   const tenantId = await getTenantIdFromUrl(resolvedParams);
   const portal = await db.portals.getPortalById(tenantId, resolvedParams.portal);
-  
+
   if (!portal) {
     throw new Error("Portal not found");
   }
-  
+
   const allActions = await prisma.analyticsEvent.groupBy({
     by: ["action"],
     where: {
       portalId: portal.id,
     },
   });
-  
+
   const allCategories = await prisma.analyticsEvent.groupBy({
     where: {
       portalId: portal.id,
@@ -58,7 +58,7 @@ export default async function AnalyticsEventsPage({ params, searchParams }: Prop
     },
     by: ["category"],
   });
-  
+
   const allLabels = await prisma.analyticsEvent.groupBy({
     where: {
       portalId: portal.id,
@@ -66,7 +66,7 @@ export default async function AnalyticsEventsPage({ params, searchParams }: Prop
     },
     by: ["label"],
   });
-  
+
   const allValues = await prisma.analyticsEvent.groupBy({
     where: {
       portalId: portal.id,
@@ -122,10 +122,10 @@ export default async function AnalyticsEventsPage({ params, searchParams }: Prop
       manual: true,
     },
   ];
-  
+
   const url = new URL(`http://localhost?${new URLSearchParams(resolvedSearchParams as any).toString()}`);
   const mockRequest = { url: url.toString() } as Request;
-  
+
   const filters = getFiltersFromCurrentUrl(mockRequest, filterableProperties);
   let where: Prisma.AnalyticsEventWhereInput = {
     portalId: portal.id,
@@ -140,12 +140,12 @@ export default async function AnalyticsEventsPage({ params, searchParams }: Prop
   if (categoryFilter?.value) {
     where = { ...where, category: categoryFilter.value };
   }
-  
+
   const labelFilter = filters.properties.find((f) => f.name === "label");
   if (labelFilter?.value) {
     where = { ...where, label: labelFilter.value };
   }
-  
+
   const valueFilter = filters.properties.find((f) => f.name === "value");
   if (valueFilter?.value) {
     where = { ...where, value: valueFilter.value };
@@ -163,7 +163,7 @@ export default async function AnalyticsEventsPage({ params, searchParams }: Prop
 
   const urlSearchParams = new URL(mockRequest.url).searchParams;
   const pagination = getPaginationFromCurrentUrl(urlSearchParams);
-  
+
   const items = await prisma.analyticsEvent.findMany({
     take: pagination.pageSize,
     skip: pagination.pageSize * (pagination.page - 1),
@@ -179,11 +179,11 @@ export default async function AnalyticsEventsPage({ params, searchParams }: Prop
       createdAt: "desc",
     },
   });
-  
+
   const totalItems = await prisma.analyticsEvent.count({
     where,
   });
-  
+
   const data: LoaderData = {
     portal,
     items,

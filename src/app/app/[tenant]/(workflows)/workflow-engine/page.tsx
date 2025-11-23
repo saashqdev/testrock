@@ -11,12 +11,12 @@ export async function generateMetadata(): Promise<Metadata> {
     const titleMeta = data?.metatags?.find((meta: any) => meta.title);
     return {
       title: titleMeta?.title || "Workflow Engine",
-      description: "Manage and monitor your workflows"
+      description: "Manage and monitor your workflows",
     };
   } catch (error) {
     return {
       title: "Workflow Engine",
-      description: "Manage and monitor your workflows"
+      description: "Manage and monitor your workflows",
     };
   }
 }

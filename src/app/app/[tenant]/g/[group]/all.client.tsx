@@ -35,11 +35,11 @@ export default function AllPageClient({ data, groupSlug }: AllPageClientProps) {
             <div key={entity.id} className="space-y-1">
               <div className="flex items-center justify-between space-x-2">
                 <h3 className="text-sm font-medium">
-                  {t(entity.titlePlural)} <span className="text-muted-foreground text-xs">({data.entitiesData[entity.name].items.length})</span>
+                  {t(entity.titlePlural)} <span className="text-xs text-muted-foreground">({data.entitiesData[entity.name].items.length})</span>
                 </h3>
                 <Link
                   href={entity.slug + "/new"}
-                  className="text-foreground bg-secondary hover:bg-secondary/90 rounded-full p-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+                  className="rounded-full bg-secondary p-1 text-foreground hover:bg-secondary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
                 >
                   <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />

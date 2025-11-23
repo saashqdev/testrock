@@ -37,4 +37,3 @@ export const loader = async ({ request, params }: { request: Request; params: an
   };
   return data;
 };
-

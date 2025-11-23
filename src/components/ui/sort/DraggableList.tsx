@@ -49,7 +49,7 @@ export default function DraggableList<T extends { id: string; order: number }>({
         })
       );
     });
-    
+
     // Submit form using Next.js approach
     fetch(window.location.pathname, {
       method: "POST",

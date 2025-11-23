@@ -9,17 +9,17 @@ import EntityHelper from "@/lib/helpers/EntityHelper";
 export default function RowLinkButton({ entityName, id }: { entityName: string; id: string }) {
   const appOrAdminData = useAppOrAdminData();
   const params = useParams();
-  
+
   if (!appOrAdminData) {
     return null;
   }
-  
+
   const entity = appOrAdminData.entities.find((f) => f.name === entityName);
-  
+
   if (!entity) {
     return null;
   }
-  
+
   return (
     <Link
       onClick={(e) => e.stopPropagation()}

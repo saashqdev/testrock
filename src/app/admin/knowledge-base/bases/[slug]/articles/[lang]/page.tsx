@@ -108,7 +108,7 @@ async function handleDuplicate(kb: KnowledgeBaseDto, lang: string, articleId: st
 async function handleToggleFeatured(itemId: string, isFeatured: boolean, kb: KnowledgeBaseDto) {
   "use server";
   await verifyUserHasPermission(undefined as any, "admin.kb.update");
-  
+
   const item = await db.kbArticles.getKbArticleById(itemId);
   if (!item) {
     throw new Error("Not found");
@@ -139,15 +139,15 @@ async function handleToggleFeatured(itemId: string, isFeatured: boolean, kb: Kno
 export default async function ArticlesPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const request = props.request!;
-  
+
   await verifyUserHasPermission("admin.kb.view");
-  
+
   const data = await getData(props);
   const userInfo = await getUserInfo();
 
   return (
-    <ArticlesClient 
-      data={data} 
+    <ArticlesClient
+      data={data}
       params={params}
       onNewArticle={async () => {
         "use server";

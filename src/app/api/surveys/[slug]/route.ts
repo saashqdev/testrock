@@ -10,13 +10,13 @@ import { headers } from "next/headers";
 async function getAlreadyVoted({ surveyId, request }: { surveyId: string; request: NextRequest }) {
   const analyticsInfo = await getAnalyticsInfo(request);
   const clientIpAddress = getClientIPAddress(request.headers) ?? "Unknown";
-  
+
   const existingUserAnalytics = await prisma.surveySubmission
     .findFirstOrThrow({
       where: { surveyId, userAnalyticsId: analyticsInfo.userAnalyticsId },
     })
     .catch(() => null);
-  
+
   const existingIpAddress = await prisma.surveySubmission
     .findFirstOrThrow({
       where: { surveyId, ipAddress: clientIpAddress },
@@ -33,14 +33,11 @@ async function getAlreadyVoted({ surveyId, request }: { surveyId: string; reques
   return false;
 }
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ slug: string }> }
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   try {
     const { slug } = await params;
     const item = await db.surveys.getSurveyBySlug({ tenantId: null, slug });
-    
+
     if (!item) {
       return NextResponse.json({ error: "Survey not found" }, { status: 404 });
     }
@@ -50,13 +47,13 @@ export async function POST(
 
     const formData = await request.formData();
     const action = formData.get("action");
-    
+
     if (action === "vote") {
       const alreadyVoted = await getAlreadyVoted({ surveyId: item.id, request });
       if (alreadyVoted) {
         return NextResponse.json({ error: "You've already voted" }, { status: 400 });
       }
-      
+
       try {
         const results = JSON.parse(formData.get("results") as string) as SurveyItemResultDto[];
         if (results.length === 0) {
@@ -64,11 +61,11 @@ export async function POST(
         } else if (results.length !== item.items.length) {
           return NextResponse.json({ error: "Invalid results" }, { status: 400 });
         }
-        
+
         if (!analyticsInfo.userAnalyticsId) {
           return NextResponse.json({ error: "You need to enable cookies to vote" }, { status: 400 });
         }
-        
+
         await prisma.surveySubmission.create({
           data: {
             surveyId: item.id,
@@ -100,7 +97,7 @@ export async function POST(
             },
           },
         });
-        
+
         await NotificationService.sendToRoles({
           channel: "admin-users",
           notification: {
@@ -110,13 +107,13 @@ export async function POST(
             },
           },
         });
-        
+
         return NextResponse.json({ success: true, redirect: `/surveys/${item.slug}?success=true` });
       } catch (e: any) {
         return NextResponse.json({ error: e.message }, { status: 400 });
       }
     }
-    
+
     return NextResponse.json({ error: "Unknown action" }, { status: 400 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message || "An error occurred" }, { status: 500 });

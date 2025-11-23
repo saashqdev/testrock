@@ -23,7 +23,7 @@ async function getEntityTemplatesData(props: IServerComponentsProps): Promise<Lo
   await requireAuth();
   const tenantId = await getTenantIdOrNull({ request, params });
   // Extract entity name from params.entity which should be like "contact-templates"
-  const entitySlug = params.entity?.replace('-templates', '') ?? "";
+  const entitySlug = params.entity?.replace("-templates", "") ?? "";
   const entity = await db.entities.getEntityBySlug({ tenantId, slug: entitySlug });
   const items = await db.entityTemplates.getEntityTemplates(entity.id, { tenantId });
   return {

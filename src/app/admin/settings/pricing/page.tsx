@@ -25,7 +25,7 @@ const loader = async (): Promise<PricingLoaderData> => {
   }
   await verifyUserHasPermission("admin.pricing.view");
   const { t } = await getServerTranslations();
-  
+
   const data: PricingLoaderData = {
     title: `${t("admin.pricing.title")} | ${defaultSiteTags.title}`,
     isStripeTest: process.env.STRIPE_SK?.toString().startsWith("sk_test_") ?? true,

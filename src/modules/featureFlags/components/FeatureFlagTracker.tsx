@@ -24,10 +24,11 @@ export default function FeatureFlagTracker({ flag, children }: Props) {
             ...rootData.appConfiguration,
             app: {
               ...rootData.appConfiguration.app,
-              theme: typeof rootData.appConfiguration.app.theme === 'string' 
-                ? { color: rootData.appConfiguration.app.theme, scheme: "system" as const }
-                : rootData.appConfiguration.app.theme
-            }
+              theme:
+                typeof rootData.appConfiguration.app.theme === "string"
+                  ? { color: rootData.appConfiguration.app.theme, scheme: "system" as const }
+                  : rootData.appConfiguration.app.theme,
+            },
           },
         },
         action: flag,

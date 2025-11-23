@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function PlaygroundPage() {
   return (
-    <div className="prose dark:prose-dark p-4">
+    <div className="prose p-4 dark:prose-dark">
       <h2>Playground</h2>
 
       <p>These playground routes are examples for showcasing random use cases, such as:</p>

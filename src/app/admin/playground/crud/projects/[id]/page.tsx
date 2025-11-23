@@ -17,7 +17,7 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 export default async function FakeProjectPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const item = await get(params.id!);
-  
+
   if (!item) {
     redirect("/admin/playground/crud/projects");
   }

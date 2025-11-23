@@ -23,11 +23,7 @@ async function getLoaderData(id: string): Promise<LoaderData> {
   };
 }
 
-export default async function AdminApiEditKeyRoute({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function AdminApiEditKeyRoute({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const data = await getLoaderData(id);
   return <AdminApiEditKeyClient tenants={data.tenants} item={data.item} />;

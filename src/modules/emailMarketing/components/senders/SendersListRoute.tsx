@@ -13,7 +13,6 @@ import { LoaderData } from "../../routes/Senders_List";
 import toast from "react-hot-toast";
 import { useRootData } from "@/lib/state/useRootData";
 
-
 export default function SendersListRoute() {
   const { appConfiguration } = useRootData();
   const [data, setData] = useState<LoaderData | null>(null);
@@ -29,15 +28,15 @@ export default function SendersListRoute() {
       try {
         setLoading(true);
         const queryString = searchParams.toString();
-        const url = `/api/email-marketing/senders${queryString ? `?${queryString}` : ''}`;
+        const url = `/api/email-marketing/senders${queryString ? `?${queryString}` : ""}`;
         const response = await fetch(url);
         if (!response.ok) {
-          throw new Error('Failed to fetch senders data');
+          throw new Error("Failed to fetch senders data");
         }
         const result = await response.json();
         setData(result);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
+        setError(err instanceof Error ? err.message : "An error occurred");
       } finally {
         setLoading(false);
       }
@@ -51,30 +50,30 @@ export default function SendersListRoute() {
     if (!email || email.trim() === "") {
       return;
     }
-    
+
     try {
       const form = new FormData();
       form.set("action", "send-test");
       form.set("senderId", item.id);
       form.set("email", email);
-      
+
       const queryString = searchParams.toString();
-      const url = `/api/email-marketing/senders${queryString ? `?${queryString}` : ''}`;
-      
+      const url = `/api/email-marketing/senders${queryString ? `?${queryString}` : ""}`;
+
       const response = await fetch(url, {
         method: "POST",
         body: form,
       });
-      
+
       const result = await response.json();
-      
+
       if (response.ok && result.success) {
         toast.success(result.success);
       } else {
-        toast.error(result.error || 'Failed to send test email');
+        toast.error(result.error || "Failed to send test email");
       }
     } catch (err) {
-      toast.error('Failed to send test email');
+      toast.error("Failed to send test email");
     }
   }
   if (loading) {
@@ -110,9 +109,9 @@ export default function SendersListRoute() {
   return (
     <>
       <div className="mx-auto w-full max-w-5xl space-y-3 px-4 py-2 pb-6 sm:px-6 sm:pt-3 lg:px-8 xl:max-w-full">
-        <div className="md:border-border md:border-b md:py-2">
+        <div className="md:border-b md:border-border md:py-2">
           <div className="flex items-center justify-between">
-            <h3 className="text-foreground text-lg font-medium leading-6">{t("emailMarketing.senders.plural")}</h3>
+            <h3 className="text-lg font-medium leading-6 text-foreground">{t("emailMarketing.senders.plural")}</h3>
             <div className="flex items-center space-x-2">
               <ButtonPrimary to="senders/new">{t("shared.new")}</ButtonPrimary>
             </div>
@@ -133,9 +132,9 @@ export default function SendersListRoute() {
             <a className="underline" target="_blank" rel="noreferrer" href="https://account.postmarkapp.com/servers">
               Postmark server
             </a>
-            , click on the Message stream <i>(e.g. Default Broadcast Stream)</i>, then on the &quot;<b>Webhooks</b>&quot; tab, click &quot;<b>Add webhook</b>&quot;, set the URL to
-            &quot;<b className="select-all">{appConfiguration.app.url}/webhooks/email/postmark</b>&quot;, and select every event you want to track{" "}
-            <i>(Deliveries, Bounces, Opens, Link Clicks, Unsubscribes...)</i>.
+            , click on the Message stream <i>(e.g. Default Broadcast Stream)</i>, then on the &quot;<b>Webhooks</b>&quot; tab, click &quot;<b>Add webhook</b>
+            &quot;, set the URL to &quot;<b className="select-all">{appConfiguration.app.url}/webhooks/email/postmark</b>&quot;, and select every event you want
+            to track <i>(Deliveries, Bounces, Opens, Link Clicks, Unsubscribes...)</i>.
             <p className="mt-2">
               Finally, before clicking &quot;<b>Save webhook</b>&quot;, click on the &quot;<b>Send test</b>&quot; button to make sure it works.
             </p>

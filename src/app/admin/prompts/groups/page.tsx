@@ -14,7 +14,7 @@ type LoaderData = {
 // Server Action for form submissions
 async function addPromptFlowAction(formData: FormData) {
   "use server";
-  
+
   const { t } = await getServerTranslations();
   const action = formData.get("action")?.toString();
 
@@ -63,5 +63,9 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function GroupsPage({ children }: { children?: React.ReactNode }) {
   const items = await db.promptFlowGroups.getAllPromptFlowGroups();
 
-  return <GroupsClient items={items} addPromptFlowAction={addPromptFlowAction}>{children}</GroupsClient>;
+  return (
+    <GroupsClient items={items} addPromptFlowAction={addPromptFlowAction}>
+      {children}
+    </GroupsClient>
+  );
 }

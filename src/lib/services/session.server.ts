@@ -179,16 +179,16 @@ export async function commitSession(session: UserSession) {
 
 export async function generateCSRFToken() {
   const cookieStore = await cookies();
-  
+
   // Check if CSRF token already exists
   const existingToken = cookieStore.get("csrf")?.value;
   if (existingToken) {
     return existingToken;
   }
-  
+
   // Generate new token
   const token = randomBytes(100).toString("base64");
-  
+
   // Set the CSRF token as a cookie (only works in Server Actions/Route Handlers)
   try {
     cookieStore.set("csrf", token, {
@@ -203,7 +203,7 @@ export async function generateCSRFToken() {
     // The cookie will be set on first Server Action call
     console.warn("Could not set CSRF cookie in this context");
   }
-  
+
   return token;
 }
 

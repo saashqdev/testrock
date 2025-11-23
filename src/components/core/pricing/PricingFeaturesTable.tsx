@@ -24,10 +24,10 @@ type SubscriptionFeatureWithId = SubscriptionFeatureDto & { id: string };
 
 export default function PricingFeaturesTable({ plans, items, setItems }: Props) {
   const { t } = useTranslation();
-  
+
   // Ensure all items have IDs
-  const itemsWithIds: SubscriptionFeatureWithId[] = items.map(item => item.id ? item as SubscriptionFeatureWithId : { ...item, id: crypto.randomUUID() });
-  
+  const itemsWithIds: SubscriptionFeatureWithId[] = items.map((item) => (item.id ? (item as SubscriptionFeatureWithId) : { ...item, id: crypto.randomUUID() }));
+
   function onAddFeature() {
     const order = itemsWithIds.length === 0 ? 1 : Math.max(...itemsWithIds.map((o) => o.order)) + 1;
     setItems([
@@ -288,7 +288,7 @@ function Buttons({
                       type="button"
                       onClick={() => {
                         let uniqueFeatures = product.features.filter((feature) => !items.find((item) => item.name === feature.name));
-                        const featuresWithIds = uniqueFeatures.map(f => ({ ...f, id: f.id || crypto.randomUUID() }));
+                        const featuresWithIds = uniqueFeatures.map((f) => ({ ...f, id: f.id || crypto.randomUUID() }));
                         setItems([...items, ...featuresWithIds]);
                       }}
                       className={clsx("w-full text-left", active ? "bg-secondary/90 text-foreground" : "text-foreground/80", "block px-4 py-2 text-sm")}

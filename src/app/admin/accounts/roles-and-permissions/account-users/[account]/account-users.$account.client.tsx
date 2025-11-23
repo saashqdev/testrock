@@ -83,7 +83,7 @@ export default function AdminAccountUsersFromTenantClient({
         items={filteredItems()}
         roles={data.roles}
         onChange={onChange}
-        tenantId={params.account as string ?? ""}
+        tenantId={(params.account as string) ?? ""}
         disabled={!getUserHasPermission(adminData, "admin.roles.set") || isPending}
       />
     </div>

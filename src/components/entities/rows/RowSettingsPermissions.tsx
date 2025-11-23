@@ -149,12 +149,12 @@ export default function RowSettingsPermissions({
                       form.set("id", item?.id ?? "");
                       // In Next.js, you would typically use a server action or form submission
                       // This would need to be handled by a server action or API route
-                      const formElement = document.createElement('form');
-                      formElement.method = 'post';
-                      formElement.action = pathname + (searchParams.toString() ? '?' + searchParams.toString() : '');
+                      const formElement = document.createElement("form");
+                      formElement.method = "post";
+                      formElement.action = pathname + (searchParams.toString() ? "?" + searchParams.toString() : "");
                       form.forEach((value, key) => {
-                        const input = document.createElement('input');
-                        input.type = 'hidden';
+                        const input = document.createElement("input");
+                        input.type = "hidden";
                         input.name = key;
                         input.value = value.toString();
                         formElement.appendChild(input);
@@ -168,12 +168,12 @@ export default function RowSettingsPermissions({
                       form.set("id", item?.id ?? "");
                       form.set("access", value?.toString() ?? "");
                       // In Next.js, you would typically use a server action or form submission
-                      const formElement = document.createElement('form');
-                      formElement.method = 'post';
-                      formElement.action = pathname + (searchParams.toString() ? '?' + searchParams.toString() : '');
+                      const formElement = document.createElement("form");
+                      formElement.method = "post";
+                      formElement.action = pathname + (searchParams.toString() ? "?" + searchParams.toString() : "");
                       form.forEach((value, key) => {
-                        const input = document.createElement('input');
-                        input.type = 'hidden';
+                        const input = document.createElement("input");
+                        input.type = "hidden";
                         input.name = key;
                         input.value = value.toString();
                         formElement.appendChild(input);
@@ -253,13 +253,17 @@ function NewPermissionForm({
         return { name: i.name + (appData?.currentTenant?.id === i.id ? ` (${t("shared.current")})` : ""), value: i.id };
       });
     } else if (type === "role") {
-      return appOrAdminData?.allRoles.map((i) => {
-        return { name: i.name, value: i.id };
-      }) ?? [];
+      return (
+        appOrAdminData?.allRoles.map((i) => {
+          return { name: i.name, value: i.id };
+        }) ?? []
+      );
     } else if (type === "group") {
-      return appOrAdminData?.myGroups.map((i) => {
-        return { name: i.name, value: i.id };
-      }) ?? [];
+      return (
+        appOrAdminData?.myGroups.map((i) => {
+          return { name: i.name, value: i.id };
+        }) ?? []
+      );
     }
     return [];
   }
@@ -267,7 +271,7 @@ function NewPermissionForm({
     return !type || !id || !access;
   }
   return (
-    <form method="post" action={pathname + (searchParams.toString() ? '?' + searchParams.toString() : '')}>
+    <form method="post" action={pathname + (searchParams.toString() ? "?" + searchParams.toString() : "")}>
       <input type="hidden" name="action" value="share" hidden readOnly />
 
       <div className="space-y-2">

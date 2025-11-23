@@ -42,7 +42,7 @@ export default function UsersClient({ data, children }: Props) {
       form.set("action", "change-password");
       form.set("id", user.id);
       form.set("password-new", password);
-      
+
       try {
         const response = await fetch(window.location.pathname, {
           method: "POST",
@@ -59,19 +59,19 @@ export default function UsersClient({ data, children }: Props) {
       }
     }
   }
-  
+
   function deleteUser(item: PortalUserDto) {
     if (confirmDelete.current) {
       confirmDelete.current.setValue(item);
       confirmDelete.current.show(t("shared.delete"), t("shared.delete"), t("shared.cancel"), t("shared.warningCannotUndo"));
     }
   }
-  
+
   async function onConfirmDeleteUser(item: PortalUserDto) {
     const form = new FormData();
     form.set("action", "delete-user");
     form.set("id", item.id);
-    
+
     try {
       const response = await fetch(window.location.pathname, {
         method: "POST",

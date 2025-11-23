@@ -15,16 +15,16 @@ type LoaderData = {
 export default async function EntityPropertiesPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const request = props.request!;
-  
+
   await requireAuth();
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
   if (!appConfiguration.app.features.tenantEntityCustomization) {
     throw Error("Entity customization is not enabled");
   }
-  
+
   const tenantId = await getTenantIdOrNull({ request, params });
   const entity = await db.entities.getEntityBySlug({ tenantId, slug: params.entity ?? "" });
-  
+
   const data: LoaderData = {
     entity,
     properties: entity.properties,

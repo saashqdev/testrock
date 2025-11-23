@@ -38,14 +38,14 @@ export default async function AnalyticsVisitorsPage({ params, searchParams }: Pr
   const { t } = await getServerTranslations();
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
-  
+
   const tenantId = await getTenantIdFromUrl(resolvedParams);
   const portal = await db.portals.getPortalById(tenantId, resolvedParams.portal);
-  
+
   if (!portal) {
     throw new Error("Portal not found");
   }
-  
+
   const allUsers = await prisma.portalUser.findMany({
     where: { portalId: portal.id },
     select: { id: true, email: true },
@@ -69,7 +69,7 @@ export default async function AnalyticsVisitorsPage({ params, searchParams }: Pr
   // Create a mock request object for compatibility with existing helpers
   const url = new URL(`http://localhost?${new URLSearchParams(resolvedSearchParams as any).toString()}`);
   const mockRequest = { url: url.toString() } as Request;
-  
+
   const filters = getFiltersFromCurrentUrl(mockRequest, filterableProperties);
   let where: Prisma.AnalyticsUniqueVisitorWhereInput = {
     portalId: portal.id,
@@ -105,11 +105,11 @@ export default async function AnalyticsVisitorsPage({ params, searchParams }: Pr
       createdAt: "desc",
     },
   });
-  
+
   const totalItems = await prisma.analyticsUniqueVisitor.count({
     where,
   });
-  
+
   const data: LoaderData = {
     portal,
     items,

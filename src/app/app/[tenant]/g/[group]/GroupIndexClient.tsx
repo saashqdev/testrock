@@ -20,7 +20,7 @@ export default function GroupIndexClient({ group, stats }: GroupIndexClientProps
   const router = useRouter();
 
   const handlePeriodChange = (value: React.SetStateAction<string | number | undefined>) => {
-    const newValue = typeof value === 'function' ? value(searchParams.get("period") ?? defaultPeriodFilter) : value;
+    const newValue = typeof value === "function" ? value(searchParams.get("period") ?? defaultPeriodFilter) : value;
     const newSearchParams = new URLSearchParams(searchParams.toString() || "");
     if (newValue !== undefined && newValue !== null) {
       newSearchParams.set("period", newValue.toString());
@@ -35,7 +35,7 @@ export default function GroupIndexClient({ group, stats }: GroupIndexClientProps
       {stats.length > 0 && (
         <div className="space-y-3">
           <div className="flex items-center justify-between space-x-2">
-            <h3 className="text-foreground grow font-medium leading-4">{group.title}</h3>
+            <h3 className="grow font-medium leading-4 text-foreground">{group.title}</h3>
             <div>
               <InputSelector
                 className="w-44"

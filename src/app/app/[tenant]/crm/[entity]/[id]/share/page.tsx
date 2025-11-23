@@ -11,7 +11,7 @@ export const action = (props: IServerComponentsProps) => RowsShare.action(props)
 
 export default async function SharePage(props: IServerComponentsProps) {
   const response = await RowsShare.loader(props);
-  const data = await response.json() as RowsShare.LoaderData;
+  const data = (await response.json()) as RowsShare.LoaderData;
   return <RowShareRoute data={data} />;
 }
 

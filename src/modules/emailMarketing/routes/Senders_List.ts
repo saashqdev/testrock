@@ -81,4 +81,3 @@ Custom unsubscribe link: <a href="{{{ pm:unsubscribe }}}">Unsubscribe from this 
     return Response.json({ error: t("shared.invalidForm") }, { status: 400 });
   }
 };
-

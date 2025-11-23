@@ -12,7 +12,7 @@ export const SidebarTitleContext = createContext<SidebarTitleContextType | null>
 
 export function useSidebarTitle() {
   const context = useContext(SidebarTitleContext);
-  
+
   if (!context) {
     return {
       activeTitle: "",
@@ -20,7 +20,7 @@ export function useSidebarTitle() {
       setActiveTitle: () => {},
     };
   }
-  
+
   return context;
 }
 

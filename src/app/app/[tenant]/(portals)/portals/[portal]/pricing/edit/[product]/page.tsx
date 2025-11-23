@@ -31,19 +31,19 @@ async function getPageData(props: IServerComponentsProps): Promise<PageData> {
   const resolvedParams = await props.params;
   const params = resolvedParams || {};
   const request = props.request!;
-  
+
   await requireAuth();
-  
+
   const { t } = await getServerTranslations();
   const tenantId = await getTenantIdOrNull({ request, params });
   const portal = await db.portals.getPortalById(tenantId, params.portal!);
-  
+
   if (!portal) {
     throw redirect(UrlUtils.getModulePath(params, "portals"));
   }
-  
+
   const item = await db.portalSubscriptionProducts.getPortalSubscriptionProduct(portal.id, params.product ?? "");
-  
+
   if (!item) {
     throw redirect(UrlUtils.getModulePath(params, "portals"));
   }
@@ -54,7 +54,7 @@ async function getPageData(props: IServerComponentsProps): Promise<PageData> {
     item,
     plans: await db.portalSubscriptionProducts.getAllPortalSubscriptionProducts(portal.id),
   };
-  
+
   return data;
 }
 
@@ -62,39 +62,39 @@ export default async function PricingEditPage(props: IServerComponentsProps) {
   const resolvedParams = await props.params;
   const params = resolvedParams || {};
   const request = props.request!;
-  
+
   await requireAuth();
-  
+
   const tenantId = await getTenantIdOrNull({ request, params });
   const portal = await db.portals.getPortalById(tenantId, params.portal!);
-  
+
   if (!portal) {
     redirect(UrlUtils.getModulePath(params, "portals"));
   }
-  
+
   const data = await getPageData(props);
 
-  // Server Action for form submission  
+  // Server Action for form submission
   async function submitPricingForm(prevState: any, formData: FormData) {
     "use server";
-    
+
     await requireAuth();
-    
+
     const { t } = await getServerTranslations();
     const action = formData.get("action")?.toString();
-    
+
     // Re-fetch portal to ensure it's not null in this scope
     const currentPortal = await db.portals.getPortalById(tenantId, params.portal!);
     if (!currentPortal) {
       return { error: "Portal not found" };
     }
-    
+
     const item = await db.portalSubscriptionProducts.getPortalSubscriptionProduct(currentPortal.id, params.product ?? "");
-    
+
     if (!item) {
       return { error: t("shared.notFound") };
     }
-    
+
     if (action === "edit") {
       const order = Number(formData.get("order"));
       const title = formData.get("title")?.toString();
@@ -138,7 +138,7 @@ export default async function PricingEditPage(props: IServerComponentsProps) {
 
       try {
         await PortalPricingServer.updatePlan(currentPortal.id, plan, features);
-        
+
         // If successful, revalidate and redirect
         revalidatePath(UrlUtils.getModulePath(params, "portals"));
         redirect(UrlUtils.getModulePath(params, "portals"));
@@ -148,7 +148,7 @@ export default async function PricingEditPage(props: IServerComponentsProps) {
     } else if (action === "delete") {
       try {
         await PortalPricingServer.deletePlan(currentPortal.id, item);
-        
+
         // If successful, revalidate and redirect
         revalidatePath(UrlUtils.getModulePath(params, `portals/${currentPortal.id}/pricing`));
         redirect(UrlUtils.getModulePath(params, `portals/${currentPortal.id}/pricing`));

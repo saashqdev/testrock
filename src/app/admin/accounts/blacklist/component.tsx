@@ -36,7 +36,7 @@ export default function Component({ items, pagination }: ComponentProps) {
     setIsSubmitting(true);
 
     const formData = new FormData(e.currentTarget);
-    
+
     startTransition(async () => {
       const result = await createBlacklistEntry(formData);
       if (!result.error) {
@@ -51,7 +51,7 @@ export default function Component({ items, pagination }: ComponentProps) {
 
   async function onDelete(item: Blacklist) {
     setIsSubmitting(true);
-    
+
     startTransition(async () => {
       await deleteBlacklistEntry(item.type, item.value);
       router.refresh();

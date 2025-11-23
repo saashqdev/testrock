@@ -29,11 +29,5 @@ export default async function Page(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const data = await getData(props);
 
-  return (
-    <TenantTypeFormWrapper 
-      item={data.item} 
-      allSubscriptionProducts={data.allSubscriptionProducts}
-      id={params.id!}
-    />
-  );
+  return <TenantTypeFormWrapper item={data.item} allSubscriptionProducts={data.allSubscriptionProducts} id={params.id!} />;
 }

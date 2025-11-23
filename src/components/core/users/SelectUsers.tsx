@@ -151,7 +151,7 @@ const SelectUsers = ({ items, allowSearch, onClosed, onSelected }: Props, ref: R
                             type="text"
                             name="search"
                             id="search"
-                            className="focus:border-theme-500 shadow-2xs block w-full rounded-md border-border focus:ring-ring sm:text-sm"
+                            className="shadow-2xs block w-full rounded-md border-border focus:border-theme-500 focus:ring-ring sm:text-sm"
                             placeholder={t("shared.searchDot")}
                           />
                         </form>
@@ -273,7 +273,7 @@ const SelectUsers = ({ items, allowSearch, onClosed, onSelected }: Props, ref: R
                                     type="submit"
                                     disabled={selected.length === 0}
                                     className={clsx(
-                                      "bg-theme-600 hover:bg-theme-700 shadow-2xs focus:outline-hidden inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white focus:ring-2 focus:ring-ring focus:ring-offset-2",
+                                      "shadow-2xs focus:outline-hidden inline-flex justify-center rounded-md border border-transparent bg-theme-600 px-4 py-2 text-sm font-medium text-white hover:bg-theme-700 focus:ring-2 focus:ring-ring focus:ring-offset-2",
                                       selected.length === 0 && "cursor-not-allowed opacity-50"
                                     )}
                                   >

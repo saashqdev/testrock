@@ -58,7 +58,7 @@ export default function SubscribeView({ data, actionData }: { data: LoaderData; 
             <div className="relative mx-auto w-full max-w-7xl space-y-4 overflow-hidden px-2 py-12 sm:py-6">
               <div className="text-center">
                 <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{t("front.pricing.title")}</h1>
-                <p className="text-muted-foreground mt-4 text-lg leading-6">
+                <p className="mt-4 text-lg leading-6 text-muted-foreground">
                   {searchParams.get("error")?.toString() === "subscription_required" ? (
                     <span className="text-red-500">{t("pricing.required")}</span>
                   ) : (

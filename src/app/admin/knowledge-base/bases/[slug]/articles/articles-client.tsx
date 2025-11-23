@@ -63,7 +63,7 @@ export default function ArticlesClient({ data, params, onNewArticle, onDuplicate
     { title: data.knowledgeBase.title, routePath: `/admin/knowledge-base/bases/${data.knowledgeBase.slug}` },
     { title: "Articles", routePath: `/admin/knowledge-base/bases/${params.slug}/articles` },
   ];
-  
+
   // Add language to menu only if on a language-specific route
   if (params.lang) {
     menu.push({ title: params.lang!, routePath: `/admin/knowledge-base/bases/${params.slug}/articles/${params.lang}` });
@@ -130,10 +130,10 @@ export default function ArticlesClient({ data, params, onNewArticle, onDuplicate
                   {i.category ? (
                     <div className="flex flex-col">
                       <div>{i.category.title}</div>
-                      {i.section && <div className="text-muted-foreground text-xs">{i.section.title}</div>}
+                      {i.section && <div className="text-xs text-muted-foreground">{i.section.title}</div>}
                     </div>
                   ) : (
-                    <Link href={`${i.language}/${i.id}/settings`} className="text-muted-foreground text-xs italic hover:underline">
+                    <Link href={`${i.language}/${i.id}/settings`} className="text-xs italic text-muted-foreground hover:underline">
                       No category
                     </Link>
                   )}
@@ -179,7 +179,7 @@ export default function ArticlesClient({ data, params, onNewArticle, onDuplicate
                         {i.createdByUser.firstName} {i.createdByUser.lastName}
                       </div>
                     ) : (
-                      <div className="text-muted-foreground text-xs italic hover:underline">No author</div>
+                      <div className="text-xs italic text-muted-foreground hover:underline">No author</div>
                     )}
                   </div>
                 </div>

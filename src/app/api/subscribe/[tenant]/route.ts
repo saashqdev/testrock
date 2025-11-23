@@ -7,19 +7,16 @@ import SubscriptionHelper from "@/lib/helpers/SubscriptionHelper";
 import { getBaseURL } from "@/utils/url.server";
 import { getServerTranslations } from "@/i18n/server";
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ tenant: string }> }
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ tenant: string }> }) {
   try {
     const { t } = await getServerTranslations();
     const resolvedParams = await params;
-    
+
     console.log("Subscribe API - Tenant params:", resolvedParams);
-    
+
     const tenantId = await getTenantIdFromUrl(resolvedParams);
     console.log("Subscribe API - Tenant ID:", tenantId);
-    
+
     if (!tenantId) {
       console.error("Subscribe API - Tenant not found");
       return NextResponse.json({ error: "Tenant not found" }, { status: 400 });
@@ -27,7 +24,7 @@ export async function POST(
 
     const userInfo = await getUserInfo();
     console.log("Subscribe API - User info:", userInfo);
-    
+
     if (!userInfo?.userId) {
       console.error("Subscribe API - Unauthorized");
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -35,7 +32,7 @@ export async function POST(
 
     const formData = await request.formData();
     const actionType = formData.get("action")?.toString();
-    
+
     console.log("Subscribe API - Action type:", actionType);
     console.log("Subscribe API - Form data:", Object.fromEntries(formData.entries()));
 
@@ -64,26 +61,29 @@ export async function POST(
     }
 
     if (!tenantSubscription?.stripeCustomerId) {
-      return NextResponse.json({
-        error: "Invalid stripe customer: " + (tenantSubscription?.stripeCustomerId || "empty"),
-      }, { status: 400 });
+      return NextResponse.json(
+        {
+          error: "Invalid stripe customer: " + (tenantSubscription?.stripeCustomerId || "empty"),
+        },
+        { status: 400 }
+      );
     }
 
     try {
       console.log("Subscribe API - Getting plan from form...");
       const selectedPlan = await SubscriptionHelper.getPlanFromForm(formData);
       console.log("Subscribe API - Selected plan:", selectedPlan.product.title);
-      
+
       const baseURL = await getBaseURL();
       console.log("Subscribe API - Base URL:", baseURL);
-      
+
       const successUrl = `${baseURL}/subscribe/${resolvedParams.tenant}/{CHECKOUT_SESSION_ID}/success`;
       const cancelUrl = `${baseURL}/subscribe/${resolvedParams.tenant}`;
-      
+
       console.log("Subscribe API - Success URL:", successUrl);
       console.log("Subscribe API - Cancel URL:", cancelUrl);
       console.log("Subscribe API - Creating Stripe checkout session...");
-      
+
       const session = await createStripeCheckoutSession({
         subscriptionProduct: selectedPlan.product,
         customer: tenantSubscription.stripeCustomerId,
@@ -98,9 +98,12 @@ export async function POST(
 
       if (!session || !session.url) {
         console.error("Subscribe API - No session URL returned");
-        return NextResponse.json({
-          error: "Could not create checkout session",
-        }, { status: 400 });
+        return NextResponse.json(
+          {
+            error: "Could not create checkout session",
+          },
+          { status: 400 }
+        );
       }
 
       console.log("Subscribe API - Success! Checkout URL:", session.url);
@@ -112,8 +115,11 @@ export async function POST(
     }
   } catch (error: any) {
     console.error("Subscription error:", error);
-    return NextResponse.json({ 
-      error: error.message || "An error occurred processing your request" 
-    }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: error.message || "An error occurred processing your request",
+      },
+      { status: 500 }
+    );
   }
 }

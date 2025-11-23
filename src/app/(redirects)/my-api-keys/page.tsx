@@ -7,13 +7,13 @@ const redirectTo = "settings/api/keys";
 export default async function MyApiKeysPage() {
   const userInfo = await getUserInfo();
   const user = await db.users.getUser(userInfo.userId);
-  
+
   if (!user) {
     redirect(`/login?redirect=${encodeURIComponent("/my-api-keys")}`);
   }
-  
+
   const myTenants = user.admin ? await db.tenants.adminGetAllTenants() : await db.tenants.getMyTenants(userInfo.userId);
-  
+
   if (myTenants.length === 0 && user.admin) {
     redirect("/admin");
   } else if (myTenants.length > 0) {
@@ -23,6 +23,6 @@ export default async function MyApiKeysPage() {
       // Fallback if redirect fails
     }
   }
-  
+
   redirect("/app");
 }

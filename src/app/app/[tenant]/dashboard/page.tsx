@@ -28,7 +28,7 @@ type LoaderData = DashboardLoaderData & {
 export default async function DashboardPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const request = props.request!;
-  const searchParams = (await props.searchParams) || {};  
+  const searchParams = (await props.searchParams) || {};
   await requireAuth();
   const { time, getServerTimingHeader } = await createMetrics({ request, params }, "app.$tenant.dashboard");
   let { t } = await getServerTranslations();
@@ -37,7 +37,7 @@ export default async function DashboardPage(props: IServerComponentsProps) {
 
   const { stats, dashboardData } = await time(
     promiseHash({
-      stats: getAppDashboardStats({ t, tenant, gte: PeriodHelper.getGreaterThanOrEqualsFromRequest( searchParams ) }),
+      stats: getAppDashboardStats({ t, tenant, gte: PeriodHelper.getGreaterThanOrEqualsFromRequest(searchParams) }),
       dashboardData: loadDashboardData({ request, params }),
     }),
     "app.$tenant.dashboard.details"

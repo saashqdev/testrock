@@ -19,7 +19,7 @@ export default function CrmLayoutClient({ children }: { children: React.ReactNod
   const { t } = useTranslation();
   const appOrAdminData = useAppOrAdminData();
   const params = useParams();
-  
+
   const items: IconDto[] = [
     {
       name: "Overview",
@@ -29,7 +29,7 @@ export default function CrmLayoutClient({ children }: { children: React.ReactNod
       iconSelected: <IncreaseIconFilled className="h-5 w-5" />,
     },
   ];
-  
+
   ["opportunities", "companies", "contacts", "submissions"].forEach((slug) => {
     const entity = appOrAdminData?.entities.find((x) => x.slug === slug);
     if (entity) {
@@ -65,7 +65,7 @@ export default function CrmLayoutClient({ children }: { children: React.ReactNod
       };
     }
   }
-  
+
   return (
     <SidebarIconsLayout label={{ align: "right" }} items={items}>
       {children}

@@ -41,20 +41,8 @@ export default function NewPropertyClient({ properties, entities, formulas }: Pr
   }
 
   return (
-    <SlideOverWideEmpty 
-      title={t("models.property.actions.add")} 
-      open={isOpen} 
-      onClose={close}
-      size="3xl"
-      overflowYScroll={true}
-    >
-      <PropertyForm 
-        properties={properties} 
-        entities={entities} 
-        formulas={formulas}
-        onSubmit={handleSubmit}
-        onCancel={close}
-      />
+    <SlideOverWideEmpty title={t("models.property.actions.add")} open={isOpen} onClose={close} size="3xl" overflowYScroll={true}>
+      <PropertyForm properties={properties} entities={entities} formulas={formulas} onSubmit={handleSubmit} onCancel={close} />
     </SlideOverWideEmpty>
   );
 }

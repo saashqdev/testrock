@@ -130,14 +130,14 @@ export default function OnboardingFiltersClient({ data }: { data: LoaderData }) 
                   type="button"
                   disabled={data.item.active}
                   onClick={() => setShowModal({ item: filter, idx })}
-                  className="border-border hover:border-border relative block w-full rounded-lg border-2 border-dashed p-3 text-center focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border p-3 text-center hover:border-border focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   <div className="flex items-center space-x-2 text-sm">
                     <div className="font-medium">{filter.type}</div>
                     {filter.value !== null && (
                       <>
                         <div>→</div>
-                        <div className="text-muted-foreground italic">{OnboardingFilterUtils.parseValue({ t, filter, metadata: data.metadata })}</div>
+                        <div className="italic text-muted-foreground">{OnboardingFilterUtils.parseValue({ t, filter, metadata: data.metadata })}</div>
                       </>
                     )}
                   </div>
@@ -150,9 +150,9 @@ export default function OnboardingFiltersClient({ data }: { data: LoaderData }) 
                 type="button"
                 disabled={data.item.active}
                 onClick={() => setShowModal({ item: undefined, idx: undefined })}
-                className="border-border hover:border-border relative block w-full rounded-lg border-2 border-dashed p-3 text-center focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border p-3 text-center hover:border-border focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-                <span className="text-foreground block text-sm font-medium">Add filter</span>
+                <span className="block text-sm font-medium text-foreground">Add filter</span>
               </button>
             </div>
           </div>
@@ -178,8 +178,8 @@ export default function OnboardingFiltersClient({ data }: { data: LoaderData }) 
       <div className="space-y-3">
         <div className="flex justify-between space-x-2">
           <div>
-            <h3 className="text-foreground text-sm font-medium leading-3">Candidates</h3>
-            <p className="text-muted-foreground mt-1 text-sm">Users that match the filters.</p>
+            <h3 className="text-sm font-medium leading-3 text-foreground">Candidates</h3>
+            <p className="mt-1 text-sm text-muted-foreground">Users that match the filters.</p>
           </div>
           <div>
             {!data.item.realtime && (
@@ -207,7 +207,7 @@ export default function OnboardingFiltersClient({ data }: { data: LoaderData }) 
               title: t("onboarding.filter.matching"),
               value: (i) => (
                 <div className="flex flex-col">
-                  {i.matchingFilters.length === 0 && <div className="text-muted-foreground italic">No filters - All users are candidates</div>}
+                  {i.matchingFilters.length === 0 && <div className="italic text-muted-foreground">No filters - All users are candidates</div>}
                   {i.matchingFilters.map((filter, idx) => {
                     return (
                       <div key={idx} className="text-sm">
@@ -216,7 +216,7 @@ export default function OnboardingFiltersClient({ data }: { data: LoaderData }) 
                           {filter.value !== null && (
                             <>
                               <div>→</div>
-                              <div className="text-muted-foreground italic">{OnboardingFilterUtils.parseValue({ t, filter, metadata: data.metadata })}</div>
+                              <div className="italic text-muted-foreground">{OnboardingFilterUtils.parseValue({ t, filter, metadata: data.metadata })}</div>
                             </>
                           )}
                         </div>
@@ -274,7 +274,7 @@ function OnboardingFilterModal({
       <div className="inline-block w-full p-1 text-left align-bottom sm:align-middle">
         <input name="action" type="hidden" value="create" readOnly hidden />
         <div className="mt-3 text-center sm:mt-5">
-          <h3 className="text-foreground text-lg font-medium leading-6">{idx === undefined ? "Add filter" : "Edit filter"}</h3>
+          <h3 className="text-lg font-medium leading-6 text-foreground">{idx === undefined ? "Add filter" : "Edit filter"}</h3>
         </div>
         <div className="mt-4 space-y-2">
           <InputSelector
@@ -384,7 +384,7 @@ function OnboardingFilterModal({
             // />
           )}
         </div>
-        <div className="border-border mt-3 flex justify-between border-t pt-3">
+        <div className="mt-3 flex justify-between border-t border-border pt-3">
           <div>
             <ButtonSecondary destructive type="button" onClick={onDelete} className="flex justify-center" disabled={idx === undefined}>
               {t("shared.delete")}
@@ -403,5 +403,3 @@ function OnboardingFilterModal({
     </Modal>
   );
 }
-
-

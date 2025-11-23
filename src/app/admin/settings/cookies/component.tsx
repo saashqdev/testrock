@@ -37,9 +37,9 @@ export default function AdminSettingsCookies({ appConfiguration }: ComponentProp
       const formData = new FormData();
       formData.set("action", "update");
       formData.set("enabled", value.toString());
-      
+
       const result = await actionAdminCookiesSettings(null, formData);
-      
+
       if (result?.success) {
         toast.success(result.success);
       } else if (result?.error) {

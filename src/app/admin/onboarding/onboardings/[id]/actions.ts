@@ -17,7 +17,7 @@ export async function updateOnboarding(itemId: string, formData: FormData): Prom
   try {
     await verifyUserHasPermission("admin.onboarding.update");
     const { t } = await getServerTranslations();
-    
+
     const item = await db.onboarding.getOnboarding(itemId);
     if (!item) {
       redirect("/admin/onboarding/onboardings");
@@ -51,7 +51,7 @@ export async function activateOnboarding(itemId: string, active: boolean): Promi
     });
 
     revalidatePath(`/admin/onboarding/onboardings/${itemId}`);
-    
+
     if (active) {
       return { success: "Onboarding activated" };
     } else {
@@ -65,25 +65,25 @@ export async function activateOnboarding(itemId: string, active: boolean): Promi
 
 export async function deleteOnboarding(id: string) {
   const { t } = await getServerTranslations();
-  
+
   try {
     // Verify user has permission to delete
     await verifyUserHasPermission("admin.onboarding.delete");
-    
+
     // Get the onboarding item
     const item = await db.onboarding.getOnboarding(id);
     if (!item) {
       return { error: t("shared.notFound") };
     }
-    
+
     // Check if it's active (shouldn't delete active onboardings)
     if (item.active) {
       return { error: "Cannot delete an active onboarding" };
     }
-    
+
     // Delete the onboarding
     await db.onboarding.deleteOnboarding(item.id);
-    
+
     // Redirect after successful deletion
     redirect("/admin/onboarding/onboardings");
   } catch (error) {
@@ -93,13 +93,10 @@ export async function deleteOnboarding(id: string) {
 }
 
 // Server action for updating filters
-export async function updateFiltersAction(
-  onboardingId: string, 
-  filters: { type: OnboardingFilterType; value: string | null }[]
-): Promise<ActionData> {
+export async function updateFiltersAction(onboardingId: string, filters: { type: OnboardingFilterType; value: string | null }[]): Promise<ActionData> {
   try {
     await verifyUserHasPermission("admin.onboarding.update");
-    
+
     await db.onboarding.updateOnboarding(onboardingId, {
       filters: filters as any,
     });
@@ -111,13 +108,10 @@ export async function updateFiltersAction(
 }
 
 // Server action for updating realtime
-export async function updateRealtimeAction(
-  onboardingId: string, 
-  realtime: boolean
-): Promise<ActionData> {
+export async function updateRealtimeAction(onboardingId: string, realtime: boolean): Promise<ActionData> {
   try {
     await verifyUserHasPermission("admin.onboarding.update");
-    
+
     await db.onboarding.updateOnboarding(onboardingId, {
       realtime,
     });
@@ -129,13 +123,10 @@ export async function updateRealtimeAction(
 }
 
 // Server action for saving sessions
-export async function saveSessionsAction(
-  onboardingId: string, 
-  candidates: OnboardingCandidateDto[]
-): Promise<ActionData> {
+export async function saveSessionsAction(onboardingId: string, candidates: OnboardingCandidateDto[]): Promise<ActionData> {
   try {
     await verifyUserHasPermission("admin.onboarding.update");
-    
+
     const item = await db.onboarding.getOnboarding(onboardingId);
     if (!item) {
       return { error: "Onboarding not found" };
@@ -144,7 +135,7 @@ export async function saveSessionsAction(
     const existingSessions = await db.onboardingSessions.getOnboardingSessions({
       onboardingId: item.id,
     });
-    
+
     await Promise.all(
       candidates.map(async (candidate) => {
         const existing = existingSessions.find((f) => f.tenantId === (candidate.tenant?.id ?? null) && f.userId === candidate.user.id);
@@ -168,14 +159,11 @@ export async function saveSessionsAction(
 }
 
 // Server action for updating onboarding settings
-export async function updateSettingsAction(
-  onboardingId: string,
-  formData: FormData
-): Promise<ActionData> {
+export async function updateSettingsAction(onboardingId: string, formData: FormData): Promise<ActionData> {
   try {
     await verifyUserHasPermission("admin.onboarding.update");
     const { t } = await getServerTranslations();
-    
+
     const item = await db.onboarding.getOnboarding(onboardingId);
     if (!item) {
       redirect("/admin/onboarding/onboardings");
@@ -200,13 +188,10 @@ export async function updateSettingsAction(
 }
 
 // Server action for setting filters
-export async function setFiltersAction(
-  onboardingId: string,
-  filters: { type: string; value: string | null }[]
-): Promise<ActionData> {
+export async function setFiltersAction(onboardingId: string, filters: { type: string; value: string | null }[]): Promise<ActionData> {
   try {
     await verifyUserHasPermission("admin.onboarding.update");
-    
+
     const item = await db.onboarding.getOnboarding(onboardingId);
     if (!item) {
       redirect("/admin/onboarding/onboardings");

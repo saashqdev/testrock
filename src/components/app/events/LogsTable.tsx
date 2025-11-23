@@ -30,7 +30,10 @@ export default function LogsTable({ withTenant, items, pagination }: Props) {
         value: (item) => (
           <div>
             {item.tenant ? (
-              <Link href={UrlUtils.currentTenantUrl({ tenant: item.tenant.slug }, "")} className="focus:bg-secondary/90 hover:border-border rounded-md border-b border-dashed border-transparent">
+              <Link
+                href={UrlUtils.currentTenantUrl({ tenant: item.tenant.slug }, "")}
+                className="rounded-md border-b border-dashed border-transparent hover:border-border focus:bg-secondary/90"
+              >
                 {item.tenant.name}
               </Link>
             ) : (
@@ -65,12 +68,12 @@ export default function LogsTable({ withTenant, items, pagination }: Props) {
           <div>
             {item.user && (
               <span>
-                {item.user.firstName} {item.user.lastName} <span className=" text-muted-foreground text-xs">({item.user.email})</span>
+                {item.user.firstName} {item.user.lastName} <span className="text-xs text-muted-foreground">({item.user.email})</span>
               </span>
             )}
             {item.apiKey && (
               <span>
-                API Key <span className=" text-muted-foreground text-xs">({item.apiKey.alias})</span>
+                API Key <span className="text-xs text-muted-foreground">({item.apiKey.alias})</span>
               </span>
             )}
           </div>

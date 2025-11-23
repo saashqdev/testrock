@@ -18,12 +18,12 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function BlogPage() {
   const { t } = await getServerTranslations();
   const headersList = await headers();
-  
+
   // Create a request object from headers for service compatibility
   const host = headersList.get("host") || "localhost";
   const protocol = host.includes("localhost") ? "http" : "https";
   const request = new Request(`${protocol}://${host}/blog`);
-  
+
   const blogData = await load({ request, params: {}, t });
 
   return (

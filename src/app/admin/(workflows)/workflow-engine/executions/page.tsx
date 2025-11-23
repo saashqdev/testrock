@@ -11,7 +11,7 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 
 export default async function AdminWorkflowExecutionsPage(props: IServerComponentsProps) {
   const data = await loader(props);
-  
+
   // Create a server action function
   async function handleExecutionAction(formData: FormData) {
     "use server";
@@ -49,6 +49,6 @@ export default async function AdminWorkflowExecutionsPage(props: IServerComponen
       return { error: error instanceof Error ? error.message : "An error occurred" };
     }
   }
-  
+
   return <WorkflowsExecutionsView data={data} action={handleExecutionAction} />;
 }

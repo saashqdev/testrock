@@ -3,27 +3,21 @@ import * as CodeGeneratorService from "@/modules/codeGenerator/service/CodeGener
 import { db } from "@/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ entity: string }> }
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ entity: string }> }) {
   try {
     const { entity: entityName } = await params;
-    const entity = await db.entities.getEntityByName({ 
-      tenantId: null, 
-      name: entityName 
+    const entity = await db.entities.getEntityByName({
+      tenantId: null,
+      name: entityName,
     });
 
     if (!entity) {
-      return NextResponse.json(
-        { error: "Entity not found." },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Entity not found." }, { status: 404 });
     }
 
     const body = (await request.json()) as CodeGeneratorOptions;
     const file = await CodeGeneratorService.generate(body);
-    
+
     // if (!file) {
     //   return NextResponse.json(
     //     { success: "Files generated successfully." },
@@ -38,9 +32,6 @@ export async function POST(
       },
     });
   } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

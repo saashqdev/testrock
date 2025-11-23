@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useContext } from "react";
 import { TenantDto } from "@/db/models/accounts/TenantsModel";

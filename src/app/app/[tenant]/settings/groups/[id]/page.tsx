@@ -37,7 +37,7 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const params = (await props.params) || {};
   const { t } = await getServerTranslations();
-  
+
   try {
     const item = await db.groups.getGroup(params.id ?? "");
     if (!item) {
@@ -45,7 +45,7 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
         title: `${t("models.group.object")} | ${process.env.APP_NAME}`,
       };
     }
-    
+
     return {
       title: `${item.name} | ${t("models.group.object")} | ${process.env.APP_NAME}`,
     };

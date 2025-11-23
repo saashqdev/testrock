@@ -48,7 +48,7 @@ async function getLogsData(props: IServerComponentsProps): Promise<LoaderData> {
   ];
   const urlSearchParams = new URLSearchParams(Object.entries(searchParams).map(([key, value]) => [key, String(value)]));
   const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
-  
+
   // Apply filters from URL search params
   filterableProperties.forEach((property) => {
     const value = urlSearchParams.get(property.name);
@@ -59,7 +59,7 @@ async function getLogsData(props: IServerComponentsProps): Promise<LoaderData> {
       }
     }
   });
-  
+
   const filters = {
     query: urlSearchParams.get("q") ?? undefined,
     properties: filterableProperties,
@@ -68,7 +68,7 @@ async function getLogsData(props: IServerComponentsProps): Promise<LoaderData> {
   const { items, pagination } = await db.logs.getAllRowLogs({
     entityId: filters.properties.find((f) => f.name === "entityId")?.value ?? undefined,
     rowId: filters.properties.find((f) => f.name === "rowId")?.value ?? undefined,
-    tenantId: filterTenantId === "null" ? null : filterTenantId ?? undefined,
+    tenantId: filterTenantId === "null" ? null : (filterTenantId ?? undefined),
     pagination: {
       page: currentPagination.page,
       pageSize: currentPagination.pageSize,
@@ -84,12 +84,12 @@ async function getLogsData(props: IServerComponentsProps): Promise<LoaderData> {
 export default async function EditEntityIndexRoute(props: IServerComponentsProps) {
   const { t } = await getServerTranslations();
   const data = await getLogsData(props);
-  
+
   return (
     <div className="mx-auto w-full max-w-5xl space-y-3 px-4 py-2 pb-6 sm:px-6 sm:pt-3 lg:px-8 xl:max-w-full">
-      <div className="md:border-border md:border-b md:py-2">
+      <div className="md:border-b md:border-border md:py-2">
         <div className="flex items-center justify-between">
-          <h3 className="text-foreground text-lg font-medium leading-6">{t("models.log.plural")}</h3>
+          <h3 className="text-lg font-medium leading-6 text-foreground">{t("models.log.plural")}</h3>
           <div className="flex items-center space-x-2">
             <InputFilters withSearch={false} filters={data.filterableProperties} />
           </div>

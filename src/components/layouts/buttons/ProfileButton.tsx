@@ -43,7 +43,7 @@ export default function ProfileButton({ user, layout, items }: Props) {
         <button
           onClick={() => setOpened(!opened)}
           className={clsx(
-            "bg-background text-muted-foreground hover:bg-secondary border-border relative inline-flex items-center rounded-full border font-medium shadow-inner focus:z-10 focus:outline-hidden focus:ring-2 focus:ring-offset-2",
+            "focus:outline-hidden relative inline-flex items-center rounded-full border border-border bg-background font-medium text-muted-foreground shadow-inner hover:bg-secondary focus:z-10 focus:ring-2 focus:ring-offset-2",
             !user?.avatar && "p-2",
             user?.avatar && "p-1"
           )}
@@ -77,20 +77,20 @@ export default function ProfileButton({ user, layout, items }: Props) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <div className="divide-border border-border absolute right-0 z-40 mt-2 w-64 origin-top-right divide-y overflow-hidden rounded-sm border shadow-lg focus:outline-hidden">
-          <div className="shadow-2xs bg-background rounded-sm py-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-            <div className="text-muted-foreground group flex items-center truncate px-4 py-2 text-sm transition duration-150 ease-in-out" role="menuitem">
+        <div className="focus:outline-hidden absolute right-0 z-40 mt-2 w-64 origin-top-right divide-y divide-border overflow-hidden rounded-sm border border-border shadow-lg">
+          <div className="shadow-2xs rounded-sm bg-background py-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+            <div className="group flex items-center truncate px-4 py-2 text-sm text-muted-foreground transition duration-150 ease-in-out" role="menuitem">
               <div className="flex flex-col space-y-1 truncate">
                 <div className="font-medium">{UserUtils.profileName(user)}</div>
                 <div className="truncate font-bold">{user?.email}</div>
               </div>
             </div>
-            <div className="border-border border-t"></div>
+            <div className="border-t border-border"></div>
 
             {layout === "app" ? (
               <>
                 <Link
-                  className="hover:bg-secondary block px-4 py-2 text-sm transition duration-150 ease-in-out"
+                  className="block px-4 py-2 text-sm transition duration-150 ease-in-out hover:bg-secondary"
                   role="menuitem"
                   onClick={closeDropdownUser}
                   href={!params.tenant ? "" : UrlUtils.currentTenantUrl(params, `settings/profile`)}
@@ -100,7 +100,7 @@ export default function ProfileButton({ user, layout, items }: Props) {
 
                 {getUserHasPermission(appOrAdminData, "app.settings.members.view") && (
                   <Link
-                    className="hover:bg-secondary block px-4 py-2 text-sm transition duration-150 ease-in-out"
+                    className="block px-4 py-2 text-sm transition duration-150 ease-in-out hover:bg-secondary"
                     role="menuitem"
                     onClick={closeDropdownUser}
                     href={!params.tenant ? "" : UrlUtils.currentTenantUrl(params, "settings/members")}
@@ -111,7 +111,7 @@ export default function ProfileButton({ user, layout, items }: Props) {
 
                 {getUserHasPermission(appOrAdminData, "app.settings.subscription.view") && (
                   <Link
-                    className="hover:bg-secondary block px-4 py-2 text-sm transition duration-150 ease-in-out"
+                    className="block px-4 py-2 text-sm transition duration-150 ease-in-out hover:bg-secondary"
                     role="menuitem"
                     onClick={closeDropdownUser}
                     href={!params.tenant ? "" : UrlUtils.currentTenantUrl(params, `settings/subscription`)}
@@ -122,7 +122,7 @@ export default function ProfileButton({ user, layout, items }: Props) {
 
                 {getUserHasPermission(appOrAdminData, "app.settings.account.view") && (
                   <Link
-                    className="hover:bg-secondary block px-4 py-2 text-sm transition duration-150 ease-in-out"
+                    className="block px-4 py-2 text-sm transition duration-150 ease-in-out hover:bg-secondary"
                     role="menuitem"
                     onClick={closeDropdownUser}
                     href={!params.tenant ? "" : UrlUtils.currentTenantUrl(params, "settings/account")}
@@ -153,7 +153,7 @@ export default function ProfileButton({ user, layout, items }: Props) {
 
                 {rootData.appConfiguration?.app.features.tenantApiKeys && getUserHasPermission(appOrAdminData, "app.settings.apiKeys.view") && (
                   <Link
-                    className="hover:bg-secondary block px-4 py-2 text-sm transition duration-150 ease-in-out"
+                    className="block px-4 py-2 text-sm transition duration-150 ease-in-out hover:bg-secondary"
                     role="menuitem"
                     onClick={closeDropdownUser}
                     href={!params.tenant ? "" : UrlUtils.currentTenantUrl(params, `settings/api`)}
@@ -164,7 +164,7 @@ export default function ProfileButton({ user, layout, items }: Props) {
 
                 {getUserHasPermission(appOrAdminData, "app.settings.auditTrails.view") && (
                   <Link
-                    className="hover:bg-secondary block px-4 py-2 text-sm transition duration-150 ease-in-out"
+                    className="block px-4 py-2 text-sm transition duration-150 ease-in-out hover:bg-secondary"
                     role="menuitem"
                     onClick={closeDropdownUser}
                     href={!params.tenant ? "" : UrlUtils.currentTenantUrl(params, "settings/logs")}
@@ -173,11 +173,11 @@ export default function ProfileButton({ user, layout, items }: Props) {
                   </Link>
                 )}
 
-                <div className="border-border mt-1 border-t"></div>
+                <div className="mt-1 border-t border-border"></div>
               </>
             ) : layout === "admin" ? (
               <Link
-                className="hover:bg-secondary block px-4 py-2 text-sm transition duration-150 ease-in-out"
+                className="block px-4 py-2 text-sm transition duration-150 ease-in-out hover:bg-secondary"
                 role="menuitem"
                 onClick={closeDropdownUser}
                 href={!user ? "" : `/admin/settings/profile`}
@@ -188,7 +188,7 @@ export default function ProfileButton({ user, layout, items }: Props) {
               <Fragment>
                 {user?.admin && (
                   <Link
-                    className="hover:bg-secondary block px-4 py-2 text-sm transition duration-150 ease-in-out"
+                    className="block px-4 py-2 text-sm transition duration-150 ease-in-out hover:bg-secondary"
                     role="menuitem"
                     onClick={closeDropdownUser}
                     href="/admin"
@@ -197,7 +197,7 @@ export default function ProfileButton({ user, layout, items }: Props) {
                   </Link>
                 )}
                 <Link
-                  className="hover:bg-secondary block px-4 py-2 text-sm transition duration-150 ease-in-out"
+                  className="block px-4 py-2 text-sm transition duration-150 ease-in-out hover:bg-secondary"
                   role="menuitem"
                   onClick={closeDropdownUser}
                   href={`/settings`}
@@ -205,7 +205,7 @@ export default function ProfileButton({ user, layout, items }: Props) {
                   {t("app.navbar.profile")}
                 </Link>
                 <Link
-                  className="hover:bg-secondary block px-4 py-2 text-sm transition duration-150 ease-in-out"
+                  className="block px-4 py-2 text-sm transition duration-150 ease-in-out hover:bg-secondary"
                   role="menuitem"
                   onClick={closeDropdownUser}
                   href={`/settings/subscription`}
@@ -217,7 +217,7 @@ export default function ProfileButton({ user, layout, items }: Props) {
               items.map((item) => (
                 <Link
                   key={item.path}
-                  className="hover:bg-secondary block px-4 py-2 text-sm transition duration-150 ease-in-out"
+                  className="block px-4 py-2 text-sm transition duration-150 ease-in-out hover:bg-secondary"
                   role="menuitem"
                   onClick={() => {
                     if (item.onClick) {
@@ -236,7 +236,7 @@ export default function ProfileButton({ user, layout, items }: Props) {
               <Link
                 href="/logout"
                 // onClick={signOut}
-                className="hover:bg-secondary block w-full px-4 py-2 text-left text-sm transition duration-150 ease-in-out focus:outline-hidden"
+                className="focus:outline-hidden block w-full px-4 py-2 text-left text-sm transition duration-150 ease-in-out hover:bg-secondary"
                 role="menuitem"
                 // disabled={!user}
               >

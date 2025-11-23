@@ -5,7 +5,7 @@ import WarningBanner from "./WarningBanner";
 
 export default function PreviewBanners() {
   return (
-    <div id="banners" className="not-prose text-foreground w-full space-y-2">
+    <div id="banners" className="not-prose w-full space-y-2 text-foreground">
       <h3 className="text-sm font-medium">InfoBanner</h3>
       <InfoBanner title="Info" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod..." />
 

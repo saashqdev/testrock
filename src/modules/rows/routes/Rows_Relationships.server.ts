@@ -20,7 +20,7 @@ export const loader = async (props: IServerComponentsProps) => {
   const url = headersList.get("x-url") || headersList.get("referer") || "http://localhost";
   const request = new Request(url, {
     headers: headersList,
-  }); 
+  });
   const { time, getServerTimingHeader } = await createMetrics({ request, params }, `[Rows_Relationships] ${params.entity}`);
   const { userId, tenantId, entity } = await RowsRequestUtils.getLoader({ request, params: props.params });
   await time(verifyUserHasPermission(getEntityPermission(entity, "view"), tenantId), "verifyUserHasPermission");
@@ -70,4 +70,3 @@ export const loader = async (props: IServerComponentsProps) => {
   };
   return Response.json(data, { headers: getServerTimingHeader() });
 };
-

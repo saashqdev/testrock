@@ -27,7 +27,7 @@ async function getData(props: IServerComponentsProps): Promise<PageProps> {
 
   // Note: Layouts don't handle exact path redirects - use page.tsx for that
   // The redirect logic has been removed as it's not appropriate for a layout component
-  
+
   return {
     item,
     entity: params.entity!,
@@ -37,17 +37,17 @@ async function getData(props: IServerComponentsProps): Promise<PageProps> {
 export default async function EditEntityRoute(props: LayoutProps) {
   const data = await getData(props);
   const { item, entity } = data;
-  
+
   // Check if we're on the no-code route
   const headersList = await headers();
-  const pathname = headersList.get('x-pathname') || '';
-  const isNoCodeRoute = pathname.includes('/no-code');
-  
+  const pathname = headersList.get("x-pathname") || "";
+  const isNoCodeRoute = pathname.includes("/no-code");
+
   // If on no-code route, render without sidebar
   if (isNoCodeRoute) {
     return <>{props.children}</>;
   }
-  
+
   return (
     <EditPageLayout
       title={item.title}
@@ -113,9 +113,7 @@ export default async function EditEntityRoute(props: LayoutProps) {
           />
         </div>
         <div className="lg:col-span-9">
-          <div className="w-full">
-            {props.children}
-          </div>
+          <div className="w-full">{props.children}</div>
         </div>
       </div>
     </EditPageLayout>

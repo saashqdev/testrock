@@ -10,12 +10,12 @@ export async function GET(request: NextRequest) {
   const { t } = await getServerTranslations();
   const { time, getServerTimingHeader } = await createMetrics({ request, params: {} }, "[Accounts_API_GET]");
   const apiKeyFromHeaders = request.headers.get("X-Api-Key") ?? "";
-  
+
   try {
     if (!process.env.API_ACCESS_TOKEN || apiKeyFromHeaders !== process.env.API_ACCESS_TOKEN) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    
+
     const tenants = await time(db.tenants.adminGetAllTenants(), "adminGetAllTenants");
     const tenantSettingsEntity = await db.entities.findEntityByName({ tenantId: null, name: "tenantSettings" });
     const data = await Promise.all(
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
         return TenantHelper.apiFormat({ tenant, subscriptions, tenantSettingsEntity, t });
       })
     );
-    
+
     return NextResponse.json(
       {
         success: true,

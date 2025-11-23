@@ -59,7 +59,7 @@ export default function FormulasPageClient({ initialData }: FormulasPageClientPr
     if (params.id) {
       setEditingFormulaId(params.id as string);
       setShowSlideOver(true);
-    } else if (window.location.pathname.endsWith('/new')) {
+    } else if (window.location.pathname.endsWith("/new")) {
       setEditingFormulaId(null);
       setShowSlideOver(true);
     }
@@ -68,28 +68,28 @@ export default function FormulasPageClient({ initialData }: FormulasPageClientPr
   async function handleSubmit(formData: FormData) {
     setIsSubmitting(true);
     setActionData({});
-    
+
     try {
-      const response = await fetch('/api/admin/formulas', {
-        method: 'POST',
+      const response = await fetch("/api/admin/formulas", {
+        method: "POST",
         body: formData,
       });
-      
+
       const result = await response.json();
-      
+
       if (response.ok) {
         setActionData(result);
         // Reload data after successful action
-        const reloadResponse = await fetch('/api/admin/formulas');
+        const reloadResponse = await fetch("/api/admin/formulas");
         if (reloadResponse.ok) {
           const reloadData = await reloadResponse.json();
           setData(reloadData);
         }
       } else {
-        setActionData({ error: result.error || 'An error occurred' });
+        setActionData({ error: result.error || "An error occurred" });
       }
     } catch (error) {
-      setActionData({ error: 'An error occurred' });
+      setActionData({ error: "An error occurred" });
     } finally {
       setIsSubmitting(false);
     }
@@ -137,12 +137,12 @@ export default function FormulasPageClient({ initialData }: FormulasPageClientPr
     <div className="mx-auto w-full max-w-5xl space-y-3 px-4 py-2 pb-6 sm:px-6 sm:pt-3 lg:px-8 xl:max-w-full">
       <div className="">
         <div className="flex items-center justify-between">
-          <h3 className="text-foreground text-lg font-medium leading-6">Formulas</h3>
+          <h3 className="text-lg font-medium leading-6 text-foreground">Formulas</h3>
           <div className="flex items-center space-x-2">
             <ButtonSecondary to="logs">
               <span>Logs</span>
             </ButtonSecondary>
-            <ButtonPrimary 
+            <ButtonPrimary
               onClick={(e) => {
                 e.preventDefault();
                 setEditingFormulaId(null);
@@ -160,17 +160,8 @@ export default function FormulasPageClient({ initialData }: FormulasPageClientPr
           <div className="flex flex-wrap">
             {missingDefaults().map((item) => {
               return (
-                <ButtonSecondary
-                  className="m-0.5"
-                  key={item.name}
-                  disabled={isSubmitting}
-                  onClick={() => onCreateDefault(item.name)}
-                >
-                  {isSubmitting ? (
-                    <span>Creating...</span>
-                  ) : (
-                    <span>{item.name}</span>
-                  )}
+                <ButtonSecondary className="m-0.5" key={item.name} disabled={isSubmitting} onClick={() => onCreateDefault(item.name)}>
+                  {isSubmitting ? <span>Creating...</span> : <span>{item.name}</span>}
                 </ButtonSecondary>
               );
             })}
@@ -204,12 +195,7 @@ export default function FormulasPageClient({ initialData }: FormulasPageClientPr
             value: (i) => {
               return (
                 <div>
-                  <LoadingButton
-                    isLoading={isSubmitting}
-                    type="button"
-                    disabled={isSubmitting}
-                    onClick={() => setExecutingFormula(i)}
-                  >
+                  <LoadingButton isLoading={isSubmitting} type="button" disabled={isSubmitting} onClick={() => setExecutingFormula(i)}>
                     <ExperimentIconFilled className="h-3 w-3" />
                   </LoadingButton>
                 </div>
@@ -222,9 +208,9 @@ export default function FormulasPageClient({ initialData }: FormulasPageClientPr
             value: (i) => (
               <div className="flex max-w-xs flex-col truncate">
                 <div className="truncate text-base font-bold">
-                  {i.name} <span className="text-muted-foreground text-sm font-normal">({i.resultAs})</span>
+                  {i.name} <span className="text-sm font-normal text-muted-foreground">({i.resultAs})</span>
                 </div>
-                <div className="text-muted-foreground truncate text-sm">{i.description}</div>
+                <div className="truncate text-sm text-muted-foreground">{i.description}</div>
               </div>
             ),
           },
@@ -252,13 +238,13 @@ export default function FormulasPageClient({ initialData }: FormulasPageClientPr
           {
             name: "withLogs",
             title: "Logging",
-            value: (i) => <div>{i.withLogs ? <CheckIcon className="h-4 w-4 text-green-500" /> : <XIcon className="text-muted-foreground h-4 w-4" />}</div>,
+            value: (i) => <div>{i.withLogs ? <CheckIcon className="h-4 w-4 text-green-500" /> : <XIcon className="h-4 w-4 text-muted-foreground" />}</div>,
           },
           {
             name: "calculations",
             title: "Calculations",
             value: (i) => (
-              <Link href={`/admin/entities/formulas/logs?formulaId=${i.id}`} className="text-muted-foreground text-sm hover:text-blue-700 hover:underline">
+              <Link href={`/admin/entities/formulas/logs?formulaId=${i.id}`} className="text-sm text-muted-foreground hover:text-blue-700 hover:underline">
                 {getLogsCount(i)} calculations
               </Link>
             ),
@@ -266,7 +252,7 @@ export default function FormulasPageClient({ initialData }: FormulasPageClientPr
           {
             name: "inProperties",
             title: "In Properties",
-            value: (i) => <div className="text-muted-foreground text-sm">{i.inProperties?.map((f) => `${f.entity.name}.${f.name}`).join(", ")}</div>,
+            value: (i) => <div className="text-sm text-muted-foreground">{i.inProperties?.map((f) => `${f.entity.name}.${f.name}`).join(", ")}</div>,
           },
           {
             name: "createdAt",
@@ -277,8 +263,8 @@ export default function FormulasPageClient({ initialData }: FormulasPageClientPr
         ]}
         noRecords={
           <div className="p-12 text-center">
-            <h3 className="text-foreground mt-1 text-sm font-medium">No formulas yet</h3>
-            <p className="text-muted-foreground mt-1 text-sm">Get started by creating a new formula</p>
+            <h3 className="mt-1 text-sm font-medium text-foreground">No formulas yet</h3>
+            <p className="mt-1 text-sm text-muted-foreground">Get started by creating a new formula</p>
           </div>
         }
       />
@@ -304,7 +290,7 @@ export default function FormulasPageClient({ initialData }: FormulasPageClientPr
       >
         <div className="p-4">
           <FormulaFormWrapper
-            item={editingFormulaId ? data.items.find(f => f.id === editingFormulaId) : undefined}
+            item={editingFormulaId ? data.items.find((f) => f.id === editingFormulaId) : undefined}
             editingFormulaId={editingFormulaId}
             onSuccess={() => {
               setShowSlideOver(false);
@@ -429,11 +415,11 @@ function ExecuteModal({
   }
   return (
     <Modal open={open} setOpen={onClose} size="md">
-      <form onSubmit={handleSubmit} className="bg-background inline-block w-full overflow-hidden p-1 text-left align-bottom sm:align-middle">
+      <form onSubmit={handleSubmit} className="inline-block w-full overflow-hidden bg-background p-1 text-left align-bottom sm:align-middle">
         <div className="mt-3 sm:mt-5">
           <div className="flex items-baseline justify-between space-x-2">
-            <h3 className="text-foreground text-lg font-medium leading-6">Test formula</h3>
-            <div className="text-muted-foreground text-sm font-bold italic">{formula?.resultAs}</div>
+            <h3 className="text-lg font-medium leading-6 text-foreground">Test formula</h3>
+            <div className="text-sm font-bold italic text-muted-foreground">{formula?.resultAs}</div>
           </div>
         </div>
         {!formula ? (
@@ -441,7 +427,7 @@ function ExecuteModal({
         ) : (
           <>
             <div className="mt-4 space-y-2">
-              <div className="border-border bg-secondary grid max-h-72 grid-cols-12 gap-1 overflow-x-auto rounded-md border border-dashed p-2 pb-4">
+              <div className="grid max-h-72 grid-cols-12 gap-1 overflow-x-auto rounded-md border border-dashed border-border bg-secondary p-2 pb-4">
                 {formula.components.map((v, idx) => {
                   return (
                     <Fragment key={idx}>

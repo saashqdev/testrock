@@ -12,12 +12,12 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   const params = (await props.params) || {};
   const request = props.request!;
   const page = await getCurrentPage({ request, params, slug: "/" + params.page + "/:id1" });
-  
+
   // Convert MetaTagsDto array to Metadata object
   const metadata: Metadata = {};
   if (page.metatags) {
     for (const tag of page.metatags) {
-      if ('title' in tag) {
+      if ("title" in tag) {
         metadata.title = tag.title;
       }
       // Add more conversions as needed
@@ -43,10 +43,10 @@ export const action = async (props: IServerComponentsProps) => {
 export default async function Page(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const request = props.request!;
-  
+
   const data = await getCurrentPage({ request, params, slug: "/" + params.page + "/:id1" });
   const { t } = await getServerTranslations();
-  
+
   if (!data.page && data.blocks.length === 0) {
     redirect("/404?page=" + params.page);
   }

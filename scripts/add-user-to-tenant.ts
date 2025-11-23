@@ -11,7 +11,7 @@ async function main() {
     console.log("Example: npx tsx scripts/add-user-to-tenant.ts acme-corp-2 marge.simpson@company.com");
     return;
   }
-  
+
   // Find the tenant
   const tenant = await prisma.tenant.findFirst({
     where: { slug: tenantSlug },

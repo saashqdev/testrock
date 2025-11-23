@@ -1,11 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 import { loader } from "@/modules/rows/routes/Rows_Tags.server";
-import { IServerComponentsProps } from '@/lib/dtos/ServerComponentsProps';
+import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     // Create props object that matches IServerComponentsProps
     const resolvedParams = await Promise.resolve(params);
@@ -13,14 +10,11 @@ export async function GET(
       params: Promise.resolve(resolvedParams),
       request,
     };
-    
+
     const data = await loader(props);
     return data;
   } catch (error) {
-    console.error('Error fetching row tags data:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch row tags data' },
-      { status: 500 }
-    );
+    console.error("Error fetching row tags data:", error);
+    return NextResponse.json({ error: "Failed to fetch row tags data" }, { status: 500 });
   }
 }

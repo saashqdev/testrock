@@ -22,11 +22,6 @@ export default async function NewEntityRelationshipRoute(props: IServerComponent
   const createEntityRelationshipWithSlug = createEntityRelationship.bind(null, params.entity!);
 
   return (
-    <NewEntityRelationshipClient
-      entity={data.entity} 
-      entities={data.entities}
-      entitySlug={params.entity ?? ""}
-      onSubmit={createEntityRelationshipWithSlug}
-    />
+    <NewEntityRelationshipClient entity={data.entity} entities={data.entities} entitySlug={params.entity ?? ""} onSubmit={createEntityRelationshipWithSlug} />
   );
 }

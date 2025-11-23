@@ -33,24 +33,24 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
   const resolvedParams = await props.params;
   const params = resolvedParams || {};
   const request = props.request!;
-  
+
   await requireAuth();
-  
+
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
   const tenantId = await getTenantIdOrNull({ request, params });
   const portal = await db.portals.getPortalById(tenantId, params.portal!);
-  
+
   if (!portal) {
     redirect(UrlUtils.getModulePath(params, "portals"));
   }
-  
+
   const allPages = await db.portalPages.getPortalPages(portal.id);
   const portalUrl = PortalServer.getPortalUrl(portal);
-  
+
   const pages = appConfiguration.portals.pages.map((page) => {
     const existing = allPages.find((p) => p.name === page.name);
     const attributes = existing ? (existing.attributes as JsonPropertiesValuesDto) : null;
-    
+
     // Validate page based on type
     let errors: string[] = [];
     if (page.name === "pricing" && !portal.stripeAccountId) {
@@ -59,7 +59,7 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
     if ((page.name === "privacy-policy" || page.name === "terms-and-conditions") && !attributes?.html) {
       errors.push(`No ${page.title.toLowerCase()} content`);
     }
-    
+
     return {
       name: page.name,
       title: page.title,
@@ -69,13 +69,13 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
       href: `${portalUrl}${page.slug}`,
     };
   });
-  
+
   const data: LoaderData = {
     portal,
     pages,
     portalUrl,
   };
-  
+
   return data;
 }
 

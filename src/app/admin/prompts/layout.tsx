@@ -15,7 +15,7 @@ import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService
 export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getServerTranslations();
   await verifyUserHasPermission("admin.prompts.view");
-  
+
   return {
     title: `${t("prompts.builder.title")} | ${process.env.APP_NAME}`,
   };

@@ -42,7 +42,7 @@ const loader = async (): Promise<AppSettingsSubscriptionLoaderData> => {
   let { t } = await getServerTranslations();
   const tenantSlug = await requireTenantSlug();
   const tenantOrId = await getTenantIdFromUrl(tenantSlug);
-  const tenantId = typeof tenantOrId === "string" ? tenantOrId : tenantOrId?.id ?? null;
+  const tenantId = typeof tenantOrId === "string" ? tenantOrId : (tenantOrId?.id ?? null);
   await verifyUserHasPermission("app.settings.subscription.view", tenantId);
 
   const userInfo = await getUserInfo();
@@ -64,7 +64,7 @@ const loader = async (): Promise<AppSettingsSubscriptionLoaderData> => {
     myPaymentMethods: stripeService.getStripePaymentMethods(tenantSubscription.stripeCustomerId),
     myFeatures: getPlanFeaturesUsage(tenantId),
   });
-  
+
   // Serialize Stripe objects to plain JSON for Client Components
   const data: AppSettingsSubscriptionLoaderData = {
     customer: customer ? JSON.parse(JSON.stringify(customer)) : null,
@@ -80,7 +80,7 @@ const loader = async (): Promise<AppSettingsSubscriptionLoaderData> => {
 export const actionAppSettingsSubscription = async (prev: any, form: FormData) => {
   const tenantSlug = await requireTenantSlug();
   const tenantOrId = await getTenantIdFromUrl(tenantSlug);
-  const tenantId = typeof tenantOrId === "string" ? tenantOrId : tenantOrId?.id ?? null;
+  const tenantId = typeof tenantOrId === "string" ? tenantOrId : (tenantOrId?.id ?? null);
   await verifyUserHasPermission("app.settings.subscription.update", tenantId);
   const tenantSubscription = await db.tenantSubscriptions.getTenantSubscription(tenantId);
 
@@ -121,7 +121,7 @@ export default async function () {
   const { t } = await getServerTranslations();
   const data = await loader();
   const title = `${t("settings.subscription.title")} | ${defaultSiteTags.title}`;
-  
+
   return (
     <TitleDataLayout data={{ title }}>
       <Component data={data} />

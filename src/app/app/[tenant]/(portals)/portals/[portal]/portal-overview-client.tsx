@@ -53,7 +53,7 @@ export default function PortalOverviewClient({ data: initialData }: PortalOvervi
         });
 
         const result: ActionData = await response.json();
-        
+
         if (result.success) {
           toast.success(result.success);
           // Update local state to reflect the change
@@ -101,10 +101,7 @@ export default function PortalOverviewClient({ data: initialData }: PortalOvervi
               <ButtonSecondary to="settings">
                 <GearIcon className="h-4 w-4" />
               </ButtonSecondary>
-              <ButtonSecondary
-                onClick={handleTogglePublished}
-                disabled={isPending}
-              >
+              <ButtonSecondary onClick={handleTogglePublished} disabled={isPending}>
                 {data.item.isPublished ? t("shared.unpublish") : t("shared.publish")}
               </ButtonSecondary>
             </div>
@@ -120,25 +117,25 @@ export default function PortalOverviewClient({ data: initialData }: PortalOvervi
       >
         <dl className="grid gap-2 sm:grid-cols-3">
           <Link href="users" className="group">
-            <div className="bg-background border-border group rounded-lg border p-4">
-              <dt className="text-muted-foreground truncate text-xs font-medium uppercase group-hover:underline">{t("models.user.plural")}</dt>
-              <dd className="text-foreground mt-1 truncate text-2xl font-semibold">{NumberUtils.intFormat(data.overview.users)}</dd>
+            <div className="group rounded-lg border border-border bg-background p-4">
+              <dt className="truncate text-xs font-medium uppercase text-muted-foreground group-hover:underline">{t("models.user.plural")}</dt>
+              <dd className="mt-1 truncate text-2xl font-semibold text-foreground">{NumberUtils.intFormat(data.overview.users)}</dd>
             </div>
           </Link>
           {portalsConfig?.analytics && (
             <Link href="analytics" className="group">
-              <div className="bg-background border-border group rounded-lg border p-4">
-                <dt className="text-muted-foreground truncate text-xs font-medium uppercase group-hover:underline">Visitors</dt>
-                <dd className="text-foreground mt-1 truncate text-2xl font-semibold">{NumberUtils.intFormat(data.overview.visitors)}</dd>
+              <div className="group rounded-lg border border-border bg-background p-4">
+                <dt className="truncate text-xs font-medium uppercase text-muted-foreground group-hover:underline">Visitors</dt>
+                <dd className="mt-1 truncate text-2xl font-semibold text-foreground">{NumberUtils.intFormat(data.overview.visitors)}</dd>
               </div>
             </Link>
           )}
 
           {portalsConfig?.pricing && (
             <Link href="pricing" className="group">
-              <div className="bg-background border-border group rounded-lg border p-4">
-                <dt className="text-muted-foreground truncate text-xs font-medium uppercase group-hover:underline">Products</dt>
-                <dd className="text-foreground mt-1 truncate text-2xl font-semibold">{NumberUtils.intFormat(data.overview.products)}</dd>
+              <div className="group rounded-lg border border-border bg-background p-4">
+                <dt className="truncate text-xs font-medium uppercase text-muted-foreground group-hover:underline">Products</dt>
+                <dd className="mt-1 truncate text-2xl font-semibold text-foreground">{NumberUtils.intFormat(data.overview.products)}</dd>
               </div>
             </Link>
           )}

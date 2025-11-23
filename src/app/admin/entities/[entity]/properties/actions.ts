@@ -11,19 +11,19 @@ export async function setPropertyOrders(entitySlug: string, orders: { id: string
       await db.properties.updatePropertyOrder(id, Number(order));
     })
   );
-  
+
   revalidatePath(`/admin/entities/${entitySlug}/properties`);
   return { success: true };
 }
 
 export async function deleteProperty(entitySlug: string, propertyId: string) {
   const { t } = await getServerTranslations();
-  
+
   const existingProperty = await db.properties.getProperty(propertyId);
   if (!existingProperty) {
     throw new Error(t("shared.notFound"));
   }
-  
+
   await db.properties.deleteProperty(propertyId);
   revalidatePath(`/admin/entities/${entitySlug}/properties`);
   return { success: true };
@@ -34,11 +34,11 @@ export async function togglePropertyDisplay(entitySlug: string, propertyId: stri
   if (!existingProperty) {
     throw new Error("Property not found");
   }
-  
+
   await db.properties.updateProperty(propertyId, {
     isDisplay: !existingProperty.isDisplay,
   });
-  
+
   revalidatePath(`/admin/entities/${entitySlug}/properties`);
   return { success: true };
 }
@@ -48,7 +48,7 @@ export async function duplicateProperty(entitySlug: string, propertyId: string) 
   if (!entity) {
     throw new Error("Entity not found");
   }
-  
+
   await duplicate({ entity, propertyId });
   revalidatePath(`/admin/entities/${entitySlug}/properties`);
   return { success: true };

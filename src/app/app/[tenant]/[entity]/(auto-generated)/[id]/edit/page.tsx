@@ -19,7 +19,7 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 export default async function Page(props: IServerComponentsProps) {
   const data = await loader(props);
   const title = data?.meta?.[0]?.title || "";
-  
+
   return (
     <TitleDataLayout data={{ title }}>
       <RowEditRoute data={data} />

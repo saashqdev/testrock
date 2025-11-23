@@ -11,13 +11,13 @@ export { serverTimingHeaders as headers };
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const data = await RowsList.loader(props);
-  const loaderData = await data.json() as RowsList.LoaderData;
-  
+  const loaderData = (await data.json()) as RowsList.LoaderData;
+
   // Convert MetaTagsDto array to Metadata object
   const metadata: Metadata = {};
   if (loaderData?.meta) {
     for (const tag of loaderData.meta) {
-      if ('title' in tag) {
+      if ("title" in tag) {
         metadata.title = tag.title;
       }
       // Add more conversions as needed
@@ -30,7 +30,7 @@ export const action = (props: IServerComponentsProps) => RowsList.action(props);
 
 export default async function (props: IServerComponentsProps) {
   const response = await RowsList.loader(props);
-  const data = await response.json() as RowsList.LoaderData;
+  const data = (await response.json()) as RowsList.LoaderData;
   const appOrAdminData = useAppOrAdminData();
   return (
     <RowsViewRoute

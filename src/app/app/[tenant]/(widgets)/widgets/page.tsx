@@ -27,9 +27,9 @@ export default async function WidgetsPage({ params }: WidgetsPageProps) {
   const { tenant } = await params;
   const tenantId = await getTenantIdFromUrl({ tenant });
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
-  
+
   const items = (await prisma.widget.findMany({ where: { tenantId } })).map((f) => WidgetUtils.toDto(f));
-  
+
   const data: LoaderData = {
     items,
   };
@@ -49,17 +49,17 @@ export async function POST(request: Request, { params }: { params: Promise<{ ten
     properties: appConfiguration.widgets?.metadata || [],
     prefix: "metadata",
   });
-  
+
   const existing = await prisma.widget.findUnique({
     where: {
       tenantId_name: { tenantId, name },
     },
   });
-  
+
   if (existing) {
     return Response.json({ error: "Name already taken" }, { status: 400 });
   }
-  
+
   const appearance: WidgetDto["appearance"] = {
     logo: null,
     theme: defaultTheme,
@@ -68,7 +68,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ ten
     hiddenInUrls: [],
     visibleInUrls: [],
   };
-  
+
   const item = await prisma.widget.create({
     data: {
       name,
@@ -77,9 +77,9 @@ export async function POST(request: Request, { params }: { params: Promise<{ ten
       appearance: JSON.stringify(appearance),
     },
   });
-  
-  return Response.json({ 
+
+  return Response.json({
     success: true,
-    redirectUrl: UrlUtils.getModulePath({ tenant }, `widgets/${item.id}`)
+    redirectUrl: UrlUtils.getModulePath({ tenant }, `widgets/${item.id}`),
   });
 }

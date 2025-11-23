@@ -57,7 +57,10 @@ export default function PlanFeatureDescription({ feature, editing, onClickFeatur
               <FeatureTitle feature={feature} />
             </div>
           ) : (
-            <Link href={feature.href} className="ml-2 truncate text-sm font-medium text-muted-foreground underline hover:text-primary dark:text-muted-foreground">
+            <Link
+              href={feature.href}
+              className="ml-2 truncate text-sm font-medium text-muted-foreground underline hover:text-primary dark:text-muted-foreground"
+            >
               <FeatureTitle feature={feature} />
             </Link>
           )}
@@ -88,7 +91,7 @@ function FeatureTitle({ feature }: { feature: { title: string; value: number; hr
   const value = typeof feature.value === "number" ? NumberUtils.intFormat(feature.value) : feature.value;
   return (
     <span>
-      {t(feature.title, { 0: value })} {feature.badge && <span className="text-theme-50 ml-1 rounded-md bg-primary px-1 py-0.5 text-xs">{feature.badge}</span>}
+      {t(feature.title, { 0: value })} {feature.badge && <span className="ml-1 rounded-md bg-primary px-1 py-0.5 text-xs text-theme-50">{feature.badge}</span>}
     </span>
   );
 }

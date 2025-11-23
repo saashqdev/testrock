@@ -64,7 +64,7 @@ export default function OnboardingSessionsTable({
         title: t("onboarding.session.activity"),
         value: (i) => (
           <div>
-            <button type="button" onClick={() => setSelected(i)} className="hover:border-theme-400 border-b border-dotted border-border hover:border-dashed">
+            <button type="button" onClick={() => setSelected(i)} className="border-b border-dotted border-border hover:border-dashed hover:border-theme-400">
               {OnboardingSessionUtils.getActivity({ t, item: i, metadata }).length} activities
             </button>
           </div>
@@ -75,7 +75,7 @@ export default function OnboardingSessionsTable({
         title: t("onboarding.session.steps"),
         value: (i) => (
           <div>
-            <button type="button" onClick={() => setSelected(i)} className="hover:border-theme-400 border-b border-dotted border-border hover:border-dashed">
+            <button type="button" onClick={() => setSelected(i)} className="border-b border-dotted border-border hover:border-dashed hover:border-theme-400">
               {i.sessionSteps.filter((f) => f.completedAt).length}/{i.sessionSteps.length} {t("shared.completed").toLowerCase()}
             </button>
           </div>

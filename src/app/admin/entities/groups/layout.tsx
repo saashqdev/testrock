@@ -12,6 +12,6 @@ async function getData() {
 
 export default async function GroupsLayout({ children }: { children: ReactNode }) {
   const data = await getData();
-  
+
   return <EntityGroupsClient items={data.items}>{children}</EntityGroupsClient>;
 }

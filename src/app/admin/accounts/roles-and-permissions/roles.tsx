@@ -30,7 +30,7 @@ export default function RolesClient({ data, children }: RolesClientProps) {
   const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
-  
+
   // Check if we're in a nested route (new or edit)
   const isNestedRoute = !!children;
 

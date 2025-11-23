@@ -65,4 +65,3 @@ export async function publish({ params, form }: PageBlockActionArgs) {
   await db.blog.updateBlogPostPublished(post.id ?? "", true);
   return Response.json({});
 }
-

@@ -7,7 +7,7 @@ export async function POST(request: NextRequest, props: IServerComponentsProps) 
     return await action({ ...props, request });
   } catch (error: any) {
     // Handle any errors and return JSON
-    console.error('API route error:', error);
-    return Response.json({ error: error.message || 'An error occurred' }, { status: 500 });
+    console.error("API route error:", error);
+    return Response.json({ error: error.message || "An error occurred" }, { status: 500 });
   }
 }

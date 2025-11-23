@@ -34,7 +34,7 @@ export async function createFakeProject(formData: FormData): Promise<ActionResul
       active,
       tasks,
     });
-    
+
     revalidatePath("/admin/playground/crud/projects");
     redirect(`/admin/playground/crud/projects/${item.id}`);
   } catch (e: any) {
@@ -69,7 +69,7 @@ export async function updateProject(
 
     revalidatePath(`/admin/playground/crud/projects/${projectId}`);
     revalidatePath("/admin/playground/crud/projects");
-    
+
     return { success: "Project updated" };
   } catch (e: any) {
     return { error: e.message };

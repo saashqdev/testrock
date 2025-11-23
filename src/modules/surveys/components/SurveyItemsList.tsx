@@ -33,7 +33,7 @@ export default function SurveyItemsList({ items, onChange }: Props) {
               }}
               className="px-4"
             >
-              <div className="border-border mt-2 border-t pt-4">
+              <div className="mt-2 border-t border-border pt-4">
                 {/* <div className=" absolute right-0 top-0 -mr-2 -mt-2">
                   <button
                     type="button"
@@ -47,7 +47,7 @@ export default function SurveyItemsList({ items, onChange }: Props) {
                     <TrashIcon className="h-4 w-4 text-gray-300 group-hover:text-muted-foreground" />
                   </button>
                 </div> */}
-                <div className=" grid grid-cols-12 gap-2">
+                <div className="grid grid-cols-12 gap-2">
                   <InputSelect
                     title={t("shared.type")}
                     value={item.type}
@@ -171,7 +171,7 @@ export default function SurveyItemsList({ items, onChange }: Props) {
                 },
               ]);
             }}
-            className="bg-background focus:ring-ring border-border hover:border-foreground hover:bg-secondary hover:text-secondary-foreground relative block w-full rounded-lg border-2 border-dashed px-12 py-3 text-center focus:outline-hidden focus:ring-2 focus:ring-offset-2"
+            className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border bg-background px-12 py-3 text-center hover:border-foreground hover:bg-secondary hover:text-secondary-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2"
           >
             <span className="mt-1 block text-xs font-medium">Add survey item</span>
           </button>

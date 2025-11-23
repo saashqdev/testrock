@@ -44,22 +44,17 @@ export default function RowEditRoute({ rowFormChildren, options, children, data 
   return (
     <NewPageLayout
       title={t("shared.edit") + " " + t(rowData.entity.title)}
-      menu={EntityHelper.getLayoutBreadcrumbsMenu({ 
-        type: "edit", 
-        t, 
-        appOrAdminData, 
-        entity: rowData.entity, 
-        item: rowData.item, 
+      menu={EntityHelper.getLayoutBreadcrumbsMenu({
+        type: "edit",
+        t,
+        appOrAdminData,
+        entity: rowData.entity,
+        item: rowData.item,
         params: {
-          ...Object.fromEntries(
-            Object.entries(params).map(([key, value]) => [
-              key, 
-              Array.isArray(value) ? value[0] : value
-            ])
-          ),
-          appOrAdminData
-        } as any, 
-        routes 
+          ...Object.fromEntries(Object.entries(params).map(([key, value]) => [key, Array.isArray(value) ? value[0] : value])),
+          appOrAdminData,
+        } as any,
+        routes,
       })}
     >
       <RowForm

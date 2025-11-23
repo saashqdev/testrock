@@ -48,7 +48,7 @@ export default function InputCheckboxInline({
             autoFocus={autoFocus}
             className={clsx(
               (disabled || readOnly) && "cursor-not-allowed bg-gray-100",
-              "text-theme-600 focus:ring-theme-500 h-4 w-4 cursor-pointer rounded border-gray-300"
+              "h-4 w-4 cursor-pointer rounded border-gray-300 text-theme-600 focus:ring-theme-500"
             )}
           />
         </div>

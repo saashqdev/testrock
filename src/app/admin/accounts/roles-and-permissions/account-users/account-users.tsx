@@ -24,7 +24,6 @@ export const loader = async (props: IServerComponentsProps): Promise<LoaderData>
   return data;
 };
 
-
 export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getServerTranslations();
   return {

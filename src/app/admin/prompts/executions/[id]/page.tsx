@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 export default async function ExecutionsPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
   const data = await getData(resolvedParams);
-  
+
   return (
     <EditPageLayout
       title={`Executions - ${data.item.title}`}

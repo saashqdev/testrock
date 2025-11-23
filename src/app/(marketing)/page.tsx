@@ -16,13 +16,13 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function (props: IServerComponentsProps) {
   // Don't read searchParams to prevent page re-render on URL changes (causes scroll jumping)
   const { t } = await getServerTranslations();
-  
+
   // Create a mock request for the pricing loader
   const request = new Request(new URL("http://localhost/pricing"));
   const pricingBlockData = await load({ request, params: {}, t });
-  
+
   // Generate blocks on server to prevent hydration mismatch
   const blocks = defaultLandingPage({ t, pricingData: pricingBlockData });
-  
+
   return <PageBlocks items={blocks} />;
 }

@@ -49,9 +49,9 @@ export function NavMain({
   // Update active title when pathname changes
   useEffect(() => {
     if (!mounted) return;
-    
+
     let bestMatch: { title: string; parentTitle?: string; pathLength: number } | null = null;
-    
+
     // Find the active menu item based on pathname
     for (const group of items) {
       for (const item of group.items) {
@@ -61,7 +61,7 @@ export function NavMain({
             if (subItem.path && pathname) {
               const matchesExact = pathname === subItem.path;
               const matchesPrefix = pathname.startsWith(subItem.path);
-              
+
               if (matchesExact || matchesPrefix) {
                 const pathLength = subItem.path.length;
                 // Keep the longest matching path (most specific)
@@ -76,12 +76,12 @@ export function NavMain({
             }
           }
         }
-        
+
         // Check main items
         if (item.path && pathname) {
           const matchesExact = pathname === item.path;
           const matchesPrefix = pathname.startsWith(item.path);
-          
+
           if (matchesExact || matchesPrefix) {
             const pathLength = item.path.length;
             // Only use if no better match found
@@ -95,7 +95,7 @@ export function NavMain({
         }
       }
     }
-    
+
     if (bestMatch) {
       setActiveTitle(bestMatch.title, bestMatch.parentTitle);
     }
@@ -145,13 +145,13 @@ export function NavMain({
       </SidebarGroup> */}
 
       {items.map((group, idxGroup) => (
-        <SidebarGroup key={`group-${idxGroup}-${group.title || ''}`}>
+        <SidebarGroup key={`group-${idxGroup}-${group.title || ""}`}>
           {group.title && <SidebarGroupLabel>{t(group.title)}</SidebarGroupLabel>}
           <SidebarMenu>
             {group.items.map((item, idx) => {
               const itemKey = `item-${idxGroup}-${idx}-${item.path}`;
               const hasSubItems = item.items && item.items.length > 0;
-              
+
               if (!hasSubItems) {
                 return (
                   <SidebarMenuItem key={itemKey} className="overflow-x-clip">
@@ -159,16 +159,18 @@ export function NavMain({
                       <Link href={item.path}>
                         {/* <item.icon /> */}
                         {(item.icon !== undefined || item.entityIcon !== undefined) && <SidebarIcon className="size-4 shrink-0" item={item} />}
-                        <span suppressHydrationWarning className="truncate">{t(item.title)}</span>
+                        <span suppressHydrationWarning className="truncate">
+                          {t(item.title)}
+                        </span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
               }
-              
+
               // Only apply defaultOpen after mount to avoid hydration mismatch
               const isActive = mounted ? item.isActive : false;
-              
+
               return (
                 <Collapsible key={itemKey} asChild defaultOpen={isActive} className="group/collapsible" suppressHydrationWarning>
                   <SidebarMenuItem className="overflow-x-clip">
@@ -177,7 +179,9 @@ export function NavMain({
                         {/* <Link to={item.path}> */}
                         {/* <item.icon /> */}
                         {(item.icon !== undefined || item.entityIcon !== undefined) && <SidebarIcon className="size-4 shrink-0" item={item} />}
-                        <span suppressHydrationWarning className="truncate flex-1 min-w-0">{t(item.title)}</span>
+                        <span suppressHydrationWarning className="min-w-0 flex-1 truncate">
+                          {t(item.title)}
+                        </span>
                         <ChevronRight className="size-4 shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
 
                         {/* </Link> */}

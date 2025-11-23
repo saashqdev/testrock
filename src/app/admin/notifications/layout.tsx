@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
     throw Error("NOTIFICATIONS_NOVU_APP_ID env variable required.");
   }
   await verifyUserHasPermission("admin.notifications.view");
-  
+
   return {
     title: `${t("notifications.title")} | ${process.env.APP_NAME}`,
   };

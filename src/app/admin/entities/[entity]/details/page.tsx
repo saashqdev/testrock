@@ -94,10 +94,10 @@ export const action = async (props: IServerComponentsProps) => {
 export default async function EditEntityIndexRoute(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const request = props.request!;
-  
+
   await verifyUserHasPermission("admin.entities.view");
   const item = await db.entities.getEntityBySlug({ tenantId: null, slug: params.entity ?? "" });
-  
+
   if (!item) {
     redirect("/admin/entities");
   }

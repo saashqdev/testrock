@@ -22,10 +22,10 @@ async function getData(props: IServerComponentsProps) {
 
 async function updateCompanyAction(formData: FormData) {
   "use server";
-  
+
   const id = formData.get("id")?.toString() ?? "";
   const name = formData.get("name")?.toString() ?? "";
-  
+
   try {
     const { item } = await get(id, { entity: { name: "company" } });
     await loadEntities();
@@ -42,4 +42,3 @@ export default async function RowRepositoryPage(props: IServerComponentsProps) {
 
   return <RowRepositoryClient company={data.company} updateCompanyAction={updateCompanyAction} />;
 }
-

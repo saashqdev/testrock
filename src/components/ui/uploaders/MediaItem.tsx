@@ -17,7 +17,7 @@ interface Props {
 }
 export default function MediaItem({ item, onChangeTitle, onDelete, onDownload, onPreview, readOnly }: Props) {
   return (
-    <div className={clsx("border-border w-full rounded-md border border-dashed px-2 text-xs", readOnly ? "" : "")}>
+    <div className={clsx("w-full rounded-md border border-dashed border-border px-2 text-xs", readOnly ? "" : "")}>
       {readOnly ? (
         <div className="flex items-center justify-between py-2 pr-4 text-sm">
           <div className="flex w-0 flex-1 items-center">
@@ -30,17 +30,13 @@ export default function MediaItem({ item, onChangeTitle, onDelete, onDownload, o
                 <ButtonTertiary
                   type="button"
                   onClick={onPreview}
-                  className=" text-muted-foreground hover:text-muted-foreground border-0 font-medium shadow-none"
+                  className="border-0 font-medium text-muted-foreground shadow-none hover:text-muted-foreground"
                 >
-                  <EyeIcon className="text-muted-foreground h-4 w-4" />
+                  <EyeIcon className="h-4 w-4 text-muted-foreground" />
                 </ButtonTertiary>
               )}
-              <ButtonTertiary
-                type="button"
-                onClick={onDownload}
-                className=" text-muted-foreground hover:text-muted-foreground border-0 font-medium shadow-none"
-              >
-                <DownloadIcon className="text-muted-foreground h-4 w-4" />
+              <ButtonTertiary type="button" onClick={onDownload} className="border-0 font-medium text-muted-foreground shadow-none hover:text-muted-foreground">
+                <DownloadIcon className="h-4 w-4 text-muted-foreground" />
               </ButtonTertiary>
             </div>
           </div>

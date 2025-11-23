@@ -13,16 +13,13 @@ export type SyncEmailsResult = {
   items?: EmailWithSimpleDetailsDto[];
 };
 
-export async function syncEmailsAction(
-  tenantId: string | null,
-  currentPath: string
-): Promise<SyncEmailsResult> {
+export async function syncEmailsAction(tenantId: string | null, currentPath: string): Promise<SyncEmailsResult> {
   try {
     await requireAuth();
     const { t } = await getServerTranslations();
 
     const allEmails = await getPostmarkInboundMessages();
-    
+
     await Promise.all(
       allEmails.map(async (newEmail) => {
         const messageId = newEmail.MessageID.toString();
@@ -30,7 +27,7 @@ export async function syncEmailsAction(
         if (existing) {
           return;
         }
-        
+
         const email = await getPostmarkInboundMessage(messageId);
         if (!email) {
           return;
@@ -57,7 +54,7 @@ export async function syncEmailsAction(
     revalidatePath(currentPath);
 
     const items = await db.emails.getAllEmails("inbound", { page: 1, pageSize: 10 }, undefined, tenantId);
-    
+
     return {
       success: true,
       items: items.items,

@@ -24,7 +24,7 @@ async function main() {
   });
 
   console.log(`🔑 Cache keys that need to be cleared:\n`);
-  
+
   for (const tu of tenantUsers) {
     const cacheKey = `userRoles:${user.id}:${tu.tenantId}`;
     console.log(`   ${cacheKey}`);

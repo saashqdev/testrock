@@ -31,7 +31,7 @@ export default function InputCheckboxWithDescription({
 }: Props) {
   // Determine if this is a controlled component at mount time and stick with it
   const [isControlled] = useState(() => value !== undefined);
-  
+
   // For controlled components, ensure value is always defined
   const checkedValue = isControlled ? (value ?? false) : undefined;
 

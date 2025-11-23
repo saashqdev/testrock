@@ -46,7 +46,7 @@ export default function NotificationSubscribersTable({ items }: { items: IGetSub
         {
           name: "deleted",
           title: "deleted",
-          value: (i) => <div>{i.deleted ? <CheckIcon className="text-theme-500 h-4 w-4" /> : <XIcon className="h-4 w-4 text-muted-foreground" />}</div>,
+          value: (i) => <div>{i.deleted ? <CheckIcon className="h-4 w-4 text-theme-500" /> : <XIcon className="h-4 w-4 text-muted-foreground" />}</div>,
         },
       ]}
     ></TableSimple>

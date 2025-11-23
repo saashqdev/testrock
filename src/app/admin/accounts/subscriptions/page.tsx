@@ -54,7 +54,7 @@ export default async function SubscriptionsPage(props: IServerComponentsProps) {
       }),
     },
   ];
-  
+
   const filters = getFiltersFromCurrentUrl(request, filterableProperties);
   const urlSearchParams = new URL(request.url).searchParams;
   const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);

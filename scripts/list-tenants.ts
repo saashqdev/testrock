@@ -2,16 +2,16 @@ import { db } from "@/db";
 
 async function main() {
   console.log("Fetching all tenants...\n");
-  
+
   const tenants = await db.tenants.adminGetAllTenantsIdsAndNames();
-  
+
   if (tenants.length === 0) {
     console.log("No tenants found in the database.");
     return;
   }
-  
+
   console.log(`Found ${tenants.length} tenant(s):\n`);
-  
+
   tenants.forEach((tenant, index) => {
     console.log(`${index + 1}. Tenant: ${tenant.name}`);
     console.log(`   Slug: ${tenant.slug}`);

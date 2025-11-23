@@ -53,19 +53,19 @@ export default function PageBlocksRouteIndex({ data }: PageBlocksRouteIndexProps
   function onConfirmedReset() {
     const form = new FormData();
     form.set("action", "reset");
-    
+
     fetch(window.location.pathname, {
       method: "POST",
       body: form,
     })
-    .then(response => response.json())
-    .then(data => {
-      setActionData(data);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      toast.error('An error occurred while resetting blocks');
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        setActionData(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        toast.error("An error occurred while resetting blocks");
+      });
   }
 
   function onDownload() {
@@ -98,21 +98,21 @@ export default function PageBlocksRouteIndex({ data }: PageBlocksRouteIndexProps
 
   function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    
+
     const formData = new FormData(e.currentTarget);
-    
+
     fetch(window.location.pathname, {
       method: "POST",
       body: formData,
     })
-    .then(response => response.json())
-    .then(data => {
-      setActionData(data);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      toast.error('An error occurred while saving');
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        setActionData(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        toast.error("An error occurred while saving");
+      });
   }
 
   return (

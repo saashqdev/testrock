@@ -2,10 +2,7 @@ import { NextRequest } from "next/server";
 import { redirect } from "next/navigation";
 import { db } from "@/db";
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string; output: string; mapping: string }> }
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string; output: string; mapping: string }> }) {
   const { id, mapping } = await params;
   const body = await request.json();
   const action = body.action;

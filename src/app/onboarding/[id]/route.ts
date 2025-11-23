@@ -16,15 +16,15 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
   const formData = await request.formData();
   const actionName = formData.get("action");
   const session = await db.onboardingSessions.getOnboardingSession(sessionId);
-  
+
   if (!session) {
     return Response.json({ error: "Session not found" }, { status: 404 });
   }
-  
+
   const actions = formData.getAll("actions[]").map((action: FormDataEntryValue) => {
     return JSON.parse(action.toString()) as OnboardingSessionActionDto;
   });
-  
+
   switch (actionName) {
     case "started": {
       await OnboardingSessionService.started({ session, request });
@@ -58,6 +58,6 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       return Response.json({ error: t("shared.invalidForm") }, { status: 400 });
     }
   }
-  
+
   return Response.json({});
 }

@@ -84,7 +84,7 @@ export default function TabsVertical({ className = "", tabs = [], asLinks = true
         <select
           id="tabs"
           name="tabs"
-          className="focus:border-theme-500 block w-full rounded-md border-border focus:ring-ring"
+          className="block w-full rounded-md border-border focus:border-theme-500 focus:ring-ring"
           onChange={(e) => selectTab(Number(e.target.value))}
           value={selected}
         >

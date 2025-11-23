@@ -17,7 +17,7 @@ export async function getRootData(): Promise<RootDataDto> {
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
   // Feature flags require request context, so return empty array when not available
   const featureFlags: string[] = [];
-  
+
   // Get existing CSRF token (doesn't try to set cookie in Server Component)
   const csrf = await getCSRFToken();
 
@@ -31,17 +31,17 @@ export async function getRootData(): Promise<RootDataDto> {
       const request = new Request(url, {
         headers: headersList,
       });
-      
+
       // Read existing analytics cookie (don't try to set it here - that happens in the API route)
       const cookieStore = await cookies();
-      const userAnalyticsId = cookieStore.get("NextRock_analytics")?.value || await generateAnalyticsUserId();
-      
+      const userAnalyticsId = cookieStore.get("NextRock_analytics")?.value || (await generateAnalyticsUserId());
+
       analytics = await AnalyticsService.getFromRequest({
         appConfiguration,
         request,
         userId: userInfo.userId ?? null,
       });
-      
+
       // Add the userAnalyticsId to analytics
       if (analytics) {
         analytics.userAnalyticsId = userAnalyticsId;

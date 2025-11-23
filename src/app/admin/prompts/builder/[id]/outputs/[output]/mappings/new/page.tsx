@@ -31,27 +31,22 @@ export const action = async (props: IServerComponentsProps) => {
 
 export default async function Page(props: IServerComponentsProps) {
   const params = (await props.params) || {};
-  
+
   const promptFlow = await db.promptFlows.getPromptFlow(params.id!);
   if (!promptFlow) {
     redirect("/admin/prompts/builder");
   }
-  
+
   const promptFlowOutput = await db.promptFlowOutput.getPromptFlowOutput(params.output!);
   if (!promptFlowOutput) {
     redirect(`/admin/prompts/builder/${params.id}/outputs`);
   }
-  
+
   const allEntities = await db.entities.getAllEntities(null);
 
   return (
     <div>
-      <PromptFlowOutputMappingForm 
-        item={undefined} 
-        promptFlow={promptFlow} 
-        promptFlowOutput={promptFlowOutput} 
-        allEntities={allEntities} 
-      />
+      <PromptFlowOutputMappingForm item={undefined} promptFlow={promptFlow} promptFlowOutput={promptFlowOutput} allEntities={allEntities} />
     </div>
   );
 }

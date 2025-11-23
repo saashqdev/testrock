@@ -8,13 +8,13 @@ interface Props {
 }
 export default function ViewToggle({ view, setView }: Props) {
   return (
-    <span className="relative z-0 inline-flex rounded-md shadow-2xs">
+    <span className="shadow-2xs relative z-0 inline-flex rounded-md">
       <button
         onClick={() => setView("table")}
         type="button"
         className={clsx(
-          "border-border focus:border-border focus:ring-ring hover:bg-secondary/90 relative inline-flex items-center rounded-l-md border px-4 py-2.5 text-sm font-medium focus:z-10 focus:outline-hidden focus:ring-1",
-          view === "table" ? "bg-accent-100 text-accent-500" : "text-muted-foreground bg-background"
+          "focus:outline-hidden relative inline-flex items-center rounded-l-md border border-border px-4 py-2.5 text-sm font-medium hover:bg-secondary/90 focus:z-10 focus:border-border focus:ring-1 focus:ring-ring",
+          view === "table" ? "bg-accent-100 text-accent-500" : "bg-background text-muted-foreground"
         )}
       >
         <TableIcon className="h-4 w-4" />
@@ -23,8 +23,8 @@ export default function ViewToggle({ view, setView }: Props) {
         onClick={() => setView("board")}
         type="button"
         className={clsx(
-          "border-border focus:border-border focus:ring-ring hover:bg-secondary/90 relative -ml-px inline-flex items-center rounded-r-md border px-4 py-2.5 text-sm font-medium focus:z-10 focus:outline-hidden focus:ring-1",
-          view === "board" ? "bg-accent-100 text-accent-500" : "text-muted-foreground bg-background"
+          "focus:outline-hidden relative -ml-px inline-flex items-center rounded-r-md border border-border px-4 py-2.5 text-sm font-medium hover:bg-secondary/90 focus:z-10 focus:border-border focus:ring-1 focus:ring-ring",
+          view === "board" ? "bg-accent-100 text-accent-500" : "bg-background text-muted-foreground"
         )}
       >
         <ViewBoardsIcon className="h-4 w-4" />

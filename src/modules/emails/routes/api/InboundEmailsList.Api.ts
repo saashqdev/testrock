@@ -6,4 +6,3 @@ export async function generateMetadata({ params }: { params: { tenant?: string }
     title: `Inbound Emails | ${process.env.APP_NAME}`,
   };
 }
-

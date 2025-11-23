@@ -23,19 +23,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function UnauthorizedPermissionTenantPage({ params, searchParams }: PageProps) {
   const { permission: permissionParam, tenant } = await params;
   const { redirect: redirectTo } = await searchParams;
-  
+
   const { t } = await getServerTranslations();
   const permission = await db.permissions.getPermissionName(permissionParam ?? "");
   const userInfo = await getUserInfo();
-  
+
   if (redirectTo) {
     if (!permission) {
       redirect(redirectTo);
     }
-    const { userPermission } = await getUserPermission({ 
-      userId: userInfo.userId, 
-      permissionName: permission.name, 
-      tenantId: tenant 
+    const { userPermission } = await getUserPermission({
+      userId: userInfo.userId,
+      permissionName: permission.name,
+      tenantId: tenant,
     });
     if (userPermission) {
       redirect(redirectTo);
@@ -57,13 +57,13 @@ export default async function UnauthorizedPermissionTenantPage({ params, searchP
             <div className="py-16">
               <div className="text-center">
                 <h1 className="mt-2 text-4xl font-extrabold tracking-tight sm:text-5xl">{t("shared.unauthorized")}</h1>
-                <p className="text-muted-foreground mt-2 text-base">Contact your admin and verify your permissions.</p>
-                <div className="text-muted-foreground mx-auto mt-2 w-96 text-left text-base">
-                  <div className="border-border bg-secondary flex justify-start space-y-2 border border-dashed p-4 dark:border-gray-700 dark:bg-gray-900">
+                <p className="mt-2 text-base text-muted-foreground">Contact your admin and verify your permissions.</p>
+                <div className="mx-auto mt-2 w-96 text-left text-base text-muted-foreground">
+                  <div className="flex justify-start space-y-2 border border-dashed border-border bg-secondary p-4 dark:border-gray-700 dark:bg-gray-900">
                     <div className="space-y-2">
                       <div className="font-bold">{permission.description}</div>
                       <div>
-                        <span>Permission &rarr;</span> <span className=" font-light italic">{permission.name}</span>
+                        <span>Permission &rarr;</span> <span className="font-light italic">{permission.name}</span>
                       </div>
                     </div>
                   </div>

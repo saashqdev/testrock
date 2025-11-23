@@ -19,10 +19,10 @@ export default async function NewPortalPage({ params }: Props) {
   await requireAuth();
   const { t } = await getServerTranslations();
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
-  
+
   if (!appConfiguration.portals?.enabled) {
     throw Response.json({ error: "Portals are not enabled" }, { status: 400 });
   }
-  
+
   return <NewPortalClient />;
 }

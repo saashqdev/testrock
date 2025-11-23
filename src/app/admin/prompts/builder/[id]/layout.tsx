@@ -13,7 +13,7 @@ export default async function BuilderLayout({ children, params }: LayoutProps) {
   const resolvedParams = await params;
   const item = await db.promptFlows.getPromptFlow(resolvedParams.id);
   await verifyUserHasPermission("admin.prompts.view");
-  
+
   if (!item) {
     redirect("/admin/prompts/builder");
   }

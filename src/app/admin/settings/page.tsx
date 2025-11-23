@@ -103,7 +103,7 @@ export default async function AdminSettingsPage() {
     <EditPageLayout title="Settings">
       <div className="grid grid-cols-2 gap-4">
         {items.map((item) => (
-          <Card key={item.href} className="bg-card hover:bg-secondary relative p-4">
+          <Card key={item.href} className="relative bg-card p-4 hover:bg-secondary">
             <CardTitle className="flex items-center gap-2">
               {item.icon}
               <Link href={item.href} className="font-medium">

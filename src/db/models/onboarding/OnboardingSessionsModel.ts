@@ -11,18 +11,18 @@ import {
 import { UserDto } from "@/db/models/accounts/UsersModel";
 
 export type OnboardingSessionsModel = {
-    id: string;
-    createdAt: Date;
-    updatedAt: Date;
-    onboardingId: string;
-    userId: string;
-    tenantId: string | null;
-    status: string;
-    startedAt: Date | null;
-    completedAt: Date | null;
-    dismissedAt: Date | null;
-    createdRealtime: boolean;
-}
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  onboardingId: string;
+  userId: string;
+  tenantId: string | null;
+  status: string;
+  startedAt: Date | null;
+  completedAt: Date | null;
+  dismissedAt: Date | null;
+  createdRealtime: boolean;
+};
 
 export type OnboardingSessionWithDetailsDto = OnboardingSession & {
   onboarding: Onboarding;

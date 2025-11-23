@@ -10,7 +10,7 @@ export default function GalleryVariantCarousel({ item }: { item: GalleryBlockDto
     <div className="relative overflow-hidden py-8">
       <div className="mx-auto max-w-4xl space-y-8 px-4 text-center sm:max-w-3xl sm:px-6 lg:max-w-5xl lg:px-8">
         <div>
-          {item.topText && <h2 className="text-theme-600 text-base font-semibold uppercase tracking-wider">{item.topText}</h2>}
+          {item.topText && <h2 className="text-base font-semibold uppercase tracking-wider text-theme-600">{item.topText}</h2>}
           {item.headline && <p className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">{t(item.headline)}</p>}
           {item.subheadline && <p className="mx-auto mt-5 max-w-prose text-base text-muted-foreground">{t(item.subheadline)}</p>}
         </div>

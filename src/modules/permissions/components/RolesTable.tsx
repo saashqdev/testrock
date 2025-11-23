@@ -60,7 +60,8 @@ export default function RolesTable({ items, canUpdate = true, tenantId = null }:
               <ButtonTertiary onClick={() => setSelectedRow(i)}>View {i.permissions.length} permissions</ButtonTertiary>
             ) : (
               <div>
-                {i.permissions.length} <span className="max-w-sm text-xs italic text-gray-400">({i.permissions.map((f) => f.permission.name).join(", ")})</span>{" "}
+                {i.permissions.length}{" "}
+                <span className="max-w-sm text-xs italic text-gray-400">({i.permissions.map((f) => f.permission.name).join(", ")})</span>{" "}
               </div>
             )}
           </div>

@@ -11,20 +11,20 @@ import RedirectsService from "@/modules/redirects/RedirectsService";
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const params = (await props.params) || {};
   const request = props.request!;
-  const page = await getCurrentPage({ 
-    request, 
-    params, 
-    slug: "/" + (params.page || "") 
+  const page = await getCurrentPage({
+    request,
+    params,
+    slug: "/" + (params.page || ""),
   });
-  
+
   // Convert MetaTagsDto array to Metadata object
   const metadata: Metadata = {};
   if (page.metatags) {
     for (const tag of page.metatags) {
-      if ('title' in tag && tag.title) {
+      if ("title" in tag && tag.title) {
         metadata.title = tag.title;
       }
-      if ('description' in tag && tag.description) {
+      if ("description" in tag && tag.description) {
         metadata.description = tag.description;
       }
       // Add more conversions as needed
@@ -36,15 +36,15 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 export const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
   const request = props.request;
-  
+
   await RedirectsService.findAndRedirect({ request });
-  
-  const page = await getCurrentPage({ 
-    request, 
-    params, 
-    slug: "/" + (params.page || "") 
+
+  const page = await getCurrentPage({
+    request,
+    params,
+    slug: "/" + (params.page || ""),
   });
-  
+
   if (!page.page && page.blocks.length === 0 && !params.page?.includes(".")) {
     throw notFound();
   }
@@ -58,17 +58,17 @@ export const action = async (props: IServerComponentsProps) => {
 export default async function Page(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const request = props.request;
-  
+
   await RedirectsService.findAndRedirect({ request });
-  
-  const data = await getCurrentPage({ 
-    request, 
-    params, 
-    slug: "/" + (params.page || "") 
+
+  const data = await getCurrentPage({
+    request,
+    params,
+    slug: "/" + (params.page || ""),
   });
-  
+
   const { t } = await getServerTranslations();
-  
+
   if (!data.page && data.blocks.length === 0 && !params.page?.includes(".")) {
     notFound();
   }

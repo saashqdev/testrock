@@ -64,7 +64,7 @@ export default function WebhooksTable({ items, withActions = false, showAddButto
   return (
     <>
       <TableSimple headers={headers} items={items} actions={actions} />
-      
+
       {showAddButton && (
         <div className="flex justify-start">
           <ButtonTertiary onClick={() => setShowAddModal(true)}>
@@ -75,13 +75,13 @@ export default function WebhooksTable({ items, withActions = false, showAddButto
           </ButtonTertiary>
         </div>
       )}
-      
+
       {editingItem && (
         <Modal className="sm:max-w-sm" open={true} setOpen={() => setEditingItem(null)}>
           <EntityWebhookForm item={editingItem} />
         </Modal>
       )}
-      
+
       {showAddModal && (
         <Modal className="sm:max-w-sm" open={true} setOpen={() => setShowAddModal(false)}>
           <EntityWebhookForm />

@@ -40,4 +40,3 @@ export const action = async (props: IServerComponentsProps) => {
     return Response.json({ error: "Invalid form" }, { status: 400 });
   }
 };
-

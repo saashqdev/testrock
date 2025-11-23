@@ -46,17 +46,17 @@ export function TeamSwitcher({ tenants, size = "md" }: { tenants: TenantDto[]; s
             >
               <div
                 className={clsx(
-                  "flex aspect-square items-center justify-center rounded-lg",
+                  "aspect-square flex items-center justify-center rounded-lg",
                   size === "sm" && "size-6",
-                  size === "md" && "text-foreground size-8"
+                  size === "md" && "size-8 text-foreground"
                 )}
               >
                 {/* <activeTeam.logo className="size-4" /> */}
                 {activeTenant?.icon ? (
                   <Image className="size-7 shrink-0 rounded-md" src={activeTenant.icon} alt={activeTenant.name} width={28} height={28} />
                 ) : (
-                  <span className="bg-primary inline-flex size-7 shrink-0 items-center justify-center rounded-md">
-                    <span className="text-primary-foreground text-xs font-medium uppercase leading-none">{activeTenant?.name.substring(0, 1)}</span>
+                  <span className="inline-flex size-7 shrink-0 items-center justify-center rounded-md bg-primary">
+                    <span className="text-xs font-medium uppercase leading-none text-primary-foreground">{activeTenant?.name.substring(0, 1)}</span>
                   </span>
                 )}
               </div>
@@ -73,7 +73,7 @@ export function TeamSwitcher({ tenants, size = "md" }: { tenants: TenantDto[]; s
             side={isMobile ? "bottom" : "right"}
             sideOffset={4}
           >
-            <DropdownMenuLabel className="text-muted-foreground text-xs">{t("models.tenant.plural")}</DropdownMenuLabel>
+            <DropdownMenuLabel className="text-xs text-muted-foreground">{t("models.tenant.plural")}</DropdownMenuLabel>
             {tenants.map((tenant, index) => (
               <DropdownMenuItem
                 key={tenant.id}
@@ -90,7 +90,7 @@ export function TeamSwitcher({ tenants, size = "md" }: { tenants: TenantDto[]; s
                   {/* <team.logo className="size-4 shrink-0" /> */}
 
                   {tenant.icon ? (
-                    <Image className=" size-4 shrink-0" src={tenant.icon} alt={tenant.name} width={16} height={16} />
+                    <Image className="size-4 shrink-0" src={tenant.icon} alt={tenant.name} width={16} height={16} />
                   ) : (
                     <span className="inline-flex size-4 shrink-0 items-center justify-center rounded-md">
                       <span className="text-xs font-medium uppercase leading-none">{tenant.name.substring(0, 1)}</span>
@@ -104,10 +104,10 @@ export function TeamSwitcher({ tenants, size = "md" }: { tenants: TenantDto[]; s
             <DropdownMenuSeparator />
             <Link href="/new-account">
               <DropdownMenuItem className="gap-2 p-2">
-                <div className="bg-background flex size-6 items-center justify-center rounded-md border">
+                <div className="flex size-6 items-center justify-center rounded-md border bg-background">
                   <Plus className="size-4" />
                 </div>
-                <div className="text-muted-foreground font-medium">{t("app.tenants.create.title")}</div>
+                <div className="font-medium text-muted-foreground">{t("app.tenants.create.title")}</div>
               </DropdownMenuItem>
             </Link>
           </DropdownMenuContent>

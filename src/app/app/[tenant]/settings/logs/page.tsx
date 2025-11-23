@@ -18,7 +18,7 @@ async function getData(params: { tenant?: string }, searchParams: { [key: string
   const headersList = await headers();
   const host = headersList.get("host") || "";
   const protocol = headersList.get("x-forwarded-proto") || "http";
-  
+
   // Construct the URL with search params
   const url = new URL(`${protocol}://${host}${headersList.get("x-invoke-path") || ""}`);
   Object.entries(searchParams).forEach(([key, value]) => {
@@ -58,16 +58,16 @@ async function getData(params: { tenant?: string }, searchParams: { [key: string
   return data;
 }
 
-export default async function LogsIndexPage({ 
-  params, 
-  searchParams 
-}: { 
+export default async function LogsIndexPage({
+  params,
+  searchParams,
+}: {
   params: Promise<{ tenant?: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
   const data = await getData(resolvedParams, resolvedSearchParams);
-  
+
   return <EventsClient data={data} params={resolvedParams} />;
 }

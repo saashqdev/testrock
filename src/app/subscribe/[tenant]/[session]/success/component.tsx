@@ -38,7 +38,7 @@ export default function SubscribeSuccessView({ data, appConfiguration }: { data:
                 ) : (
                   <>
                     <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{t("settings.subscription.checkout.success.title")}</h1>
-                    <p className="text-muted-foreground mt-4 text-lg leading-6">
+                    <p className="mt-4 text-lg leading-6 text-muted-foreground">
                       {t("settings.subscription.checkout.success.description", {
                         0: t(data.checkoutSession.products.map((f: any) => t(f.title)).join(", ")),
                       })}
@@ -48,7 +48,7 @@ export default function SubscribeSuccessView({ data, appConfiguration }: { data:
 
                 <div className="mt-4">
                   <Link
-                    className="focus:border-accent-300 hover:bg-secondary border-border text-foreground bg-background inline-flex items-center space-x-2 rounded-full border px-3 py-2 text-sm font-medium shadow-2xs focus:outline-hidden focus:ring-2 dark:border-gray-800 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                    className="focus:border-accent-300 shadow-2xs focus:outline-hidden inline-flex items-center space-x-2 rounded-full border border-border bg-background px-3 py-2 text-sm font-medium text-foreground hover:bg-secondary focus:ring-2 dark:border-gray-800 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                     href={`${appConfiguration.app.features.tenantHome.replace(":tenant", data.currentTenant.slug)}settings/subscription`}
                   >
                     &larr; {t("settings.subscription.checkout.success.goToSubscription")}

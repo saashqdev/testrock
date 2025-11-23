@@ -88,14 +88,14 @@ export default function PageViewsClient({ data, portalsConfig }: PageViewsClient
                           }}
                           className="underline"
                         >
-                          <div className="text-muted-foreground text-xs">
+                          <div className="text-xs text-muted-foreground">
                             <span className="">Anon</span>: {i.uniqueVisitor.cookie.substring(0, 5) + "..."}
                           </div>
                         </button>
                       )}
                     </div>
                   </div>
-                  <time title={DateUtils.dateYMDHMS(i.createdAt)} className="text-muted-foreground text-xs">
+                  <time title={DateUtils.dateYMDHMS(i.createdAt)} className="text-xs text-muted-foreground">
                     {DateUtils.dateAgo(i.createdAt)}
                   </time>
                 </div>
@@ -114,7 +114,7 @@ export default function PageViewsClient({ data, portalsConfig }: PageViewsClient
                     }}
                     className="truncate underline"
                   >
-                    <div className="text-muted-foreground text-xs">{i.url !== i.route && i.route}</div>
+                    <div className="text-xs text-muted-foreground">{i.url !== i.route && i.route}</div>
                   </button>
                 </div>
               ),
@@ -122,7 +122,7 @@ export default function PageViewsClient({ data, portalsConfig }: PageViewsClient
             {
               name: "portal",
               title: "Portal",
-              value: (i) => <div className="text-muted-foreground font-medium">{i.portal?.title}</div>,
+              value: (i) => <div className="font-medium text-muted-foreground">{i.portal?.title}</div>,
               hidden: !portalsConfig?.enabled || !portalsConfig?.analytics,
             },
             {
@@ -191,7 +191,7 @@ export default function PageViewsClient({ data, portalsConfig }: PageViewsClient
               value: (i) => (
                 <div className="max-w-xs truncate">
                   <div className="truncate font-medium">{i.uniqueVisitor.fromUrl}</div>
-                  <div className="text-muted-foreground text-xs">{i.uniqueVisitor.fromUrl !== i.uniqueVisitor.fromRoute && i.uniqueVisitor.fromRoute}</div>
+                  <div className="text-xs text-muted-foreground">{i.uniqueVisitor.fromUrl !== i.uniqueVisitor.fromRoute && i.uniqueVisitor.fromRoute}</div>
                 </div>
               ),
             },

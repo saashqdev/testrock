@@ -58,6 +58,6 @@ interface PageProps {
 export default async function FeatureFlagEditPage({ params }: PageProps) {
   const { id } = await params;
   const data = await loader(id);
-  
+
   return <Component data={data} id={id} />;
 }

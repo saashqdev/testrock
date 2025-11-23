@@ -28,11 +28,11 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
   const { t } = useTranslation();
   const pathname = usePathname();
   const rootData = useRootData();
-  
+
   // These hooks may return null if context is not available (e.g., different layout)
   const appData = useAppData();
   const adminData = useAdminData();
-  
+
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -47,13 +47,13 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
     if (menuItems) {
       menu = menuItems;
     } else if (layout === "admin") {
-      menu = AdminSidebar({ 
+      menu = AdminSidebar({
         appConfiguration: rootData?.appConfiguration,
-        myTenants: adminData?.myTenants
+        myTenants: adminData?.myTenants,
       });
     } else if (layout === "app") {
       menu = AppSidebar({
-        tenantId: Array.isArray(params.tenant) ? params.tenant[0] ?? "" : params.tenant ?? "",
+        tenantId: Array.isArray(params.tenant) ? (params.tenant[0] ?? "") : (params.tenant ?? ""),
         entities: appData?.entities ?? [],
         entityGroups: appData?.entityGroups ?? [],
         appConfiguration: rootData?.appConfiguration,
@@ -187,13 +187,7 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
   return (
     <div>
       {layout === "app" && (
-        <div>
-          {appData?.currentTenant && (
-            <TenantSelector
-              key={Array.isArray(params.tenant) ? params.tenant.join(",") : params.tenant}
-            />
-          )}
-        </div>
+        <div>{appData?.currentTenant && <TenantSelector key={Array.isArray(params.tenant) ? params.tenant.join(",") : params.tenant} />}</div>
       )}
 
       {/* Mobile */}
@@ -217,11 +211,11 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
                                 href={menuItem.path}
                                 rel="noreferrer"
                                 className={clsx(
-                                  "group mt-1 flex items-center space-x-4 rounded-sm px-4 py-2 text-base leading-5 transition duration-150 ease-in-out hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-gray-50 focus:outline-hidden"
+                                  "focus:outline-hidden group mt-1 flex items-center space-x-4 rounded-sm px-4 py-2 text-base leading-5 transition duration-150 ease-in-out hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-gray-50"
                                 )}
                                 onClick={onSelected}
                               >
-                                {(menuItem.icon !== undefined || menuItem.entityIcon !== undefined) && <SidebarIcon className="h-5 w-5 " item={menuItem} />}
+                                {(menuItem.icon !== undefined || menuItem.entityIcon !== undefined) && <SidebarIcon className="h-5 w-5" item={menuItem} />}
                                 <div>{t(menuItem.title)}</div>
                               </a>
                             ) : (
@@ -229,13 +223,13 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
                                 id={UrlUtils.slugify(getPath(menuItem))}
                                 href={menuItem.redirectTo ?? getPath(menuItem)}
                                 className={clsx(
-                                  "group mt-1 flex items-center space-x-4 rounded-sm px-4 py-2 text-base leading-5 transition duration-150 ease-in-out  focus:outline-hidden",
+                                  "focus:outline-hidden group mt-1 flex items-center space-x-4 rounded-sm px-4 py-2 text-base leading-5 transition duration-150 ease-in-out",
                                   isCurrent(menuItem) && cssStates().selected,
                                   !isCurrent(menuItem) && "text-slate-200 hover:bg-slate-800 focus:bg-slate-400"
                                 )}
                                 onClick={onSelected}
                               >
-                                {(menuItem.icon !== undefined || menuItem.entityIcon !== undefined) && <SidebarIcon className="h-5 w-5 " item={menuItem} />}
+                                {(menuItem.icon !== undefined || menuItem.entityIcon !== undefined) && <SidebarIcon className="h-5 w-5" item={menuItem} />}
                                 <div>{t(menuItem.title)}</div>
                               </Link>
                             )}
@@ -245,13 +239,13 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
                         return (
                           <div>
                             <div
-                              className="group mt-1 flex items-center justify-between rounded-sm px-4 py-2 text-base leading-5 text-slate-200 transition duration-150 ease-in-out hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-gray-50 focus:outline-hidden"
+                              className="focus:outline-hidden group mt-1 flex items-center justify-between rounded-sm px-4 py-2 text-base leading-5 text-slate-200 transition duration-150 ease-in-out hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-gray-50"
                               onClick={() => toggleMenuItem(menuItem.path)}
                             >
                               <div className="flex items-center space-x-4 truncate">
                                 {(menuItem.icon !== undefined || menuItem.entityIcon !== undefined) && (
                                   <span className="h-5 w-5 text-slate-200 transition ease-in-out">
-                                    <SidebarIcon className="h-5 w-5 " item={menuItem} />
+                                    <SidebarIcon className="h-5 w-5" item={menuItem} />
                                   </span>
                                 )}
                                 <div className="truncate">{t(menuItem.title)}</div>
@@ -261,8 +255,8 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
                                 className={clsx(
                                   "ml-auto h-5 w-5 shrink-0 transform transition-colors duration-150 ease-in-out",
                                   menuItemIsExpanded(menuItem.path)
-                                    ? "group-hover:text-muted-foreground group-focus:text-muted-foreground ml-auto h-3 w-3 rotate-90 transform transition-colors duration-150 ease-in-out"
-                                    : "group-hover:text-muted-foreground group-focus:text-muted-foreground ml-auto h-3 w-3 transform transition-colors duration-150 ease-in-out"
+                                    ? "ml-auto h-3 w-3 rotate-90 transform transition-colors duration-150 ease-in-out group-hover:text-muted-foreground group-focus:text-muted-foreground"
+                                    : "ml-auto h-3 w-3 transform transition-colors duration-150 ease-in-out group-hover:text-muted-foreground group-focus:text-muted-foreground"
                                 )}
                                 viewBox="0 0 20 20"
                               >
@@ -281,13 +275,13 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
                                           href={menuItem.path}
                                           rel="noreferrer"
                                           className={clsx(
-                                            "group mt-1 flex items-center rounded-sm py-2 pl-14 leading-5 text-slate-200 transition duration-150 ease-in-out hover:bg-slate-800 hover:text-slate-300 focus:bg-slate-800 focus:text-slate-300 focus:outline-hidden sm:text-sm"
+                                            "focus:outline-hidden group mt-1 flex items-center rounded-sm py-2 pl-14 leading-5 text-slate-200 transition duration-150 ease-in-out hover:bg-slate-800 hover:text-slate-300 focus:bg-slate-800 focus:text-slate-300 sm:text-sm"
                                           )}
                                           onClick={onSelected}
                                         >
                                           {(subItem.icon !== undefined || subItem.entityIcon !== undefined) && (
                                             <span className="mr-1 h-5 w-5 transition ease-in-out">
-                                              <SidebarIcon className="h-5 w-5 " item={subItem} />
+                                              <SidebarIcon className="h-5 w-5" item={subItem} />
                                             </span>
                                           )}
                                           {t(subItem.title)}
@@ -298,7 +292,7 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
                                           id={UrlUtils.slugify(getPath(subItem))}
                                           href={subItem.redirectTo ?? getPath(subItem)}
                                           className={clsx(
-                                            "group mt-1 flex items-center rounded-sm py-2 pl-14 leading-5 transition duration-150 ease-in-out hover:text-slate-300 focus:text-slate-300 focus:outline-hidden sm:text-sm",
+                                            "focus:outline-hidden group mt-1 flex items-center rounded-sm py-2 pl-14 leading-5 transition duration-150 ease-in-out hover:text-slate-300 focus:text-slate-300 sm:text-sm",
                                             isCurrent(subItem) && cssStates().selected,
                                             !isCurrent(subItem) && "text-slate-200 hover:bg-slate-800 focus:bg-slate-800"
                                           )}
@@ -306,7 +300,7 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
                                         >
                                           {(subItem.icon !== undefined || subItem.entityIcon !== undefined) && (
                                             <span className="mr-1 h-5 w-5 transition ease-in-out">
-                                              <SidebarIcon className="h-5 w-5 " item={subItem} />
+                                              <SidebarIcon className="h-5 w-5" item={subItem} />
                                             </span>
                                           )}
                                           {t(subItem.title)}
@@ -352,13 +346,13 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
                                 href={menuItem.path}
                                 rel="noreferrer"
                                 className={clsx(
-                                  "group mt-1 flex items-center justify-between truncate rounded-sm px-4 py-2 text-sm leading-5 text-slate-200 transition duration-150 ease-in-out hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-gray-50 focus:outline-hidden",
+                                  "focus:outline-hidden group mt-1 flex items-center justify-between truncate rounded-sm px-4 py-2 text-sm leading-5 text-slate-200 transition duration-150 ease-in-out hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-gray-50",
                                   menuItem.icon !== undefined && "px-4"
                                 )}
                                 onClick={onSelected}
                               >
                                 <div className="flex items-center space-x-5">
-                                  {(menuItem.icon !== undefined || menuItem.entityIcon !== undefined) && <SidebarIcon className="h-5 w-5 " item={menuItem} />}
+                                  {(menuItem.icon !== undefined || menuItem.entityIcon !== undefined) && <SidebarIcon className="h-5 w-5" item={menuItem} />}
                                   <div>{t(menuItem.title)}</div>
                                 </div>
                                 {menuItem.side}
@@ -368,7 +362,7 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
                                 id={UrlUtils.slugify(getPath(menuItem))}
                                 href={menuItem.redirectTo ?? getPath(menuItem)}
                                 className={clsx(
-                                  "group mt-1 flex items-center justify-between truncate rounded-sm px-4 py-2 text-sm leading-5 transition duration-150 ease-in-out  focus:outline-hidden",
+                                  "focus:outline-hidden group mt-1 flex items-center justify-between truncate rounded-sm px-4 py-2 text-sm leading-5 transition duration-150 ease-in-out",
                                   menuItem.icon !== undefined && "px-4",
                                   isCurrent(menuItem) && cssStates().selected,
                                   !isCurrent(menuItem) && "text-slate-200 hover:bg-slate-800 focus:bg-slate-800"
@@ -376,7 +370,7 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
                                 onClick={onSelected}
                               >
                                 <div className="flex items-center space-x-5">
-                                  {(menuItem.icon !== undefined || menuItem.entityIcon !== undefined) && <SidebarIcon className="h-5 w-5 " item={menuItem} />}
+                                  {(menuItem.icon !== undefined || menuItem.entityIcon !== undefined) && <SidebarIcon className="h-5 w-5" item={menuItem} />}
                                   <div>{t(menuItem.title)}</div>
                                 </div>
                                 {menuItem.side}
@@ -389,11 +383,11 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
                           <div>
                             <button
                               type="button"
-                              className="group mt-1 flex w-full items-center justify-between truncate rounded-sm px-4 py-2 text-sm leading-5 text-slate-200 transition duration-150 ease-in-out hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-gray-50 focus:outline-hidden"
+                              className="focus:outline-hidden group mt-1 flex w-full items-center justify-between truncate rounded-sm px-4 py-2 text-sm leading-5 text-slate-200 transition duration-150 ease-in-out hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-gray-50"
                               onClick={() => toggleMenuItem(menuItem.path)}
                             >
                               <div className="flex items-center space-x-5 truncate">
-                                {(menuItem.icon !== undefined || menuItem.entityIcon !== undefined) && <SidebarIcon className="h-5 w-5 " item={menuItem} />}
+                                {(menuItem.icon !== undefined || menuItem.entityIcon !== undefined) && <SidebarIcon className="h-5 w-5" item={menuItem} />}
                                 <div className="truncate">{t(menuItem.title)}</div>
                               </div>
                               {/*Expanded: "text-muted-foreground rotate-90", Collapsed: "text-slate-200" */}
@@ -403,8 +397,8 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
                                   className={clsx(
                                     "ml-auto h-5 w-5 shrink-0 transform bg-slate-900 transition-colors duration-150 ease-in-out",
                                     menuItemIsExpanded(menuItem.path)
-                                      ? "ml-auto h-3 w-3 rotate-90 transform  transition-colors duration-150 ease-in-out"
-                                      : "ml-auto h-3 w-3 transform  transition-colors duration-150 ease-in-out"
+                                      ? "ml-auto h-3 w-3 rotate-90 transform transition-colors duration-150 ease-in-out"
+                                      : "ml-auto h-3 w-3 transform transition-colors duration-150 ease-in-out"
                                   )}
                                   viewBox="0 0 20 20"
                                 >
@@ -426,14 +420,14 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
                                           rel="noreferrer"
                                           className={clsx(
                                             isCurrent(subItem) && cssStates().selected,
-                                            "group mt-1 flex items-center rounded-sm py-2 text-sm leading-5 transition duration-150 ease-in-out  focus:outline-hidden ",
+                                            "focus:outline-hidden group mt-1 flex items-center rounded-sm py-2 text-sm leading-5 transition duration-150 ease-in-out",
                                             menuItem.icon === undefined && "pl-10",
                                             menuItem.icon !== undefined && "pl-14"
                                           )}
                                           onClick={onSelected}
                                         >
                                           {(subItem.icon !== undefined || subItem.entityIcon !== undefined) && (
-                                            <SidebarIcon className="h-5 w-5 " item={subItem} />
+                                            <SidebarIcon className="h-5 w-5" item={subItem} />
                                           )}
                                           <div>{t(subItem.title)}</div>
                                         </a>
@@ -442,7 +436,7 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
                                           id={UrlUtils.slugify(getPath(subItem))}
                                           href={subItem.redirectTo ?? getPath(subItem)}
                                           className={clsx(
-                                            "group mt-1 flex items-center rounded-sm py-2 text-sm leading-5 transition duration-150 ease-in-out  focus:outline-hidden",
+                                            "focus:outline-hidden group mt-1 flex items-center rounded-sm py-2 text-sm leading-5 transition duration-150 ease-in-out",
                                             menuItem.icon === undefined && "pl-10",
                                             menuItem.icon !== undefined && "pl-14",
                                             isCurrent(subItem) && cssStates().selected,
@@ -451,7 +445,7 @@ export default function SidebarMenu({ layout, onSelected, menuItems }: Props) {
                                           onClick={onSelected}
                                         >
                                           {(subItem.icon !== undefined || subItem.entityIcon !== undefined) && (
-                                            <SidebarIcon className="h-5 w-5 " item={subItem} />
+                                            <SidebarIcon className="h-5 w-5" item={subItem} />
                                           )}
                                           <div>{t(subItem.title)}</div>
                                         </Link>

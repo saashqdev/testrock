@@ -14,9 +14,9 @@ type ActionData = {
 export async function importKbsAction(prevState: ActionData | null, formData: FormData): Promise<ActionData> {
   try {
     await verifyUserHasPermission("admin.kb.view");
-    
+
     const action = formData.get("action")?.toString();
-    
+
     if (action === "preview") {
       await verifyUserHasPermission("admin.kb.create");
       try {

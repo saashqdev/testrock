@@ -22,7 +22,7 @@ async function loader(props: IServerComponentsProps) {
 
 export const action = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
-  const request = props.request!;  
+  const request = props.request!;
   await verifyUserHasPermission("admin.entities.update");
   const { t } = await getServerTranslations();
 

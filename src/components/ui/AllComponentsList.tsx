@@ -39,14 +39,14 @@ export default function AllComponentsList({ className, withSlideOvers }: Props) 
 
         <div className="space-y-1">
           <h3 className="text-sm font-medium">Buttons - as Links</h3>
-          <div className="border-border bg-background border border-dashed p-6">
+          <div className="border border-dashed border-border bg-background p-6">
             <PreviewButtonsAsLinks />
           </div>
         </div>
 
         <div className="space-y-1">
           <h3 className="text-sm font-medium">Buttons - Destructive</h3>
-          <div className="border-border bg-background border border-dashed p-6">
+          <div className="border border-dashed border-border bg-background p-6">
             <PreviewButtonsDestructive />
           </div>
         </div>
@@ -55,21 +55,21 @@ export default function AllComponentsList({ className, withSlideOvers }: Props) 
 
         <div className="space-y-1">
           <h3 className="text-sm font-medium">Modals</h3>
-          <div className="border-border bg-background border border-dashed p-6">
+          <div className="border border-dashed border-border bg-background p-6">
             <PreviewModals />
           </div>
         </div>
 
         <div className="space-y-1">
           <h3 className="text-sm font-medium">Banners</h3>
-          <div className="border-border bg-background border border-dashed p-6">
+          <div className="border border-dashed border-border bg-background p-6">
             <PreviewBanners />
           </div>
         </div>
 
         <div className="space-y-1">
           <h3 className="text-sm font-medium">Empty States</h3>
-          <div className="border-border bg-background border border-dashed p-6">
+          <div className="border border-dashed border-border bg-background p-6">
             <PreviewEmptyStates />
           </div>
         </div>
@@ -78,14 +78,14 @@ export default function AllComponentsList({ className, withSlideOvers }: Props) 
 
         <div className="space-y-1">
           <h3 className="text-sm font-medium">Pdf Viewer</h3>
-          <div className="border-border bg-background border border-dashed p-6">
+          <div className="border border-dashed border-border bg-background p-6">
             <PreviewPdfViewers />
           </div>
         </div>
 
         <div className="space-y-1">
           <h3 className="text-sm font-medium">Loaders</h3>
-          <div className="border-border bg-background border border-dashed p-6">
+          <div className="border border-dashed border-border bg-background p-6">
             <PreviewLoaders />
           </div>
         </div>
@@ -93,7 +93,7 @@ export default function AllComponentsList({ className, withSlideOvers }: Props) 
         {withSlideOvers && (
           <div className="space-y-1">
             <h3 className="text-sm font-medium">Slide-overs</h3>
-            <div className="border-border bg-background border border-dashed p-6">
+            <div className="border border-dashed border-border bg-background p-6">
               <ButtonSecondary onClick={() => setShowRightSlideOver(!showRightSlideOver)}>Right slide-over</ButtonSecondary>
             </div>
           </div>

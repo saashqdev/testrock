@@ -6,10 +6,13 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const data = await loader(props);
-  return (data?.metatags as Metadata) || {
-    title: "Workflow Variables",
-    description: "Manage workflow variables"
-  } as Metadata;
+  return (
+    (data?.metatags as Metadata) ||
+    ({
+      title: "Workflow Variables",
+      description: "Manage workflow variables",
+    } as Metadata)
+  );
 }
 
 export default async function WorkflowVariablesPage(props: IServerComponentsProps) {

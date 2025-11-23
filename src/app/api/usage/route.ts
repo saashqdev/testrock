@@ -12,11 +12,11 @@ export async function GET(request: NextRequest) {
 
   const startTime = performance.now();
   let apiAccessValidation: ApiAccessValidation | undefined = undefined;
-  
+
   try {
     apiAccessValidation = await validateTenantApiKey(request, {});
     const { tenantApiKey } = apiAccessValidation;
-    
+
     if (!tenantApiKey) {
       throw Error("Invalid API key");
     }
@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
       status: 200,
       startTime,
     });
-    
+
     return Response.json(
       {
         plan: t(tenantApiKey.usage?.title ?? "", { 0: tenantApiKey.usage?.value }),
@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
     let status = e.message.includes("Rate limit exceeded") ? 429 : 400;
     // eslint-disable-next-line no-console
     console.error({ error: e.message });
-    
+
     if (apiAccessValidation?.tenantApiKey) {
       await db.apiKeys.setApiKeyLogStatus(apiAccessValidation?.tenantApiKey.apiKeyLog.id, {
         error: JSON.stringify(e),
@@ -45,10 +45,7 @@ export async function GET(request: NextRequest) {
         startTime,
       });
     }
-    
-    return Response.json(
-      { error: e.message }, 
-      { status, headers: getServerTimingHeader() }
-    );
+
+    return Response.json({ error: e.message }, { status, headers: getServerTimingHeader() });
   }
 }

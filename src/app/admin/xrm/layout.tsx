@@ -30,7 +30,7 @@ export default ({ children }: { children: React.ReactNode }) => {
       iconSelected: <IncreaseIconFilled className="h-5 w-5" />,
     },
   ];
-  
+
   // Always show these CRM entities in the sidenav
   const crmEntities = [
     { slug: "opportunities", defaultTitle: "Opportunities" },
@@ -38,7 +38,7 @@ export default ({ children }: { children: React.ReactNode }) => {
     { slug: "contacts", defaultTitle: "Contacts" },
     { slug: "submissions", defaultTitle: "Submissions" },
   ];
-  
+
   crmEntities.forEach(({ slug, defaultTitle }) => {
     const entity = appOrAdminData?.entities.find((x) => x.slug === slug);
     items.push({
@@ -48,7 +48,7 @@ export default ({ children }: { children: React.ReactNode }) => {
       iconSelected: getIcons(slug)?.iconSelected,
     });
   });
-  
+
   items.push({
     name: "Sync",
     href: params.tenant ? `/app/${params.tenant}/crm/sync` : `/admin/xrm/sync`,

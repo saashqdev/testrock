@@ -1,11 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  CreditCard,
-  LogOut,
-  MoreHorizontal,
-} from "lucide-react";
+import { CreditCard, LogOut, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -110,17 +106,17 @@ export function NavActions({
         )}
 
         {/* NavBar Button: Notifications */}
-        {mounted && 
-         appConfiguration?.notifications?.enabled && 
-         rootData?.appConfiguration?.notifications?.novuAppId && 
-         (layout === "admin" || layout === "app") && 
-         appOrAdminData?.user && (
-          <Inbox
-            applicationIdentifier={rootData.appConfiguration.notifications.novuAppId}
-            subscriberId={appOrAdminData.user.id}
-            routerPush={(path: string) => router.push(path)}
-          />
-        )}
+        {mounted &&
+          appConfiguration?.notifications?.enabled &&
+          rootData?.appConfiguration?.notifications?.novuAppId &&
+          (layout === "admin" || layout === "app") &&
+          appOrAdminData?.user && (
+            <Inbox
+              applicationIdentifier={rootData.appConfiguration.notifications.novuAppId}
+              subscriberId={appOrAdminData.user.id}
+              routerPush={(path: string) => router.push(path)}
+            />
+          )}
 
         {/* NavBar Button: Search */}
         <Button variant="ghost" size="icon" onClick={onOpenCommandPalette} className="text-muted-foreground">
@@ -176,7 +172,7 @@ export function NavActions({
         {/* NavBar Button: More */}
         <Popover open={isOpen} onOpenChange={setIsOpen}>
           <PopoverTrigger asChild>
-            <Button variant="ghost" size="icon" className="data-[state=open]:bg-accent h-7 w-7">
+            <Button variant="ghost" size="icon" className="h-7 w-7 data-[state=open]:bg-accent">
               <MoreHorizontal className="size-4" />
             </Button>
           </PopoverTrigger>
@@ -252,7 +248,7 @@ function FeedbackForm({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
   const params = useParams();
   const appOrAdminData = useAppOrAdminData();
   const pathname = usePathname();
-  
+
   const [isPending, startTransition] = React.useTransition();
   const [message, setMessage] = React.useState("");
 
@@ -267,18 +263,18 @@ function FeedbackForm({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     const formData = new FormData(e.currentTarget);
-    
+
     startTransition(async () => {
       try {
         const response = await fetch(`/app/${params.tenant}`, {
           method: "POST",
           body: formData,
         });
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
           toast.success(data.success);
           setMessage("");
@@ -291,26 +287,26 @@ function FeedbackForm({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
       }
     });
   };
-  
+
   return (
     <form onSubmit={onSubmit}>
       <input type="hidden" name="action" value="add-feedback" readOnly hidden />
       <input type="hidden" name="tenantId" value={appOrAdminData?.currentTenant?.id} readOnly hidden />
       <input type="hidden" name="fromUrl" value={pathname} readOnly hidden />
       <div className="space-y-3">
-        <h3 className="text-lg leading-6 font-medium">{t("feedback.title")}</h3>
-        <p className="text-muted-foreground text-sm">{t("feedback.description")}</p>
-        <Textarea 
-          ref={mainInput} 
-          name="message" 
+        <h3 className="text-lg font-medium leading-6">{t("feedback.title")}</h3>
+        <p className="text-sm text-muted-foreground">{t("feedback.description")}</p>
+        <Textarea
+          ref={mainInput}
+          name="message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          required 
-          rows={5} 
-          placeholder={t("feedback.placeholder")} 
+          required
+          rows={5}
+          placeholder={t("feedback.placeholder")}
         />
         <div className="flex justify-between">
-          <button type="button" onClick={onClose} className="text-muted-foreground text-sm hover:underline">
+          <button type="button" onClick={onClose} className="text-sm text-muted-foreground hover:underline">
             {t("shared.cancel")}
           </button>
           <ButtonPrimary type="submit" disabled={isPending}>

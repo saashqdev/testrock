@@ -32,17 +32,17 @@ export default async function EditEntityIndexRoute(props: IServerComponentsProps
   const data = await getData(props);
   return (
     <div className="space-y-3">
-      <h3 className="text-foreground text-sm font-medium leading-3">Views</h3>
+      <h3 className="text-sm font-medium leading-3 text-foreground">Views</h3>
       <div>
         <div className="space-y-2">
           <EntityViewsTable items={data.items} />
 
           <Link
             href={`/admin/entities/views/new/${data.entity.name}`}
-            className="focus:ring-ring border-border hover:border-border relative block w-full rounded-lg border-2 border-dashed p-4 text-center focus:outline-hidden focus:ring-2 focus:ring-offset-2"
+            className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border p-4 text-center hover:border-border focus:ring-2 focus:ring-ring focus:ring-offset-2"
           >
-            <PlusIcon className="text-muted-foreground mx-auto h-5" />
-            <span className="text-foreground mt-2 block text-sm font-medium">Add custom view</span>
+            <PlusIcon className="mx-auto h-5 text-muted-foreground" />
+            <span className="mt-2 block text-sm font-medium text-foreground">Add custom view</span>
           </Link>
         </div>
       </div>

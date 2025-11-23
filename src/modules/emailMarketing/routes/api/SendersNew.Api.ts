@@ -10,4 +10,3 @@ export async function generateMetadata({ params }: { params: { tenant?: string }
     title: `New Sender | ${process.env.APP_NAME}`,
   };
 }
-

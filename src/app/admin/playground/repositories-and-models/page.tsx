@@ -9,19 +9,19 @@ export const metadata: Metadata = {
 export default function RepositoriesAndModelsPage() {
   return (
     <EditPageLayout title="Row Repositories and Models">
-      <p className="text-muted-foreground text-sm">
+      <p className="text-sm text-muted-foreground">
         This page is a demo collection for <b>RowRepository</b> and <b>RowModel</b>.
       </p>
       <div className="grid gap-3">
         <Link
           href="/admin/playground/repositories-and-models/row-repository"
-          className="hover:bg-secondary border-border bg-background group space-y-2 rounded-md border-2 border-dashed p-3 hover:border-dotted"
+          className="group space-y-2 rounded-md border-2 border-dashed border-border bg-background p-3 hover:border-dotted hover:bg-secondary"
         >
-          <b className="text-foreground font-bold group-hover:underline">RowRepository</b>
+          <b className="font-bold text-foreground group-hover:underline">RowRepository</b>
           <p className="text-sm">
             <b>Server-side</b> repository for an entity type. It has the following methods:
           </p>
-          <div className="border-border bg-secondary/90 rounded-md border p-1">
+          <div className="rounded-md border border-border bg-secondary/90 p-1">
             <span className="text-xs">
               <code>updateMany</code>, <code>updateText</code>, <code>updateNumber</code>, <code>updateBoolean</code>, <code>updateDate</code>,{" "}
               <code>updateMedia</code>, <code>updateMultiple</code>, <code>updateRange</code>, <code>addChild</code>, <code>removeChild</code>,{" "}
@@ -34,13 +34,13 @@ export default function RepositoriesAndModelsPage() {
         </Link>
         <Link
           href="/admin/playground/repositories-and-models/row-model"
-          className="hover:bg-secondary border-border bg-background group space-y-2 rounded-md border-2 border-dashed p-3 hover:border-dotted"
+          className="group space-y-2 rounded-md border-2 border-dashed border-border bg-background p-3 hover:border-dotted hover:bg-secondary"
         >
-          <b className="text-foreground font-bold group-hover:underline">RowModel</b>
+          <b className="font-bold text-foreground group-hover:underline">RowModel</b>
           <p className="text-sm">
             <b>Client and server-side</b> model to interact with a row. It has the following methods:
           </p>
-          <div className="border-border bg-secondary/90 rounded-md border p-1">
+          <div className="rounded-md border border-border bg-secondary/90 p-1">
             <span className="text-xs">
               <code>getText</code>, <code>getBoolean</code>, <code>getNumber</code>, <code>getDate</code>, <code>getMedia</code>, <code>getFirstMedia</code>,{" "}
               <code>getMediaPublicUrl</code>, <code>getMediaPublicUrlOrFile</code>, <code>getSelected</code>, <code>getMultiple</code>,{" "}

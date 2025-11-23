@@ -39,7 +39,7 @@ export default function RowLogComment({ item }: Props) {
         form.set("comment-id", item.comment?.id ?? "");
         form.set("reaction", reaction);
         const search = searchParams.toString();
-        
+
         await fetch(pathname + (search ? `?${search}` : ""), {
           method: "POST",
           body: form,
@@ -60,7 +60,7 @@ export default function RowLogComment({ item }: Props) {
         form.set("action", "comment-delete");
         form.set("comment-id", item.comment?.id ?? "");
         const search = searchParams.toString();
-        
+
         await fetch(pathname + (search ? `?${search}` : ""), {
           method: "POST",
           body: form,

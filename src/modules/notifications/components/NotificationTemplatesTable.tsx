@@ -79,7 +79,7 @@ export default function NotificationTemplatesTable({
                 type="button"
                 className={clsx(
                   "font-medium",
-                  getCreated(i)?.active ? "border-theme-300 border-b border-dashed hover:border-dotted" : "cursor-not-allowed opacity-90"
+                  getCreated(i)?.active ? "border-b border-dashed border-theme-300 hover:border-dotted" : "cursor-not-allowed opacity-90"
                 )}
                 onClick={() => onSendPreview(i)}
               >
@@ -92,14 +92,14 @@ export default function NotificationTemplatesTable({
           name: "active",
           title: "Active",
           value: (i) => (
-            <div>{getCreated(i)?.active ? <CheckIcon className="text-theme-500 h-4 w-4" /> : <XIcon className="h-4 w-4 text-muted-foreground" />}</div>
+            <div>{getCreated(i)?.active ? <CheckIcon className="h-4 w-4 text-theme-500" /> : <XIcon className="h-4 w-4 text-muted-foreground" />}</div>
           ),
         },
         {
           name: "hasSteps",
           title: "Has steps",
           value: (i) => (
-            <div>{(getCreated(i)?.steps ?? []).length > 0 ? <CheckIcon className="text-theme-500 h-4 w-4" /> : <XIcon className="h-4 w-4 text-red-600" />}</div>
+            <div>{(getCreated(i)?.steps ?? []).length > 0 ? <CheckIcon className="h-4 w-4 text-theme-500" /> : <XIcon className="h-4 w-4 text-red-600" />}</div>
           ),
         },
         // {
@@ -120,7 +120,7 @@ export default function NotificationTemplatesTable({
                   href={`https://web.novu.co/templates/edit/${getCreated(i)?._id}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:border-dotter hover:border-theme-300 border-b border-dashed border-border"
+                  className="hover:border-dotter border-b border-dashed border-border hover:border-theme-300"
                 >
                   {getCreated(i)?._id}
                 </a>
@@ -129,7 +129,7 @@ export default function NotificationTemplatesTable({
                   href={"https://web.novu.co/templates/create"}
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:border-dotter hover:border-theme-300 border-b border-dashed border-border"
+                  className="hover:border-dotter border-b border-dashed border-border hover:border-theme-300"
                 >
                   {t("shared.create")}
                 </a>

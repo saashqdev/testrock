@@ -6,15 +6,7 @@ import { useTranslation } from "react-i18next";
 import Page404 from "@/components/pages/Page404";
 import UrlUtils from "@/utils/app/UrlUtils";
 
-export default function ClientBlogPost({
-  post,
-  canEdit,
-  tenant,
-}: {
-  post: any;
-  canEdit: boolean;
-  tenant?: string;
-}) {
+export default function ClientBlogPost({ post, canEdit, tenant }: { post: any; canEdit: boolean; tenant?: string }) {
   const { t } = useTranslation();
   const params = useParams();
 

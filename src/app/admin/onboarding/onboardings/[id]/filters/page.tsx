@@ -28,14 +28,14 @@ type PageData = {
 async function getData(props: IServerComponentsProps): Promise<PageData> {
   const params = (await props.params) || {};
   await verifyUserHasPermission("admin.onboarding.update");
-  
+
   const item = await db.onboarding.getOnboarding(params.id!);
   if (!item) {
     redirect("/admin/onboarding/onboardings");
   }
 
   const candidates = await OnboardingService.getCandidates(item);
-  
+
   return {
     meta: [],
     item,
@@ -46,6 +46,6 @@ async function getData(props: IServerComponentsProps): Promise<PageData> {
 
 export default async function OnboardingFiltersPage(props: IServerComponentsProps) {
   const data = await getData(props);
-  
+
   return <OnboardingFiltersClient data={data} />;
 }

@@ -52,12 +52,7 @@ export default function OnboardingDetailsClient({ item, metadata, itemId }: Onbo
   function onActivate(active: boolean) {
     modalConfirm.current?.setValue(active);
     if (active) {
-      modalConfirm.current?.show(
-        t("onboarding.prompts.activate.title"),
-        t("shared.confirm"),
-        t("shared.back"),
-        t("onboarding.prompts.activate.description")
-      );
+      modalConfirm.current?.show(t("onboarding.prompts.activate.title"), t("shared.confirm"), t("shared.back"), t("onboarding.prompts.activate.description"));
     } else {
       modalConfirm.current?.show(
         t("onboarding.prompts.deactivate.title"),
@@ -90,7 +85,7 @@ export default function OnboardingDetailsClient({ item, metadata, itemId }: Onbo
       return true;
     }
   }
-  
+
   function canBeInactivated() {
     return true;
   }
@@ -121,7 +116,7 @@ export default function OnboardingDetailsClient({ item, metadata, itemId }: Onbo
           <>
             <Link
               href={`/admin/onboarding/onboardings/${item.id}/steps`}
-              className="text-muted-foreground hover:text-foreground text-sm font-medium hover:underline"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground hover:underline"
             >
               {t("onboarding.step.set")}
             </Link>
@@ -132,14 +127,14 @@ export default function OnboardingDetailsClient({ item, metadata, itemId }: Onbo
           {item.steps.length === 0 && (
             <Link
               href={`/admin/onboarding/onboardings/${item.id}/steps`}
-              className="border-border hover:border-border relative block w-full rounded-lg border-2 border-dashed p-4 text-center focus:outline-hidden focus:ring-2 focus:ring-gray-500"
+              className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border p-4 text-center hover:border-border focus:ring-2 focus:ring-gray-500"
             >
-              <span className="text-muted-foreground block text-xs font-normal">{t("onboarding.step.empty.title")}</span>
+              <span className="block text-xs font-normal text-muted-foreground">{t("onboarding.step.empty.title")}</span>
             </Link>
           )}
           {item.steps.map((step, idx) => {
             return (
-              <div key={idx} className="border-border bg-secondary relative block w-full rounded-lg border-2 border-dashed p-3 text-center">
+              <div key={idx} className="relative block w-full rounded-lg border-2 border-dashed border-border bg-secondary p-3 text-center">
                 {OnboardingStepUtils.getStepDescription(OnboardingStepUtils.parseStepToBlock(step))}
               </div>
             );
@@ -153,7 +148,7 @@ export default function OnboardingDetailsClient({ item, metadata, itemId }: Onbo
           <>
             <Link
               href={`/admin/onboarding/onboardings/${item.id}/filters`}
-              className="text-muted-foreground hover:text-foreground text-sm font-medium hover:underline"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground hover:underline"
             >
               {t("onboarding.filter.set")}
             </Link>
@@ -164,20 +159,20 @@ export default function OnboardingDetailsClient({ item, metadata, itemId }: Onbo
           {item.filters.length === 0 && (
             <Link
               href={`/admin/onboarding/onboardings/${item.id}/filters`}
-              className="border-border hover:border-border relative block w-full rounded-lg border-2 border-dashed p-4 text-center focus:outline-hidden focus:ring-2 focus:ring-gray-500"
+              className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border p-4 text-center hover:border-border focus:ring-2 focus:ring-gray-500"
             >
-              <span className="text-muted-foreground block text-xs font-normal">{t("onboarding.filter.empty.title")}</span>
+              <span className="block text-xs font-normal text-muted-foreground">{t("onboarding.filter.empty.title")}</span>
             </Link>
           )}
           {item.filters.map((filter, idx) => {
             return (
-              <div key={idx} className="border-border bg-secondary relative block w-full rounded-lg border-2 border-dashed p-3 text-center">
+              <div key={idx} className="relative block w-full rounded-lg border-2 border-dashed border-border bg-secondary p-3 text-center">
                 <div className="flex items-center space-x-2 text-sm">
                   <div className="font-medium">{filter.type}</div>
                   {filter.value !== null && (
                     <>
                       <div>→</div>
-                      <div className="text-muted-foreground italic">{OnboardingFilterUtils.parseValue({ t, filter, metadata })}</div>
+                      <div className="italic text-muted-foreground">{OnboardingFilterUtils.parseValue({ t, filter, metadata })}</div>
                     </>
                   )}
                 </div>

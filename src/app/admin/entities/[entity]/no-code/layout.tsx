@@ -18,7 +18,7 @@ async function getData(params: Promise<{ entity: string }>) {
   if (!item) {
     redirect("/admin/entities");
   }
-  
+
   return {
     item,
   };
@@ -27,7 +27,7 @@ async function getData(params: Promise<{ entity: string }>) {
 export default async function EntityCrudPreviewLayout(props: LayoutProps) {
   const params = await props.params;
   const data = await getData(props.params);
-  
+
   return (
     <EditPageLayout
       title=""

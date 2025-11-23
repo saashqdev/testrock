@@ -23,7 +23,7 @@ export function GroupsClient({ items, addPromptFlowAction, children }: GroupsCli
     const formData = new FormData();
     formData.set("action", "add-prompt-flow");
     formData.set("id", item.id);
-    
+
     startTransition(async () => {
       try {
         await addPromptFlowAction(formData);
@@ -65,7 +65,7 @@ export function GroupsClient({ items, addPromptFlowAction, children }: GroupsCli
             value: (i) => (
               <div className="flex max-w-xs flex-col truncate">
                 <div className="truncate text-base font-bold">{i.title}</div>
-                <div className="text-muted-foreground truncate text-sm">{i.description}</div>
+                <div className="truncate text-sm text-muted-foreground">{i.description}</div>
               </div>
             ),
           },
@@ -75,7 +75,7 @@ export function GroupsClient({ items, addPromptFlowAction, children }: GroupsCli
             value: (i) => (
               <div className="flex flex-col">
                 {i.templates.map((t, idx) => (
-                  <div key={idx} className="text-muted-foreground text-sm">
+                  <div key={idx} className="text-sm text-muted-foreground">
                     #{t.order} - {t.title}
                   </div>
                 ))}
@@ -88,9 +88,9 @@ export function GroupsClient({ items, addPromptFlowAction, children }: GroupsCli
             title: "Prompt Flows",
             value: (i) => (
               <div className="flex flex-col">
-                {i.promptFlows.length === 0 && <div className="text-muted-foreground text-sm">No prompt flows</div>}
+                {i.promptFlows.length === 0 && <div className="text-sm text-muted-foreground">No prompt flows</div>}
                 {i.promptFlows.map((t, idx) => (
-                  <div key={idx} className="text-muted-foreground text-sm">
+                  <div key={idx} className="text-sm text-muted-foreground">
                     {t.title}
                   </div>
                 ))}
@@ -101,7 +101,7 @@ export function GroupsClient({ items, addPromptFlowAction, children }: GroupsCli
         noRecords={
           <div className="p-12 text-center">
             <h3 className="mt-1 text-sm font-medium text-gray-900">No groups</h3>
-            <p className="text-muted-foreground mt-1 text-sm">Group prompt flows that share the same template structure.</p>
+            <p className="mt-1 text-sm text-muted-foreground">Group prompt flows that share the same template structure.</p>
           </div>
         }
       />

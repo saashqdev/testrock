@@ -8,9 +8,7 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   const data = await loader(props);
   // Convert MetaTagsDto array to Next.js Metadata object
   const metaTags = data?.metatags || [];
-  return Array.isArray(metaTags) && metaTags[0]?.title 
-    ? { title: metaTags[0].title } 
-    : {};
+  return Array.isArray(metaTags) && metaTags[0]?.title ? { title: metaTags[0].title } : {};
 }
 
 export default function WorkflowsVariablesNewPage() {

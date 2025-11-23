@@ -1,5 +1,9 @@
 import ServerError from "@/components/ui/errors/ServerError";
-import { LoaderData, loader as serverLoader, action as serverAction } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.stream.api.server";
+import {
+  LoaderData,
+  loader as serverLoader,
+  action as serverAction,
+} from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.stream.api.server";
 import WorkflowsIdRunStreamView from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.stream.view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { Metadata } from "next";
@@ -7,22 +11,22 @@ import { Metadata } from "next";
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   try {
     const response = await serverLoader(props);
-    const data = await response.json() as LoaderData;
+    const data = (await response.json()) as LoaderData;
     const metatags = data?.metatags || [];
-    
+
     // Extract metadata from MetaTagsDto format
-    const title = metatags.find(tag => 'title' in tag)?.title;
-    const descriptionTag = metatags.find(tag => 'name' in tag && tag.name === 'description');
-    const keywordsTag = metatags.find(tag => 'name' in tag && tag.name === 'keywords');
-    
+    const title = metatags.find((tag) => "title" in tag)?.title;
+    const descriptionTag = metatags.find((tag) => "name" in tag && tag.name === "description");
+    const keywordsTag = metatags.find((tag) => "name" in tag && tag.name === "keywords");
+
     return {
-      title: title || 'Workflow Stream',
-      description: descriptionTag && 'content' in descriptionTag ? descriptionTag.content : undefined,
-      keywords: keywordsTag && 'content' in keywordsTag ? keywordsTag.content : undefined,
+      title: title || "Workflow Stream",
+      description: descriptionTag && "content" in descriptionTag ? descriptionTag.content : undefined,
+      keywords: keywordsTag && "content" in keywordsTag ? keywordsTag.content : undefined,
     };
   } catch (error) {
     return {
-      title: 'Workflow Stream',
+      title: "Workflow Stream",
     };
   }
 }
@@ -33,19 +37,19 @@ export const action = (props: IServerComponentsProps) => serverAction(props);
 export default async function Page(props: IServerComponentsProps) {
   try {
     const response = await serverLoader(props);
-    const data = await response.json() as LoaderData;
-    
+    const data = (await response.json()) as LoaderData;
+
     const workflowAction = async (prev: any, formData: FormData) => {
       "use server";
       try {
-        const actionResponse = await serverAction({ 
-          ...props, 
-          request: new Request(props.request?.url || "", { 
-            method: "POST", 
-            body: formData 
-          })
+        const actionResponse = await serverAction({
+          ...props,
+          request: new Request(props.request?.url || "", {
+            method: "POST",
+            body: formData,
+          }),
         });
-        
+
         if (actionResponse.ok) {
           return await actionResponse.json();
         } else {

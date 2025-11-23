@@ -16,17 +16,17 @@ type NewEntityTemplateClientProps = {
 export default function NewEntityTemplateClient({ entity, entitySlug }: NewEntityTemplateClientProps) {
   const params = useParams();
   const router = useRouter();
-  
+
   function close() {
     router.push(UrlUtils.getModulePath(params, `entities/${entitySlug}/templates`));
   }
-  
+
   async function handleSubmit(formData: FormData) {
     formData.set("action", "create");
-    
+
     try {
       const result = await createEntityTemplate(entitySlug, formData);
-      
+
       if (result?.error) {
         toast.error(result.error);
       }
@@ -39,7 +39,7 @@ export default function NewEntityTemplateClient({ entity, entitySlug }: NewEntit
       toast.error(error?.message || "An error occurred");
     }
   }
-  
+
   return (
     <SlideOverWideEmpty title="New Entity Template" open={true} className="2xl" onClose={close}>
       <EntityTemplateForm entity={entity} onSubmit={handleSubmit} />

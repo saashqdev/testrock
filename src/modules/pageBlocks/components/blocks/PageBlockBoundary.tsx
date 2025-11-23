@@ -10,7 +10,7 @@ import StringUtils from "@/lib/shared/StringUtils";
 export default function PageBlockBoundary({ item }: { item: PageBlockDto }) {
   const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
-  
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -43,7 +43,7 @@ export default function PageBlockBoundary({ item }: { item: PageBlockDto }) {
   if (!mounted) {
     return null;
   }
-  
+
   return (
     <>
       {item.error ? (

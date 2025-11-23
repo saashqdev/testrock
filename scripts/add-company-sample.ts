@@ -7,12 +7,12 @@ const prisma = new PrismaClient();
 
 async function addCompanySample() {
   console.log("🌱 Creating Company - Sample entity");
-  
+
   // Get admin user
   const adminUser = await prisma.user.findFirst({
-    where: { 
-      admin: { isNot: null }
-    }
+    where: {
+      admin: { isNot: null },
+    },
   });
 
   if (!adminUser) {

@@ -16,7 +16,7 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   const { t } = await getServerTranslations();
   const tenantId = await getTenantIdFromUrl(params);
   const post = await db.blog.getBlogPost({ tenantId, idOrSlug: params.postSlug! });
-  
+
   if (!post) {
     return {
       title: t("shared.notFound"),
@@ -51,11 +51,11 @@ async function getData(params: { tenant?: string; postSlug?: string }) {
   const userInfo = await getUserInfo();
   const user = await db.users.getUser(userInfo.userId);
   const post = await db.blog.getBlogPost({ tenantId, idOrSlug: params.postSlug! });
-  
+
   if (!post) {
     return { post: null, canEdit: false };
   }
-  
+
   if (!post.published && (!user || !user.admin)) {
     return { post: null, canEdit: false };
   }
@@ -69,7 +69,7 @@ async function getData(params: { tenant?: string; postSlug?: string }) {
 export default async function BlogPostPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const data = await getData(params);
-  
+
   return (
     <div>
       <HeaderBlock />

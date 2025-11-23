@@ -13,8 +13,8 @@ export async function generateMetadata() {
 
 export default async function NewUserPage() {
   await verifyUserHasPermission("admin.users.view");
-  
+
   const adminRoles = await db.roles.getAllRoles("admin");
-  
+
   return <Component adminRoles={adminRoles} />;
 }

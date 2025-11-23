@@ -13,7 +13,7 @@ type ActionResult = {
 
 export async function submitContactForm(formData: FormData): Promise<ActionResult> {
   const { t } = await getServerTranslations();
-  
+
   const submission = {
     firstName: formData.get("first_name")?.toString() ?? "",
     lastName: formData.get("last_name")?.toString() ?? "",
@@ -45,7 +45,7 @@ export async function submitContactForm(formData: FormData): Promise<ActionResul
     });
 
     const existingContact = await CrmService.createContactSubmission(submission, mockRequest);
-    
+
     if (existingContact) {
       return {
         success: t("front.contact.success", { 0: submission.firstName }),
@@ -56,8 +56,8 @@ export async function submitContactForm(formData: FormData): Promise<ActionResul
       };
     }
   } catch (e: any) {
-    return { 
-      error: e.message 
+    return {
+      error: e.message,
     };
   }
 }

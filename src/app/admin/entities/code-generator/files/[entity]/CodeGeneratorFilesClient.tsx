@@ -44,7 +44,7 @@ export default function CodeGeneratorFilesClient({ entity }: { entity: EntityWit
 
   useEffect(() => {
     if (!mounted) return;
-    
+
     const loadOptions = async () => {
       const type = searchParams.get("type")?.toString();
       const defaultOptions = await getDefaultOptions(entity, type);
@@ -73,7 +73,7 @@ export default function CodeGeneratorFilesClient({ entity }: { entity: EntityWit
 
   useEffect(() => {
     if (!mounted) return;
-    
+
     const file = searchParams.get("file");
     if (!file && files.length > 0) {
       const params = new URLSearchParams(searchParams.toString());
@@ -98,7 +98,7 @@ export default function CodeGeneratorFilesClient({ entity }: { entity: EntityWit
 
   function getSelectedFileCode() {
     if (!mounted) return "";
-    
+
     const file = searchParams.get("file");
     const selectedFile = files.find((e) => e.file === file);
     if (selectedFile) {
@@ -153,7 +153,7 @@ export default function CodeGeneratorFilesClient({ entity }: { entity: EntityWit
     return (
       <div className="space-y-3 p-4">
         <div className="flex items-center justify-between space-x-2">
-          <div className="text-foreground text-lg font-bold">Code Generator</div>
+          <div className="text-lg font-bold text-foreground">Code Generator</div>
         </div>
         <div className="text-muted-foreground">Loading...</div>
       </div>
@@ -163,7 +163,7 @@ export default function CodeGeneratorFilesClient({ entity }: { entity: EntityWit
   return (
     <div className="space-y-3 p-4">
       <div className="flex items-center justify-between space-x-2">
-        <div className="text-foreground text-lg font-bold">Code Generator</div>
+        <div className="text-lg font-bold text-foreground">Code Generator</div>
       </div>
       <div className="space-y-2">
         <div className="grid grid-cols-3 gap-2">
@@ -214,13 +214,13 @@ export default function CodeGeneratorFilesClient({ entity }: { entity: EntityWit
         </div>
 
         <div>
-          <label className="text-muted-foreground mb-1 flex justify-between space-x-2 truncate text-xs font-medium">Files</label>
-          <div className="border-border bg-background my-1 h-[calc(100vh-270px)] overflow-hidden rounded-md border p-2">
+          <label className="mb-1 flex justify-between space-x-2 truncate text-xs font-medium text-muted-foreground">Files</label>
+          <div className="my-1 h-[calc(100vh-270px)] overflow-hidden rounded-md border border-border bg-background p-2">
             <div className="flex flex-col space-y-2 md:flex-row md:space-x-2 md:space-y-0">
               <div className="md:w-5/12">
                 <div className="hidden space-y-2 overflow-y-auto p-1 md:block">
                   <InputText placeholder={`Search in ${files.length} files...`} value={searchInput} setValue={(e) => setSearchInput(e.toString() ?? "")} />
-                  <ul className="bg-background border-border divide-border h-[calc(100vh-325px)] divide-y overflow-y-scroll rounded-md border">
+                  <ul className="h-[calc(100vh-325px)] divide-y divide-border overflow-y-scroll rounded-md border border-border bg-background">
                     {filteredItems().map((file, idx) => (
                       <li key={idx}>
                         <button
@@ -231,18 +231,18 @@ export default function CodeGeneratorFilesClient({ entity }: { entity: EntityWit
                             router.push(`?${params.toString()}`);
                           }}
                           className={clsx(
-                            "w-full  cursor-pointer truncate rounded-sm border-2 border-dashed p-2 text-left text-sm",
+                            "w-full cursor-pointer truncate rounded-sm border-2 border-dashed p-2 text-left text-sm",
                             searchParams.get("file") === file.file
-                              ? "border-border text-foreground bg-secondary/90 "
-                              : "hover:bg-secondary/90 text-foreground/80 border-transparent"
+                              ? "border-border bg-secondary/90 text-foreground"
+                              : "border-transparent text-foreground/80 hover:bg-secondary/90"
                           )}
                         >
                           <div className="flex items-center justify-between space-x-3">
                             <div className="flex flex-col">
                               <div className="truncate">
-                                {file.file} <span className="text-muted-foreground text-xs">({file.content.split("\n").length} lines)</span>
+                                {file.file} <span className="text-xs text-muted-foreground">({file.content.split("\n").length} lines)</span>
                               </div>
-                              {file.directory && <span className="text-muted-foreground text-xs font-medium">{file.directory}/</span>}
+                              {file.directory && <span className="text-xs font-medium text-muted-foreground">{file.directory}/</span>}
                             </div>
 
                             <div>

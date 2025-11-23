@@ -59,14 +59,14 @@ type ActionData = {
 export default async function PricingSubscribedSuccessRoute(props: IServerComponentsProps) {
   const params = await props.params;
   const { t } = await getServerTranslations();
-  
+
   // Load data
   const data = await loadData(props);
 
   // Server Action for form submission
   async function handleRegistration(prevState: ActionData | null, formData: FormData): Promise<ActionData> {
     "use server";
-    
+
     const { t } = await getServerTranslations();
     const userInfo = await getUserInfo();
     const resolvedParams = (await props.params) || {};
@@ -85,7 +85,7 @@ export default async function PricingSubscribedSuccessRoute(props: IServerCompon
         method: "POST",
         body: formData,
       });
-      
+
       const registrationData = await getRegistrationFormData(request);
       const result = await validateRegistration({
         request,
@@ -94,11 +94,11 @@ export default async function PricingSubscribedSuccessRoute(props: IServerCompon
         checkEmailVerification: false,
         stripeCustomerId: checkoutSession.customer.id,
       });
-      
+
       if (!result.registered) {
         return { error: t("shared.unknownError") };
       }
-      
+
       const tenantId = result.registered.tenant.id;
       await addTenantProductsFromCheckoutSession({
         request,
@@ -109,13 +109,13 @@ export default async function PricingSubscribedSuccessRoute(props: IServerCompon
         createdTenantId: result.registered.tenant.id,
         t,
       });
-      
+
       await Promise.all(
         checkoutSession.products.map(async (product) => {
           await db.logs.createLog(request, tenantId, "Subscribed", t(product.title ?? ""));
         })
       );
-      
+
       const userSession = await setLoggedUser(result.registered.user);
       await createUserSession(
         {
@@ -125,30 +125,25 @@ export default async function PricingSubscribedSuccessRoute(props: IServerCompon
         },
         `/app/${result.registered.tenant.slug}/dashboard`
       );
-      
+
       return {};
     } catch (e: any) {
       return { error: e.message };
     }
   }
 
-  return (
-    <PricingSubscribedSuccessClient 
-      data={data} 
-      action={handleRegistration}
-    />
-  );
+  return <PricingSubscribedSuccessClient data={data} action={handleRegistration} />;
 }
 
-function PricingSubscribedSuccessClient({ 
-  data, 
-  action 
-}: { 
-  data: LoaderData; 
+function PricingSubscribedSuccessClient({
+  data,
+  action,
+}: {
+  data: LoaderData;
   action: (prevState: ActionData | null, formData: FormData) => Promise<ActionData>;
 }) {
   "use client";
-  
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { useActionState, useEffect } = require("react");
   const { t } = useTranslation();

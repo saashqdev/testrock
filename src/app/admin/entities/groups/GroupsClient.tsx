@@ -31,7 +31,7 @@ export default function EntityGroupsClient({ items, children }: EntityGroupsClie
     <div className="mx-auto w-full max-w-5xl space-y-3 px-4 py-2 pb-6 sm:px-6 sm:pt-3 lg:px-8 xl:max-w-full">
       <div className="">
         <div className="flex items-center justify-between">
-          <h3 className="text-foreground text-lg font-medium leading-6">Entity Groups</h3>
+          <h3 className="text-lg font-medium leading-6 text-foreground">Entity Groups</h3>
           <div className="flex items-center space-x-2">
             <ButtonPrimary to="groups/new" disabled={!getUserHasPermission(appOrAdminData, "admin.entities.create")}>
               {t("shared.new")}
@@ -57,7 +57,7 @@ export default function EntityGroupsClient({ items, children }: EntityGroupsClie
             title: "Group",
             value: (item) => (
               <Link href={item.id} className="hover:underline">
-                <span className="font-medium">{t(item.title)}</span> <span className="text-muted-foreground text-xs italic">({item.slug})</span>
+                <span className="font-medium">{t(item.title)}</span> <span className="text-xs italic text-muted-foreground">({item.slug})</span>
               </Link>
             ),
           },
@@ -80,7 +80,7 @@ export default function EntityGroupsClient({ items, children }: EntityGroupsClie
                 {i.entities.map((f) => (
                   <li key={f.id}>
                     <div>
-                      {t(f.entity.title)} {f.allView && <span className="text-muted-foreground text-xs italic">({f.allView.title})</span>}
+                      {t(f.entity.title)} {f.allView && <span className="text-xs italic text-muted-foreground">({f.allView.title})</span>}
                     </div>
                   </li>
                 ))}
@@ -112,7 +112,6 @@ export default function EntityGroupsClient({ items, children }: EntityGroupsClie
           <div className="space-y-4">{children}</div>
         </div>
       </SlideOverWideEmpty>
-
     </div>
   );
 }

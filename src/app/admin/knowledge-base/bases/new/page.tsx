@@ -33,12 +33,7 @@ export default function NewKnowledgeBasePage() {
 
   return (
     <>
-      <SlideOverFormLayout
-        title="New Knowledge Base"
-        description="Create a new knowledge base for your documentation"
-        onClosed={onClose}
-        className="max-w-2xl"
-      >
+      <SlideOverFormLayout title="New Knowledge Base" description="Create a new knowledge base for your documentation" onClosed={onClose} className="max-w-2xl">
         <div className="px-4 sm:px-6">
           <KnowledgeBaseForm onSubmit={handleSubmit} onCancel={onClose} />
         </div>

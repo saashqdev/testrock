@@ -12,25 +12,16 @@ import { reportUsage } from "@/utils/services/server/subscriptionService";
 import { db } from "@/db";
 
 // GET - List all rows for an entity
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ entity: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ entity: string }> }) {
   const resolvedParams = await params;
-  const { time, getServerTimingHeader } = await createMetrics(
-    { request, params: resolvedParams },
-    `[Rows_API_GET_ALL] ${resolvedParams.entity}`
-  );
+  const { time, getServerTimingHeader } = await createMetrics({ request, params: resolvedParams }, `[Rows_API_GET_ALL] ${resolvedParams.entity}`);
   const { t } = await time(getServerTranslations(), "getTranslations");
   invariant(resolvedParams.entity, "Expected params.entity");
   let apiAccessValidation: ApiAccessValidation | undefined = undefined;
   const startTime = performance.now();
-  
+
   try {
-    apiAccessValidation = await time(
-      validateApiKey(request, { params }),
-      "validateApiKey"
-    );
+    apiAccessValidation = await time(validateApiKey(request, { params }), "validateApiKey");
     await loadEntities();
     const { tenant, tenantApiKey, userId } = apiAccessValidation;
     const urlSearchParams = new URL(request.url).searchParams;
@@ -45,7 +36,7 @@ export async function GET(
       }),
       "getAll"
     );
-    
+
     if (tenant && tenantApiKey) {
       await db.apiKeys.setApiKeyLogStatus(tenantApiKey.apiKeyLog.id, {
         status: 200,
@@ -61,7 +52,7 @@ export async function GET(
         remaining: tenantApiKey.usage?.remaining,
       };
     }
-    
+
     const entities = EntitiesSingleton.getInstance().getEntities();
     return NextResponse.json(
       {
@@ -85,46 +76,31 @@ export async function GET(
     // eslint-disable-next-line no-console
     console.error({ error: e.message });
     if (apiAccessValidation?.tenantApiKey) {
-      await db.apiKeys.setApiKeyLogStatus(
-        apiAccessValidation?.tenantApiKey.apiKeyLog.id,
-        {
-          error: JSON.stringify(e),
-          status,
-          startTime,
-        }
-      );
+      await db.apiKeys.setApiKeyLogStatus(apiAccessValidation?.tenantApiKey.apiKeyLog.id, {
+        error: JSON.stringify(e),
+        status,
+        startTime,
+      });
     }
-    return NextResponse.json(
-      { error: e.message },
-      { status, headers: getServerTimingHeader() }
-    );
+    return NextResponse.json({ error: e.message }, { status, headers: getServerTimingHeader() });
   }
 }
 
 // POST - Create a new row for an entity
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ entity: string }> }
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ entity: string }> }) {
   const resolvedParams = await params;
-  const { time, getServerTimingHeader } = await createMetrics(
-    { request, params: resolvedParams },
-    `[Rows_API_POST] ${resolvedParams.entity}`
-  );
+  const { time, getServerTimingHeader } = await createMetrics({ request, params: resolvedParams }, `[Rows_API_POST] ${resolvedParams.entity}`);
   invariant(resolvedParams.entity, "Expected params.entity");
   const { t } = await time(getServerTranslations(), "getTranslations");
   let apiAccessValidation: ApiAccessValidation | undefined = undefined;
   const startTime = performance.now();
-  
+
   try {
-    apiAccessValidation = await time(
-      validateApiKey(request, { params }),
-      "validateApiKey"
-    );
+    apiAccessValidation = await time(validateApiKey(request, { params }), "validateApiKey");
     await loadEntities();
     const { tenant, tenantApiKey, userId } = apiAccessValidation;
     const entity = EntitiesSingleton.getEntityByIdNameOrSlug(resolvedParams.entity!);
-    
+
     const jsonBody = await time(request.json(), "request.json");
     const rowValues = ApiHelper.getRowPropertiesFromJson(t, entity, jsonBody);
     const item = await time(
@@ -138,7 +114,7 @@ export async function POST(
       }),
       "create"
     );
-    
+
     if (tenant && tenantApiKey) {
       await db.apiKeys.setApiKeyLogStatus(tenantApiKey.apiKeyLog.id, {
         status: 201,
@@ -146,7 +122,7 @@ export async function POST(
       });
       await time(reportUsage(tenant.id, "api"), "reportUsage");
     }
-    
+
     await time(
       db.logs.createRowLog(request, {
         tenantId: tenant?.id ?? null,
@@ -157,7 +133,7 @@ export async function POST(
       }),
       "createRowLog"
     );
-    
+
     return NextResponse.json(ApiHelper.getApiFormat(entity, item), {
       status: 201,
       headers: getServerTimingHeader(),
@@ -165,18 +141,12 @@ export async function POST(
   } catch (e: any) {
     let status = e.message.includes("Rate limit exceeded") ? 429 : 400;
     if (apiAccessValidation?.tenantApiKey) {
-      await db.apiKeys.setApiKeyLogStatus(
-        apiAccessValidation?.tenantApiKey.apiKeyLog.id,
-        {
-          error: e.message,
-          status,
-          startTime,
-        }
-      );
+      await db.apiKeys.setApiKeyLogStatus(apiAccessValidation?.tenantApiKey.apiKeyLog.id, {
+        error: e.message,
+        status,
+        startTime,
+      });
     }
-    return NextResponse.json(
-      { error: e.message },
-      { status, headers: getServerTimingHeader() }
-    );
+    return NextResponse.json({ error: e.message }, { status, headers: getServerTimingHeader() });
   }
 }

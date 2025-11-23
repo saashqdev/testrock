@@ -18,12 +18,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ActivityPage({ params, searchParams }: Props) {
   const headersList = await headers();
   const fullUrl = headersList.get("x-url") || "";
-  
-  const data = await loader({ 
+
+  const data = await loader({
     params,
     searchParams,
-    request: new Request(fullUrl || "http://localhost")
+    request: new Request(fullUrl || "http://localhost"),
   });
-  
+
   return <OutboundEmailsListRoute data={data} />;
 }

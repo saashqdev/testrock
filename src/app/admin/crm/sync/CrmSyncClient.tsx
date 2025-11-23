@@ -46,9 +46,9 @@ export default function CrmSyncClient({ users, syncAction }: CrmSyncClientProps)
     filteredItems().forEach((user) => {
       form.append("emails[]", user.email);
     });
-    
+
     const result = await syncAction(form);
-    
+
     if (result.success) {
       toast.success(result.success);
       startTransition(() => {
@@ -79,11 +79,7 @@ export default function CrmSyncClient({ users, syncAction }: CrmSyncClientProps)
           <ButtonSecondary to="/admin/crm/sync?cache=clear">
             <ReloadIcon className="h-5 w-5" />
           </ButtonSecondary>
-          <LoadingButton
-            disabled={filteredItems().length === 0}
-            isLoading={isPending}
-            onClick={handleSync}
-          >
+          <LoadingButton disabled={filteredItems().length === 0} isLoading={isPending} onClick={handleSync}>
             {getSyncTitle()}
           </LoadingButton>
         </>
@@ -134,7 +130,7 @@ export default function CrmSyncClient({ users, syncAction }: CrmSyncClientProps)
               value: (item) => (
                 <div className="flex flex-col">
                   <div className="font-medium">{item.email}</div>
-                  <div className="text-muted-foreground text-sm">
+                  <div className="text-sm text-muted-foreground">
                     {item.firstName} {item.lastName}
                   </div>
                 </div>
@@ -151,7 +147,7 @@ export default function CrmSyncClient({ users, syncAction }: CrmSyncClientProps)
                 return (
                   <div className="flex flex-col">
                     <div className="font-medium">{item.contact.email}</div>
-                    <div className="text-muted-foreground text-sm">
+                    <div className="text-sm text-muted-foreground">
                       {item.contact.firstName} {item.contact.lastName}
                     </div>
                   </div>
@@ -162,7 +158,7 @@ export default function CrmSyncClient({ users, syncAction }: CrmSyncClientProps)
               name: "isContact",
               title: "Is contact",
               value: (item) => (
-                <div>{item.isContact ? <CheckIcon className="h-5 w-5 text-green-500" /> : <XIcon className="text-muted-foreground h-5 w-5" />}</div>
+                <div>{item.isContact ? <CheckIcon className="h-5 w-5 text-green-500" /> : <XIcon className="h-5 w-5 text-muted-foreground" />}</div>
               ),
             },
             {
@@ -170,7 +166,7 @@ export default function CrmSyncClient({ users, syncAction }: CrmSyncClientProps)
               title: "Marketing subscriber",
               value: (item) => (
                 <div>
-                  {item.contact?.marketingSubscriber ? <CheckIcon className="h-5 w-5 text-green-500" /> : <XIcon className="text-muted-foreground h-5 w-5" />}
+                  {item.contact?.marketingSubscriber ? <CheckIcon className="h-5 w-5 text-green-500" /> : <XIcon className="h-5 w-5 text-muted-foreground" />}
                 </div>
               ),
             },

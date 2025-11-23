@@ -51,7 +51,7 @@ export function ShadcnAppSidebar({
       menu = AdminSidebar({ appConfiguration: rootData.appConfiguration, myTenants: appOrAdminData?.myTenants });
     } else if (props.layout === "app") {
       menu = AppSidebar({
-        tenantId: Array.isArray(params.tenant) ? params.tenant[0] : params.tenant ?? "",
+        tenantId: Array.isArray(params.tenant) ? params.tenant[0] : (params.tenant ?? ""),
         entities: appOrAdminData?.entities ?? [],
         entityGroups: appOrAdminData?.entityGroups ?? [],
         appConfiguration: rootData.appConfiguration,
@@ -190,7 +190,7 @@ export function ShadcnAppSidebar({
               // className="dark:hover:bg-transparent dark:active:bg-transparent"
             >
               <Link href={"/"} className="flex justify-center">
-                <div className="flex shrink-0 items-center justify-center border-b border-transparent max-w-full">
+                <div className="flex max-w-full shrink-0 items-center justify-center border-b border-transparent">
                   {/* <Logo size="h-8 p-1 w-auto" /> */}
                   <Image
                     className={"mx-auto hidden h-10 w-auto max-w-full p-1.5 dark:flex"}
@@ -212,7 +212,9 @@ export function ShadcnAppSidebar({
             <div>{appOrAdminData?.currentTenant && <NewTenantSelector key={params.tenant} />}</div>
           </SidebarMenu>
         )} */}
-        {props.layout === "app" && appOrAdminData?.currentTenant && <TeamSwitcher key={Array.isArray(params.tenant) ? params.tenant[0] : params.tenant} size="md" tenants={appOrAdminData?.myTenants ?? []} />}
+        {props.layout === "app" && appOrAdminData?.currentTenant && (
+          <TeamSwitcher key={Array.isArray(params.tenant) ? params.tenant[0] : params.tenant} size="md" tenants={appOrAdminData?.myTenants ?? []} />
+        )}
       </SidebarHeader>
       {mounted ? (
         <>

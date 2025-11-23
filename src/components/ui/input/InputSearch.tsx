@@ -10,7 +10,7 @@ interface Props {
   value: string;
   onChange: (value: string) => void;
   onNew?: () => void;
-  onNewRoute?: string;  
+  onNewRoute?: string;
   placeholder?: string;
   className?: string;
   disabled?: boolean;
@@ -53,7 +53,7 @@ export default function InputSearch({ value, onChange, onNew, onNewRoute, placeh
         />
       </div>
       {onNew && <ButtonPrimary onClick={onNew}>{t("shared.new")}</ButtonPrimary>}
-      {onNewRoute && <ButtonPrimary to={onNewRoute}>{t("shared.new")}</ButtonPrimary>}      
+      {onNewRoute && <ButtonPrimary to={onNewRoute}>{t("shared.new")}</ButtonPrimary>}
     </div>
   );
 }

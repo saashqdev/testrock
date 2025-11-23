@@ -9,15 +9,15 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   // Convert MetaTagsDto array to Next.js Metadata
   const metatags = data?.metatags || [];
   const metadata: Metadata = {};
-  
+
   metatags.forEach((tag) => {
-    if ('title' in tag) {
+    if ("title" in tag) {
       metadata.title = tag.title;
-    } else if ('name' in tag && tag.name === 'description') {
+    } else if ("name" in tag && tag.name === "description") {
       metadata.description = tag.content;
     }
   });
-  
+
   return metadata;
 }
 export default function WorkflowPage({ params }: { params: Promise<{ id: string }> }) {

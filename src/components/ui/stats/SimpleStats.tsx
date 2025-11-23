@@ -19,10 +19,10 @@ export default function SimpleStats({ items }: Props) {
         )}
       >
         {items.map((item) => (
-          <div key={item.name} className="bg-background overflow-hidden rounded-lg px-4 py-3 shadow-xs">
-            <dt className="text-muted-foreground truncate text-xs font-medium">{item.name}</dt>
-            <dd className="text-foreground mt-1 truncate text-lg font-semibold">
-              {item.stat} {item.hint && <span className="text-muted-foreground text-xs">{item.hint}</span>}
+          <div key={item.name} className="shadow-xs overflow-hidden rounded-lg bg-background px-4 py-3">
+            <dt className="truncate text-xs font-medium text-muted-foreground">{item.name}</dt>
+            <dd className="mt-1 truncate text-lg font-semibold text-foreground">
+              {item.stat} {item.hint && <span className="text-xs text-muted-foreground">{item.hint}</span>}
             </dd>
           </div>
         ))}

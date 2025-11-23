@@ -15,10 +15,10 @@ type LoaderData = {
 async function loader() {
   const { t } = await getServerTranslations();
   await verifyUserHasPermission("admin.pages.view");
-  
+
   // Create a mock request object for getPageConfiguration
   const mockRequest = new Request("http://localhost");
-  
+
   const pages = await db.pages.getPages();
   const items = await Promise.all(
     pages.map(async (page) => {
@@ -54,35 +54,35 @@ type ActionData = {
 // Server Action for handling form submissions
 async function handlePageAction(formData: FormData) {
   "use server";
-  
+
   const { t } = await getServerTranslations();
-  
+
   await verifyUserHasPermission("admin.pages.create");
-  
+
   const action = formData.get("action")?.toString();
-  
+
   if (action === "create") {
     const slug = formData.get("slug")?.toString() || "";
     const isSubpage1 = formData.get("isSubpage1")?.toString() === "true";
-    
+
     if (slug.includes("/")) {
       return { error: "Slug cannot contain /" };
     }
-    
+
     let finalSlug = "/" + slug;
     if (isSubpage1) {
       finalSlug = finalSlug + "/:id1";
     }
-    
+
     const existing = await db.pages.getPageBySlug(finalSlug);
     if (existing) {
       return { error: "Slug already exists" };
     }
-    
+
     const page = await db.pages.createPage({
       slug: finalSlug,
     });
-    
+
     redirect(`/admin/pages/edit/${page.id}`);
   } else if (action === "create-default") {
     const created = await createDefaultPages();

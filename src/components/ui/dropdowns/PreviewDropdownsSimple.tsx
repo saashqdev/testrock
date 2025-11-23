@@ -9,7 +9,7 @@ import Dropdown from "./Dropdown";
 export default function PreviewDropdownsSimple() {
   const currentRoute = usePathname();
   return (
-    <div className="not-prose border-border bg-background space-x-2 border border-dashed p-6">
+    <div className="not-prose space-x-2 border border-dashed border-border bg-background p-6">
       <div className="w-full space-y-2">
         <div className="flex justify-between">
           <Dropdown
@@ -23,7 +23,7 @@ export default function PreviewDropdownsSimple() {
                     <button
                       type="button"
                       onClick={() => alert("Clicked")}
-                      className={clsx("w-full text-left", active ? "text-foreground bg-secondary/90" : "text-foreground/80", "block px-4 py-2 text-sm")}
+                      className={clsx("w-full text-left", active ? "bg-secondary/90 text-foreground" : "text-foreground/80", "block px-4 py-2 text-sm")}
                     >
                       Button
                     </button>
@@ -33,7 +33,7 @@ export default function PreviewDropdownsSimple() {
                   {({ active }) => (
                     <Link
                       href={currentRoute}
-                      className={clsx("w-full", active ? "text-foreground bg-secondary/90" : "text-foreground/80", "block px-4 py-2 text-sm")}
+                      className={clsx("w-full", active ? "bg-secondary/90 text-foreground" : "text-foreground/80", "block px-4 py-2 text-sm")}
                     >
                       <div>Link</div>
                     </Link>
@@ -49,7 +49,7 @@ export default function PreviewDropdownsSimple() {
               <div>
                 <button
                   type="button"
-                  className="hover:bg-secondary text-foreground/80 block w-full px-4 py-2 text-left text-sm focus:outline-hidden"
+                  className="focus:outline-hidden block w-full px-4 py-2 text-left text-sm text-foreground/80 hover:bg-secondary"
                   tabIndex={-1}
                   onClick={() => alert("Clicked")}
                 >
@@ -57,7 +57,7 @@ export default function PreviewDropdownsSimple() {
                 </button>
                 <Link
                   href={currentRoute}
-                  className="hover:bg-secondary text-foreground/80 block w-full px-4 py-2 text-left text-sm focus:outline-hidden"
+                  className="focus:outline-hidden block w-full px-4 py-2 text-left text-sm text-foreground/80 hover:bg-secondary"
                   tabIndex={-1}
                 >
                   <div>Link</div>

@@ -15,11 +15,11 @@ export default async function EmailMarketingSummaryAdminView({ searchParams }: P
       }
     });
   }
-  
+
   const request = new Request(url.toString());
-  const data = await loader({ 
-    request, 
-    params: Promise.resolve({}) 
+  const data = await loader({
+    request,
+    params: Promise.resolve({}),
   });
 
   return <EmailMarketingSummaryRoute data={data} />;

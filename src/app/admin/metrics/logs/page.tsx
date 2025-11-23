@@ -58,11 +58,7 @@ async function getLogsData(searchParams: URLSearchParams): Promise<LoaderData> {
   };
 }
 
-export default async function LogsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default async function LogsPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const resolvedSearchParams = await searchParams;
   const params = new URLSearchParams();
 

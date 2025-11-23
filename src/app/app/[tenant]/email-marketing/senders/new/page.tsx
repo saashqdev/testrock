@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function SendersNewPage({ params, searchParams }: Props) {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
-  
+
   // Create a mock request object for the loader
   const url = new URL(`${process.env.NEXTAUTH_URL}/app/${resolvedParams.tenant}/email-marketing/senders/new`);
   Object.entries(resolvedSearchParams).forEach(([key, value]) => {
@@ -23,12 +23,12 @@ export default async function SendersNewPage({ params, searchParams }: Props) {
       url.searchParams.set(key, Array.isArray(value) ? value[0] : value);
     }
   });
-  
+
   const request = new Request(url.toString());
-  const data = await SendersNewApi.loader({ 
-    request, 
-    params 
+  const data = await SendersNewApi.loader({
+    request,
+    params,
   });
-  
+
   return <SendersNewView data={data} />;
 }

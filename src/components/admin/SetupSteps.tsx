@@ -9,7 +9,7 @@ interface Props {
 
 function CompletedIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" className="border-border h-6 w-6 rounded-full border text-gray-200" viewBox="0 0 20 20" fill="currentColor">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 rounded-full border border-border text-gray-200" viewBox="0 0 20 20" fill="currentColor">
       <path
         fillRule="evenodd"
         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -35,17 +35,17 @@ function SetupStep({ item, index, total }: { item: SetupItem; index: number; tot
   const { t } = useTranslation();
 
   return (
-    <li key={index} className="border-border bg-background space-y-3 rounded-lg border p-4">
+    <li key={index} className="space-y-3 rounded-lg border border-border bg-background p-4">
       <div className="flex items-center space-x-2">
         <div className="shrink-0">{!item.completed ? <CompletedIcon /> : <IncompletedIcon />}</div>
         <div className="flex w-full justify-between">
           <div className="font-medium">{item.title}</div>
-          <div className=" text-muted-foreground text-sm">
+          <div className="text-sm text-muted-foreground">
             {index + 1}/{total}
           </div>
         </div>
       </div>
-      <p className=" text-sm">{item.description}</p>
+      <p className="text-sm">{item.description}</p>
       <div>
         <ButtonSecondary to={item.path} className="mt-3">
           {!item.completed ? t("app.sidebar.setup") : `${t("shared.goTo")} ${item.title.toLowerCase()}`} &rarr;
@@ -59,7 +59,7 @@ export default function SetupSteps({ items }: Props) {
   const { t } = useTranslation();
   return (
     <div>
-      <h3 className="text-foreground font-medium leading-4">{t("onboarding.gettingStarted.title")}</h3>
+      <h3 className="font-medium leading-4 text-foreground">{t("onboarding.gettingStarted.title")}</h3>
       <ul
         className={clsx(
           "mt-3 grid grid-cols-1 gap-4",

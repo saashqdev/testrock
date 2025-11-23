@@ -2,25 +2,19 @@ import { EventWebhookAttempt } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/db/config/prisma/database";
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   let attempt: EventWebhookAttempt | null = null;
   try {
     const { id } = await params;
-    
-    attempt = await prisma.eventWebhookAttempt.findUnique({ 
-      where: { id: id ?? "" } 
+
+    attempt = await prisma.eventWebhookAttempt.findUnique({
+      where: { id: id ?? "" },
     });
-    
+
     if (!attempt) {
-      return NextResponse.json(
-        { error: "Invalid event webhook attempt" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Invalid event webhook attempt" }, { status: 404 });
     }
-    
+
     await prisma.eventWebhookAttempt.update({
       where: {
         id: attempt.id,
@@ -29,10 +23,10 @@ export async function POST(
         startedAt: new Date(),
       },
     });
-    
+
     // eslint-disable-next-line no-console
     console.log("event-webhook-endpoint", attempt.endpoint);
-    
+
     const body = await request.json();
     const response = await fetch(attempt.endpoint, {
       method: "POST",
@@ -41,7 +35,7 @@ export async function POST(
       },
       body: JSON.stringify(body),
     });
-    
+
     if (response.ok) {
       await prisma.eventWebhookAttempt.update({
         where: {
@@ -73,7 +67,7 @@ export async function POST(
   } catch (e: any) {
     // eslint-disable-next-line no-console
     console.log("event-webhook-attempt-error", e.message);
-    
+
     if (attempt) {
       await prisma.eventWebhookAttempt.update({
         where: {
@@ -87,10 +81,7 @@ export async function POST(
         },
       });
     }
-    
-    return NextResponse.json(
-      { error: e.message },
-      { status: 400 }
-    );
+
+    return NextResponse.json({ error: e.message }, { status: 400 });
   }
 }

@@ -23,7 +23,7 @@ export const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
   await verifyUserHasPermission("admin.onboarding.view");
   const { t } = await getServerTranslations();
-  
+
   // Get URL from headers since request object may not be available in server components
   const currentUrl = await getCurrentUrl();
   const url = new URL(currentUrl, process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000");
@@ -59,7 +59,7 @@ export const loader = async (props: IServerComponentsProps) => {
       ],
     },
   ];
-  
+
   // Create a mock request object for helper functions that expect it
   const mockRequest = new Request(url);
   const filters = getFiltersFromCurrentUrl(mockRequest, filterableProperties);
@@ -70,7 +70,7 @@ export const loader = async (props: IServerComponentsProps) => {
     pagination: currentPagination,
     where: {
       onboardingId: params.id,
-      tenantId: tenantId === "null" ? null : tenantId ?? undefined,
+      tenantId: tenantId === "null" ? null : (tenantId ?? undefined),
     },
   });
   const data: LoaderData = {
@@ -107,4 +107,3 @@ export const action = async (props: IServerComponentsProps) => {
     return Response.json({ error: t("shared.invalidForm") }, { status: 400 });
   }
 };
-

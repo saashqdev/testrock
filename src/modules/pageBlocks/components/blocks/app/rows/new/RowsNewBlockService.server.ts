@@ -71,4 +71,3 @@ export async function create({ request, params, form }: PageBlockActionArgs) {
   }
   return Response.json({ newRow });
 }
-

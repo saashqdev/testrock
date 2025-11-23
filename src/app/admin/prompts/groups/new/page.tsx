@@ -11,10 +11,7 @@ type ActionData = {
 };
 
 export default function NewPromptGroupPage() {
-  const [actionData, formAction] = useActionState<ActionData | null, FormData>(
-    createPromptGroupAction,
-    null
-  );
+  const [actionData, formAction] = useActionState<ActionData | null, FormData>(createPromptGroupAction, null);
 
   return (
     <div>

@@ -25,12 +25,7 @@ export default function EditGroupClient({ data }: EditGroupClientProps) {
   const params = useParams();
 
   return (
-    <SlideOverWideEmpty
-      title="Edit User Group"
-      open={true}
-      size="2xl"
-      onClose={() => router.push(UrlUtils.currentTenantUrl(params, "settings/members"))}
-    >
+    <SlideOverWideEmpty title="Edit User Group" open={true} size="2xl" onClose={() => router.push(UrlUtils.currentTenantUrl(params, "settings/members"))}>
       <GroupForm
         allUsers={data.tenantUsers}
         item={data.item}

@@ -8,13 +8,13 @@ export { serverTimingHeaders as headers };
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const data = await RowsImport.loader(props);
-  const loaderData = await data.json() as RowsImport.LoaderData;
+  const loaderData = (await data.json()) as RowsImport.LoaderData;
 
   // Convert NextJS-style meta array to Next.js Metadata
   const metadata: Metadata = {};
   if (loaderData?.meta) {
     for (const meta of loaderData.meta) {
-      if ('title' in meta) {
+      if ("title" in meta) {
         metadata.title = meta.title;
       }
     }

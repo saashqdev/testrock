@@ -59,7 +59,7 @@ export default function Component({ data, onAction }: { data: LoaderData; onActi
   function pendingDefaultPages() {
     return defaultPages.filter((defaultPage) => !data.items.find((f) => f.slug === defaultPage));
   }
-  
+
   function onCreateDefault() {
     const form = new FormData();
     form.append("action", "create-default");
@@ -70,13 +70,13 @@ export default function Component({ data, onAction }: { data: LoaderData; onActi
       }
     });
   }
-  
+
   return (
     <div>
       <div className="mx-auto mb-12 max-w-5xl space-y-5 px-4 py-4 sm:px-6 lg:px-8 xl:max-w-7xl">
-        <div className="md:border-border md:border-b md:py-2">
+        <div className="md:border-b md:border-border md:py-2">
           <div className="flex items-center justify-between">
-            <h3 className="text-foreground text-lg font-medium leading-6">{t("pages.title")}</h3>
+            <h3 className="text-lg font-medium leading-6 text-foreground">{t("pages.title")}</h3>
             <div className="flex items-center space-x-2">
               {pendingDefaultPages().length > 0 && pendingDefaultPages().length !== defaultPages.length && (
                 <ButtonSecondary onClick={onCreateDefault} disabled={pending}>
@@ -95,7 +95,7 @@ export default function Component({ data, onAction }: { data: LoaderData; onActi
             type="button"
             onClick={onCreateDefault}
             disabled={pending}
-            className="border-border hover:border-border relative block w-full rounded-lg border-2 border-dashed p-12 text-center focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
+            className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border p-12 text-center hover:border-border focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
           >
             <div className="flex flex-col space-y-2">
               <div className="text-sm font-bold">{t("pages.actions.createDefault")}</div>
@@ -119,7 +119,7 @@ export default function Component({ data, onAction }: { data: LoaderData; onActi
                 name: "title",
                 title: "Title",
                 className: "w-full",
-                value: (i) => <div className=" w-40 truncate">{i.page?.metaTags.find((f: { name: string }) => f.name === "title")?.value}</div>,
+                value: (i) => <div className="w-40 truncate">{i.page?.metaTags.find((f: { name: string }) => f.name === "title")?.value}</div>,
               },
               {
                 name: "blocks",
@@ -184,26 +184,26 @@ function AddPageModal({
   const { t } = useTranslation();
   const [slug, setSlug] = useState("");
   const [isSubpage1, setIsSubpage1] = useState(false);
-  
+
   function create() {
     onCreate({ slug, isSubpage1 });
   }
-  
+
   return (
     <Modal open={open} setOpen={onClose} size="md">
-      <div className="bg-background inline-block w-full overflow-hidden p-1 text-left align-bottom sm:align-middle">
+      <div className="inline-block w-full overflow-hidden bg-background p-1 text-left align-bottom sm:align-middle">
         <div className="mt-3 text-center sm:mt-5">
-          <h3 className="text-foreground text-lg font-medium leading-6">Add page</h3>
+          <h3 className="text-lg font-medium leading-6 text-foreground">Add page</h3>
         </div>
         <div className="mt-4 space-y-2">
-          <div className="relative mt-1 rounded-md shadow-2xs">
+          <div className="shadow-2xs relative mt-1 rounded-md">
             <input
               value={slug}
               onChange={(e) => setSlug(e.target.value.toLowerCase().replace("/", ""))}
               type="text"
               name="slug"
               id="slug"
-              className="border-border focus:border-border block w-full rounded-md focus:ring-gray-500 sm:text-sm"
+              className="block w-full rounded-md border-border focus:border-border focus:ring-gray-500 sm:text-sm"
               placeholder={"Slug"}
             />
           </div>
@@ -219,7 +219,7 @@ function AddPageModal({
           <button
             type="button"
             className={clsx(
-              "inline-flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-base  font-medium text-white shadow-2xs  focus:outline-hidden focus:ring-2 focus:ring-offset-2 sm:col-start-2 sm:text-sm",
+              "shadow-2xs focus:outline-hidden inline-flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-base font-medium text-white focus:ring-2 focus:ring-offset-2 sm:col-start-2 sm:text-sm",
               "bg-foreground text-background"
             )}
             onClick={create}
@@ -228,7 +228,7 @@ function AddPageModal({
           </button>
           <button
             type="button"
-            className="hover:bg-secondary border-border bg-background text-foreground/80 mt-3 inline-flex w-full justify-center rounded-md border px-4 py-2 text-base font-medium shadow-2xs focus:outline-hidden focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 sm:col-start-1 sm:mt-0 sm:text-sm"
+            className="shadow-2xs focus:outline-hidden mt-3 inline-flex w-full justify-center rounded-md border border-border bg-background px-4 py-2 text-base font-medium text-foreground/80 hover:bg-secondary focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 sm:col-start-1 sm:mt-0 sm:text-sm"
             onClick={onClose}
           >
             {t("shared.back")}

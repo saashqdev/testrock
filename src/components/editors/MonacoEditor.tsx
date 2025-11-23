@@ -115,7 +115,9 @@ export default function MonacoEditor({
         <div className={clsx(className, "block w-full min-w-0 flex-1 rounded-md border border-border bg-muted/50")} style={{ minHeight: "200px" }} />
       ) : (
         <Editor
-          loading={<div className={clsx(className, "block w-full min-w-0 flex-1 rounded-md border border-border bg-muted/50")} style={{ minHeight: "200px" }} />}
+          loading={
+            <div className={clsx(className, "block w-full min-w-0 flex-1 rounded-md border border-border bg-muted/50")} style={{ minHeight: "200px" }} />
+          }
           theme={theme}
           className={clsx(
             className,

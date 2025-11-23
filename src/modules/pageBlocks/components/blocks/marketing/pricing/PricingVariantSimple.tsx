@@ -16,7 +16,7 @@ export default function PricingVariantSimple({ item }: { item: PricingBlockDto }
   const rootData = useRootData();
   const confirmModal = useRef<RefConfirmModal>(null);
   const [mounted, setMounted] = useState(false);
-  
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -27,7 +27,7 @@ export default function PricingVariantSimple({ item }: { item: PricingBlockDto }
     // Coupon functionality can be implemented without URL changes if needed
     console.log("Apply coupon:", coupon);
   }
-  
+
   // Don't render dynamic content on server to prevent hydration mismatch
   if (!mounted) {
     return (
@@ -50,7 +50,7 @@ export default function PricingVariantSimple({ item }: { item: PricingBlockDto }
       </div>
     );
   }
-  
+
   return (
     <>
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">

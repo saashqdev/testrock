@@ -29,13 +29,13 @@ export default function ProfileBanner({ user }: Props) {
         <div className="py-2 md:flex md:items-center md:justify-between">
           <div className="min-w-0 flex-1">
             <div className="flex items-center">
-              <div className="h-12 w-12 rounded-full bg-gray-200 animate-pulse hidden sm:block" />
+              <div className="hidden h-12 w-12 animate-pulse rounded-full bg-gray-200 sm:block" />
               <div>
                 <div className="flex items-center">
-                  <div className="h-12 w-12 rounded-sm bg-gray-200 animate-pulse sm:hidden" />
+                  <div className="h-12 w-12 animate-pulse rounded-sm bg-gray-200 sm:hidden" />
                   <div className="ml-3">
-                    <div className="h-6 bg-gray-200 rounded animate-pulse w-48" />
-                    <div className="h-4 bg-gray-200 rounded animate-pulse w-32 mt-2" />
+                    <div className="h-6 w-48 animate-pulse rounded bg-gray-200" />
+                    <div className="mt-2 h-4 w-32 animate-pulse rounded bg-gray-200" />
                   </div>
                 </div>
               </div>
@@ -62,24 +62,24 @@ export default function ProfileBanner({ user }: Props) {
                     if (user?.avatar) {
                       return <Image className="h-12 w-12 rounded-sm sm:hidden" src={user?.avatar} alt="Avatar" />;
                     } else {
-                        return (
-                          <span className="inline-flex h-12 w-12 items-center justify-center rounded-sm bg-slate-800 shadow-xl sm:hidden">
-                            <span className="text-sm font-medium leading-none text-white">{UserUtils.avatarText(user)}</span>
-                          </span>
-                        );
+                      return (
+                        <span className="inline-flex h-12 w-12 items-center justify-center rounded-sm bg-slate-800 shadow-xl sm:hidden">
+                          <span className="text-sm font-medium leading-none text-white">{UserUtils.avatarText(user)}</span>
+                        </span>
+                      );
                     }
                   })()}
                 </div>
-                <h1 className="text-foreground ml-3 text-lg font-bold leading-7 sm:truncate sm:leading-9">
+                <h1 className="ml-3 text-lg font-bold leading-7 text-foreground sm:truncate sm:leading-9">
                   {t("shared.hi")} {user?.firstName && <span>{user.firstName} 👋!</span>}
                 </h1>
               </div>
               <dl className="flex flex-col sm:ml-3 sm:flex-row sm:flex-wrap">
                 <dt className="sr-only">{t("models.user.email")}</dt>
-                <dd className="text-muted-foreground flex items-center text-xs font-medium lowercase sm:mr-6">
+                <dd className="flex items-center text-xs font-medium lowercase text-muted-foreground sm:mr-6">
                   {/*Heroicon name: office-building */}
                   <svg
-                    className="text-muted-foreground mr-0.5 h-3.5 w-3.5 shrink-0"
+                    className="mr-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"

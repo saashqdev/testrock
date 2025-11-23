@@ -32,7 +32,7 @@ export default async function TransactionalEmailsPage() {
   // Extract only serializable properties (exclude functions)
   const items = EmailTemplates.allTemplates.map(({ name, description }) => ({ id: name, name, description }));
   const { t } = await getServerTranslations();
-  
+
   const providers = [
     {
       name: "Postmark",
@@ -50,7 +50,7 @@ export default async function TransactionalEmailsPage() {
       error: process.env.SENDGRID_API_KEY ? null : "SENDGRID_API_KEY is not set",
     },
   ];
-  
+
   // Serialize appConfiguration by removing non-serializable functions
   const serializedAppConfiguration: AppConfigurationDto = {
     ...appConfiguration,
@@ -59,7 +59,7 @@ export default async function TransactionalEmailsPage() {
       pages: appConfiguration.portals.pages,
     },
   };
-  
+
   const data: LoaderData = {
     title: `${t("settings.admin.transactionalEmails.title")} | ${defaultSiteTags.title}`,
     items,

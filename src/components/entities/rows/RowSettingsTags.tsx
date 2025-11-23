@@ -80,7 +80,7 @@ export default function RowSettingsTags({ item, tags }: { item: RowWithDetailsDt
     form.set("tag-id", tag.id);
     form.set("tag-name", value);
     form.set("tag-color", color.toString());
-    
+
     await fetch(location.pathname + location.search, {
       method: "POST",
       body: form,
@@ -92,7 +92,7 @@ export default function RowSettingsTags({ item, tags }: { item: RowWithDetailsDt
     form.set("action", "set-tag");
     form.set("tag-id", id);
     form.set("tag-action", add === true ? "add" : "remove");
-    
+
     await fetch(location.pathname + location.search, {
       method: "POST",
       body: form,
@@ -115,7 +115,7 @@ export default function RowSettingsTags({ item, tags }: { item: RowWithDetailsDt
     const form = new FormData();
     form.set("action", "delete-tag");
     form.set("tag-id", tag.id);
-    
+
     await fetch(location.pathname + location.search, {
       method: "POST",
       body: form,

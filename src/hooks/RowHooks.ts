@@ -166,4 +166,3 @@ export async function onAfterDelete({ id, entity, tenantId, userId, item }: OnAf
   //   item: RowHelper.getTextDescription({ entity, item, defaultsToFolio: true }),
   // });
 }
-

@@ -9,14 +9,14 @@ async function main() {
   // Try to get session cookie
   const cookieStore = await cookies();
   const sessionCookie = cookieStore.get("RSN_session");
-  
+
   if (!sessionCookie) {
     console.log("❌ No session cookie found");
     return;
   }
 
   console.log("✅ Session cookie exists");
-  
+
   // You would need to decode the JWT here, but for now let's just check
   // what user is passed in via command line
   const userEmail = process.argv[2];
@@ -45,7 +45,7 @@ async function main() {
 
   console.log(`\n📋 AdminUser record:`);
   console.log(`   Exists: ${adminUser ? "✅ YES" : "❌ NO"}`);
-  
+
   if (adminUser) {
     console.log(`   User ID: ${adminUser.userId}`);
   }

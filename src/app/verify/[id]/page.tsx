@@ -20,9 +20,9 @@ export default async function VerifyPage({ params, searchParams }: PageProps) {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
   const { t } = await getServerTranslations();
-  
+
   const registration = await db.registration.getRegistrationByToken(resolvedParams.id ?? "");
-  
+
   // Get any error or field data from searchParams (passed after form submission redirect)
   const error = resolvedSearchParams?.error as string | undefined;
   const fieldsData = resolvedSearchParams?.fields ? JSON.parse(decodeURIComponent(resolvedSearchParams.fields as string)) : undefined;
@@ -34,11 +34,7 @@ export default async function VerifyPage({ params, searchParams }: PageProps) {
           <Logo className="mx-auto h-12 w-auto" />
 
           {registration && !registration.createdTenantId ? (
-            <VerifyPageClient
-              registration={registration}
-              fieldsData={fieldsData}
-              error={error}
-            />
+            <VerifyPageClient registration={registration} fieldsData={fieldsData} error={error} />
           ) : (
             <div>
               <div className="sm:mx-auto sm:w-full sm:max-w-md">

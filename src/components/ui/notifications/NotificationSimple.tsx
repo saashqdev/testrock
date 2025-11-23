@@ -22,20 +22,20 @@ export default function NotificationSimple() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="bg-background pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+            <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-background shadow-lg ring-1 ring-black ring-opacity-5">
               <div className="p-4">
                 <div className="flex items-start">
                   <div className="shrink-0">
                     <CheckEmptyCircle className="h-6 w-6 text-green-400" aria-hidden="true" />
                   </div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
-                    <p className="text-foreground text-sm font-medium">Successfully saved!</p>
-                    <p className="text-muted-foreground mt-1 text-sm">Anyone with a link can now view this file.</p>
+                    <p className="text-sm font-medium text-foreground">Successfully saved!</p>
+                    <p className="mt-1 text-sm text-muted-foreground">Anyone with a link can now view this file.</p>
                   </div>
                   <div className="ml-4 flex shrink-0">
                     <button
                       type="button"
-                      className="hover:text-muted-foreground text-muted-foreground bg-background inline-flex rounded-md focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="focus:outline-hidden inline-flex rounded-md bg-background text-muted-foreground hover:text-muted-foreground focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                       onClick={() => {
                         setShow(false);
                       }}

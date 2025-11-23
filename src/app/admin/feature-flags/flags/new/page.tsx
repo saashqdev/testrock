@@ -44,7 +44,7 @@ async function getMetadata(): Promise<MetadataType> {
 
 async function createFeatureFlag(prevState: any, formData: FormData) {
   "use server";
-  
+
   const { t } = await getServerTranslations();
   const action = formData.get("action")?.toString();
 

@@ -65,7 +65,7 @@ export const action = async (formData: FormData, props?: IServerComponentsProps)
   await verifyUserHasPermission("admin.roles.update");
   const { t } = await getServerTranslations();
   const actionType = formData.get("action");
-  
+
   if (actionType === "seed") {
     try {
       await seedRolesAndPermissions();
@@ -77,4 +77,3 @@ export const action = async (formData: FormData, props?: IServerComponentsProps)
     return { error: t("shared.invalidForm") };
   }
 };
-

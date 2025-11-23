@@ -22,12 +22,9 @@ export default function RolesPermissionsSeedView({ data }: Props) {
   const appOrAdminData = useAppOrAdminData();
   const modalConfirmSeed = useRef<RefConfirmModal>(null);
 
-  const [actionData, formAction, pending] = useActionState(
-    async (_state: ActionData | null, formData: FormData) => {
-      return await seedRolesPermissionsAction(formData);
-    },
-    null
-  );
+  const [actionData, formAction, pending] = useActionState(async (_state: ActionData | null, formData: FormData) => {
+    return await seedRolesPermissionsAction(formData);
+  }, null);
 
   useEffect(() => {
     if (actionData?.success) {
@@ -38,12 +35,7 @@ export default function RolesPermissionsSeedView({ data }: Props) {
   }, [actionData]);
 
   function onSeed() {
-    modalConfirmSeed.current?.show(
-      "Seed missing roles and permissions",
-      t("shared.confirm"),
-      t("shared.back"),
-      "Do you want to seed roles and permissions?"
-    );
+    modalConfirmSeed.current?.show("Seed missing roles and permissions", t("shared.confirm"), t("shared.back"), "Do you want to seed roles and permissions?");
   }
 
   function onConfirmSeed() {
@@ -56,7 +48,7 @@ export default function RolesPermissionsSeedView({ data }: Props) {
     <EditPageLayout>
       <InputGroup title={"Missing roles & permissions"}>
         <div className="space-y-2">
-          <h3 className="text-foreground text-lg font-medium">Roles</h3>
+          <h3 className="text-lg font-medium text-foreground">Roles</h3>
           <TableSimple
             items={data.roles.missing.map((role) => ({ ...role, id: role.name }))}
             headers={[
@@ -74,7 +66,7 @@ export default function RolesPermissionsSeedView({ data }: Props) {
             ]}
           />
 
-          <h3 className="text-foreground text-lg font-medium">Permissions</h3>
+          <h3 className="text-lg font-medium text-foreground">Permissions</h3>
           <TableSimple
             items={data.permissions.missing.map((perm) => ({ ...perm, id: perm.name }))}
             headers={[
@@ -103,11 +95,7 @@ export default function RolesPermissionsSeedView({ data }: Props) {
           />
 
           <div className="flex justify-end">
-            <ButtonSecondary
-              disabled={!getUserHasPermission(appOrAdminData, "admin.roles.create") || pending}
-              destructive
-              onClick={onSeed}
-            >
+            <ButtonSecondary disabled={!getUserHasPermission(appOrAdminData, "admin.roles.create") || pending} destructive onClick={onSeed}>
               Seed default: {data.roles.missing.length}/{data.roles.all.length} roles and {data.permissions.missing.length}/{data.permissions.all.length}{" "}
               permissions
             </ButtonSecondary>

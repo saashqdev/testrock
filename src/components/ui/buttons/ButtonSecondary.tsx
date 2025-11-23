@@ -18,18 +18,7 @@ interface Props {
   isLoading?: boolean;
 }
 
-export default function ButtonSecondary({
-  className = "",
-  type = "button",
-  onClick,
-  disabled,
-  destructive,
-  to,
-  target,
-  rel,
-  children,
-  isLoading,
-}: Props) {
+export default function ButtonSecondary({ className = "", type = "button", onClick, disabled, destructive, to, target, rel, children, isLoading }: Props) {
   return (
     <span>
       {(() => {

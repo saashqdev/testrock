@@ -41,7 +41,7 @@ export default function AdminAnalyticsOverviewRoute() {
         <div className="space-y-6 p-4 sm:px-6 lg:col-span-9 lg:px-0">
           <SettingSection title={t("featureFlags.danger.title")} description={t("featureFlags.danger.description")}>
             <div>
-              <div className="text-muted-foreground mt-2 max-w-xl text-sm leading-5">
+              <div className="mt-2 max-w-xl text-sm leading-5 text-muted-foreground">
                 <p>{t("featureFlags.danger.reset.description")}</p>
               </div>
               <div className="mt-5">

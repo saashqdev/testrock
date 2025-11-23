@@ -33,13 +33,13 @@ export async function createEntityRelationship(entitySlug: string, formData: For
     if (existing) {
       return { error: "Relationship already exists" };
     }
-    
+
     const allRelationships = await db.entityRelationships.getEntityRelationships(entity.id);
     let maxOrder = 0;
     if (allRelationships.length > 0) {
       maxOrder = Math.max(...allRelationships.map((f) => f.order ?? 0));
     }
-    
+
     try {
       await db.entityRelationships.createEntityRelationship({
         parentId,
@@ -54,12 +54,12 @@ export async function createEntityRelationship(entitySlug: string, formData: For
         childEntityViewId: childEntityViewId?.length ? childEntityViewId : null,
         parentEntityViewId: parentEntityViewId?.length ? parentEntityViewId : null,
       });
-      
+
       redirect(`/admin/entities/${entitySlug}/relationships`);
     } catch (e: any) {
       return { error: e.message };
     }
   }
-  
+
   return { error: t("shared.invalidForm") };
 }

@@ -11,6 +11,6 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 
 export default async function AdminWorkflowCredentials(props: IServerComponentsProps) {
   const data = await loader(props);
-  
+
   return <WorkflowsCredentialsView data={data} deleteAction={deleteCredentialAction} />;
 }

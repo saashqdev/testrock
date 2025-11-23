@@ -5,21 +5,21 @@
  *     export type LoaderData = { ... };
  *     export const loader = async () => { ... };
  *   }
- * 
+ *
  * To:
  *   export type LoaderData = { ... };
  *   export const loader = async () => { ... };
- * 
+ *
  * Also updates all import statements from:
  *   import { Foo } from "./Foo";
  *   data: Foo.LoaderData
  *   await Foo.loader(props)
- * 
+ *
  * To:
  *   import { LoaderData, loader } from "./Foo";
  *   data: LoaderData
  *   await loader(props)
- * 
+ *
  * Usage: npx tsx scripts/migrate-namespaces-to-es-modules.ts
  */
 
@@ -36,20 +36,20 @@ interface NamespaceInfo {
  */
 function findFiles(dir: string, extensions: string[]): string[] {
   const results: string[] = [];
-  
+
   try {
     const items = fs.readdirSync(dir);
-    
+
     for (const item of items) {
       const fullPath = path.join(dir, item);
       const stat = fs.statSync(fullPath);
-      
+
       if (stat.isDirectory()) {
         if (!item.startsWith(".") && item !== "node_modules" && item !== "dist") {
           results.push(...findFiles(fullPath, extensions));
         }
       } else if (stat.isFile()) {
-        if (extensions.some(ext => item.endsWith(ext))) {
+        if (extensions.some((ext) => item.endsWith(ext))) {
           results.push(fullPath);
         }
       }
@@ -57,7 +57,7 @@ function findFiles(dir: string, extensions: string[]): string[] {
   } catch (error) {
     // Skip directories we can't read
   }
-  
+
   return results;
 }
 
@@ -85,26 +85,23 @@ function extractNamespaceInfo(content: string): NamespaceInfo | null {
  */
 function convertNamespaceToESModule(content: string, info: NamespaceInfo): string {
   // Find the namespace declaration and its closing brace
-  const namespacePattern = new RegExp(
-    `export namespace ${info.name} \\{([\\s\\S]*?)^\\}$`,
-    'gm'
-  );
-  
+  const namespacePattern = new RegExp(`export namespace ${info.name} \\{([\\s\\S]*?)^\\}$`, "gm");
+
   const match = namespacePattern.exec(content);
   if (!match) {
     console.warn(`  Could not find namespace pattern for ${info.name}`);
     return content;
   }
-  
+
   // Extract the content between namespace braces
   let namespaceContent = match[1];
-  
+
   // Remove one level of indentation (2 spaces) from each line
-  namespaceContent = namespaceContent.replace(/^  /gm, '');
-  
+  namespaceContent = namespaceContent.replace(/^  /gm, "");
+
   // Replace the entire namespace block with just the content
   const result = content.replace(namespacePattern, namespaceContent.trimStart());
-  
+
   return result;
 }
 
@@ -116,10 +113,10 @@ function updateConsumerImports(content: string, namespaceName: string, exports: 
 
   // Pattern 1: import { Namespace } from "path"
   const importRegex = new RegExp(`import \\{\\s*${namespaceName}\\s*\\}\\s*from\\s*["']([^"']+)["'];?`, "g");
-  
+
   result = result.replace(importRegex, (match, importPath) => {
     // If this file defines types/values from the namespace, import them
-    const usedExports = exports.filter(exp => {
+    const usedExports = exports.filter((exp) => {
       const usagePattern = new RegExp(`${namespaceName}\\.${exp}\\b`, "g");
       return usagePattern.test(content);
     });
@@ -170,12 +167,12 @@ function processConsumerFiles(namespaceName: string, exports: string[], workspac
 
   for (const file of files) {
     const content = fs.readFileSync(file, "utf-8");
-    
+
     // Check if this file imports the namespace
     if (content.includes(`import { ${namespaceName} }`)) {
       console.log(`  Updating consumer: ${path.relative(workspaceRoot, file)}`);
       const updated = updateConsumerImports(content, namespaceName, exports);
-      
+
       if (updated !== content) {
         fs.writeFileSync(file, updated, "utf-8");
         updatedCount++;

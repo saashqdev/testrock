@@ -21,17 +21,17 @@ type PageData = {
 async function getData(props: IServerComponentsProps): Promise<PageData> {
   const params = (await props.params) || {};
   await verifyUserHasPermission("admin.onboarding.update");
-  
+
   const item = await db.onboarding.getOnboarding(params.id!);
   if (!item) {
     redirect("/admin/onboarding/onboardings");
   }
-  
+
   return { item };
 }
 
 export default async function DangerZonePage(props: IServerComponentsProps) {
   const data = await getData(props);
-  
+
   return <DangerZone item={data.item} />;
 }

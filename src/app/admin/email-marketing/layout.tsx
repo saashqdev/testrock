@@ -16,7 +16,7 @@ import SidebarIconsLayout from "@/components/ui/layouts/SidebarIconsLayout";
 export default function EmailMarketingLayout({ children }: { children: ReactNode }) {
   const { t } = useTranslation();
   const params = useParams();
-  
+
   return (
     <SidebarIconsLayout
       label={{ align: "right" }}

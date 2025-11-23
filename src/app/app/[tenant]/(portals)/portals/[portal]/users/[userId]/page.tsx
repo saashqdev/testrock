@@ -23,15 +23,15 @@ export default async function EditUserPage({ params }: Props) {
   const resolvedParams = await params;
   const tenantId = await getTenantIdFromUrl(resolvedParams);
   const portal = await db.portals.getPortalById(tenantId, resolvedParams.portal);
-  
+
   if (!portal) {
     redirect(UrlUtils.getModulePath(resolvedParams, "portals"));
   }
-  
+
   const user = await db.portalUsers.getPortalUserById(portal.id, resolvedParams.userId);
   if (!user) {
     redirect(UrlUtils.getModulePath(resolvedParams, `portals/${resolvedParams.portal}/users`));
   }
-  
+
   return <EditUserClient user={user} />;
 }

@@ -4,23 +4,14 @@ import { createMetrics } from "@/modules/metrics/services/server/MetricTracker";
 import { db } from "@/db";
 
 // GET - Get entity by name
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ entity: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ entity: string }> }) {
   const resolvedParams = await params;
-  const { time, getServerTimingHeader } = await createMetrics(
-    { request, params: resolvedParams },
-    `api.entities.${resolvedParams.entity}`
-  );
+  const { time, getServerTimingHeader } = await createMetrics({ request, params: resolvedParams }, `api.entities.${resolvedParams.entity}`);
   invariant(resolvedParams.entity, "Expected params.entity");
-  
+
   try {
-    const entity = await time(
-      db.entities.getEntityByName({ tenantId: null, name: resolvedParams.entity }),
-      "getEntityByName"
-    );
-    
+    const entity = await time(db.entities.getEntityByName({ tenantId: null, name: resolvedParams.entity }), "getEntityByName");
+
     return NextResponse.json(entity, {
       headers: getServerTimingHeader(),
     });

@@ -81,7 +81,7 @@ export default function NewMember({ featurePlanUsage, action }: Props) {
                 defaultValue={state?.fields?.email}
                 disabled={loading}
                 className={clsx(
-                  "focus:border-theme-500 block w-full min-w-0 flex-1 rounded-md border-border lowercase focus:ring-ring sm:text-sm",
+                  "block w-full min-w-0 flex-1 rounded-md border-border lowercase focus:border-theme-500 focus:ring-ring sm:text-sm",
                   loading && "cursor-not-allowed bg-secondary/90"
                 )}
               />
@@ -106,7 +106,7 @@ export default function NewMember({ featurePlanUsage, action }: Props) {
                 required
                 defaultValue={state?.fields?.firstName}
                 className={clsx(
-                  "focus:border-theme-500 block w-full min-w-0 flex-1 rounded-md border-border focus:ring-ring sm:text-sm",
+                  "block w-full min-w-0 flex-1 rounded-md border-border focus:border-theme-500 focus:ring-ring sm:text-sm",
                   loading && "cursor-not-allowed bg-secondary/90"
                 )}
               />
@@ -127,7 +127,7 @@ export default function NewMember({ featurePlanUsage, action }: Props) {
                 autoComplete="off"
                 defaultValue={state?.fields?.lastName}
                 className={clsx(
-                  "focus:border-theme-500 block w-full min-w-0 flex-1 rounded-md border-border focus:ring-ring sm:text-sm",
+                  "block w-full min-w-0 flex-1 rounded-md border-border focus:border-theme-500 focus:ring-ring sm:text-sm",
                   loading && "cursor-not-allowed bg-secondary/90"
                 )}
               />
@@ -147,7 +147,7 @@ export default function NewMember({ featurePlanUsage, action }: Props) {
         </div>
 
         <div className="mt-4 flex items-center justify-between">
-          <div className="text-theme-700 text-sm">{loading && <div>{t("shared.loading")}...</div>}</div>
+          <div className="text-sm text-theme-700">{loading && <div>{t("shared.loading")}...</div>}</div>
 
           <div className="flex items-center space-x-2">
             <button

@@ -34,37 +34,37 @@ export default function CookieConsentSettings({ onUpdated }: Props) {
 
   function setCookies(selectedCookies: CookieCategory[]) {
     const form = CookieHelper.getUpdateCookieConsentForm({ selectedCookies, pathname, searchParams });
-    
+
     // Create a form element and submit it
-    const formElement = document.createElement('form');
-    formElement.method = 'POST';
-    formElement.action = '/';
-    formElement.style.display = 'none';
-    
+    const formElement = document.createElement("form");
+    formElement.method = "POST";
+    formElement.action = "/";
+    formElement.style.display = "none";
+
     // Add form data as hidden inputs
     if (form instanceof FormData) {
       for (const [key, value] of form.entries()) {
-        const input = document.createElement('input');
-        input.type = 'hidden';
+        const input = document.createElement("input");
+        input.type = "hidden";
         input.name = key;
-        input.value = typeof value === 'string' ? value : value.name || '';
+        input.value = typeof value === "string" ? value : value.name || "";
         formElement.appendChild(input);
       }
     } else {
       // If form is an object, convert to hidden inputs
       Object.entries(form).forEach(([key, value]) => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
+        const input = document.createElement("input");
+        input.type = "hidden";
         input.name = key;
-        input.value = value != null ? String(value) : '';
+        input.value = value != null ? String(value) : "";
         formElement.appendChild(input);
       });
     }
-    
+
     document.body.appendChild(formElement);
     formElement.submit();
     document.body.removeChild(formElement);
-    
+
     if (onUpdated) {
       onUpdated();
     }

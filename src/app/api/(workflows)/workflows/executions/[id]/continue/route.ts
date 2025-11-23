@@ -2,21 +2,18 @@ import WorkflowsExecutionsService from "@/modules/workflowEngine/services/Workfl
 import { validateApiKey } from "@/utils/services/apiService";
 import { NextRequest } from "next/server";
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const resolvedParams = await params;
     const { tenant, userId } = await validateApiKey(request, { params });
-    
+
     let body: { [key: string]: any } = {};
     try {
       body = await request.json();
     } catch (e: any) {
       return Response.json({ error: "Invalid JSON body" }, { status: 400 });
     }
-    
+
     const execution = await WorkflowsExecutionsService.continueExecution(resolvedParams.id, {
       type: "api",
       input: body,
@@ -25,7 +22,7 @@ export async function POST(
         userId: userId ?? null,
       },
     });
-    
+
     if (execution.error) {
       return Response.json({ error: execution.error }, { status: 400 });
     } else {

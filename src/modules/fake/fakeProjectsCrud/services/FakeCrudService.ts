@@ -129,4 +129,3 @@ export async function completeTask(id: string, taskId: string): Promise<void> {
   task.completed = true;
   fakeData = fakeData.map((x) => (x.id === id ? item : x));
 }
-

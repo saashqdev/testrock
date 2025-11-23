@@ -10,13 +10,13 @@ import { defaultSiteTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
 import { defaultThemeColor } from "@/lib/themes";
 import { db } from "@/db";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export async function generateMetadata(): Promise<Metadata> {
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
   const baseUrl = process.env.NEXT_PUBLIC_URL || appConfiguration.app.url || "http://localhost:3000";
-  
+
   return {
     metadataBase: new URL(baseUrl),
     title: defaultSiteTags.title,
@@ -40,10 +40,7 @@ export default async function RootLayout({
   const theme = userInfo?.theme || defaultThemeColor;
   const rootData = await getRootData();
 
-  const htmlClasses = [
-    scheme === "dark" ? "dark" : "",
-    `theme-${theme}`
-  ].filter(Boolean).join(" ");
+  const htmlClasses = [scheme === "dark" ? "dark" : "", `theme-${theme}`].filter(Boolean).join(" ");
 
   return (
     <html lang={lng} className={htmlClasses}>

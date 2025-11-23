@@ -15,11 +15,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function EmailMarketingPage({ params, searchParams }: Props) {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
-  
-  return (
-    <EmailMarketingSummaryView 
-      params={resolvedParams} 
-      searchParams={resolvedSearchParams} 
-    />
-  );
+
+  return <EmailMarketingSummaryView params={resolvedParams} searchParams={resolvedSearchParams} />;
 }

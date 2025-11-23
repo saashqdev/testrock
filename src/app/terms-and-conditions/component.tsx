@@ -14,7 +14,7 @@ export default function TermsAndConditionsClient() {
         <div className="min-h-screen py-6">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             <div className="sm:align-center space-y-4 sm:flex sm:flex-col">
-              <div className="prose text-muted-foreground mx-auto">
+              <div className="prose mx-auto text-muted-foreground">
                 <h1 className="flex justify-center text-3xl font-extrabold tracking-tight sm:text-4xl">{t("front.terms.title")}</h1>
 
                 <h3 className="text-black dark:text-white">Introduction</h3>

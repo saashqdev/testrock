@@ -28,7 +28,7 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   const { t } = await getServerTranslations();
   const tenantId = await getTenantIdFromUrl(params);
   const group = await db.entityGroups.getEntityGroupBySlug(params.group!);
-  
+
   if (!group) {
     return {
       title: "Not Found",
@@ -47,18 +47,18 @@ async function getData(props: IServerComponentsProps): Promise<PageData> {
   const tenantId = await getTenantIdFromUrl(params);
   const group = await db.entityGroups.getEntityGroupBySlug(params.group!);
   const tenant = await db.tenants.getTenant(tenantId);
-  
+
   if (!group) {
     redirect(tenantId ? UrlUtils.currentTenantUrl(params, "404") : "/404");
   }
-  
+
   const stats = await getAppDashboardStats({
     t,
     tenant,
     gte: PeriodHelper.getGreaterThanOrEqualsFromRequest(),
     entities: group.entities.flatMap((e) => e.entity),
   });
-  
+
   stats
     .filter((f) => f.entity)
     .forEach((stat) => {

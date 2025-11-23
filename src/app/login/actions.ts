@@ -13,7 +13,7 @@ export async function loginAction(prevState: LoginActionData | null, formData: F
     });
 
     await AuthService.loginFromRequest(request, formData);
-    
+
     // If loginFromRequest succeeds, it calls redirect() which throws
     // If we reach here, something unexpected happened
     return null;
@@ -22,15 +22,15 @@ export async function loginAction(prevState: LoginActionData | null, formData: F
     if (error.digest?.startsWith("NEXT_REDIRECT")) {
       throw error;
     }
-    
+
     console.error("Login action error:", error);
-    
+
     // Handle Response.json() errors thrown in loginFromRequest
     if (error instanceof Response) {
       const data = await error.json();
       return data as LoginActionData;
     }
-    
+
     return {
       error: error.message || "An error occurred during login",
     };

@@ -47,10 +47,10 @@ export default function TenantSelector({ className }: Props) {
           name: (
             <div className="flex items-center space-x-2">
               {f.icon ? (
-                <Image className="inline-block h-4 w-4 shrink-0 rounded-md shadow-xs" src={f.icon} alt={f.name} />
+                <Image className="shadow-xs inline-block h-4 w-4 shrink-0 rounded-md" src={f.icon} alt={f.name} />
               ) : (
-                <span className="bg-primary inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-md">
-                  <span className="text-primary-foreground text-xs font-medium leading-none">{f?.name.substring(0, 1)}</span>
+                <span className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-md bg-primary">
+                  <span className="text-xs font-medium leading-none text-primary-foreground">{f?.name.substring(0, 1)}</span>
                 </span>
               )}
               <div>{f.name}</div>

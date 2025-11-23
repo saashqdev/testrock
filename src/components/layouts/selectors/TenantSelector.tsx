@@ -35,7 +35,7 @@ export default function TenantSelector({ className }: Props) {
 
   function getAllTenants() {
     if (!appData?.myTenants) return [];
-    
+
     const items = appData.myTenants
       .map((f) => {
         let group = t("models.tenant.plural");
@@ -47,10 +47,10 @@ export default function TenantSelector({ className }: Props) {
           value: f.slug,
           name: f.name,
           img: f.icon ? (
-            <Image className="inline-block h-6 w-6 shrink-0 rounded-md bg-gray-700 shadow-xs" src={f.icon} alt={f.name} />
+            <Image className="shadow-xs inline-block h-6 w-6 shrink-0 rounded-md bg-gray-700" src={f.icon} alt={f.name} />
           ) : (
-            <span className="bg-primary inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md">
-              <span className="text-theme-200 text-xs font-medium leading-none">{f?.name.substring(0, 1)}</span>
+            <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-primary">
+              <span className="text-xs font-medium leading-none text-theme-200">{f?.name.substring(0, 1)}</span>
             </span>
           ),
           // link: location.pathname.replace(`/app/${appData.currentTenant.slug}`, `/app/${f?.slug}`),

@@ -56,17 +56,17 @@ async function getLoaderData(slug: string, searchParams: { [key: string]: string
   if (!appConfiguration.app.features.surveys) {
     notFound();
   }
-  
+
   const userInfo = await getUserInfo();
   const user = userInfo.userId ? await db.users.getUser(userInfo.userId) : null;
   const item = await db.surveys.getSurveyBySlug({ tenantId: null, slug });
-  
+
   if (!item) {
     notFound();
   }
 
   const headersList = await headers();
-  const requestUrl = headersList.get('x-url') || `${getBaseURL()}/surveys/${slug}`;
+  const requestUrl = headersList.get("x-url") || `${getBaseURL()}/surveys/${slug}`;
   const request = new Request(requestUrl, {
     headers: headersList as any,
   });
@@ -77,14 +77,14 @@ async function getLoaderData(slug: string, searchParams: { [key: string]: string
   if (!survey.isPublic) {
     notFound();
   }
-  
+
   const successParam = searchParams.success !== undefined || searchParams.results !== undefined;
   const submissions = await db.surveySubmissions.getSurveySubmissions(item.id);
   let canShowResults = submissions.length > survey.minSubmissions || !!user?.admin || survey.minSubmissions === 0;
-  
+
   // eslint-disable-next-line no-console
   console.log("survey", { canShowResults, submissions: submissions.length, surveySubmissions: survey.minSubmissions });
-  
+
   if ((alreadyVoted || survey.minSubmissions === 0) && successParam && canShowResults) {
     survey.results = {
       totalVotes: submissions.length,
@@ -143,14 +143,10 @@ async function getLoaderData(slug: string, searchParams: { [key: string]: string
   return data;
 }
 
-export async function generateMetadata({ 
-  params,
-}: { 
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const item = await db.surveys.getSurveyBySlug({ tenantId: null, slug });
-  
+
   if (!item) {
     return {
       title: "Survey Not Found",

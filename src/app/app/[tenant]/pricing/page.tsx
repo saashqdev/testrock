@@ -17,7 +17,7 @@ const loader = async (props: IServerComponentsProps) => {
   const params = await props.params;
   const searchParams = await props.searchParams;
   const { t } = await getServerTranslations();
-  
+
   // Validate tenant access
   await requireTenantSlug();
 

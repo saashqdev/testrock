@@ -79,4 +79,3 @@ export const action = async (props: IServerComponentsProps) => {
     return Response.json({ error: t("shared.invalidForm") }, { status: 400 });
   }
 };
-

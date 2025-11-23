@@ -6,10 +6,10 @@ import { getServerTranslations } from "@/i18n/server";
 export async function POST(request: NextRequest) {
   try {
     await verifyUserHasPermission("admin.featureFlags.manage");
-    
+
     await prisma.analyticsEvent.deleteMany({ where: { featureFlagId: { not: null } } });
     await prisma.featureFlag.deleteMany({});
-    
+
     return Response.json({
       deleteSuccess: true,
     });

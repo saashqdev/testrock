@@ -37,13 +37,13 @@ export default function NewGroupRoute() {
   const handleSubmit = async (formData: FormData) => {
     try {
       // Add the action field to the form data
-      formData.set('action', 'create');
-      
+      formData.set("action", "create");
+
       const response = await fetch(`/api/tenant/${params.tenant}/groups`, {
-        method: 'POST',
+        method: "POST",
         body: formData,
       });
-      
+
       if (response.ok) {
         router.push(UrlUtils.currentTenantUrl(params, "settings/members"));
       } else {
@@ -61,12 +61,7 @@ export default function NewGroupRoute() {
   }
 
   return (
-    <SlideOverWideEmpty
-      title="Create User Group"
-      open={true}
-      size="2xl"
-      onClose={() => router.push(UrlUtils.currentTenantUrl(params, "settings/members"))}
-    >
+    <SlideOverWideEmpty title="Create User Group" open={true} size="2xl" onClose={() => router.push(UrlUtils.currentTenantUrl(params, "settings/members"))}>
       <GroupForm allUsers={data.tenantUsers} onSubmit={handleSubmit} />
     </SlideOverWideEmpty>
   );

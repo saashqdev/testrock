@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { RowTagWithDetailsDto} from "@/db/models/entityBuilder/RowTagsModel";
+import { RowTagWithDetailsDto } from "@/db/models/entityBuilder/RowTagsModel";
 import { getBackgroundColor } from "@/lib/shared/ColorUtils";
 
 export default function RowTagsCell({ items }: { items: RowTagWithDetailsDto[] }) {

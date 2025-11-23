@@ -45,7 +45,7 @@ export default async function EntityTemplatesIndex(props: IServerComponentsProps
   return (
     <>
       <div className="space-y-3">
-        <h3 className="text-foreground text-sm font-medium leading-3">Templates</h3>
+        <h3 className="text-sm font-medium leading-3 text-foreground">Templates</h3>
         <TemplatesTable items={itemsWithConfig} />
         <div className="w-fu flex justify-start">
           <ButtonTertiary to={`/admin/entities/${params.entity}/templates/new`}>

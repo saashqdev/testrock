@@ -23,21 +23,21 @@ async function getLoaderData(searchParams: IServerComponentsProps["searchParams"
   // Create a request object from headers and searchParams
   const headersList = await headers();
   const url = new URL(headersList.get("x-url") || "http://localhost:3000");
-  
+
   // Await searchParams if it's a Promise
   const params = await searchParams;
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
       if (Array.isArray(value)) {
-        value.forEach(v => url.searchParams.append(key, v));
+        value.forEach((v) => url.searchParams.append(key, v));
       } else if (value) {
         url.searchParams.set(key, value);
       }
     });
   }
-  
+
   const request = new Request(url.toString());
-  
+
   await verifyUserHasPermission("admin.entities.view");
   const { t } = await getServerTranslations();
   const entities = await db.entities.getAllEntities(null);
@@ -72,7 +72,7 @@ async function getLoaderData(searchParams: IServerComponentsProps["searchParams"
     pageSize: currentPagination.pageSize,
     rowWhere: {
       entityId: filters.properties.find((f) => f.name === "entity")?.value ?? undefined,
-      tenantId: filterTenantId === "null" ? null : filterTenantId ?? undefined,
+      tenantId: filterTenantId === "null" ? null : (filterTenantId ?? undefined),
     },
   });
   const data: LoaderData = {
@@ -93,9 +93,9 @@ export default async function AdminEntityRowsRoute(props: IServerComponentsProps
 
   return (
     <div className="mx-auto w-full max-w-5xl space-y-3 px-4 py-2 pb-6 sm:px-6 sm:pt-3 lg:px-8 xl:max-w-full">
-      <div className="md:border-border md:border-b md:py-2">
+      <div className="md:border-b md:border-border md:py-2">
         <div className="flex items-center justify-between">
-          <h3 className="text-foreground text-lg font-medium leading-6">{t("models.row.plural")}</h3>
+          <h3 className="text-lg font-medium leading-6 text-foreground">{t("models.row.plural")}</h3>
           <div className="flex items-center space-x-2">
             <InputFilters withSearch={false} filters={serializedData.filterableProperties} />
           </div>

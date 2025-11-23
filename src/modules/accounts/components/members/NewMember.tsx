@@ -69,7 +69,7 @@ export default function NewMember({ featurePlanUsage, serverAction }: Props) {
                 defaultValue=""
                 disabled={loading}
                 className={clsx(
-                  "focus:border-theme-500 focus:ring-theme-500 block w-full min-w-0 flex-1 rounded-md border-gray-300 lowercase sm:text-sm",
+                  "block w-full min-w-0 flex-1 rounded-md border-gray-300 lowercase focus:border-theme-500 focus:ring-theme-500 sm:text-sm",
                   loading && "cursor-not-allowed bg-gray-100"
                 )}
               />
@@ -94,7 +94,7 @@ export default function NewMember({ featurePlanUsage, serverAction }: Props) {
                 required
                 defaultValue=""
                 className={clsx(
-                  "focus:border-theme-500 focus:ring-theme-500 block w-full min-w-0 flex-1 rounded-md border-gray-300 sm:text-sm",
+                  "block w-full min-w-0 flex-1 rounded-md border-gray-300 focus:border-theme-500 focus:ring-theme-500 sm:text-sm",
                   loading && "cursor-not-allowed bg-gray-100"
                 )}
               />
@@ -115,7 +115,7 @@ export default function NewMember({ featurePlanUsage, serverAction }: Props) {
                 autoComplete="off"
                 defaultValue=""
                 className={clsx(
-                  "focus:border-theme-500 focus:ring-theme-500 block w-full min-w-0 flex-1 rounded-md border-gray-300 sm:text-sm",
+                  "block w-full min-w-0 flex-1 rounded-md border-gray-300 focus:border-theme-500 focus:ring-theme-500 sm:text-sm",
                   loading && "cursor-not-allowed bg-gray-100"
                 )}
               />
@@ -134,13 +134,13 @@ export default function NewMember({ featurePlanUsage, serverAction }: Props) {
         </div>
 
         <div className="mt-4 flex items-center justify-between">
-          <div className="text-theme-700 text-sm">{loading && <div>{t("shared.loading")}...</div>}</div>
+          <div className="text-sm text-theme-700">{loading && <div>{t("shared.loading")}...</div>}</div>
 
           <div className="flex items-center space-x-2">
             <button
               disabled={loading}
               className={clsx(
-                "focus:ring-theme-500 inline-flex items-center space-x-2 border border-gray-300 bg-white px-3 py-2 font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 sm:rounded-md sm:text-sm",
+                "inline-flex items-center space-x-2 border border-gray-300 bg-white px-3 py-2 font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-theme-500 focus:ring-offset-2 sm:rounded-md sm:text-sm",
                 loading && "cursor-not-allowed bg-gray-100"
               )}
               type="button"

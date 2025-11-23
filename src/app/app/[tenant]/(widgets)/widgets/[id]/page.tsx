@@ -33,11 +33,11 @@ export default async function WidgetEditPage({ params }: WidgetEditPageProps) {
   const item = await prisma.widget.findUnique({
     where: { id },
   });
-  
+
   if (!item || item.tenantId !== tenantId) {
     redirect(UrlUtils.getModulePath({ tenant }, "widgets"));
   }
-  
+
   const data: LoaderData = {
     item: WidgetUtils.toDto(item),
     widgetUrl: `<script src="${getBaseURL()}/embed.js" data-widget-id="${item.id}" data-open-delay="-1" defer async />`,
@@ -54,15 +54,15 @@ export async function POST(request: Request, { params }: { params: Promise<{ ten
   const tenantId = await getTenantIdFromUrl({ tenant });
   const form = await request.formData();
   const action = form.get("action")?.toString();
-  
+
   const item = await prisma.widget.findUnique({
     where: { id },
   });
-  
+
   if (!item || item.tenantId !== tenantId) {
     return redirect(UrlUtils.getModulePath({ tenant }, "widgets"));
   }
-  
+
   if (action === "edit") {
     const name = form.get("name")?.toString() || "";
     const metadata = JsonPropertiesUtils.getValuesFromForm({
@@ -126,11 +126,11 @@ export async function POST(request: Request, { params }: { params: Promise<{ ten
     await prisma.widget.delete({
       where: { id: item.id },
     });
-    return Response.json({ 
+    return Response.json({
       success: true,
-      redirectUrl: UrlUtils.getModulePath({ tenant }, "widgets")
+      redirectUrl: UrlUtils.getModulePath({ tenant }, "widgets"),
     });
   }
-  
+
   return Response.json({ error: "Invalid action" }, { status: 400 });
 }

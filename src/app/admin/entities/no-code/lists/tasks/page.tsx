@@ -42,7 +42,7 @@ export default function TasksPage() {
   return (
     <div className="space-y-5 p-8">
       <div className="flex items-center justify-between space-x-2">
-        <h3 className="text-foreground grow text-lg font-medium leading-6">{t("models.rowTask.plural")}</h3>
+        <h3 className="grow text-lg font-medium leading-6 text-foreground">{t("models.rowTask.plural")}</h3>
       </div>
       <TableSimple
         items={data.tasks}
@@ -62,7 +62,7 @@ export default function TasksPage() {
             name: "completed",
             title: t("models.rowTask.completed"),
             value: (i) => (
-              <div>{i.completed ? <CheckIcon className="text-muted-foreground h-4 w-4" /> : <XIcon className="text-muted-foreground h-4 w-4" />}</div>
+              <div>{i.completed ? <CheckIcon className="h-4 w-4 text-muted-foreground" /> : <XIcon className="h-4 w-4 text-muted-foreground" />}</div>
             ),
           },
           {

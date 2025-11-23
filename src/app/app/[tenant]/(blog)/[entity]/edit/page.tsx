@@ -15,16 +15,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogEditPage({ params }: Props) {
   const resolvedParams = await params;
-  
+
   try {
     // Create a mock request object for the loader
     const request = new Request(`${process.env.NEXTAUTH_URL}/app/${resolvedParams.tenant}/blog/${resolvedParams.entity}/edit`);
     // Map entity param to id for the API
-    const data = await loader({ 
-      request, 
-      params: { ...resolvedParams, id: resolvedParams.entity } 
+    const data = await loader({
+      request,
+      params: { ...resolvedParams, id: resolvedParams.entity },
     });
-    
+
     return <BlogEditView data={data} />;
   } catch (error) {
     notFound();

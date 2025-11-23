@@ -9,9 +9,9 @@ export default function ApiEndpointTitle({ item }: { item: ApiEndpointDto }) {
     <div className="flex flex-col truncate">
       <div className="flex items-center space-x-2">
         <SimpleBadge title={item.method} color={ApiUtils.getMethodColor(item.method)} />
-        <h3 className="text-foreground text-sm font-bold">{item.route}</h3>
+        <h3 className="text-sm font-bold text-foreground">{item.route}</h3>
       </div>
-      <div className="text-muted-foreground truncate text-xs italic">{item.description}</div>
+      <div className="truncate text-xs italic text-muted-foreground">{item.description}</div>
     </div>
   );
 }

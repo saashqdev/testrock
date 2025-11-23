@@ -16,18 +16,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const resolvedParams = await params;
   const { t } = await getServerTranslations();
   const headersList = await headers();
-  
+
   const host = headersList.get("host") || "localhost";
   const protocol = host.includes("localhost") ? "http" : "https";
   const request = new Request(`${protocol}://${host}/blog/${resolvedParams.slug}`);
-  
+
   try {
-    const blogPostData = await load({ 
-      request, 
-      params: resolvedParams, 
-      t 
+    const blogPostData = await load({
+      request,
+      params: resolvedParams,
+      t,
     });
-    
+
     return {
       title: `${blogPostData.post.title} | ${t("blog.title")} | ${process.env.APP_NAME}`,
       description: blogPostData.post.description,
@@ -43,15 +43,15 @@ export default async function BlogPostPage({ params }: PageProps) {
   const resolvedParams = await params;
   const { t } = await getServerTranslations();
   const headersList = await headers();
-  
+
   const host = headersList.get("host") || "localhost";
   const protocol = host.includes("localhost") ? "http" : "https";
   const request = new Request(`${protocol}://${host}/blog/${resolvedParams.slug}`);
-  
-  const blogPostData = await load({ 
-    request, 
-    params: resolvedParams, 
-    t 
+
+  const blogPostData = await load({
+    request,
+    params: resolvedParams,
+    t,
   });
 
   return (

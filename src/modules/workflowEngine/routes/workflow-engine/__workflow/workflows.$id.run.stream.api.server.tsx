@@ -15,7 +15,7 @@ export const generateMetadata = async ({ params }: { params: any }): Promise<Met
   const workflow = await WorkflowsService.get(params.id!, {
     tenantId: tenantId?.toString() ?? null,
   });
-  
+
   return getMetaTags({
     title: workflow ? `Run Workflow (Stream): ${workflow.name} | ${process.env.APP_NAME}` : `Workflow | ${process.env.APP_NAME}`,
   });
@@ -98,4 +98,3 @@ export const action = async (props: IServerComponentsProps) => {
   }
   return Response.json({ error: "Invalid action" }, { status: 400 });
 };
-

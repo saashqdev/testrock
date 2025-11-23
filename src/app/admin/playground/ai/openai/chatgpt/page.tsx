@@ -157,7 +157,7 @@ export default function Index() {
           <div>
             <Textarea
               ref={refContent}
-              className={clsx("border-border h-full w-full rounded-md border px-4 py-2", { "cursor-not-allowed opacity-50": isBusy() })}
+              className={clsx("h-full w-full rounded-md border border-border px-4 py-2", { "cursor-not-allowed opacity-50": isBusy() })}
               disabled={isBusy()}
               rows={18}
               defaultValue={content}
@@ -166,13 +166,13 @@ export default function Index() {
         ) : type === "DALL-E" ? (
           <div className="overflow-y-scroll">
             <div className="mx-auto">
-              <div role="status" className="space-y-8 md:flex md:items-center md:space-y-0 md:space-x-8">
+              <div role="status" className="space-y-8 md:flex md:items-center md:space-x-8 md:space-y-0">
                 <Image
                   alt="Generated with DAll-E"
                   src={
                     !actionData?.images || actionData?.images?.length === 0 ? "https://placehold.co/512x512?text=Prompt%20something..." : actionData?.images[0]
                   }
-                  className="bg-secondary flex h-[calc(100vh-250px)] w-full items-center justify-center rounded object-contain"
+                  className="flex h-[calc(100vh-250px)] w-full items-center justify-center rounded bg-secondary object-contain"
                 />
               </div>
             </div>

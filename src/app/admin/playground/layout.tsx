@@ -54,9 +54,7 @@ export default function PlaygroundLayout({ children }: { children: React.ReactNo
       ]}
     >
       <div className="mx-auto p-4">
-        <div className="border-border rounded-md border-2 border-dashed">
-          {children}
-        </div>
+        <div className="rounded-md border-2 border-dashed border-border">{children}</div>
       </div>
     </SidebarIconsLayout>
   );

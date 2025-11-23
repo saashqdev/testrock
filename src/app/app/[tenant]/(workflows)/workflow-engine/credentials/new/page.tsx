@@ -6,7 +6,7 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const data = await loader(props);
   const metatags = data?.metatags || [];
-  
+
   // Convert NextJS meta array to Next.js Metadata object
   const metadata: Metadata = {};
   metatags.forEach((tag: any) => {
@@ -14,7 +14,7 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
       metadata.title = tag.title;
     }
   });
-  
+
   return metadata;
 }
 

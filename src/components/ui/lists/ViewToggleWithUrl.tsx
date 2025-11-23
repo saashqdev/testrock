@@ -33,12 +33,12 @@ export default function ViewToggleWithUrl({ defaultView, className }: Props) {
     router.push(`${window.location.pathname}?${newSearchParams.toString()}`, { scroll: false });
   }
   return (
-    <span className={clsx("relative z-0 inline-flex rounded-md shadow-2xs", className)}>
+    <span className={clsx("shadow-2xs relative z-0 inline-flex rounded-md", className)}>
       <button
         onClick={() => onChange("table")}
         type="button"
         className={clsx(
-          "border-border focus:border-border focus:ring-ring hover:bg-secondary/90 relative inline-flex items-center rounded-l-md border px-4 py-2.5 font-medium focus:z-10 focus:outline-hidden focus:ring-1 sm:text-sm",
+          "focus:outline-hidden relative inline-flex items-center rounded-l-md border border-border px-4 py-2.5 font-medium hover:bg-secondary/90 focus:z-10 focus:border-border focus:ring-1 focus:ring-ring sm:text-sm",
           view === "table" ? "bg-accent-100 text-accent-500" : "bg-background text-foreground/80"
         )}
       >
@@ -48,7 +48,7 @@ export default function ViewToggleWithUrl({ defaultView, className }: Props) {
         onClick={() => onChange("board")}
         type="button"
         className={clsx(
-          "border-border focus:border-border focus:ring-ring hover:bg-secondary/90 relative -ml-px inline-flex items-center rounded-r-md border px-4 py-2.5 text-sm font-medium focus:z-10 focus:outline-hidden focus:ring-1",
+          "focus:outline-hidden relative -ml-px inline-flex items-center rounded-r-md border border-border px-4 py-2.5 text-sm font-medium hover:bg-secondary/90 focus:z-10 focus:border-border focus:ring-1 focus:ring-ring",
           view === "board" ? "bg-accent-100 text-accent-500" : "bg-background text-foreground/80"
         )}
       >

@@ -2,25 +2,25 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: [
-    '127.0.0.1:3000', 
-    'localhost:3000', 
-    '192.168.2.36:3000',
-    '192.168.2.36',
-    '37.27.181.216:3000',
-    '37.27.181.216',
-    'http://37.27.181.216',
-    'http://37.27.181.216:3000',
-    'http://192.168.2.36',
-    'http://192.168.2.36:3000',
-    'https://NextRock.saashq.org',
+    "127.0.0.1:3000",
+    "localhost:3000",
+    "192.168.2.36:3000",
+    "192.168.2.36",
+    "37.27.181.216:3000",
+    "37.27.181.216",
+    "http://37.27.181.216",
+    "http://37.27.181.216:3000",
+    "http://192.168.2.36",
+    "http://192.168.2.36:3000",
+    "https://NextRock.saashq.org",
   ],
-  
+
   webpack: (config, { isServer }) => {
     config.resolve.alias = {
-       ...config.resolve.alias,
-       handlebars: "handlebars/dist/cjs/handlebars",
+      ...config.resolve.alias,
+      handlebars: "handlebars/dist/cjs/handlebars",
     };
-    
+
     // Exclude Node.js modules from client-side bundle
     if (!isServer) {
       config.resolve.fallback = {
@@ -39,7 +39,7 @@ const nextConfig: NextConfig = {
         os: false,
       };
     }
-    
+
     return config;
   },
 
@@ -54,7 +54,7 @@ const nextConfig: NextConfig = {
         hostname: "**",
       },
     ],
-  },  
+  },
 
   experimental: {
     serverActions: {
@@ -64,7 +64,7 @@ const nextConfig: NextConfig = {
 
   // Optimize compilation
   reactStrictMode: true,
-  
+
   eslint: {
     ignoreDuringBuilds: false,
   },
@@ -72,7 +72,7 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  
+
   redirects: async () => {
     return [
       {
@@ -88,18 +88,9 @@ const nextConfig: NextConfig = {
       handlebars: "handlebars/dist/cjs/handlebars",
     },
   },
-  
+
   // Ensure server-only modules are not bundled for client
-  serverExternalPackages: [
-    'redis', 
-    '@redis/client', 
-    'cachified-redis-adapter', 
-    '@prisma/client',
-    'bcryptjs',
-    'handlebars',
-    'nodemailer',
-    'postmark',
-  ],
+  serverExternalPackages: ["redis", "@redis/client", "cachified-redis-adapter", "@prisma/client", "bcryptjs", "handlebars", "nodemailer", "postmark"],
 };
 
 export default nextConfig;

@@ -19,7 +19,7 @@ const MetricCard = ({ label, value }: { label: string; value: string | number })
   //   <dd className="mt-1 truncate text-2xl font-semibold">{NumberUtils.intFormat(value)}</dd>
   // </div>
   <Card
-    className="group-hover:bg-secondary mx-auto h-24 gap-3 p-4"
+    className="mx-auto h-24 gap-3 p-4 group-hover:bg-secondary"
     // decoration="top" decorationColor="indigo"
   >
     <Label>{label}</Label>
@@ -141,7 +141,7 @@ function TopItemsData({ title, items, viewMoreRoute, fallbackName, bgClassName }
     <>
       <div className="h-48 space-y-1 overflow-y-auto">{renderTopItems()}</div>
       {viewMoreRoute && authenticated && (
-        <Link href={viewMoreRoute} className="text-muted-foreground hover:text-foreground/80 flex justify-center p-1 text-xs font-medium underline">
+        <Link href={viewMoreRoute} className="flex justify-center p-1 text-xs font-medium text-muted-foreground underline hover:text-foreground/80">
           View more
         </Link>
       )}
@@ -158,7 +158,7 @@ function TopItems({ tabs }: { tabs: TopItemDto[] }) {
   }, [selectedTab, tabs]);
 
   return (
-    <div className="border-border bg-background space-y-1 truncate rounded-md border px-4 py-2 shadow-sm">
+    <div className="space-y-1 truncate rounded-md border border-border bg-background px-4 py-2 shadow-sm">
       <div className="flex items-center justify-between space-x-2">
         <h4 className="text-sm font-bold">{tab.title}</h4>
         {tabs.length > 1 && (
@@ -171,7 +171,7 @@ function TopItems({ tabs }: { tabs: TopItemDto[] }) {
                   onClick={() => setSelectedTab(idx)}
                   className={clsx(
                     "truncate text-xs font-medium",
-                    selectedTab === idx ? "text-theme-500 hover:text-theme-600 underline" : "text-muted-foreground hover:text-muted-foreground"
+                    selectedTab === idx ? "text-theme-500 underline hover:text-theme-600" : "text-muted-foreground hover:text-muted-foreground"
                   )}
                 >
                   {item.tabTitle}
@@ -224,7 +224,7 @@ export default function AnalyticsOverview({ overview, withUsers, rootUrl }: { ov
                   image:
                     !item.name || item.name === "Direct" ? (
                       <svg
-                        className="text-muted-foreground h-4 w-4"
+                        className="h-4 w-4 text-muted-foreground"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -235,7 +235,7 @@ export default function AnalyticsOverview({ overview, withUsers, rootUrl }: { ov
                       </svg>
                     ) : item.name.startsWith("localhost") ? (
                       <svg
-                        className="text-muted-foreground h-4 w-4"
+                        className="h-4 w-4 text-muted-foreground"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -245,11 +245,11 @@ export default function AnalyticsOverview({ overview, withUsers, rootUrl }: { ov
                         <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
                       </svg>
                     ) : (
-                      <Image 
-                        className="h-4 w-4" 
-                        src={`https://www.google.com/s2/favicons?domain=${item.name}&sz=256`} 
-                        alt={item.name ?? "favicon"} 
-                        width={16} 
+                      <Image
+                        className="h-4 w-4"
+                        src={`https://www.google.com/s2/favicons?domain=${item.name}&sz=256`}
+                        alt={item.name ?? "favicon"}
+                        width={16}
                         height={16}
                         unoptimized
                       />

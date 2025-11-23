@@ -9,7 +9,7 @@ export default function LogoutPage() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex min-h-screen items-center justify-center">
       <p>Logging out...</p>
     </div>
   );

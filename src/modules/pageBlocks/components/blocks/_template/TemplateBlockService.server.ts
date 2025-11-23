@@ -5,4 +5,3 @@ export async function load({ block }: PageBlockLoaderArgs) {
     block.template.text = "process.env.APP_NAME: " + process.env.APP_NAME;
   }
 }
-

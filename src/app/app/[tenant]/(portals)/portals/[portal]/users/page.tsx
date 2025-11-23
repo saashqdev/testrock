@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { t } = await getServerTranslations();
   const tenantId = await getTenantIdFromUrl(resolvedParams);
   const item = await db.portals.getPortalById(tenantId, resolvedParams.portal);
-  
+
   if (!item) {
     return {
       title: `${t("models.user.plural")} | ${process.env.APP_NAME}`,
@@ -35,13 +35,13 @@ export default async function UsersPage({ params, children }: Props) {
   const resolvedParams = await params;
   const tenantId = await getTenantIdFromUrl(resolvedParams);
   const item = await db.portals.getPortalById(tenantId, resolvedParams.portal);
-  
+
   if (!item) {
     redirect(UrlUtils.getModulePath(resolvedParams, "portals"));
   }
-  
+
   const items = await db.portalUsers.getPortalUsers(item.id);
-  
+
   const data = {
     metatags: [{ title: `${t("models.user.plural")} | ${item.title} | ${process.env.APP_NAME}` }],
     item,

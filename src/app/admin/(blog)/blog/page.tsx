@@ -16,6 +16,6 @@ export default async function BlogPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const request = props.request!;
   const data = await loader({ request, params });
-  
+
   return <BlogView data={data} />;
 }

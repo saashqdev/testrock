@@ -11,12 +11,12 @@ export default function ApiCallStatusBadge({ item, underline }: { item: ApiKeyLo
     item.status === null
       ? Colors.YELLOW
       : item.status >= 200 && item.status < 300
-      ? Colors.GREEN
-      : item.status >= 300 && item.status < 400
-      ? Colors.ORANGE
-      : item.status >= 400
-      ? Colors.RED
-      : Colors.UNDEFINED;
+        ? Colors.GREEN
+        : item.status >= 300 && item.status < 400
+          ? Colors.ORANGE
+          : item.status >= 400
+            ? Colors.RED
+            : Colors.UNDEFINED;
   return (
     <Fragment>
       <SimpleBadge title={title} color={color} underline={underline} />

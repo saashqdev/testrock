@@ -20,7 +20,7 @@ type LoaderData = {
 
 const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
-  const request = props.request!;  
+  const request = props.request!;
   const tenantId = await getTenantIdFromUrl(params);
   await verifyUserHasPermission("app.settings.apiKeys.update", tenantId);
   const item = await db.apiKeys.getApiKeyById(params.id ?? "");

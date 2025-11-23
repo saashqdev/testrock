@@ -120,7 +120,7 @@ export default function UploadDocuments({
   return (
     <div
       className={clsx(
-        "drop border-border hover:bg-background/90 flex items-center overflow-hidden rounded-md border-2 border-dashed text-center",
+        "drop flex items-center overflow-hidden rounded-md border-2 border-dashed border-border text-center hover:bg-background/90",
         customClasses,
         className
       )}
@@ -134,15 +134,15 @@ export default function UploadDocuments({
         } else {
           return (
             <div>
-              <div className="text-primary mx-auto text-sm font-bold">{title}</div>
+              <div className="mx-auto text-sm font-bold text-primary">{title}</div>
               <div className="manual">
                 <div className="space-y-1 text-center">
                   {icon}
-                  <div className="text-muted-foreground flex flex-col text-sm">
+                  <div className="flex flex-col text-sm text-muted-foreground">
                     <label
                       htmlFor={name}
                       className={clsx(
-                        " text-foreground focus-within:ring-ring relative cursor-pointer rounded-md font-medium focus-within:outline-hidden focus-within:ring-2 focus-within:ring-offset-2",
+                        "focus-within:outline-hidden relative cursor-pointer rounded-md font-medium text-foreground focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
                         !disabled && ""
                       )}
                     >
@@ -167,7 +167,7 @@ export default function UploadDocuments({
                       {t("shared.or")} {t("shared.dragAndDrop")}
                     </p> */}
                   </div>
-                  <p className="text-muted-foreground text-xs">
+                  <p className="text-xs text-muted-foreground">
                     {description ?? (
                       <span className="lowercase">
                         {t("shared.or")} {t("shared.dragAndDrop")}

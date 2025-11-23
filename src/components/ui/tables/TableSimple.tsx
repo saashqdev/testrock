@@ -421,7 +421,7 @@ export interface RowHeaderActionDto<T extends { id: any }> {
 
 function displayRowValue<T extends { id: any }>(t: TFunction, header: RowHeaderDisplayDto<T>, item: T, idxRow: number) {
   const displayValue = header.formattedValue ? header.formattedValue(item, idxRow) : header.value(item, idxRow);
-  
+
   return (
     <>
       {!header.onChange ? (

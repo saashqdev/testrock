@@ -11,7 +11,9 @@ interface Props {
   rootData: RootDataDto;
 }
 function getCommands({ t, router, rootData }: Props): Action[] {
-  const actions: Action[] = CommandHelper.getSidebarCommands({ items: AdminSidebar({ appConfiguration: rootData.appConfiguration, myTenants: undefined }) }).map((i) => {
+  const actions: Action[] = CommandHelper.getSidebarCommands({
+    items: AdminSidebar({ appConfiguration: rootData.appConfiguration, myTenants: undefined }),
+  }).map((i) => {
     return {
       ...i,
       name: t(i.name || ""),

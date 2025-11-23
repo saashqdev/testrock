@@ -26,10 +26,15 @@ export default function NewsletterClient({ data }: NewsletterClientProps) {
   const [email, setEmail] = useState("");
   const [isPending, startTransition] = useTransition();
   const [actionResult, setActionResult] = useState<{ error?: string; success?: string }>();
-  
+
   const isSubscribing = isPending;
-  const state: "idle" | "success" | "error" | "submitting" =
-    isPending ? "submitting" : actionResult?.success ? "success" : actionResult?.error ? "error" : "idle";
+  const state: "idle" | "success" | "error" | "submitting" = isPending
+    ? "submitting"
+    : actionResult?.success
+      ? "success"
+      : actionResult?.error
+        ? "error"
+        : "idle";
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -37,7 +42,7 @@ export default function NewsletterClient({ data }: NewsletterClientProps) {
     startTransition(async () => {
       const result = await handleNewsletterAction(formData);
       setActionResult(result);
-      
+
       if (result?.success && formRef.current) {
         formRef.current.reset();
         setEmail("");
@@ -56,7 +61,7 @@ export default function NewsletterClient({ data }: NewsletterClientProps) {
               <div className="relative mx-auto w-full max-w-2xl overflow-hidden px-2 py-12 sm:py-6">
                 <div className="text-center">
                   <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{t("front.newsletter.title")}</h1>
-                  <p className="text-muted-foreground mt-4 text-lg leading-6">{t("front.newsletter.headline")}</p>
+                  <p className="mt-4 text-lg leading-6 text-muted-foreground">{t("front.newsletter.headline")}</p>
                 </div>
                 <div className="mx-auto mt-12 max-w-xl">
                   {data.settings.error ? (

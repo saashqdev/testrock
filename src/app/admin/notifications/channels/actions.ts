@@ -15,11 +15,11 @@ export async function handleNotificationAction(formData: FormData): Promise<Acti
     // Permission check
     await verifyUserHasPermission("admin.notifications.view");
     const userInfo = await getUserInfo();
-    
+
     if (!userInfo?.userId) {
       return { error: "Unauthorized" };
     }
-    
+
     const user = await db.users.getUser(userInfo.userId);
     const action = formData.get("action");
 

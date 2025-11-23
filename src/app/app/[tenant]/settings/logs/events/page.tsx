@@ -22,7 +22,7 @@ type LoaderData = {
 export default async function AppEventsRoute(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const searchParams = (await props.searchParams) || {};
-  
+
   // Create a request object from Next.js context
   const headersList = await headers();
   const host = headersList.get("host") || "";
@@ -74,10 +74,7 @@ export default async function AppEventsRoute(props: IServerComponentsProps) {
 
   return (
     <EditPageLayout>
-      <EventsClientWrapper 
-        data={data} 
-        params={params}
-      />
+      <EventsClientWrapper data={data} params={params} />
     </EditPageLayout>
   );
 }

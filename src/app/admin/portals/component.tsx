@@ -91,7 +91,7 @@ export default function Component({ items, filterableProperties, pagination, app
                 <div className="flex flex-col">
                   <div>
                     {item.title}{" "}
-                    <Link href={item.portalUrl || item.subdomain} target="_blank" className="text-muted-foreground text-sm hover:underline">
+                    <Link href={item.portalUrl || item.subdomain} target="_blank" className="text-sm text-muted-foreground hover:underline">
                       ({item.subdomain})
                     </Link>
                   </div>

@@ -7,7 +7,7 @@ import SidebarIconsLayout from "@/components/ui/layouts/SidebarIconsLayout";
 
 export default function KnowledgeBaseLayout({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation();
-  
+
   return (
     <SidebarIconsLayout
       label={{ align: "right" }}

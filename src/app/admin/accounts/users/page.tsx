@@ -56,7 +56,7 @@ export default async function AdminUsersPage(props: IServerComponentsProps) {
       hideSearch: true,
     },
   ];
-  
+
   const filters = getFiltersFromCurrentUrl(request, filterableProperties);
   const urlSearchParams = request?.url ? new URL(request.url).searchParams : new URLSearchParams();
   const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
@@ -77,13 +77,7 @@ export default async function AdminUsersPage(props: IServerComponentsProps) {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Component
-        items={items}
-        filterableProperties={filterableProperties}
-        pagination={pagination}
-        lastLogs={lastLogs}
-        adminRoles={adminRoles}
-      />
+      <Component items={items} filterableProperties={filterableProperties} pagination={pagination} lastLogs={lastLogs} adminRoles={adminRoles} />
     </Suspense>
   );
 }

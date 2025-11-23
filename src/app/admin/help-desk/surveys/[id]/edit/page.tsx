@@ -19,7 +19,7 @@ type LoaderData = {
 async function getLoaderData(props: IServerComponentsProps): Promise<LoaderData> {
   const params = (await props.params) || {};
   const request = props.request!;
-  
+
   await requireAuth();
   await verifyUserHasPermission("admin.surveys");
   const tenantId = await getTenantIdOrNull({ request, params });
@@ -40,14 +40,14 @@ type ActionData = {
 
 export async function actionEditSurvey(prev: any, form: FormData): Promise<ActionData> {
   "use server";
-  
+
   await requireAuth();
   const { t } = await getServerTranslations();
-  
+
   const id = form.get("id")?.toString();
   const tenantId = form.get("tenantId")?.toString() || null;
   const action = form.get("action");
-  
+
   if (action === "edit") {
     try {
       const item: SurveyDto = JSON.parse(form.get("item") as string);

@@ -52,7 +52,7 @@ export default function DangerComponent({ entity, count }: DangerPageProps) {
         formData.set("entitySlug", entity.slug);
 
         const result = await handleDangerAction(formData);
-        
+
         if (result.redirect) {
           router.push(result.redirect);
         } else {
@@ -74,7 +74,7 @@ export default function DangerComponent({ entity, count }: DangerPageProps) {
     <div className="space-y-3">
       <div className="md:py-2">
         <div className="flex items-center justify-between">
-          <h3 className="text-foreground text-lg font-medium leading-6">Danger</h3>
+          <h3 className="text-lg font-medium leading-6 text-foreground">Danger</h3>
         </div>
         <p className="pt-2 text-sm text-red-900 dark:text-red-500">These actions cannot be undone.</p>
       </div>

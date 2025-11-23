@@ -113,7 +113,7 @@ export default function LongRunningTasksPage() {
   return (
     <div className="space-y-2 p-4">
       <div className="space-y-1">
-        <h1 className="text-foreground font-bold">Long Running Task</h1>
+        <h1 className="font-bold text-foreground">Long Running Task</h1>
         <p className="text-foreground/80">Simulate a long running task that is executed in the background.</p>
       </div>
 
@@ -149,7 +149,7 @@ export default function LongRunningTasksPage() {
               value: (item) => (
                 <div className="flex flex-col">
                   <div>{item.name}</div>
-                  {item.id ? <div className="text-muted-foreground text-xs">ID: {item.id}</div> : null}
+                  {item.id ? <div className="text-xs text-muted-foreground">ID: {item.id}</div> : null}
                 </div>
               ),
             },

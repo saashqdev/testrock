@@ -17,7 +17,7 @@ export async function blacklistIp(ip: string) {
     type: "ip",
     value: ip,
   });
-  
+
   return { success: "IP address has been blacklisted." };
 }
 
@@ -27,6 +27,6 @@ export async function deleteIpAddress(id: string) {
   await prisma.ipAddress.delete({ where: { id } }).then((item) => {
     clearCacheKey(`ipAddress:${item.ip}`);
   });
-  
+
   return { success: "IP address has been deleted." };
 }

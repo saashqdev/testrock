@@ -4,13 +4,7 @@ import OrderIndexButtons from "@/components/ui/sort/OrderIndexButtons";
 import TableSimple from "@/components/ui/tables/TableSimple";
 import { KbNavLinkDto } from "@/modules/knowledgeBase/dtos/KbNavLinkDto";
 
-export default function KbNavLinksTable({
-  items,
-  setItems,
-}: {
-  items: KbNavLinkDto[];
-  setItems: React.Dispatch<React.SetStateAction<KbNavLinkDto[]>>;
-}) {
+export default function KbNavLinksTable({ items, setItems }: { items: KbNavLinkDto[]; setItems: React.Dispatch<React.SetStateAction<KbNavLinkDto[]>> }) {
   return (
     <div>
       <div className="mb-1 flex items-center justify-between space-x-2 text-xs">

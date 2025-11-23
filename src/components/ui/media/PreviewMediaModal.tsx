@@ -32,7 +32,7 @@ export default function PreviewMediaModal({ item, onClose, onDownload }: Props) 
         ) : (
           <div className="">
             <div className="flex items-center justify-between space-x-2">
-              <Dialog.Title as="h3" className="text-foreground truncate text-lg font-medium leading-6">
+              <Dialog.Title as="h3" className="truncate text-lg font-medium leading-6 text-foreground">
                 {item.title}
               </Dialog.Title>
               <div className="flex space-x-2">

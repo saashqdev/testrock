@@ -175,7 +175,7 @@ export async function createFromForm({ entity, form, createdByUserId }: { form: 
       title,
       isDefault,
       pageSize,
-      groupByPropertyId: groupBy === "byProperty" ? groupByPropertyId ?? null : null,
+      groupByPropertyId: groupBy === "byProperty" ? (groupByPropertyId ?? null) : null,
       gridColumns,
       gridColumnsSm,
       gridColumnsMd,
@@ -247,7 +247,7 @@ export async function updateFromForm({ item, entity, form }: { item: EntityView;
       title,
       isDefault,
       pageSize,
-      groupByPropertyId: groupBy === "byProperty" ? (groupByPropertyId || null) : null,
+      groupByPropertyId: groupBy === "byProperty" ? groupByPropertyId || null : null,
       gridColumns,
       gridColumnsSm,
       gridColumnsMd,
@@ -343,4 +343,3 @@ const validateGroupBy = async (entity: EntityWithDetailsDto, layout: string, gro
 
   return errors;
 };
-

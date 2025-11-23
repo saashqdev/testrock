@@ -27,17 +27,17 @@ async function getOrConstructRequest(request?: Request): Promise<Request> {
   if (request) {
     return request;
   }
-  
+
   // Construct request from headers
   const heads = await headers();
   const url = heads.get("x-url") || "/";
   const host = heads.get("host") || "localhost:3000";
   const protocol = heads.get("x-forwarded-proto") || "http";
-  
+
   // Ensure url starts with / and doesn't already contain protocol/host
   const pathname = url.startsWith("http") ? new URL(url).pathname + new URL(url).search : url;
   const fullUrl = `${protocol}://${host}${pathname}`;
-  
+
   return new Request(fullUrl);
 }
 

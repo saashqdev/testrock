@@ -56,7 +56,7 @@ export default function EventsTable({ items, pagination }: Props) {
             name: "data",
             title: t("models.event.data"),
             value: (i) => (
-              <button type="button" onClick={() => setSelectedData(i)} className="hover:text-theme-500 truncate underline">
+              <button type="button" onClick={() => setSelectedData(i)} className="truncate underline hover:text-theme-500">
                 {i.description}
               </button>
             ),

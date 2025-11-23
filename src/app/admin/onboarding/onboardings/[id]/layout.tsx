@@ -19,10 +19,7 @@ async function getData(props: IServerComponentsProps): Promise<LayoutData> {
   return { item };
 }
 
-export default async function OnboardingLayout({
-  children,
-  ...props
-}: IServerComponentsProps & { children: React.ReactNode }) {
+export default async function OnboardingLayout({ children, ...props }: IServerComponentsProps & { children: React.ReactNode }) {
   const data = await getData(props);
 
   return <LayoutClient item={data.item}>{children}</LayoutClient>;

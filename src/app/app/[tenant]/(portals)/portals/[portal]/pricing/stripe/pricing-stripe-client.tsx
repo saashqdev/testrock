@@ -111,10 +111,7 @@ export default function PricingStripeClient({ data, params: serverParams }: Pric
             <div className="text-lg font-medium">Your Stripe integration is pending</div>
           </div>
           <form action={handleReconnectStripe}>
-            <LoadingButton
-              className="bg-[#5433FF] hover:bg-[#4F2DFF] focus:ring-[#5433FF] focus:ring-opacity-50 active:bg-[#4F2DFF]"
-              type="submit"
-            >
+            <LoadingButton className="bg-[#5433FF] hover:bg-[#4F2DFF] focus:ring-[#5433FF] focus:ring-opacity-50 active:bg-[#4F2DFF]" type="submit">
               Reconnect
             </LoadingButton>
           </form>

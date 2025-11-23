@@ -64,9 +64,9 @@ export default function RowOverviewRoute({
   const params = useParams();
   const router = useRouter();
   const searchParams = useSearchParams();
-  
+
   // Check if modal should be open based on search params or route
-  const isModalOpen = searchParams.get('modal') === 'true' || searchParams.has('modal');
+  const isModalOpen = searchParams.get("modal") === "true" || searchParams.has("modal");
 
   useEffect(() => {
     if (actionData?.success) {
@@ -117,7 +117,7 @@ export default function RowOverviewRoute({
         open={isModalOpen}
         onClose={() => {
           const newSearchParams = new URLSearchParams(searchParams?.toString() || "");
-          newSearchParams.delete('modal');
+          newSearchParams.delete("modal");
           router.replace(`?${newSearchParams.toString()}`);
         }}
         size="2xl"

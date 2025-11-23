@@ -39,7 +39,7 @@ export async function getTenantIdFromUrl(params: Params) {
 
 export async function getTenantIdOrNull({ request, params }: { request?: Request; params: Params }) {
   const { tenant } = params;
-  
+
   // Get URL from request or headers
   let currentPath: string;
   if (request) {

@@ -55,7 +55,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
   try {
     apiAccessValidation = await time(validateApiKey(request, { params }), "validateApiKey");
     const { tenant, userId } = apiAccessValidation;
-    
+
     const relationship = await getRelationship(id, {
       tenantId: tenant?.id ?? null,
       userId,

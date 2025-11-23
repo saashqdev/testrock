@@ -13,7 +13,7 @@ type LoaderData = {
 async function getLoaderData(props: IServerComponentsProps): Promise<LoaderData> {
   const request = props.request!;
   const params = (await props.params) || {};
-  
+
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
   if (!appConfiguration.app.features.surveys) {
     throw new Error("Surveys are not enabled");
@@ -35,6 +35,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function SurveysPage(props: IServerComponentsProps) {
   const data = await getLoaderData(props);
-  
+
   return <SurveysListClient items={data.items} />;
 }

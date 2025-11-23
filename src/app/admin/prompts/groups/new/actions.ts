@@ -10,10 +10,7 @@ type ActionData = {
   success?: string;
 };
 
-export async function createPromptGroupAction(
-  prevState: ActionData | null,
-  formData: FormData
-): Promise<ActionData> {
+export async function createPromptGroupAction(prevState: ActionData | null, formData: FormData): Promise<ActionData> {
   const { t } = await getServerTranslations();
   const action = formData.get("action")?.toString();
 

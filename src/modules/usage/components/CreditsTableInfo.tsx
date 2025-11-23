@@ -1,4 +1,3 @@
-
 "use client";
 
 import TableSimple from "@/components/ui/tables/TableSimple";
@@ -12,7 +11,7 @@ export default function CreditsTableInfo() {
     <div className="space-y-3">
       <div className="space-y-2">
         <h3 className="text-lg font-medium">{t("models.credit.whatIs")}</h3>
-        <p className="text-muted-foreground text-sm">{t("models.credit.info")}</p>
+        <p className="text-sm text-muted-foreground">{t("models.credit.info")}</p>
       </div>
       <TableSimple
         items={CreditTypes}
@@ -24,7 +23,7 @@ export default function CreditsTableInfo() {
             value: (item) => (
               <div className="flex flex-col">
                 <div className="font-bold">{item.name}</div>
-                <div className="text-muted-foreground text-xs">{item.description}</div>
+                <div className="text-xs text-muted-foreground">{item.description}</div>
               </div>
             ),
           },

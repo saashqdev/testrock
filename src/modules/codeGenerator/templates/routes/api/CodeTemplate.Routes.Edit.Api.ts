@@ -152,45 +152,45 @@ export const action = async (props: IServerComponentsProps) => {
 
   let tasksActions = "";
   if (entity.hasTasks) {
-    tasksActions = 
+    tasksActions =
       'else if (action === "task-new") {\n' +
       '      const taskTitle = form.get("task-title")?.toString();\n' +
-      '      if (!taskTitle) {\n' +
+      "      if (!taskTitle) {\n" +
       '        return Response.json({ error: t("shared.invalidForm") }, { status: 400 });\n' +
-      '      }\n' +
-      '      const task = await createRowTask({\n' +
-      '        createdByUserId: userId,\n' +
-      '        rowId: item.id,\n' +
-      '        title: taskTitle,\n' +
-      '      });\n' +
-      '      return Response.json({ newTask: task });\n' +
+      "      }\n" +
+      "      const task = await createRowTask({\n" +
+      "        createdByUserId: userId,\n" +
+      "        rowId: item.id,\n" +
+      "        title: taskTitle,\n" +
+      "      });\n" +
+      "      return Response.json({ newTask: task });\n" +
       '    } else if (action === "task-complete-toggle") {\n' +
       '      const taskId = form.get("task-id")?.toString() ?? "";\n' +
-      '      const task = await getRowTask(taskId);\n' +
-      '      if (task) {\n' +
-      '        if (task.completed) {\n' +
-      '          await updateRowTask(taskId, {\n' +
-      '            completed: false,\n' +
-      '            completedAt: null,\n' +
-      '            completedByUserId: null,\n' +
-      '          });\n' +
-      '        } else {\n' +
-      '          await updateRowTask(taskId, {\n' +
-      '            completed: true,\n' +
-      '            completedAt: new Date(),\n' +
-      '            completedByUserId: userId,\n' +
-      '          });\n' +
-      '        }\n' +
-      '      }\n' +
-      '      return Response.json({ completedTask: taskId });\n' +
+      "      const task = await getRowTask(taskId);\n" +
+      "      if (task) {\n" +
+      "        if (task.completed) {\n" +
+      "          await updateRowTask(taskId, {\n" +
+      "            completed: false,\n" +
+      "            completedAt: null,\n" +
+      "            completedByUserId: null,\n" +
+      "          });\n" +
+      "        } else {\n" +
+      "          await updateRowTask(taskId, {\n" +
+      "            completed: true,\n" +
+      "            completedAt: new Date(),\n" +
+      "            completedByUserId: userId,\n" +
+      "          });\n" +
+      "        }\n" +
+      "      }\n" +
+      "      return Response.json({ completedTask: taskId });\n" +
       '    } else if (action === "task-delete") {\n' +
       '      const taskId = form.get("task-id")?.toString() ?? "";\n' +
-      '      const task = await getRowTask(taskId);\n' +
-      '      if (task) {\n' +
-      '        await deleteRowTask(taskId);\n' +
-      '      }\n' +
-      '      return Response.json({ deletedTask: taskId });\n' +
-      '    }';
+      "      const task = await getRowTask(taskId);\n" +
+      "      if (task) {\n" +
+      "        await deleteRowTask(taskId);\n" +
+      "      }\n" +
+      "      return Response.json({ deletedTask: taskId });\n" +
+      "    }";
   }
   template = template.split("{TASKS_ACTIONS}").join(tasksActions);
 

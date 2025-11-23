@@ -16,11 +16,11 @@ async function getPageData(props: IServerComponentsProps) {
   if (!entity) {
     redirect("/admin/entities");
   }
-  
+
   // Ensure request has proper URL for route generation
   const url = request?.url ? new URL(request.url) : new URL(`http://localhost/admin/entities/${params.entity}/properties`);
   const requestWithUrl = request?.url ? request : new Request(url.toString());
-  
+
   return {
     entity,
     properties: entity.properties,

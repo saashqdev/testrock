@@ -15,26 +15,26 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 
 export default async function Page(props: IServerComponentsProps) {
   const params = (await props.params) || {};
-  
+
   await verifyUserHasPermission("admin.onboarding.update");
-  
+
   const item = await db.onboarding.getOnboarding(params.id!);
   if (!item) {
     redirect("/admin/onboarding/onboardings");
   }
-  
+
   const metadata = {
     users: await db.users.adminGetAllUsersNames(),
     tenants: await db.tenants.adminGetAllTenants(),
     subscriptionProducts: await db.subscriptionProducts.getAllSubscriptionProducts(),
     roles: await db.roles.getAllRolesNames(),
   };
-  
+
   const data = {
     meta: [],
     item,
     metadata,
   };
-  
+
   return <OnboardingSettingsPage data={data} />;
 }

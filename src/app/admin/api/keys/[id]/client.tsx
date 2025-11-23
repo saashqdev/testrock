@@ -16,7 +16,7 @@ type AdminApiEditKeyClientProps = {
 export default function AdminApiEditKeyClient({ tenants, item }: AdminApiEditKeyClientProps) {
   const router = useRouter();
   const adminData = useAdminData();
-  
+
   if (!adminData) {
     return null;
   }
@@ -26,7 +26,7 @@ export default function AdminApiEditKeyClient({ tenants, item }: AdminApiEditKey
       method: "POST",
       body: formData,
     });
-    
+
     if (response.redirected) {
       router.push(response.url);
     } else if (!response.ok) {
@@ -34,7 +34,7 @@ export default function AdminApiEditKeyClient({ tenants, item }: AdminApiEditKey
       console.error(data.error);
     }
   };
-  
+
   return (
     <>
       <OpenModal className="sm:max-w-xl" onClose={() => router.push(`/admin/api/keys`)}>

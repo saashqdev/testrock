@@ -7,12 +7,8 @@ export async function generateMetadata() {
   });
 }
 
-export default async function AdminMetricsLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function AdminMetricsLayout({ children }: { children: React.ReactNode }) {
   await verifyUserHasPermission("admin.metrics.view");
-  
+
   return <>{children}</>;
 }

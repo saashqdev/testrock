@@ -10,17 +10,17 @@ import { redirect } from "next/navigation";
 export async function POST(request: NextRequest) {
   try {
     await requireAuth();
-    
+
     const formData = await request.formData();
     const tenant = formData.get("tenant")?.toString();
-    
+
     if (!tenant) {
       return NextResponse.json({ error: "Tenant is required" }, { status: 400 });
     }
 
-    const tenantId = await getTenantIdOrNull({ 
-      request, 
-      params: { tenant } 
+    const tenantId = await getTenantIdOrNull({
+      request,
+      params: { tenant },
     });
 
     const subdomain = UrlUtils.slugify(formData.get("subdomain")?.toString() ?? "");
@@ -36,12 +36,12 @@ export async function POST(request: NextRequest) {
     if (!isValidSubdomainSyntax) {
       return NextResponse.json({ error: "Invalid subdomain" }, { status: 400 });
     }
-    
+
     const existingSubdomain = await db.portals.getPortalBySubdomain(subdomain);
     if (existingSubdomain) {
       return NextResponse.json({ error: "Subdomain taken" }, { status: 400 });
     }
-    
+
     const existingDomain = domain ? await db.portals.getPortalByDomain(domain) : null;
     if (existingDomain) {
       return NextResponse.json({ error: "Domain taken" }, { status: 400 });
@@ -87,9 +87,9 @@ export async function POST(request: NextRequest) {
     });
 
     const redirectUrl = `/app/${tenant}/portals/${item.subdomain}`;
-    return NextResponse.json({ 
-      success: "Portal created successfully", 
-      redirect: redirectUrl 
+    return NextResponse.json({
+      success: "Portal created successfully",
+      redirect: redirectUrl,
     });
   } catch (error: any) {
     console.error("Error creating portal:", error);

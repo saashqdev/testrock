@@ -16,15 +16,15 @@ export default function RowTagsRoute() {
       try {
         setLoading(true);
         const response = await fetch(`/api/rows/${params.id}/tags`);
-        
+
         if (!response.ok) {
           throw new Error(`Failed to fetch data: ${response.statusText}`);
         }
-        
+
         const result = await response.json();
         setData(result);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
+        setError(err instanceof Error ? err.message : "An error occurred");
       } finally {
         setLoading(false);
       }

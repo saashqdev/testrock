@@ -10,23 +10,20 @@ export async function POST(request: NextRequest) {
     await verifyUserHasPermission("admin.entities.create");
     const { t } = await getServerTranslations();
     const userInfo = await getUserInfo();
-    
+
     const body = await request.json();
     const { configuration } = body;
-    
+
     const template = JSON.parse(configuration) as EntitiesTemplateDto;
     const entities = await importEntitiesFromTemplate({
       template,
       createdByUserId: userInfo.userId,
     });
-    
+
     return NextResponse.json({
       success: `Created entities: ${entities.map((e) => t(e.titlePlural)).join(", ")}`,
     });
   } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: error.message }, { status: 400 });
   }
 }

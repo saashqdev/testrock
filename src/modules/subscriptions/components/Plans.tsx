@@ -27,7 +27,19 @@ interface Props {
   onClickFeature?: (name: string) => void;
   serverAction: IServerAction | null;
 }
-export default function Plans({ items, tenantSubscription, canSubmit, className, stripeCoupon, initialCurrency, availableCurrencies, initialBillingPeriod, availableBillingPeriods, onClickFeature, serverAction }: Props) {
+export default function Plans({
+  items,
+  tenantSubscription,
+  canSubmit,
+  className,
+  stripeCoupon,
+  initialCurrency,
+  availableCurrencies,
+  initialBillingPeriod,
+  availableBillingPeriods,
+  onClickFeature,
+  serverAction,
+}: Props) {
   const [products] = useState(items);
   // Use initial values only - no reactive dependency on props
   const [currency, setCurrency] = useState(initialCurrency);
@@ -35,8 +47,8 @@ export default function Plans({ items, tenantSubscription, canSubmit, className,
 
   useEffect(() => {
     // Disable scroll restoration
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
     }
   }, []);
 

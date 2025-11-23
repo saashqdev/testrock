@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function InboundEmailsPage({ params, searchParams }: Props) {
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
-  
+
   // Create a mock request object for the loader
   const url = new URL(`${process.env.NEXTAUTH_URL}/app/${resolvedParams.tenant}/emails`);
   Object.entries(resolvedSearchParams).forEach(([key, value]) => {
@@ -23,11 +23,11 @@ export default async function InboundEmailsPage({ params, searchParams }: Props)
       url.searchParams.set(key, Array.isArray(value) ? value[0] : value);
     }
   });
-  
+
   const request = new Request(url.toString());
-  const data = await InboundEmailsListApi.loader({ 
-    request, 
-    params: Promise.resolve(resolvedParams) 
+  const data = await InboundEmailsListApi.loader({
+    request,
+    params: Promise.resolve(resolvedParams),
   });
 
   return <InboundEmailsListView data={data} />;

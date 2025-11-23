@@ -23,7 +23,7 @@ async function getLoader(props: IServerComponentsProps): Promise<RowsLoaderData>
   const params = (await props.params) ?? {};
   const request = props.request!;
   const tenantId = await getTenantIdOrNull({ request, params });
-  
+
   // Check if the entity param is a reserved route segment
   if (params.entity && RESERVED_ENTITY_SEGMENTS.includes(params.entity)) {
     throw redirect("/404");

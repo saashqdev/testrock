@@ -59,9 +59,7 @@ export default async function (props: IServerComponentsProps) {
   const adminData = await loader(props);
   return (
     <AdminDataLayout data={adminData}>
-      <ShadcnSidebarLayout layout="admin">
-        {props.children}
-      </ShadcnSidebarLayout>
+      <ShadcnSidebarLayout layout="admin">{props.children}</ShadcnSidebarLayout>
     </AdminDataLayout>
   );
 }

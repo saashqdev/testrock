@@ -30,7 +30,7 @@ export default function AdminAnalyticsSettingsClient({ settings, isLocalDev, ser
   const { t } = useTranslation();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  
+
   const [actionData, setActionData] = useState<ActionData>({});
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -113,15 +113,15 @@ export default function AdminAnalyticsSettingsClient({ settings, isLocalDev, ser
                   onChange={setIsPublic}
                 />
                 <div className="space-y-2">
-                  <div className="text-muted-foreground text-sm font-medium">Ingored pages</div>
-                  <div className="border-border bg-secondary space-y-1 rounded-md border p-3">
-                    {settings.ignorePages.length === 0 && <div className="text-muted-foreground text-xs">There are no ignored pages.</div>}
+                  <div className="text-sm font-medium text-muted-foreground">Ingored pages</div>
+                  <div className="space-y-1 rounded-md border border-border bg-secondary p-3">
+                    {settings.ignorePages.length === 0 && <div className="text-xs text-muted-foreground">There are no ignored pages.</div>}
                     {settings.ignorePages
                       .split(",")
                       .filter((f) => f)
                       .map((item) => {
                         return (
-                          <div key={item} className="text-muted-foreground border-border group flex space-x-2 border-b text-xs">
+                          <div key={item} className="group flex space-x-2 border-b border-border text-xs text-muted-foreground">
                             <div>{item}</div>
                             <button type="button" className="hidden text-xs text-red-500 underline group-hover:block" onClick={() => removeIgnoredPage(item)}>
                               {t("shared.remove")}
@@ -132,7 +132,7 @@ export default function AdminAnalyticsSettingsClient({ settings, isLocalDev, ser
                   </div>
                   <InputText name="ignore-page" title="Add ignored page" defaultValue="" />
                 </div>
-                <div className="border-border mt-3 flex items-center justify-end space-x-2 border-t pt-3">
+                <div className="mt-3 flex items-center justify-end space-x-2 border-t border-border pt-3">
                   <LoadingButton type="submit" disabled={isPending}>
                     {t("shared.save")}
                   </LoadingButton>
@@ -143,7 +143,7 @@ export default function AdminAnalyticsSettingsClient({ settings, isLocalDev, ser
 
           <SettingSection title={t("analytics.danger.title")} description={t("analytics.danger.description")}>
             <div>
-              <div className="text-muted-foreground mt-2 max-w-xl text-sm leading-5">
+              <div className="mt-2 max-w-xl text-sm leading-5 text-muted-foreground">
                 <p>{t("analytics.danger.reset.description")}</p>
               </div>
               <div className="mt-5 space-y-2">

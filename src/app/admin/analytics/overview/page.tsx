@@ -33,7 +33,7 @@ async function getAnalyticsData(props: IServerComponentsProps): Promise<LoaderDa
 
 export default async function AdminAnalyticsOverviewPage(props: IServerComponentsProps) {
   const { overview } = await getAnalyticsData(props);
-  
+
   return (
     <EditPageLayout>
       <AnalyticsOverviewClient overview={overview} />

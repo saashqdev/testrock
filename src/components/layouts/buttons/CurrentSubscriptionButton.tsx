@@ -26,11 +26,11 @@ export default function CurrentSubscriptionButton() {
             <Link
               href={!params.tenant ? "" : UrlUtils.currentTenantUrl(params, "pricing")}
               className={clsx(
-                "text-muted-foreground bg-secondary border-border relative inline-flex items-center space-x-1 rounded-md border p-2 font-medium shadow-inner hover:bg-teal-50 hover:text-teal-800 focus:z-10 focus:bg-teal-100 focus:text-teal-900 focus:outline-hidden",
+                "focus:outline-hidden relative inline-flex items-center space-x-1 rounded-md border border-border bg-secondary p-2 font-medium text-muted-foreground shadow-inner hover:bg-teal-50 hover:text-teal-800 focus:z-10 focus:bg-teal-100 focus:text-teal-900",
                 hasSubscription() &&
-                  "flex space-x-2 px-3 text-teal-900  hover:bg-teal-50 hover:text-teal-800 focus:z-10 focus:bg-teal-100 focus:text-teal-900 focus:outline-hidden",
+                  "focus:outline-hidden flex space-x-2 px-3 text-teal-900 hover:bg-teal-50 hover:text-teal-800 focus:z-10 focus:bg-teal-100 focus:text-teal-900",
                 !hasSubscription() &&
-                  " border-yellow-200 bg-yellow-50 text-yellow-800 hover:bg-yellow-100 hover:text-yellow-900 focus:z-10 focus:bg-yellow-100 focus:text-yellow-900 focus:outline-hidden"
+                  "focus:outline-hidden border-yellow-200 bg-yellow-50 text-yellow-800 hover:bg-yellow-100 hover:text-yellow-900 focus:z-10 focus:bg-yellow-100 focus:text-yellow-900"
               )}
               aria-haspopup="listbox"
               aria-expanded="true"

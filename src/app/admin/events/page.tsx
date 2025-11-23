@@ -62,14 +62,14 @@ async function loader(searchParams: URLSearchParams): Promise<LoaderData> {
       }),
     },
   ];
-  
+
   // Create a mock request for getFiltersFromCurrentUrl
   const heads = await headers();
   const baseUrl = heads.get("x-forwarded-host") || "localhost:3000";
   const protocol = heads.get("x-forwarded-proto") || "http";
   const url = new URL(`${protocol}://${baseUrl}/admin/events?${searchParams.toString()}`);
   const request = new Request(url.toString());
-  
+
   const filters = getFiltersFromCurrentUrl(request, filterableProperties);
   const { items, pagination } = await db.events.getEvents({ current, filters });
 
@@ -85,20 +85,20 @@ async function loader(searchParams: URLSearchParams): Promise<LoaderData> {
 export default async function AdminEventsRoute(props: IServerComponentsProps) {
   const searchParams = await props.searchParams;
   const urlSearchParams = new URLSearchParams();
-  
+
   // Convert searchParams to URLSearchParams
   if (searchParams) {
     Object.entries(searchParams).forEach(([key, value]) => {
       if (value) {
         if (Array.isArray(value)) {
-          value.forEach(v => urlSearchParams.append(key, v));
+          value.forEach((v) => urlSearchParams.append(key, v));
         } else {
           urlSearchParams.set(key, value);
         }
       }
     });
   }
-  
+
   const data = await loader(urlSearchParams);
   const { t } = await getServerTranslations();
 

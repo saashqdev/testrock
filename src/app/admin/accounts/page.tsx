@@ -48,9 +48,9 @@ export default async function AdminAccountsPage(props: IServerComponentsProps) {
       ],
     },
   ];
-  
+
   // Create a mock request object or use searchParams directly
-  const mockUrl = new URL('http://localhost');
+  const mockUrl = new URL("http://localhost");
   if (searchParams) {
     Object.entries(searchParams).forEach(([key, value]) => {
       if (value) {
@@ -59,7 +59,7 @@ export default async function AdminAccountsPage(props: IServerComponentsProps) {
     });
   }
   const mockRequest = { url: mockUrl.toString() } as Request;
-  
+
   const filters = getFiltersFromCurrentUrl(mockRequest, filterableProperties);
   const urlSearchParams = mockUrl.searchParams;
   const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);

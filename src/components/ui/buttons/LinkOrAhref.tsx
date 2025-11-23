@@ -55,16 +55,7 @@ export default function LinkOrAhref({
           {children}
         </Button>
       ) : (
-        <Link
-          onClick={onClick}
-          href={to}
-          target={target}
-          className={className}
-          role={role}
-          rel={rel}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-        >
+        <Link onClick={onClick} href={to} target={target} className={className} role={role} rel={rel} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
           {children}
         </Link>
       )}

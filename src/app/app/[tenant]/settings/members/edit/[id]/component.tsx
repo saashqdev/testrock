@@ -118,7 +118,7 @@ export default function ({ data }: { data: AppSettingsMembersEditLoaderData }) {
                       {(() => {
                         if (pending) {
                           return (
-                            <div className="text-theme-700 text-sm">
+                            <div className="text-sm text-theme-700">
                               <div>{t("shared.loading")}...</div>
                             </div>
                           );
@@ -142,7 +142,7 @@ export default function ({ data }: { data: AppSettingsMembersEditLoaderData }) {
                         <ButtonSecondary
                           disabled={pending}
                           className={clsx(
-                            "focus:ring-theme-500 inline-flex items-center space-x-2 border border-gray-300 bg-white px-3 py-2 font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 sm:rounded-md sm:text-sm",
+                            "inline-flex items-center space-x-2 border border-gray-300 bg-white px-3 py-2 font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-theme-500 focus:ring-offset-2 sm:rounded-md sm:text-sm",
                             pending && "cursor-not-allowed bg-gray-100"
                           )}
                           type="button"

@@ -34,7 +34,7 @@ export const HoverEffect = ({ items }: { items: FeatureDto[] }) => {
           key={idx}
           to={item?.link?.href}
           target={item?.link?.target}
-          className="group relative  block h-full w-full p-2 "
+          className="group relative block h-full w-full p-2"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
@@ -57,14 +57,14 @@ export const HoverEffect = ({ items }: { items: FeatureDto[] }) => {
           </AnimatePresence>
           <div
             className={clsx(
-              "relative  h-full w-full overflow-hidden rounded-2xl border border-transparent bg-linear-to-br p-3",
-              item.className || "text-muted-foreground bg-slate-900/5 dark:bg-white/5"
+              "bg-linear-to-br relative h-full w-full overflow-hidden rounded-2xl border border-transparent p-3",
+              item.className || "bg-slate-900/5 text-muted-foreground dark:bg-white/5"
             )}
           >
-            <div className="relative ">
+            <div className="relative">
               <div className="p-4">
-                <div className=" mt-4 flex items-center justify-between space-x-2">
-                  <h4 className="text-foreground font-bold tracking-wide">
+                <div className="mt-4 flex items-center justify-between space-x-2">
+                  <h4 className="font-bold tracking-wide text-foreground">
                     <div className="flex items-center space-x-2">
                       <Name item={item} />
                     </div>
@@ -72,7 +72,7 @@ export const HoverEffect = ({ items }: { items: FeatureDto[] }) => {
                   {item.highlight && (
                     <div
                       className={clsx(
-                        "border-border inline-flex cursor-default items-center truncate rounded-md border px-2 py-1 text-sm font-medium",
+                        "inline-flex cursor-default items-center truncate rounded-md border border-border px-2 py-1 text-sm font-medium",
                         item.highlight.color &&
                           clsx(
                             item.highlight.color === Colors.GREEN && "bg-teal-500/30 text-teal-800 dark:text-teal-100",
@@ -123,9 +123,9 @@ export const HoverEffect = ({ items }: { items: FeatureDto[] }) => {
                     {item.subFeatures.map((subFeature, idx) => (
                       <div
                         key={idx}
-                        className={clsx("text-muted-foreground bg-muted/30 border-border flex space-x-1 rounded-md border px-2 py-1 text-xs font-medium")}
+                        className={clsx("flex space-x-1 rounded-md border border-border bg-muted/30 px-2 py-1 text-xs font-medium text-muted-foreground")}
                       >
-                        <CheckIcon className="text-muted-foreground/50 h-4 w-4" />
+                        <CheckIcon className="h-4 w-4 text-muted-foreground/50" />
                         <div>{subFeature.name}</div>
                       </div>
                     ))}
@@ -145,7 +145,7 @@ export const HoverEffect = ({ items }: { items: FeatureDto[] }) => {
               {selectedImage?.link && (
                 <div>
                   <Link href={selectedImage.link.href} target={selectedImage.link.target}>
-                    <div className="text-muted-foreground hover:text-foreground focus:ring-ring hover:bg-secondary rounded-md p-2 focus:outline-hidden focus:ring-2 focus:ring-offset-2">
+                    <div className="focus:outline-hidden rounded-md p-2 text-muted-foreground hover:bg-secondary hover:text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2">
                       <ExternalLinkEmptyIcon className="h-6 w-6" />
                     </div>
                   </Link>
@@ -153,7 +153,7 @@ export const HoverEffect = ({ items }: { items: FeatureDto[] }) => {
               )}
               <button
                 type="button"
-                className="text-muted-foreground hover:text-foreground focus:ring-ring hover:bg-secondary rounded-md p-2 focus:outline-hidden focus:ring-2 focus:ring-offset-2"
+                className="focus:outline-hidden rounded-md p-2 text-muted-foreground hover:bg-secondary hover:text-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2"
                 onClick={() => setShowImage(false)}
               >
                 <span className="sr-only">Close panel</span>
@@ -161,15 +161,9 @@ export const HoverEffect = ({ items }: { items: FeatureDto[] }) => {
               </button>
             </div>
           </div>
-          <p className="text-muted-foreground mt-2">{selectedImage?.description}</p>
+          <p className="mt-2 text-muted-foreground">{selectedImage?.description}</p>
         </div>
-        {selectedImage?.img && (
-          <Image
-            src={selectedImage.img}
-            alt={selectedImage.name || ""}
-            className="mt-4 h-full w-full rounded-lg object-cover"
-          />
-        )}
+        {selectedImage?.img && <Image src={selectedImage.img} alt={selectedImage.name || ""} className="mt-4 h-full w-full rounded-lg object-cover" />}
       </Modal>
     </div>
   );

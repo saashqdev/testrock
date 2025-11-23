@@ -76,7 +76,7 @@ export function BucketFilesClient({ initialData, bucketId }: { initialData: Load
           routePath: "/admin/playground/supabase/storage/buckets",
         },
         {
-          title: Array.isArray(params.id) ? params.id.join("/") : params.id ?? "",
+          title: Array.isArray(params.id) ? params.id.join("/") : (params.id ?? ""),
           routePath: "/admin/playground/supabase/storage/buckets",
         },
       ]}
@@ -86,7 +86,7 @@ export function BucketFilesClient({ initialData, bucketId }: { initialData: Load
         </>
       }
     >
-      {initialData.error ?? initialData.files.error ? (
+      {(initialData.error ?? initialData.files.error) ? (
         <ErrorBanner title="Error" text={initialData.error ?? initialData.files.error?.message} />
       ) : (
         <div>
@@ -182,15 +182,7 @@ export function BucketFilesClient({ initialData, bucketId }: { initialData: Load
   );
 }
 
-function FileForm({
-  item,
-  bucketId,
-  onSuccess,
-}: {
-  item?: SupabaseFileDto;
-  bucketId: string;
-  onSuccess: (data: ActionData) => void;
-}) {
+function FileForm({ item, bucketId, onSuccess }: { item?: SupabaseFileDto; bucketId: string; onSuccess: (data: ActionData) => void }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [actionData, setActionData] = useState<ActionData>();

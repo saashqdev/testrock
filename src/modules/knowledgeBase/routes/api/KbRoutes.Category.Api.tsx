@@ -47,4 +47,3 @@ export const loader = async (props: IServerComponentsProps, { kbSlug }: { kbSlug
   };
   return data;
 };
-

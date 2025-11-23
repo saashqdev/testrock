@@ -35,9 +35,9 @@ export default function DangerClient({ data }: { data: LoaderData }) {
         const response = await fetch(`/api/portals/${params.portal}/delete`, {
           method: "POST",
         });
-        
+
         const result = await response.json();
-        
+
         if (result.error) {
           toast.error(result.error);
         } else {
@@ -52,7 +52,7 @@ export default function DangerClient({ data }: { data: LoaderData }) {
   }
 
   const textToType = `${t("shared.delete")} ${data.item.subdomain}`;
-  
+
   return (
     <EditPageLayout
       title={t("shared.danger")}

@@ -42,7 +42,7 @@ export default async function NewPromptFlowOutput(props: IServerComponentsProps)
   if (!promptFlow) {
     redirect("/admin/prompts/builder");
   }
-  
+
   const allEntities = await db.entities.getAllEntities(null);
 
   return (

@@ -27,7 +27,7 @@ export default function HandlebarsPlaygroundClient({ items }: HandlebarsPlaygrou
 
   useEffect(() => {
     if (!appOrAdminData) return;
-    
+
     // let object: any = {};
     // if (row) {
     //   object = { ...object, row: row.data };

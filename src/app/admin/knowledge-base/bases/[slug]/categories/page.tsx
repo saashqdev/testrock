@@ -53,7 +53,7 @@ export default async function KnowledgeBaseCategoriesPage(props: IServerComponen
             <div key={f} className="space-y-2">
               <Link
                 href={f}
-                className="border-border hover:border-border relative block space-y-2 rounded-lg border-2 border-dashed px-12 py-6 text-center focus:border-solid focus:outline-hidden"
+                className="focus:outline-hidden relative block space-y-2 rounded-lg border-2 border-dashed border-border px-12 py-6 text-center hover:border-border focus:border-solid"
               >
                 <div className="font-bold">{KnowledgeBaseUtils.getLanguageName(f)}</div>
                 <div className="text-sm">{data.items.filter((x) => x.language === f).length} categories</div>

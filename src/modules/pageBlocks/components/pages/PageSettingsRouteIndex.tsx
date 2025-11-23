@@ -19,11 +19,7 @@ interface PageSettingsRouteIndexProps {
   deletePageAction: (formData: FormData) => Promise<void>;
 }
 
-export default function PageSettingsRouteIndex({ 
-  data, 
-  updatePageAction, 
-  deletePageAction 
-}: PageSettingsRouteIndexProps) {
+export default function PageSettingsRouteIndex({ data, updatePageAction, deletePageAction }: PageSettingsRouteIndexProps) {
   const { t } = useTranslation();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -50,7 +46,7 @@ export default function PageSettingsRouteIndex({
   function onConfirmedDelete() {
     const form = new FormData();
     form.set("action", "delete");
-    
+
     startTransition(async () => {
       try {
         await deletePageAction(form);
@@ -69,7 +65,7 @@ export default function PageSettingsRouteIndex({
     formData.set("action", "update");
     formData.set("isPublished", isPublished.toString());
     formData.set("isPublic", isPublic.toString());
-    
+
     startTransition(async () => {
       try {
         await updatePageAction(formData);

@@ -302,10 +302,4 @@ async function routeDirectoryOptions(entity: EntityWithDetailsDto) {
   ];
 }
 
-export {
-  generate,
-  getModuleFiles,
-  getRouteFiles,
-  moduleDirectoryOptions,
-  routeDirectoryOptions,
-};
+export { generate, getModuleFiles, getRouteFiles, moduleDirectoryOptions, routeDirectoryOptions };

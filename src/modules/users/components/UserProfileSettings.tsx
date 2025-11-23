@@ -56,12 +56,12 @@ export default function UserProfileSettings({
       newSearchParams.set("lng", locale);
       form.set("redirect", pathname + "?" + newSearchParams.toString());
       form.set("lng", locale);
-      
+
       await fetch("/", {
         method: "POST",
         body: form,
       });
-      
+
       router.refresh();
     });
   }
@@ -77,7 +77,7 @@ export default function UserProfileSettings({
     setIsSubmitting(true);
     const form = new FormData();
     form.set("action", "deleteAccount");
-    
+
     fetch(pathname, {
       method: "POST",
       body: form,
@@ -94,9 +94,9 @@ export default function UserProfileSettings({
   async function handleProfileSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     const formData = new FormData(e.currentTarget);
-    
+
     try {
       await fetch(pathname, {
         method: "POST",
@@ -111,9 +111,9 @@ export default function UserProfileSettings({
   async function handlePasswordSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     const formData = new FormData(e.currentTarget);
-    
+
     try {
       await fetch(pathname, {
         method: "POST",
@@ -152,13 +152,13 @@ export default function UserProfileSettings({
                       </label>
                       <div className="mt-2 flex items-center space-x-3">
                         <input hidden id="avatar" name="avatar" value={avatar} readOnly />
-                        <div className="bg-secondary h-12 w-12 overflow-hidden rounded-md">
+                        <div className="h-12 w-12 overflow-hidden rounded-md bg-secondary">
                           {(() => {
                             if (avatar) {
                               return <Image id="avatar" alt="Avatar" src={avatar} />;
                             } else {
                               return (
-                                <svg id="avatar" className="text-muted-foreground h-full w-full" fill="currentColor" viewBox="0 0 24 24">
+                                <svg id="avatar" className="h-full w-full text-muted-foreground" fill="currentColor" viewBox="0 0 24 24">
                                   <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
                                 </svg>
                               );
@@ -183,7 +183,7 @@ export default function UserProfileSettings({
                     <button
                       disabled={isSubmitting || isPending}
                       type="submit"
-                      className="bg-primary hover:bg-primary/90 focus:ring-primary text-primary-foreground inline-flex items-center space-x-2 rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-hidden focus:ring-2 focus:ring-offset-2"
+                      className="focus:outline-hidden inline-flex items-center space-x-2 rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2"
                     >
                       {t("shared.save")}
                     </button>
@@ -197,16 +197,16 @@ export default function UserProfileSettings({
         {/*Separator */}
         <div className="block">
           <div className="py-5">
-            <div className="border-border/30 border-t"></div>
+            <div className="border-t border-border/30"></div>
           </div>
         </div>
 
         <SettingSection
           title={t("settings.profile.securityTitle")}
           description={
-            <p className="text-muted-foreground mt-1 text-xs leading-5">
+            <p className="mt-1 text-xs leading-5 text-muted-foreground">
               {t("account.login.forgot")}{" "}
-              <a className="text-muted-foreground font-bold hover:underline" href={"/forgot-password?e=" + user?.email || ""}>
+              <a className="font-bold text-muted-foreground hover:underline" href={"/forgot-password?e=" + user?.email || ""}>
                 {t("account.reset.button")}
               </a>
             </p>
@@ -246,7 +246,7 @@ export default function UserProfileSettings({
                       <div id="form-success-message" className="flex items-center space-x-2"></div>
                       <button
                         type="submit"
-                        className="bg-primary hover:bg-primary/90 focus:ring-primary text-primary-foreground inline-flex items-center space-x-2 rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-hidden focus:ring-2 focus:ring-offset-2"
+                        className="focus:outline-hidden inline-flex items-center space-x-2 rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2"
                       >
                         {t("shared.save")}
                       </button>
@@ -261,7 +261,7 @@ export default function UserProfileSettings({
         {/*Separator */}
         <div className="block">
           <div className="py-5">
-            <div className="border-border/30 border-t"></div>
+            <div className="border-t border-border/30"></div>
           </div>
         </div>
 
@@ -291,7 +291,7 @@ export default function UserProfileSettings({
         {/*Separator */}
         <div className="block">
           <div className="py-5">
-            <div className="border-border/30 border-t"></div>
+            <div className="border-t border-border/30"></div>
           </div>
         </div>
 

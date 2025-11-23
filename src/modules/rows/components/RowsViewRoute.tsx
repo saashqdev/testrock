@@ -52,7 +52,7 @@ function RowsViewRoute({ title, rowsData, items, routes, onNewRow, onEditRow, sa
   const pathname = usePathname();
   const [searchParams] = useSearchParams();
   const searchParamsString = searchParams?.toString() || "";
-  
+
   // Memoize newSearchParams to avoid recreating on every render
   const newSearchParams = useMemo(() => new URLSearchParams(searchParamsString), [searchParamsString]);
 
@@ -172,7 +172,7 @@ function RowsViewRoute({ title, rowsData, items, routes, onNewRow, onEditRow, sa
                 })}
               />
             ) : (
-              title ?? <h3 className="flex flex-1 items-center truncate font-bold">{t(rowsData.currentView?.title ?? rowsData.entity.titlePlural)}</h3>
+              (title ?? <h3 className="flex flex-1 items-center truncate font-bold">{t(rowsData.currentView?.title ?? rowsData.entity.titlePlural)}</h3>)
             )}
           </Fragment>
         )}
@@ -180,7 +180,11 @@ function RowsViewRoute({ title, rowsData, items, routes, onNewRow, onEditRow, sa
           {filters.length > 0 && <InputFilters filters={filters} />}
           <RunPromptFlowButtons type="list" promptFlows={rowsData.promptFlows} className="p-0.5" />
           {permissions.create && (
-            <ButtonPrimary disabled={!permissions.create} to={!onNewRow ? EntityHelper.getRoutes({ routes, entity: rowsData.entity })?.new : undefined} onClick={onNewRow}>
+            <ButtonPrimary
+              disabled={!permissions.create}
+              to={!onNewRow ? EntityHelper.getRoutes({ routes, entity: rowsData.entity })?.new : undefined}
+              onClick={onNewRow}
+            >
               <span className="sm:text-sm">+</span>
             </ButtonPrimary>
           )}
@@ -298,7 +302,7 @@ export default memo(RowsViewRoute, (prevProps, nextProps) => {
       if (prevProps.items[i].id !== nextProps.items[i].id) return false;
     }
   }
-  
+
   // Check other critical props
   return (
     prevProps.rowsData.entity.id === nextProps.rowsData.entity.id &&

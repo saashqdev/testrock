@@ -22,12 +22,7 @@ export default function Component({ data }: ComponentProps) {
   const [actionData, setActionData] = useState<{ error?: string; success?: string } | null>(null);
 
   function onDelete() {
-    confirmDelete.current?.show(
-      "Delete knowledge base?",
-      "Delete",
-      "Cancel",
-      `Are you sure you want to delete knowledge base "${data.item.title}"?`
-    );
+    confirmDelete.current?.show("Delete knowledge base?", "Delete", "Cancel", `Are you sure you want to delete knowledge base "${data.item.title}"?`);
   }
 
   async function onConfirmedDelete() {
@@ -61,12 +56,7 @@ export default function Component({ data }: ComponentProps) {
 
   return (
     <>
-      <SlideOverFormLayout
-        title="Edit Knowledge Base"
-        description="Update your knowledge base settings"
-        onClosed={onClose}
-        className="max-w-2xl"
-      >
+      <SlideOverFormLayout title="Edit Knowledge Base" description="Update your knowledge base settings" onClosed={onClose} className="max-w-2xl">
         <div className="px-4 sm:px-6">
           <KnowledgeBaseForm item={data.item} onDelete={onDelete} onSubmit={handleSubmit} onCancel={onClose} />
         </div>

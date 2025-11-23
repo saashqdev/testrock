@@ -39,7 +39,7 @@ export default function SurveysListClient({ items }: Props) {
             title: (
               <div className="flex items-center space-x-2">
                 <div>Public URL</div>
-                <ExternalLinkEmptyIcon className="text-muted-foreground h-4 w-4" />
+                <ExternalLinkEmptyIcon className="h-4 w-4 text-muted-foreground" />
               </div>
             ),
             onClickRoute: (_, item) => `/surveys/${item.slug}`,
@@ -73,12 +73,12 @@ export default function SurveysListClient({ items }: Props) {
           {
             name: "isPublic",
             title: "Public",
-            value: (item) => (item.isPublic ? <CheckIcon className="h-5 w-5 text-teal-500" /> : <XIcon className="text-muted-foreground h-5 w-5" />),
+            value: (item) => (item.isPublic ? <CheckIcon className="h-5 w-5 text-teal-500" /> : <XIcon className="h-5 w-5 text-muted-foreground" />),
           },
           {
             name: "isEnabled",
             title: "Enabled",
-            value: (item) => (item.isEnabled ? <CheckIcon className="h-5 w-5 text-teal-500" /> : <XIcon className="text-muted-foreground h-5 w-5" />),
+            value: (item) => (item.isEnabled ? <CheckIcon className="h-5 w-5 text-teal-500" /> : <XIcon className="h-5 w-5 text-muted-foreground" />),
           },
           {
             name: "submissions",

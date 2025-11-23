@@ -33,7 +33,7 @@ export default function FeedbackTable({ data, deleteAction }: Props) {
   const searchParams = useSearchParams();
 
   const [selectedRows, setSelectedRows] = useState<FeedbackWithDetailsDto[]>([]);
-  
+
   async function onDelete(ids: string[]) {
     if (!canDelete || !deleteAction) {
       return;
@@ -42,10 +42,10 @@ export default function FeedbackTable({ data, deleteAction }: Props) {
       const form = new FormData();
       form.set("action", "delete");
       form.set("ids", ids.join(","));
-      
+
       try {
         const result = await deleteAction(form);
-        
+
         if (result.success) {
           router.refresh();
           setSelectedRows([]);
@@ -106,7 +106,7 @@ export default function FeedbackTable({ data, deleteAction }: Props) {
             title: t("shared.createdAt"),
             value: (item) => DateUtils.dateYMDHMS(item.createdAt),
             formattedValue: (item) => (
-              <div className="text-muted-foreground text-xs">{item.createdAt && <span>{DateUtils.dateYMDHMS(item.createdAt)}</span>}</div>
+              <div className="text-xs text-muted-foreground">{item.createdAt && <span>{DateUtils.dateYMDHMS(item.createdAt)}</span>}</div>
             ),
           },
           {

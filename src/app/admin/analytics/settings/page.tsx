@@ -23,8 +23,8 @@ async function getSettingsData(): Promise<LoaderData> {
   await verifyUserHasPermission("admin.analytics.view");
   let settings = await prisma.analyticsSettings.findFirst({});
   if (!settings) {
-    settings = await prisma.analyticsSettings.create({ 
-      data: { public: false, ignorePages: "/admin/analytics", onlyPages: "" } 
+    settings = await prisma.analyticsSettings.create({
+      data: { public: false, ignorePages: "/admin/analytics", onlyPages: "" },
     });
   }
   const serverUrl = await getBaseURL();
@@ -38,6 +38,6 @@ async function getSettingsData(): Promise<LoaderData> {
 
 export default async function AdminAnalyticsSettingsPage() {
   const data = await getSettingsData();
-  
+
   return <AdminAnalyticsSettingsClient {...data} />;
 }

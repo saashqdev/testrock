@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const params = Object.fromEntries(searchParams.entries());
   const { time, getServerTimingHeader } = await createMetrics({ request, params }, "ai.openai.chatgpt");
-  
+
   const { prompt, max_tokens } = (await time(request.json(), "request.json")) as {
     prompt?: string;
     max_tokens?: number;

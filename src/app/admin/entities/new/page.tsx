@@ -12,10 +12,7 @@ type ActionData = {
 };
 
 export default function NewEntityPage() {
-  const [actionData, formAction] = useActionState<ActionData | null, FormData>(
-    createEntityAction,
-    null
-  );
+  const [actionData, formAction] = useActionState<ActionData | null, FormData>(createEntityAction, null);
 
   return (
     <>

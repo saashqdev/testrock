@@ -12,7 +12,6 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import PromptBuilderTemplatesPageClient from "./PageClient";
 import { db } from "@/db";
 
-
 type LoaderData = {
   item: PromptFlowWithDetailsDto;
   allEntities: EntityWithDetailsDto[];

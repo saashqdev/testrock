@@ -12,14 +12,11 @@ type CreateTemplateResult = {
   error?: string;
 };
 
-export async function createEntityTemplate(
-  entitySlug: string,
-  formData: FormData
-): Promise<CreateTemplateResult> {
+export async function createEntityTemplate(entitySlug: string, formData: FormData): Promise<CreateTemplateResult> {
   try {
     const { t } = await getServerTranslations();
     const headersList = await headers();
-    
+
     const request = {
       headers: headersList,
     } as Request;
@@ -28,9 +25,9 @@ export async function createEntityTemplate(
     const params = { entity: entitySlug };
     const tenantId = await getTenantIdOrNull({ request, params });
 
-    const entity = await db.entities.getEntityBySlug({ 
-      tenantId, 
-      slug: entitySlug 
+    const entity = await db.entities.getEntityBySlug({
+      tenantId,
+      slug: entitySlug,
     });
 
     const action = formData.get("action")?.toString() ?? "";
@@ -44,7 +41,7 @@ export async function createEntityTemplate(
         title,
         config,
       });
-      
+
       // Redirect after successful creation
       redirect(UrlUtils.getModulePath(params, `entities/${entitySlug}/templates`));
     }

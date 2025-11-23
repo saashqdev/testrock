@@ -29,7 +29,7 @@ export default function SurveyItemOptionsList({ items, onChange }: Props) {
               }}
             >
               <div className="">
-                <div className=" grid grid-cols-12 gap-2">
+                <div className="grid grid-cols-12 gap-2">
                   <InputText
                     className="col-span-6"
                     title={"Title"}
@@ -77,7 +77,7 @@ export default function SurveyItemOptionsList({ items, onChange }: Props) {
                 },
               ]);
             }}
-            className="bg-background focus:ring-ring border-border hover:border-foreground hover:bg-secondary hover:text-secondary-foreground relative block w-full rounded-lg border-2 border-dashed px-12 py-3 text-center focus:outline-hidden focus:ring-2 focus:ring-offset-2"
+            className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border bg-background px-12 py-3 text-center hover:border-foreground hover:bg-secondary hover:text-secondary-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2"
           >
             <span className="mt-1 block text-xs font-medium">Add option</span>
           </button>

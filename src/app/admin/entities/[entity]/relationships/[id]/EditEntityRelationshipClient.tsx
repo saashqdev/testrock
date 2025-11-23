@@ -15,11 +15,11 @@ interface EditEntityRelationshipClientProps {
 
 export default function EditEntityRelationshipClient({ entity, entities, item, entitySlug }: EditEntityRelationshipClientProps) {
   const router = useRouter();
-  
+
   function close() {
     router.push(`/admin/entities/${entitySlug}/relationships`);
   }
-  
+
   return (
     <SlideOverWideEmpty title="Edit Relationship" open={true} className="2xl" onClose={close}>
       <EntityRelationshipForm entity={entity} entities={entities} item={item} />

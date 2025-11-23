@@ -58,4 +58,3 @@ export const action = async (props: IServerComponentsProps) => {
     return badRequest({ error: t("shared.invalidForm") });
   }
 };
-

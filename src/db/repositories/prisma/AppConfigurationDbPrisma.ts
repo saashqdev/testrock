@@ -24,7 +24,7 @@ export class AppConfigurationDbPrisma implements IAppConfigurationDb {
         domain: await getDomainName(),
         cache: "redis", // or "memory" or "redis" as appropriate
         orm: "prisma",
-        theme: typeof defaultTheme === "string" ? defaultTheme : (defaultTheme as any).color ?? "",
+        theme: typeof defaultTheme === "string" ? defaultTheme : ((defaultTheme as any).color ?? ""),
         company: undefined,
         features: {
           tenantHome: "/app/:tenant/",
@@ -145,7 +145,7 @@ export class AppConfigurationDbPrisma implements IAppConfigurationDb {
         ? appConfiguration.theme
         : typeof defaultTheme === "string"
           ? defaultTheme
-          : (defaultTheme as any).color ?? "";
+          : ((defaultTheme as any).color ?? "");
 
     conf.email.provider = (appConfiguration?.emailProvider ?? defaultEmailConfig.provider) as AppConfigurationDto["email"]["provider"];
     conf.email.fromEmail = appConfiguration?.emailFromEmail ?? defaultEmailConfig.fromEmail;

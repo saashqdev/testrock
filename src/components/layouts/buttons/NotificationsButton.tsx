@@ -12,7 +12,7 @@ export default function NotificationsButton({ unseenCount }: Props) {
         <button
           type="button"
           className={clsx(
-            "text-muted-foreground bg-secondary hover:bg-secondary/90 border-border relative inline-flex items-center rounded-full border p-2 font-medium shadow-inner focus:z-10 focus:outline-hidden focus:ring-2 focus:ring-offset-2"
+            "focus:outline-hidden relative inline-flex items-center rounded-full border border-border bg-secondary p-2 font-medium text-muted-foreground shadow-inner hover:bg-secondary/90 focus:z-10 focus:ring-2 focus:ring-offset-2"
           )}
         >
           <span className="relative inline-block h-5 w-5 overflow-hidden rounded-full">

@@ -109,7 +109,7 @@ export default function FeatureFlagsClient({ items }: FeatureFlagsClientProps) {
                   <div className="text-base font-bold">{i.description}</div>
                   <SimpleBadge title={i.name} color={Colors.GRAY} />
                 </div>
-                <div className="text-muted-foreground flex items-center space-x-2 text-sm">
+                <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                   <Link href={"/admin/analytics/events?featureFlagId=" + i.id} className="lowercase">
                     {i.events.length} {t("featureFlags.triggers")}
                   </Link>
@@ -139,7 +139,7 @@ export default function FeatureFlagsClient({ items }: FeatureFlagsClientProps) {
         noRecords={
           <div className="p-12 text-center">
             <h3 className="mt-1 text-sm font-medium text-gray-900">{t("featureFlags.empty.title")}</h3>
-            <p className="text-muted-foreground mt-1 text-sm">{t("featureFlags.empty.description")}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{t("featureFlags.empty.description")}</p>
           </div>
         }
       />

@@ -11,21 +11,21 @@ export async function handleNewsletterAction(formData: FormData): Promise<Action
     const host = headersList.get("host") || "localhost:3000";
     const protocol = headersList.get("x-forwarded-proto") || "http";
     const url = `${protocol}://${host}/newsletter`;
-    
+
     // Convert FormData to URLSearchParams for CSRF validation compatibility
     const params = new URLSearchParams();
     for (const [key, value] of formData.entries()) {
-      if (typeof value === 'string') {
+      if (typeof value === "string") {
         params.append(key, value);
       }
     }
-    
+
     // Create request with URLSearchParams body for proper CSRF validation
     const request = new Request(url, {
       method: "POST",
       headers: {
         ...Object.fromEntries(headersList.entries()),
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
       body: params.toString(),
     });

@@ -31,7 +31,7 @@ export default function AddFeedbackButton() {
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 type="button"
-                className="text-muted-foreground bg-secondary hover:bg-secondary/90 border-border relative inline-flex items-center rounded-full border p-2 font-medium shadow-inner focus:z-10 focus:outline-hidden focus:ring-2 focus:ring-offset-2"
+                className="focus:outline-hidden relative inline-flex items-center rounded-full border border-border bg-secondary p-2 font-medium text-muted-foreground shadow-inner hover:bg-secondary/90 focus:z-10 focus:ring-2 focus:ring-offset-2"
                 aria-haspopup="listbox"
                 aria-expanded="true"
                 aria-labelledby="chat-label"
@@ -61,17 +61,17 @@ function FeedbackForm({ onClose }: { onClose: () => void }) {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     const formData = new FormData(e.currentTarget);
-    
+
     try {
-      const response = await fetch(`/app/${params.tenant || ''}`, {
-        method: 'POST',
+      const response = await fetch(`/app/${params.tenant || ""}`, {
+        method: "POST",
         body: formData,
       });
-      
+
       const result = await response.json();
-      
+
       if (result.success) {
         toast.success(result.success);
         onClose();
@@ -79,12 +79,12 @@ function FeedbackForm({ onClose }: { onClose: () => void }) {
         toast.error(result.error);
       }
     } catch (error) {
-      toast.error('An error occurred while submitting feedback');
+      toast.error("An error occurred while submitting feedback");
     } finally {
       setIsSubmitting(false);
     }
   };
-  
+
   return (
     <form onSubmit={onSubmit} method="post">
       <input type="hidden" name="action" value="add-feedback" readOnly />
@@ -92,10 +92,10 @@ function FeedbackForm({ onClose }: { onClose: () => void }) {
       <input type="hidden" name="fromUrl" value={pathname} readOnly />
       <div className="space-y-3">
         <h3 className="text-lg font-medium leading-6">{t("feedback.title")}</h3>
-        <p className="text-muted-foreground text-sm">{t("feedback.description")}</p>
+        <p className="text-sm text-muted-foreground">{t("feedback.description")}</p>
         <InputText name="message" defaultValue="" required rows={5} placeholder={t("feedback.placeholder")} />
         <div className="flex justify-between">
-          <button type="button" onClick={onClose} className="text-muted-foreground text-sm hover:underline">
+          <button type="button" onClick={onClose} className="text-sm text-muted-foreground hover:underline">
             {t("shared.cancel")}
           </button>
           <ButtonPrimary type="submit" disabled={isSubmitting}>

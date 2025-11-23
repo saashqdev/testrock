@@ -56,12 +56,12 @@ export default function NavigationClient() {
 
   return (
     <div>
-      <div className="border-border bg-background w-full border-b py-2 shadow-2xs">
-        <div className="mx-auto flex max-w-5xl items-center justify-between space-x-2 px-4 sm:px-6 lg:px-8 xl:max-w-7xl 2xl:max-w-(--breakpoint-2xl)">
+      <div className="shadow-2xs w-full border-b border-border bg-background py-2">
+        <div className="2xl:max-w-(--breakpoint-2xl) mx-auto flex max-w-5xl items-center justify-between space-x-2 px-4 sm:px-6 lg:px-8 xl:max-w-7xl">
           <h1 className="flex flex-1 items-center truncate font-bold">{t("admin.navigation.title")}</h1>
         </div>
       </div>
-      <div className="mx-auto max-w-5xl space-y-2 px-4 pt-2 sm:px-6 lg:px-8 xl:max-w-7xl 2xl:max-w-(--breakpoint-2xl)">
+      <div className="2xl:max-w-(--breakpoint-2xl) mx-auto max-w-5xl space-y-2 px-4 pt-2 sm:px-6 lg:px-8 xl:max-w-7xl">
         <div className="space-y-2">
           <InputSearch value={searchInput} onChange={setSearchInput} />
           <div>
@@ -69,29 +69,29 @@ export default function NavigationClient() {
               <div className="flex flex-col">
                 <div className="overflow-x-auto">
                   <div className="inline-block min-w-full py-2 align-middle">
-                    <div className="border-border overflow-hidden border shadow-xs sm:rounded-lg">
-                      <table className="divide-border min-w-full divide-y">
+                    <div className="shadow-xs overflow-hidden border border-border sm:rounded-lg">
+                      <table className="min-w-full divide-y divide-border">
                         <thead className="bg-secondary">
                           <tr>
                             <th
                               scope="col"
-                              className="border-border text-muted-foreground select-none truncate border px-4 py-2 text-left text-xs font-medium tracking-wider"
+                              className="select-none truncate border border-border px-4 py-2 text-left text-xs font-medium tracking-wider text-muted-foreground"
                             >
                               {t("admin.navigation.icon")}
                             </th>
                             <th
                               scope="col"
-                              className="border-border text-muted-foreground select-none truncate border px-4 py-2 text-left text-xs font-medium tracking-wider"
+                              className="select-none truncate border border-border px-4 py-2 text-left text-xs font-medium tracking-wider text-muted-foreground"
                             >
                               {t("admin.navigation.menu")}
                             </th>
                             <th
                               scope="col"
-                              className="border-border text-muted-foreground select-none truncate border px-4 py-2 text-left text-xs font-medium tracking-wider"
+                              className="select-none truncate border border-border px-4 py-2 text-left text-xs font-medium tracking-wider text-muted-foreground"
                             >
                               {t("admin.navigation.url")}
                             </th>
-                            <th className="border-border text-muted-foreground select-none truncate border px-4 py-2 text-left text-xs font-bold tracking-wider">
+                            <th className="select-none truncate border border-border px-4 py-2 text-left text-xs font-bold tracking-wider text-muted-foreground">
                               {t("admin.navigation.sysadmin")}
                             </th>
                             {tenantUserTypes.map((role, idx) => {
@@ -99,28 +99,28 @@ export default function NavigationClient() {
                                 <th
                                   key={idx}
                                   scope="col"
-                                  className="border-border text-muted-foreground select-none truncate border px-4 py-2 text-left text-xs font-bold tracking-wider"
+                                  className="select-none truncate border border-border px-4 py-2 text-left text-xs font-bold tracking-wider text-muted-foreground"
                                 >
-                                  <div className="text-muted-foreground flex items-center justify-center space-x-1">{tenantUserTypeName(role)}</div>
+                                  <div className="flex items-center justify-center space-x-1 text-muted-foreground">{tenantUserTypeName(role)}</div>
                                 </th>
                               );
                             })}
                           </tr>
                         </thead>
-                        <tbody className="divide-border bg-background divide-y">
+                        <tbody className="divide-y divide-border bg-background">
                           {items.map((item, idx) => {
                             return (
                               <tr key={idx}>
-                                <td className="border-border w-10 whitespace-nowrap border-b border-l border-t px-4 py-2 text-sm">
+                                <td className="w-10 whitespace-nowrap border-b border-l border-t border-border px-4 py-2 text-sm">
                                   {item.icon && <SidebarIcon className="mx-auto h-5 w-5 text-slate-700" item={item} />}
                                 </td>
-                                <td className="border-border whitespace-nowrap border-b border-l border-t px-4 py-2 text-sm">{t(item.title)}</td>
-                                <td className="border-border whitespace-nowrap border-b border-l border-t px-4 py-2 text-sm">
+                                <td className="whitespace-nowrap border-b border-l border-t border-border px-4 py-2 text-sm">{t(item.title)}</td>
+                                <td className="whitespace-nowrap border-b border-l border-t border-border px-4 py-2 text-sm">
                                   <a target="_blank" rel="noreferrer" href={item.path} className="text-blue-500 underline hover:text-blue-700">
                                     {item.path}
                                   </a>
                                 </td>
-                                <td className="border-border text-muted-foreground whitespace-nowrap border px-4 text-center text-sm">
+                                <td className="whitespace-nowrap border border-border px-4 text-center text-sm text-muted-foreground">
                                   <div className="flex justify-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-teal-400" viewBox="0 0 20 20" fill="currentColor">
                                       <path
@@ -134,7 +134,7 @@ export default function NavigationClient() {
 
                                 {tenantUserTypes.map((role) => {
                                   return (
-                                    <td className="border-border text-muted-foreground whitespace-nowrap border px-4 text-center text-sm" key={role}>
+                                    <td className="whitespace-nowrap border border-border px-4 text-center text-sm text-muted-foreground" key={role}>
                                       <div className="flex justify-center">
                                         {(() => {
                                           if (tenantUserTypeHasAccess(item, role)) {

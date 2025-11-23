@@ -14,32 +14,32 @@ export default function EmailMarketingSummaryRoute({ data }: EmailMarketingSumma
   const { t } = useTranslation();
   return (
     <div className="mx-auto mb-12 max-w-5xl space-y-5 px-4 py-4 sm:px-6 lg:px-8 xl:max-w-7xl">
-      <div className="border-border border-b pb-5">
-        <h3 className="text-foreground text-lg leading-6 font-medium">{t("shared.overview")}</h3>
+      <div className="border-b border-border pb-5">
+        <h3 className="text-lg font-medium leading-6 text-foreground">{t("shared.overview")}</h3>
       </div>
       <dl className="grid gap-2 sm:grid-cols-3">
-        <div className="bg-card border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs">
-          <dt className="text-muted-foreground truncate text-xs font-medium uppercase">
+        <div className="shadow-xs overflow-hidden rounded-lg border border-border bg-card px-4 py-3">
+          <dt className="truncate text-xs font-medium uppercase text-muted-foreground">
             <div>{t("emailMarketing.overview.avgOpenRate")}</div>
           </dt>
-          <dd className="text-foreground mt-1 truncate text-2xl font-semibold">{NumberUtils.decimalFormat(data.summary.avgOpenRate)}%</dd>
+          <dd className="mt-1 truncate text-2xl font-semibold text-foreground">{NumberUtils.decimalFormat(data.summary.avgOpenRate)}%</dd>
         </div>
-        <div className="bg-card border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs">
-          <dt className="text-muted-foreground truncate text-xs font-medium uppercase">
+        <div className="shadow-xs overflow-hidden rounded-lg border border-border bg-card px-4 py-3">
+          <dt className="truncate text-xs font-medium uppercase text-muted-foreground">
             <div>{t("emailMarketing.overview.avgClickRate")}</div>
           </dt>
-          <dd className="text-foreground mt-1 truncate text-2xl font-semibold">{NumberUtils.decimalFormat(data.summary.avgClickRate)}%</dd>
+          <dd className="mt-1 truncate text-2xl font-semibold text-foreground">{NumberUtils.decimalFormat(data.summary.avgClickRate)}%</dd>
         </div>
-        <div className="bg-card border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs">
-          <dt className="text-muted-foreground flex items-center space-x-2 truncate text-xs font-medium uppercase">
+        <div className="shadow-xs overflow-hidden rounded-lg border border-border bg-card px-4 py-3">
+          <dt className="flex items-center space-x-2 truncate text-xs font-medium uppercase text-muted-foreground">
             <ColorBadge color={Colors.GREEN} />
             <div>{t("emailMarketing.overview.totalSent")}</div>
           </dt>
-          <dd className="text-foreground mt-1 flex items-baseline space-x-1 truncate text-2xl font-semibold">
+          <dd className="mt-1 flex items-baseline space-x-1 truncate text-2xl font-semibold text-foreground">
             <div>
               {NumberUtils.numberFormat(data.summary.outboundEmails.delivered)}/{NumberUtils.numberFormat(data.summary.outboundEmails.sent)}
             </div>
-            <div className="text-muted-foreground text-xs font-normal lowercase">{t("emails.delivered")}</div>
+            <div className="text-xs font-normal lowercase text-muted-foreground">{t("emails.delivered")}</div>
           </dd>
         </div>
       </dl>

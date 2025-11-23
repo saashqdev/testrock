@@ -136,10 +136,10 @@ export default function WidgetEditClient({ data }: WidgetEditClientProps) {
             <form method="post" onSubmit={handleSubmit}>
               <input hidden type="text" name="action" value="edit" readOnly />
               <div className="">
-                <div className=" space-y-2">
+                <div className="space-y-2">
                   <div className="grid grid-cols-6 gap-2">
                     <div className="col-span-6 sm:col-span-6 md:col-span-6">
-                      <label htmlFor="name" className="text-muted-foreground mb-1 block text-sm font-medium leading-5">
+                      <label htmlFor="name" className="mb-1 block text-sm font-medium leading-5 text-muted-foreground">
                         {t("shared.name")}
                       </label>
                       <Input name="name" required type="text" defaultValue={data.item.name} />
@@ -161,7 +161,7 @@ export default function WidgetEditClient({ data }: WidgetEditClientProps) {
         {/*Separator */}
         <div className="block">
           <div className="py-5">
-            <div className="border-border border-t"></div>
+            <div className="border-t border-border"></div>
           </div>
         </div>
 
@@ -169,7 +169,7 @@ export default function WidgetEditClient({ data }: WidgetEditClientProps) {
         <SettingSection title="Embed">
           <div>
             <div className="flex items-center justify-between space-x-2">
-              <div className="text-muted-foreground text-sm">
+              <div className="text-sm text-muted-foreground">
                 Place the following script inside the <code>&lt;head&gt;</code> tag of your website.
               </div>
               <Button
@@ -181,7 +181,7 @@ export default function WidgetEditClient({ data }: WidgetEditClientProps) {
                   toast.success(t("shared.copied"));
                 }}
               >
-                <ClipboardIcon className="text-muted-foreground h-4 w-4" />
+                <ClipboardIcon className="h-4 w-4 text-muted-foreground" />
               </Button>
             </div>
             <div className="mt-2">
@@ -193,7 +193,7 @@ export default function WidgetEditClient({ data }: WidgetEditClientProps) {
         {/*Separator */}
         <div className="block">
           <div className="py-5">
-            <div className="border-border border-t"></div>
+            <div className="border-t border-border"></div>
           </div>
         </div>
 
@@ -225,7 +225,7 @@ export default function WidgetEditClient({ data }: WidgetEditClientProps) {
                           <div
                             className={clsx(
                               `theme-${item.value}`,
-                              " bg-primary text-primary inline-flex flex-shrink-0 items-center rounded-full text-xs font-medium"
+                              "inline-flex flex-shrink-0 items-center rounded-full bg-primary text-xs font-medium text-primary"
                             )}
                           >
                             <svg className={clsx("h-2 w-2")} fill="currentColor" viewBox="0 0 8 8">
@@ -349,7 +349,7 @@ export default function WidgetEditClient({ data }: WidgetEditClientProps) {
         {/*Separator */}
         <div className="block">
           <div className="py-5">
-            <div className="border-border border-t"></div>
+            <div className="border-t border-border"></div>
           </div>
         </div>
 

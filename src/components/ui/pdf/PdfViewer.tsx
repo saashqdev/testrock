@@ -126,7 +126,7 @@ export default function PdfViewer({ className, file, onRemoveFile, fileName = ""
   return (
     <div
       id="pdf-viewer"
-      className={clsx(className, "border-border text-muted-foreground bg-background items-center overflow-hidden rounded-md border border-dashed")}
+      className={clsx(className, "items-center overflow-hidden rounded-md border border-dashed border-border bg-background text-muted-foreground")}
       style={{
         height: size?.height ?? "auto",
         width: size?.width ?? "auto",
@@ -136,7 +136,7 @@ export default function PdfViewer({ className, file, onRemoveFile, fileName = ""
         <div className="text-red-500">{error}</div>
       ) : !pdfRef ? (
         <div className={clsx("flex items-center justify-center", size ? "h-full p-12" : "h-64 p-12")}>
-          <div className="base-spinner text-muted-foreground flex justify-center p-12 text-sm italic"></div>
+          <div className="base-spinner flex justify-center p-12 text-sm italic text-muted-foreground"></div>
         </div>
       ) : (
         <>
@@ -148,12 +148,12 @@ export default function PdfViewer({ className, file, onRemoveFile, fileName = ""
                 }}
                 className="left-0 top-0 ml-1 mt-1 flex origin-top-left cursor-default items-center space-x-2"
               >
-                <span className="relative z-0 inline-flex rounded-md shadow-2xs">
+                <span className="shadow-2xs relative z-0 inline-flex rounded-md">
                   <button
                     type="button"
                     className={clsx(
-                      "focus:border-theme-500 focus:ring-ring border-border text-muted-foreground bg-background relative inline-flex items-center rounded-l-md border px-1 py-1 text-xs font-medium focus:z-10 focus:outline-hidden focus:ring-1",
-                      currentPage === 1 && "bg-secondary  cursor-not-allowed",
+                      "focus:outline-hidden relative inline-flex items-center rounded-l-md border border-border bg-background px-1 py-1 text-xs font-medium text-muted-foreground focus:z-10 focus:border-theme-500 focus:ring-1 focus:ring-ring",
+                      currentPage === 1 && "cursor-not-allowed bg-secondary",
                       currentPage !== 1 && "hover:bg-secondary"
                     )}
                     disabled={currentPage === 1}
@@ -171,14 +171,14 @@ export default function PdfViewer({ className, file, onRemoveFile, fileName = ""
                       />
                     </svg>
                   </button>
-                  <span className="border-border bg-background text-foreground/80 relative -ml-px inline-flex select-none items-center border px-2 py-1 text-xs font-medium">
+                  <span className="relative -ml-px inline-flex select-none items-center border border-border bg-background px-2 py-1 text-xs font-medium text-foreground/80">
                     {currentPage} / {pageCount}
                   </span>
                   <button
                     type="button"
                     className={clsx(
-                      "focus:border-theme-500 focus:ring-ring hover:bg-secondary border-border text-muted-foreground bg-background relative -ml-px inline-flex items-center rounded-r-md border px-1 py-1 text-xs font-medium focus:z-10 focus:outline-hidden focus:ring-1",
-                      currentPage === pageCount && "bg-secondary cursor-not-allowed",
+                      "focus:outline-hidden relative -ml-px inline-flex items-center rounded-r-md border border-border bg-background px-1 py-1 text-xs font-medium text-muted-foreground hover:bg-secondary focus:z-10 focus:border-theme-500 focus:ring-1 focus:ring-ring",
+                      currentPage === pageCount && "cursor-not-allowed bg-secondary",
                       currentPage !== pageCount && "hover:bg-secondary"
                     )}
                     disabled={currentPage === pageCount}
@@ -201,7 +201,7 @@ export default function PdfViewer({ className, file, onRemoveFile, fileName = ""
               {canDownload && (
                 <button
                   type="button"
-                  className="focus:ring-ring hover:bg-secondary border-border text-muted-foreground right-0 top-0 mr-0 mt-1 inline-flex origin-top-right items-center rounded px-1.5 py-1.5 text-xs font-medium focus:outline-hidden focus:ring-2 focus:ring-offset-1"
+                  className="focus:outline-hidden right-0 top-0 mr-0 mt-1 inline-flex origin-top-right items-center rounded border-border px-1.5 py-1.5 text-xs font-medium text-muted-foreground hover:bg-secondary focus:ring-2 focus:ring-ring focus:ring-offset-1"
                   onClick={(e) => {
                     e.preventDefault();
                     downloadPdf();
@@ -217,7 +217,7 @@ export default function PdfViewer({ className, file, onRemoveFile, fileName = ""
               {editing && (
                 <button
                   type="button"
-                  className="focus:ring-ring hover:bg-secondary border-border text-muted-foreground right-0 top-0 mr-0 mt-1 inline-flex origin-top-right items-center rounded px-1.5 py-1.5 text-xs font-medium focus:outline-hidden focus:ring-2 focus:ring-offset-1"
+                  className="focus:outline-hidden right-0 top-0 mr-0 mt-1 inline-flex origin-top-right items-center rounded border-border px-1.5 py-1.5 text-xs font-medium text-muted-foreground hover:bg-secondary focus:ring-2 focus:ring-ring focus:ring-offset-1"
                   onClick={onRemoveFile}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

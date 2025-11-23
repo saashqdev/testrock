@@ -15,18 +15,21 @@ export default function AdminDataLayout({ children, data }: { children: React.Re
       // ignore
     }
   }, []);
-  
+
   // Memoize the context value to prevent unnecessary re-renders of consumers
   // This ensures that even if AdminDataLayout re-renders, the context value
   // remains stable as long as the actual data hasn't changed
-  const contextValue = useMemo(() => data, [
-    data.user.id,
-    data.isSuperAdmin,
-    data.entities.length,
-    data.permissions.length,
-    // Only depend on primitive values or counts, not full objects/arrays
-  ]);
-  
+  const contextValue = useMemo(
+    () => data,
+    [
+      data.user.id,
+      data.isSuperAdmin,
+      data.entities.length,
+      data.permissions.length,
+      // Only depend on primitive values or counts, not full objects/arrays
+    ]
+  );
+
   return (
     <AdminDataContext.Provider value={contextValue}>
       <div suppressHydrationWarning>{children}</div>

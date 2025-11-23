@@ -46,16 +46,16 @@ export default function SubscriptionSettings({
     const form = new FormData();
     form.set("action", "cancel");
     form.set("tenant-subscription-product-id", item.id);
-    
+
     startTransition(async () => {
       try {
         const response = await fetch(window.location.pathname, {
           method: "POST",
           body: form,
         });
-        
+
         const data = await response.json();
-        
+
         if (data.url) {
           window.location.href = data.url;
         } else if (response.ok) {
@@ -76,7 +76,7 @@ export default function SubscriptionSettings({
   //         method: "POST",
   //         body: form,
   //       });
-  //       
+  //
   //       if (response.ok) {
   //         router.refresh();
   //       }
@@ -89,16 +89,16 @@ export default function SubscriptionSettings({
   async function onOpenCustomerPortal() {
     const form = new FormData();
     form.set("action", "open-customer-portal");
-    
+
     startTransition(async () => {
       try {
         const response = await fetch(window.location.pathname, {
           method: "POST",
           body: form,
         });
-        
+
         const data = await response.json();
-        
+
         if (data.url) {
           window.location.href = data.url;
         } else if (response.ok) {
@@ -135,7 +135,7 @@ export default function SubscriptionSettings({
         <>
           <div className="hidden sm:block" aria-hidden="true">
             <div className="py-4">
-              <div className="border-border border-t"></div>
+              <div className="border-t border-border"></div>
             </div>
           </div>
 
@@ -149,7 +149,7 @@ export default function SubscriptionSettings({
         <>
           <div className="hidden sm:block" aria-hidden="true">
             <div className="py-4">
-              <div className="border-border border-t"></div>
+              <div className="border-t border-border"></div>
             </div>
           </div>
 
@@ -165,7 +165,7 @@ export default function SubscriptionSettings({
 
       <div className="hidden sm:block" aria-hidden="true">
         <div className="py-4">
-          <div className="border-border border-t"></div>
+          <div className="border-t border-border"></div>
         </div>
       </div>
 

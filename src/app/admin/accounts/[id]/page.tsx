@@ -22,7 +22,7 @@ export default async function TenantDetailPage(props: IServerComponentsProps) {
   if (!tenant) {
     redirect("/admin/accounts");
   }
-  
+
   const users = await db.users.adminGetAllTenantUsers(tenant.id);
   const subscription = await db.tenantSubscriptions.getTenantSubscription(params.id!);
   const subscriptionProducts = await db.subscriptionProducts.getAllSubscriptionProducts();

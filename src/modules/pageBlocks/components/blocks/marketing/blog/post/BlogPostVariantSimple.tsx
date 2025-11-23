@@ -24,13 +24,13 @@ export default function BlogPostVariantSimple({ item }: { item: BlogPostBlockDto
     const form = new FormData();
     form.set("action", "publish");
     form.set("id", item.data?.post.id ?? "");
-    
+
     try {
       const response = await fetch(window.location.pathname, {
         method: "POST",
         body: form,
       });
-      
+
       if (response.ok) {
         router.refresh(); // Refresh the current page to show updated state
       }

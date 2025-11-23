@@ -15,7 +15,7 @@ import { redirect } from "next/navigation";
 export async function impersonateUser(userId: string) {
   await verifyUserHasPermission("admin.users.impersonate");
   const { t } = await getServerTranslations();
-  
+
   const user = await db.users.getUser(userId);
   if (!user) {
     return { error: t("shared.notFound") };
@@ -26,7 +26,7 @@ export async function impersonateUser(userId: string) {
   if (!userSession) {
     return { error: t("shared.notFound") };
   }
-  
+
   const tenant = await db.tenants.getTenant(userSession.defaultTenantId);
   return createUserSession(
     {
@@ -41,7 +41,7 @@ export async function impersonateUser(userId: string) {
 export async function changeUserPassword(userId: string, newPassword: string) {
   await verifyUserHasPermission("admin.users.changePassword");
   const { t } = await getServerTranslations();
-  
+
   const user = await db.users.getUser(userId);
   if (!user) {
     return { error: t("shared.notFound") };
@@ -55,10 +55,10 @@ export async function changeUserPassword(userId: string, newPassword: string) {
 
   const passwordHash = await bcrypt.hash(newPassword, 10);
   await db.users.updateUserPassword({ passwordHash }, user?.id);
-  
+
   const userInfo = await getUserInfo();
   const currentUser = await db.users.getUser(userInfo.userId);
-  
+
   const mockRequest = new Request("http://localhost", { method: "POST" });
   await EventsService.create({
     request: mockRequest,
@@ -77,7 +77,7 @@ export async function changeUserPassword(userId: string, newPassword: string) {
 export async function deleteUser(userId: string) {
   await verifyUserHasPermission("admin.users.delete");
   const { t } = await getServerTranslations();
-  
+
   const user = await db.users.getUser(userId);
   if (!user) {
     return { error: t("shared.notFound") };
@@ -86,7 +86,7 @@ export async function deleteUser(userId: string) {
   try {
     const { deletedTenants } = await deleteUserWithItsTenants(userId);
     const mockRequest = new Request("http://localhost", { method: "POST" });
-    
+
     const deletedAccounts = await Promise.all(
       deletedTenants.map(async (tenant) => {
         const data = {
@@ -103,7 +103,7 @@ export async function deleteUser(userId: string) {
         return data;
       })
     );
-    
+
     await EventsService.create({
       request: mockRequest,
       event: "user.profile.deleted",
@@ -117,7 +117,7 @@ export async function deleteUser(userId: string) {
         deletedAccounts,
       } satisfies UserProfileDeletedDto,
     });
-    
+
     return { success: t("shared.deleted") };
   } catch (e: any) {
     console.error(e);

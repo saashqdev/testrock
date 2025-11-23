@@ -10,7 +10,7 @@ export type ActionDataEmails = {
 const badRequest = (data: ActionDataEmails) => Response.json(data, { status: 400 });
 export const actionInboundEmailEdit = async (props: IServerComponentsProps, redirectUrl: string) => {
   const params = (await props.params) || {};
-  const request = props.request!;  
+  const request = props.request!;
   await requireAuth();
   const { t } = await getServerTranslations();
   const form = await request.formData();

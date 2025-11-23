@@ -33,38 +33,37 @@ export default function PageMetaTagsRoute_Index({ data }: Props) {
   // Handle form submission with Next.js patterns
   const handleSubmit = async (formData: FormData) => {
     setIsSubmitting(true);
-    
+
     try {
-      const response = await fetch(window.location.pathname + '/api', {
-        method: 'POST',
+      const response = await fetch(window.location.pathname + "/api", {
+        method: "POST",
         body: formData,
       });
-      
+
       const result = await response.json();
-      
+
       if (!response.ok) {
-        toast.error(result.error || 'An error occurred');
+        toast.error(result.error || "An error occurred");
         return;
       }
-      
+
       if (result.error) {
         toast.error(result.error);
       } else if (result.success) {
         toast.success(result.success);
       }
-      
+
       if (result.metaTags) {
         setMetaTags(result.metaTags);
       }
-      
+
       // Refresh the page data
       startTransition(() => {
         router.refresh();
       });
-      
     } catch (error) {
-      toast.error('An error occurred while saving');
-      console.error('Form submission error:', error);
+      toast.error("An error occurred while saving");
+      console.error("Form submission error:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -131,24 +130,27 @@ export default function PageMetaTagsRoute_Index({ data }: Props) {
         </button>
       )}
 
-      <form 
+      <form
         className="divide-y-gray-200 space-y-2 divide-y"
         onSubmit={(e) => {
           e.preventDefault();
           const formData = new FormData(e.currentTarget);
           formData.set("action", "update");
-          
+
           // Add all meta tags to form data
           metaTags
             .sort((a, b) => a.order - b.order)
             .forEach((tag) => {
-              formData.append("metaTags[]", JSON.stringify({
-                name: tag.name,
-                content: tag.content,
-                order: tag.order,
-              }));
+              formData.append(
+                "metaTags[]",
+                JSON.stringify({
+                  name: tag.name,
+                  content: tag.content,
+                  order: tag.order,
+                })
+              );
             });
-            
+
           handleSubmit(formData);
         }}
       >
@@ -212,8 +214,8 @@ export default function PageMetaTagsRoute_Index({ data }: Props) {
             <ButtonTertiary destructive onClick={onReset} disabled={isSubmitting}>
               Reset
             </ButtonTertiary>
-            <LoadingButton 
-              type="submit" 
+            <LoadingButton
+              type="submit"
               disabled={!getUserHasPermission(appOrAdminData, "admin.pages.update") || duplicatedTags().length > 0 || isSubmitting}
               isLoading={isSubmitting}
             >

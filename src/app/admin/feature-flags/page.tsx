@@ -26,6 +26,6 @@ async function getData(): Promise<LoaderData> {
 
 export default async function FeatureFlagsPage() {
   const data = await getData();
-  
+
   return <FeatureFlagsOverview summary={data.summary} />;
 }

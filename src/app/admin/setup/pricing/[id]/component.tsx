@@ -47,7 +47,7 @@ export default function ({ item }: Props) {
   return (
     <div>
       <div>
-        <div className="fixed inset-0 overflow-y-auto z-50">
+        <div className="fixed inset-0 z-50 overflow-y-auto">
           <div className="flex min-h-screen items-center justify-center px-4 pb-20 pt-4 text-center sm:block sm:p-0">
             <Transition
               as={Fragment}
@@ -60,7 +60,7 @@ export default function ({ item }: Props) {
               leaveTo="opacity-0"
             >
               <div className="fixed inset-0 transition-opacity" aria-hidden="true" onClick={close}>
-                <div className="bg-foreground/90 absolute inset-0 opacity-75"></div>
+                <div className="absolute inset-0 bg-foreground/90 opacity-75"></div>
               </div>
             </Transition>
 
@@ -79,7 +79,7 @@ export default function ({ item }: Props) {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <div
-                className="bg-background my-8 inline-block w-full transform overflow-visible rounded-sm px-4 pb-4 pt-5 text-left align-bottom shadow-xl transition-all sm:max-w-2xl sm:p-6 sm:align-middle"
+                className="my-8 inline-block w-full transform overflow-visible rounded-sm bg-background px-4 pb-4 pt-5 text-left align-bottom shadow-xl transition-all sm:max-w-2xl sm:p-6 sm:align-middle"
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="modal-headline"
@@ -88,11 +88,11 @@ export default function ({ item }: Props) {
                   <button
                     onClick={close}
                     type="button"
-                    className="border-border hover:text-muted-foreground text-muted-foreground bg-background flex items-center justify-center rounded-full border p-1 hover:bg-gray-200 focus:outline-hidden"
+                    className="focus:outline-hidden flex items-center justify-center rounded-full border border-border bg-background p-1 text-muted-foreground hover:bg-gray-200 hover:text-muted-foreground"
                   >
                     <span className="sr-only">{t("shared.close")}</span>
                     <svg
-                      className="text-foreground/80 h-5 w-5"
+                      className="h-5 w-5 text-foreground/80"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"

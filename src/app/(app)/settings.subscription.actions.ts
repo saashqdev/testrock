@@ -2,11 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import {
-  createCustomerPortalSession,
-  createStripeSetupSession,
-  deleteStripePaymentMethod,
-} from "@/utils/stripe.server";
+import { createCustomerPortalSession, createStripeSetupSession, deleteStripePaymentMethod } from "@/utils/stripe.server";
 import { getUserInfo } from "@/lib/services/session.server";
 import { getServerTranslations } from "@/i18n/server";
 import { cancelTenantSubscription } from "@/utils/services/server/subscriptionService";
@@ -65,7 +61,7 @@ export async function addPaymentMethodAction(): Promise<ActionResult> {
 
     const headersList = await headers();
     const origin = headersList.get("origin") || headersList.get("referer") || "";
-    
+
     // Create a mock request object for the session creation
     const mockRequest = new Request(origin + "/settings/subscription", {
       headers: headersList,
@@ -102,7 +98,7 @@ export async function openCustomerPortalAction(): Promise<ActionResult> {
 
     const headersList = await headers();
     const origin = headersList.get("origin") || headersList.get("referer") || "";
-    
+
     // Create a mock request object for the session creation
     const mockRequest = new Request(origin + "/settings/subscription", {
       headers: headersList,

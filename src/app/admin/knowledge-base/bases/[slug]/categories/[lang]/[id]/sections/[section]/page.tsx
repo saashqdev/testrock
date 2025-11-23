@@ -137,13 +137,7 @@ export default function KbCategorySectionPage({ knowledgeBase, category, item }:
 
   return (
     <div>
-      <KbCategorySectionForm 
-        knowledgeBase={knowledgeBase} 
-        category={category} 
-        language={params.lang as string} 
-        item={item} 
-        onDelete={onDelete} 
-      />
+      <KbCategorySectionForm knowledgeBase={knowledgeBase} category={category} language={params.lang as string} item={item} onDelete={onDelete} />
     </div>
   );
 }

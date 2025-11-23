@@ -106,13 +106,13 @@ export default function AnalyticsEventsClient({ data }: { data: LoaderData }) {
                         }}
                         className="underline"
                       >
-                        <div className="text-muted-foreground text-xs">
+                        <div className="text-xs text-muted-foreground">
                           <span className="">Anon</span>: {i.uniqueVisitor.cookie.substring(0, 5) + "..."}
                         </div>
                       </button>
                     )}
                   </div>
-                  <time title={DateUtils.dateYMDHMS(i.createdAt)} className="text-muted-foreground text-xs">
+                  <time title={DateUtils.dateYMDHMS(i.createdAt)} className="text-xs text-muted-foreground">
                     {DateUtils.dateAgo(i.createdAt)}
                   </time>
                 </div>

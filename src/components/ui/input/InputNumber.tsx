@@ -67,7 +67,7 @@ const InputNumber = (props: Props, ref: Ref<RefInputNumber>) => {
     <div className={clsx(className, "")}>
       {withLabel && (
         <label htmlFor={name} className="mb-1 flex justify-between space-x-2 text-xs font-medium">
-          <div className=" flex items-center space-x-1">
+          <div className="flex items-center space-x-1">
             <div className="truncate">
               {title}
               {required && <span className="ml-1 text-red-500">*</span>}
@@ -76,7 +76,7 @@ const InputNumber = (props: Props, ref: Ref<RefInputNumber>) => {
             {help && <HintTooltip text={help} />}
           </div>
           {canUnset && !required && !disabled && !readOnly && value !== undefined && onChange && (
-            <button type="button" onClick={() => (onChange ? onChange(undefined) : null)} className="text-muted-foreground text-xs">
+            <button type="button" onClick={() => (onChange ? onChange(undefined) : null)} className="text-xs text-muted-foreground">
               {t("shared.clear")}
             </button>
           )}
@@ -86,7 +86,7 @@ const InputNumber = (props: Props, ref: Ref<RefInputNumber>) => {
       <div className={clsx("relative flex w-full rounded-md")}>
         {icon && (
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-            <EntityIcon className="text-muted-foreground h-5 w-5" icon={icon} />
+            <EntityIcon className="h-5 w-5 text-muted-foreground" icon={icon} />
           </div>
         )}
         <Input

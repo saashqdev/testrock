@@ -64,20 +64,20 @@ async function getData(): Promise<LoaderData> {
 
 async function createBucket(formData: FormData) {
   "use server";
-  
+
   await requireAuth();
-  
+
   if (process.env.NODE_ENV !== "development") {
     return { error: "Not available in production" };
   }
-  
+
   const name = formData.get("name")?.toString();
   const isPublic = formData.get("public");
-  
+
   if (!name) {
     return { error: "Missing name" };
   }
-  
+
   await getOrCreateSupabaseBucket(name, isPublic === "true" || isPublic === "on");
   revalidatePath("/admin/playground/supabase/storage/buckets");
   return { success: "Bucket created" };
@@ -85,53 +85,53 @@ async function createBucket(formData: FormData) {
 
 async function updateBucket(formData: FormData) {
   "use server";
-  
+
   await requireAuth();
-  
+
   if (process.env.NODE_ENV !== "development") {
     return { error: "Not available in production" };
   }
-  
+
   const id = formData.get("id")?.toString();
-  
+
   if (!id) {
     return { error: "Missing id" };
   }
-  
+
   const isPublic = formData.get("public");
   await updateSupabaseBucket(id, {
     public: isPublic === "true" || isPublic === "on",
   });
-  
+
   revalidatePath("/admin/playground/supabase/storage/buckets");
   return { success: "Bucket updated" };
 }
 
 async function deleteBucket(formData: FormData) {
   "use server";
-  
+
   await requireAuth();
-  
+
   if (process.env.NODE_ENV !== "development") {
     return { error: "Not available in production" };
   }
-  
+
   const id = formData.get("id")?.toString();
-  
+
   if (!id) {
     return { error: "Missing id" };
   }
-  
+
   const bucketFiles = await getSupabaseFiles(id);
   if (bucketFiles.data?.length) {
     return { error: "Bucket is not empty" };
   }
-  
+
   const deleted = await deleteSupabaseBucket(id);
   if (deleted.error) {
     return { error: deleted.error.name };
   }
-  
+
   revalidatePath("/admin/playground/supabase/storage/buckets");
   return { success: "Bucket deleted" };
 }
@@ -139,12 +139,5 @@ async function deleteBucket(formData: FormData) {
 export default async function BucketsPage() {
   const data = await getData();
 
-  return (
-    <BucketsClient 
-      data={data}
-      createBucket={createBucket}
-      updateBucket={updateBucket}
-      deleteBucket={deleteBucket}
-    />
-  );
+  return <BucketsClient data={data} createBucket={createBucket} updateBucket={updateBucket} deleteBucket={deleteBucket} />;
 }

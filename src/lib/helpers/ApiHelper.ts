@@ -227,16 +227,16 @@ function getRelationship({
     }
     const rows =
       type === "parent"
-        ? item.parentRows
+        ? (item.parentRows
             ?.filter((f) => f.parentId !== originalParentId)
             ?.map((f) => {
               return { id: f.id, relationshipId: f.relationshipId, row: f.parent };
-            }) ?? []
-        : item.childRows
+            }) ?? [])
+        : (item.childRows
             ?.filter((f) => f.childId !== originalParentId)
             ?.map((f) => {
               return { id: f.id, relationshipId: f.relationshipId, row: f.child };
-            }) ?? [];
+            }) ?? []);
 
     if (multiple && entity.id === child.id) {
       apiFormat[entity.name] = [];

@@ -15,7 +15,7 @@ export default function PromptExecutionsClient({ item }: PromptExecutionsClientP
 
   async function onDelete(id: string) {
     if (isDeleting) return;
-    
+
     setIsDeleting(true);
     try {
       const response = await fetch(`/api/prompts/executions/${id}`, {

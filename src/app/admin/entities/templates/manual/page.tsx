@@ -78,7 +78,7 @@ export default function AdminEntityTemplatesManual() {
         },
       ]}
     >
-      <div className="md:border-border md:border-t md:py-2">
+      <div className="md:border-t md:border-border md:py-2">
         {actionData?.error ? (
           <>
             <p id="form-error-message" className="py-2 text-sm text-rose-500" role="alert">
@@ -90,7 +90,7 @@ export default function AdminEntityTemplatesManual() {
             <p id="form-success-message" className="text-text-500 py-2 text-sm" role="alert">
               {actionData.success}
             </p>
-            <Link href="/admin/entities" className="text-theme-600 hover:text-theme-500 text-sm font-medium underline">
+            <Link href="/admin/entities" className="text-sm font-medium text-theme-600 underline hover:text-theme-500">
               Go to entities
             </Link>
           </>
@@ -104,7 +104,7 @@ export default function AdminEntityTemplatesManual() {
                       key={t.title}
                       type="button"
                       onClick={() => setConfiguration(JSON.stringify(t.template, null, "\t"))}
-                      className="bg-theme-100 text-theme-700 hover:bg-theme-200 focus:ring-ring inline-flex items-center rounded border border-transparent px-2.5 py-1.5 text-xs font-medium focus:outline-hidden focus:ring-2 focus:ring-offset-2"
+                      className="focus:outline-hidden inline-flex items-center rounded border border-transparent bg-theme-100 px-2.5 py-1.5 text-xs font-medium text-theme-700 hover:bg-theme-200 focus:ring-2 focus:ring-ring focus:ring-offset-2"
                     >
                       {t.title}
                     </button>
@@ -132,9 +132,9 @@ export default function AdminEntityTemplatesManual() {
         ) : (
           actionData?.previewTemplate !== undefined && (
             <>
-              <div className="md:border-border md:border-b md:py-2">
+              <div className="md:border-b md:border-border md:py-2">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-foreground text-lg font-medium leading-6">Preview entities</h3>
+                  <h3 className="text-lg font-medium leading-6 text-foreground">Preview entities</h3>
                 </div>
               </div>
               <form onSubmit={handleCreate}>

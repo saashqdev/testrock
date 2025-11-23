@@ -16,22 +16,22 @@ type PageData = {
 
 export default async function OutputMappingPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
-  
+
   const promptFlow = await db.promptFlows.getPromptFlow(params.id!);
   if (!promptFlow) {
     redirect("/admin/prompts/builder");
   }
-  
+
   const promptFlowOutput = await db.promptFlowOutput.getPromptFlowOutput(params.output!);
   if (!promptFlowOutput) {
     redirect(`/admin/prompts/builder/${params.id}/outputs`);
   }
-  
+
   const item = await db.promptFlowOutputMapping.getPromptFlowOutputMapping(params.mapping!);
   if (!item) {
     redirect(`/admin/prompts/builder/${params.id}/outputs`);
   }
-  
+
   const data: PageData = {
     promptFlow,
     promptFlowOutput,

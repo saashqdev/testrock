@@ -17,7 +17,7 @@ type LoaderData = {
 
 async function loadData(props: IServerComponentsProps): Promise<LoaderData> {
   const params = (await props.params) || {};
-  const request = props.request!;  
+  const request = props.request!;
   await verifyUserHasPermission("admin.entities.view");
   const { t } = await getServerTranslations();
   const tenantId = await getTenantIdOrNull({ request, params });

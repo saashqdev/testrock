@@ -33,11 +33,11 @@ export function DashboardStats({ items }: Props) {
               <Link href={item.path}>
                 <DashboardStat
                   item={item}
-                  className="hover:bg-secondary border-border bg-card flex cursor-pointer justify-between space-x-1 truncate rounded-lg border p-5"
+                  className="flex cursor-pointer justify-between space-x-1 truncate rounded-lg border border-border bg-card p-5 hover:bg-secondary"
                 />
               </Link>
             ) : (
-              <DashboardStat className="border-border bg-card flex justify-between space-x-1 truncate rounded-lg border p-5" item={item} />
+              <DashboardStat className="flex justify-between space-x-1 truncate rounded-lg border border-border bg-card p-5" item={item} />
             )}
           </Fragment>
         ))}
@@ -51,15 +51,15 @@ function DashboardStat({ item, loading = false, className }: { item: Stat; loadi
   return (
     <div key={item.name} className={className}>
       <div className="truncate">
-        <div className="text-muted-foreground flex items-baseline space-x-2 text-sm">
+        <div className="flex items-baseline space-x-2 text-sm text-muted-foreground">
           <div>{t(item.name)}</div>
-          {item.hint && <div className="text-muted-foreground hidden text-xs xl:block">({t(item.hint)})</div>}
+          {item.hint && <div className="hidden text-xs text-muted-foreground xl:block">({t(item.hint)})</div>}
         </div>
 
-        <div className="text-foreground flex items-baseline space-x-2 text-2xl font-medium">
+        <div className="flex items-baseline space-x-2 text-2xl font-medium text-foreground">
           <div>{loading ? "..." : item.stat}</div>
           {item.previousStat !== undefined && (
-            <span className="text-muted-foreground ml-2 hidden text-sm font-medium xl:block">{!loading && <span>from {item.previousStat}</span>}</span>
+            <span className="ml-2 hidden text-sm font-medium text-muted-foreground xl:block">{!loading && <span>from {item.previousStat}</span>}</span>
           )}
         </div>
       </div>

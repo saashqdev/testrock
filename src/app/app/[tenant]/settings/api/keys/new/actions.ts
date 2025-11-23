@@ -25,16 +25,16 @@ export async function createApiKey(params: any, formData: FormData): Promise<Act
     const { t } = await getServerTranslations();
     const tenantSlug = params.tenant || params;
     const tenantId = await getTenantIdFromUrl(tenantSlug);
-    
+
     // Create a mock Request object for permission verification
     const headersList = await headers();
     const host = headersList.get("host") || "";
     const protocol = headersList.get("x-forwarded-proto") || "http";
     const url = `${protocol}://${host}/app/${params.tenant}/settings/api/keys/new`;
     const request = new Request(url);
-    
+
     await verifyUserHasPermission("app.settings.apiKeys.create", tenantId);
-    
+
     const userInfo = await getUserInfo();
     const currentUser = await db.users.getUser(userInfo.userId);
 
@@ -72,7 +72,7 @@ export async function createApiKey(params: any, formData: FormData): Promise<Act
         },
         entities
       );
-      
+
       await EventsService.create({
         request,
         event: "api_key.created",
@@ -87,9 +87,9 @@ export async function createApiKey(params: any, formData: FormData): Promise<Act
           user: { id: currentUser?.id ?? "", email: currentUser?.email ?? "" },
         } satisfies ApiKeyCreatedDto,
       });
-      
+
       await db.logs.createLog(request, tenantId, "API Key Created", JSON.stringify({ id: apiKey.id, alias, expirationDate, active, entities }));
-      
+
       return {
         apiKey: {
           key: apiKey.key,
@@ -101,7 +101,7 @@ export async function createApiKey(params: any, formData: FormData): Promise<Act
     }
   } catch (error) {
     // Re-throw redirect errors
-    if (error instanceof Error && error.message === 'NEXT_REDIRECT') {
+    if (error instanceof Error && error.message === "NEXT_REDIRECT") {
       throw error;
     }
     console.error("Error creating API key:", error);

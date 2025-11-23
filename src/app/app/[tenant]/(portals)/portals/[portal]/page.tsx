@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { t } = await getServerTranslations();
   const tenantId = await getTenantIdFromUrl(resolvedParams);
   const item = await db.portals.getPortalById(tenantId, resolvedParams.portal);
-  
+
   if (!item) {
     return {
       title: `${t("models.portal.object")} | ${process.env.APP_NAME}`,
@@ -46,11 +46,11 @@ export default async function PortalOverviewPage({ params }: Props) {
   const resolvedParams = await params;
   const tenantId = await getTenantIdFromUrl(resolvedParams);
   const item: (PortalWithDetailsDto & { portalUrl?: string }) | null = await db.portals.getPortalById(tenantId, resolvedParams.portal);
-  
+
   if (!item) {
     redirect(UrlUtils.getModulePath(resolvedParams, "portals"));
   }
-  
+
   item.portalUrl = PortalServer.getPortalUrl(item);
 
   const overview = {

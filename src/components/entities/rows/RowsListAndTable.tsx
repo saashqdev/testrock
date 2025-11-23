@@ -83,7 +83,7 @@ export default function RowsListAndTable({
     if (editable) {
       actions.push({
         title: t("shared.edit"),
-        onClickRoute: (_, item) => (onEditClick !== undefined ? undefined : EntityHelper.getRoutes({ routes, entity, item })?.edit ?? ""),
+        onClickRoute: (_, item) => (onEditClick !== undefined ? undefined : (EntityHelper.getRoutes({ routes, entity, item })?.edit ?? "")),
         onClick: (_, item) => (onEditClick !== undefined ? onEditClick(item) : undefined),
         hidden: (item) => !editable || !EntityHelper.getRoutes({ routes, entity, item })?.edit,
       });

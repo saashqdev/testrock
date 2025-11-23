@@ -43,12 +43,7 @@ type BucketsClientProps = {
   deleteBucket: (formData: FormData) => Promise<ActionResult>;
 };
 
-export default function BucketsClient({ 
-  data, 
-  createBucket, 
-  updateBucket, 
-  deleteBucket 
-}: BucketsClientProps) {
+export default function BucketsClient({ data, createBucket, updateBucket, deleteBucket }: BucketsClientProps) {
   const { t } = useTranslation();
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState<SupabaseBucketDto>();
@@ -63,7 +58,7 @@ export default function BucketsClient({
         </>
       }
     >
-      {data.error ?? data.buckets.error ? (
+      {(data.error ?? data.buckets.error) ? (
         <ErrorBanner title="Error" text={data.error ?? data.buckets.error?.toString()} />
       ) : (
         <div>
@@ -107,7 +102,7 @@ export default function BucketsClient({
       )}
 
       <Modal size="md" open={isAdding} setOpen={() => setIsAdding(false)}>
-        <BucketForm 
+        <BucketForm
           createAction={createBucket}
           onClose={() => {
             setIsAdding(false);
@@ -119,8 +114,8 @@ export default function BucketsClient({
       </Modal>
 
       <Modal size="md" open={!!isEditing} setOpen={() => setIsEditing(undefined)}>
-        <BucketForm 
-          item={isEditing} 
+        <BucketForm
+          item={isEditing}
           updateAction={updateBucket}
           deleteAction={deleteBucket}
           onClose={() => {
@@ -135,7 +130,7 @@ export default function BucketsClient({
   );
 }
 
-function BucketForm({ 
+function BucketForm({
   item,
   createAction,
   updateAction,
@@ -143,7 +138,7 @@ function BucketForm({
   onClose,
   actionResult,
   setActionResult,
-}: { 
+}: {
   item?: SupabaseBucketDto;
   createAction?: (formData: FormData) => Promise<ActionResult>;
   updateAction?: (formData: FormData) => Promise<ActionResult>;
@@ -163,7 +158,7 @@ function BucketForm({
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    
+
     startTransition(async () => {
       let result: ActionResult;
       if (item && updateAction) {
@@ -183,7 +178,7 @@ function BucketForm({
     }
     const formData = new FormData();
     formData.set("id", item.id);
-    
+
     startTransition(async () => {
       const result = await deleteAction(formData);
       setActionResult(result);
@@ -205,12 +200,7 @@ function BucketForm({
         )}
       </div>
       <InputText name="name" title="Name" defaultValue={item?.name} disabled={!!item?.name} />
-      <InputCheckboxWithDescription 
-        name="public" 
-        title="Public" 
-        description="Files will be publicly accessible" 
-        value={item?.public} 
-      />
+      <InputCheckboxWithDescription name="public" title="Public" description="Files will be publicly accessible" value={item?.public} />
 
       <div className="flex justify-between space-x-2">
         <div>

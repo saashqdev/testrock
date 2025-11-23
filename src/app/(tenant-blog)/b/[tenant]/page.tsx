@@ -16,9 +16,9 @@ export async function generateMetadata({ params }: IServerComponentsProps): Prom
   const resolvedParams = await params;
   const tenantId = await getTenantIdFromUrl(resolvedParams || {});
   const tenant = await db.tenants.getTenantDto(tenantId);
-  
+
   return {
-    title: `${tenant?.name || 'Blog'} | Blog | ${process.env.APP_NAME}`,
+    title: `${tenant?.name || "Blog"} | Blog | ${process.env.APP_NAME}`,
   };
 }
 type PageData = {
@@ -30,7 +30,7 @@ export default async function BlogPage({ params }: IServerComponentsProps) {
   const resolvedParams = await params;
   const tenantId = await getTenantIdFromUrl(resolvedParams || {});
   const tenant = await db.tenants.getTenantDto(tenantId);
-  
+
   if (!tenant) {
     notFound();
   }

@@ -4,10 +4,10 @@ import RedirectsUtils from "./RedirectsUtils";
 
 async function findAndRedirect({ request }: { request?: Request }) {
   const redirects: { [key: string]: string } = RedirectsUtils.redirects;
-  
+
   let pathname: string;
   let searchParams: URLSearchParams;
-  
+
   if (request?.url) {
     // If request is provided (API routes), use it
     pathname = new URL(request.url).pathname;
@@ -20,7 +20,7 @@ async function findAndRedirect({ request }: { request?: Request }) {
     pathname = fullUrl.pathname;
     searchParams = fullUrl.searchParams;
   }
-  
+
   const redirectPath = Object.keys(redirects).find((path) => {
     const regex = new RegExp(`^${path.replace(/\*/g, ".*")}$`);
     return regex.test(pathname);

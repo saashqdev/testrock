@@ -20,14 +20,14 @@ export default async function EditEntityPropertyRoute(props: IServerComponentsPr
   const params = (await props.params) || {};
   const request = props.request!;
   const tenantId = await getTenantIdOrNull({ request, params });
-  
+
   const entity = await db.entities.getEntityBySlug({ tenantId, slug: params.entity ?? "" });
   const item = await db.properties.getProperty(params.id ?? "");
-  
+
   if (!item || item.tenantId !== tenantId) {
     redirect(UrlUtils.getModulePath(params, `entities/${params.entity}`));
   }
-  
+
   const data: LoaderData = {
     entity,
     item,

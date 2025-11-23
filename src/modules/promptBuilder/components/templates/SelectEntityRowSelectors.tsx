@@ -46,9 +46,11 @@ export default function SelectEntityRowSelectors({ rows, onChange }: { rows: Row
         setValue={(id) => {
           setEntityId(id?.toString() ?? null);
         }}
-        options={appOrAdminData?.entities.map((f) => {
-          return { name: f.name, value: f.id };
-        }) ?? []}
+        options={
+          appOrAdminData?.entities.map((f) => {
+            return { name: f.name, value: f.id };
+          }) ?? []
+        }
       />
       <InputSelector
         title="Row"

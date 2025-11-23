@@ -16,20 +16,20 @@ type LoaderData = {
 export default async function PromptsBuilderOutputsPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   await verifyUserHasPermission("admin.prompts.update");
-  
+
   const item = await db.promptFlows.getPromptFlow(params.id!);
   if (!item) {
     redirect("/admin/prompts/builder");
   }
-  
+
   const items = await db.promptFlowOutput.getPromptFlowOutputs(item.id);
   const allEntities = await db.entities.getAllEntities(null);
-  
+
   const data: LoaderData = {
     item,
     items,
     allEntities,
   };
-  
+
   return <PageClient initialData={data} />;
 }

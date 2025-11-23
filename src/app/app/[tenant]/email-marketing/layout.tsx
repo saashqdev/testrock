@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function EmailMarketingLayout({ params, children }: Props) {
   const resolvedParams = await params;
   const { t } = await getServerTranslations();
-  
+
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
   if (!appConfiguration.app.features.tenantEmailMarketing) {
     redirect(`/app/${resolvedParams.tenant}`);

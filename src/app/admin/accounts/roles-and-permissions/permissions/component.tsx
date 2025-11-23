@@ -31,27 +31,27 @@ export default function PermissionsClient({ data }: PermissionsClientProps) {
   const adminData = useAdminData();
   const router = useRouter();
   const searchParams = useSearchParams();
-  
-  const modal = searchParams.get('modal');
-  const permissionId = searchParams.get('permissionId');
-  const isModalOpen = modal === 'new' || (modal === 'edit' && !!permissionId);
-  
+
+  const modal = searchParams.get("modal");
+  const permissionId = searchParams.get("permissionId");
+  const isModalOpen = modal === "new" || (modal === "edit" && !!permissionId);
+
   const [selectedPermission, setSelectedPermission] = useState<PermissionsWithRolesDto | undefined>();
-  
+
   // Load permission data when editing
   useEffect(() => {
-    if (modal === 'edit' && permissionId) {
-      const permission = data.items.find(p => p.id === permissionId);
+    if (modal === "edit" && permissionId) {
+      const permission = data.items.find((p) => p.id === permissionId);
       setSelectedPermission(permission);
     } else {
       setSelectedPermission(undefined);
     }
   }, [modal, permissionId, data.items]);
-  
+
   function closeModal() {
     const params = new URLSearchParams(searchParams.toString());
-    params.delete('modal');
-    params.delete('permissionId');
+    params.delete("modal");
+    params.delete("permissionId");
     router.push(`/admin/accounts/roles-and-permissions/permissions?${params.toString()}`);
     router.refresh();
   }
@@ -74,20 +74,10 @@ export default function PermissionsClient({ data }: PermissionsClientProps) {
         canUpdate={getUserHasPermission(adminData, "admin.roles.update")}
       />
 
-      <SlideOverWideEmpty
-        title={permissionId ? t("shared.edit") : t("shared.new")}
-        open={isModalOpen}
-        onClose={closeModal}
-        size="2xl"
-        overflowYScroll={true}
-      >
+      <SlideOverWideEmpty title={permissionId ? t("shared.edit") : t("shared.new")} open={isModalOpen} onClose={closeModal} size="2xl" overflowYScroll={true}>
         <div className="-mx-1 -mt-3">
           <div className="space-y-4">
-            <PermissionForm 
-              item={selectedPermission}
-              roles={data.roles} 
-              onCancel={closeModal}
-            />
+            <PermissionForm item={selectedPermission} roles={data.roles} onCancel={closeModal} />
           </div>
         </div>
       </SlideOverWideEmpty>

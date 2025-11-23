@@ -68,7 +68,7 @@ export default function AccountTypesComponent({ children }: AccountTypesComponen
         ) : (
           <TableSimple
             items={types}
-            onClickRoute={(idx, item) => item.id ? `types/${item.id}` : undefined}
+            onClickRoute={(idx, item) => (item.id ? `types/${item.id}` : undefined)}
             headers={[
               {
                 name: "name",
@@ -76,15 +76,15 @@ export default function AccountTypesComponent({ children }: AccountTypesComponen
                 value: (item) => (
                   <div className={clsx("flex max-w-xs flex-col truncate", item.id && "cursor-pointer hover:underline")}>
                     <div className="flex items-center space-x-2">
-                      {!item.id && <LockClosedIcon className="text-muted-foreground h-4 w-4" />}
+                      {!item.id && <LockClosedIcon className="h-4 w-4 text-muted-foreground" />}
                       <div>
-                        {item.title} <span className="text-muted-foreground text-xs font-normal">({item.titlePlural})</span>
+                        {item.title} <span className="text-xs font-normal text-muted-foreground">({item.titlePlural})</span>
                       </div>
                     </div>
-                    <div className="text-muted-foreground truncate text-sm">{item.description}</div>
+                    <div className="truncate text-sm text-muted-foreground">{item.description}</div>
                   </div>
                 ),
-                href: (item) => item.id ? `types/${item.id}` : undefined,
+                href: (item) => (item.id ? `types/${item.id}` : undefined),
               },
               {
                 name: "inProducts",
@@ -103,7 +103,7 @@ export default function AccountTypesComponent({ children }: AccountTypesComponen
               {
                 name: "isDefault",
                 title: t("shared.default"),
-                value: (item) => (item.isDefault ? <CheckIcon className="h-4 w-4 text-green-500" /> : <XIcon className="text-muted-foreground h-4 w-4" />),
+                value: (item) => (item.isDefault ? <CheckIcon className="h-4 w-4 text-green-500" /> : <XIcon className="h-4 w-4 text-muted-foreground" />),
               },
               {
                 name: "actions",

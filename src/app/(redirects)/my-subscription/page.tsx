@@ -6,13 +6,13 @@ export default async function MySubscriptionPage() {
   const redirectTo = "settings/subscription";
   const userInfo = await getUserInfo();
   const user = await db.users.getUser(userInfo.userId);
-  
+
   if (!user) {
     throw redirect(`/login?redirect=${encodeURIComponent("/my-subscription")}`);
   }
-  
+
   const myTenants = user?.admin ? await db.tenants.adminGetAllTenants() : await db.tenants.getMyTenants(userInfo.userId);
-  
+
   if (myTenants.length === 0 && user.admin) {
     redirect("/admin");
   } else if (myTenants.length > 0) {
@@ -22,6 +22,6 @@ export default async function MySubscriptionPage() {
       // Handle error silently
     }
   }
-  
+
   redirect("/app");
 }

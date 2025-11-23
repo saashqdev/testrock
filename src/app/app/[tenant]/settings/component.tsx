@@ -46,23 +46,23 @@ export default function ({ data, children }: { data: AppSettingsLayoutLoaderData
     tabs.push({
       name: t("settings.profile.profileTitle"),
       href: UrlUtils.currentTenantUrl(params, "settings/profile"),
-      icon: <CustomerIcon className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
-      iconSelected: <CustomerIconFilled className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
+      icon: <CustomerIcon className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />,
+      iconSelected: <CustomerIconFilled className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />,
     });
     if (getUserHasPermission(appData, "app.settings.members.view")) {
       tabs.push({
         name: t("settings.members.title"),
         href: UrlUtils.currentTenantUrl(params, "settings/members"),
-        icon: <PeopleIcon className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
-        iconSelected: <PeopleIconFilled className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
+        icon: <PeopleIcon className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />,
+        iconSelected: <PeopleIconFilled className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />,
       });
     }
     if (getUserHasPermission(appData, "app.settings.subscription.view")) {
       tabs.push({
         name: t("settings.subscription.title"),
         href: UrlUtils.currentTenantUrl(params, `settings/subscription`),
-        icon: <MembershipCardIcon className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
-        iconSelected: <MembershipCardIconFilled className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
+        icon: <MembershipCardIcon className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />,
+        iconSelected: <MembershipCardIconFilled className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />,
       });
       if (CreditTypes.length > 0) {
         tabs.push({
@@ -78,8 +78,8 @@ export default function ({ data, children }: { data: AppSettingsLayoutLoaderData
         name: t("settings.tenant.title"),
         href: UrlUtils.currentTenantUrl(params, "settings/account"),
         exact: true,
-        icon: <CompanyIcon className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
-        iconSelected: <CompanyIconFilled className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
+        icon: <CompanyIcon className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />,
+        iconSelected: <CompanyIconFilled className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />,
       });
     }
     // if (rootData.appConfiguration.app.features.tenantTypes && getUserHasPermission(appData, "app.settings.accounts.view")) {
@@ -108,32 +108,32 @@ export default function ({ data, children }: { data: AppSettingsLayoutLoaderData
       tabs.push({
         name: "API",
         href: UrlUtils.currentTenantUrl(params, "settings/api"),
-        icon: <RestApiIcon className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
-        iconSelected: <RestApiIconFilled className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
+        icon: <RestApiIcon className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />,
+        iconSelected: <RestApiIconFilled className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />,
       });
     }
     if (getUserHasPermission(appData, "app.settings.auditTrails.view")) {
       tabs.push({
         name: t("models.log.plural"),
         href: UrlUtils.currentTenantUrl(params, "settings/logs"),
-        icon: <ActivityHistoryIcon className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
-        iconSelected: <ActivityHistoryIconFilled className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
+        icon: <ActivityHistoryIcon className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />,
+        iconSelected: <ActivityHistoryIconFilled className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />,
       });
     }
     if (rootData.appConfiguration.app.features.tenantEntityCustomization) {
       tabs.push({
         name: t("models.entity.plural"),
         href: UrlUtils.currentTenantUrl(params, "settings/entities"),
-        icon: <ModulesIcon className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
-        iconSelected: <ModulesIconFilled className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
+        icon: <ModulesIcon className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />,
+        iconSelected: <ModulesIconFilled className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />,
       });
     }
     if (!data.isProduction && appData?.isSuperAdmin) {
       tabs.push({
         name: "Debug",
         href: UrlUtils.currentTenantUrl(params, "settings/debug"),
-        icon: <ExperimentIcon className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
-        iconSelected: <ExperimentIconFilled className="text-muted-foreground h-5 w-5 shrink-0" aria-hidden="true" />,
+        icon: <ExperimentIcon className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />,
+        iconSelected: <ExperimentIconFilled className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />,
       });
     }
     return tabs;

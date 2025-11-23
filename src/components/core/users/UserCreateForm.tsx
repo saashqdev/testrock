@@ -66,46 +66,18 @@ export default function UserCreateForm({ adminRoles, onSuccess, onCancel }: User
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <InputText
-        autoFocus
-        type="email"
-        name="email"
-        title={t("models.user.email")}
-        value={email}
-        setValue={setEmail}
-        required
-      />
+      <InputText autoFocus type="email" name="email" title={t("models.user.email")} value={email} setValue={setEmail} required />
 
-      <InputText
-        type="password"
-        name="password"
-        title={t("account.shared.password")}
-        value={password}
-        setValue={setPassword}
-        required
-      />
+      <InputText type="password" name="password" title={t("account.shared.password")} value={password} setValue={setPassword} required />
 
-      <InputText
-        name="firstName"
-        title={t("models.user.firstName")}
-        value={firstName}
-        setValue={setFirstName}
-        required
-      />
+      <InputText name="firstName" title={t("models.user.firstName")} value={firstName} setValue={setFirstName} required />
 
-      <InputText
-        name="lastName"
-        title={t("models.user.lastName")}
-        value={lastName}
-        setValue={setLastName}
-      />
+      <InputText name="lastName" title={t("models.user.lastName")} value={lastName} setValue={setLastName} />
 
       {adminRoles && adminRoles.length > 0 && (
         <div>
-          <label className="mb-1 flex justify-between space-x-2 truncate text-xs font-medium">
-            {t("models.role.plural")}
-          </label>
-          <div className="border-border bg-background divide-border divide-y rounded-md border px-2 py-1">
+          <label className="mb-1 flex justify-between space-x-2 truncate text-xs font-medium">{t("models.role.plural")}</label>
+          <div className="divide-y divide-border rounded-md border border-border bg-background px-2 py-1">
             {adminRoles.map((role) => (
               <InputCheckboxWithDescription
                 key={role.name}

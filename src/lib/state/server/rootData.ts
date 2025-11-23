@@ -36,10 +36,10 @@ export async function loadRootData({ request, params }: { request: Request; para
   const appConfiguration = await time(db.appConfiguration.getAppConfiguration(), "getAppConfiguration");
   if (appConfiguration.analytics.enabled) {
     try {
-      analytics = await AnalyticsService.getFromRequest({ 
+      analytics = await AnalyticsService.getFromRequest({
         appConfiguration: appConfiguration as any, // Type casting to resolve incompatible types
-        request, 
-        userId: userInfo.userId ?? null 
+        request,
+        userId: userInfo.userId ?? null,
       });
     } catch (e: any) {
       // eslint-disable-next-line no-console
@@ -75,11 +75,13 @@ export async function loadRootData({ request, params }: { request: Request; para
     metatags: { title: `${process.env.APP_NAME}` },
     user,
     locale,
-    theme: typeof userInfo.theme === 'string' 
-      ? { color: userInfo.theme, scheme: userInfo.scheme || 'light' } 
-      : userInfo.theme || (typeof appConfiguration.app.theme === 'string' 
-        ? { color: appConfiguration.app.theme, scheme: userInfo.scheme || 'light' } 
-        : { ...appConfiguration.app.theme, scheme: userInfo.scheme || appConfiguration.app.theme.scheme || 'light' }),
+    theme:
+      typeof userInfo.theme === "string"
+        ? { color: userInfo.theme, scheme: userInfo.scheme || "light" }
+        : userInfo.theme ||
+          (typeof appConfiguration.app.theme === "string"
+            ? { color: appConfiguration.app.theme, scheme: userInfo.scheme || "light" }
+            : { ...appConfiguration.app.theme, scheme: userInfo.scheme || appConfiguration.app.theme.scheme || "light" }),
     serverUrl: await getBaseURL(),
     domainName: await getDomainName(),
     userSession: userInfo,

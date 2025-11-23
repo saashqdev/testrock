@@ -29,9 +29,8 @@ async function getKnowledgeBasesData(props: IServerComponentsProps): Promise<Loa
   return data;
 }
 
-
 export default async function KnowledgeBasesPage(props: IServerComponentsProps) {
   const data = await getKnowledgeBasesData(props);
-  
+
   return <KnowledgeBasesClient data={data} />;
 }

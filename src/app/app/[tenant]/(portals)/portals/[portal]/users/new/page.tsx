@@ -23,10 +23,10 @@ export default async function NewUserPage({ params }: Props) {
   const resolvedParams = await params;
   const tenantId = await getTenantIdFromUrl(resolvedParams);
   const portal = await db.portals.getPortalById(tenantId, resolvedParams.portal);
-  
+
   if (!portal) {
     redirect(UrlUtils.getModulePath(resolvedParams, "portals"));
   }
-  
+
   return <NewUserClient portalId={portal.id} />;
 }

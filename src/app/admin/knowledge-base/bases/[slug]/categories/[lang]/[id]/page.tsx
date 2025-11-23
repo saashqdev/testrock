@@ -57,7 +57,7 @@ async function editCategory(
     slug: formData.slug,
     language: lang,
   });
-  
+
   if (existing && existing.id !== categoryId) {
     throw new Error("Slug already exists");
   }
@@ -70,7 +70,7 @@ async function editCategory(
     language: lang,
     seoImage: formData.seoImage,
   });
-  
+
   revalidatePath(`/admin/knowledge-base/bases/${slug}/categories/${lang}`);
   redirect(`/admin/knowledge-base/bases/${slug}/categories/${lang}`);
 }

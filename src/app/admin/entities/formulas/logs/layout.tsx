@@ -117,6 +117,6 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 
 export default async function FormulaLogsPage(props: IServerComponentsProps) {
   const data = await getLoaderData(props);
-  
+
   return <FormulaLogsClient data={data} />;
 }

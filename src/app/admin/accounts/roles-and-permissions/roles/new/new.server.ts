@@ -70,4 +70,3 @@ export const action = async (props: IServerComponentsProps) => {
   }
   return redirect("/admin/accounts/roles-and-permissions/roles");
 };
-

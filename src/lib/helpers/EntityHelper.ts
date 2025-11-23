@@ -85,15 +85,7 @@ function getFilters({ t, entity, pagination }: { t: TFunction; entity: EntityWit
   return filters;
 }
 
-function getRoutes({
-  routes,
-  entity,
-  item,
-}: {
-  routes?: Routes;
-  entity: { slug: string; onEdit: string | null };
-  item?: Row;
-}): Routes | undefined {
+function getRoutes({ routes, entity, item }: { routes?: Routes; entity: { slug: string; onEdit: string | null }; item?: Row }): Routes | undefined {
   if (!routes) {
     return undefined;
   }

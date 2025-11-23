@@ -18,7 +18,7 @@ export type UsersModel = {
   githubId: string | null;
   googleId: string | null;
   admin: AdminUser | null;
-}
+};
 
 export type UserDto = {
   id: string;

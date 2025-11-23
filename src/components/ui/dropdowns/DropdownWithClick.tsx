@@ -18,12 +18,12 @@ interface Props {
 
 export default function DropdownWithClick({ button, to, options, right, onClick, className, disabled }: Props) {
   return (
-    <span className={clsx(className, "relative z-10 inline-flex rounded-md shadow-2xs")}>
+    <span className={clsx(className, "shadow-2xs relative z-10 inline-flex rounded-md")}>
       {to ? (
         <Link
           href={to}
           className={clsx(
-            "focus:border-theme-500 focus:ring-ring border-border bg-background text-foreground/80 relative -mr-1 inline-flex items-center rounded-l-md border px-4 py-2 text-sm font-medium focus:z-10 focus:outline-hidden focus:ring-1",
+            "focus:outline-hidden relative -mr-1 inline-flex items-center rounded-l-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground/80 focus:z-10 focus:border-theme-500 focus:ring-1 focus:ring-ring",
             disabled ? "cursor-not-allowed opacity-80" : "hover:bg-secondary focus:bg-secondary"
           )}
         >
@@ -35,7 +35,7 @@ export default function DropdownWithClick({ button, to, options, right, onClick,
           disabled={disabled}
           type="button"
           className={clsx(
-            "focus:border-theme-500 focus:ring-ring border-border bg-background text-foreground/80 relative -mr-1 inline-flex items-center rounded-l-md border px-4 py-2 text-sm font-medium focus:z-10 focus:outline-hidden focus:ring-1",
+            "focus:outline-hidden relative -mr-1 inline-flex items-center rounded-l-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground/80 focus:z-10 focus:border-theme-500 focus:ring-1 focus:ring-ring",
             disabled ? "cursor-not-allowed opacity-80" : "hover:bg-secondary focus:bg-secondary"
           )}
         >
@@ -43,7 +43,7 @@ export default function DropdownWithClick({ button, to, options, right, onClick,
         </button>
       )}
       <Menu as="span" className="relative -ml-px block">
-        <Menu.Button className="hover:bg-secondary focus:border-theme-500 focus:ring-ring border-border text-muted-foreground bg-background relative inline-flex items-center rounded-r-md border px-2 py-2 text-sm font-medium focus:z-10 focus:outline-hidden focus:ring-1">
+        <Menu.Button className="focus:outline-hidden relative inline-flex items-center rounded-r-md border border-border bg-background px-2 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary focus:z-10 focus:border-theme-500 focus:ring-1 focus:ring-ring">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path
               fillRule="evenodd"
@@ -63,7 +63,7 @@ export default function DropdownWithClick({ button, to, options, right, onClick,
         >
           <Menu.Items
             className={clsx(
-              "bg-background absolute z-40 mt-2 w-48 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden",
+              "focus:outline-hidden absolute z-40 mt-2 w-48 rounded-md bg-background shadow-lg ring-1 ring-black ring-opacity-5",
               right ? "left-0 origin-top-left" : "right-0 origin-top-right"
             )}
           >

@@ -10,8 +10,8 @@ export default function NextRockUpdateButton({ hasUpdate }: { hasUpdate: boolean
             <Link
               href={"/admin/version"}
               className={clsx(
-                "text-muted-foreground bg-secondary border-border relative inline-flex items-center space-x-1 rounded-md border p-2 font-medium shadow-inner hover:bg-teal-50 hover:text-teal-800 focus:z-10 focus:bg-teal-100 focus:text-teal-900 focus:outline-hidden",
-                " border-green-200 bg-green-50 text-green-800 hover:bg-green-100 hover:text-green-900 focus:z-10 focus:bg-green-100 focus:text-green-900 focus:outline-hidden"
+                "focus:outline-hidden relative inline-flex items-center space-x-1 rounded-md border border-border bg-secondary p-2 font-medium text-muted-foreground shadow-inner hover:bg-teal-50 hover:text-teal-800 focus:z-10 focus:bg-teal-100 focus:text-teal-900",
+                "focus:outline-hidden border-green-200 bg-green-50 text-green-800 hover:bg-green-100 hover:text-green-900 focus:z-10 focus:bg-green-100 focus:text-green-900"
               )}
               aria-haspopup="listbox"
               aria-expanded="true"

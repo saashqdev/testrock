@@ -31,7 +31,7 @@ export default function PagesLayout({ children }: { children: React.ReactNode })
           icon: <BlockIcon className="h-5 w-5" />,
           iconSelected: <BlockIconFilled className="h-5 w-5" />,
         },
-/*         {
+        /*         {
           name: "A/B Testing",
           href: "/admin/pages/ab",
           icon: <ExperimentIcon className="h-5 w-5" />,

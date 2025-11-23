@@ -18,4 +18,3 @@ export const action = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
   return await actionInboundEmailEdit(props, UrlUtils.currentTenantUrl(params, "emails"));
 };
-

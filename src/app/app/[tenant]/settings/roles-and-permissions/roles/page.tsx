@@ -6,7 +6,7 @@ import RolesComponent from "./component";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getServerTranslations();
-  
+
   return {
     title: `${t("models.role.plural")} | ${process.env.APP_NAME}`,
   };
@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RolesRoute() {
   await requireAuth();
-  
+
   const items = await db.roles.getAllRolesWithUsers("app");
 
   return <RolesComponent items={items} />;

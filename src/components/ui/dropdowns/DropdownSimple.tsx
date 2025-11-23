@@ -43,7 +43,7 @@ export default function DropdownSimple({ items, button, disabled, className, rig
       >
         <Menu.Items
           className={clsx(
-            "bg-background absolute z-40 mt-2 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden",
+            "focus:outline-hidden absolute z-40 mt-2 rounded-md bg-background shadow-lg ring-1 ring-black ring-opacity-5",
             right ? "left-0 origin-top-left" : "right-0 origin-top-right",
             width
           )}
@@ -59,7 +59,7 @@ export default function DropdownSimple({ items, button, disabled, className, rig
                           <Link
                             href={item.href}
                             target={item.target}
-                            className={clsx("w-full text-left", active ? "text-foreground bg-secondary/90" : "text-foreground/80", "block px-4 py-2 text-sm")}
+                            className={clsx("w-full text-left", active ? "bg-secondary/90 text-foreground" : "text-foreground/80", "block px-4 py-2 text-sm")}
                             onClick={() => close()}
                           >
                             {item.label}
@@ -71,7 +71,7 @@ export default function DropdownSimple({ items, button, disabled, className, rig
                               item.onClick();
                               close();
                             }}
-                            className={clsx("w-full text-left", active ? "text-foreground bg-secondary/90" : "text-foreground/80", "block px-4 py-2 text-sm")}
+                            className={clsx("w-full text-left", active ? "bg-secondary/90 text-foreground" : "text-foreground/80", "block px-4 py-2 text-sm")}
                           >
                             {item.label}
                           </button>

@@ -13,13 +13,13 @@ export default async function CatchAllPage({ params, searchParams }: CatchAllPag
   // Await params and searchParams
   const resolvedParams = await params;
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
-  
+
   // Get the request headers to construct the URL
   const headersList = await headers();
   const host = headersList.get("host") || "";
   const protocol = headersList.get("x-forwarded-proto") || "http";
   const pathname = resolvedParams.slug ? `/${resolvedParams.slug.join("/")}` : "/";
-  
+
   // Construct search params string
   const searchParamsObj = new URLSearchParams();
   if (resolvedSearchParams) {
@@ -34,7 +34,7 @@ export default async function CatchAllPage({ params, searchParams }: CatchAllPag
     });
   }
   const searchString = searchParamsObj.toString();
-  
+
   // Construct a Request object for compatibility with RedirectsService
   const url = `${protocol}://${host}${pathname}${searchString ? `?${searchString}` : ""}`;
   const request = new Request(url);

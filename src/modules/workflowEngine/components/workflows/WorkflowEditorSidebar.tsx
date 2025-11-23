@@ -281,7 +281,7 @@ function WorkflowSettingsSidebar({
                         onDeleteBlock(block.id);
                       }}
                       onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
+                        if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
                           e.stopPropagation();
                           onDeleteBlock(block.id);

@@ -21,7 +21,7 @@ export default async function NewEntityPropertyRoute(props: IServerComponentsPro
   const tenantId = await getTenantIdOrNull({ request, params });
   const entity = await db.entities.getEntityBySlug({ tenantId, slug: params.entity ?? "" });
   const entities = await db.entities.getAllEntities(null);
-  
+
   const data: LoaderData = {
     entity,
     properties: entity?.properties ?? [],

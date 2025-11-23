@@ -32,25 +32,25 @@ export async function verifyUserHasPermission(permissionName: DefaultPermission,
   if (!userInfo.userId) {
     throw Error("Unauthorized");
   }
-  
+
   // SuperAdmin bypasses all permission checks - query AdminUser directly to bypass cache
   const adminUser = await prisma.adminUser.findUnique({
     where: { userId: userInfo.userId },
   });
-  
+
   if (adminUser) {
     console.log(`[Permission Check] ✅ SuperAdmin bypass for ${permissionName}`);
     return true;
   }
-  
+
   const permission = await db.permissions.getPermissionName(permissionName);
   if (permission) {
     const userPermission = (await db.userRoles.countUserPermission(userInfo.userId, tenantId, permissionName)) > 0;
     if (!userPermission) {
       const redirectPath = pathname ? `?redirect=${pathname}` : "";
-      
+
       console.log(`[Permission Check] ❌ Access denied for ${permissionName}`);
-      
+
       if (tenantId) {
         throw redirect(`/unauthorized/${permissionName}/${tenantId}/${redirectPath}`);
       } else {

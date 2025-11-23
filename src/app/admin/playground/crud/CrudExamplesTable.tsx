@@ -25,7 +25,7 @@ export default function CrudExamplesTable({ examples }: Props) {
       {examples.map((example, idx) => {
         return (
           <div key={idx} className="space-y-2">
-            <h2 className="text-foreground font-medium">{example.title}</h2>
+            <h2 className="font-medium text-foreground">{example.title}</h2>
             <TableSimple
               items={example.files}
               headers={[

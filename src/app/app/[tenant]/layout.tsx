@@ -32,13 +32,13 @@ const loader = async () => {
   if (!tenantSlug) {
     throw redirect("/app");
   }
-  
+
   // Check if tenant home is root
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
   if (appConfiguration.app.features.tenantHome === "/") {
     throw redirect("/");
   }
-  
+
   const { user, currentTenant } = await promiseHash({
     user: getUser(userInfo.userId!),
     currentTenant: db.tenants.getTenant(tenantId.id),
@@ -87,8 +87,8 @@ const loader = async () => {
   const tenantUserResult = await db.tenants.getTenantUserType(userInfo.userId, tenantId.id);
   const currentRole: TenantUserType = tenantUserResult?.type ?? TenantUserType.MEMBER;
 
-  let { myTenants, mySubscription, allPermissions, superUserRole, superAdminRole, allRoles, roles, entities, entityGroups, myGroups, tenantTypes } = await promiseHash(
-    {
+  let { myTenants, mySubscription, allPermissions, superUserRole, superAdminRole, allRoles, roles, entities, entityGroups, myGroups, tenantTypes } =
+    await promiseHash({
       myTenants: user.admin ? db.tenants.adminGetAllTenants() : db.tenants.getMyTenants(user.id),
       mySubscription: getActiveTenantSubscriptions(tenantId.id),
       allPermissions: db.userRoles.getPermissionsByUser(userInfo.userId, tenantId.id),
@@ -100,8 +100,7 @@ const loader = async () => {
       entityGroups: db.entityGroups.getAllEntityGroups(),
       myGroups: db.groups.getMyGroups(userInfo.userId, tenantId.id),
       tenantTypes: db.tenantTypes.getAllTenantTypes(),
-    }
-  );
+    });
 
   if (!UrlUtils.stripTrailingSlash(url.pathname).startsWith(`/app/${tenantSlug}/settings`)) {
     const appConfiguration = await db.appConfiguration.getAppConfiguration();
@@ -144,7 +143,7 @@ export default async function (props: IServerComponentsProps) {
   const searchParams = await props.searchParams;
   const sidebarParam = searchParams?.sidebar;
   let sidebarType: "v1" | "v2" | "v3" = "v3";
-  
+
   if (sidebarParam === "v1") {
     sidebarType = "v1";
   } else if (sidebarParam === "v2") {
@@ -152,7 +151,7 @@ export default async function (props: IServerComponentsProps) {
   } else if (sidebarParam === "v3") {
     sidebarType = "v3";
   }
-  
+
   return (
     <AppDataLayout data={appData}>
       <div className="min-h-screen bg-background">

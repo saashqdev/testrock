@@ -3,11 +3,7 @@
 import { db } from "@/db";
 import { revalidatePath } from "next/cache";
 
-export async function updatePromptFlowOutputAction(
-  outputId: string,
-  promptFlowId: string,
-  data: { type: string; entityId: string }
-) {
+export async function updatePromptFlowOutputAction(outputId: string, promptFlowId: string, data: { type: string; entityId: string }) {
   try {
     const item = await db.promptFlowOutput.getPromptFlowOutput(outputId);
     if (!item) {

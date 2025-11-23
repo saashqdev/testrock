@@ -116,7 +116,9 @@ export const actionAppSettingsMembersLayout = async (prev: any, form: FormData) 
 
     if (role?.name === AppRoleEnum.SuperUser) {
       const allMembers = await db.tenantUser.getAll(tenantId);
-      const superAdmins = allMembers.filter((m) => m.user.roles.some((r: UserRole & { role: Role }) => r.tenantId === tenantId && r.role.name === AppRoleEnum.SuperUser));
+      const superAdmins = allMembers.filter((m) =>
+        m.user.roles.some((r: UserRole & { role: Role }) => r.tenantId === tenantId && r.role.name === AppRoleEnum.SuperUser)
+      );
       if (superAdmins.length === 1 && !add) {
         return { error: "There must be at least one super user" };
       }
@@ -147,7 +149,7 @@ export const actionAppSettingsMembersLayout = async (prev: any, form: FormData) 
     }
     const tenantData = await db.tenants.getTenant(userSession.defaultTenantId);
     const redirectUrl = tenantData ? `/app/${tenantData.slug ?? tenantData.id}/dashboard` : "/app";
-    
+
     await createUserSession(
       {
         ...userInfo,
@@ -166,7 +168,7 @@ export default async function ({ children }: IServerComponentsProps) {
   const { t } = await getServerTranslations();
   const data = await loader();
   const title = `${t("settings.members.title")} | ${defaultSiteTags.title}`;
-  
+
   return (
     <TitleDataLayout data={{ title }}>
       <Component data={data}>{children}</Component>

@@ -7,6 +7,6 @@ export async function POST(request: NextRequest, context: { params: Promise<any>
     request,
     params: context.params,
   };
-  
+
   return await action(props);
 }

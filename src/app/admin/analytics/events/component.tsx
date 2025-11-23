@@ -18,7 +18,7 @@ type AnalyticsEventsClientProps = {
 
 export default function AnalyticsEventsClient({ items, filterableProperties, pagination }: AnalyticsEventsClientProps) {
   const { t } = useTranslation();
-  
+
   return (
     <EditPageLayout>
       <div className="flex justify-between gap-2">
@@ -42,7 +42,7 @@ export default function AnalyticsEventsClient({ items, filterableProperties, pag
             name: "date",
             title: "Date",
             value: (i) => (
-              <time title={DateUtils.dateYMDHMS(i.createdAt)} className="text-muted-foreground text-xs">
+              <time title={DateUtils.dateYMDHMS(i.createdAt)} className="text-xs text-muted-foreground">
                 {DateUtils.dateAgo(i.createdAt)}
               </time>
             ),

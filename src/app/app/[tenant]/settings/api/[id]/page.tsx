@@ -8,7 +8,7 @@ export default async function ApiKeyRedirectRoute(props: IServerComponentsProps)
     throw new Error("Missing required params");
   }
   const id = params.id;
-  
+
   // Redirect to the correct path with /keys/ in the URL
   redirect(UrlUtils.currentTenantUrl(params, `settings/api/keys/${id}`));
 }

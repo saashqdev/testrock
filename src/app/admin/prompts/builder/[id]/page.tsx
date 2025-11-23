@@ -21,7 +21,7 @@ type ActionData = {
 
 async function handleAction(id: string, formData: FormData): Promise<ActionData> {
   "use server";
-  
+
   await verifyUserHasPermission("admin.prompts.update");
   const { t } = await getServerTranslations();
   const action = formData.get("action")?.toString();
@@ -116,12 +116,12 @@ async function handleAction(id: string, formData: FormData): Promise<ActionData>
 export default async function PromptBuilderPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
   await verifyUserHasPermission("admin.prompts.update");
-  
+
   const item = await db.promptFlows.getPromptFlow(resolvedParams.id);
   if (!item) {
     redirect("/admin/prompts/builder");
   }
-  
+
   const data: LoaderData = {
     item,
     allEntities: await db.entities.getAllEntities(null),

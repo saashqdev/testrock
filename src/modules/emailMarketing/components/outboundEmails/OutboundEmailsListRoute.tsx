@@ -10,9 +10,9 @@ export default function OutboundEmailsListRoute({ data }: { data: LoaderData }) 
 
   return (
     <div className="mx-auto w-full max-w-5xl space-y-3 px-4 py-2 pb-6 sm:px-6 sm:pt-3 lg:px-8 xl:max-w-full">
-      <div className="md:border-border md:border-b md:py-2">
+      <div className="md:border-b md:border-border md:py-2">
         <div className="flex items-center justify-between">
-          <h3 className="text-foreground text-lg font-medium leading-6">{t("emailMarketing.activity")}</h3>
+          <h3 className="text-lg font-medium leading-6 text-foreground">{t("emailMarketing.activity")}</h3>
           <div className="flex items-center space-x-2">
             <InputFilters withSearch={false} filters={data.filterableProperties} />
           </div>

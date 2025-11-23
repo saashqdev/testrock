@@ -13,21 +13,15 @@ type LoaderData = {
 };
 
 // GET handler - Load data
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
-    
+
     await verifyUserHasPermission("admin.prompts.update");
-    
+
     const item = await db.promptFlows.getPromptFlow(id);
     if (!item) {
-      return NextResponse.json(
-        { error: "Prompt flow not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Prompt flow not found" }, { status: 404 });
     }
 
     const items = await db.promptFlowOutput.getPromptFlowOutputs(item.id);
@@ -42,30 +36,21 @@ export async function GET(
     return NextResponse.json(data);
   } catch (error: any) {
     console.error("Error loading prompt flow outputs:", error);
-    return NextResponse.json(
-      { error: error.message || "Failed to load data" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error.message || "Failed to load data" }, { status: 500 });
   }
 }
 
 // POST handler - Handle actions
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const { t } = await getServerTranslations();
-    
+
     await verifyUserHasPermission("admin.prompts.update");
 
     const item = await db.promptFlows.getPromptFlow(id);
     if (!item) {
-      return NextResponse.json(
-        { error: "Prompt flow not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Prompt flow not found" }, { status: 404 });
     }
 
     const body = await request.json();
@@ -88,16 +73,10 @@ export async function POST(
         return NextResponse.json({ error: e.message }, { status: 400 });
       }
     } else {
-      return NextResponse.json(
-        { error: t("shared.invalidForm") },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: t("shared.invalidForm") }, { status: 400 });
     }
   } catch (error: any) {
     console.error("Error processing action:", error);
-    return NextResponse.json(
-      { error: error.message || "Failed to process action" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error.message || "Failed to process action" }, { status: 500 });
   }
 }

@@ -26,12 +26,12 @@ export async function generateMetadata() {
 
 async function getData(searchParams: URLSearchParams): Promise<LoaderData> {
   const headersList = await headers();
-  const request = new Request(`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}?${searchParams.toString()}`, {
+  const request = new Request(`${process.env.NEXT_PUBLIC_URL || "http://localhost:3000"}?${searchParams.toString()}`, {
     headers: headersList,
   });
-  
+
   await verifyUserHasPermission("admin.analytics.view");
-  
+
   const allActions = await prisma.analyticsEvent.groupBy({
     by: ["action"],
   });
@@ -100,7 +100,7 @@ async function getData(searchParams: URLSearchParams): Promise<LoaderData> {
     where: RowFiltersHelper.getFiltersCondition(filters),
   });
   const totalItems = await prisma.analyticsEvent.count({ where: RowFiltersHelper.getFiltersCondition(filters) });
-  
+
   return {
     items,
     filterableProperties,
@@ -113,24 +113,20 @@ async function getData(searchParams: URLSearchParams): Promise<LoaderData> {
   };
 }
 
-export default async function AdminAnalyticsEventsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default async function AdminAnalyticsEventsPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const params = await searchParams;
   const urlSearchParams = new URLSearchParams();
   Object.entries(params).forEach(([key, value]) => {
     if (value) {
       if (Array.isArray(value)) {
-        value.forEach(v => urlSearchParams.append(key, v));
+        value.forEach((v) => urlSearchParams.append(key, v));
       } else {
         urlSearchParams.set(key, value);
       }
     }
   });
-  
+
   const data = await getData(urlSearchParams);
-  
+
   return <AnalyticsEventsClient {...data} />;
 }

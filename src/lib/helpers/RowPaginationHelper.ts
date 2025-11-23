@@ -25,7 +25,7 @@ export function getFiltersFromCurrentUrl(request: Request | undefined, propertie
   if (!request) {
     return { query: undefined, properties };
   }
-  
+
   const url = new URL(request.url);
   properties.forEach((property) => {
     const params = url.searchParams.get(property.name);

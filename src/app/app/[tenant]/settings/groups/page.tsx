@@ -33,7 +33,7 @@ export default async function GroupsPage(props: IServerComponentsProps) {
     permissionName: "app.settings.groups.full",
     tenantId: tenantId,
   });
-  
+
   let items: GroupWithDetailsDto[];
   if (!permission || userPermission) {
     items = await db.groups.getAllGroups(tenantId);

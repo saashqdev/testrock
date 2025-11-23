@@ -34,28 +34,28 @@ export default function CookieConsentBanner() {
 
   function setCookies(selectedCookies: CookieCategory[]) {
     const form = CookieHelper.getUpdateCookieConsentForm({ selectedCookies, pathname, searchParams });
-    
+
     setIsLoading(true);
-    
+
     // Convert FormData to URLSearchParams for fetch
     const formData = new FormData();
     for (const [key, value] of Object.entries(form)) {
       formData.append(key, value as string);
     }
-    
+
     fetch("/", {
       method: "POST",
       body: formData,
     })
-    .then(() => {
-      setIsLoading(false);
-      // Optionally refresh the page or update state
-      router.refresh();
-    })
-    .catch((error) => {
-      console.error("Error updating cookie consent:", error);
-      setIsLoading(false);
-    });
+      .then(() => {
+        setIsLoading(false);
+        // Optionally refresh the page or update state
+        router.refresh();
+      })
+      .catch((error) => {
+        console.error("Error updating cookie consent:", error);
+        setIsLoading(false);
+      });
   }
 
   return (
@@ -64,11 +64,11 @@ export default function CookieConsentBanner() {
         <div className="relative">
           <div className="fixed inset-x-0 bottom-0 z-30 pb-2 sm:pb-5">
             <div className="mx-auto max-w-5xl px-2 sm:px-6 lg:px-8">
-              <div className="bg-background border-border text-foreground rounded-lg border p-2 shadow-lg sm:p-3">
+              <div className="rounded-lg border border-border bg-background p-2 text-foreground shadow-lg sm:p-3">
                 <div className="flex flex-col items-center justify-between space-y-2 sm:flex-row sm:space-y-0">
                   <div className="flex items-start space-x-2">
-                    <div className="bg-primary rounded-full p-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="text-primary-foreground h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                    <div className="rounded-full bg-primary p-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary-foreground" viewBox="0 0 20 20" fill="currentColor">
                         <path
                           fillRule="evenodd"
                           d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -77,11 +77,11 @@ export default function CookieConsentBanner() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-foreground font-medium">
+                      <p className="font-medium text-foreground">
                         <span className="md:hidden"> {t("cookies.titleSmall")} </span>
                         <span className="hidden md:inline"> {t("cookies.title")} </span>
                       </p>
-                      <p className="text-muted-foreground text-sm font-light">
+                      <p className="text-sm font-light text-muted-foreground">
                         <span className="md:hidden">
                           {t("cookies.descriptionSmall")}{" "}
                           <Link href="/privacy-policy" className="underline">
@@ -100,7 +100,7 @@ export default function CookieConsentBanner() {
                     </div>
                   </div>
 
-                  <div className="border-border w-full border border-t sm:hidden"></div>
+                  <div className="w-full border border-t border-border sm:hidden"></div>
                   <div className="flex w-full shrink-0 flex-col space-y-2 sm:mt-0 sm:w-auto sm:flex-row sm:space-x-2 sm:space-y-0">
                     <Button variant="outline" type="button" onClick={() => setShowCookieSettingsModal(true)}>
                       {" "}

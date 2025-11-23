@@ -63,7 +63,7 @@ export default function ApiKeyForm({ entities, item, tenants, canUpdate = true, 
   return (
     <FormGroup id={item?.id} editing={true} canUpdate={canUpdate} canDelete={canDelete} onSubmit={action || onSubmit}>
       {error && (
-        <div className="mb-4 rounded-md bg-destructive/10 border border-destructive/20 p-3">
+        <div className="mb-4 rounded-md border border-destructive/20 bg-destructive/10 p-3">
           <p className="text-sm text-destructive">{error}</p>
         </div>
       )}

@@ -12,15 +12,15 @@ import { SubscriptionProductDto } from "@/lib/dtos/subscriptions/SubscriptionPro
 import InputCheckboxCards from "@/components/ui/input/InputCheckboxCards";
 import InputCheckboxWithDescription from "@/components/ui/input/InputCheckboxWithDescription";
 
-export function TenantTypeForm({ 
-  item, 
+export function TenantTypeForm({
+  item,
   allSubscriptionProducts,
   onSubmit,
   action,
   state,
-  message
-}: { 
-  item?: TenantTypeWithDetailsDto; 
+  message,
+}: {
+  item?: TenantTypeWithDetailsDto;
   allSubscriptionProducts: SubscriptionProductDto[];
   onSubmit?: (formData: FormData) => void | Promise<void>;
   action?: (formData: FormData) => Promise<{ error?: string } | void>;
@@ -54,7 +54,7 @@ export function TenantTypeForm({
       setError(undefined);
       try {
         const result = await action(formData);
-        if (result && 'error' in result && result.error) {
+        if (result && "error" in result && result.error) {
           setError(result.error);
         }
       } catch (err) {

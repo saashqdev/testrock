@@ -204,4 +204,3 @@ export async function deleteRelationshipById(
   }
   return await time(db.rowRelationships.deleteRowRelationshipById(id), "RowRelationshipsApi.deleteRelationship.deleteRowRelationship");
 }
-

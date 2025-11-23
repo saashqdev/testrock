@@ -96,9 +96,14 @@ export function NewsletterForm({ onClose }: { onClose?: () => void }) {
   const [lastName, setLastName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<{ subscription?: string; error?: string; success?: string }>({});
-  
-  const state: "idle" | "success" | "error" | "submitting" =
-    isSubmitting ? "submitting" : formData?.subscription ? "success" : formData?.error ? "error" : "idle";
+
+  const state: "idle" | "success" | "error" | "submitting" = isSubmitting
+    ? "submitting"
+    : formData?.subscription
+      ? "success"
+      : formData?.error
+        ? "error"
+        : "idle";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -121,7 +126,7 @@ export function NewsletterForm({ onClose }: { onClose?: () => void }) {
       });
 
       const result = await response.json();
-      
+
       if (response.ok) {
         setFormData(result);
       } else {

@@ -14,9 +14,9 @@ export async function deleteCredentialAction(prev: ActionState, formData: FormDa
     await requireAuth();
     const id = formData.get("id")?.toString() ?? "";
     const tenantId = formData.get("tenantId")?.toString() ?? null;
-    
+
     await db.workflowCredentials.deleteWorkflowCredential(id, { tenantId });
-    
+
     revalidatePath("/admin/__workflows/workflow-engine/credentials");
     return { success: "Credential deleted successfully" };
   } catch (error) {

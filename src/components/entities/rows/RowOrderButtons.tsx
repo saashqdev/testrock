@@ -10,13 +10,13 @@ interface Props {
 }
 export default function RowOrderButtons({ id, order, editable = true }: Props) {
   const [isPending, startTransition] = useTransition();
-  
+
   async function changeOrder(forward: boolean) {
     startTransition(async () => {
       const formData = new FormData();
       formData.set("action", forward ? "move-down" : "move-up");
       formData.set("id", id);
-      
+
       // You'll need to replace this with your actual server action or API endpoint
       // For example: await updateRowOrder(formData);
       // or: await fetch('/api/rows/order', { method: 'POST', body: formData });

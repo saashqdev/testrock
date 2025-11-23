@@ -89,15 +89,15 @@ export const InfiniteMovingCards = ({
     <div
       ref={containerRef}
       className={cn(
-        "scroller relative z-20  max-w-7xl overflow-hidden  [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
+        "scroller relative z-20 max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
         className
       )}
     >
       <ul
         ref={scrollerRef}
         className={cn(
-          " flex w-max min-w-full shrink-0 flex-nowrap gap-4 py-4",
-          start && "animate-scroll ",
+          "flex w-max min-w-full shrink-0 flex-nowrap gap-4 py-4",
+          start && "animate-scroll",
           pauseOnHover && "hover:[animation-play-state:paused]"
         )}
       >
@@ -139,10 +139,10 @@ export const InfiniteMovingCards = ({
                 <div className="relative z-20 mt-6 flex flex-row items-center">
                   <span className="flex flex-col gap-3">
                     {/* <span className=" text-muted-foreground text-sm font-normal leading-[1.6]">{testimonial.name}</span> */}
-                    <div className=" -mx-1">
+                    <div className="-mx-1">
                       <Stars color={randomColor} />
                     </div>
-                    <span className=" text-foreground text-sm font-black leading-[1.6]">{testimonial.title}</span>
+                    <span className="text-sm font-black leading-[1.6] text-foreground">{testimonial.title}</span>
                   </span>
                 </div>
                 <span className="line-clamp-6 text-sm font-normal leading-[1.6]">
@@ -154,7 +154,13 @@ export const InfiniteMovingCards = ({
 
               <div className="mt-4 inline-flex items-center">
                 {testimonial.avatar ? (
-                  <Image alt="testimonial" src={testimonial.avatar} width={24} height={24} className="h-6 w-6 shrink-0 rounded-full object-cover object-center" />
+                  <Image
+                    alt="testimonial"
+                    src={testimonial.avatar}
+                    width={24}
+                    height={24}
+                    className="h-6 w-6 shrink-0 rounded-full object-cover object-center"
+                  />
                 ) : (
                   <UserAvatarBadge avatar={undefined} className="h-6 w-6 shrink-0 rounded-full object-cover object-center" />
                 )}
@@ -168,12 +174,12 @@ export const InfiniteMovingCards = ({
                   >
                     {testimonial.name}
                   </LinkOrAhref>
-                  <span className="text-muted-foreground flex items-center space-x-1 truncate text-sm">
+                  <span className="flex items-center space-x-1 truncate text-sm text-muted-foreground">
                     {testimonial.role && <div className="truncate">{t(testimonial.role)}</div>}
                     {testimonial.company && (
                       <>
                         <div>@</div>
-                        <div className="text-muted-foreground truncate text-sm">
+                        <div className="truncate text-sm text-muted-foreground">
                           {testimonial.companyUrl ? (
                             <ButtonEvent
                               to={testimonial.companyUrl}

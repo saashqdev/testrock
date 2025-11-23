@@ -94,12 +94,5 @@ export const action = async (props: IServerComponentsProps) => {
 export default async function EditEntityRelationshipRoute(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const data = await loader(props);
-  return (
-    <EditEntityRelationshipClient 
-      entity={data.entity} 
-      entities={data.entities} 
-      item={data.item}
-      entitySlug={params.entity ?? ""}
-    />
-  );
+  return <EditEntityRelationshipClient entity={data.entity} entities={data.entities} item={data.item} entitySlug={params.entity ?? ""} />;
 }

@@ -73,19 +73,13 @@ export default function KnowledgeBasesClient({ data }: KnowledgeBasesClientProps
 
   function onExport() {
     const template = { ...data.template };
-    
+
     if (selected.length > 0) {
-      template.knowledgeBases = template.knowledgeBases.filter((item) => 
-        selected.find((i) => i.slug === item.slug)
-      );
-      template.categories = template.categories.filter((item) => 
-        selected.find((i) => i.slug === item.knowledgeBaseSlug)
-      );
-      template.articles = template.articles.filter((item) => 
-        selected.find((i) => i.slug === item.knowledgeBaseSlug)
-      );
+      template.knowledgeBases = template.knowledgeBases.filter((item) => selected.find((i) => i.slug === item.slug));
+      template.categories = template.categories.filter((item) => selected.find((i) => i.slug === item.knowledgeBaseSlug));
+      template.articles = template.articles.filter((item) => selected.find((i) => i.slug === item.knowledgeBaseSlug));
     }
-    
+
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(template, null, "\t"));
     const downloadAnchorNode = document.createElement("a");
     downloadAnchorNode.setAttribute("href", dataStr);
@@ -171,7 +165,7 @@ export default function KnowledgeBasesClient({ data }: KnowledgeBasesClientProps
                     </a>
                   </SimpleBadge>
                 </div>
-                <div className="text-muted-foreground flex items-center space-x-2 text-sm">
+                <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                   <Link href={`${i.slug}/articles`} className="hover:underline">
                     {i.count.articles} articles
                   </Link>
@@ -196,8 +190,8 @@ export default function KnowledgeBasesClient({ data }: KnowledgeBasesClientProps
         ]}
         noRecords={
           <div className="p-12 text-center">
-            <h3 className="text-foreground mt-1 text-sm font-medium">{"No knowledge bases"}</h3>
-            <p className="text-muted-foreground mt-1 text-sm">{"Get started by creating a new knowledge base."}</p>
+            <h3 className="mt-1 text-sm font-medium text-foreground">{"No knowledge bases"}</h3>
+            <p className="mt-1 text-sm text-muted-foreground">{"Get started by creating a new knowledge base."}</p>
           </div>
         }
       />

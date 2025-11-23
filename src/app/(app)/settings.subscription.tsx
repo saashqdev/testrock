@@ -1,12 +1,6 @@
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
-import {
-  getStripeCustomer,
-  getStripeInvoices,
-  getStripePaymentIntents,
-  getStripePaymentMethods,
-  getStripeUpcomingInvoices,
-} from "@/utils/stripe.server";
+import { getStripeCustomer, getStripeInvoices, getStripePaymentIntents, getStripePaymentMethods, getStripeUpcomingInvoices } from "@/utils/stripe.server";
 import { getUserInfo } from "@/lib/services/session.server";
 import { getServerTranslations } from "@/i18n/server";
 import { TenantSubscriptionWithDetailsDto } from "@/db/models/subscriptions/TenantSubscriptionsModel";
@@ -63,7 +57,7 @@ async function getPageData(): Promise<PageData> {
   const tenantId = currentTenant.id;
 
   const tenantSubscription = await db.tenantSubscriptions.getOrPersistTenantSubscription(tenantId);
-  
+
   const { mySubscription, customer, myInvoices, myPayments, myUpcomingInvoices, myPaymentMethods, myFeatures, products } = await promiseHash({
     mySubscription: getActiveTenantSubscriptions(tenantId),
     customer: getStripeCustomer(tenantSubscription.stripeCustomerId),
@@ -74,7 +68,7 @@ async function getPageData(): Promise<PageData> {
     myFeatures: getPlanFeaturesUsage(tenantId),
     products: db.subscriptionProducts.getAllSubscriptionProducts(true),
   });
-  
+
   return {
     currentTenant,
     mySubscription,
@@ -95,7 +89,7 @@ export default async function SubscriptionRoute() {
     <div>
       <HeaderBlock />
       <div className="mx-auto max-w-5xl space-y-5 px-4">
-        <div className="border-border border-b pb-5">
+        <div className="border-b border-border pb-5">
           {/* <h3 className="text-xl font-semibold leading-6 text-foreground">Settings</h3> */}
           <Tabs
             tabs={[

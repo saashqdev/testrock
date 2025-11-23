@@ -9,9 +9,9 @@ async function checkPermissions() {
 
   // Get admin user
   const adminUser = await prisma.user.findFirst({
-    where: { 
-      admin: { isNot: null }
-    }
+    where: {
+      admin: { isNot: null },
+    },
   });
 
   if (!adminUser) {
@@ -26,10 +26,10 @@ async function checkPermissions() {
   const entityPermissions = await prisma.permission.findMany({
     where: {
       name: {
-        startsWith: "admin.entities"
-      }
+        startsWith: "admin.entities",
+      },
     },
-    orderBy: { name: "asc" }
+    orderBy: { name: "asc" },
   });
 
   console.log(`\n📋 Admin Entity Permissions (${entityPermissions.length}):`);
@@ -45,12 +45,12 @@ async function checkPermissions() {
         include: {
           permissions: {
             include: {
-              permission: true
-            }
-          }
-        }
-      }
-    }
+              permission: true,
+            },
+          },
+        },
+      },
+    },
   });
 
   console.log(`\n👤 User Roles (${userRoles.length}):`);

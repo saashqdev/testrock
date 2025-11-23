@@ -15,7 +15,7 @@ import InputFilters from "@/components/ui/input/InputFilters";
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 import ActionResultModal from "@/components/ui/modals/ActionResultModal";
 import TableSimple from "@/components/ui/tables/TableSimple";
-import { KnowledgeBaseArticleWithDetailsDto } from "@/db/models/knowledgeBase/KbArticlesModel"; 
+import { KnowledgeBaseArticleWithDetailsDto } from "@/db/models/knowledgeBase/KbArticlesModel";
 import { KnowledgeBaseDto } from "@/modules/knowledgeBase/dtos/KnowledgeBaseDto";
 import KnowledgeBaseUtils from "@/modules/knowledgeBase/utils/KnowledgeBaseUtils";
 import NumberUtils from "@/lib/shared/NumberUtils";
@@ -112,11 +112,7 @@ export default function ArticlesPage() {
 
   if (isLoading) {
     return (
-      <EditPageLayout
-        title="Articles"
-        withHome={false}
-        menu={[{ title: "Knowledge Bases", routePath: "/admin/knowledge-base/bases" }, { title: "Articles" }]}
-      >
+      <EditPageLayout title="Articles" withHome={false} menu={[{ title: "Knowledge Bases", routePath: "/admin/knowledge-base/bases" }, { title: "Articles" }]}>
         <div className="flex items-center justify-center py-12">
           <div className="text-muted-foreground">Loading...</div>
         </div>
@@ -163,7 +159,7 @@ export default function ArticlesPage() {
                               method: "post",
                             });
                           }}
-                          className={clsx("w-full text-left", active ? "text-foreground bg-secondary/90" : "text-foreground/80", "block px-4 py-2 text-sm")}
+                          className={clsx("w-full text-left", active ? "bg-secondary/90 text-foreground" : "text-foreground/80", "block px-4 py-2 text-sm")}
                         >
                           {kb.title}
                         </button>
@@ -230,10 +226,10 @@ export default function ArticlesPage() {
                     <div className="flex flex-col">
                       <div>{i.category.title}</div>
 
-                      {i.section && <div className="text-muted-foreground text-xs">{i.section.title}</div>}
+                      {i.section && <div className="text-xs text-muted-foreground">{i.section.title}</div>}
                     </div>
                   ) : (
-                    <Link href={`${i.id}/settings`} className="text-muted-foreground text-xs italic hover:underline">
+                    <Link href={`${i.id}/settings`} className="text-xs italic text-muted-foreground hover:underline">
                       No category
                     </Link>
                   )}
@@ -283,7 +279,7 @@ export default function ArticlesPage() {
                         {i.createdByUser.firstName} {i.createdByUser.lastName}
                       </div>
                     ) : (
-                      <div className="text-muted-foreground text-xs italic hover:underline">No author</div>
+                      <div className="text-xs italic text-muted-foreground hover:underline">No author</div>
                     )}
                   </div>
                 </div>

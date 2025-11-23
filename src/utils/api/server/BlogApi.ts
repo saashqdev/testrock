@@ -17,4 +17,3 @@ export async function createCategory(data: { tenantId: string | null; name: stri
     color: data.color ?? Colors.UNDEFINED,
   });
 }
-

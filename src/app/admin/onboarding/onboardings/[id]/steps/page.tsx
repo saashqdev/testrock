@@ -22,25 +22,25 @@ type PageData = {
 async function getData(props: IServerComponentsProps): Promise<PageData> {
   const params = (await props.params) || {};
   await verifyUserHasPermission("admin.onboarding.update");
-  
+
   const item = await db.onboarding.getOnboarding(params.id!);
   if (!item) {
     redirect("/admin/onboarding/onboardings");
   }
-  
+
   return { item };
 }
 
 async function setSteps(formData: FormData, onboardingId: string) {
   "use server";
-  
+
   const { t } = await getServerTranslations();
-  
+
   const item = await db.onboarding.getOnboarding(onboardingId);
   if (!item) {
     return { error: "Onboarding not found" };
   }
-  
+
   try {
     await OnboardingStepsService.setSteps({ item, form: formData, t });
     return { success: "Onboarding steps updated" };
@@ -52,6 +52,6 @@ async function setSteps(formData: FormData, onboardingId: string) {
 export default async function OnboardingStepsPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const data = await getData(props);
-  
+
   return <OnboardingStepsClient data={data} setSteps={setSteps} onboardingId={params.id!} />;
 }

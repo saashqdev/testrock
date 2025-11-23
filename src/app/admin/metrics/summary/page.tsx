@@ -65,7 +65,7 @@ async function getMetricsData(searchParams: URLSearchParams): Promise<LoaderData
         _avg: { duration: "desc" },
       },
     });
-    items = data.map((x, index) => ({ ...x, id: `group-${index}` } as ItemDto));
+    items = data.map((x, index) => ({ ...x, id: `group-${index}` }) as ItemDto);
     const userIds: string[] = [];
     const tenantIds: string[] = [];
     for (const item of items) {
@@ -93,11 +93,7 @@ async function getMetricsData(searchParams: URLSearchParams): Promise<LoaderData
   };
 }
 
-export default async function MetricsSummaryPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default async function MetricsSummaryPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const resolvedSearchParams = await searchParams;
   const params = new URLSearchParams();
 

@@ -9,7 +9,6 @@ import { UserWithoutPasswordDto } from "@/db/models/accounts/UsersModel";
 import { Params } from "@/types";
 import { getActiveTenantSubscriptions } from "@/utils/services/server/subscriptionService";
 
-
 async function matches({
   request,
   params,

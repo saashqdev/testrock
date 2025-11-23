@@ -16,13 +16,9 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function OnboardingLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function OnboardingLayout({ children }: { children: React.ReactNode }) {
   await verifyUserHasPermission("admin.onboarding.view");
-  
+
   return (
     <SidebarIconsLayout
       label={{ align: "right" }}

@@ -18,7 +18,7 @@ type LoaderData = {
 
 export const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
-  const request = props.request!;  
+  const request = props.request!;
   await requireAuth();
   const { t } = await getServerTranslations();
   const tenantId = await getTenantIdOrNull({ request, params });
@@ -65,11 +65,6 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 export default async function AllPage(props: IServerComponentsProps) {
   const data = await loader(props);
   const params = (await props.params) || {};
-  
-  return (
-    <AllPageClient 
-      data={data}
-      groupSlug={params.group!}
-    />
-  );
+
+  return <AllPageClient data={data} groupSlug={params.group!} />;
 }

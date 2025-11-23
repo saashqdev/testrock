@@ -9,7 +9,7 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   const titleMeta = data?.metatags?.find((tag: any) => tag.title);
   return {
     title: titleMeta?.title || "Workflow Executions",
-    description: "View and manage workflow executions"
+    description: "View and manage workflow executions",
   };
 }
 
@@ -26,7 +26,7 @@ export default async function ExecutionsPage(props: IServerComponentsProps) {
         return { error: "An error occurred" };
       }
     };
-    
+
     return <WorkflowsExecutionsView data={data} action={actionHandler} />;
   } catch (error) {
     return <ServerError />;

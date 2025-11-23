@@ -95,7 +95,7 @@ export const action = async (props: IServerComponentsProps) => {
         readingTime,
         published,
         authorId: userInfo.userId,
-        categoryId: categoryId.length ? categoryId : category?.id ?? null,
+        categoryId: categoryId.length ? categoryId : (category?.id ?? null),
         tagNames: tags.split(",").filter((f: string) => f.trim() !== ""),
         contentType,
       });
@@ -112,4 +112,3 @@ export const action = async (props: IServerComponentsProps) => {
     return Response.json({ error: t("shared.invalidForm") }, { status: 400 });
   }
 };
-

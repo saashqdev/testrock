@@ -43,15 +43,15 @@ export default function ChangeSubscription({ items, current, billingPeriod, curr
     startTransition(async () => {
       try {
         const response = await fetch(window.location.pathname, {
-          method: 'POST',
+          method: "POST",
           body: formData,
         });
-        
+
         if (response.ok) {
           router.refresh();
         }
       } catch (error) {
-        console.error('Form submission error:', error);
+        console.error("Form submission error:", error);
       }
     });
   };
@@ -200,7 +200,7 @@ export default function ChangeSubscription({ items, current, billingPeriod, curr
                                     <div className="flex items-center">
                                       {feature.type !== SubscriptionFeatureLimitType.NOT_INCLUDED ? (
                                         <svg
-                                          className="text-theme-500 h-4 w-4 opacity-70"
+                                          className="h-4 w-4 text-theme-500 opacity-70"
                                           aria-hidden="true"
                                           xmlns="http://www.w3.org/2000/svg"
                                           viewBox="0 0 20 20"

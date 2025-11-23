@@ -17,13 +17,6 @@ interface Props {
 
 export default function EditEntityPropertyClient({ data }: Props) {
   const appOrAdminData = useAppOrAdminData();
-  
-  return (
-    <PropertyForm 
-      item={data.item} 
-      properties={[]} 
-      entities={appOrAdminData?.entities ?? []} 
-      formulas={data.formulas} 
-    />
-  );
+
+  return <PropertyForm item={data.item} properties={[]} entities={appOrAdminData?.entities ?? []} formulas={data.formulas} />;
 }

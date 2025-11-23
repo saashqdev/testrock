@@ -43,9 +43,9 @@ export default function PortalSettingsClient({ initialData }: { initialData: Loa
           method: "POST",
           body: formData,
         });
-        
+
         const result = await response.json();
-        
+
         if (result.success) {
           toast.success(result.success);
         } else if (result.error) {
@@ -104,7 +104,9 @@ export default function PortalSettingsClient({ initialData }: { initialData: Loa
                 <JsonPropertyValuesInput prefix="metadata" properties={portalsConfig?.metadata} attributes={item.metadata as JsonPropertiesValuesDto} />
               )}
               <div className="flex justify-end">
-                <ButtonPrimary type="submit" disabled={isPending}>{t("shared.save")}</ButtonPrimary>
+                <ButtonPrimary type="submit" disabled={isPending}>
+                  {t("shared.save")}
+                </ButtonPrimary>
               </div>
             </div>
           </form>
@@ -113,7 +115,7 @@ export default function PortalSettingsClient({ initialData }: { initialData: Loa
         {/*Separator */}
         <div className="block">
           <div className="py-5">
-            <div className="border-border border-t"></div>
+            <div className="border-t border-border"></div>
           </div>
         </div>
 
@@ -136,7 +138,7 @@ export default function PortalSettingsClient({ initialData }: { initialData: Loa
                           <div
                             className={clsx(
                               `theme-${item.value}`,
-                              " bg-primary text-primary inline-flex shrink-0 items-center rounded-full text-xs font-medium"
+                              "inline-flex shrink-0 items-center rounded-full bg-primary text-xs font-medium text-primary"
                             )}
                           >
                             <svg className={clsx("h-2 w-2")} fill="currentColor" viewBox="0 0 8 8">
@@ -186,7 +188,9 @@ export default function PortalSettingsClient({ initialData }: { initialData: Loa
                 </div>
               </div>
               <div className="flex justify-end">
-                <ButtonPrimary type="submit" disabled={isPending}>{t("shared.save")}</ButtonPrimary>
+                <ButtonPrimary type="submit" disabled={isPending}>
+                  {t("shared.save")}
+                </ButtonPrimary>
               </div>
             </div>
           </form>

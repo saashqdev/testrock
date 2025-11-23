@@ -35,7 +35,7 @@ async function getData() {
   if (!appConfiguration.app.features.surveys) {
     notFound();
   }
-  
+
   const items = await db.surveys.getAllSurveys({ tenantId: null, isPublic: true });
   return { items };
 }
@@ -43,7 +43,7 @@ async function getData() {
 export default async function SurveysPage() {
   const { t } = await getServerTranslations();
   const data = await getData();
-  
+
   return (
     <div>
       <div>

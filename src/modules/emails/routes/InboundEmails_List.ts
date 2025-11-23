@@ -17,4 +17,3 @@ export const action = async (props: IServerComponentsProps) => {
   const tenantId = await getTenantIdFromUrl(params);
   return await actionInboundEmails(props, tenantId);
 };
-

@@ -13,13 +13,12 @@ interface Props {
   rootData: RootDataDto;
 }
 function getCommands({ t, router, appData, rootData }: Props): Action[] {
-
   if (!appData) {
     return [];
   }
-  
+
   const params = { tenant: appData.currentTenant.slug };
-  
+
   const actions: Action[] = [
     {
       id: "dashboard",

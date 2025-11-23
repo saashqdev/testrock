@@ -16,7 +16,7 @@ type LoaderData = {
 
 export default function Component({ data }: { data: LoaderData }) {
   const { t } = useTranslation();
-  
+
   return (
     <EditPageLayout title={t("models.credit.plural")}>
       <CreditsList data={data} />

@@ -11,14 +11,14 @@ export default function EntityIcon({ className, icon, title }: { className?: str
   return (
     <>
       {icon.startsWith("<svg") ? (
-        <span 
+        <span
           className={className}
-          dangerouslySetInnerHTML={{ 
+          dangerouslySetInnerHTML={{
             __html: icon
-              .replace(/width="[^"]*"/, '')
-              .replace(/height="[^"]*"/, '')
-              .replace(/<svg/, '<svg style="width: 100%; height: 100%; display: block;"')
-          }} 
+              .replace(/width="[^"]*"/, "")
+              .replace(/height="[^"]*"/, "")
+              .replace(/<svg/, '<svg style="width: 100%; height: 100%; display: block;"'),
+          }}
         />
       ) : icon.includes("http") ? (
         <Image className={className} src={icon!} alt={title ?? ""} width={20} height={20} />

@@ -135,7 +135,7 @@ export default function NewEntityViewClient({ data }: NewEntityViewClientProps) 
                   hint={
                     <>
                       {tenantId !== undefined && (
-                        <button type="button" onClick={() => setTenantId(undefined)} className="text-muted-foreground text-xs">
+                        <button type="button" onClick={() => setTenantId(undefined)} className="text-xs text-muted-foreground">
                           {t("shared.clear")}
                         </button>
                       )}
@@ -164,7 +164,7 @@ export default function NewEntityViewClient({ data }: NewEntityViewClientProps) 
                     hint={
                       <>
                         {userId !== undefined && (
-                          <button type="button" onClick={() => setUserId(undefined)} className="text-muted-foreground text-xs">
+                          <button type="button" onClick={() => setUserId(undefined)} className="text-xs text-muted-foreground">
                             {t("shared.clear")}
                           </button>
                         )}

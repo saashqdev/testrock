@@ -30,14 +30,10 @@ export default function TenantNewClient({ tenantSettingsEntity, createTenantActi
     <>
       <div className="text-center">
         <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{t("app.tenants.create.title")}</h1>
-        <p className="text-muted-foreground mt-4 text-lg leading-6">{t("app.tenants.create.headline")}</p>
+        <p className="mt-4 text-lg leading-6 text-muted-foreground">{t("app.tenants.create.headline")}</p>
       </div>
       <div className="mt-12">
-        <TenantNew 
-          tenantSettingsEntity={tenantSettingsEntity} 
-          onSubmit={handleSubmit}
-          isPending={isPending}
-        />
+        <TenantNew tenantSettingsEntity={tenantSettingsEntity} onSubmit={handleSubmit} isPending={isPending} />
         <div id="form-error-message">
           {error && !isPending ? (
             <p className="py-2 text-xs text-rose-500" role="alert">
@@ -47,11 +43,7 @@ export default function TenantNewClient({ tenantSettingsEntity, createTenantActi
         </div>
 
         <div className="mt-4 flex">
-          <button 
-            type="button" 
-            onClick={() => router.back()} 
-            className="text-primary hover:text-primary/90 w-full text-center text-sm font-medium"
-          >
+          <button type="button" onClick={() => router.back()} className="w-full text-center text-sm font-medium text-primary hover:text-primary/90">
             <span aria-hidden="true"> &larr;</span> Go back
           </button>
         </div>

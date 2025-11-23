@@ -21,7 +21,6 @@ import SessionFilterModal from "@/modules/shared/components/SessionFilterModal";
 import { UserWithNamesDto } from "@/db/models/accounts/UsersModel";
 import { updateSettingsAction, setFiltersAction, deleteOnboarding } from "../actions";
 
-
 type LoaderData = {
   meta: MetaTagsDto;
   item: OnboardingWithDetailsDto;
@@ -62,7 +61,7 @@ export default function OnboardingSettingsPage({ data }: { data: LoaderData }) {
   function handleUpdateSettings(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    
+
     startTransition(async () => {
       const result = await updateSettingsAction(data.item.id, formData);
       setActionData(result);
@@ -74,7 +73,7 @@ export default function OnboardingSettingsPage({ data }: { data: LoaderData }) {
 
   function handleSetFilters(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    
+
     startTransition(async () => {
       const result = await setFiltersAction(data.item.id, filters);
       setActionData(result);
@@ -151,7 +150,7 @@ export default function OnboardingSettingsPage({ data }: { data: LoaderData }) {
             return <input type="hidden" name="filters[]" value={JSON.stringify(filter)} key={index} hidden readOnly />;
           })}
 
-          <p className="text-muted-foreground text-sm">Filters are used to determine if the onboarding should be shown to the user.</p>
+          <p className="text-sm text-muted-foreground">Filters are used to determine if the onboarding should be shown to the user.</p>
 
           <div className="space-y-2">
             {filters.map((filter, idx) => {
@@ -160,7 +159,7 @@ export default function OnboardingSettingsPage({ data }: { data: LoaderData }) {
                   key={idx}
                   type="button"
                   onClick={() => setShowFilterModal({ item: filter, idx })}
-                  className="border-border hover:border-border relative block w-full rounded-lg border-2 border-dashed p-3 text-center focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border p-3 text-center hover:border-border focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   <div className="flex items-center space-x-1">
                     <div className="font-medium">{filter.type}</div>
@@ -174,9 +173,9 @@ export default function OnboardingSettingsPage({ data }: { data: LoaderData }) {
               <button
                 type="button"
                 onClick={() => setShowFilterModal({ item: undefined, idx: undefined })}
-                className="border-border hover:border-border relative block w-full rounded-lg border-2 border-dashed p-3 text-center focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border p-3 text-center hover:border-border focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-                <span className="text-foreground block text-sm font-medium">Add filter</span>
+                <span className="block text-sm font-medium text-foreground">Add filter</span>
               </button>
             </div>
           </div>

@@ -6,7 +6,7 @@ import { db } from "@/db";
 export async function GET() {
   try {
     await verifyUserHasPermission("admin.settings.general.update");
-    
+
     const cachedValues = await getCachedValues();
 
     const allTenants = await db.tenants.adminGetAllTenantsIdsAndNames();
@@ -26,10 +26,10 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     await verifyUserHasPermission("admin.settings.general.update");
-    
+
     const formData = await request.formData();
     const action = formData.get("action")?.toString() ?? "";
-    
+
     if (action === "delete-key") {
       const key = formData.get("key")?.toString() ?? "";
       await clearCacheKey(key);
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
       }
       return NextResponse.json({ success: "Keys deleted: " + keyCount });
     }
-    
+
     return NextResponse.json({ error: "Invalid action" }, { status: 400 });
   } catch (error) {
     console.error("Error performing cache action:", error);

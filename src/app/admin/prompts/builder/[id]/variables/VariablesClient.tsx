@@ -36,10 +36,9 @@ export default function VariablesPage({ item, items, children }: PageProps) {
   const confirmDelete = useRef<RefConfirmModal>(null);
 
   // Check if we're on a modal route (new or edit)
-  const isOnModalRoute = pathname?.includes('/variables/new') || 
-                         (pathname?.includes('/variables/') && 
-                          pathname?.split('/variables/')[1]?.length > 0 &&
-                          !pathname?.endsWith('/variables'));
+  const isOnModalRoute =
+    pathname?.includes("/variables/new") ||
+    (pathname?.includes("/variables/") && pathname?.split("/variables/")[1]?.length > 0 && !pathname?.endsWith("/variables"));
   const isModalOpen = isOnModalRoute && !!children;
 
   useEffect(() => {
@@ -71,7 +70,7 @@ export default function VariablesPage({ item, items, children }: PageProps) {
   }
 
   // Determine modal title based on route
-  const modalTitle = pathname?.includes('/new') ? "Add variable" : "Edit variable";
+  const modalTitle = pathname?.includes("/new") ? "Add variable" : "Edit variable";
 
   return (
     <div className="space-y-2">
@@ -100,14 +99,14 @@ export default function VariablesPage({ item, items, children }: PageProps) {
               value: (i) => (
                 <div className="flex flex-col">
                   <div>{i.title}</div>
-                  <div className="text-muted-foreground text-sm">{i.name}</div>
+                  <div className="text-sm text-muted-foreground">{i.name}</div>
                 </div>
               ),
             },
             {
               name: "isRequired",
               title: "Required",
-              value: (i) => <div>{i.isRequired ? <CheckIcon className="h-5 w-5 text-green-500" /> : <XIcon className="text-muted-foreground h-5 w-5" />}</div>,
+              value: (i) => <div>{i.isRequired ? <CheckIcon className="h-5 w-5 text-green-500" /> : <XIcon className="h-5 w-5 text-muted-foreground" />}</div>,
             },
             {
               name: "actions",
@@ -117,9 +116,9 @@ export default function VariablesPage({ item, items, children }: PageProps) {
                   <DeleteButton onDelete={() => onDelete(i)} canDelete={true} />
                   <Link
                     href={i.id}
-                    className="hover:bg-secondary/90 focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+                    className="group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                   >
-                    <PencilIcon className="group-hover:text-muted-foreground h-4 w-4 text-gray-300" />
+                    <PencilIcon className="h-4 w-4 text-gray-300 group-hover:text-muted-foreground" />
                   </Link>
                 </div>
               ),
@@ -128,7 +127,7 @@ export default function VariablesPage({ item, items, children }: PageProps) {
         />
         <Link
           href={`new`}
-          className="focus:ring-theme-500 border-border hover:border-border relative block w-full rounded-lg border-2 border-dashed px-12 py-6 text-center focus:outline-none focus:ring-2 focus:ring-offset-2"
+          className="relative block w-full rounded-lg border-2 border-dashed border-border px-12 py-6 text-center hover:border-border focus:outline-none focus:ring-2 focus:ring-theme-500 focus:ring-offset-2"
         >
           <PlusIcon className="mx-auto h-5 text-gray-900" />
           <span className="mt-2 block text-sm font-medium text-gray-900">Add new variable</span>
@@ -137,13 +136,7 @@ export default function VariablesPage({ item, items, children }: PageProps) {
 
       <ConfirmModal ref={confirmDelete} onYes={onConfirmedDelete} destructive />
 
-      <SlideOverWideEmpty
-        title={modalTitle}
-        open={isModalOpen}
-        onClose={closeModal}
-        size="2xl"
-        overflowYScroll={true}
-      >
+      <SlideOverWideEmpty title={modalTitle} open={isModalOpen} onClose={closeModal} size="2xl" overflowYScroll={true}>
         <div className="-mx-1 -mt-3">
           <div className="space-y-4">{children}</div>
         </div>
@@ -157,7 +150,7 @@ function DeleteButton({ onDelete, canDelete }: { onDelete: () => void; canDelete
     <button
       type="button"
       className={clsx(
-        "focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1",
+        "group flex items-center rounded-md border border-transparent p-2 focus:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1",
         !canDelete ? "cursor-not-allowed opacity-50" : "hover:bg-secondary/90"
       )}
       disabled={!canDelete}

@@ -63,16 +63,16 @@ export default function RowActivity({ items, hasActivity = true, hasComments, on
     e.stopPropagation();
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    
+
     startTransition(() => {
       if (onSubmit !== undefined) {
         onSubmit(formData);
       } else {
         // For Next.js App Router, you would typically call a Server Action here
         // or use fetch to submit to an API route
-        const url = pathname + (searchParams.toString() ? `?${searchParams.toString()}` : '');
+        const url = pathname + (searchParams.toString() ? `?${searchParams.toString()}` : "");
         fetch(url, {
-          method: 'POST',
+          method: "POST",
           body: formData,
         });
       }

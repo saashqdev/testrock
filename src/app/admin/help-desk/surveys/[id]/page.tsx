@@ -19,11 +19,11 @@ type LoaderData = {
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const params = (await props.params) || {};
   const request = props.request!;
-  
+
   await requireAuth();
   const tenantId = await getTenantIdOrNull({ request, params });
   let item = await db.surveys.getSurveyById({ tenantId, id: params.id! });
-  
+
   return {
     title: item ? `${item.title} | ${process.env.APP_NAME}` : `Survey | ${process.env.APP_NAME}`,
   };
@@ -32,7 +32,7 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 export default async function SurveyDetailsPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const request = props.request!;
-  
+
   await requireAuth();
   const tenantId = await getTenantIdOrNull({ request, params });
   let item = await db.surveys.getSurveyById({ tenantId, id: params.id! });

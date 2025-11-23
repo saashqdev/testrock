@@ -11,13 +11,13 @@ export { serverTimingHeaders as headers };
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const data = await rowsListLoader(props);
-  const loaderData = await data.json() as LoaderData;
-  
+  const loaderData = (await data.json()) as LoaderData;
+
   // Convert MetaTagsDto array to Metadata object
   const metadata: Metadata = {};
   if (loaderData?.meta) {
     for (const tag of loaderData.meta) {
-      if ('title' in tag) {
+      if ("title" in tag) {
         metadata.title = tag.title;
       }
       // Add more conversions as needed
@@ -28,23 +28,23 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 
 export default async function (props: IServerComponentsProps) {
   const response = await rowsListLoader(props);
-  const data = await response.json() as LoaderData;
-  
+  const data = (await response.json()) as LoaderData;
+
   // Extract title from meta tags
   let title = "";
   if (data?.meta) {
     for (const tag of data.meta) {
-      if ('title' in tag && tag.title) {
+      if ("title" in tag && tag.title) {
         title = tag.title;
         break;
       }
     }
   }
-  
+
   // Check if user has create permission
   const createPermission = getEntityPermission(data.rowsData.entity, "create");
-  const hasCreatePermission = data.permissions.some(p => p === createPermission);
-  
+  const hasCreatePermission = data.permissions.some((p) => p === createPermission);
+
   return (
     <TitleDataLayout data={{ title }}>
       <RowsViewRoute
@@ -56,10 +56,14 @@ export default async function (props: IServerComponentsProps) {
         permissions={{
           create: hasCreatePermission,
         }}
-        currentSession={data.user ? {
-          user: data.user,
-          isSuperAdmin: data.isSuperAdmin,
-        } : null}
+        currentSession={
+          data.user
+            ? {
+                user: data.user,
+                isSuperAdmin: data.isSuperAdmin,
+              }
+            : null
+        }
       />
     </TitleDataLayout>
   );

@@ -11,6 +11,6 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 export default async function WorkflowsCredentialsNewPage(props: IServerComponentsProps) {
   // Load data server-side
   const data = await loader(props);
-  
+
   return <WorkflowsCredentialsNewView />;
 }

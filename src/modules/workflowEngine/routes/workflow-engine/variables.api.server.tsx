@@ -23,4 +23,3 @@ export const loader = async (props: IServerComponentsProps) => {
   };
   return data;
 };
-

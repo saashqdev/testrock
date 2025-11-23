@@ -66,4 +66,3 @@ export const action = async (props: IServerComponentsProps) => {
     });
   }
 };
-

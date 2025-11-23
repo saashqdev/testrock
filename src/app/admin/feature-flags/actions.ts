@@ -12,11 +12,14 @@ export async function toggleFeatureFlag(id: string, enabled: boolean) {
     throw new Error(t("shared.notFound"));
   }
 
-  await db.featureFlags.updateFeatureFlag({ id }, {
-    enabled,
-  });
+  await db.featureFlags.updateFeatureFlag(
+    { id },
+    {
+      enabled,
+    }
+  );
 
   revalidatePath("/admin/feature-flags");
-  
+
   return { success: true };
 }

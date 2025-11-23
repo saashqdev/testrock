@@ -26,7 +26,7 @@ export async function toggleTenantActive(id: string, action: "activate" | "deact
     });
     return { success: "Tenant activated" };
   }
-  
+
   return { error: "Invalid action" };
 }
 
@@ -37,7 +37,7 @@ export async function createTenant(formData: FormData) {
   const name = formData.get("name")?.toString() ?? "";
   const slug = formData.get("slug")?.toString() ?? "";
   const existingSlug = await getExistingSlug(slug);
-  
+
   if (!slug || existingSlug) {
     return { error: t("shared.slugTaken") };
   }
@@ -47,11 +47,11 @@ export async function createTenant(formData: FormData) {
     method: "POST",
   });
 
-  const { tenant, user } = await create({ 
-    request: mockRequest, 
-    form: formData, 
-    name, 
-    slug 
+  const { tenant, user } = await create({
+    request: mockRequest,
+    form: formData,
+    name,
+    slug,
   });
 
   const addMySelf = Boolean(formData.get("addMySelf"));

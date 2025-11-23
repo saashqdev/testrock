@@ -32,7 +32,7 @@ export async function loadAppData({ request, params, t, time = timeFake }: { req
   if (UrlUtils.stripTrailingSlash(url.pathname) === UrlUtils.stripTrailingSlash(UrlUtils.currentTenantUrl(params))) {
     throw redirect(UrlUtils.currentTenantUrl(params, "dashboard"));
   }
-  
+
   const { user, currentTenant } = await time(
     promiseHash({
       user: db.users.getUser(userInfo?.userId),
@@ -50,28 +50,29 @@ export async function loadAppData({ request, params, t, time = timeFake }: { req
   if (!currentTenant) {
     throw redirect(`/app`);
   }
-  let { myTenants, mySubscription, allPermissions, superUserRole, superAdminRole, entities, entityGroups, allRoles, roles, myGroups, onboardingSession } = await time(
-    promiseHash({
-      myTenants: time(db.tenants.getMyTenants(user.id), "loadAppData.getDetails.getMyTenants"),
-      mySubscription: time(getActiveTenantSubscriptions(tenantId), "loadAppData.getDetails.getActiveTenantSubscriptions"),
-      allPermissions: time(db.userRoles.getPermissionsByUser(userInfo.userId, tenantId), "loadAppData.getDetails.getPermissionsByUser"),
-      superUserRole: time(db.userRoles.getUserRoleInTenant(userInfo.userId, tenantId, DefaultAppRoles.SuperUser), "loadAppData.getDetails.getUserRoleInTenant"),
-      superAdminRole: time(db.userRoles.getUserRoleInAdmin(userInfo.userId, DefaultAdminRoles.SuperAdmin), "loadAppData.getDetails.getUserRoleInAdmin"),
-      entities: time(
-        db.entities.getAllEntities(null),
-        "loadAppData.getDetails.getAllEntities"
-      ),
-      entityGroups: time(db.entityGroups.getAllEntityGroups(), "loadAppData.getDetails.getAllEntityGroups()"),
-      allRoles: time(db.roles.getAllRolesWithoutPermissions("app"), "loadAppData.getDetails.getAllRolesWithoutPermissions"),
-      roles: time(db.userRoles.getUserRoles(userInfo.userId, tenantId), "loadAppData.getDetails.getUserRoles"),
-      myGroups: time(db.groups.getMyGroups(user.id, currentTenant.id), "loadAppData.getDetails.getMyGroups"),
-      onboardingSession: time(
-        OnboardingService.getUserActiveOnboarding({ userId: user.id, tenantId: currentTenant.id, request }),
-        "loadAppData.getDetails.OnboardingService.getUserActiveOnboarding"
-      ),
-    }),
-    "loadAppData.getDetails"
-  );
+  let { myTenants, mySubscription, allPermissions, superUserRole, superAdminRole, entities, entityGroups, allRoles, roles, myGroups, onboardingSession } =
+    await time(
+      promiseHash({
+        myTenants: time(db.tenants.getMyTenants(user.id), "loadAppData.getDetails.getMyTenants"),
+        mySubscription: time(getActiveTenantSubscriptions(tenantId), "loadAppData.getDetails.getActiveTenantSubscriptions"),
+        allPermissions: time(db.userRoles.getPermissionsByUser(userInfo.userId, tenantId), "loadAppData.getDetails.getPermissionsByUser"),
+        superUserRole: time(
+          db.userRoles.getUserRoleInTenant(userInfo.userId, tenantId, DefaultAppRoles.SuperUser),
+          "loadAppData.getDetails.getUserRoleInTenant"
+        ),
+        superAdminRole: time(db.userRoles.getUserRoleInAdmin(userInfo.userId, DefaultAdminRoles.SuperAdmin), "loadAppData.getDetails.getUserRoleInAdmin"),
+        entities: time(db.entities.getAllEntities(null), "loadAppData.getDetails.getAllEntities"),
+        entityGroups: time(db.entityGroups.getAllEntityGroups(), "loadAppData.getDetails.getAllEntityGroups()"),
+        allRoles: time(db.roles.getAllRolesWithoutPermissions("app"), "loadAppData.getDetails.getAllRolesWithoutPermissions"),
+        roles: time(db.userRoles.getUserRoles(userInfo.userId, tenantId), "loadAppData.getDetails.getUserRoles"),
+        myGroups: time(db.groups.getMyGroups(user.id, currentTenant.id), "loadAppData.getDetails.getMyGroups"),
+        onboardingSession: time(
+          OnboardingService.getUserActiveOnboarding({ userId: user.id, tenantId: currentTenant.id, request }),
+          "loadAppData.getDetails.OnboardingService.getUserActiveOnboarding"
+        ),
+      }),
+      "loadAppData.getDetails"
+    );
 
   const tenantUser = await db.tenants.getTenantUserType(tenantId, userInfo.userId);
   let currentRole = tenantUser?.type ?? TenantUserType.MEMBER;

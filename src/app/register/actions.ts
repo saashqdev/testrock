@@ -14,11 +14,11 @@ export async function registerAction(prevState: ActionData | null, formData: For
   });
 
   const result = await AuthService.registerFromRequest(request);
-  
+
   if (result instanceof Response) {
     const data = await result.json();
     return data;
   }
-  
+
   return { error: "Unknown error occurred" };
 }

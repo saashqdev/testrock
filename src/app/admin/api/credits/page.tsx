@@ -18,13 +18,13 @@ type LoaderData = {
 
 async function getCreditsData(searchParams: URLSearchParams): Promise<LoaderData> {
   const headersList = await headers();
-  const request = new Request(`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}?${searchParams.toString()}`, {
+  const request = new Request(`${process.env.NEXT_PUBLIC_URL || "http://localhost:3000"}?${searchParams.toString()}`, {
     headers: headersList as any,
   });
 
   await verifyUserHasPermission("admin.apiKeys.view");
   const { t } = await getServerTranslations();
-  
+
   const filterableProperties: FilterablePropertyDto[] = [
     {
       name: "tenantId",
@@ -53,11 +53,11 @@ async function getCreditsData(searchParams: URLSearchParams): Promise<LoaderData
       ],
     },
   ];
-  
+
   const currentPagination = getPaginationFromCurrentUrl(searchParams);
   const filters = getFiltersFromCurrentUrl(request, filterableProperties);
   const { items, pagination } = await db.credits.getAllCredits({ tenantId: null, filters, filterableProperties, pagination: currentPagination });
-  
+
   return {
     items,
     filterableProperties,
@@ -66,19 +66,15 @@ async function getCreditsData(searchParams: URLSearchParams): Promise<LoaderData
   };
 }
 
-export default async function CreditsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default async function CreditsPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const params = await searchParams;
   const urlSearchParams = new URLSearchParams();
-  
+
   // Convert searchParams to URLSearchParams
   Object.entries(params).forEach(([key, value]) => {
     if (value) {
       if (Array.isArray(value)) {
-        value.forEach(v => urlSearchParams.append(key, v));
+        value.forEach((v) => urlSearchParams.append(key, v));
       } else {
         urlSearchParams.append(key, value);
       }

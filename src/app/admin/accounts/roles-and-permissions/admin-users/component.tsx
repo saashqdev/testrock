@@ -51,7 +51,7 @@ export default function AdminUsersClient({ data, updateUserRole }: AdminUsersCli
     form.set("user-id", item.id);
     form.set("role-id", role.id);
     form.set("add", add ? "true" : "false");
-    
+
     startTransition(async () => {
       await updateUserRole(form);
     });
@@ -60,11 +60,11 @@ export default function AdminUsersClient({ data, updateUserRole }: AdminUsersCli
   return (
     <div className="space-y-2">
       <InputSearch value={searchInput} onChange={setSearchInput} />
-      <UserRolesTable 
-        items={filteredItems()} 
-        roles={data.roles} 
-        onChange={onChange} 
-        disabled={!getUserHasPermission(adminData, "admin.roles.set") || isPending} 
+      <UserRolesTable
+        items={filteredItems()}
+        roles={data.roles}
+        onChange={onChange}
+        disabled={!getUserHasPermission(adminData, "admin.roles.set") || isPending}
       />
     </div>
   );

@@ -73,7 +73,7 @@ export default async function EntitiesPage(props: IServerComponentsProps) {
                         .join(", ")}
                     </Link>
                   ) : (
-                    <Link className="text-muted-foreground truncate pb-1 hover:underline" href={item.slug}>
+                    <Link className="truncate pb-1 text-muted-foreground hover:underline" href={item.slug}>
                       {t("shared.setCustomProperties")}
                     </Link>
                   )}

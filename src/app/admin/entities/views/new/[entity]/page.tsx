@@ -7,7 +7,6 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import NewEntityViewSlideoverWrapper from "./NewEntityViewSlideoverWrapper";
 import { db } from "@/db";
 
-
 type LoaderData = {
   allTenants: TenantWithDetailsDto[];
   allUsers: UserWithNamesDto[];
@@ -31,10 +30,9 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
   return data;
 }
 
-
 export default async function NewEntityViewPage(props: IServerComponentsProps) {
   const data = await getData(props);
   const searchParams = (await props.searchParams) || {};
-  
+
   return <NewEntityViewSlideoverWrapper data={data} searchParams={searchParams} />;
 }

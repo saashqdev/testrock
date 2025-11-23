@@ -48,7 +48,7 @@ export default function PagesClient({ data, params }: PagesClientProps) {
             <div
               key={page.name}
               className={clsx(
-                "border-border hover:border-primary group relative flex flex-col rounded-lg border hover:shadow-2xs",
+                "hover:shadow-2xs group relative flex flex-col rounded-lg border border-border hover:border-primary",
                 page.errors.length === 0 ? "bg-background" : "bg-red-50"
               )}
             >
@@ -59,7 +59,7 @@ export default function PagesClient({ data, params }: PagesClientProps) {
                       href={page.href}
                       target="_blank"
                       onClick={(e) => e.stopPropagation()}
-                      className="bg-secondary/80 text-muted-foreground hover:text-secondary-foreground hover:bg-secondary absolute right-3 top-4 hidden rounded-md p-1.5 group-hover:flex"
+                      className="absolute right-3 top-4 hidden rounded-md bg-secondary/80 p-1.5 text-muted-foreground hover:bg-secondary hover:text-secondary-foreground group-hover:flex"
                     >
                       <ExternalLinkEmptyIcon className="h-4 w-4" />
                     </Link>

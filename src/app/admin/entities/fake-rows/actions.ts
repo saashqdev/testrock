@@ -182,7 +182,17 @@ export async function handleAction(formData: FormData): Promise<ActionData> {
   }
 }
 
-async function createFakeRow({ entity, tenantId, idx, status }: { entity: EntityWithDetailsDto; tenantId: string; idx: number; status: { totalRows: number } }) {
+async function createFakeRow({
+  entity,
+  tenantId,
+  idx,
+  status,
+}: {
+  entity: EntityWithDetailsDto;
+  tenantId: string;
+  idx: number;
+  status: { totalRows: number };
+}) {
   const values: Prisma.RowValueUncheckedCreateWithoutRowInput[] = [];
   let tag = entity.tags.find((f) => f.value === "fake-row");
   if (!tag) {

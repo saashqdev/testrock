@@ -105,7 +105,7 @@ export default function CampaignsListRoute({ data }: CampaignsListRouteProps) {
                   {i.sentAt ? (
                     <>
                       <div>•</div>
-                      <div className="text-muted-foreground text-sm">
+                      <div className="text-sm text-muted-foreground">
                         <span>{i.sentAt.toLocaleDateString()}</span>
                       </div>
                     </>
@@ -116,7 +116,7 @@ export default function CampaignsListRoute({ data }: CampaignsListRouteProps) {
                   {i.track && (
                     <>
                       <div>•</div>
-                      <div className="text-muted-foreground text-sm">
+                      <div className="text-sm text-muted-foreground">
                         {i.recipients.filter((f: any) => f.deliveredAt).length}/{i.recipients.length} {t("emails.delivered")}
                       </div>
                     </>
@@ -124,7 +124,7 @@ export default function CampaignsListRoute({ data }: CampaignsListRouteProps) {
                   {i.track && (
                     <>
                       <div>•</div>
-                      <div className="text-muted-foreground text-sm">
+                      <div className="text-sm text-muted-foreground">
                         {NumberUtils.decimalFormat((i.recipients.filter((f: any) => f.opens.length > 0).length / i.recipients.length) * 100)}% open rate
                       </div>
                     </>
@@ -132,17 +132,17 @@ export default function CampaignsListRoute({ data }: CampaignsListRouteProps) {
                   {i.track && (
                     <>
                       <div>•</div>
-                      <div className="text-muted-foreground text-sm">
+                      <div className="text-sm text-muted-foreground">
                         {NumberUtils.decimalFormat((i.recipients.filter((f: any) => f.clicks.length > 0).length / i.recipients.length) * 100)}% click rate
                       </div>
                       <div>•</div>
-                      <div className="text-muted-foreground text-sm">{i.recipients.filter((f: any) => f.clicks.length > 0).length} clicks</div>
+                      <div className="text-sm text-muted-foreground">{i.recipients.filter((f: any) => f.clicks.length > 0).length} clicks</div>
                     </>
                   )}
                   {i.track && (
                     <>
                       <div>•</div>
-                      <div className="text-muted-foreground text-sm">{i.recipients.filter((f: any) => f.unsubscribedAt).length} unsubscribers</div>
+                      <div className="text-sm text-muted-foreground">{i.recipients.filter((f: any) => f.unsubscribedAt).length} unsubscribers</div>
                     </>
                   )}
                 </div>
@@ -153,7 +153,7 @@ export default function CampaignsListRoute({ data }: CampaignsListRouteProps) {
         noRecords={
           <div className="p-12 text-center">
             <h3 className="mt-1 text-sm font-medium text-gray-900">No campaigns</h3>
-            <p className="text-muted-foreground mt-1 text-sm">Create a campaign to start sending emails.</p>
+            <p className="mt-1 text-sm text-muted-foreground">Create a campaign to start sending emails.</p>
           </div>
         }
       />

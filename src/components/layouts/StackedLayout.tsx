@@ -62,17 +62,17 @@ export default function StackedLayout({ layout, children }: Props) {
   }
   async function signOut() {
     try {
-      await fetch('/logout', {
-        method: 'POST',
+      await fetch("/logout", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
-      router.push('/login');
+      router.push("/login");
     } catch (error) {
-      console.error('Sign out error:', error);
+      console.error("Sign out error:", error);
       // Fallback to redirect even if the request fails
-      router.push('/login');
+      router.push("/login");
     }
   }
   const getMenu = (): SidebarGroupDto[] => {
@@ -90,7 +90,7 @@ export default function StackedLayout({ layout, children }: Props) {
 
   return (
     <div>
-      <nav className="border-border bg-secondary border-b">
+      <nav className="border-b border-border bg-secondary">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between space-x-3">
             <div className="flex items-center space-x-2 overflow-x-auto py-1">
@@ -136,7 +136,7 @@ export default function StackedLayout({ layout, children }: Props) {
               <button
                 onClick={() => setMenuOpened(!menuOpened)}
                 type="button"
-                className="focus:ring-ring focus:ring-offset-theme-800 hover:bg-secondary hover:text-muted-foreground text-muted-foreground inline-flex items-center justify-center rounded-md p-1 focus:outline-hidden focus:ring-2 focus:ring-offset-2"
+                className="focus:outline-hidden inline-flex items-center justify-center rounded-md p-1 text-muted-foreground hover:bg-secondary hover:text-muted-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-theme-800"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
               >
@@ -166,7 +166,7 @@ export default function StackedLayout({ layout, children }: Props) {
                 <Link
                   onClick={() => setMenuOpened(!menuOpened)}
                   href={UrlUtils.currentTenantUrl(params, `settings/profile`)}
-                  className="text-muted-foreground block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-700 hover:text-white"
+                  className="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-gray-700 hover:text-white"
                 >
                   {t("settings.profile.profileTitle")}
                 </Link>
@@ -174,7 +174,7 @@ export default function StackedLayout({ layout, children }: Props) {
                 <button
                   type="button"
                   onClick={signOut}
-                  className="text-muted-foreground block w-full rounded-md px-3 py-2 text-left text-base font-medium hover:bg-gray-700 hover:text-white"
+                  className="block w-full rounded-md px-3 py-2 text-left text-base font-medium text-muted-foreground hover:bg-gray-700 hover:text-white"
                 >
                   {t("app.navbar.signOut")}
                 </button>

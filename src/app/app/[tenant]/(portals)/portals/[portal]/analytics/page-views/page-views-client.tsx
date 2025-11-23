@@ -110,13 +110,13 @@ export default function PageViewsClient({ data, params }: PageViewsClientProps) 
                         }}
                         className="underline"
                       >
-                        <div className="text-muted-foreground text-xs">
+                        <div className="text-xs text-muted-foreground">
                           <span className="">Anon</span>: {i.uniqueVisitor.cookie.substring(0, 5) + "..."}
                         </div>
                       </button>
                     )}
                   </div>
-                  <time title={DateUtils.dateYMDHMS(i.createdAt)} className="text-muted-foreground text-xs">
+                  <time title={DateUtils.dateYMDHMS(i.createdAt)} className="text-xs text-muted-foreground">
                     {DateUtils.dateAgo(i.createdAt)}
                   </time>
                 </div>
@@ -135,7 +135,7 @@ export default function PageViewsClient({ data, params }: PageViewsClientProps) 
                     }}
                     className="truncate underline"
                   >
-                    <div className="text-muted-foreground text-xs">{i.url !== i.route && i.route}</div>
+                    <div className="text-xs text-muted-foreground">{i.url !== i.route && i.route}</div>
                   </button>
                 </div>
               ),
@@ -206,7 +206,7 @@ export default function PageViewsClient({ data, params }: PageViewsClientProps) 
               value: (i) => (
                 <div className="max-w-xs truncate">
                   <div className="truncate font-medium">{i.uniqueVisitor.fromUrl}</div>
-                  <div className="text-muted-foreground text-xs">{i.uniqueVisitor.fromUrl !== i.uniqueVisitor.fromRoute && i.uniqueVisitor.fromRoute}</div>
+                  <div className="text-xs text-muted-foreground">{i.uniqueVisitor.fromUrl !== i.uniqueVisitor.fromRoute && i.uniqueVisitor.fromRoute}</div>
                 </div>
               ),
             },

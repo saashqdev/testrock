@@ -15,7 +15,7 @@ export async function actionNewsletter(
     if (!email || !firstName || !lastName) {
       return {
         error: "All fields are required",
-        success: null
+        success: null,
       };
     }
 
@@ -24,7 +24,7 @@ export async function actionNewsletter(
     if (!emailRegex.test(email)) {
       return {
         error: "Please enter a valid email address",
-        success: null
+        success: null,
       };
     }
 
@@ -34,13 +34,13 @@ export async function actionNewsletter(
 
     return {
       success: "Thank you for subscribing to our newsletter!",
-      error: null
+      error: null,
     };
   } catch (error) {
     console.error("Newsletter subscription error:", error);
     return {
       error: "Something went wrong. Please try again.",
-      success: null
+      success: null,
     };
   }
 }

@@ -28,13 +28,7 @@ export default function NewEntityViewSlideoverWrapper({ data, searchParams }: Ne
   }
 
   return (
-    <SlideOverWideEmpty
-      title={`New ${data.entity.title} view`}
-      open={true}
-      onClose={handleClose}
-      size="2xl"
-      overflowYScroll={true}
-    >
+    <SlideOverWideEmpty title={`New ${data.entity.title} view`} open={true} onClose={handleClose} size="2xl" overflowYScroll={true}>
       <div className="-mx-1 -mt-3">
         <NewEntityViewClient data={data} />
       </div>

@@ -32,7 +32,7 @@ async function main() {
   for (const tu of tenantUsers) {
     console.log(`   ${tu.tenant.name} (${tu.tenant.slug})`);
     console.log(`   └─ Type: ${tu.type === 0 ? "OWNER" : tu.type === 1 ? "ADMIN" : "MEMBER"}`);
-    
+
     // Get roles in this tenant
     const userRoles = await prisma.userRole.findMany({
       where: {
@@ -45,7 +45,7 @@ async function main() {
     });
 
     if (userRoles.length > 0) {
-      console.log(`   └─ Roles: ${userRoles.map(ur => ur.role.name).join(", ")}`);
+      console.log(`   └─ Roles: ${userRoles.map((ur) => ur.role.name).join(", ")}`);
     } else {
       console.log(`   └─ Roles: ⚠️ NONE`);
     }

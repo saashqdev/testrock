@@ -22,7 +22,7 @@ export default function CommandPalette({ layout, children, actions }: Props) {
   const { t } = useTranslation();
   const rootData = useRootData();
   const router = useRouter();
-  
+
   // Always call hooks unconditionally at the top level
   // Use useContext directly to avoid throwing errors when provider is not available
   const appData = useContext(AppDataContext);
@@ -53,9 +53,9 @@ export default function CommandPalette({ layout, children, actions }: Props) {
 function CommandBar() {
   return (
     <KBarPortal>
-      <KBarPositioner className="text-foreground bg-foreground/80 dark:bg-background/60 z-50 flex items-center p-2">
-        <KBarAnimator className="bg-background w-full max-w-lg overflow-hidden rounded-xl">
-          <KBarSearch className="bg-background text-foreground flex w-full border-0 p-4 outline-hidden focus:outline-hidden" />
+      <KBarPositioner className="z-50 flex items-center bg-foreground/80 p-2 text-foreground dark:bg-background/60">
+        <KBarAnimator className="w-full max-w-lg overflow-hidden rounded-xl bg-background">
+          <KBarSearch className="outline-hidden focus:outline-hidden flex w-full border-0 bg-background p-4 text-foreground" />
           <RenderResults />
         </KBarAnimator>
       </KBarPositioner>
@@ -72,14 +72,14 @@ function RenderResults() {
       onRender={({ item, active }) =>
         typeof item === "string" ? (
           <div className={clsx("flex w-full cursor-pointer items-center space-x-3 py-4 pl-4 pr-5", active ? "bg-secondary/90" : "")}>
-            <div className="text-foreground/80 text-sm font-medium">{item}</div>
+            <div className="text-sm font-medium text-foreground/80">{item}</div>
           </div>
         ) : (
           <div className={clsx("flex w-full cursor-pointer items-center space-x-3 py-4 pl-4 pr-5", active ? "bg-secondary/90" : "")}>
             {/* {item.icon && <div className="h-10 w-10 p-2">{item.icon}</div>} */}
             <div className="flex w-full items-center justify-between space-x-2">
-              <div className="text-foreground/80 text-sm font-medium">{item.name}</div>
-              <div className="text-muted-foreground truncate text-xs">{item.subtitle}</div>
+              <div className="text-sm font-medium text-foreground/80">{item.name}</div>
+              <div className="truncate text-xs text-muted-foreground">{item.subtitle}</div>
             </div>
           </div>
         )

@@ -94,12 +94,12 @@ export default function PostForm({ item, categories, tags, canUpdate = true, can
     try {
       const form = new FormData();
       form.set("action", "delete");
-      
+
       const response = await fetch(window.location.href, {
         method: "POST",
         body: form,
       });
-      
+
       if (response.ok) {
         startTransition(() => {
           router.push(`/admin/blog`);
@@ -146,14 +146,14 @@ export default function PostForm({ item, categories, tags, canUpdate = true, can
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
-    
+
     try {
       const formData = new FormData(e.currentTarget);
       const response = await fetch(window.location.href, {
         method: "POST",
         body: formData,
       });
-      
+
       if (response.ok) {
         startTransition(() => {
           router.push(`/admin/blog`);
@@ -176,7 +176,7 @@ export default function PostForm({ item, categories, tags, canUpdate = true, can
       <div className="grid gap-3 lg:grid-cols-12">
         <div className="space-y-2 lg:col-span-8">
           <div className="flex justify-between space-x-2">
-            <label className="text-muted-foreground text-sm font-medium">Blog Post</label>
+            <label className="text-sm font-medium text-muted-foreground">Blog Post</label>
           </div>
           {contentType === "wysiwyg" ? (
             <div>
@@ -194,7 +194,7 @@ export default function PostForm({ item, categories, tags, canUpdate = true, can
             </div>
           ) : contentType === "markdown" ? (
             <InputGroup title="">
-              <div className="bg-background grid grid-cols-12 gap-3 rounded-md">
+              <div className="grid grid-cols-12 gap-3 rounded-md bg-background">
                 <InputText
                   disabled={!canUpdate}
                   className="col-span-12"
@@ -279,7 +279,7 @@ export default function PostForm({ item, categories, tags, canUpdate = true, can
                 setValue={setImage}
                 button={
                   <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
-                    <kbd className="border-border text-muted-foreground bg-background inline-flex items-center rounded border px-2 font-sans text-sm font-medium">
+                    <kbd className="inline-flex items-center rounded border border-border bg-background px-2 font-sans text-sm font-medium text-muted-foreground">
                       <button type="button" onClick={() => setShowUploadImage(true)}>
                         Upload image
                       </button>
@@ -300,7 +300,13 @@ export default function PostForm({ item, categories, tags, canUpdate = true, can
 
               {image && (
                 <div className="col-span-12">
-                  <Image className="xl:border-border overflow-hidden rounded-lg shadow-xl xl:border-b" src={image} alt={t("models.post.image")} width={800} height={400} />
+                  <Image
+                    className="overflow-hidden rounded-lg shadow-xl xl:border-b xl:border-border"
+                    src={image}
+                    alt={t("models.post.image")}
+                    width={800}
+                    height={400}
+                  />
                   <ButtonTertiary disabled={!canUpdate} onClick={() => setImage("")}>
                     {t("shared.delete")}
                   </ButtonTertiary>
@@ -310,7 +316,7 @@ export default function PostForm({ item, categories, tags, canUpdate = true, can
           </InputGroup>
 
           <InputGroup title="Details">
-            <div className="bg-background grid gap-3 rounded-md">
+            <div className="grid gap-3 rounded-md bg-background">
               {!addingCategory ? (
                 <InputSelector
                   disabled={!canUpdate}
@@ -352,7 +358,7 @@ export default function PostForm({ item, categories, tags, canUpdate = true, can
                 title={t("models.post.tags")}
                 value={postTags}
                 setValue={(e) => changedTags(e.toString())}
-                hint={<div className="text-muted-foreground text-xs font-light italic">Separated by comma</div>}
+                hint={<div className="text-xs font-light italic text-muted-foreground">Separated by comma</div>}
               />
               <InputDate disabled={!canUpdate} className="" name="date" title={t("models.post.date")} value={date} onChange={setDate} required />
 
@@ -395,7 +401,7 @@ export default function PostForm({ item, categories, tags, canUpdate = true, can
 
       <Modal className="sm:max-w-2xl" open={showMarkdown} setOpen={setShowMarkdown}>
         <div className="space-y-6 py-3">
-          <h1 className="text-foreground block text-center text-3xl leading-8 font-extrabold tracking-tight sm:text-4xl">{title}</h1>
+          <h1 className="block text-center text-3xl font-extrabold leading-8 tracking-tight text-foreground sm:text-4xl">{title}</h1>
           <div className="prose">
             <div dangerouslySetInnerHTML={{ __html: markdown ?? "" }} />
           </div>

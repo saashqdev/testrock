@@ -57,7 +57,6 @@ export const action = async (props: IServerComponentsProps) => {
   return Response.json({ error: "Invalid action" }, { status: 400 });
 };
 
-
 // Server Action for the Next.js form handling
 export const updateWorkflowVariableAction = async (prev: any, formData: FormData) => {
   try {

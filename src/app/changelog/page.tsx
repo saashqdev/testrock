@@ -21,18 +21,18 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   const request = props.request!;
   const params = (await props.params) || {};
   const page = await getCurrentPage({ request, params, slug: "/changelog" });
-  
+
   // Convert array-based metatags to Next.js Metadata format
   if (page?.page?.metaTags && page.page.metaTags.length > 0) {
-    const firstTitleTag = page.page.metaTags.find(tag => tag.name === 'title');
-    const firstDescTag = page.page.metaTags.find(tag => tag.name === 'description');
-    
+    const firstTitleTag = page.page.metaTags.find((tag) => tag.name === "title");
+    const firstDescTag = page.page.metaTags.find((tag) => tag.name === "description");
+
     return getMetaTags({
       title: firstTitleTag?.value,
       description: firstDescTag?.value,
     });
   }
-  
+
   return getMetaTags();
 }
 
@@ -63,39 +63,39 @@ export default async function ChangelogPage(props: IServerComponentsProps) {
               <div className="relative mx-auto w-full max-w-2xl overflow-hidden px-2 py-12 sm:py-6">
                 <div className="text-center">
                   <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{t("front.changelog.title")}</h1>
-                  <p className="text-muted-foreground mt-4 text-lg leading-6">{t("front.changelog.headline")}</p>
+                  <p className="mt-4 text-lg leading-6 text-muted-foreground">{t("front.changelog.headline")}</p>
                 </div>
                 <div className="mx-auto mt-12">
-                  <div className="prose dark:prose-dark text-sm">
-                    <div className="border-border relative border-l">
+                  <div className="prose text-sm dark:prose-dark">
+                    <div className="relative border-l border-border">
                       {data.items.map((item, idx) => {
                         return (
                           <div key={idx} className="mb-10 ml-4">
-                            <div className="border-border bg-background absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full border"></div>
-                            <time id={UrlUtils.slugify(item.date)} className="text-muted-foreground text-sm font-normal leading-none">
+                            <div className="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full border border-border bg-background"></div>
+                            <time id={UrlUtils.slugify(item.date)} className="text-sm font-normal leading-none text-muted-foreground">
                               {item.date}{" "}
                             </time>
                             {item.url ? (
                               <Link href={item.url}>
-                                <h2 id={UrlUtils.slugify(item.date)} className="w-full ">
+                                <h2 id={UrlUtils.slugify(item.date)} className="w-full">
                                   {item.title}
                                 </h2>
                               </Link>
                             ) : (
-                              <h2 id={UrlUtils.slugify(item.date)} className="w-full ">
+                              <h2 id={UrlUtils.slugify(item.date)} className="w-full">
                                 {item.title}
                               </h2>
                             )}
-                            <p className="text-muted-foreground mb-4 text-base font-normal">{item.description}</p>
+                            <p className="mb-4 text-base font-normal text-muted-foreground">{item.description}</p>
 
                             {item.videos && item.videos.length > 0 && (
                               <div>
-                                <h3 className="text-sm font-semibold ">Videos</h3>
+                                <h3 className="text-sm font-semibold">Videos</h3>
                                 <ul>
                                   {item.videos.map((video, idx) => {
                                     return (
                                       <li key={idx}>
-                                        <a href={video.url} target={video.target} className="text-primary not-prose hover:underline">
+                                        <a href={video.url} target={video.target} className="not-prose text-primary hover:underline">
                                           🎥 {video.title}
                                         </a>
                                       </li>

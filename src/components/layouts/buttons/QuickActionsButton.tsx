@@ -35,7 +35,7 @@ export default function QuickActionsButton({ entities, className }: Props) {
               <button
                 onClick={() => setOpened(!opened)}
                 type="button"
-                className="text-muted-foreground bg-secondary hover:bg-secondary/90 border-border relative inline-flex items-center rounded-full border p-2 font-medium shadow-inner focus:z-10 focus:outline-hidden focus:ring-2 focus:ring-offset-2"
+                className="focus:outline-hidden relative inline-flex items-center rounded-full border border-border bg-secondary p-2 font-medium text-muted-foreground shadow-inner hover:bg-secondary/90 focus:z-10 focus:ring-2 focus:ring-offset-2"
                 aria-haspopup="listbox"
                 aria-expanded="true"
                 aria-labelledby="listbox-label"
@@ -60,33 +60,33 @@ export default function QuickActionsButton({ entities, className }: Props) {
             leaveTo="transform opacity-0 scale-95"
           >
             <ul
-              className="divide-border bg-background absolute right-0 z-40 mt-2 w-72 origin-top-right divide-y overflow-hidden rounded-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden"
+              className="focus:outline-hidden absolute right-0 z-40 mt-2 w-72 origin-top-right divide-y divide-border overflow-hidden rounded-sm bg-background shadow-lg ring-1 ring-black ring-opacity-5"
               tabIndex={-1}
               aria-labelledby="listbox-label"
             >
               {rootData.appConfiguration.portals?.enabled && rootData.appConfiguration.portals.forTenants && (
                 <>
-                  <li className="text-foreground relative cursor-default select-none text-sm" id="listbox-option-2">
+                  <li className="relative cursor-default select-none text-sm text-foreground" id="listbox-option-2">
                     <Link
                       href={UrlUtils.currentTenantUrl(params, "portals/new")}
                       onClick={() => setOpened(false)}
-                      className="hover:bg-secondary flex w-full flex-col p-4 text-left focus:outline-hidden"
+                      className="focus:outline-hidden flex w-full flex-col p-4 text-left hover:bg-secondary"
                     >
                       <div className="flex justify-between">
                         <p className="font-semibold">{t("models.portal.actions.new.title")}</p>
                       </div>
-                      <p className="text-muted-foreground mt-2">{t("models.portal.actions.new.description")}</p>
+                      <p className="mt-2 text-muted-foreground">{t("models.portal.actions.new.description")}</p>
                     </Link>
                   </li>
                 </>
               )}
               {entities.map((entity) => {
                 return (
-                  <li key={entity.name} className="text-foreground relative cursor-default select-none text-sm" id="listbox-option-0">
+                  <li key={entity.name} className="relative cursor-default select-none text-sm text-foreground" id="listbox-option-0">
                     <Link
                       href={UrlUtils.currentTenantUrl(params, entity.slug + "/new")}
                       onClick={() => setOpened(false)}
-                      className="hover:bg-secondary flex flex-col p-4"
+                      className="flex flex-col p-4 hover:bg-secondary"
                     >
                       <div className="flex justify-between">
                         <p className="font-semibold">

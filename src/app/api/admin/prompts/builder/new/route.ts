@@ -6,12 +6,12 @@ import { db } from "@/db";
 export async function GET(request: NextRequest) {
   try {
     await verifyUserHasPermission("admin.prompts.create");
-    
+
     const data = {
       allEntities: await db.entities.getAllEntities(null),
       promptFlowGroups: await db.promptFlowGroups.getAllPromptFlowGroups(),
     };
-    
+
     return NextResponse.json(data);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 403 });
@@ -49,10 +49,10 @@ export async function POST(request: NextRequest) {
           isPublic: isPublic !== undefined ? isPublic : true,
           templates: [],
         });
-        
-        return NextResponse.json({ 
-          success: true, 
-          redirect: `/admin/prompts/builder/${id}/templates` 
+
+        return NextResponse.json({
+          success: true,
+          redirect: `/admin/prompts/builder/${id}/templates`,
         });
       } catch (e: any) {
         return NextResponse.json({ error: e.message }, { status: 400 });

@@ -17,30 +17,30 @@ export default async function DebugPermissionsPage(props: IServerComponentsProps
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Debug Permissions</h1>
-      
+      <h1 className="mb-4 text-2xl font-bold">Debug Permissions</h1>
+
       <div className="space-y-4">
-        <div className="border p-4 rounded">
+        <div className="rounded border p-4">
           <h2 className="font-semibold">User Info</h2>
           <p>Email: {user?.email}</p>
           <p>User ID: {userInfo.userId}</p>
           <p>Admin: {user?.admin ? "Yes" : "No"}</p>
         </div>
 
-        <div className="border p-4 rounded">
+        <div className="rounded border p-4">
           <h2 className="font-semibold">Tenant Info</h2>
           <p>Name: {tenant?.name}</p>
           <p>Slug: {tenant?.slug}</p>
           <p>Tenant ID: {tenant?.id}</p>
         </div>
 
-        <div className="border p-4 rounded">
+        <div className="rounded border p-4">
           <h2 className="font-semibold">Key Permissions</h2>
           <p>app.settings.apiKeys.view: {hasApiKeysView ? "✅ YES" : "❌ NO"}</p>
           <p>app.settings.auditTrails.view: {hasAuditTrailsView ? "✅ YES" : "❌ NO"}</p>
         </div>
 
-        <div className="border p-4 rounded">
+        <div className="rounded border p-4">
           <h2 className="font-semibold">All Permissions ({allPermissions.length})</h2>
           <div className="max-h-96 overflow-auto">
             <pre className="text-xs">{JSON.stringify(allPermissions, null, 2)}</pre>

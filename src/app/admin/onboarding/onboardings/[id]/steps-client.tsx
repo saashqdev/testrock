@@ -94,13 +94,13 @@ export default function OnboardingStepsClient({ data, setSteps, onboardingId }: 
         <button
           type="button"
           onClick={() => setShowPreview(true)}
-          className="hover:bg-secondary border-border text-muted-foreground hover:text-foreground bg-background flex w-full justify-center rounded-lg border-2 border-dashed p-4 shadow-lg hover:border-dashed hover:border-gray-600 focus:outline-hidden"
+          className="focus:outline-hidden flex w-full justify-center rounded-lg border-2 border-dashed border-border bg-background p-4 text-muted-foreground shadow-lg hover:border-dashed hover:border-gray-600 hover:bg-secondary hover:text-foreground"
         >
           {t("shared.clickHereTo", { 0: t("shared.preview").toLowerCase() })}
         </button>
       </div>
 
-      <div className="border-border flex justify-between border-t pt-4">
+      <div className="flex justify-between border-t border-border pt-4">
         <div></div>
         <div>
           <LoadingButton disabled={data.item.active || !getUserHasPermission(appOrAdminData, "admin.onboarding.update")} type="submit">

@@ -180,7 +180,7 @@ export function MetricsSettingsClient({ initialData }: Props) {
             />
           </div>
         </div>
-        <div className="border-border flex justify-between space-x-2 border-t pt-3">
+        <div className="flex justify-between space-x-2 border-t border-border pt-3">
           <ButtonTertiary destructive disabled={!canDelete() || isSubmitting} onClick={onDelete}>
             {t("shared.delete")} {data.totalMetricLogs} logs
           </ButtonTertiary>

@@ -33,19 +33,19 @@ export default function NewUserClient({ portalId }: Props) {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    
+
     startTransition(async () => {
       const formData = new FormData(e.currentTarget);
       formData.set("portalId", portalId);
-      
+
       try {
         const response = await fetch(`/api/portals/${params.portal}/users/create`, {
           method: "POST",
           body: formData,
         });
-        
+
         const result = await response.json();
-        
+
         if (result.success) {
           toast.success(result.success);
           router.push(UrlUtils.currentTenantUrl(params, `portals/${params.portal}/users`));

@@ -12,13 +12,13 @@ export async function GET(request: NextRequest, context: RouteContext) {
   const params = await context.params;
   invariant(params.id, "Widget ID is required");
   const widgetId = params.id;
-  
+
   const widget = await prisma.widget.findUnique({
     where: {
       id: widgetId,
     },
   });
-  
+
   if (!widget) {
     return NextResponse.json("Not found", { status: 404 });
   }
@@ -33,14 +33,14 @@ export async function POST(request: NextRequest, context: RouteContext) {
   const params = await context.params;
   invariant(params.id, "Widget ID is required");
   const widgetId = params.id;
-  
+
   const form = await request.formData();
   const action = form.get("action");
-  
+
   if (action === "test-widget") {
     const content = form.get("content");
     let data: WidgetDataDto = {};
-    
+
     if (content === "test-error") {
       data = {
         error: "Testing error",
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest, context: RouteContext) {
         success: "Content received: " + content,
       };
     }
-    
+
     console.log("/api/widget/" + widgetId, { data });
     return NextResponse.json(data);
   } else {

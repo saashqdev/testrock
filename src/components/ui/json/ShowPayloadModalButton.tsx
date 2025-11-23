@@ -48,7 +48,7 @@ export default function ShowPayloadModalButton({
               <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className={clsx(className, "hover:border-theme-400 border-b border-dotted border-gray-400 hover:border-dashed")}
+                className={clsx(className, "border-b border-dotted border-gray-400 hover:border-dashed hover:border-theme-400")}
               >
                 {/* {t("models.log.details")} */}
                 {description ?? JSON.stringify(payload)}
@@ -78,7 +78,7 @@ export default function ShowPayloadModalButton({
                   navigator.clipboard.writeText(stringifyDetails());
                   toast.success(t("shared.copied"));
                 }}
-                className="bg-theme-100 text-theme-700 hover:bg-theme-200 focus:ring-theme-500 inline-flex items-center rounded-md border border-transparent px-3 py-2 text-sm font-medium leading-4 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                className="inline-flex items-center rounded-md border border-transparent bg-theme-100 px-3 py-2 text-sm font-medium leading-4 text-theme-700 hover:bg-theme-200 focus:outline-none focus:ring-2 focus:ring-theme-500 focus:ring-offset-2"
               >
                 {t("shared.copy")}
               </button>

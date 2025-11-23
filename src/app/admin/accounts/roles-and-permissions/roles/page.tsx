@@ -54,7 +54,7 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const { t } = await getServerTranslations();
-  
+
   return {
     title: `${t("models.role.plural")} | ${process.env.APP_NAME}`,
   };

@@ -19,9 +19,9 @@ export const metadata: Metadata = {
 async function getData() {
   const headersList = await headers();
   const request = new Request("http://localhost", { headers: headersList });
-  
+
   await verifyUserHasPermission("admin.entities.view");
-  
+
   const companies = await getAll({ entity: { name: "company" } });
   return { companies };
 }
@@ -45,15 +45,15 @@ export default async function RowModelPage() {
           {
             name: "Explanation",
             render: (
-              <div className="prose border-border bg-background rounded-md border p-3">
+              <div className="prose rounded-md border border-border bg-background p-3">
                 <div>This demo has the following sections:</div>
                 <ol>
                   <li>
                     <b className="underline">getData</b>: Async function that returns <code>Company</code> rows from <code>getAll</code>.
                   </li>
                   <li>
-                    <b className="underline">component</b>: Server Component that fetches data and converts the <code>RowWithDetails</code> items to <b>RowModel</b> to use methods like{" "}
-                    <code>company.getText(&quot;name&quot;)</code>.
+                    <b className="underline">component</b>: Server Component that fetches data and converts the <code>RowWithDetails</code> items to{" "}
+                    <b>RowModel</b> to use methods like <code>company.getText(&quot;name&quot;)</code>.
                   </li>
                 </ol>
                 <div>
@@ -72,7 +72,7 @@ export default async function RowModelPage() {
           {
             name: "Demo",
             render: (
-              <div className="border-border bg-background rounded-md border p-3">
+              <div className="rounded-md border border-border bg-background p-3">
                 <TableSimple
                   items={companies}
                   headers={[
@@ -85,7 +85,16 @@ export default async function RowModelPage() {
                         if (!logo) {
                           return null;
                         }
-                        return <Image alt={i.toString()} className="h-8 w-auto" src={i.getMediaPublicUrlOrFile("logo") ?? ""} title={i.getText("title")} width={32} height={32} />;
+                        return (
+                          <Image
+                            alt={i.toString()}
+                            className="h-8 w-auto"
+                            src={i.getMediaPublicUrlOrFile("logo") ?? ""}
+                            title={i.getText("title")}
+                            width={32}
+                            height={32}
+                          />
+                        );
                       },
                     },
                     { name: "createdAt", title: "Created at", value: (i) => <DateCell date={i.row.createdAt} /> },

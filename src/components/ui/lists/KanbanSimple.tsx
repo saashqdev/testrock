@@ -1,4 +1,5 @@
-"use client";"use client";
+"use client";
+"use client";
 
 import clsx from "clsx";
 import { Fragment, ReactNode } from "react";
@@ -94,7 +95,7 @@ function KanbanColumnCard<T>({ idx, columns, column, items, classNameWidth }: Ka
 
       <div
         className={clsx(
-          "border-border bg-secondary h-full overflow-x-hidden border-0 border-dashed px-2 py-3",
+          "h-full overflow-x-hidden border-0 border-dashed border-border bg-secondary px-2 py-3",
           idx === 0 && "border-r-0",
           idx === columns.length && "border-l-0"
         )}
@@ -107,7 +108,7 @@ function KanbanColumnCard<T>({ idx, columns, column, items, classNameWidth }: Ka
                 )} */}
           {items.map((item, idx) => {
             return (
-              <div key={idx} className="hover:bg-secondary group w-full text-left shadow-2xs">
+              <div key={idx} className="shadow-2xs group w-full text-left hover:bg-secondary">
                 {column?.onClickRoute ? (
                   <Link href={column.onClickRoute(item)}>{column.value(item)}</Link>
                 ) : column?.onClick ? (
@@ -123,7 +124,7 @@ function KanbanColumnCard<T>({ idx, columns, column, items, classNameWidth }: Ka
 
           {column?.onNewRoute && (
             <Link
-              className="border-border text-muted-foreground hover:bg-background hover:text-foreground/80 flex w-full items-center justify-center space-x-2 rounded-md border p-2 text-center text-xs font-medium"
+              className="flex w-full items-center justify-center space-x-2 rounded-md border border-border p-2 text-center text-xs font-medium text-muted-foreground hover:bg-background hover:text-foreground/80"
               href={column.onNewRoute(column.name)}
             >
               <div>Add</div>

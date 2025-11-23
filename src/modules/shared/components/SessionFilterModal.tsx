@@ -87,7 +87,7 @@ export default function SessionFilterModal({
       <form onSubmit={onSubmit} className="inline-block w-full p-1 text-left align-bottom sm:align-middle">
         <input name="action" type="hidden" value="create" readOnly hidden />
         <div className="mt-3 text-center">
-          <h3 className="text-foreground text-lg font-medium leading-6">{idx === undefined ? "Add filter" : "Edit filter"}</h3>
+          <h3 className="text-lg font-medium leading-6 text-foreground">{idx === undefined ? "Add filter" : "Edit filter"}</h3>
         </div>
         <div className="mt-4 space-y-2">
           <InputSelector

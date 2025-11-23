@@ -546,7 +546,7 @@ const RowForm = (
           <RowListFetcher
             currentView={selectedRelatedEntity.view}
             listUrl={EntityHelper.getRoutes({ routes, entity: selectedRelatedEntity.entity })?.list + "?view=null"}
-            newUrl={`/api/entities/${selectedRelatedEntity.entity.slug}/rows/new${routes?.list?.includes('/admin/') ? '?admin=true' : ''}`}
+            newUrl={`/api/entities/${selectedRelatedEntity.entity.slug}/rows/new${routes?.list?.includes("/admin/") ? "?admin=true" : ""}`}
             parentEntity={entity}
             onSelected={(rows) => {
               addRelationshipRow(searchingRelationshipRows, rows);
@@ -615,7 +615,7 @@ function RelationshipSelector({
   function getChildEntity(relationship: EntityRelationshipWithDetailsDto) {
     return allEntities.find((f) => f.id === relationship.parentId);
   }
-  
+
   // Memoize the onRemove callback to prevent RowsList re-renders
   const handleRemove = useCallback(
     (row: RowWithValuesDto) => {
@@ -623,7 +623,7 @@ function RelationshipSelector({
     },
     [relationship.id, onRemoveRelatedRow]
   );
-  
+
   return (
     <div className={className}>
       {/* <div>selectedRow: {getSelectedRow()}</div>
@@ -660,7 +660,7 @@ function RelationshipSelector({
         <button
           onClick={() => onFindEntityRows(relationship)}
           type="button"
-          className="relative block w-full rounded-lg border-2 border-dashed border-border bg-background p-4 text-center hover:border-border focus:outline-hidden focus:ring-2 focus:ring-gray-500"
+          className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border bg-background p-4 text-center hover:border-border focus:ring-2 focus:ring-gray-500"
         >
           <span className="flex items-center space-x-1 text-xs font-normal text-muted-foreground">
             {type === "parent" && (

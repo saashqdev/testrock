@@ -27,7 +27,18 @@ import { prisma } from "@/db/config/prisma/database";
 import { promiseHash } from "../../promises/promiseHash";
 import { TimeFunction, timeFake } from "@/modules/metrics/services/server/MetricTracker";
 import RelationshipHelper from "@/lib/helpers/RelationshipHelper";
-import { onBeforeGetAll, onAfterGetAll, onBeforeGet, onAfterGet, onBeforeCreate, onAfterCreate, onBeforeUpdate, onAfterUpdate, onBeforeDelete, onAfterDelete } from "@/hooks/RowHooks";
+import {
+  onBeforeGetAll,
+  onAfterGetAll,
+  onBeforeGet,
+  onAfterGet,
+  onBeforeCreate,
+  onAfterCreate,
+  onBeforeUpdate,
+  onAfterUpdate,
+  onBeforeDelete,
+  onAfterDelete,
+} from "@/hooks/RowHooks";
 import { DefaultVisibility } from "@/lib/dtos/shared/DefaultVisibility";
 import { storeRowMediaInStorageProvider } from "@/lib/helpers/server/MediaService";
 import { shareWithDefault } from "./RowPermissionsApi";
@@ -901,4 +912,3 @@ function cleanDuplicatedNestedRows(originalRow: RowWithDetailsDto) {
   cleanRows(originalRow.childRows.map((f) => f.child));
   cleanRows(originalRow.parentRows.map((f) => f.parent));
 }
-

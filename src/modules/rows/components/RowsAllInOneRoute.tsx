@@ -27,28 +27,34 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
   const [addingOpportunity, setAddingOpportunity] = useState(false);
 
   // Helper to get the base URL path for related entities
-  const getRelatedEntityNewUrl = useCallback((entitySlug: string, companyId?: string) => {
-    // Extract the base path from the current routes
-    const currentPath = data.routes.list || "";
-    // Replace the entity slug in the path
-    const basePath = currentPath.replace(/\/entities\/[^\/]+\//, `/entities/${entitySlug}/`).replace(/\/[^\/]+$/, "");
-    return companyId ? `${basePath}/${entitySlug}/new?company=${companyId}` : `${basePath}/${entitySlug}/new`;
-  }, [data.routes.list]);
+  const getRelatedEntityNewUrl = useCallback(
+    (entitySlug: string, companyId?: string) => {
+      // Extract the base path from the current routes
+      const currentPath = data.routes.list || "";
+      // Replace the entity slug in the path
+      const basePath = currentPath.replace(/\/entities\/[^\/]+\//, `/entities/${entitySlug}/`).replace(/\/[^\/]+$/, "");
+      return companyId ? `${basePath}/${entitySlug}/new?company=${companyId}` : `${basePath}/${entitySlug}/new`;
+    },
+    [data.routes.list]
+  );
 
   // Get the contact and opportunity entities - memoize to prevent recalculation
   const contactEntity = useMemo(() => appOrAdminData?.entities?.find((e) => e.slug === "contacts"), [appOrAdminData?.entities]);
   const opportunityEntity = useMemo(() => appOrAdminData?.entities?.find((e) => e.slug === "opportunities"), [appOrAdminData?.entities]);
 
-  const onCreated = useCallback((row: RowWithDetailsDto) => {
-    setRows((prevRows) => [row, ...prevRows]);
-    // For companies, show the action buttons after creation
-    if (data.rowsData.entity.slug === "companies") {
-      setJustCreated(row);
-      // Keep the slideout open to show the buttons
-      return;
-    }
-    setAdding(false);
-  }, [data.rowsData.entity.slug]);
+  const onCreated = useCallback(
+    (row: RowWithDetailsDto) => {
+      setRows((prevRows) => [row, ...prevRows]);
+      // For companies, show the action buttons after creation
+      if (data.rowsData.entity.slug === "companies") {
+        setJustCreated(row);
+        // Keep the slideout open to show the buttons
+        return;
+      }
+      setAdding(false);
+    },
+    [data.rowsData.entity.slug]
+  );
 
   const onUpdated = useCallback((row: RowWithDetailsDto) => {
     setRows((prevRows) => prevRows.map((r) => (r.id === row.id ? row : r)));
@@ -109,19 +115,24 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
   // Memoize specific primitive values from appOrAdminData to prevent reference changes
   const userId = useMemo(() => appOrAdminData?.user?.id, [appOrAdminData?.user?.id]);
   const isSuperAdmin = useMemo(() => appOrAdminData?.isSuperAdmin, [appOrAdminData?.isSuperAdmin]);
-  
-  const permissions = useMemo(() => ({
-    create: getUserHasPermission(appOrAdminData, getEntityPermission(data.rowsData.entity, "create")),
-  }), [appOrAdminData?.permissions, data.rowsData.entity.id]);
 
-  const currentSession = useMemo(() => 
-    appOrAdminData?.user
-      ? {
-          user: appOrAdminData.user,
-          isSuperAdmin: appOrAdminData.isSuperAdmin,
-        }
-      : null
-  , [userId, isSuperAdmin]);
+  const permissions = useMemo(
+    () => ({
+      create: getUserHasPermission(appOrAdminData, getEntityPermission(data.rowsData.entity, "create")),
+    }),
+    [appOrAdminData?.permissions, data.rowsData.entity.id]
+  );
+
+  const currentSession = useMemo(
+    () =>
+      appOrAdminData?.user
+        ? {
+            user: appOrAdminData.user,
+            isSuperAdmin: appOrAdminData.isSuperAdmin,
+          }
+        : null,
+    [userId, isSuperAdmin]
+  );
 
   // Memoize allEntities to avoid creating new array on every render
   const allEntities = useMemo(() => appOrAdminData?.entities ?? [], [appOrAdminData?.entities]);
@@ -139,18 +150,9 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
         permissions={permissions}
         currentSession={currentSession}
       />
-      <SlideOverWideEmpty
-        title={t("shared.create") + " " + t(data.rowsData?.entity.title ?? "")}
-        size="2xl"
-        open={adding}
-        onClose={handleCloseAdding}
-      >
-        <RowNewFetcher
-          url={`/api/entities/${data.rowsData.entity.slug}/rows/new?admin=true`}
-          onCreated={onCreated}
-          allEntities={allEntities}
-        />
-        
+      <SlideOverWideEmpty title={t("shared.create") + " " + t(data.rowsData?.entity.title ?? "")} size="2xl" open={adding} onClose={handleCloseAdding}>
+        <RowNewFetcher url={`/api/entities/${data.rowsData.entity.slug}/rows/new?admin=true`} onCreated={onCreated} allEntities={allEntities} />
+
         {/* Quick action buttons for companies - shown after save */}
         {data.rowsData.entity.slug === "companies" && justCreated && (
           <div className="mt-4 rounded-md border border-primary bg-primary/10 p-4">
@@ -159,7 +161,7 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
               <Link
                 href={getRelatedEntityNewUrl("contacts", justCreated.id)}
                 onClick={handleContactLinkClick}
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                className="focus:outline-hidden inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2"
               >
                 <svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -169,7 +171,7 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
               <Link
                 href={getRelatedEntityNewUrl("opportunities", justCreated.id)}
                 onClick={handleOpportunityLinkClick}
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                className="focus:outline-hidden inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2"
               >
                 <svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -180,8 +182,6 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
           </div>
         )}
       </SlideOverWideEmpty>
-
-
 
       <SlideOverWideEmpty
         title={editing ? RowHelper.getRowFolio(data.rowsData?.entity, editing) : ""}
@@ -194,7 +194,7 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
               <>
                 <Link
                   href={getRelatedEntityNewUrl("contacts", editing.id)}
-                  className="inline-flex items-center gap-1 rounded-md bg-primary px-2.5 py-1.5 text-xs font-medium text-primary-foreground hover:bg-primary/90 focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                  className="focus:outline-hidden inline-flex items-center gap-1 rounded-md bg-primary px-2.5 py-1.5 text-xs font-medium text-primary-foreground hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2"
                   title={`${t("shared.add")} ${t("models.contact.object")}`}
                 >
                   <svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
@@ -204,7 +204,7 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
                 </Link>
                 <Link
                   href={getRelatedEntityNewUrl("opportunities", editing.id)}
-                  className="inline-flex items-center gap-1 rounded-md bg-primary px-2.5 py-1.5 text-xs font-medium text-primary-foreground hover:bg-primary/90 focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                  className="focus:outline-hidden inline-flex items-center gap-1 rounded-md bg-primary px-2.5 py-1.5 text-xs font-medium text-primary-foreground hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2"
                   title={`${t("shared.add")} ${t("models.opportunity.object")}`}
                 >
                   <svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
@@ -245,11 +245,7 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
             <div className="rounded-md border border-blue-200 bg-blue-50 p-3 text-sm text-blue-900">
               <p className="font-medium">Note: This contact will be linked to the company after you save.</p>
             </div>
-            <RowNewFetcher
-              url={`/api/entities/${contactEntity.slug}/rows/new?admin=true`}
-              onCreated={handleContactCreated}
-              allEntities={allEntities}
-            />
+            <RowNewFetcher url={`/api/entities/${contactEntity.slug}/rows/new?admin=true`} onCreated={handleContactCreated} allEntities={allEntities} />
           </div>
         </SlideOverWideEmpty>
       )}
@@ -267,11 +263,7 @@ export default function RowsAllInOneRoute({ data }: { data: LoaderData }) {
             <div className="rounded-md border border-blue-200 bg-blue-50 p-3 text-sm text-blue-900">
               <p className="font-medium">Note: This opportunity will be linked to the company after you save.</p>
             </div>
-            <RowNewFetcher
-              url={`/api/entities/${opportunityEntity.slug}/rows/new?admin=true`}
-              onCreated={handleOpportunityCreated}
-              allEntities={allEntities}
-            />
+            <RowNewFetcher url={`/api/entities/${opportunityEntity.slug}/rows/new?admin=true`} onCreated={handleOpportunityCreated} allEntities={allEntities} />
           </div>
         </SlideOverWideEmpty>
       )}

@@ -40,11 +40,7 @@ function displayTenant(): RowHeaderDisplayDto<RowWithDetailsDto> {
   };
 }
 
-function displayFolio(
-  entity: EntityWithDetailsDto,
-  routes?: Routes,
-  onClick?: (item: RowWithDetailsDto) => void
-): RowHeaderDisplayDto<RowWithDetailsDto> {
+function displayFolio(entity: EntityWithDetailsDto, routes?: Routes, onClick?: (item: RowWithDetailsDto) => void): RowHeaderDisplayDto<RowWithDetailsDto> {
   return {
     name: RowDisplayDefaultProperty.FOLIO,
     title: "models.row.folio",

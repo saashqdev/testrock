@@ -105,7 +105,7 @@ export default function DomainsClient({ data, params, editDomain, checkDomain, d
                 </div>
               }
             />
-            <div className="border-border mt-3 border-t pt-3">
+            <div className="mt-3 border-t border-border pt-3">
               <div className="flex justify-end">
                 <div>
                   {!data.item.domain && <LoadingButton type="submit">{t("shared.save")}</LoadingButton>}
@@ -126,7 +126,7 @@ export default function DomainsClient({ data, params, editDomain, checkDomain, d
           {/*Separator */}
           <div className="block">
             <div className="py-5">
-              <div className="border-border border-t"></div>
+              <div className="border-t border-border"></div>
             </div>
           </div>
 
@@ -140,7 +140,7 @@ export default function DomainsClient({ data, params, editDomain, checkDomain, d
             size="lg"
           >
             <div className="space-y-2">
-              <div className="text-muted-foreground text-sm">{t("models.domain.verification.description")}</div>
+              <div className="text-sm text-muted-foreground">{t("models.domain.verification.description")}</div>
               {data.certificate.records.A && (
                 <div className="flex items-center space-x-2">
                   <div className="w-1/2">
@@ -176,7 +176,7 @@ export default function DomainsClient({ data, params, editDomain, checkDomain, d
               )}
 
               {!data.certificate.configured ? (
-                <div className="border-border mt-3 space-y-2 border-t pt-3">
+                <div className="mt-3 space-y-2 border-t border-border pt-3">
                   <WarningBanner title={t("models.domain.notVerified.title")}>
                     <ButtonSecondary onClick={onCheck}>{t("models.domain.notVerified.description")}</ButtonSecondary>
                   </WarningBanner>
@@ -205,23 +205,23 @@ export default function DomainsClient({ data, params, editDomain, checkDomain, d
 function RecordInput({ title, type, value }: { title: string; type?: string; value: string }) {
   return (
     <div>
-      <label className="text-foreground text-xs font-medium">{title}</label>
-      <div className="border-border mt-1 flex overflow-hidden rounded-md border">
+      <label className="text-xs font-medium text-foreground">{title}</label>
+      <div className="mt-1 flex overflow-hidden rounded-md border border-border">
         <div className="relative flex grow items-stretch focus-within:z-10">
           {type && (
-            <div className="text-muted-foreground bg-secondary/90 absolute inset-y-0 left-0 flex w-16 items-center justify-center border-r pl-3 pr-4 text-xs font-medium">
+            <div className="absolute inset-y-0 left-0 flex w-16 items-center justify-center border-r bg-secondary/90 pl-3 pr-4 text-xs font-medium text-muted-foreground">
               {type}
             </div>
           )}
           <input
-            className={clsx("text-foreground block w-full rounded-none rounded-l-md border-0 py-2 text-xs focus:outline-hidden", type && "pl-20")}
+            className={clsx("focus:outline-hidden block w-full rounded-none rounded-l-md border-0 py-2 text-xs text-foreground", type && "pl-20")}
             value={value}
             readOnly
           />
         </div>
         <button
           type="button"
-          className="border-border text-foreground bg-background relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md border-l px-3 py-2 text-sm font-semibold"
+          className="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md border-l border-border bg-background px-3 py-2 text-sm font-semibold text-foreground"
           onClick={() => {
             navigator.clipboard.writeText(value);
             toast.success("Copied to clipboard");

@@ -12,31 +12,28 @@ import { FormulaVariableValueDto } from "@/modules/formulas/dtos/FormulaVariable
 export async function GET(request: NextRequest) {
   try {
     await verifyUserHasPermission("admin.formulas.view");
-    
+
     const items = await db.formulas.getAllFormulas();
     const logs = await db.formulaLogs.countLogs(items.map((item) => item.id ?? ""));
     const allEntities = await db.entities.getAllEntities(null);
-    
+
     const data = {
       title: `Formulas | ${process.env.APP_NAME}`,
       items: items.map((item) => FormulaHelpers.getFormulaDto(item)),
       logs,
       allEntities,
     };
-    
+
     return NextResponse.json(data);
   } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "Failed to load formulas" },
-      { status: error.status || 500 }
-    );
+    return NextResponse.json({ error: error.message || "Failed to load formulas" }, { status: error.status || 500 });
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
     await verifyUserHasPermission("admin.entities.update");
-    
+
     const { t } = await getServerTranslations();
     const userInfo = await getUserInfo();
     const tenantId = await getTenantIdOrNull({ request, params: {} });
@@ -46,19 +43,14 @@ export async function POST(request: NextRequest) {
 
     if (action === "calculate") {
       const id = formData.get("id")?.toString() ?? "";
-      
+
       const formula = await db.formulas.getFormula(id);
       if (!formula) {
-        return NextResponse.json(
-          { error: t("shared.notFound") },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: t("shared.notFound") }, { status: 400 });
       }
 
-      const variables: FormulaVariableValueDto[] = formData
-        .getAll("variables[]")
-        .map((variable) => JSON.parse(variable.toString()));
-      
+      const variables: FormulaVariableValueDto[] = formData.getAll("variables[]").map((variable) => JSON.parse(variable.toString()));
+
       try {
         const result = await FormulaService.calculate({
           formula,
@@ -72,20 +64,17 @@ export async function POST(request: NextRequest) {
           triggeredBy: "TEST",
           t,
         });
-        
+
         return NextResponse.json({ success: result });
       } catch (e: any) {
-        return NextResponse.json(
-          { error: e.message },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: e.message }, { status: 400 });
       }
     } else if (action === "createDefault") {
       await verifyUserHasPermission("admin.formulas.create");
-      
+
       const name = formData.get("name")?.toString();
       const createdDefault = await FormulaDefaultService.createDefault(name);
-      
+
       return NextResponse.json({ createdDefault });
     } else if (action === "new") {
       await verifyUserHasPermission("admin.formulas.create");
@@ -101,16 +90,10 @@ export async function POST(request: NextRequest) {
       });
 
       if (!name || !resultAs || !calculationTrigger) {
-        return NextResponse.json(
-          { error: "Missing required fields." },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
       }
       if (components.length === 0) {
-        return NextResponse.json(
-          { error: "Missing formula components." },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: "Missing formula components." }, { status: 400 });
       }
 
       const formula = await db.formulas.createFormula({
@@ -128,18 +111,12 @@ export async function POST(request: NextRequest) {
 
       const id = formData.get("id")?.toString();
       if (!id) {
-        return NextResponse.json(
-          { error: "Missing formula ID" },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: "Missing formula ID" }, { status: 400 });
       }
 
       const formula = await db.formulas.getFormula(id);
       if (!formula) {
-        return NextResponse.json(
-          { error: t("shared.notFound") },
-          { status: 404 }
-        );
+        return NextResponse.json({ error: t("shared.notFound") }, { status: 404 });
       }
 
       const name = formData.get("name")?.toString() ?? "";
@@ -153,16 +130,10 @@ export async function POST(request: NextRequest) {
       });
 
       if (!name || !resultAs || !calculationTrigger) {
-        return NextResponse.json(
-          { error: "Missing required fields." },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
       }
       if (components.length === 0) {
-        return NextResponse.json(
-          { error: "Missing formula components." },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: "Missing formula components." }, { status: 400 });
       }
 
       await db.formulas.updateFormula(id, {
@@ -180,25 +151,16 @@ export async function POST(request: NextRequest) {
 
       const id = formData.get("id")?.toString();
       if (!id) {
-        return NextResponse.json(
-          { error: "Missing formula ID" },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: "Missing formula ID" }, { status: 400 });
       }
 
       await db.formulas.deleteFormula(id);
 
       return NextResponse.json({ success: "Formula deleted successfully" });
     } else {
-      return NextResponse.json(
-        { error: t("shared.invalidForm") },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: t("shared.invalidForm") }, { status: 400 });
     }
   } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || "An error occurred" },
-      { status: error.status || 500 }
-    );
+    return NextResponse.json({ error: error.message || "An error occurred" }, { status: error.status || 500 });
   }
 }

@@ -75,7 +75,7 @@ export default function PropertiesClient({ entity: initialEntity, properties, al
 
       <div className="space-y-2">
         <h2 className="text-lg font-bold">Previews</h2>
-        <div className="border-border space-y-2 rounded-lg border-2 border-dashed px-3 pt-3 pb-3">
+        <div className="space-y-2 rounded-lg border-2 border-dashed border-border px-3 pb-3 pt-3">
           {entity.properties.filter((f) => !f.isDefault).length === 0 ? (
             <InfoBanner title="No properties" text="Add some properties to see previews" />
           ) : (
@@ -84,7 +84,7 @@ export default function PropertiesClient({ entity: initialEntity, properties, al
                 <Fragment key="preview-sections">
                   <div key="row-title" className="space-y-2">
                     <Section title="Row Title" />
-                    <div className="border-border text-foreground bg-background rounded-md border p-3 font-medium">
+                    <div className="rounded-md border border-border bg-background p-3 font-medium text-foreground">
                       <RowTitle entity={entity} item={fakeItem} />
                     </div>
                   </div>
@@ -121,10 +121,10 @@ function Section({ title }: { title: string }) {
   return (
     <div className="relative">
       <div className="absolute inset-0 flex items-center" aria-hidden="true">
-        <div className="border-border w-full border-t"></div>
+        <div className="w-full border-t border-border"></div>
       </div>
       <div className="relative flex justify-center">
-        <span className="text-foreground bg-secondary px-3 text-base leading-6 font-semibold">{title}</span>
+        <span className="bg-secondary px-3 text-base font-semibold leading-6 text-foreground">{title}</span>
       </div>
     </div>
   );

@@ -13,16 +13,16 @@ interface Props {
 export default function EntityFormSlideout({ item }: Props) {
   const { t } = useTranslation();
   const router = useRouter();
-  
+
   function close() {
     router.push("/admin/entities");
   }
 
   return (
-    <SlideOverWideEmpty 
-      title={`${t("shared.edit")} ${t("models.entity.object")} ${t(item.title)}`} 
-      size="5xl" 
-      open={true} 
+    <SlideOverWideEmpty
+      title={`${t("shared.edit")} ${t("models.entity.object")} ${t(item.title)}`}
+      size="5xl"
+      open={true}
       onClose={close}
       overflowYScroll={true}
     >

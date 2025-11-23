@@ -16,12 +16,12 @@ interface Props {
 export default function ApiKeyCreatedModal({ apiKey, redirectTo }: Props) {
   const { t } = useTranslation();
   const router = useRouter();
-  
+
   const handleClose = () => {
     router.push(redirectTo);
     router.refresh();
   };
-  
+
   return (
     <OpenModal className="max-w-md" onClose={handleClose}>
       <div className="space-y-2">

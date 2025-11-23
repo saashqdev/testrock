@@ -92,14 +92,13 @@ export default function WidgetsClient({ data, appConfiguration }: WidgetsClientP
               </div>
             ),
           },
-          ...(appConfiguration.widgets.metadata
-            ?.map((f) => ({
-              name: f.name,
-              title: f.title,
-              value: (item: WidgetDto) => {
-                return <JsonPropertyValueCell property={f} value={item.metadata ? item.metadata[f.name] : null} />;
-              },
-            })) || []),
+          ...(appConfiguration.widgets.metadata?.map((f) => ({
+            name: f.name,
+            title: f.title,
+            value: (item: WidgetDto) => {
+              return <JsonPropertyValueCell property={f} value={item.metadata ? item.metadata[f.name] : null} />;
+            },
+          })) || []),
           {
             title: t("widgets.appearance"),
             value: (item) => (
@@ -147,7 +146,7 @@ function AddWidgetModal({
       <form onSubmit={onSubmit} className="inline-block w-full overflow-hidden bg-white p-1 text-left align-bottom sm:align-middle">
         <input type="hidden" name="action" value="create" readOnly hidden />
         <div className="mt-3 text-center sm:mt-5">
-          <h3 className="text-foreground text-lg font-medium leading-6">{t("widgets.create")}</h3>
+          <h3 className="text-lg font-medium leading-6 text-foreground">{t("widgets.create")}</h3>
         </div>
         <div className="mt-4 space-y-2">
           <InputText
@@ -170,7 +169,7 @@ function AddWidgetModal({
             className={clsx(
               "inline-flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-base font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 sm:col-start-2 sm:text-sm",
               "bg-foreground text-background",
-              isPending && "opacity-50 cursor-not-allowed"
+              isPending && "cursor-not-allowed opacity-50"
             )}
           >
             {isPending ? t("shared.creating") || "Creating..." : t("shared.create")}
@@ -178,7 +177,7 @@ function AddWidgetModal({
           <button
             type="button"
             disabled={isPending}
-            className="border-border hover:bg-secondary text-muted-foreground mt-3 inline-flex w-full justify-center rounded-md border bg-white px-4 py-2 text-base font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 sm:col-start-1 sm:mt-0 sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            className="mt-3 inline-flex w-full justify-center rounded-md border border-border bg-white px-4 py-2 text-base font-medium text-muted-foreground shadow-sm hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:col-start-1 sm:mt-0 sm:text-sm"
             onClick={onClose}
           >
             {t("shared.back")}

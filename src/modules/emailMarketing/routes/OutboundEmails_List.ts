@@ -16,7 +16,7 @@ export type LoaderData = {
 };
 export const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
-  const request = props.request!;    
+  const request = props.request!;
   await requireAuth();
   const tenantId = await getTenantIdOrNull({ request, params });
   const emailSenders = await db.emailSenders.getAllEmailSenders(tenantId);
@@ -56,7 +56,7 @@ export const loader = async (props: IServerComponentsProps) => {
   const { items, pagination } = await db.outboundEmails.getAllOutboundEmails(tenantId, {
     where: {
       fromSenderId,
-      campaignId: campaignId === "null" ? null : campaignId ?? undefined,
+      campaignId: campaignId === "null" ? null : (campaignId ?? undefined),
     },
     pagination: currentPagination,
   });
@@ -68,4 +68,3 @@ export const loader = async (props: IServerComponentsProps) => {
   };
   return data;
 };
-

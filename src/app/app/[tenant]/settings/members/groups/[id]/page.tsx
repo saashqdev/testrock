@@ -45,11 +45,5 @@ export default async function EditMemberGroupRoute(props: IServerComponentsProps
   const data = await getData(props);
   const params = (await props.params) || {};
 
-  return (
-    <EditGroupComponent
-      item={data.item}
-      tenantUsers={data.tenantUsers}
-      params={params as { tenant: string; id: string }}
-    />
-  );
+  return <EditGroupComponent item={data.item} tenantUsers={data.tenantUsers} params={params as { tenant: string; id: string }} />;
 }

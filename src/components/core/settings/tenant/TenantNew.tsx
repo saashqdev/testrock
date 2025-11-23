@@ -49,7 +49,7 @@ export default function TenantNew({ tenantSettingsEntity, onSubmit, isPending }:
       form.set("action", "set-tenant");
       form.set("tenantId", actionData.tenantId);
       form.set("redirectTo", pathname + location.search);
-      
+
       // Using fetch for form submission in Next.js
       fetch("/app", {
         method: "POST",
@@ -62,27 +62,27 @@ export default function TenantNew({ tenantSettingsEntity, onSubmit, isPending }:
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    
+
     const formData = new FormData(event.currentTarget);
     formData.set("action", "create");
-    
+
     // If onSubmit prop is provided, use it instead of the default behavior
     if (onSubmit) {
       await onSubmit(formData);
       return;
     }
-    
+
     // Default behavior when no onSubmit prop is provided
     setIsLoading(true);
-    
+
     try {
       const response = await fetch(window.location.pathname, {
         method: "POST",
         body: formData,
       });
-      
+
       const result = await response.json();
-      
+
       if (result.error) {
         setActionData({ error: result.error });
       } else if (result.success) {

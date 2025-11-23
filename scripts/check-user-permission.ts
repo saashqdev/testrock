@@ -75,9 +75,7 @@ async function main() {
   }
 
   // Check specific permission
-  const hasPermission = userRoles.some((ur) =>
-    ur.role.permissions.some((rp) => rp.permission.name === permissionName)
-  );
+  const hasPermission = userRoles.some((ur) => ur.role.permissions.some((rp) => rp.permission.name === permissionName));
 
   console.log(`\n🔍 Has '${permissionName}': ${hasPermission ? "✅ YES" : "❌ NO"}`);
 

@@ -119,7 +119,7 @@ export default function WorkflowsTemplatesView() {
             </div>
             <Link
               href={UrlUtils.getModulePath(params, `workflow-engine/workflows`)}
-              className="text-theme-600 hover:text-theme-500 text-sm font-medium underline"
+              className="text-sm font-medium text-theme-600 underline hover:text-theme-500"
             >
               View all workflows
             </Link>
@@ -144,7 +144,7 @@ export default function WorkflowsTemplatesView() {
                       <button
                         type="button"
                         key={item.title}
-                        className="hover:border-theme-300 hover:bg-theme-50 shadow-2xs focus:outline-hidden flex w-full flex-col items-start overflow-hidden rounded-md border border-border bg-background text-left hover:cursor-pointer focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                        className="shadow-2xs focus:outline-hidden flex w-full flex-col items-start overflow-hidden rounded-md border border-border bg-background text-left hover:cursor-pointer hover:border-theme-300 hover:bg-theme-50 focus:ring-2 focus:ring-ring focus:ring-offset-2"
                         onClick={() => {
                           const form = new FormData();
                           form.set("action", "preview");
@@ -194,7 +194,7 @@ export default function WorkflowsTemplatesView() {
                           key={t.title}
                           type="button"
                           onClick={() => setConfiguration(JSON.stringify(t, null, "\t"))}
-                          className="bg-theme-100 text-theme-700 hover:bg-theme-200 focus:outline-hidden inline-flex items-center rounded border border-transparent px-2.5 py-1.5 text-xs font-medium focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                          className="focus:outline-hidden inline-flex items-center rounded border border-transparent bg-theme-100 px-2.5 py-1.5 text-xs font-medium text-theme-700 hover:bg-theme-200 focus:ring-2 focus:ring-ring focus:ring-offset-2"
                         >
                           {t.title}
                         </button>

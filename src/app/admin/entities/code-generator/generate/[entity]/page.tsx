@@ -5,7 +5,7 @@ import { db } from "@/db";
 
 export const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
-  const request = props.request!;  
+  const request = props.request!;
   await verifyUserHasPermission("admin.entities.view");
   const entity = await db.entities.getEntityByName({ tenantId: null, name: params.entity! });
   const file = await generate({

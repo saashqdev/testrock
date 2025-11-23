@@ -31,9 +31,9 @@ async function getPageData(props: IServerComponentsProps): Promise<PageData> {
   const resolvedParams = await props.params;
   const params = resolvedParams || {};
   const request = props.request!;
-  
+
   await requireAuth();
-  
+
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
   if (!appConfiguration.portals?.pricing) {
     throw Response.json({ error: "Pricing is not enabled" }, { status: 400 });
@@ -41,7 +41,7 @@ async function getPageData(props: IServerComponentsProps): Promise<PageData> {
 
   const tenantId = await getTenantIdOrNull({ request, params });
   const portal = await db.portals.getPortalById(tenantId, params.portal!);
-  
+
   if (!portal) {
     throw redirect(UrlUtils.getModulePath(params, "portals"));
   }
@@ -51,7 +51,7 @@ async function getPageData(props: IServerComponentsProps): Promise<PageData> {
     portal,
     plans: await db.portalSubscriptionProducts.getAllPortalSubscriptionProducts(portal.id),
   };
-  
+
   return data;
 }
 
@@ -59,37 +59,37 @@ export default async function PricingNewPage(props: IServerComponentsProps) {
   const resolvedParams = await props.params;
   const params = resolvedParams || {};
   const request = props.request!;
-  
+
   await requireAuth();
-  
+
   const tenantId = await getTenantIdOrNull({ request, params });
   const portal = await db.portals.getPortalById(tenantId, params.portal!);
-  
+
   if (!portal) {
     redirect(UrlUtils.getModulePath(params, "portals"));
   }
-  
+
   const data = await getPageData(props);
 
-  // Server Action for form submission  
+  // Server Action for form submission
   async function submitPricingForm(prevState: any, formData: FormData) {
     "use server";
-    
+
     await requireAuth();
-    
+
     const { t } = await getServerTranslations();
     const action = formData.get("action")?.toString();
 
     if (action !== "create") {
       return { error: t("shared.invalidForm") };
     }
-    
+
     // Re-fetch portal to ensure it's not null in this scope
     const currentPortal = await db.portals.getPortalById(tenantId, params.portal!);
     if (!currentPortal) {
       return { error: "Portal not found" };
     }
-    
+
     const order = Number(formData.get("order"));
     const title = formData.get("title")?.toString();
     const description = formData.get("description")?.toString() ?? "";
@@ -147,7 +147,7 @@ export default async function PricingNewPage(props: IServerComponentsProps) {
 
     try {
       await PortalPricingServer.createPlan(currentPortal.id, plan, prices, features, t);
-      
+
       // If successful, revalidate and redirect
       revalidatePath(UrlUtils.getModulePath(params, `portals/${currentPortal.id}/pricing`));
       redirect(UrlUtils.getModulePath(params, `portals/${currentPortal.id}/pricing`));

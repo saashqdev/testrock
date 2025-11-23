@@ -19,9 +19,6 @@ export async function POST(request: NextRequest) {
     }
   } catch (error) {
     console.error("Error in prompt builder API:", error);
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : t("shared.error") },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error instanceof Error ? error.message : t("shared.error") }, { status: 500 });
   }
 }

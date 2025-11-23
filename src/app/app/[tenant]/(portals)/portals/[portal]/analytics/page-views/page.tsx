@@ -35,16 +35,16 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
   const params = resolvedParams || {};
   const request = props.request!;
   const { t } = await getServerTranslations();
-  
+
   await requireAuth();
-  
+
   const tenantId = await getTenantIdOrNull({ request, params });
   const portal = await db.portals.getPortalById(tenantId, params.portal!);
-  
+
   if (!portal) {
     redirect(UrlUtils.getModulePath(params, "portals"));
   }
-  
+
   const url = new URL(request.url);
   const urlSearchParams = url.searchParams;
   const pagination = getPaginationFromCurrentUrl(urlSearchParams);
@@ -80,14 +80,14 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
       manual: true,
     },
   ];
-  
+
   // Create a mock request object for the legacy helper
   const mockRequest = {
     url: url.toString(),
   } as Request;
-  
+
   const filters = getFiltersFromCurrentUrl(mockRequest, filterableProperties);
-  
+
   let where: Prisma.AnalyticsPageViewWhereInput = {
     portalId: portal.id,
   };
@@ -106,7 +106,7 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
   if (portalUserFilter?.value) {
     where = { ...where, uniqueVisitor: { portalUserId: portalUserFilter.value === "null" ? null : portalUserFilter.value } };
   }
-  
+
   const items = await prisma.analyticsPageView.findMany({
     take: pagination.pageSize,
     skip: pagination.pageSize * (pagination.page - 1),
@@ -127,11 +127,11 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
       createdAt: "desc",
     },
   });
-  
+
   const totalItems = await prisma.analyticsPageView.count({
     where,
   });
-  
+
   const data: LoaderData = {
     portal,
     items,
@@ -143,7 +143,7 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
       totalPages: Math.ceil(totalItems / pagination.pageSize),
     },
   };
-  
+
   return data;
 }
 

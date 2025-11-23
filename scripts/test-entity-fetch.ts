@@ -15,9 +15,9 @@ async function testEntityFetch() {
     where: { slug },
     include: {
       properties: {
-        orderBy: { order: "asc" }
-      }
-    }
+        orderBy: { order: "asc" },
+      },
+    },
   });
 
   if (!entity) {
@@ -42,7 +42,7 @@ async function testEntityFetch() {
     include: {
       values: true,
       sampleCustomEntity: true,
-    }
+    },
   });
 
   console.log(`\n📊 Rows found: ${rows.length}`);

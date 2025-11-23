@@ -142,11 +142,11 @@ export default function PageClient({ initialData }: PageClientProps) {
         {data.items.map((item, idx) => {
           return (
             <div key={idx} className="space-y-2">
-              <div className="border-border rounded-md border bg-white px-4 py-0.5 shadow-sm">
+              <div className="rounded-md border border-border bg-white px-4 py-0.5 shadow-sm">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between space-x-2">
                     <div className="flex items-center space-x-2 truncate">
-                      <div className=" flex items-center space-x-3 truncate">
+                      <div className="flex items-center space-x-3 truncate">
                         <div className="flex items-center space-x-2 truncate text-sm text-gray-800">
                           <div className="flex items-baseline space-x-1 truncate">
                             <div className="flex flex-col">
@@ -179,21 +179,21 @@ export default function PageClient({ initialData }: PageClientProps) {
                               return [...prev, item.id];
                             });
                           }}
-                          className="hover:bg-secondary/90 focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+                          className="group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                         >
-                          <FolderIconFilled className="hover:text-muted-foreground h-4 w-4 text-gray-300" />
+                          <FolderIconFilled className="h-4 w-4 text-gray-300 hover:text-muted-foreground" />
                         </button>
                         <Link
                           href={item.id}
-                          className="hover:bg-secondary/90 focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+                          className="group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                         >
-                          <PencilIcon className="group-hover:text-muted-foreground h-4 w-4 text-gray-300" />
+                          <PencilIcon className="h-4 w-4 text-gray-300 group-hover:text-muted-foreground" />
                         </Link>
                         <Link
                           href={`${item.id}/mappings/new`}
-                          className="hover:bg-secondary/90 focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+                          className="group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                         >
-                          <PlusIcon className="hover:text-muted-foreground h-4 w-4 text-gray-300" />
+                          <PlusIcon className="h-4 w-4 text-gray-300 hover:text-muted-foreground" />
                         </Link>
                       </div>
                     </div>
@@ -206,7 +206,7 @@ export default function PageClient({ initialData }: PageClientProps) {
         })}
         <Link
           href={`new`}
-          className="focus:ring-theme-500 border-border hover:border-border relative block w-full rounded-lg border-2 border-dashed px-12 py-6 text-center focus:outline-none focus:ring-2 focus:ring-offset-2"
+          className="relative block w-full rounded-lg border-2 border-dashed border-border px-12 py-6 text-center hover:border-border focus:outline-none focus:ring-2 focus:ring-theme-500 focus:ring-offset-2"
         >
           <PlusIcon className="mx-auto h-5 text-gray-900" />
           <span className="mt-2 block text-sm font-medium text-gray-900">Add new output</span>
@@ -242,15 +242,15 @@ function PromptFlowOutputMappings({
 }) {
   return (
     <div className="space-y-2 pb-2">
-      <div className="border-border w-full space-y-2 rounded-md border bg-slate-50 px-2 py-2">
-        <div className="text-muted-foreground text-sm font-medium">Mappings</div>
+      <div className="w-full space-y-2 rounded-md border border-border bg-slate-50 px-2 py-2">
+        <div className="text-sm font-medium text-muted-foreground">Mappings</div>
         <div className="space-y-2">
           <MappingsList output={promptFlowOutput} items={promptFlowOutput.mappings} onDeleteMapping={onDeleteMapping} />
           <Link
             href={`${promptFlowOutput.id}/mappings/new`}
-            className="focus:ring-theme-500 hover:border-border border-border relative block w-full rounded-lg border-2 border-dashed px-12 py-4 text-center focus:outline-none focus:ring-2 focus:ring-offset-2"
+            className="relative block w-full rounded-lg border-2 border-dashed border-border px-12 py-4 text-center hover:border-border focus:outline-none focus:ring-2 focus:ring-theme-500 focus:ring-offset-2"
           >
-            <span className="text-muted-foreground block text-xs font-medium">Add mapping</span>
+            <span className="block text-xs font-medium text-muted-foreground">Add mapping</span>
           </Link>
         </div>
       </div>
@@ -275,11 +275,11 @@ function MappingsList({
     <div className="space-y-2">
       {items.map((item) => {
         return (
-          <div key={item.id} className="border-border rounded-md border bg-white px-4 py-0.5 shadow-sm">
+          <div key={item.id} className="rounded-md border border-border bg-white px-4 py-0.5 shadow-sm">
             <div className="space-y-2">
               <div className="flex items-center justify-between space-x-2">
                 <div className="flex items-center space-x-2 truncate">
-                  <div className=" flex items-center space-x-3 truncate">
+                  <div className="flex items-center space-x-3 truncate">
                     <div className="flex items-center space-x-2 truncate text-sm text-gray-800">
                       <div className="flex items-baseline space-x-1 truncate">
                         <div className="flex flex-col">
@@ -300,16 +300,16 @@ function MappingsList({
                   <div className="flex items-center space-x-1 truncate p-1">
                     <Link
                       href={`${output.id}/mappings/${item.id}`}
-                      className="hover:bg-secondary/90 focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+                      className="group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                     >
-                      <PencilIcon className="group-hover:text-muted-foreground h-4 w-4 text-gray-300" />
+                      <PencilIcon className="h-4 w-4 text-gray-300 group-hover:text-muted-foreground" />
                     </Link>
                     <button
                       type="button"
-                      className="hover:bg-secondary/90 focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+                      className="group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                       onClick={() => onDeleteMapping(item)}
                     >
-                      <TrashIcon className="group-hover:text-muted-foreground h-4 w-4 text-gray-300" />
+                      <TrashIcon className="h-4 w-4 text-gray-300 group-hover:text-muted-foreground" />
                     </button>
                   </div>
                 </div>
@@ -327,7 +327,7 @@ function DeleteButton({ onDelete, canDelete }: { onDelete: () => void; canDelete
     <button
       type="button"
       className={clsx(
-        "focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1",
+        "group flex items-center rounded-md border border-transparent p-2 focus:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1",
         !canDelete ? "cursor-not-allowed opacity-50" : "hover:bg-secondary/90"
       )}
       disabled={!canDelete}

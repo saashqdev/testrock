@@ -24,12 +24,10 @@ export function VerifyPageClient({ registration, fieldsData, error }: VerifyPage
   return (
     <>
       <div>
-        <h1 className="text-foreground mt-6 text-center text-lg font-bold leading-9 dark:text-slate-200">
-          {t("account.verify.title")}
-        </h1>
-        <p className="max-w text-foreground mt-2 text-center text-sm leading-5 dark:text-slate-200">
+        <h1 className="mt-6 text-center text-lg font-bold leading-9 text-foreground dark:text-slate-200">{t("account.verify.title")}</h1>
+        <p className="max-w mt-2 text-center text-sm leading-5 text-foreground dark:text-slate-200">
           {t("account.register.alreadyRegistered")}{" "}
-          <span className="text-primary font-medium hover:underline">
+          <span className="font-medium text-primary hover:underline">
             <Link href="/login">{t("account.register.clickHereToLogin")}</Link>
           </span>
         </p>

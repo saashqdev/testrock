@@ -19,10 +19,7 @@ async function loadData(): Promise<LoaderData> {
       ...config,
       app: {
         ...config.app,
-        theme:
-          typeof config.app.theme === "string"
-            ? { color: config.app.theme, scheme: "system" as const }
-            : config.app.theme,
+        theme: typeof config.app.theme === "string" ? { color: config.app.theme, scheme: "system" as const } : config.app.theme,
       },
     },
   };

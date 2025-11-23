@@ -31,7 +31,7 @@ export const action = async (props: IServerComponentsProps): Promise<Response> =
   const { t } = await getServerTranslations();
   const form = await request.formData();
   const action = form.get("action");
-  
+
   if (action === "submission") {
     const submission = {
       firstName: form.get("first_name")?.toString() ?? "",
@@ -43,7 +43,7 @@ export const action = async (props: IServerComponentsProps): Promise<Response> =
       message: form.get("comments")?.toString() ?? "",
       honeypot: form.get("codeId")?.toString() ?? "",
     };
-    
+
     try {
       await IpAddressServiceServer.log(request, {
         action: "contact",
@@ -56,27 +56,18 @@ export const action = async (props: IServerComponentsProps): Promise<Response> =
           honeypot: submission.honeypot,
         }),
       });
-      
+
       const existingContact = await CrmService.createContactSubmission(submission, request);
-      
+
       if (existingContact) {
-        return Response.json(
-          { success: t("front.contact.success", { 0: submission.firstName }) },
-          { status: 200 }
-        );
+        return Response.json({ success: t("front.contact.success", { 0: submission.firstName }) }, { status: 200 });
       } else {
-        return Response.json(
-          { error: t("front.contact.error") },
-          { status: 400 }
-        );
+        return Response.json({ error: t("front.contact.error") }, { status: 400 });
       }
     } catch (e: any) {
       return Response.json({ error: e.message }, { status: 400 });
     }
   } else {
-    return Response.json(
-      { error: t("shared.invalidForm") },
-      { status: 400 }
-    );
+    return Response.json({ error: t("shared.invalidForm") }, { status: 400 });
   }
 };

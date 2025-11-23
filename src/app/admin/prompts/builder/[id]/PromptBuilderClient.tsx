@@ -22,13 +22,7 @@ type ActionData = {
   success?: string;
 };
 
-export default function PromptBuilderClient({ 
-  data,
-  handleAction 
-}: { 
-  data: LoaderData; 
-  handleAction: (formData: FormData) => Promise<ActionData>;
-}) {
+export default function PromptBuilderClient({ data, handleAction }: { data: LoaderData; handleAction: (formData: FormData) => Promise<ActionData> }) {
   const { t } = useTranslation();
   const [isPending, startTransition] = useTransition();
   const [actionData, setActionData] = useState<ActionData | undefined>();
@@ -46,7 +40,7 @@ export default function PromptBuilderClient({
   function onDelete() {
     confirmDelete.current?.show(t("shared.confirmDelete"), t("shared.delete"), t("shared.cancel"), t("shared.warningCannotUndo"));
   }
-  
+
   function onDeleteConfirmed() {
     const form = new FormData();
     form.set("action", "delete");
@@ -55,7 +49,7 @@ export default function PromptBuilderClient({
       setActionData(result);
     });
   }
-  
+
   function onDuplicate() {
     const form = new FormData();
     form.set("action", "duplicate");
@@ -64,7 +58,7 @@ export default function PromptBuilderClient({
       setActionData(result);
     });
   }
-  
+
   return (
     <div className="space-y-2">
       <TabsWithIcons

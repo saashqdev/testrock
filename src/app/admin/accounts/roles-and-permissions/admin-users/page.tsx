@@ -31,7 +31,7 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const { t } = await getServerTranslations();
-  
+
   return {
     title: `${t("models.role.adminRoles")} | ${process.env.APP_NAME}`,
   };
@@ -39,12 +39,12 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 
 async function updateUserRole(formData: FormData) {
   "use server";
-  
+
   await verifyUserHasPermission("admin.roles.update");
   const { t } = await getServerTranslations();
 
   const action = formData.get("action")?.toString() ?? "";
-  
+
   if (action === "edit") {
     const userId = formData.get("user-id")?.toString() ?? "";
     const roleId = formData.get("role-id")?.toString() ?? "";
@@ -66,7 +66,7 @@ async function updateUserRole(formData: FormData) {
       db.logs.createAdminLog(request, "Deleted", `${user?.email} - ${role?.name}}`);
     }
   }
-  
+
   // Revalidate the current page to refresh the data
   revalidatePath("/admin/accounts/roles-and-permissions/admin-users");
 }

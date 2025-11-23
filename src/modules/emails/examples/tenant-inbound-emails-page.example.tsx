@@ -8,6 +8,6 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 export default async function TenantInboundEmailsPage(props: IServerComponentsProps) {
   const params = await props.params;
   const tenantId = params?.tenant as string;
-  
+
   return <InboundEmailsPage {...props} tenantId={tenantId} />;
 }

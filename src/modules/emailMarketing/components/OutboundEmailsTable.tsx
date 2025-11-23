@@ -49,7 +49,7 @@ export default function OutboundEmailsTable({
               {i.contactRow && contactEntity ? (
                 <div>{RowHelper.getTextDescription({ entity: contactEntity, item: i.contactRow, t })}</div>
               ) : (
-                <div className="text-muted-foreground text-xs italic">
+                <div className="text-xs italic text-muted-foreground">
                   <div>{i.email}</div>
                 </div>
               )}
@@ -83,8 +83,8 @@ export default function OutboundEmailsTable({
               disabled={i.opens.length === 0}
               onClick={() => setSelectedEmail(i)}
               className={clsx(
-                i.opens.length === 0 ? "text-muted-foreground cursor-not-allowed text-left" : "text-blue-600 underline",
-                "text-muted-foreground lowercase"
+                i.opens.length === 0 ? "cursor-not-allowed text-left text-muted-foreground" : "text-blue-600 underline",
+                "lowercase text-muted-foreground"
               )}
             >
               {i.opens.length} {t("emails.opens")}
@@ -94,8 +94,8 @@ export default function OutboundEmailsTable({
               disabled={i.clicks.length === 0}
               onClick={() => setSelectedEmail(i)}
               className={clsx(
-                i.clicks.length === 0 ? "text-muted-foreground cursor-not-allowed text-left" : "text-blue-600 underline",
-                "text-muted-foreground lowercase"
+                i.clicks.length === 0 ? "cursor-not-allowed text-left text-muted-foreground" : "text-blue-600 underline",
+                "lowercase text-muted-foreground"
               )}
             >
               {i.clicks.length} {t("emails.clicks")}
@@ -138,7 +138,7 @@ export default function OutboundEmailsTable({
                       ? `/admin/${params.tenant}/email-marketing/campaigns/${item.campaignId}`
                       : `/admin/email-marketing/campaigns/${item.campaignId}`
                   }
-                  className="focus:bg-secondary/90 hover:border-border rounded-md border-b border-dashed border-transparent"
+                  className="rounded-md border-b border-dashed border-transparent hover:border-border focus:bg-secondary/90"
                 >
                   {item.campaign?.name}
                 </Link>
@@ -159,9 +159,9 @@ export default function OutboundEmailsTable({
       <Modal className="sm:max-w-md" open={!!selectedEmail} setOpen={() => setSelectedEmail(undefined)}>
         <div className="space-y-2">
           <div>
-            <h3 className="text-foreground text-lg font-medium leading-6">{t("emails.emailActivity")}</h3>
+            <h3 className="text-lg font-medium leading-6 text-foreground">{t("emails.emailActivity")}</h3>
           </div>
-          <div className="border-border overflow-hidden rounded-md border-2 border-dashed">
+          <div className="overflow-hidden rounded-md border-2 border-dashed border-border">
             <div className="h-64 overflow-y-auto">{selectedEmail && <OutboundEmailActivity email={selectedEmail} />}</div>
           </div>
         </div>

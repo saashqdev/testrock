@@ -42,16 +42,31 @@ function getActivity({ t, item, metadata }: { t: TFunction; item: OnboardingSess
   }
 
   item.actions.forEach((action) => {
-    items.push({ id: `${item.id}-${idCounter++}`, type: action.type as "click" | "input", createdAt: action.createdAt, description: "[" + action.name + "] " + action.value });
+    items.push({
+      id: `${item.id}-${idCounter++}`,
+      type: action.type as "click" | "input",
+      createdAt: action.createdAt,
+      description: "[" + action.name + "] " + action.value,
+    });
   });
 
   item.sessionSteps.forEach((step) => {
     const stepBlock = OnboardingStepUtils.parseStepToBlock(step.step);
     if (step.seenAt) {
-      items.push({ id: `${item.id}-${idCounter++}`, type: "step-seen", createdAt: step.seenAt, description: `Step #${step.step.order} seen: ${stepBlock.title}` });
+      items.push({
+        id: `${item.id}-${idCounter++}`,
+        type: "step-seen",
+        createdAt: step.seenAt,
+        description: `Step #${step.step.order} seen: ${stepBlock.title}`,
+      });
     }
     if (step.completedAt) {
-      items.push({ id: `${item.id}-${idCounter++}`, type: "step-completed", createdAt: step.completedAt, description: `Step #${step.step.order} completed: ${stepBlock.title}` });
+      items.push({
+        id: `${item.id}-${idCounter++}`,
+        type: "step-completed",
+        createdAt: step.completedAt,
+        description: `Step #${step.step.order} completed: ${stepBlock.title}`,
+      });
     }
   });
 

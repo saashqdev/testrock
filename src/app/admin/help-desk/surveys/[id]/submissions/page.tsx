@@ -21,7 +21,7 @@ type PageData = {
 async function getLoaderData(props: IServerComponentsProps): Promise<PageData> {
   const params = (await props.params) || {};
   const request = props.request!;
-  
+
   await requireAuth();
   const tenantId = await getTenantIdOrNull({ request, params });
   let item = await db.surveys.getSurveyById({ tenantId, id: params.id! });
@@ -29,7 +29,7 @@ async function getLoaderData(props: IServerComponentsProps): Promise<PageData> {
     redirect("/admin/help-desk/surveys");
   }
   const submissions = await db.surveySubmissions.getSurveySubmissions(item.id);
-  
+
   return {
     item: SurveyUtils.surveyToDto(item),
     submissions,
@@ -43,14 +43,14 @@ type ActionData = {
 
 export async function deleteSurveySubmission(prev: any, formData: FormData): Promise<ActionData> {
   "use server";
-  
+
   await requireAuth();
   const { t } = await getServerTranslations();
-  
+
   const action = formData.get("action");
   const id = formData.get("id")?.toString();
   const surveyId = formData.get("surveyId")?.toString();
-  
+
   if (action === "delete" && id) {
     try {
       await db.surveySubmissions.deleteSurveySubmission(id);
@@ -60,7 +60,7 @@ export async function deleteSurveySubmission(prev: any, formData: FormData): Pro
       return { error: e.message };
     }
   }
-  
+
   return { error: "Invalid action" };
 }
 
@@ -74,6 +74,6 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 export default async function SurveySubmissionsPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   const data = await getLoaderData(props);
-  
+
   return <SurveySubmissionsClient data={data} surveyId={params.id!} />;
 }

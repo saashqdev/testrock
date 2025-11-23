@@ -31,7 +31,7 @@ export const RegisterForm = ({ requireRecaptcha = false, isVerifyingEmail = fals
   const showPasswordInput = !appConfiguration.auth.requireEmailVerification || isVerifyingEmail || isSettingUpAccount;
 
   return (
-    <div className="border-border mx-auto flex flex-col items-center space-y-6 rounded-lg border p-6">
+    <div className="mx-auto flex flex-col items-center space-y-6 rounded-lg border border-border p-6">
       <RecaptchaWrapper enabled={requireRecaptcha}>
         <input type="hidden" name="redirectTo" value={redirect} hidden readOnly />
 
@@ -43,7 +43,7 @@ export const RegisterForm = ({ requireRecaptcha = false, isVerifyingEmail = fals
               {appConfiguration.auth.authMethods.github.enabled && (
                 <div>
                   <a
-                    className="focus-visible:ring-ring inline-flex h-9 w-full items-center justify-center rounded-md bg-black px-4 py-2 text-sm font-medium whitespace-nowrap text-white transition-colors focus-visible:ring-1 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
+                    className="focus-visible:outline-hidden inline-flex h-9 w-full items-center justify-center whitespace-nowrap rounded-md bg-black px-4 py-2 text-sm font-medium text-white transition-colors focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                     href={appConfiguration.auth.authMethods.github.authorizationURL}
                   >
                     <GitHubIcon className="mr-2 h-4 w-4 text-white" /> {t("auth.github.button")}
@@ -56,7 +56,7 @@ export const RegisterForm = ({ requireRecaptcha = false, isVerifyingEmail = fals
                 <form action="/oauth/google" method="post">
                   <button
                     type="submit"
-                    className="focus-visible:ring-ring inline-flex h-9 w-full items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium whitespace-nowrap text-white transition-colors hover:bg-[#2e70d9] focus-visible:ring-1 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:focus:ring-blue-700"
+                    className="focus-visible:outline-hidden inline-flex h-9 w-full items-center justify-center whitespace-nowrap rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#2e70d9] focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 dark:focus:ring-blue-700"
                   >
                     <GoogleIcon className="mr-2 h-4 w-4 text-white" /> {t("auth.google.button")}
                   </button>
@@ -66,7 +66,7 @@ export const RegisterForm = ({ requireRecaptcha = false, isVerifyingEmail = fals
             </div>
 
             {appConfiguration.auth.authMethods.emailPassword.enabled && appConfiguration.auth.authMethods.github.enabled && (
-              <div className="border-border w-full border-t-2 border-dotted dark:border-gray-900"></div>
+              <div className="w-full border-t-2 border-dotted border-border dark:border-gray-900"></div>
             )}
           </>
         )}
@@ -194,7 +194,7 @@ export const RegisterForm = ({ requireRecaptcha = false, isVerifyingEmail = fals
           </form>
         )}
 
-        <p className="border-border mt-3 border-t py-2 text-center text-sm">
+        <p className="mt-3 border-t border-border py-2 text-center text-sm">
           {t("account.register.bySigningUp")}{" "}
           <a target="_blank" href="/terms-and-conditions" className="text-primary underline">
             {t("account.register.termsAndConditions")}

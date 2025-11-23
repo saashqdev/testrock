@@ -14,11 +14,11 @@ export async function GET() {
 
   const headersList = await headers();
   const host = headersList.get("x-forwarded-host") ?? headersList.get("host");
-  
+
   if (!host) {
     throw new Error("Could not determine domain URL.");
   }
-  
+
   const protocol = host.includes("localhost") ? "http" : "https";
   const domain = `${protocol}://${host}`;
   const blogUrl = `${domain}/blog`;

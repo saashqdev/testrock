@@ -35,14 +35,14 @@ export default function RowTasks({ items }: Props) {
     startTransition(async () => {
       try {
         // Replace with your actual API endpoint
-        await fetch('/api/tasks', {
-          method: 'POST',
+        await fetch("/api/tasks", {
+          method: "POST",
           body: formData,
         });
         formRef.current?.reset();
         setShowAddTask(false);
       } catch (error) {
-        console.error('Error submitting form:', error);
+        console.error("Error submitting form:", error);
       } finally {
         setIsAdding(false);
       }
@@ -55,13 +55,13 @@ export default function RowTasks({ items }: Props) {
         const form = new FormData();
         form.set("action", "task-complete-toggle");
         form.set("task-id", id);
-        
-        await fetch('/api/tasks', {
-          method: 'POST',
+
+        await fetch("/api/tasks", {
+          method: "POST",
           body: form,
         });
       } catch (error) {
-        console.error('Error toggling task:', error);
+        console.error("Error toggling task:", error);
       }
     });
   }
@@ -72,13 +72,13 @@ export default function RowTasks({ items }: Props) {
         const form = new FormData();
         form.set("action", "task-delete");
         form.set("task-id", id);
-        
-        await fetch('/api/tasks', {
-          method: 'POST',
+
+        await fetch("/api/tasks", {
+          method: "POST",
           body: form,
         });
       } catch (error) {
-        console.error('Error deleting task:', error);
+        console.error("Error deleting task:", error);
       }
     });
   }
@@ -167,8 +167,8 @@ export default function RowTasks({ items }: Props) {
       )}
 
       {showAddTask && (
-        <form 
-          ref={formRef} 
+        <form
+          ref={formRef}
           action={async (formData) => {
             await handleFormSubmit(formData);
           }}

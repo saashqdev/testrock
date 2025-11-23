@@ -7,11 +7,7 @@ interface InboundEmailsPageProps {
   children?: React.ReactNode;
 }
 
-export default async function InboundEmailsPage({ 
-  tenantId = null,
-  children,
-  ...props 
-}: InboundEmailsPageProps & IServerComponentsProps) {
+export default async function InboundEmailsPage({ tenantId = null, children, ...props }: InboundEmailsPageProps & IServerComponentsProps) {
   // Load data on the server
   const data = await loaderEmails(props, tenantId);
 

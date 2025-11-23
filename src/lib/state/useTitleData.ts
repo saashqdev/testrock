@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { createContext, useContext } from "react";
 
@@ -12,11 +12,11 @@ export const TitleDataContext = createContext<TitleDataDto | null>(null);
 
 export function useTitleData(): string {
   const context = useContext(TitleDataContext);
-  
-  if (typeof window === 'undefined') {
+
+  if (typeof window === "undefined") {
     return "";
   }
-  
+
   if (!context) {
     return "";
   }

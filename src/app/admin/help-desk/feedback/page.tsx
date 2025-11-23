@@ -21,7 +21,7 @@ type LoaderData = {
 
 async function getLoaderData(searchParams: { [key: string]: string | string[] | undefined }): Promise<LoaderData> {
   await requireAuth();
-  
+
   const filterableProperties: FilterablePropertyDto[] = [
     {
       name: "tenantId",
@@ -50,18 +50,18 @@ async function getLoaderData(searchParams: { [key: string]: string | string[] | 
       ],
     },
   ];
-  
+
   const urlSearchParams = new URLSearchParams(searchParams as any);
   const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
-  
+
   // Create a mock request object for getFiltersFromCurrentUrl
   const headersList = await headers();
-  const url = headersList.get('x-url') || `http://localhost?${urlSearchParams.toString()}`;
+  const url = headersList.get("x-url") || `http://localhost?${urlSearchParams.toString()}`;
   const request = new Request(url);
-  
+
   const filters = getFiltersFromCurrentUrl(request, filterableProperties);
   const { items, pagination } = await db.feedback.getAllFeedback({ filters, filterableProperties, pagination: currentPagination });
-  
+
   return {
     items,
     filterableProperties,
@@ -72,15 +72,15 @@ async function getLoaderData(searchParams: { [key: string]: string | string[] | 
 // Server Action for delete functionality
 export async function deleteFeedback(formData: FormData) {
   "use server";
-  
+
   await requireAuth();
   const { t } = await getServerTranslations();
-  
+
   const action = formData.get("action");
-  
+
   if (action === "delete") {
     const ids = (formData.get("ids")?.toString().split(",") ?? []).map((x) => x.toString() ?? "");
-    
+
     try {
       await FeedbackServer.deleteMany({ ids });
       revalidatePath("/admin/help-desk/feedback");
@@ -100,15 +100,11 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function FeedbackPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default async function FeedbackPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const { t } = await getServerTranslations();
   const resolvedSearchParams = await searchParams;
   const data = await getLoaderData(resolvedSearchParams);
-  
+
   return (
     <EditPageLayout title={t("feedback.plural")}>
       <FeedbackTable data={data} deleteAction={deleteFeedback} />

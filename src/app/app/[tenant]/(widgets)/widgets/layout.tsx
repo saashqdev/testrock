@@ -12,7 +12,7 @@ interface WidgetsLayoutProps {
 export default async function WidgetsLayout({ children, params }: WidgetsLayoutProps) {
   const { tenant } = await params;
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
-  
+
   if (tenant && !appConfiguration.widgets.enabled) {
     throw new Error("Widgets are disabled");
   }

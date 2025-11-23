@@ -60,9 +60,9 @@ export default function ToggleBillingPeriod({
     <Fragment>
       {isMonthlyOrYearly ? (
         <div className={clsx("flex items-center justify-center space-x-4", className)}>
-          <button 
-            type="button" 
-            className="text-sm font-medium" 
+          <button
+            type="button"
+            className="text-sm font-medium"
             style={{ scrollMargin: 0 }}
             onMouseDown={(e) => e.preventDefault()}
             onClick={(e) => {
@@ -101,8 +101,8 @@ export default function ToggleBillingPeriod({
               )}
             ></div>
           </button>
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="text-sm font-medium"
             style={{ scrollMargin: 0 }}
             onMouseDown={(e) => e.preventDefault()}

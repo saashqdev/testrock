@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import {
-  cancelSubscriptionAction,
-  addPaymentMethodAction,
-  deletePaymentMethodAction,
-  openCustomerPortalAction,
-} from "../../settings.subscription.actions";
+import { cancelSubscriptionAction, addPaymentMethodAction, deletePaymentMethodAction, openCustomerPortalAction } from "../../settings.subscription.actions";
 
 export async function POST(request: NextRequest) {
   try {

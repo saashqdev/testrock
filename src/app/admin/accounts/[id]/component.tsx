@@ -29,15 +29,7 @@ interface ComponentProps {
   tenantTypes: TenantType[];
 }
 
-export default function Component({
-  tenant,
-  users,
-  subscription,
-  subscriptionProducts,
-  isStripeTest,
-  tenantSettingsEntity,
-  tenantTypes,
-}: ComponentProps) {
+export default function Component({ tenant, users, subscription, subscriptionProducts, isStripeTest, tenantSettingsEntity, tenantTypes }: ComponentProps) {
   const adminData = useAdminData();
   const params = useParams();
   const { t } = useTranslation();
@@ -49,14 +41,14 @@ export default function Component({
   function deleteAccount() {
     confirmDelete.current?.show(t("settings.danger.confirmDeleteTenant"), t("shared.confirm"), t("shared.cancel"), t("shared.warningCannotUndo"));
   }
-  
+
   async function confirmDeleteTenant() {
     try {
       const response = await fetch(`/api/admin/accounts/${params.id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
-      
+
       if (response.ok) {
         window.location.href = "/admin/accounts";
       } else {
@@ -93,7 +85,7 @@ export default function Component({
       {/*Separator */}
       <div className="block">
         <div className="py-5">
-          <div className="border-border border-t"></div>
+          <div className="border-t border-border"></div>
         </div>
       </div>
 
@@ -115,7 +107,7 @@ export default function Component({
           {/*Separator */}
           <div className="block">
             <div className="py-5">
-              <div className="border-border border-t"></div>
+              <div className="border-t border-border"></div>
             </div>
           </div>
         </Fragment>
@@ -129,8 +121,8 @@ export default function Component({
               <input hidden type="text" name="action" value="deleteAccount" readOnly />
               <div className="">
                 <div className="">
-                  <h3 className="text-foreground text-lg font-medium leading-6">Delete account</h3>
-                  <div className="text-muted-foreground mt-2 max-w-xl text-sm leading-5">
+                  <h3 className="text-lg font-medium leading-6 text-foreground">Delete account</h3>
+                  <div className="mt-2 max-w-xl text-sm leading-5 text-muted-foreground">
                     <p>Delete organization and cancel subscriptions.</p>
                   </div>
                   <div className="mt-4">

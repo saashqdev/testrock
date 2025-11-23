@@ -28,7 +28,7 @@ export const actionAdminPricingEdit = async (prev: any, form: FormData) => {
     usageBasedPrices: (rawItem as any).usageBasedPrices ?? [],
     features: (rawItem as any).features ?? [],
   };
-  
+
   if (action === "edit") {
     const order = Number(form.get("order"));
     const title = form.get("title")?.toString();

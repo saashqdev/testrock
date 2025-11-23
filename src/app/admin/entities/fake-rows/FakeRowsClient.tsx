@@ -191,7 +191,7 @@ export default function FakeRowsPage({ initialData }: { initialData: LoaderData 
                       onClick={(e) => {
                         e.stopPropagation();
                       }}
-                      className="hover:bg-secondary border-border bg-background rounded-md border px-2 py-1.5 font-medium"
+                      className="rounded-md border border-border bg-background px-2 py-1.5 font-medium hover:bg-secondary"
                       options={[
                         ...[1, 10, 100, 1_000, 10_000, 100_000].map((numberOfRows) => {
                           return {
@@ -206,7 +206,7 @@ export default function FakeRowsPage({ initialData }: { initialData: LoaderData 
                       onClick={(e) => {
                         e.stopPropagation();
                       }}
-                      className="hover:bg-secondary border-border bg-background rounded-md border px-2 py-1.5 font-medium"
+                      className="rounded-md border border-border bg-background px-2 py-1.5 font-medium hover:bg-secondary"
                       options={[
                         ...[1, 10, 100, 1_000, 10_000, 100_000].map((numberOfRows) => {
                           return {
@@ -221,7 +221,7 @@ export default function FakeRowsPage({ initialData }: { initialData: LoaderData 
                       onClick={(e) => {
                         e.stopPropagation();
                       }}
-                      className="hover:bg-secondary border-border bg-background rounded-md border px-2 py-1.5 font-medium"
+                      className="rounded-md border border-border bg-background px-2 py-1.5 font-medium hover:bg-secondary"
                       options={[
                         ...[1, 10, 100, 1_000, 10_000, 100_000].map((numberOfRows) => {
                           return {
@@ -237,7 +237,7 @@ export default function FakeRowsPage({ initialData }: { initialData: LoaderData 
                       onClick={(e) => {
                         e.stopPropagation();
                       }}
-                      className="hover:bg-secondary border-border bg-background rounded-md border px-2 py-1.5 font-medium"
+                      className="rounded-md border border-border bg-background px-2 py-1.5 font-medium hover:bg-secondary"
                       options={[
                         ...[1, 10, 100, 1_000, 10_000, 100_000].map((numberOfRows) => {
                           return {
@@ -253,7 +253,7 @@ export default function FakeRowsPage({ initialData }: { initialData: LoaderData 
                       onClick={(e) => {
                         e.stopPropagation();
                       }}
-                      className="hover:bg-secondary border-border bg-background rounded-md border px-2 py-1.5 font-medium"
+                      className="rounded-md border border-border bg-background px-2 py-1.5 font-medium hover:bg-secondary"
                       options={[
                         ...[1, 10, 100, 1_000, 10_000, 100_000, 1_000_000, 10_000_000].map((numberOfRows) => {
                           return {

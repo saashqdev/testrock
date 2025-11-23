@@ -58,7 +58,7 @@ export default function DebugClient() {
               {searchParams.get("cookies") ? "Hide cookie settings" : "Show cookie settings"}
             </button>
           </div>
-          <p className="border-border bg-secondary break-words rounded-md border p-4 text-black dark:bg-gray-800 dark:text-white">
+          <p className="break-words rounded-md border border-border bg-secondary p-4 text-black dark:bg-gray-800 dark:text-white">
             <div className="hidden dark:block">
               <JSONTree invertTheme={false} data={rootData} theme={jsonTreeTheme} />
             </div>

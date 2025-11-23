@@ -62,34 +62,38 @@ export default function NewSidebarMenu({ layout, children, onOpenCommandPalette,
     if (menuItems) {
       menu = menuItems;
     } else if (layout === "admin") {
-      menu = AdminSidebar({ 
-        appConfiguration: rootData.appConfiguration ? {
-          ...rootData.appConfiguration,
-          app: {
-            ...rootData.appConfiguration.app,
-            theme: {
-              color: rootData.theme.color,
-              scheme: rootData.theme.scheme as "light" | "dark" | "system"
+      menu = AdminSidebar({
+        appConfiguration: rootData.appConfiguration
+          ? {
+              ...rootData.appConfiguration,
+              app: {
+                ...rootData.appConfiguration.app,
+                theme: {
+                  color: rootData.theme.color,
+                  scheme: rootData.theme.scheme as "light" | "dark" | "system",
+                },
+              },
             }
-          }
-        } : null,
-        myTenants: appOrAdminData?.myTenants
+          : null,
+        myTenants: appOrAdminData?.myTenants,
       });
     } else if (layout === "app") {
       menu = AppSidebar({
-        tenantId: Array.isArray(params.tenant) ? params.tenant[0] ?? "" : params.tenant ?? "",
+        tenantId: Array.isArray(params.tenant) ? (params.tenant[0] ?? "") : (params.tenant ?? ""),
         entities: appData?.entities ?? [],
         entityGroups: appData?.entityGroups ?? [],
-        appConfiguration: rootData.appConfiguration ? {
-          ...rootData.appConfiguration,
-          app: {
-            ...rootData.appConfiguration.app,
-            theme: {
-              color: rootData.theme.color,
-              scheme: rootData.theme.scheme as "light" | "dark" | "system"
+        appConfiguration: rootData.appConfiguration
+          ? {
+              ...rootData.appConfiguration,
+              app: {
+                ...rootData.appConfiguration.app,
+                theme: {
+                  color: rootData.theme.color,
+                  scheme: rootData.theme.scheme as "light" | "dark" | "system",
+                },
+              },
             }
-          }
-        } : null,
+          : null,
       });
     } else if (layout === "docs") {
       menu = DocsSidebar();
@@ -215,19 +219,17 @@ export default function NewSidebarMenu({ layout, children, onOpenCommandPalette,
           open={sidebarOpen}
           onClose={setSidebarOpen}
           className={clsx(
-            "text-foreground relative z-50 lg:hidden",
+            "relative z-50 text-foreground lg:hidden",
 
             layout === "admin" ? "dark" : "dark"
           )}
         >
-          <Dialog.Backdrop className="bg-foreground/50 fixed inset-0 transition-opacity duration-300 ease-linear data-closed:opacity-0" />
+          <Dialog.Backdrop className="data-closed:opacity-0 fixed inset-0 bg-foreground/50 transition-opacity duration-300 ease-linear" />
 
           <div className="fixed inset-0 flex">
-            <Dialog.Panel
-              className="relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out data-closed:-translate-x-full"
-            >
+            <Dialog.Panel className="data-closed:-translate-x-full relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out">
               <Transition.Child>
-                <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out data-closed:opacity-0">
+                <div className="data-closed:opacity-0 absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out">
                   <button type="button" onClick={() => setSidebarOpen(false)} className="-m-2.5 p-2.5">
                     <span className="sr-only">Close sidebar</span>
                     <XMarkIcon aria-hidden="true" className="h-6 w-6 text-white" />
@@ -235,20 +237,22 @@ export default function NewSidebarMenu({ layout, children, onOpenCommandPalette,
                 </div>
               </Transition.Child>
               {/* Sidebar component, swap this element with another sidebar if you like */}
-              <div className="bg-background flex grow flex-col gap-y-5 overflow-y-auto px-6 pb-4 ring-1 ring-white/10">
+              <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background px-6 pb-4 ring-1 ring-white/10">
                 <div className="flex h-16 shrink-0 items-center">
                   {/* <img alt="Your Company" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" className="h-8 w-auto" /> */}
 
                   <Logo size="h-8 p-1 w-auto" />
                 </div>
                 <nav className="flex flex-1 flex-col">
-                  {layout === "app" && <div>{appData?.currentTenant && <NewTenantSelector key={Array.isArray(params.tenant) ? params.tenant.join(",") : params.tenant} />}</div>}
+                  {layout === "app" && (
+                    <div>{appData?.currentTenant && <NewTenantSelector key={Array.isArray(params.tenant) ? params.tenant.join(",") : params.tenant} />}</div>
+                  )}
 
                   {getMenu().map((group, index) => {
                     return (
                       <div key={index} className="space-y-1">
                         <div id={group.title} className="mt-1">
-                          <h3 className="text-muted-foreground px-1 text-xs font-medium uppercase leading-4 tracking-wider">{t(group.title || "")}</h3>
+                          <h3 className="px-1 text-xs font-medium uppercase leading-4 tracking-wider text-muted-foreground">{t(group.title || "")}</h3>
                         </div>
                         {group.items.map((menuItem, index) => {
                           return (
@@ -259,12 +263,14 @@ export default function NewSidebarMenu({ layout, children, onOpenCommandPalette,
                               className={clsx(
                                 isCurrent(menuItem)
                                   ? "bg-secondary text-primary dark:text-secondary-foreground"
-                                  : "hover:bg-secondary hover:text-secondary-foreground text-secondary-foreground/70",
+                                  : "text-secondary-foreground/70 hover:bg-secondary hover:text-secondary-foreground",
                                 "group flex gap-x-3 rounded-md p-2 text-sm leading-5"
                               )}
                               onClick={onSelected}
                             >
-                              {mounted && (menuItem.icon !== undefined || menuItem.entityIcon !== undefined) && <SidebarIcon className="h-5 w-5 " item={menuItem} />}
+                              {mounted && (menuItem.icon !== undefined || menuItem.entityIcon !== undefined) && (
+                                <SidebarIcon className="h-5 w-5" item={menuItem} />
+                              )}
                               <div>{t(menuItem.title)}</div>
                             </Link>
                           );
@@ -332,13 +338,13 @@ export default function NewSidebarMenu({ layout, children, onOpenCommandPalette,
         {/* Static sidebar for desktop */}
         <div
           className={clsx(
-            "text-foreground hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col",
+            "hidden text-foreground lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col",
 
             layout === "admin" ? "dark" : "dark"
           )}
         >
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="bg-background border-border flex grow flex-col overflow-y-auto border-r px-6 pb-4 shadow-2xs dark:border-r-0">
+          <div className="shadow-2xs flex grow flex-col overflow-y-auto border-r border-border bg-background px-6 pb-4 dark:border-r-0">
             <div className="flex h-16 shrink-0 items-center justify-center border-b border-transparent">
               <Link href={"/"}>
                 {/* <Logo size="h-8 p-1 w-auto" /> */}
@@ -358,13 +364,15 @@ export default function NewSidebarMenu({ layout, children, onOpenCommandPalette,
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
                   <ul role="list" className="-mx-2 space-y-1">
-                    {layout === "app" && <div>{appData?.currentTenant && <NewTenantSelector key={Array.isArray(params.tenant) ? params.tenant.join(",") : params.tenant} />}</div>}
+                    {layout === "app" && (
+                      <div>{appData?.currentTenant && <NewTenantSelector key={Array.isArray(params.tenant) ? params.tenant.join(",") : params.tenant} />}</div>
+                    )}
 
                     {getMenu().map((group, index) => {
                       return (
                         <div key={index} className="select-none">
                           <div className="mt-2">
-                            <h3 id="Group-headline" className="text-muted-foreground px-1 text-xs font-medium uppercase leading-4 tracking-wider">
+                            <h3 id="Group-headline" className="px-1 text-xs font-medium uppercase leading-4 tracking-wider text-muted-foreground">
                               {t(group.title || "")}
                             </h3>
                           </div>
@@ -378,18 +386,18 @@ export default function NewSidebarMenu({ layout, children, onOpenCommandPalette,
                                         id={UrlUtils.slugify(getPath(menuItem))}
                                         href={menuItem.redirectTo ?? getPath(menuItem)}
                                         className={clsx(
-                                          "group mt-1 flex items-center justify-between truncate rounded-sm px-4 py-2 text-sm leading-5 transition duration-150 ease-in-out  focus:outline-hidden",
+                                          "focus:outline-hidden group mt-1 flex items-center justify-between truncate rounded-sm px-4 py-2 text-sm leading-5 transition duration-150 ease-in-out",
                                           menuItem.icon !== undefined && "px-4",
                                           isCurrent(menuItem)
                                             ? "bg-secondary text-primary dark:text-secondary-foreground"
-                                            : "hover:bg-secondary hover:text-secondary-foreground text-secondary-foreground/70",
+                                            : "text-secondary-foreground/70 hover:bg-secondary hover:text-secondary-foreground",
                                           "group flex gap-x-3 rounded-md p-2 text-sm leading-5"
                                         )}
                                         onClick={onSelected}
                                       >
                                         <div className="flex items-center space-x-5">
                                           {mounted && (menuItem.icon !== undefined || menuItem.entityIcon !== undefined) && (
-                                            <SidebarIcon className="h-5 w-5 " item={menuItem} />
+                                            <SidebarIcon className="h-5 w-5" item={menuItem} />
                                           )}
                                           <div>{t(menuItem.title)}</div>
                                         </div>
@@ -402,18 +410,18 @@ export default function NewSidebarMenu({ layout, children, onOpenCommandPalette,
                                         <button
                                           type="button"
                                           className={clsx(
-                                            "group mt-1 flex w-full items-center justify-between truncate rounded-sm px-4 py-2 text-sm leading-5 transition duration-150 ease-in-out  focus:outline-hidden",
+                                            "focus:outline-hidden group mt-1 flex w-full items-center justify-between truncate rounded-sm px-4 py-2 text-sm leading-5 transition duration-150 ease-in-out",
                                             menuItem.icon !== undefined && "px-4",
                                             isCurrent(menuItem)
                                               ? "bg-secondary text-primary dark:text-secondary-foreground"
-                                              : "hover:bg-secondary hover:text-secondary-foreground text-secondary-foreground/70",
+                                              : "text-secondary-foreground/70 hover:bg-secondary hover:text-secondary-foreground",
                                             "group flex gap-x-3 rounded-md p-2 text-sm leading-5"
                                           )}
                                           onClick={() => toggleMenuItem(menuItem.path)}
                                         >
                                           <div className="flex items-center space-x-5 truncate">
                                             {mounted && (menuItem.icon !== undefined || menuItem.entityIcon !== undefined) && (
-                                              <SidebarIcon className="h-5 w-5 " item={menuItem} />
+                                              <SidebarIcon className="h-5 w-5" item={menuItem} />
                                             )}
                                             <div className="truncate">{t(menuItem.title)}</div>
                                           </div>
@@ -424,8 +432,8 @@ export default function NewSidebarMenu({ layout, children, onOpenCommandPalette,
                                               className={clsx(
                                                 "ml-auto h-5 w-5 shrink-0 transform transition-colors duration-150 ease-in-out",
                                                 menuItemIsExpanded(menuItem.path)
-                                                  ? "ml-auto h-3 w-3 rotate-90 transform  transition-colors duration-150 ease-in-out"
-                                                  : "ml-auto h-3 w-3 transform  transition-colors duration-150 ease-in-out"
+                                                  ? "ml-auto h-3 w-3 rotate-90 transform transition-colors duration-150 ease-in-out"
+                                                  : "ml-auto h-3 w-3 transform transition-colors duration-150 ease-in-out"
                                               )}
                                               viewBox="0 0 20 20"
                                             >
@@ -444,18 +452,18 @@ export default function NewSidebarMenu({ layout, children, onOpenCommandPalette,
                                                     id={UrlUtils.slugify(getPath(subItem))}
                                                     href={subItem.redirectTo ?? getPath(subItem)}
                                                     className={clsx(
-                                                      "group mt-1 flex items-center rounded-sm py-2 text-sm leading-5 transition duration-150 ease-in-out  focus:outline-hidden",
+                                                      "focus:outline-hidden group mt-1 flex items-center rounded-sm py-2 text-sm leading-5 transition duration-150 ease-in-out",
                                                       menuItem.icon === undefined && "pl-10",
                                                       menuItem.icon !== undefined && "pl-14",
                                                       isCurrent(menuItem)
                                                         ? "bg-secondary text-primary dark:text-secondary-foreground"
-                                                        : "hover:bg-secondary hover:text-secondary-foreground text-secondary-foreground/70",
+                                                        : "text-secondary-foreground/70 hover:bg-secondary hover:text-secondary-foreground",
                                                       "group flex gap-x-3 rounded-md p-2 text-sm leading-5"
                                                     )}
                                                     onClick={onSelected}
                                                   >
                                                     {mounted && (subItem.icon !== undefined || subItem.entityIcon !== undefined) && (
-                                                      <SidebarIcon className="h-5 w-5 " item={subItem} />
+                                                      <SidebarIcon className="h-5 w-5" item={subItem} />
                                                     )}
                                                     <div>{t(subItem.title)}</div>
                                                   </Link>
@@ -531,14 +539,14 @@ export default function NewSidebarMenu({ layout, children, onOpenCommandPalette,
         </div>
 
         <div className="lg:pl-64">
-          <div className="border-border bg-background sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b px-4 shadow-2xs sm:gap-x-6 sm:px-6 lg:px-8">
-            <button type="button" onClick={() => setSidebarOpen(true)} className="text-muted-foreground -m-2.5 p-2.5 lg:hidden">
+          <div className="shadow-2xs sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-border bg-background px-4 sm:gap-x-6 sm:px-6 lg:px-8">
+            <button type="button" onClick={() => setSidebarOpen(true)} className="-m-2.5 p-2.5 text-muted-foreground lg:hidden">
               <span className="sr-only">Open sidebar</span>
               <Bars3Icon aria-hidden="true" className="h-6 w-6" />
             </button>
 
             {/* Separator */}
-            <div aria-hidden="true" className="bg-foreground/10 h-6 w-px lg:hidden" />
+            <div aria-hidden="true" className="h-6 w-px bg-foreground/10 lg:hidden" />
 
             <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
               <NavBar
@@ -560,7 +568,7 @@ export default function NewSidebarMenu({ layout, children, onOpenCommandPalette,
             </div>
           </div>
 
-          <main ref={mainElement} className="bg-secondary/50 flex-1 focus:outline-hidden" tabIndex={0}>
+          <main ref={mainElement} className="focus:outline-hidden flex-1 bg-secondary/50" tabIndex={0}>
             <div key={Array.isArray(params.tenant) ? params.tenant.join(",") : params.tenant} className="pb-20 sm:pb-0">
               {children}
             </div>

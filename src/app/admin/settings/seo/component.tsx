@@ -12,7 +12,7 @@ interface ComponentProps {
 
 export default function Component({ data }: ComponentProps) {
   const { t } = useTranslation();
-  
+
   return (
     <EditPageLayout title={<BackButtonWithTitle href="/admin/settings">{t("pages.seo")}</BackButtonWithTitle>}>
       <PageMetaTagsRouteIndex data={data} />

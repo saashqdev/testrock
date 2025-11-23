@@ -5,13 +5,10 @@ import KnowledgeBaseService from "@/modules/knowledgeBase/service/KnowledgeBaseS
 import KnowledgeBaseUtils from "@/modules/knowledgeBase/utils/KnowledgeBaseUtils";
 import { db } from "@/db";
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ slug: string; lang: string; id: string }> }
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ slug: string; lang: string; id: string }> }) {
   const resolvedParams = await params;
   await verifyUserHasPermission("admin.kb.update");
-  
+
   const form = await request.formData();
   const action = form.get("action")?.toString() ?? "";
 
@@ -80,20 +77,20 @@ export async function POST(
       seoImage,
     });
 
-    return Response.json({ 
-      success: true, 
-      redirectUrl: `/admin/knowledge-base/bases/${knowledgeBase.slug}/articles/${language}/${item.id}` 
+    return Response.json({
+      success: true,
+      redirectUrl: `/admin/knowledge-base/bases/${knowledgeBase.slug}/articles/${language}/${item.id}`,
     });
   } else if (action === "delete") {
     await verifyUserHasPermission("admin.kb.delete");
     const kb = await KnowledgeBaseService.get({ slug: resolvedParams.slug, request });
     await db.kbArticles.deleteKnowledgeBaseArticle(item.id);
-    
-    return Response.json({ 
-      success: true, 
-      redirectUrl: `/admin/knowledge-base/bases/${kb.slug}/articles/${resolvedParams.lang}` 
+
+    return Response.json({
+      success: true,
+      redirectUrl: `/admin/knowledge-base/bases/${kb.slug}/articles/${resolvedParams.lang}`,
     });
   }
-  
+
   return Response.json({ error: "Invalid action" }, { status: 400 });
 }

@@ -64,7 +64,7 @@ export default function Chat({
   }
 
   return (
-    <form onSubmit={onSubmit} className={clsx(className, "bg-secondary relative flex flex-col space-y-4 overflow-hidden")}>
+    <form onSubmit={onSubmit} className={clsx(className, "relative flex flex-col space-y-4 overflow-hidden bg-secondary")}>
       <div className="grow overflow-auto px-4 py-2">
         <div className="flex-1 space-y-2">
           {messages.map((message, idx) => (
@@ -76,19 +76,19 @@ export default function Chat({
               {"file" in message.data && "text" in message.data && (
                 <div
                   className={clsx(
-                    "text-foreground min-w-[200px] max-w-lg rounded-lg border px-2 py-1.5 shadow-xs",
+                    "shadow-xs min-w-[200px] max-w-lg rounded-lg border px-2 py-1.5 text-foreground",
                     message.position === "right" ? "border-border bg-background" : "border-border bg-background"
                   )}
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <div className="prose dark:prose-dark flex-1 sm:text-sm" dangerouslySetInnerHTML={{ __html: marked(message.data.text) }} />
-                    <div className="text-muted-foreground shrink-0 text-xs">{formatTime(new Date(message.createdAt))}</div>
+                    <div className="prose flex-1 dark:prose-dark sm:text-sm" dangerouslySetInnerHTML={{ __html: marked(message.data.text) }} />
+                    <div className="shrink-0 text-xs text-muted-foreground">{formatTime(new Date(message.createdAt))}</div>
                   </div>
                 </div>
               )}
               <div
                 className={clsx(
-                  "text-foreground group min-w-[200px] max-w-lg rounded-lg border px-2 py-1.5 shadow-xs",
+                  "shadow-xs group min-w-[200px] max-w-lg rounded-lg border px-2 py-1.5 text-foreground",
                   message.position === "right" ? "border-border bg-background" : "border-border bg-background"
                 )}
               >
@@ -102,8 +102,8 @@ export default function Chat({
                   )}
                   {"text" in message.data && !("file" in message.data) && (
                     <div className="flex items-start justify-between gap-2">
-                      <div className="prose dark:prose-dark flex-1 sm:text-sm" dangerouslySetInnerHTML={{ __html: marked(message.data.text) }} />
-                      <div className="text-muted-foreground shrink-0 text-xs">{formatTime(new Date(message.createdAt))}</div>
+                      <div className="prose flex-1 dark:prose-dark sm:text-sm" dangerouslySetInnerHTML={{ __html: marked(message.data.text) }} />
+                      <div className="shrink-0 text-xs text-muted-foreground">{formatTime(new Date(message.createdAt))}</div>
                     </div>
                   )}
                   {"file" in message.data && (
@@ -118,7 +118,7 @@ export default function Chat({
           <div ref={messagesEndRef} />
         </div>
       </div>
-      <div className="border-border bg-secondary sticky bottom-0 w-full border-t p-4">
+      <div className="sticky bottom-0 w-full border-t border-border bg-secondary p-4">
         <div className="relative flex items-center">
           <Input
             disabled={disabled}
@@ -128,7 +128,7 @@ export default function Chat({
             id="message"
             autoComplete="off"
             className={clsx(
-              "bg-background text-foreground placeholder:text-muted-foreground block h-10 w-full rounded-md border-0 py-3 pr-14 shadow-2xs focus:outline-hidden sm:text-sm sm:leading-6",
+              "shadow-2xs focus:outline-hidden block h-10 w-full rounded-md border-0 bg-background py-3 pr-14 text-foreground placeholder:text-muted-foreground sm:text-sm sm:leading-6",
               disabled && "cursor-not-allowed opacity-75"
             )}
             placeholder="Type a message..."
@@ -137,7 +137,7 @@ export default function Chat({
             required
           />
           <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
-            <button type="submit" className="border-border text-muted-foreground inline-flex items-center rounded border px-1 font-sans text-xs">
+            <button type="submit" className="inline-flex items-center rounded border border-border px-1 font-sans text-xs text-muted-foreground">
               <svg className="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                 <path
                   strokeLinecap="round"
@@ -188,7 +188,7 @@ function FileBubble({
               type="button"
               onClick={() => onDownload(file)}
               className={
-                "hover:border-border text-muted-foreground hover:text-foreground flex items-center space-x-1 border-b border-transparent text-xs hover:border-dashed"
+                "flex items-center space-x-1 border-b border-transparent text-xs text-muted-foreground hover:border-dashed hover:border-border hover:text-foreground"
               }
             >
               <div className="font-normal">{file.name}</div>

@@ -73,21 +73,21 @@ export default function RowOverviewHeader({
     confirmDelete.current?.show(t("shared.confirmDelete"), t("shared.delete"), t("shared.cancel"), t("shared.warningCannotUndo"));
   }
   function onDeleteConfirm() {
-    setSubmittingAction('delete');
+    setSubmittingAction("delete");
     startTransition(() => {
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.style.display = 'none';
-      
-      const actionInput = document.createElement('input');
-      actionInput.type = 'hidden';
-      actionInput.name = 'action';
-      actionInput.value = 'delete';
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.style.display = "none";
+
+      const actionInput = document.createElement("input");
+      actionInput.type = "hidden";
+      actionInput.name = "action";
+      actionInput.value = "delete";
       form.appendChild(actionInput);
-      
+
       document.body.appendChild(form);
       form.submit();
-      
+
       // Reset submitting state after form submission
       setTimeout(() => setSubmittingAction(null), 100);
     });
@@ -115,25 +115,25 @@ export default function RowOverviewHeader({
                       onClick={() => {
                         setSubmittingAction(customAction.action);
                         startTransition(() => {
-                          const form = document.createElement('form');
-                          form.method = 'POST';
-                          form.style.display = 'none';
-                          
-                          const actionInput = document.createElement('input');
-                          actionInput.type = 'hidden';
-                          actionInput.name = 'action';
+                          const form = document.createElement("form");
+                          form.method = "POST";
+                          form.style.display = "none";
+
+                          const actionInput = document.createElement("input");
+                          actionInput.type = "hidden";
+                          actionInput.name = "action";
                           actionInput.value = customAction.action;
                           form.appendChild(actionInput);
-                          
-                          const idInput = document.createElement('input');
-                          idInput.type = 'hidden';
-                          idInput.name = 'id';
+
+                          const idInput = document.createElement("input");
+                          idInput.type = "hidden";
+                          idInput.name = "id";
                           idInput.value = item.id;
                           form.appendChild(idInput);
-                          
+
                           document.body.appendChild(form);
                           form.submit();
-                          
+
                           // Reset submitting state after form submission
                           setTimeout(() => setSubmittingAction(null), 100);
                         });

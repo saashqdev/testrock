@@ -44,13 +44,7 @@ export default function PortalsClient({ data }: { data: LoaderData }) {
   return (
     <EditPageLayout
       title={t("models.portal.plural")}
-      buttons={
-        <>
-          {mounted && !data.error && (
-            <ButtonPrimary to={UrlUtils.getModulePath(params, `portals/new`)}>{t("shared.new")}</ButtonPrimary>
-          )}
-        </>
-      }
+      buttons={<>{mounted && !data.error && <ButtonPrimary to={UrlUtils.getModulePath(params, `portals/new`)}>{t("shared.new")}</ButtonPrimary>}</>}
     >
       {mounted && !rootData.appConfiguration.portals?.enabled && (
         <WarningBanner title={t("shared.warning")}>
@@ -58,9 +52,7 @@ export default function PortalsClient({ data }: { data: LoaderData }) {
         </WarningBanner>
       )}
 
-      {data.error && (
-        <ErrorBanner title={t("shared.error")} text={data.error} />
-      )}
+      {data.error && <ErrorBanner title={t("shared.error")} text={data.error} />}
 
       {!data.error && data.items.length === 0 && (
         <EmptyState
@@ -84,11 +76,19 @@ export default function PortalsClient({ data }: { data: LoaderData }) {
                       </div>
                     )}
                     <div className="flex flex-col truncate">
-                      <Link href={UrlUtils.getModulePath(params, `portals/${item.subdomain}`)} className="truncate text-sm font-bold text-gray-800 hover:underline">
+                      <Link
+                        href={UrlUtils.getModulePath(params, `portals/${item.subdomain}`)}
+                        className="truncate text-sm font-bold text-gray-800 hover:underline"
+                      >
                         {item.title}
                       </Link>
                       {item.portalUrl && (
-                        <a href={item.portalUrl} target="_blank" rel="noreferrer" className="flex items-center space-x-1 truncate text-xs text-gray-500 hover:underline">
+                        <a
+                          href={item.portalUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex items-center space-x-1 truncate text-xs text-gray-500 hover:underline"
+                        >
                           <ExternalLinkEmptyIcon className="h-3 w-3" />
                           <div className="truncate">{item.portalUrl}</div>
                         </a>

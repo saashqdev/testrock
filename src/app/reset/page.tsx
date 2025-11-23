@@ -55,7 +55,7 @@ async function resetPasswordAction(prevState: ActionData | null, formData: FormD
 
     const passwordHash = await bcrypt.hash(password, 10);
     await db.users.updateUserPassword({ passwordHash }, user.id);
-    
+
     // Note: EventsService.create expects a request object, but we don't have it in server actions
     // You may need to modify EventsService or skip this event logging
     // await EventsService.create({
@@ -69,7 +69,7 @@ async function resetPasswordAction(prevState: ActionData | null, formData: FormD
     // });
 
     const userInfo = await getUserInfo();
-    
+
     // Create session and redirect (redirect is called internally and throws)
     await createUserSession(
       {
@@ -83,22 +83,18 @@ async function resetPasswordAction(prevState: ActionData | null, formData: FormD
     return null;
   } catch (error: any) {
     console.error("Reset password action error:", error);
-    
+
     // Handle redirect thrown by Next.js - let it propagate
     if (error.digest?.startsWith("NEXT_REDIRECT")) {
       throw error;
     }
-    
+
     return {
       error: error.message || "An error occurred during password reset",
     };
   }
 }
 
-export default function ResetPasswordPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ e?: string; t?: string }>;
-}) {
+export default function ResetPasswordPage({ searchParams }: { searchParams: Promise<{ e?: string; t?: string }> }) {
   return <ResetPasswordForm action={resetPasswordAction} searchParams={searchParams} />;
 }

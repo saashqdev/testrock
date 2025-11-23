@@ -4,7 +4,6 @@ import { db } from "@/db";
 import { Metadata } from "next";
 import FeatureFlagsClient from "./FeatureFlagsClient";
 
-
 type LoaderData = {
   title: string;
   items: FeatureFlagWithEventsDto[];
@@ -27,6 +26,6 @@ async function getData(): Promise<LoaderData> {
 
 export default async function FeatureFlagsPage() {
   const data = await getData();
-  
+
   return <FeatureFlagsClient items={data.items} />;
 }

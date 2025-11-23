@@ -37,7 +37,7 @@ export default function CampaignsNewRoute({ data, action }: CampaignsNewRoutePro
   const [htmlBody, setHtmlBody] = useState(defaultHtmlBody);
   // const [track, setTrack] = useState(true);
 
-  const [selectedContactsViewId, setSelectedContactsViewId] = useState<string>(data.contactsViews.length > 0 ? data.contactsViews[0].view?.id ?? "" : "");
+  const [selectedContactsViewId, setSelectedContactsViewId] = useState<string>(data.contactsViews.length > 0 ? (data.contactsViews[0].view?.id ?? "") : "");
   const [, setSelectedContactsView] = useState<GetEntityViewsWithRows>();
 
   // const [sender, setSender] = useState<EmailSenderWithoutApiKey>();
@@ -104,7 +104,7 @@ export default function CampaignsNewRoute({ data, action }: CampaignsNewRoutePro
 
         <div className="relative space-y-4">
           <div className="sticky left-0 right-0 top-0 z-10">
-            <div className="border-border bg-background rounded-lg border border-dashed p-4">
+            <div className="rounded-lg border border-dashed border-border bg-background p-4">
               <div className="space-y-2 lg:flex lg:justify-between lg:space-x-2 lg:space-y-0">
                 <div className="grow">
                   <InputText name="name" title={t("shared.name")} value={name} setValue={setName} withLabel={false} placeholder="Broadcast name..." required />

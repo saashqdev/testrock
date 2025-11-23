@@ -29,7 +29,7 @@ export default async function EditEntityWebhooksRoute(props: IServerComponentsPr
 
   return (
     <div className="space-y-3">
-      <h3 className="text-foreground text-sm font-medium leading-3">Webhooks</h3>
+      <h3 className="text-sm font-medium leading-3 text-foreground">Webhooks</h3>
       <WebhooksTable items={data.items} showAddButton={true} />
     </div>
   );

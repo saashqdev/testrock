@@ -29,7 +29,7 @@ export default function ContactClient({ data }: ContactClientProps) {
     startTransition(async () => {
       const result = await handleContactAction(formData);
       setActionResult(result);
-      
+
       if (result?.success && formRef.current) {
         formRef.current.reset();
       }
@@ -47,7 +47,7 @@ export default function ContactClient({ data }: ContactClientProps) {
               <div className="relative mx-auto w-full max-w-xl overflow-hidden px-2 py-12 sm:py-6">
                 <div className="text-center">
                   <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{t("front.contact.title")}</h1>
-                  <p className="text-muted-foreground mt-4 text-lg leading-6">{t("front.contact.headline")}</p>
+                  <p className="mt-4 text-lg leading-6 text-muted-foreground">{t("front.contact.headline")}</p>
                 </div>
                 <div className="mt-12">
                   {data.settings.error ? (
@@ -94,59 +94,28 @@ function ContactForm({ isPending }: { isPending: boolean }) {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  
+
   return (
     <div className="mt-9 grid grid-cols-1 gap-x-1 gap-y-4 sm:grid-cols-2 sm:gap-x-4">
       <div>
         <div className="mt-1">
-          <InputText
-            title={t("front.contact.firstName")}
-            required
-            type="text"
-            name="first_name"
-            id="first_name"
-            autoComplete="given-name"
-            defaultValue=""
-          />
+          <InputText title={t("front.contact.firstName")} required type="text" name="first_name" id="first_name" autoComplete="given-name" defaultValue="" />
         </div>
       </div>
       <div>
         <div className="mt-1">
-          <InputText
-            title={t("front.contact.lastName")}
-            type="text"
-            name="last_name"
-            id="last_name"
-            autoComplete="family-name"
-            defaultValue=""
-          />
+          <InputText title={t("front.contact.lastName")} type="text" name="last_name" id="last_name" autoComplete="family-name" defaultValue="" />
         </div>
       </div>
       <div className="sm:col-span-2">
         <div className="mt-1">
-          <InputText
-            title={t("front.contact.email")}
-            required
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            value={email}
-            setValue={setEmail}
-          />
+          <InputText title={t("front.contact.email")} required id="email" name="email" type="email" autoComplete="email" value={email} setValue={setEmail} />
         </div>
       </div>
 
       <div>
         <div className="mt-1">
-          <InputText
-            title={t("front.contact.organization")}
-            type="text"
-            name="company"
-            id="company"
-            autoComplete="organization"
-            defaultValue=""
-          />
+          <InputText title={t("front.contact.organization")} type="text" name="company" id="company" autoComplete="organization" defaultValue="" />
         </div>
       </div>
 
@@ -164,7 +133,7 @@ function ContactForm({ isPending }: { isPending: boolean }) {
       </div>
 
       <fieldset className="sm:col-span-2">
-        <legend className="text-foreground block text-sm font-medium dark:text-slate-500">{t("front.contact.users")}</legend>
+        <legend className="block text-sm font-medium text-foreground dark:text-slate-500">{t("front.contact.users")}</legend>
         <div className="mt-4 grid grid-cols-1 gap-y-4">
           <InputSelect
             name="users"
@@ -180,15 +149,7 @@ function ContactForm({ isPending }: { isPending: boolean }) {
 
       <div className="sm:col-span-2">
         <div className="mt-1">
-          <InputText
-            title={t("front.contact.comments")}
-            required
-            id="comments"
-            name="comments"
-            rows={4}
-            value={message}
-            setValue={setMessage}
-          />
+          <InputText title={t("front.contact.comments")} required id="comments" name="comments" rows={4} value={message} setValue={setMessage} />
         </div>
       </div>
 

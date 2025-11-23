@@ -284,9 +284,9 @@ export async function getAcquiredItemsFromCheckoutSession(session_id: string | n
     return null;
   }
   if (session.status !== "complete") {
-    console.log("[getAcquiredItemsFromCheckoutSession] Session not complete", { 
-      session_id, 
-      status: session.status 
+    console.log("[getAcquiredItemsFromCheckoutSession] Session not complete", {
+      session_id,
+      status: session.status,
     });
     return null;
   }

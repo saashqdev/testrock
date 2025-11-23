@@ -23,7 +23,7 @@ type PageData = {
 
 async function getPageData(props: IServerComponentsProps): Promise<PageData> {
   const params = (await props.params) || {};
-  const request = props.request!;  
+  const request = props.request!;
   const { t } = await getServerTranslations();
   const userInfo = await getUserInfo();
   if (userInfo.lightOrDarkMode === "dark") {
@@ -86,14 +86,14 @@ export default async function PublicRowItemRoute(props: IServerComponentsProps) 
                     <>
                       <div className="text-center">
                         <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{t("shared.unauthorized")}</h1>
-                        <p className="text-muted-foreground mt-4 text-lg leading-6">{error}</p>
+                        <p className="mt-4 text-lg leading-6 text-muted-foreground">{error}</p>
                       </div>
                     </>
                   ) : (
                     <>
                       <div className="text-center">
                         <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{t(publicRowData.rowData.entity.title)}</h1>
-                        <p className="text-muted-foreground mt-4 text-lg leading-6">
+                        <p className="mt-4 text-lg leading-6 text-muted-foreground">
                           {publicRowData.rowData.item?.tenant ? (
                             <div>
                               {publicRowData.rowData.item?.tenant?.name}, {RowHelper.getRowFolio(publicRowData.rowData.entity, publicRowData.rowData.item)}
@@ -104,7 +104,7 @@ export default async function PublicRowItemRoute(props: IServerComponentsProps) 
                         </p>
                       </div>
                       <div className="mt-12">
-                        <div className="border-border bg-secondary space-y-3 border-2 border-dashed p-6">
+                        <div className="space-y-3 border-2 border-dashed border-border bg-secondary p-6">
                           <RowOverviewRoute
                             rowData={publicRowData.rowData}
                             item={publicRowData.rowData.item}

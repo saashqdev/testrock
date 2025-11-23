@@ -7,10 +7,10 @@ import EditPropertyClient from "./EditPropertyClient";
 
 export default async function EditEntityPropertyRoute(props: IServerComponentsProps) {
   const params = (await props.params) || {};
-  
+
   const entity = await db.entities.getEntityBySlug({ tenantId: null, slug: params.entity ?? "" });
   const item = await db.properties.getProperty(params.id ?? "");
-  
+
   if (!item) {
     redirect(UrlUtils.getModulePath(params, `entities/${params.entity}/properties`));
   }

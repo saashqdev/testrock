@@ -51,7 +51,7 @@ export default function FakeProjectClient({ item }: FakeProjectClientProps) {
       ]}
     >
       <div className="flex items-center justify-between space-x-2">
-        <h1 className="text-foreground truncate text-lg font-bold">{item?.name}</h1>
+        <h1 className="truncate text-lg font-bold text-foreground">{item?.name}</h1>
         <ButtonSecondary
           onClick={() => {
             if (searchParams.get("editing")) {
@@ -79,7 +79,7 @@ export default function FakeProjectClient({ item }: FakeProjectClientProps) {
                   const tasks = formData.getAll("tasks[]").map((f) => JSON.parse(f.toString()));
                   const isActive = formData.get("isActive");
                   const active = isActive ? isActive.toString() === "on" || isActive.toString() === "true" : false;
-                  
+
                   return await updateProject(item.id, { name, description, active, tasks });
                 }}
                 canDelete={true}
@@ -88,11 +88,7 @@ export default function FakeProjectClient({ item }: FakeProjectClientProps) {
                 }}
               />
             ) : (
-              <FakeProjectOverview
-                item={item}
-                actionData={actionData}
-                onCompleteTask={(s) => handleCompleteTask(s.id)}
-              />
+              <FakeProjectOverview item={item} actionData={actionData} onCompleteTask={(s) => handleCompleteTask(s.id)} />
             )}
           </div>
         </>

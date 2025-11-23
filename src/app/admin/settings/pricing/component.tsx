@@ -213,7 +213,7 @@ export default function AdminPricingComponent({ data }: { data: AdminPricingLoad
             value: (item) => (
               <>
                 {t(item.title)}{" "}
-                {item.badge && <span className="border-theme-200 bg-theme-50 text-theme-800 ml-1 rounded-md border px-1 py-0.5 text-xs">{t(item.badge)}</span>}
+                {item.badge && <span className="ml-1 rounded-md border border-theme-200 bg-theme-50 px-1 py-0.5 text-xs text-theme-800">{t(item.badge)}</span>}
               </>
             ),
           },

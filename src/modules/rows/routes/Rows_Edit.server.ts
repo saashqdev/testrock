@@ -57,9 +57,7 @@ export const loader = async (props: IServerComponentsProps): Promise<LoaderData>
   const data: LoaderData = {
     meta: [
       {
-        title: `${t("shared.edit")} | ${RowHelper.getTextDescription({ entity, item: rowData.item, t })} | ${t(entity.titlePlural)} | ${
-          process.env.APP_NAME
-        }`,
+        title: `${t("shared.edit")} | ${RowHelper.getTextDescription({ entity, item: rowData.item, t })} | ${t(entity.titlePlural)} | ${process.env.APP_NAME}`,
       },
     ],
     rowData,
@@ -90,7 +88,7 @@ export const action = async (formData: FormData, props?: IServerComponentsProps)
   const entitySlug = formData.get("entity")?.toString() || "";
   const id = formData.get("id")?.toString() || "";
   const extractedParams = { entity: entitySlug, id };
-  
+
   // Get original params for tenant/group info if available
   const originalParams = props ? await props.params : {};
   const fullParams = { ...originalParams, ...extractedParams };
@@ -140,17 +138,18 @@ export const action = async (formData: FormData, props?: IServerComponentsProps)
           message: `${user?.email} updated ${RowHelper.getTextDescription({ entity, item })}`,
           action: {
             title: t("shared.view"),
-            url: EntityHelper.getRoutes({ 
-              routes: getNoCodeRoutes({ 
-                request, 
-                params: { 
-                  tenant: (fullParams as any).tenant, 
-                  group: (fullParams as any).group 
-                } 
-              }), 
-              entity, 
-              item 
-            })?.overview ?? "",
+            url:
+              EntityHelper.getRoutes({
+                routes: getNoCodeRoutes({
+                  request,
+                  params: {
+                    tenant: (fullParams as any).tenant,
+                    group: (fullParams as any).group,
+                  },
+                }),
+                entity,
+                item,
+              })?.overview ?? "",
           },
         },
       });
@@ -206,4 +205,3 @@ export const action = async (formData: FormData, props?: IServerComponentsProps)
     throw new Error(t("shared.invalidForm"));
   }
 };
-

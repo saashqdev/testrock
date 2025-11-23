@@ -64,7 +64,7 @@ export default function CustomCarousel({ items, size = "full" }: Props) {
                   onClick={previousImage}
                   type="button"
                   className={clsx(
-                    "border-theme-500 bg-theme-900 text-theme-300 hover:bg-theme-800 focus:outline-hidden absolute rounded-full border p-2 opacity-90 focus:ring-2 focus:ring-ring focus:ring-offset-0",
+                    "focus:outline-hidden absolute rounded-full border border-theme-500 bg-theme-900 p-2 text-theme-300 opacity-90 hover:bg-theme-800 focus:ring-2 focus:ring-ring focus:ring-offset-0",
                     items.length === 1 && "hidden"
                   )}
                 >
@@ -79,7 +79,7 @@ export default function CustomCarousel({ items, size = "full" }: Props) {
                   onClick={nextImage}
                   type="button"
                   className={clsx(
-                    "border-theme-500 bg-theme-900 text-theme-300 hover:bg-theme-800 focus:outline-hidden absolute rounded-full border p-2 opacity-90 focus:ring-2 focus:ring-ring focus:ring-offset-0",
+                    "focus:outline-hidden absolute rounded-full border border-theme-500 bg-theme-900 p-2 text-theme-300 opacity-90 hover:bg-theme-800 focus:ring-2 focus:ring-ring focus:ring-offset-0",
                     items.length === 1 && "hidden"
                   )}
                 >

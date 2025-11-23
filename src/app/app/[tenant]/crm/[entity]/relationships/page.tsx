@@ -10,7 +10,7 @@ export const loader = (props: IServerComponentsProps) => RowsRelationships.loade
 
 export default async function Page(props: IServerComponentsProps) {
   const response = await RowsRelationships.loader(props);
-  const data = await response.json() as RowsRelationships.LoaderData;
+  const data = (await response.json()) as RowsRelationships.LoaderData;
   return <RowsRelationshipsRoute data={data} />;
 }
 

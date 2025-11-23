@@ -30,8 +30,8 @@ export default function NewSidebarLayout({ layout, children }: Props) {
   }
 
   return (
-      <NewSidebarMenu key={sidebarKey} layout={layout} onOpenCommandPalette={onOpenCommandPalette}>
-        {children}
-      </NewSidebarMenu>
+    <NewSidebarMenu key={sidebarKey} layout={layout} onOpenCommandPalette={onOpenCommandPalette}>
+      {children}
+    </NewSidebarMenu>
   );
 }

@@ -7,10 +7,10 @@ import { headers } from "next/headers";
 export default async function ApiDocsPage() {
   await verifyUserHasPermission("admin.apiKeys.view");
   const headersList = await headers();
-  const request = new Request(process.env.NEXT_PUBLIC_URL || 'http://localhost:3000', {
+  const request = new Request(process.env.NEXT_PUBLIC_URL || "http://localhost:3000", {
     headers: headersList as any,
   });
-  
+
   const apiSpecs = await ApiSpecsService.generateSpecs({ request });
 
   return (

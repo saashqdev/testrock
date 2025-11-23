@@ -20,14 +20,14 @@ type LoaderData = AppLoaderData & {
 
 export const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
-  
+
   // Create Request object from headers (required in Next.js 15 App Router)
   const headersList = await headers();
   const url = headersList.get("x-url") || `http://localhost:3000${headersList.get("x-pathname") || ""}`;
   const request = new Request(url, {
     headers: headersList,
   });
-  
+
   const { time, getServerTimingHeader } = await createMetrics({ request, params }, "subscribe.$tenant.$session.success");
   let { t } = await getServerTranslations();
   const tenantId = await time(getTenantIdFromUrl(params), "getTenantIdFromUrl");
@@ -52,7 +52,7 @@ export const loader = async (props: IServerComponentsProps) => {
     }),
     "persistCheckoutSessionStatus"
   );
-  
+
   const checkoutSession = await time(getAcquiredItemsFromCheckoutSession(params.session ?? ""), "getAcquiredItemsFromCheckoutSession");
 
   const appData = await time(loadAppData({ request, params, t, time }), "loadAppData");
@@ -64,20 +64,20 @@ export const loader = async (props: IServerComponentsProps) => {
 
   // Debug logging
   if (!checkoutSession) {
-    console.log("[Subscribe Success] No checkout session found", { 
-      sessionId: params.session
+    console.log("[Subscribe Success] No checkout session found", {
+      sessionId: params.session,
     });
   }
 
   if (checkoutSession) {
     try {
-      console.log("[Subscribe Success] Processing subscription", { 
+      console.log("[Subscribe Success] Processing subscription", {
         sessionId: params.session,
         products: checkoutSession.products.length,
         tenantId,
-        userId: user.id
+        userId: user.id,
       });
-      
+
       await time(
         addTenantProductsFromCheckoutSession({
           request,
@@ -95,7 +95,7 @@ export const loader = async (props: IServerComponentsProps) => {
           await db.logs.createLog(request, tenantId, "Subscribed", t(product.title ?? ""));
         })
       );
-      
+
       console.log("[Subscribe Success] Subscription processed successfully");
       return data;
       // return redirect(`/subscribe/${params.tenant}/${params.product}/success`);
@@ -105,7 +105,7 @@ export const loader = async (props: IServerComponentsProps) => {
       return { ...data, error: e.message };
     }
   }
-  
+
   return data;
 };
 

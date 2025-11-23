@@ -32,7 +32,7 @@ export default function OnboardingSessionsClient({ data, deleteSession }: Props)
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [actionData, setActionData] = useState<ActionData | null>(null);
-  
+
   const modalConfirmDelete = useRef<RefConfirmModal>(null);
 
   function onDelete(item: OnboardingSessionWithDetailsDto) {
@@ -49,7 +49,7 @@ export default function OnboardingSessionsClient({ data, deleteSession }: Props)
     startTransition(async () => {
       const result = await deleteSession(id);
       setActionData(result);
-      
+
       if (result.success) {
         // Refresh the page data
         router.refresh();
@@ -61,21 +61,11 @@ export default function OnboardingSessionsClient({ data, deleteSession }: Props)
     <div className="mx-auto flex-1 space-y-5 overflow-x-auto px-2 py-2 xl:overflow-y-auto">
       <div className="space-y-3">
         <div className="space-y-2">
-          <h3 className="text-foreground text-sm font-medium leading-3">{t("onboarding.session.plural")}</h3>
-          <p className="text-muted-foreground text-sm">Sessions represent the current state of an onboarding process.</p>
+          <h3 className="text-sm font-medium leading-3 text-foreground">{t("onboarding.session.plural")}</h3>
+          <p className="text-sm text-muted-foreground">Sessions represent the current state of an onboarding process.</p>
         </div>
-        {!data.item.active && (
-          <WarningBanner 
-            title={t("shared.warning")} 
-            text="Current onboarding is not active, sessions will not be created/loaded." 
-          />
-        )}
-        <OnboardingSessionsTable 
-          items={data.items} 
-          withOnboarding={false} 
-          onDelete={onDelete} 
-          metadata={data.metadata} 
-        />
+        {!data.item.active && <WarningBanner title={t("shared.warning")} text="Current onboarding is not active, sessions will not be created/loaded." />}
+        <OnboardingSessionsTable items={data.items} withOnboarding={false} onDelete={onDelete} metadata={data.metadata} />
       </div>
       <ConfirmModal ref={modalConfirmDelete} onYes={onConfirmDelete} />
       <ActionResultModal actionData={actionData} showSuccess={false} />

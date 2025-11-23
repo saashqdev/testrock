@@ -71,7 +71,7 @@ function KanbanColumnCard<T>({ idx, columns, column, items, withTitle }: KanbanC
 
       <div
         className={clsx(
-          "border-border bg-secondary group h-full overflow-x-hidden border-0 border-dashed px-2 py-3",
+          "group h-full overflow-x-hidden border-0 border-dashed border-border bg-secondary px-2 py-3",
           idx === 0 && "border-r-0",
           idx === columns.length && "border-l-0"
         )}
@@ -88,7 +88,7 @@ function KanbanColumnCard<T>({ idx, columns, column, items, withTitle }: KanbanC
 
           {column?.onNewRoute && (
             <Link
-              className="border-border text-muted-foreground hover:bg-background hover:text-foreground/80 flex w-full items-center justify-center space-x-2 rounded-md border p-2 text-center text-xs font-medium"
+              className="flex w-full items-center justify-center space-x-2 rounded-md border border-border p-2 text-center text-xs font-medium text-muted-foreground hover:bg-background hover:text-foreground/80"
               href={column.onNewRoute(column.name)}
             >
               <div>Add</div>

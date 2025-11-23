@@ -14,16 +14,16 @@ export async function deleteAllAnalytics() {
 
 export async function updateSettings(formData: FormData) {
   await verifyUserHasPermission("admin.analytics.view");
-  
+
   let settings = await prisma.analyticsSettings.findFirst({});
   if (!settings) {
-    settings = await prisma.analyticsSettings.create({ 
-      data: { public: false, ignorePages: "/admin/analytics", onlyPages: "" } 
+    settings = await prisma.analyticsSettings.create({
+      data: { public: false, ignorePages: "/admin/analytics", onlyPages: "" },
     });
   }
 
   const action = formData.get("action");
-  
+
   if (action === "set-settings") {
     const isPublicStr = formData.get("public")?.toString() ?? "false";
     const isPublic = isPublicStr === "true";
@@ -42,7 +42,7 @@ export async function updateSettings(formData: FormData) {
     revalidatePath("/admin/analytics/settings");
     return { setSettingsSuccess: true };
   }
-  
+
   if (action === "remove-ignored-page") {
     const ignoredPage = formData.get("ignored-page")?.toString() ?? "";
     let ignorePages = settings.ignorePages.split(",");
@@ -57,6 +57,6 @@ export async function updateSettings(formData: FormData) {
     });
     return { setSettingsSuccess: true };
   }
-  
+
   return { error: "Invalid form" };
 }

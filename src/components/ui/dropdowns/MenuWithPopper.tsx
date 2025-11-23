@@ -42,7 +42,7 @@ export default function MenuWithPopper({ button, options, size = "sm", onClick, 
           leaveFrom="transform scale-100 opacity-100"
           leaveTo="transform scale-95 opacity-0"
         >
-          <Menu.Items className="border-border bg-background divide-border divide-y rounded-md border shadow-lg outline-hidden">
+          <Menu.Items className="outline-hidden divide-y divide-border rounded-md border border-border bg-background shadow-lg">
             <div className="py-1">
               {options.map((item, idx) => {
                 return (
@@ -55,9 +55,9 @@ export default function MenuWithPopper({ button, options, size = "sm", onClick, 
                             type="button"
                             className={clsx(
                               item.className,
-                              "hover:bg-secondary/90 w-full text-left",
+                              "w-full text-left hover:bg-secondary/90",
                               item.disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer",
-                              active ? "text-foreground bg-secondary/90" : "text-foreground/80",
+                              active ? "bg-secondary/90 text-foreground" : "text-foreground/80",
                               "block px-4 py-2 text-sm"
                             )}
                             disabled={item.disabled}
@@ -81,9 +81,9 @@ export default function MenuWithPopper({ button, options, size = "sm", onClick, 
                             }}
                             className={clsx(
                               item.className,
-                              "hover:bg-secondary/90 w-full text-left",
+                              "w-full text-left hover:bg-secondary/90",
                               item.disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer",
-                              active ? "text-foreground bg-secondary/90" : "text-foreground/80",
+                              active ? "bg-secondary/90 text-foreground" : "text-foreground/80",
                               "block px-4 py-2 text-sm"
                             )}
                           >

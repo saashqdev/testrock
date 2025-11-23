@@ -25,7 +25,7 @@ export default function PromptGroupEditClient({ item, actionData, updatePromptGr
     const form = new FormData();
     form.set("action", "delete");
     form.set("id", item.id);
-    
+
     startTransition(async () => {
       await updatePromptGroup(form);
       router.refresh();

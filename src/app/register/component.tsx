@@ -23,7 +23,7 @@ export default function RegisterClient() {
           <>
             <h1 className="text-left text-2xl font-extrabold">{t("account.register.title")}</h1>
             <p className="mt-1 text-center">
-              <Link href="/login" className="text-primary font-medium hover:underline">
+              <Link href="/login" className="font-medium text-primary hover:underline">
                 {t("account.register.clickHereToLogin")}
               </Link>
             </p>

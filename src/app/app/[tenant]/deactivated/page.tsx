@@ -45,11 +45,11 @@ export default async function TenantDeactivatedRoute(props: PageProps) {
             </div>
             <div className="py-16">
               <div className="text-center">
-                <p className="text-muted-foreground text-sm font-semibold uppercase tracking-wide">{currentTenant.name}</p>
+                <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">{currentTenant.name}</p>
                 <h1 className="mt-2 text-2xl font-extrabold tracking-tight sm:text-5xl">{t("shared.deactivated")}</h1>
-                <p className="text-muted-foreground mt-2 text-lg">{currentTenant.deactivatedReason}</p>
+                <p className="mt-2 text-lg text-muted-foreground">{currentTenant.deactivatedReason}</p>
                 <div className="mt-4 flex">
-                  <Link href="." className="text-primary hover:text-primary/90 w-full text-center text-sm font-medium hover:underline">
+                  <Link href="." className="w-full text-center text-sm font-medium text-primary hover:text-primary/90 hover:underline">
                     Reload
                   </Link>
                 </div>

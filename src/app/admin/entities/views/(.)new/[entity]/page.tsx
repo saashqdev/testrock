@@ -29,10 +29,9 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
   return data;
 }
 
-
 export default async function InterceptedNewEntityViewPage(props: IServerComponentsProps) {
   const data = await getData(props);
   const searchParams = (await props.searchParams) || {};
-  
+
   return <NewEntityViewSlideoverWrapper data={data} searchParams={searchParams} />;
 }

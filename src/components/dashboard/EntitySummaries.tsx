@@ -46,7 +46,7 @@ function LatestRows({ rowsData, routes }: { rowsData: GetRowsData; routes: Route
       <div className="flex items-center justify-between space-x-2">
         <div className="flex items-center space-x-2">
           <EntityIcon className="h-5 w-5" icon={rowsData.entity.icon} />
-          <h3 className="text-foreground grow font-medium leading-4">Latest {t(rowsData.entity.titlePlural)}</h3>
+          <h3 className="grow font-medium leading-4 text-foreground">Latest {t(rowsData.entity.titlePlural)}</h3>
         </div>
         {listRoute && <ButtonSecondary to={listRoute}>{t("shared.viewAll")}</ButtonSecondary>}
       </div>

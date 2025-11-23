@@ -30,19 +30,14 @@ export default function RowMediaCell({ media, layout = "table" }: { media: Media
           ?.filter((f) => f.type.includes("image"))
           .map((item) => {
             const src = item.publicUrl ?? item.file;
-            const isDataUrl = src.startsWith('data:');
+            const isDataUrl = src.startsWith("data:");
             return isDataUrl ? (
-              <img 
-                key={item.name} 
-                className={clsx("object-cover", layout === "table" ? "h-10 w-auto" : "h-40 w-auto")} 
-                src={src} 
-                alt={item.name}
-              />
+              <img key={item.name} className={clsx("object-cover", layout === "table" ? "h-10 w-auto" : "h-40 w-auto")} src={src} alt={item.name} />
             ) : (
-              <Image 
-                key={item.name} 
-                className={clsx("object-cover", layout === "table" ? "h-10 w-auto" : "h-40 w-auto")} 
-                src={src} 
+              <Image
+                key={item.name}
+                className={clsx("object-cover", layout === "table" ? "h-10 w-auto" : "h-40 w-auto")}
+                src={src}
                 alt={item.name}
                 width={150}
                 height={150}

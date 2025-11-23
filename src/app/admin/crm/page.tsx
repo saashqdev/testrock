@@ -48,54 +48,54 @@ export default async function CrmIndexPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
   return (
     <div className="mx-auto mb-12 max-w-5xl space-y-5 px-4 py-4 sm:px-6 lg:px-8 xl:max-w-7xl">
-      <div className="border-border border-b pb-5">
-        <h3 className="text-foreground text-lg leading-6 font-medium">{t("shared.overview")}</h3>
+      <div className="border-b border-border pb-5">
+        <h3 className="text-lg font-medium leading-6 text-foreground">{t("shared.overview")}</h3>
       </div>
       <dl className="grid gap-2 sm:grid-cols-4">
         <Link
           href={params.tenant ? `/app/${params.tenant}/crm/companies` : "/admin/crm/companies"}
-          className="hover:bg-secondary bg-background border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs"
+          className="shadow-xs overflow-hidden rounded-lg border border-border bg-background px-4 py-3 hover:bg-secondary"
         >
-          <dt className="text-muted-foreground truncate text-xs font-medium uppercase">Companies</dt>
-          <dd className="text-foreground mt-1 truncate text-2xl font-semibold">{NumberUtils.intFormat(data.summary.companies)}</dd>
+          <dt className="truncate text-xs font-medium uppercase text-muted-foreground">Companies</dt>
+          <dd className="mt-1 truncate text-2xl font-semibold text-foreground">{NumberUtils.intFormat(data.summary.companies)}</dd>
         </Link>
         <Link
           href={params.tenant ? `/app/${params.tenant}/crm/contacts` : "/admin/crm/contacts"}
-          className="hover:bg-secondary bg-background border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs"
+          className="shadow-xs overflow-hidden rounded-lg border border-border bg-background px-4 py-3 hover:bg-secondary"
         >
-          <dt className="text-muted-foreground truncate text-xs font-medium uppercase">Contacts</dt>
-          <dd className="text-foreground mt-1 truncate text-2xl font-semibold">{NumberUtils.intFormat(data.summary.contacts)}</dd>
+          <dt className="truncate text-xs font-medium uppercase text-muted-foreground">Contacts</dt>
+          <dd className="mt-1 truncate text-2xl font-semibold text-foreground">{NumberUtils.intFormat(data.summary.contacts)}</dd>
         </Link>
         <Link
           href={params.tenant ? `/app/${params.tenant}/crm/opportunities` : "/admin/crm/opportunities"}
-          className="hover:bg-secondary bg-background border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs"
+          className="shadow-xs overflow-hidden rounded-lg border border-border bg-background px-4 py-3 hover:bg-secondary"
         >
-          <dt className="text-muted-foreground flex items-center space-x-2 truncate text-xs font-medium uppercase">
+          <dt className="flex items-center space-x-2 truncate text-xs font-medium uppercase text-muted-foreground">
             <ColorBadge color={Colors.GREEN} />
             <div>Opportunities</div>
           </dt>
-          <dd className="text-foreground mt-1 flex items-baseline space-x-1 truncate text-2xl font-semibold">
+          <dd className="mt-1 flex items-baseline space-x-1 truncate text-2xl font-semibold text-foreground">
             <div>${NumberUtils.numberFormat(data.summary.opportunities.value)}</div>
-            <div className="text-muted-foreground text-xs font-normal lowercase">
+            <div className="text-xs font-normal lowercase text-muted-foreground">
               from {NumberUtils.intFormat(data.summary.opportunities.count)} opportunities
             </div>
           </dd>
         </Link>
         <Link
           href={params.tenant ? `/app/${params.tenant}/crm/submissions` : "/admin/crm/submissions"}
-          className="hover:bg-secondary bg-background border-border overflow-hidden rounded-lg border px-4 py-3 shadow-xs"
+          className="shadow-xs overflow-hidden rounded-lg border border-border bg-background px-4 py-3 hover:bg-secondary"
         >
-          <dt className="text-muted-foreground truncate text-xs font-medium uppercase">Submissions</dt>
-          <dd className="text-foreground mt-1 truncate text-2xl font-semibold">{NumberUtils.intFormat(data.summary.submissions)}</dd>
+          <dt className="truncate text-xs font-medium uppercase text-muted-foreground">Submissions</dt>
+          <dd className="mt-1 truncate text-2xl font-semibold text-foreground">{NumberUtils.intFormat(data.summary.submissions)}</dd>
         </Link>
       </dl>
 
       <div className="space-y-2">
         <div className="flex items-center justify-between space-x-2">
-          <h3 className="text-muted-foreground text-sm font-medium">Opportunities</h3>
+          <h3 className="text-sm font-medium text-muted-foreground">Opportunities</h3>
           <Link
             href={params.tenant ? `/app/${params.tenant}/crm/opportunities/new` : `/admin/crm/opportunities/new`}
-            className="text-foreground bg-secondary hover:bg-secondary/90 rounded-full p-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+            className="rounded-full bg-secondary p-1 text-foreground hover:bg-secondary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
           >
             <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
@@ -120,7 +120,7 @@ export default async function CrmIndexPage(props: IServerComponentsProps) {
 
       <div className="space-y-2">
         <div className="flex items-center justify-between space-x-2">
-          <h3 className="text-muted-foreground text-sm font-medium">Submissions</h3>
+          <h3 className="text-sm font-medium text-muted-foreground">Submissions</h3>
         </div>
         {data.submissionEntity ? (
           <RowsList
@@ -138,7 +138,7 @@ export default async function CrmIndexPage(props: IServerComponentsProps) {
             routes={data.routes}
           />
         ) : (
-          <div className="text-muted-foreground text-sm">
+          <div className="text-sm text-muted-foreground">
             Submission entity not found. Please import the CRM entities template from{" "}
             <Link href="/admin/entities/templates/manual" className="underline">
               /admin/entities/templates/manual

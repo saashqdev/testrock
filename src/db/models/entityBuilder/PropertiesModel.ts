@@ -2,24 +2,24 @@ import { Colors } from "@/lib/enums/shared/Colors";
 import { PropertyType } from "@/lib/enums/entities/PropertyType";
 
 export type PropertiesModel = {
-    name: string;
-    id: string;
-    entityId: string;
-    order: number;
-    title: string;
-    type: number;
-    subtype: string | null;
-    isDefault: boolean;
-    isRequired: boolean;
-    isHidden: boolean;
-    isDisplay: boolean;
-    isUnique: boolean;
-    isReadOnly: boolean;
-    showInCreate: boolean;
-    canUpdate: boolean;
-    formulaId: string | null;
-    tenantId: string | null;
-}
+  name: string;
+  id: string;
+  entityId: string;
+  order: number;
+  title: string;
+  type: number;
+  subtype: string | null;
+  isDefault: boolean;
+  isRequired: boolean;
+  isHidden: boolean;
+  isDisplay: boolean;
+  isUnique: boolean;
+  isReadOnly: boolean;
+  showInCreate: boolean;
+  canUpdate: boolean;
+  formulaId: string | null;
+  tenantId: string | null;
+};
 
 export type CreatePropertyDto = {
   name: string;

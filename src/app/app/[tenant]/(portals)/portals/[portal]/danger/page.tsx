@@ -24,13 +24,13 @@ export default async function DangerPage({ params }: Props) {
   const resolvedParams = await params;
   const tenantId = await getTenantIdFromUrl(resolvedParams);
   const item = await db.portals.getPortalById(tenantId, resolvedParams.portal);
-  
+
   if (!item) {
     redirect(UrlUtils.getModulePath(resolvedParams, "portals"));
   }
-  
+
   const portalUrl = PortalServer.getPortalUrl(item);
-  
+
   const data = {
     item: { ...item, portalUrl },
   };

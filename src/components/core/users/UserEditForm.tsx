@@ -63,30 +63,11 @@ export default function UserEditForm({ user, onSuccess, onCancel }: UserEditForm
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <InputText
-        autoFocus
-        type="email"
-        name="email"
-        title={t("models.user.email")}
-        value={email}
-        setValue={setEmail}
-        required
-      />
+      <InputText autoFocus type="email" name="email" title={t("models.user.email")} value={email} setValue={setEmail} required />
 
-      <InputText
-        name="firstName"
-        title={t("models.user.firstName")}
-        value={firstName}
-        setValue={setFirstName}
-        required
-      />
+      <InputText name="firstName" title={t("models.user.firstName")} value={firstName} setValue={setFirstName} required />
 
-      <InputText
-        name="lastName"
-        title={t("models.user.lastName")}
-        value={lastName}
-        setValue={setLastName}
-      />
+      <InputText name="lastName" title={t("models.user.lastName")} value={lastName} setValue={setLastName} />
 
       <InputText
         type="password"

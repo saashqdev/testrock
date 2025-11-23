@@ -21,7 +21,7 @@ type ActionData = {
 function SubmitButton() {
   const { pending } = useFormStatus();
   const { t } = useTranslation();
-  
+
   return (
     <LoadingButton type="submit" disabled={pending} className="w-full">
       {t("account.reset.button")}
@@ -55,24 +55,16 @@ export default function ForgotPasswordForm({ action }: { action: (prevState: Act
           <div className="flex flex-col items-center">
             <div className="text-left text-2xl font-extrabold">{t("account.forgot.title")}</div>
             <div className="mt-1 text-center">
-              <Link href="/login" className="text-primary font-medium hover:underline">
+              <Link href="/login" className="font-medium text-primary hover:underline">
                 {t("account.register.clickHereToLogin")}
               </Link>
             </div>
           </div>
 
-          <div className="border-border mx-auto flex flex-col items-center space-y-6 rounded-lg border p-6">
+          <div className="mx-auto flex flex-col items-center space-y-6 rounded-lg border border-border p-6">
             <form action={formAction} className="w-full space-y-3">
               <div>
-                <InputText
-                  title={t("account.shared.email")}
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="email@address.com"
-                  required
-                  defaultValue=""
-                />
+                <InputText title={t("account.shared.email")} id="email" name="email" type="email" placeholder="email@address.com" required defaultValue="" />
               </div>
               <div className="flex items-center justify-end">
                 <SubmitButton />

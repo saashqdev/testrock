@@ -41,7 +41,7 @@ export default function Component({ items: initialItems, pagination, blacklisted
   const handleDeleteLog = async (id: string) => {
     setSelected((prev) => prev.filter((p) => p.id !== id));
     setItems((prev) => prev.filter((p) => p.id !== id));
-    
+
     startTransition(async () => {
       const result = await deleteLog(id);
       if (result.success) {
@@ -55,7 +55,7 @@ export default function Component({ items: initialItems, pagination, blacklisted
   const handleDeleteLogs = async (ids: string[]) => {
     setSelected([]);
     setItems((prev) => prev.filter((p) => !ids.includes(p.id)));
-    
+
     startTransition(async () => {
       const result = await deleteLogs(ids);
       if (result.success) {
@@ -84,7 +84,7 @@ export default function Component({ items: initialItems, pagination, blacklisted
         <DropdownSimple
           right
           button={
-            <div className="hover:bg-secondary border-border bg-background text-foreground/80 flex items-center space-x-2 rounded-md border px-2 py-1 text-sm">
+            <div className="flex items-center space-x-2 rounded-md border border-border bg-background px-2 py-1 text-sm text-foreground/80 hover:bg-secondary">
               <div>{selected.length} selected</div>
               <DownArrow className="h-4 w-4" />
             </div>
@@ -153,7 +153,7 @@ export default function Component({ items: initialItems, pagination, blacklisted
             value: (i) => (
               <div className="flex flex-col">
                 <div className="font-medium">{i.action}</div>
-                <div className="text-muted-foreground text-xs">{i.description}</div>
+                <div className="text-xs text-muted-foreground">{i.description}</div>
               </div>
             ),
           },
@@ -171,7 +171,7 @@ export default function Component({ items: initialItems, pagination, blacklisted
             title: "Metadata",
             value: (i) => (
               <div className="max-w-xs truncate">
-                {i.metadata ? <ShowPayloadModalButton description={i.metadata} payload={i.metadata} /> : <div className="text-muted-foreground italic">-</div>}
+                {i.metadata ? <ShowPayloadModalButton description={i.metadata} payload={i.metadata} /> : <div className="italic text-muted-foreground">-</div>}
               </div>
             ),
           },

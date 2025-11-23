@@ -9,7 +9,7 @@ export async function actionAdminCookiesSettings(prevState: any, formData: FormD
     await verifyUserHasPermission("admin.settings.cookies.update");
     const { t } = await getServerTranslations();
     const action = formData.get("action");
-    
+
     if (action === "update") {
       await db.appConfiguration.getOrCreateAppConfiguration();
       await db.appConfiguration.updateAppConfiguration({

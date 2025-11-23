@@ -1,7 +1,7 @@
 "use client";
 
 import { LogsModel } from "@/db/models/logs/LogsModel";
-import { RolesModel} from "@/db/models/permissions/RolesModel";
+import { RolesModel } from "@/db/models/permissions/RolesModel";
 import { UsersModel } from "@/db/models/accounts/UsersModel";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -12,11 +12,7 @@ import { UserWithDetailsDto } from "@/db/models/accounts/UsersModel";
 import DateUtils from "@/lib/shared/DateUtils";
 import UserBadge from "./UserBadge";
 import { PaginationDto } from "@/lib/dtos/data/PaginationDto";
-import { 
-  impersonateUser, 
-  changeUserPassword, 
-  deleteUser as deleteUserAction 
-} from "@/app/admin/accounts/users/actions";
+import { impersonateUser, changeUserPassword, deleteUser as deleteUserAction } from "@/app/admin/accounts/users/actions";
 import toast from "react-hot-toast";
 
 interface Props {
@@ -175,16 +171,18 @@ export default function UsersTable({ items, canImpersonate, canChangePassword, c
   function impersonate(user: UserWithDetailsDto) {
     const form = new FormData();
     form.set("user-id", user.id);
-    impersonateUser(user.id).then((result) => {
-      if (result && 'error' in result) {
-        toast.error(result.error);
-      } else {
-        // Redirect will be handled by the server action
-        window.location.reload();
-      }
-    }).catch((error: any) => {
-      toast.error(error.message || "An error occurred");
-    });
+    impersonateUser(user.id)
+      .then((result) => {
+        if (result && "error" in result) {
+          toast.error(result.error);
+        } else {
+          // Redirect will be handled by the server action
+          window.location.reload();
+        }
+      })
+      .catch((error: any) => {
+        toast.error(error.message || "An error occurred");
+      });
   }
   function changePassword(user: UserWithDetailsDto) {
     const password = prompt(t("settings.profile.changePassword") + " - " + user.email);
@@ -192,15 +190,17 @@ export default function UsersTable({ items, canImpersonate, canChangePassword, c
       const form = new FormData();
       form.set("user-id", user.id);
       form.set("password-new", password);
-      changeUserPassword(user.id, password).then((result) => {
-        if (result.error) {
-          toast.error(result.error);
-        } else if (result.success) {
-          toast.success(result.success);
-        }
-      }).catch((error: any) => {
-        toast.error(error.message || "An error occurred");
-      });
+      changeUserPassword(user.id, password)
+        .then((result) => {
+          if (result.error) {
+            toast.error(result.error);
+          } else if (result.success) {
+            toast.success(result.success);
+          }
+        })
+        .catch((error: any) => {
+          toast.error(error.message || "An error occurred");
+        });
     }
   }
   function deleteUser(item: UserWithDetailsDto) {
@@ -212,15 +212,17 @@ export default function UsersTable({ items, canImpersonate, canChangePassword, c
   function confirmDeleteUser(item: UsersModel) {
     const form = new FormData();
     form.set("user-id", item.id);
-    deleteUserAction(item.id).then((result) => {
-      if (result.error) {
-        toast.error(result.error);
-      } else if (result.success) {
-        toast.success(result.success);
-      }
-    }).catch((error: any) => {
-      toast.error(error.message || "An error occurred");
-    });
+    deleteUserAction(item.id)
+      .then((result) => {
+        if (result.error) {
+          toast.error(result.error);
+        } else if (result.success) {
+          toast.success(result.success);
+        }
+      })
+      .catch((error: any) => {
+        toast.error(error.message || "An error occurred");
+      });
   }
 
   return (

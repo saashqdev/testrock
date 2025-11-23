@@ -142,16 +142,16 @@ export default function FeaturesVariantGroups({ item }: { item: FeaturesBlockDto
                                     ) : (
                                       <div className="mr-3 inline-flex shrink-0 items-center justify-start space-x-2">
                                         {item.img && (
-                                              <div>
-                                                {item.img && (item.img.startsWith("<svg") || item.img.startsWith("<div")) ? (
-                                                  <div dangerouslySetInnerHTML={{ __html: item.img.replace("<svg", `<svg class='${" h-5 "}'`) ?? "" }} />
-                                                ) : item.img?.startsWith("http") || item.img?.startsWith("data:image") ? (
-                                                  <Image className="h-6" src={item.img!} alt={item.name ?? ""} />
-                                                ) : (
-                                                  item.img
-                                                )}
-                                              </div>
+                                          <div>
+                                            {item.img && (item.img.startsWith("<svg") || item.img.startsWith("<div")) ? (
+                                              <div dangerouslySetInnerHTML={{ __html: item.img.replace("<svg", `<svg class='${" h-5 "}'`) ?? "" }} />
+                                            ) : item.img?.startsWith("http") || item.img?.startsWith("data:image") ? (
+                                              <Image className="h-6" src={item.img!} alt={item.name ?? ""} />
+                                            ) : (
+                                              item.img
                                             )}
+                                          </div>
+                                        )}
                                       </div>
                                     )}
                                   </div>

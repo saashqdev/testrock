@@ -13,13 +13,13 @@ export async function deleteFormulaLogs(ids: string[]) {
   try {
     // Add permission verification here if needed
     // await verifyUserHasPermission("admin.formulas.delete");
-    
+
     await prisma.formulaLog.deleteMany({
       where: { id: { in: ids } },
     });
 
     revalidatePath("/admin/entities/formulas/logs");
-    
+
     return { success: true };
   } catch (error) {
     console.error("Error deleting formula logs:", error);

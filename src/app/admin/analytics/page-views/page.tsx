@@ -33,7 +33,7 @@ export async function generateMetadata() {
 async function getPageViewsData(props: IServerComponentsProps): Promise<LoaderData> {
   await verifyUserHasPermission("admin.analytics.view");
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
-  
+
   // Handle searchParams - can be a Promise in Next.js 15
   const resolvedSearchParams = props.searchParams ? await Promise.resolve(props.searchParams) : {};
   const urlSearchParams = new URLSearchParams(
@@ -92,7 +92,7 @@ async function getPageViewsData(props: IServerComponentsProps): Promise<LoaderDa
       ],
     });
   }
-  
+
   // Create a mock Request object for the helper function
   const mockRequest = new Request(`http://localhost?${urlSearchParams.toString()}`);
   const filters = getFiltersFromCurrentUrl(mockRequest, filterableProperties);
@@ -132,9 +132,9 @@ async function getPageViewsData(props: IServerComponentsProps): Promise<LoaderDa
     where,
   });
   const totalItems = await prisma.analyticsPageView.count({ where });
-  
+
   // Serialize filterableProperties to ensure only plain data is passed to client
-  const serializedFilterableProperties = filterableProperties.map(prop => ({
+  const serializedFilterableProperties = filterableProperties.map((prop) => ({
     name: prop.name,
     title: prop.title,
     manual: prop.manual,
@@ -145,7 +145,7 @@ async function getPageViewsData(props: IServerComponentsProps): Promise<LoaderDa
     isBoolean: prop.isBoolean,
     hideSearch: prop.hideSearch,
   }));
-  
+
   const data: LoaderData = {
     items,
     filterableProperties: serializedFilterableProperties,
@@ -162,6 +162,6 @@ async function getPageViewsData(props: IServerComponentsProps): Promise<LoaderDa
 
 export default async function AdminAnalyticsPageViewsPage(props: IServerComponentsProps) {
   const data = await getPageViewsData(props);
-  
+
   return <PageViewsClient data={data} portalsConfig={data.portalsConfig} />;
 }

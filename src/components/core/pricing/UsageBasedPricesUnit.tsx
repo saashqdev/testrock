@@ -222,7 +222,7 @@ export default function UsageBasedPricesUnit({ item, onUpdate, disabled }: Props
 
   function addTier() {
     if (allTiers.length === 0) {
-      setAllTiers(updateNewTierLimits([{ id: 'tier-0', from: 0, to: undefined }]));
+      setAllTiers(updateNewTierLimits([{ id: "tier-0", from: 0, to: undefined }]));
     } else {
       const lastTier = allTiers[allTiers.length - 1];
       setAllTiers(

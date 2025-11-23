@@ -58,17 +58,17 @@ export const action = async (props: IServerComponentsProps) => {
     try {
       // Delete existing meta tags and recreate them
       await db.pageMetaTags.deleteMetaTags(page);
-      
+
       // Create all meta tags
       for (const { name, content, order } of metaTags) {
-        await db.pageMetaTags.createMetaTag({ 
-          name, 
-          value: content, 
-          order, 
-          pageId: page?.id || null 
+        await db.pageMetaTags.createMetaTag({
+          name,
+          value: content,
+          order,
+          pageId: page?.id || null,
         });
       }
-      
+
       return Response.json({ success: "Meta tags updated successfully", metaTags });
     } catch (e: any) {
       return Response.json({ error: e.message }, { status: 400 });
@@ -77,4 +77,3 @@ export const action = async (props: IServerComponentsProps) => {
     return Response.json({ error: t("shared.invalidForm") }, { status: 400 });
   }
 };
-

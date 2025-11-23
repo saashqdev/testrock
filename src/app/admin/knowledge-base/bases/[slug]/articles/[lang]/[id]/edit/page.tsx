@@ -18,16 +18,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       slug: resolvedParams.slug,
       request: new Request("http://localhost"),
     });
-    
+
     if (!knowledgeBase) {
       return { title: "Not Found" };
     }
-    
+
     const item = await db.kbArticles.getKbArticleById(resolvedParams.id);
     if (!item) {
       return { title: "Not Found" };
     }
-    
+
     return {
       title: `${t("shared.edit")}: ${item.title} | ${knowledgeBase.title} | ${t("knowledgeBase.title")} | ${process.env.APP_NAME}`,
     };
@@ -36,12 +36,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-
 async function updateArticle(formData: FormData, slug: string, lang: string, id: string) {
   "use server";
-  
+
   await verifyUserHasPermission(null as any, "admin.kb.update");
-  
+
   const action = formData.get("action")?.toString() ?? "";
 
   const item = await db.kbArticles.getKbArticleById(id);
@@ -60,43 +59,30 @@ async function updateArticle(formData: FormData, slug: string, lang: string, id:
 
     redirect(`/admin/knowledge-base/bases/${slug}/articles/${lang}/${id}`);
   }
-  
+
   return { error: "Invalid action" };
 }
 
 export default async function ArticleEditPage({ params }: PageProps) {
   const resolvedParams = await params;
-  
+
   await verifyUserHasPermission(null as any, "admin.kb.view");
-  
+
   const knowledgeBase = await KnowledgeBaseService.get({
     slug: resolvedParams.slug,
     request: new Request("http://localhost"),
   });
-  
+
   if (!knowledgeBase) {
     redirect("/admin/knowledge-base/bases");
   }
-  
+
   const item = await db.kbArticles.getKbArticleById(resolvedParams.id);
   if (!item) {
     redirect(`/admin/knowledge-base/bases/${resolvedParams.slug}/articles`);
   }
 
-  const updateArticleWithParams = updateArticle.bind(
-    null, 
-    {} as FormData, 
-    resolvedParams.slug, 
-    resolvedParams.lang, 
-    resolvedParams.id
-  );
+  const updateArticleWithParams = updateArticle.bind(null, {} as FormData, resolvedParams.slug, resolvedParams.lang, resolvedParams.id);
 
-  return (
-    <ArticleEditClient 
-      knowledgeBase={knowledgeBase}
-      item={item}
-      params={resolvedParams}
-      updateArticle={updateArticleWithParams}
-    />
-  );
+  return <ArticleEditClient knowledgeBase={knowledgeBase} item={item} params={resolvedParams} updateArticle={updateArticleWithParams} />;
 }

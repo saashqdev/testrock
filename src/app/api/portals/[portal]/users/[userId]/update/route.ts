@@ -2,16 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/services/loaders.middleware";
 import { db } from "@/db";
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ portal: string; userId: string }> }
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ portal: string; userId: string }> }) {
   try {
     await requireAuth();
-    
+
     const { portal, userId } = await params;
     const formData = await request.formData();
-    
+
     const firstName = formData.get("firstName")?.toString();
     const lastName = formData.get("lastName")?.toString();
     const avatar = formData.get("avatar")?.toString();

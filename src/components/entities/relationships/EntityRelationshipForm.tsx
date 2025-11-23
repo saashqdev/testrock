@@ -41,10 +41,10 @@ export default function EntityRelationshipForm({ entity, entities, item, onSubmi
 
   const handleSubmit = async (formData: FormData) => {
     if (!onSubmit) return;
-    
+
     setIsLoading(true);
     setError(undefined);
-    
+
     try {
       const result = await onSubmit(formData);
       if (result && result.error) {

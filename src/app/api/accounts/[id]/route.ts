@@ -11,28 +11,28 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   const { id } = await params;
   const { t } = await getServerTranslations();
   const { time, getServerTimingHeader } = await createMetrics({ request, params: { id } }, `[Accounts_API_GET] ${id}`);
-  
+
   invariant(id, "Expected tenant.id");
   const apiKeyFromHeaders = request.headers.get("X-Api-Key") ?? "";
-  
+
   try {
     if (!process.env.API_ACCESS_TOKEN || apiKeyFromHeaders !== process.env.API_ACCESS_TOKEN) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    
+
     const tenantSimple = await time(db.tenants.getTenantByIdOrSlug(id), "getTenant");
     if (!tenantSimple) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
-    
+
     const tenant = await time(db.tenants.getTenant(tenantSimple.id), "getTenant");
     if (!tenant) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
-    
+
     const subscriptions = await getActiveTenantSubscriptions(tenant.id);
     const tenantSettingsEntity = await db.entities.findEntityByName({ tenantId: null, name: "tenantSettings" });
-    
+
     return NextResponse.json(
       {
         success: true,

@@ -56,7 +56,7 @@ export default function PromptBuilderClient({ data }: { data: LoaderData }) {
 
       const result = await response.json();
       setActionData(result);
-      
+
       if (response.ok) {
         startTransition(() => {
           router.refresh();
@@ -111,7 +111,7 @@ export default function PromptBuilderClient({ data }: { data: LoaderData }) {
               }
               options={
                 <div>
-                  <div className="text-muted-foreground bg-secondary block w-full select-none px-4 py-2 text-left text-sm font-medium">
+                  <div className="block w-full select-none bg-secondary px-4 py-2 text-left text-sm font-medium text-muted-foreground">
                     <div>Groups</div>
                   </div>
                   {data.groups.map((f) => {
@@ -119,7 +119,7 @@ export default function PromptBuilderClient({ data }: { data: LoaderData }) {
                       <button
                         key={f.id}
                         type="button"
-                        className="hover:bg-secondary text-muted-foreground block w-full px-4 py-2 text-left text-sm focus:outline-none"
+                        className="block w-full px-4 py-2 text-left text-sm text-muted-foreground hover:bg-secondary focus:outline-none"
                         tabIndex={-1}
                         onClick={() => onCreatePromptFlowInGroup(f)}
                       >
@@ -147,11 +147,7 @@ export default function PromptBuilderClient({ data }: { data: LoaderData }) {
           <div className="flex flex-wrap space-x-1">
             {missingDefaultTemplates().map((prompt) => {
               return (
-                <ButtonSecondary
-                  key={prompt.title}
-                  disabled={submittingPrompt === prompt.title}
-                  onClick={() => onCreateDefault(prompt.title)}
-                >
+                <ButtonSecondary key={prompt.title} disabled={submittingPrompt === prompt.title} onClick={() => onCreateDefault(prompt.title)}>
                   {submittingPrompt === prompt.title ? <span>Creating...</span> : <span>{prompt.title}</span>}
                 </ButtonSecondary>
               );
@@ -191,7 +187,7 @@ export default function PromptBuilderClient({ data }: { data: LoaderData }) {
             value: (i) => (
               <div className="flex flex-col">
                 <div>{OpenAIDefaults.getModelName(i.model)}</div>
-                <div className="text-muted-foreground text-xs font-medium">{OpenAIDefaults.getModelProvider(i.model)}</div>
+                <div className="text-xs font-medium text-muted-foreground">{OpenAIDefaults.getModelProvider(i.model)}</div>
               </div>
             ),
           },
@@ -203,7 +199,7 @@ export default function PromptBuilderClient({ data }: { data: LoaderData }) {
                 {i.inputEntity ? (
                   <div className="flex flex-col">
                     <div>{t(i.inputEntity.title)}</div>
-                    <div className="text-muted-foreground text-xs font-medium">{i.inputEntity.name}</div>
+                    <div className="text-xs font-medium text-muted-foreground">{i.inputEntity.name}</div>
                   </div>
                 ) : (
                   <div>-</div>
@@ -306,7 +302,7 @@ export default function PromptBuilderClient({ data }: { data: LoaderData }) {
         noRecords={
           <div className="p-12 text-center">
             <h3 className="mt-1 text-sm font-medium text-gray-900">{t("prompts.builder.empty.title")}</h3>
-            <p className="text-muted-foreground mt-1 text-sm">{t("prompts.builder.empty.description")}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{t("prompts.builder.empty.description")}</p>
           </div>
         }
       />

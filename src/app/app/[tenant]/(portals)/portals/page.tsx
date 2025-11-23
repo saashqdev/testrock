@@ -46,7 +46,7 @@ async function getData(params: { tenant: string }): Promise<LoaderData> {
   if (!process.env.PORTAL_SERVER_URL) {
     return {
       items: [],
-      error: "Portal server URL is not configured. Please set the PORTAL_SERVER_URL environment variable."
+      error: "Portal server URL is not configured. Please set the PORTAL_SERVER_URL environment variable.",
     };
   }
   const tenantId = await getTenantIdFromUrl(params);
@@ -73,6 +73,6 @@ async function getData(params: { tenant: string }): Promise<LoaderData> {
 export default async function PortalsPage({ params }: Props) {
   const resolvedParams = await params;
   const data = await getData(resolvedParams);
-  
+
   return <PortalsClient data={data} />;
 }

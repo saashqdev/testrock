@@ -18,15 +18,19 @@ type VariablesPageServerProps = {
 
 export default async function VariablesPage(props: VariablesPageServerProps) {
   const params = await props.params;
-  
+
   const item = await db.promptFlows.getPromptFlow(params.id);
   await verifyUserHasPermission("admin.prompts.update");
-  
+
   if (!item) {
     redirect("/admin/prompts/builder");
   }
-  
+
   const items = await db.promptFlowInputVariables.getPromptFlowVariables(item.id);
-  
-  return <VariablesClient item={item} items={items}>{props.children}</VariablesClient>;
+
+  return (
+    <VariablesClient item={item} items={items}>
+      {props.children}
+    </VariablesClient>
+  );
 }

@@ -28,10 +28,10 @@ async function getSummary({ request, params }: { request: Request; params: Param
       });
       items = data.map((x) => {
         // Generate a unique id based on the grouped fields
-        const idParts = groupBy.map((field) => String((x as any)[field] ?? 'null'));
+        const idParts = groupBy.map((field) => String((x as any)[field] ?? "null"));
         return {
           ...x,
-          id: idParts.join('|'),
+          id: idParts.join("|"),
         } as ApiCallSummaryDto;
       });
     } catch (e: any) {

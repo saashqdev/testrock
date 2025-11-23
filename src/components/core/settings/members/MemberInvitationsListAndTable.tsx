@@ -59,20 +59,20 @@ export default function MemberInvitationsListAndTable({ items, canDelete }: Prop
     const form = new FormData();
     form.set("action", "delete-invitation");
     form.set("invitation-id", invitation.id);
-    
+
     // Submit form to current page
-    const formElement = document.createElement('form');
-    formElement.method = 'POST';
-    formElement.style.display = 'none';
-    
+    const formElement = document.createElement("form");
+    formElement.method = "POST";
+    formElement.style.display = "none";
+
     form.forEach((value, key) => {
-      const input = document.createElement('input');
-      input.type = 'hidden';
+      const input = document.createElement("input");
+      input.type = "hidden";
       input.name = key;
       input.value = value.toString();
       formElement.appendChild(input);
     });
-    
+
     document.body.appendChild(formElement);
     formElement.submit();
     document.body.removeChild(formElement);

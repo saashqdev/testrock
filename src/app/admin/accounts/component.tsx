@@ -33,14 +33,7 @@ interface ComponentProps {
   tenantSettingsEntity: EntityWithDetailsDto | null;
 }
 
-export default function Component({
-  items,
-  filterableProperties,
-  pagination,
-  tenantInvoices,
-  isStripeTest,
-  tenantSettingsEntity,
-}: ComponentProps) {
+export default function Component({ items, filterableProperties, pagination, tenantInvoices, isStripeTest, tenantSettingsEntity }: ComponentProps) {
   const appOrAdminData = useAppOrAdminData();
   const { t } = useTranslation();
   const router = useRouter();
@@ -144,13 +137,7 @@ export default function Component({
   );
 }
 
-function CreateTenantForm({
-  tenantSettingsEntity,
-  onSubmit,
-}: {
-  tenantSettingsEntity: EntityWithDetailsDto | null;
-  onSubmit: (formData: FormData) => void;
-}) {
+function CreateTenantForm({ tenantSettingsEntity, onSubmit }: { tenantSettingsEntity: EntityWithDetailsDto | null; onSubmit: (formData: FormData) => void }) {
   const { t } = useTranslation();
 
   const [name, setName] = useState("");

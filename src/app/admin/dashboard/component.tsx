@@ -24,7 +24,7 @@ export default function AdminDashboardComponent({ data }: { data: AdminDashboard
     <main className="relative z-0 flex-1 pb-8">
       {/* Page header */}
       {appOrAdminData?.user && (
-        <div className="bg-background lg:border-border hidden shadow-xs md:block lg:border-t">
+        <div className="shadow-xs hidden bg-background md:block lg:border-t lg:border-border">
           <ProfileBanner user={appOrAdminData.user} />
         </div>
       )}
@@ -33,18 +33,12 @@ export default function AdminDashboardComponent({ data }: { data: AdminDashboard
         {getUserHasPermission(appOrAdminData, "admin.dashboard.view") ? (
           <div className="space-y-5 overflow-hidden">
             {/* Setup Steps */}
-            <div className="overflow-x-auto">
-              {data.setupSteps.filter((f) => !f.completed).length > 0 && (
-                <SetupSteps items={data.setupSteps} />
-              )}
-            </div>
+            <div className="overflow-x-auto">{data.setupSteps.filter((f) => !f.completed).length > 0 && <SetupSteps items={data.setupSteps} />}</div>
 
             {/* Dashboard Summary */}
             <div className="space-y-3 truncate p-1">
               <div className="flex items-center justify-between space-x-2">
-                <h3 className="text-foreground grow font-medium leading-4">
-                  {t("app.dashboard.summary")}
-                </h3>
+                <h3 className="grow font-medium leading-4 text-foreground">{t("app.dashboard.summary")}</h3>
                 <div>
                   <InputSelect
                     className="w-44"
@@ -74,20 +68,14 @@ export default function AdminDashboardComponent({ data }: { data: AdminDashboard
             {/* Tenants Table */}
             <div className="space-y-4 overflow-x-auto p-1">
               <div className="flex items-center justify-between space-x-2">
-                <h3 className="text-foreground font-medium leading-4">
-                  {t("models.tenant.plural")}
-                </h3>
-                <ButtonSecondary to="/admin/accounts">
-                  {t("shared.viewAll")}
-                </ButtonSecondary>
+                <h3 className="font-medium leading-4 text-foreground">{t("models.tenant.plural")}</h3>
+                <ButtonSecondary to="/admin/accounts">{t("shared.viewAll")}</ButtonSecondary>
               </div>
               <TenantsTable items={data.tenants.items} pagination={data.tenants.pagination} />
             </div>
           </div>
         ) : (
-          <div className="font-medium">
-            You don&apos;t have permission to view the dashboard.
-          </div>
+          <div className="font-medium">You don&apos;t have permission to view the dashboard.</div>
         )}
       </div>
     </main>

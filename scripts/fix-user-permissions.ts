@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   const tenantSlug = process.argv[2] || "acme-corp-3";
-  
+
   // Find the tenant
   const tenant = await prisma.tenant.findFirst({
     where: { slug: tenantSlug },
@@ -28,7 +28,7 @@ async function main() {
   console.log(`\n📋 Users in ${tenant.name}:`);
   for (const tu of tenantUsers) {
     console.log(`  - ${tu.user.email} (type: ${tu.type})`);
-    
+
     // Check their roles
     const userRoles = await prisma.userRole.findMany({
       where: {
@@ -48,18 +48,16 @@ async function main() {
       },
     });
 
-    console.log(`    Roles: ${userRoles.map(ur => ur.role.name).join(", ") || "NONE"}`);
-    
-    const hasPermission = userRoles.some(ur => 
-      ur.role.permissions.some(rp => rp.permission.name === "app.settings.members.view")
-    );
-    
+    console.log(`    Roles: ${userRoles.map((ur) => ur.role.name).join(", ") || "NONE"}`);
+
+    const hasPermission = userRoles.some((ur) => ur.role.permissions.some((rp) => rp.permission.name === "app.settings.members.view"));
+
     console.log(`    Has members.view permission: ${hasPermission ? "✅" : "❌"}`);
 
     // If user has no roles, assign Admin role
     if (userRoles.length === 0) {
       console.log(`    ⚠️ User has no roles! Fixing...`);
-      
+
       // Get Admin role
       const adminRole = await prisma.role.findFirst({
         where: { name: "Admin", type: "app" },
@@ -74,7 +72,7 @@ async function main() {
           },
         });
         console.log(`    ✅ Assigned Admin role`);
-        
+
         // Also upgrade to ADMIN type
         await prisma.tenantUser.update({
           where: {

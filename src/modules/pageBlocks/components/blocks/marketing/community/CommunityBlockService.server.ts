@@ -8,4 +8,3 @@ export async function load({ block }: PageBlockLoaderArgs) {
   // }
   return undefined;
 }
-

@@ -60,11 +60,11 @@ export function EntityGroupForm({
 
   async function handleSubmit(formData: FormData) {
     if (!item?.id) return;
-    
+
     setIsSubmitting(true);
     setError(undefined);
     setSuccess(undefined);
-    
+
     try {
       const result = await updateEntityGroupAction(item.id, formData);
       if (result?.error) {
@@ -80,11 +80,11 @@ export function EntityGroupForm({
 
   async function handleDelete() {
     if (!item?.id) return;
-    
+
     setIsSubmitting(true);
     setError(undefined);
     setSuccess(undefined);
-    
+
     try {
       const result = await deleteEntityGroupAction(item.id);
       if (result?.success) {

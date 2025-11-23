@@ -15,7 +15,7 @@ export default function Component({ user }: ComponentProps) {
     <div>
       <HeaderBlock />
       <div className="mx-auto max-w-5xl space-y-5 px-4">
-        <div className="border-border border-b pb-5">
+        <div className="border-b border-border pb-5">
           {/* <h3 className="text-xl font-semibold leading-6 text-foreground">Settings</h3> */}
           <Tabs
             tabs={[

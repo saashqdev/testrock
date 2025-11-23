@@ -6,7 +6,7 @@ import { db } from "@/db";
 export async function POST(request: NextRequest) {
   try {
     await verifyUserHasPermission("admin.kb.update");
-    
+
     const formData = await request.formData();
     const id = formData.get("id")?.toString() ?? "";
     const enabled = formData.get("enabled")?.toString() === "true";

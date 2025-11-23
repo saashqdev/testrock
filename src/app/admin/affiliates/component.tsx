@@ -18,7 +18,7 @@ export default function ({ data }: { data: AffiliatesLoaderData }) {
           <ol className="space-y-2">
             <li>
               1. Create a Rewardful account (use{" "}
-              <a href="https://www.rewardful.com/?via=NextRock" target="_blank" rel="noreferrer" className=" font-bold text-blue-600 underline">
+              <a href="https://www.rewardful.com/?via=NextRock" target="_blank" rel="noreferrer" className="font-bold text-blue-600 underline">
                 NextRock&apos;s link
               </a>{" "}
               and get a discount).

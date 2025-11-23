@@ -23,13 +23,7 @@ type ArticleClientComponentProps = {
   togglePublishAction: (formData: FormData) => Promise<{ error?: string; success?: boolean }>;
 };
 
-export default function ArticleClientComponent({
-  data,
-  slug,
-  lang,
-  id,
-  togglePublishAction,
-}: ArticleClientComponentProps) {
+export default function ArticleClientComponent({ data, slug, lang, id, togglePublishAction }: ArticleClientComponentProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -44,7 +38,7 @@ export default function ArticleClientComponent({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    
+
     startTransition(async () => {
       const result = await togglePublishAction(formData);
       if (result.error) {

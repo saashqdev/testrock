@@ -78,7 +78,7 @@ export default function Component({ adminRoles }: ComponentProps) {
 
           <div>
             <label className="mb-1 flex justify-between space-x-2 truncate text-xs font-medium">{t("models.role.plural")}</label>
-            <div className="border-border bg-background divide-border divide-y rounded-md border px-2 py-1">
+            <div className="divide-y divide-border rounded-md border border-border bg-background px-2 py-1">
               {adminRoles?.map((role) => (
                 <InputCheckboxWithDescription
                   key={role.name}

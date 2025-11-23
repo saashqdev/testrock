@@ -98,4 +98,3 @@ export const action = async (props: IServerComponentsProps) => {
   }
   return Response.json({ error: "Invalid action" }, { status: 400 });
 };
-

@@ -51,17 +51,17 @@ export default function Component({ t, items }: ComponentProps) {
               </svg>
             </div> */}
             <div className="space-y-3">
-              <h3 className=" text-lg font-bold">{t("admin.setup.headline")}</h3>
+              <h3 className="text-lg font-bold">{t("admin.setup.headline")}</h3>
               <p className="text-muted-foreground">{t("admin.setup.description")}</p>
-              <ul className=" space-y-4">
+              <ul className="space-y-4">
                 {items.map((item, idx) => {
                   return (
-                    <li key={idx} className="border-border bg-background space-y-3 rounded-lg border p-4">
+                    <li key={idx} className="space-y-3 rounded-lg border border-border bg-background p-4">
                       <div className="flex items-center space-x-2">
                         {!item.completed ? (
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="border-border h-6 w-6 rounded-full border text-gray-300"
+                            className="h-6 w-6 rounded-full border border-border text-gray-300"
                             viewBox="0 0 20 20"
                             fill="currentColor"
                           >
@@ -81,9 +81,9 @@ export default function Component({ t, items }: ComponentProps) {
                             />
                           </svg>
                         )}
-                        <div className=" font-medium">{item.title}</div>
+                        <div className="font-medium">{item.title}</div>
                       </div>
-                      <p className=" text-sm">{item.description}</p>
+                      <p className="text-sm">{item.description}</p>
                       <ButtonSecondary to={item.path} className="mt-3">
                         {item.completed ? t("app.sidebar.setup") : `${t("shared.goTo")} ` + item.title.toLowerCase()} &rarr;
                       </ButtonSecondary>

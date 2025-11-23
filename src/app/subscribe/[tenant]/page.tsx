@@ -30,26 +30,26 @@ export const loader = async (props: IServerComponentsProps) => {
   const params = (await props.params) || {};
   const searchParams = (await props.searchParams) || {};
   const { t } = await getServerTranslations();
-  
+
   // Check if tenant slug exists
   if (!params.tenant) {
     throw redirect(`/app`);
   }
-  
+
   const tenantId = await getTenantIdFromUrl(params);
-  
+
   // If tenant not found, getTenantIdFromUrl returns empty string
   if (!tenantId) {
     throw redirect(`/app`);
   }
-  
+
   const userInfo = await getUserInfo();
 
   const user = await db.users.getUser(userInfo.userId);
   if (!user) {
     throw redirect(`/login`);
   }
-  
+
   const tenant = await db.tenants.getTenant(tenantId);
   if (!tenant) {
     throw redirect(`/app`);
@@ -60,13 +60,11 @@ export const loader = async (props: IServerComponentsProps) => {
   const host = headersList.get("host") || "localhost:3000";
   const protocol = headersList.get("x-forwarded-proto") || "http";
   const pathname = headersList.get("x-pathname") || `/subscribe/${params.tenant}`;
-  const searchString = Object.keys(searchParams).length > 0 
-    ? "?" + new URLSearchParams(searchParams as Record<string, string>).toString()
-    : "";
+  const searchString = Object.keys(searchParams).length > 0 ? "?" + new URLSearchParams(searchParams as Record<string, string>).toString() : "";
   const mockRequest = new Request(`${protocol}://${host}${pathname}${searchString}`);
   const appData = await loadAppData({ request: mockRequest, params, t });
   let items = await db.subscriptionProducts.getAllSubscriptionProducts(true);
-  const planParam = typeof searchParams.plan === 'string' ? searchParams.plan : undefined;
+  const planParam = typeof searchParams.plan === "string" ? searchParams.plan : undefined;
   if (planParam) {
     const filteredItemsRaw = await db.subscriptionProducts.getSubscriptionProductsInIds([planParam]);
     items = filteredItemsRaw.map((item: any) => ({
@@ -78,7 +76,7 @@ export const loader = async (props: IServerComponentsProps) => {
     }));
   }
 
-  const couponParam = typeof searchParams.coupon === 'string' ? searchParams.coupon : undefined;
+  const couponParam = typeof searchParams.coupon === "string" ? searchParams.coupon : undefined;
   let coupon: { error?: string; stripeCoupon?: Stripe.Coupon | null } | undefined = undefined;
   if (couponParam) {
     try {
@@ -106,7 +104,11 @@ export const loader = async (props: IServerComponentsProps) => {
     ...appData,
     items,
     coupon,
-    currenciesAndPeriod: getCurrenciesAndPeriods(items.flatMap((f) => f.prices), defaultCurrency, defaultBillingPeriod),
+    currenciesAndPeriod: getCurrenciesAndPeriods(
+      items.flatMap((f) => f.prices),
+      defaultCurrency,
+      defaultBillingPeriod
+    ),
   };
   return data;
 };

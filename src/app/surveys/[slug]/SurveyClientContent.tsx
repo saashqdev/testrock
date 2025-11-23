@@ -46,7 +46,7 @@ export function SurveyClientContent({ data }: { data: LoaderData }) {
               ]}
             />
             <div className="flex flex-col items-center justify-between space-y-2 md:flex-row md:space-x-2 md:space-y-0">
-              <h1 className="mt-2 text-3xl font-extrabold tracking-tight  sm:text-4xl">
+              <h1 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">
                 {t("surveys.object")}: {data.item.title}
               </h1>
               {rootData.user?.admin && (
@@ -55,7 +55,7 @@ export function SurveyClientContent({ data }: { data: LoaderData }) {
                 </div>
               )}
             </div>
-            <p className="text-muted-foreground mt-2 text-base">{data.item.description}</p>
+            <p className="mt-2 text-base text-muted-foreground">{data.item.description}</p>
           </div>
         </div>
       </div>
@@ -154,7 +154,7 @@ function SurveyGroup({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className={clsx("border-border grid grid-cols-1 gap-6 pt-4")}>
+      <div className={clsx("grid grid-cols-1 gap-6 border-border pt-4")}>
         {survey.items.map((item, idx) => {
           const value = results.find((r) => r.item === item.title) || {
             item: item.title,
@@ -247,14 +247,14 @@ function SurveyItem({
           <div className="flex h-9 items-center">
             <h3 className="line-clamp-1 text-base font-semibold">{item.title}</h3>
             {item.href && (
-              <Link href={item.href} target="_blank" className="hover:bg-secondary ml-1 rounded-md p-2">
+              <Link href={item.href} target="_blank" className="ml-1 rounded-md p-2 hover:bg-secondary">
                 <ExternalLinkEmptyIcon className="h-4 w-4" />
               </Link>
             )}
             {item.categories && (
               <div className="ml-2 flex flex-wrap items-center gap-2">
                 {item.categories.map((category, idx) => (
-                  <span key={idx} className="text-muted-foreground bg-secondary rounded-md px-2 py-1 text-xs">
+                  <span key={idx} className="rounded-md bg-secondary px-2 py-1 text-xs text-muted-foreground">
                     {category}
                   </span>
                 ))}
@@ -262,9 +262,9 @@ function SurveyItem({
             )}
           </div>
         </div>
-        {item.description && !survey.results && <p className="text-muted-foreground text-sm">{item.description}</p>}
+        {item.description && !survey.results && <p className="text-sm text-muted-foreground">{item.description}</p>}
       </div>
-      <div className={clsx(item.style === "default" && "bg-background border-border rounded-md border p-5", disabled && " opacity-90")}>
+      <div className={clsx(item.style === "default" && "rounded-md border border-border bg-background p-5", disabled && "opacity-90")}>
         {itemResults ? (
           <BarChart
             className="h-40"
@@ -286,9 +286,9 @@ function SurveyItem({
               {item.options.map((option, idx) => (
                 <div
                   key={idx}
-                  className={clsx("flex flex-wrap items-center gap-3", item.style === "grid" && "bg-background border-border rounded-md border px-5 py-3")}
+                  className={clsx("flex flex-wrap items-center gap-3", item.style === "grid" && "rounded-md border border-border bg-background px-5 py-3")}
                 >
-                  <label key={idx} className={clsx("flex select-none items-center space-x-2", disabled ? " cursor-not-allowed " : "cursor-pointer")}>
+                  <label key={idx} className={clsx("flex select-none items-center space-x-2", disabled ? "cursor-not-allowed" : "cursor-pointer")}>
                     {item.type === "multi-select" ? (
                       <Checkbox
                         name={item.title}
@@ -328,8 +328,8 @@ function SurveyItem({
                         disabled
                           ? ""
                           : value.values.includes(option.title)
-                          ? "bg-secondary hover:bg-secondary/90 text-secondary-foreground"
-                          : "bg-background text-foreground",
+                            ? "bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                            : "bg-background text-foreground",
                         disabled && "cursor-not-allowed opacity-50"
                       )}
                     >

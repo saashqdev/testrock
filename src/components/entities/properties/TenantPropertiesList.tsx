@@ -39,13 +39,13 @@ export default function TenantPropertiesList({ tenantId, items, className }: Pro
     const formData = new FormData();
     formData.set("action", action);
     formData.set("id", id);
-    
+
     try {
       const response = await fetch(window.location.pathname, {
         method: "POST",
         body: formData,
       });
-      
+
       if (response.ok) {
         router.refresh();
       }
@@ -62,11 +62,11 @@ export default function TenantPropertiesList({ tenantId, items, className }: Pro
   function confirmedDelete(item: PropertiesModel) {
     submitAction("delete", item.id);
   }
-  
+
   function onToggleDisplay(item: PropertiesModel) {
     submitAction("toggle-display", item.id);
   }
-  
+
   function onDuplicate(item: PropertiesModel) {
     submitAction("duplicate", item.id);
   }

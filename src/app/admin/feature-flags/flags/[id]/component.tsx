@@ -38,7 +38,7 @@ export default function Component({ data, id }: ComponentProps) {
       const form = new FormData();
       form.set("action", "delete");
       const result = await handleFeatureFlagAction(form, id);
-      
+
       if (result?.error) {
         toast.error(result.error);
       }

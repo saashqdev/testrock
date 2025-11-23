@@ -17,7 +17,7 @@ import { db } from "@/db";
 export const generateMetadata = async ({ params }: { params: any }): Promise<Metadata> => {
   const tenantId = await getTenantIdOrNull({ request: {} as Request, params });
   const item = await db.blog.getBlogPost({ tenantId, idOrSlug: params.id ?? "" });
-  
+
   return getMetaTags({
     title: item ? `${item.title} | Blog | ${process.env.APP_NAME}` : `Blog | ${process.env.APP_NAME}`,
     description: item?.description || undefined,
@@ -101,7 +101,7 @@ export const action = async ({ request, params }: { request: Request; params: an
         content,
         readingTime,
         published,
-        categoryId: categoryId.length ? categoryId : category?.id ?? null,
+        categoryId: categoryId.length ? categoryId : (category?.id ?? null),
         tagNames: tags.split(",").filter((f: string) => f.trim() != ""),
         contentType,
         authorId,
@@ -125,4 +125,3 @@ export const action = async ({ request, params }: { request: Request; params: an
     return Response.json({ error: t("shared.invalidForm") }, { status: 400 });
   }
 };
-

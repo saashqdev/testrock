@@ -113,7 +113,7 @@ const InputDate = (
   return (
     <div className={clsx(className, !darkMode && "")}>
       <label htmlFor={name} className="flex justify-between space-x-2 text-xs font-medium">
-        <div className=" flex items-center space-x-1">
+        <div className="flex items-center space-x-1">
           <div className="truncate">
             {title}
             {required && <span className="ml-1 text-red-500">*</span>}
@@ -146,7 +146,7 @@ const InputDate = (
             disabled={disabled || readOnly}
             readOnly={readOnly}
             autoFocus={autoFocus}
-            className={cn((disabled || readOnly) && "bg-secondary/90 cursor-not-allowed", icon && "pl-10", classNameInput)}
+            className={cn((disabled || readOnly) && "cursor-not-allowed bg-secondary/90", icon && "pl-10", classNameInput)}
           />
         )}
         {display === "calendar" && (

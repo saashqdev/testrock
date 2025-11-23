@@ -125,8 +125,8 @@ function RowsList(props: Props & { entity: EntityWithDetailsDto | string }) {
       return entityId !== prevId ? entity : prev;
     });
     setColumns((prev) => {
-      const columnsStr = JSON.stringify(columns.map(c => c.name));
-      const prevStr = JSON.stringify(prev.map(c => c.name));
+      const columnsStr = JSON.stringify(columns.map((c) => c.name));
+      const prevStr = JSON.stringify(prev.map((c) => c.name));
       return columnsStr !== prevStr ? columns : prev;
     });
     setGroupBy((prev) => {
@@ -136,11 +136,11 @@ function RowsList(props: Props & { entity: EntityWithDetailsDto | string }) {
     });
   }, [
     // Only depend on the specific props that matter, not objects
-    typeof props.entity === 'string' ? props.entity : props.entity.id,
+    typeof props.entity === "string" ? props.entity : props.entity.id,
     props.currentView?.id,
     props.view,
     JSON.stringify(props.ignoreColumns),
-    props.columns ? JSON.stringify(props.columns.map(c => c.name)) : undefined,
+    props.columns ? JSON.stringify(props.columns.map((c) => c.name)) : undefined,
     // Don't depend on appOrAdminData - just use it inside the effect
   ]);
 
@@ -179,7 +179,7 @@ function RowsListWrapped({
   const { t } = useTranslation();
   const params = useParams();
   const appOrAdminData = useAppOrAdminData();
-  
+
   // Get allEntities only when actually needed (memoized based on stable reference)
   const allEntities = useMemo(() => {
     // Only recreate if the entities array reference actually changed content-wise
@@ -206,9 +206,7 @@ function RowsListWrapped({
             onNewRoute: (columnValue: string) => {
               const entityRoutes = EntityHelper.getRoutes({ routes, entity });
               const newRoute = entityRoutes?.new;
-              const finalUrl = newRoute && propertyName 
-                ? `${newRoute}?${propertyName}=${encodeURIComponent(columnValue)}`
-                : (newRoute ?? "");
+              const finalUrl = newRoute && propertyName ? `${newRoute}?${propertyName}=${encodeURIComponent(columnValue)}` : (newRoute ?? "");
               return finalUrl;
             },
           };
@@ -334,7 +332,11 @@ function RowsListWrapped({
           )} */}
               <GridContainer {...(currentView ? EntityViewHelper.getGridLayout(currentView) : { columns: 3, gap: "xs" })}>
                 {items.map((item) => {
-                  const href = readOnly ? undefined : (onClickRoute ? onClickRoute(item) : EntityHelper.getRoutes({ routes, entity, item })?.overview ?? undefined);
+                  const href = readOnly
+                    ? undefined
+                    : onClickRoute
+                      ? onClickRoute(item)
+                      : (EntityHelper.getRoutes({ routes, entity, item })?.overview ?? undefined);
                   if (onSelected && selectedRows !== undefined) {
                     return (
                       <ButtonSelectWrapper key={item.id} item={item} onSelected={onSelected} selectedRows={selectedRows}>
@@ -427,7 +429,11 @@ function RowsListWrapped({
                     </ButtonSelectWrapper>
                   );
                 }
-                const href = readOnly ? undefined : (onClickRoute ? onClickRoute(item) : EntityHelper.getRoutes({ routes, entity, item })?.overview ?? undefined);
+                const href = readOnly
+                  ? undefined
+                  : onClickRoute
+                    ? onClickRoute(item)
+                    : (EntityHelper.getRoutes({ routes, entity, item })?.overview ?? undefined);
                 const card = (
                   <div className={clsx(className, "group relative rounded-md text-left", href && "hover:bg-secondary")}>
                     <div className={className}>
@@ -446,7 +452,11 @@ function RowsListWrapped({
                   </div>
                 );
                 return href ? (
-                  <Link href={appOrAdminData ? `${EntityHelper.getEntityRoute({ entity, params, appOrAdminData })}/${item.id}` : `#`} key={item.id} className="group relative">
+                  <Link
+                    href={appOrAdminData ? `${EntityHelper.getEntityRoute({ entity, params, appOrAdminData })}/${item.id}` : `#`}
+                    key={item.id}
+                    className="group relative"
+                  >
                     {/* <RowLinkButton entityName={entity.name} id={item.id} /> */}
                     {card}
                   </Link>
@@ -455,7 +465,9 @@ function RowsListWrapped({
                 );
               })}
               {items.length === 0 ? (
-                <Fragment key="empty-state">{readOnly ? <EmptyCard className="w-full" /> : <AddMoreCard className="w-64" entity={entity} routes={routes} />}</Fragment>
+                <Fragment key="empty-state">
+                  {readOnly ? <EmptyCard className="w-full" /> : <AddMoreCard className="w-64" entity={entity} routes={routes} />}
+                </Fragment>
               ) : (
                 <Fragment key="additional-cards">
                   {!readOnly && <AddMoreCard key="add-more" className="w-64" entity={entity} routes={routes} />}
@@ -599,11 +611,11 @@ export default memo(RowsList, (prevProps, nextProps) => {
       if (prevProps.items[i].id !== nextProps.items[i].id) return false;
     }
   }
-  
+
   // Check entity
-  const prevEntityId = typeof prevProps.entity === 'string' ? prevProps.entity : prevProps.entity.id;
-  const nextEntityId = typeof nextProps.entity === 'string' ? nextProps.entity : nextProps.entity.id;
-  
+  const prevEntityId = typeof prevProps.entity === "string" ? prevProps.entity : prevProps.entity.id;
+  const nextEntityId = typeof nextProps.entity === "string" ? nextProps.entity : nextProps.entity.id;
+
   // Return true to skip re-render if all props are equal
   return (
     prevEntityId === nextEntityId &&

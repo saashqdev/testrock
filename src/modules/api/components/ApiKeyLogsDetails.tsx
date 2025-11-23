@@ -41,23 +41,23 @@ export default function ApiKeyLogsDetails({ data }: Props) {
   const canDelete = !params.tenant;
 
   const [selectedRows, setSelectedRows] = useState<ApiKeyLogDto[]>([]);
-  
+
   const onDelete = async (ids: string[]) => {
     if (!canDelete) {
       return;
     }
-    
+
     startTransition(async () => {
       try {
         const form = new FormData();
         form.set("action", "delete");
         form.set("ids", ids.join(","));
-        
+
         const response = await fetch("/api/admin/api-logs", {
           method: "POST",
           body: form,
         });
-        
+
         if (response.ok) {
           // Refresh the page to show updated data
           router.refresh();
@@ -85,10 +85,7 @@ export default function ApiKeyLogsDetails({ data }: Props) {
             Delete {selectedRows.length}
           </ButtonSecondary>
         )}
-        <ButtonSecondary 
-          onClick={() => startTransition(() => router.refresh())} 
-          isLoading={isPending}
-        >
+        <ButtonSecondary onClick={() => startTransition(() => router.refresh())} isLoading={isPending}>
           <RefreshIcon className="h-4 w-4" />
         </ButtonSecondary>
         <InputFilters filters={data.filterableProperties} />
@@ -113,7 +110,7 @@ export default function ApiKeyLogsDetails({ data }: Props) {
             title: t("shared.createdAt"),
             value: (item) => DateUtils.dateYMDHMS(item.createdAt),
             formattedValue: (item) => (
-              <div className="text-muted-foreground text-xs">{item.createdAt && <span>{DateUtils.dateYMDHMS(item.createdAt)}</span>}</div>
+              <div className="text-xs text-muted-foreground">{item.createdAt && <span>{DateUtils.dateYMDHMS(item.createdAt)}</span>}</div>
             ),
           },
           {
@@ -175,7 +172,7 @@ export default function ApiKeyLogsDetails({ data }: Props) {
             title: "Duration",
             value: (item) =>
               item.duration === null ? (
-                <span className="text-muted-foreground text-xs italic">-</span>
+                <span className="text-xs italic text-muted-foreground">-</span>
               ) : (
                 <div>{NumberUtils.custom(Number(item.duration), "0,0.001")} ms</div>
               ),
@@ -184,14 +181,14 @@ export default function ApiKeyLogsDetails({ data }: Props) {
             name: "speed",
             title: "Speed",
             value: (item) =>
-              item.duration === null ? <span className="text-muted-foreground text-xs italic">-</span> : <ApiCallSpeedBadge duration={Number(item.duration)} />,
+              item.duration === null ? <span className="text-xs italic text-muted-foreground">-</span> : <ApiCallSpeedBadge duration={Number(item.duration)} />,
           },
           {
             name: "params",
             title: t("models.apiKeyLog.params"),
             value: (item) =>
               item.params === "{}" ? (
-                <span className="text-muted-foreground text-xs italic">-</span>
+                <span className="text-xs italic text-muted-foreground">-</span>
               ) : (
                 <ShowPayloadModalButton description={item.params} payload={item.params} />
               ),

@@ -4,12 +4,12 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export default async function CampaignsNewPage(props: IServerComponentsProps) {
   const data = await loader(props);
-  
+
   async function submitAction(prev: any, formData: FormData): Promise<ActionData> {
     "use server";
-    const request = new Request("http://localhost", { 
-      method: "POST", 
-      body: formData 
+    const request = new Request("http://localhost", {
+      method: "POST",
+      body: formData,
     });
     const response = await action({ ...props, request });
     if (response instanceof Response) {
@@ -17,6 +17,6 @@ export default async function CampaignsNewPage(props: IServerComponentsProps) {
     }
     return response as ActionData;
   }
-  
+
   return <CampaignsNewRoute data={data} action={submitAction} />;
 }

@@ -42,13 +42,13 @@ export default function RowNewRoute({ showBreadcrumb = true, className, data: in
           setLoading(true);
           const response = await fetch(`/api/rows/${params.entity}/new`);
           if (!response.ok) {
-            throw new Error('Failed to fetch data');
+            throw new Error("Failed to fetch data");
           }
           const fetchedData = await response.json();
           setData(fetchedData);
         } catch (error) {
-          console.error('Error fetching data:', error);
-          toast.error('Failed to load page data');
+          console.error("Error fetching data:", error);
+          toast.error("Failed to load page data");
         } finally {
           setLoading(false);
         }
@@ -61,26 +61,26 @@ export default function RowNewRoute({ showBreadcrumb = true, className, data: in
   const handleFormSubmit = async (formData: FormData) => {
     try {
       const response = await fetch(`/api/rows/${params.entity}/new`, {
-        method: 'POST',
+        method: "POST",
         body: formData,
       });
-      
+
       if (!response.ok) {
         const errorData = await response.json();
-        setActionData({ error: errorData.error || 'Something went wrong' });
+        setActionData({ error: errorData.error || "Something went wrong" });
         return;
       }
-      
+
       const result = await response.json();
       setActionData(result);
-      
+
       // Handle redirects based on response
       if (result.redirect) {
         router.push(result.redirect);
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
-      setActionData({ error: 'Failed to submit form' });
+      console.error("Error submitting form:", error);
+      setActionData({ error: "Failed to submit form" });
     }
   };
 
@@ -92,11 +92,7 @@ export default function RowNewRoute({ showBreadcrumb = true, className, data: in
 
   if (loading) {
     return (
-      <NewPageLayout
-        className={className}
-        title={t("shared.loading")}
-        menu={[]}
-      >
+      <NewPageLayout className={className} title={t("shared.loading")} menu={[]}>
         <div className="flex items-center justify-center p-8">
           <div className="text-muted-foreground">Loading...</div>
         </div>
@@ -106,11 +102,7 @@ export default function RowNewRoute({ showBreadcrumb = true, className, data: in
 
   if (!data) {
     return (
-      <NewPageLayout
-        className={className}
-        title={t("shared.error")}
-        menu={[]}
-      >
+      <NewPageLayout className={className} title={t("shared.error")} menu={[]}>
         <div className="flex items-center justify-center p-8">
           <div className="text-destructive">Failed to load page data</div>
         </div>

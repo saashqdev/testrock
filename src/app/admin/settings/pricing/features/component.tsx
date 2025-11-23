@@ -510,15 +510,7 @@ function ClosedOpenedValue({ closed, opened }: { closed: React.ReactNode; opened
       <button type="button" className="hover:underline" onClick={() => setOpen(true)}>
         {closed}
       </button>
-      <SlideOverWideEmpty
-        withTitle={false}
-        withClose={false}
-        title={""}
-        open={open}
-        onClose={() => setOpen(false)}
-        size="2xl"
-        overflowYScroll={true}
-      >
+      <SlideOverWideEmpty withTitle={false} withClose={false} title={""} open={open} onClose={() => setOpen(false)} size="2xl" overflowYScroll={true}>
         <div className="-mx-1 -mt-3">
           <form
             onSubmit={(e) => {

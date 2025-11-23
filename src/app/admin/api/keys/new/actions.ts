@@ -22,14 +22,14 @@ export async function createApiKey(prevState: ActionData | null, formData: FormD
   try {
     const userInfo = await getUserInfo();
     await verifyUserHasPermission("admin.apiKeys.create");
-    
+
     const { t } = await getServerTranslations();
     const currentUser = await db.users.getUser(userInfo.userId);
-    
+
     // Construct Request object for logging and events
     const headersList = await headers();
-    const request = new Request(`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}/admin/api/keys/new`, {
-      method: 'POST',
+    const request = new Request(`${process.env.NEXT_PUBLIC_URL || "http://localhost:3000"}/admin/api/keys/new`, {
+      method: "POST",
       headers: headersList as any,
     });
 
@@ -82,7 +82,7 @@ export async function createApiKey(prevState: ActionData | null, formData: FormD
       return { error: t("shared.invalidForm") };
     }
   } catch (error) {
-    if (error instanceof Error && error.message === 'NEXT_REDIRECT') {
+    if (error instanceof Error && error.message === "NEXT_REDIRECT") {
       throw error;
     }
     return { error: error instanceof Error ? error.message : "An error occurred" };

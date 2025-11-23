@@ -15,7 +15,7 @@ type ActionResult = {
 export async function connectStripeAction(country: string, portalSubdomain: string): Promise<ActionResult> {
   try {
     await requireAuth();
-    
+
     const userInfo = await getUserInfo();
     if (!userInfo?.userId) {
       return { error: "Not authenticated" };
@@ -48,7 +48,7 @@ export async function connectStripeAction(country: string, portalSubdomain: stri
     // Create account link for onboarding
     const returnUrl = `${process.env.SERVER_URL}/app/${portalSubdomain}/pricing/stripe`;
     const refreshUrl = `${process.env.SERVER_URL}/app/${portalSubdomain}/pricing/stripe`;
-    
+
     const accountLink = await StripeConnectServer.createStripeAccountLink({
       account: account.id,
       refresh_url: refreshUrl,
@@ -73,7 +73,7 @@ export async function reconnectStripeAction(portalSubdomain: string): Promise<Ac
     // Create account link for re-onboarding
     const returnUrl = `${process.env.SERVER_URL}/app/${portalSubdomain}/pricing/stripe`;
     const refreshUrl = `${process.env.SERVER_URL}/app/${portalSubdomain}/pricing/stripe`;
-    
+
     const accountLink = await StripeConnectServer.createStripeAccountLink({
       account: portal.stripeAccountId,
       refresh_url: refreshUrl,
@@ -104,7 +104,7 @@ export async function deleteStripeAction(portalSubdomain: string): Promise<Actio
     });
 
     revalidatePath(`/app/${portalSubdomain}/pricing`);
-    
+
     return { success: "Stripe account disconnected successfully" };
   } catch (error: any) {
     return { error: error.message || "Failed to disconnect Stripe" };

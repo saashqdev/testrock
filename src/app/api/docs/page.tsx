@@ -5,13 +5,13 @@ import { headers } from "next/headers";
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const url = headersList.get("x-url") || `${process.env.SERVER_URL || "http://localhost:3000"}/api/docs`;
-  
+
   const request = new Request(url, {
     headers: headersList,
   });
 
   const linkTags = getLinkTags(request);
-  
+
   return {
     title: `API Documentation | ${process.env.APP_NAME}`,
     openGraph: {
@@ -22,11 +22,5 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function DocsPage() {
-  return (
-    <iframe 
-      src="/swagger.html" 
-      title="API Documentation" 
-      style={{ width: "100%", height: "100vh", border: "none" }} 
-    />
-  );
+  return <iframe src="/swagger.html" title="API Documentation" style={{ width: "100%", height: "100vh", border: "none" }} />;
 }

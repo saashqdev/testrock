@@ -32,7 +32,7 @@ export default function ImportKnowledgeBase() {
         { title: "Import", routePath: `/admin/knowledge-base/bases/import` },
       ]}
     >
-      <div className="md:border-border md:border-t md:py-2">
+      <div className="md:border-t md:border-border md:py-2">
         {actionData?.error ? (
           <>
             <p id="form-error-message" className="py-2 text-sm text-rose-500" role="alert">
@@ -46,7 +46,7 @@ export default function ImportKnowledgeBase() {
                 <div key={f}>{f}</div>
               ))}
             </div>
-            <Link href="/admin/knowledge-base/bases" className="text-theme-600 hover:text-theme-500 text-sm font-medium underline">
+            <Link href="/admin/knowledge-base/bases" className="text-sm font-medium text-theme-600 underline hover:text-theme-500">
               Back to knowledge bases
             </Link>
           </>
@@ -61,7 +61,7 @@ export default function ImportKnowledgeBase() {
                       key={t.title}
                       type="button"
                       onClick={() => setConfiguration(JSON.stringify(t.template, null, "\t"))}
-                      className="bg-theme-100 text-theme-700 hover:bg-theme-200 focus:ring-ring inline-flex items-center rounded border border-transparent px-2.5 py-1.5 text-xs font-medium focus:outline-hidden focus:ring-2 focus:ring-offset-2"
+                      className="focus:outline-hidden inline-flex items-center rounded border border-transparent bg-theme-100 px-2.5 py-1.5 text-xs font-medium text-theme-700 hover:bg-theme-200 focus:ring-2 focus:ring-ring focus:ring-offset-2"
                     >
                       {t.title}
                     </button>
@@ -79,7 +79,9 @@ export default function ImportKnowledgeBase() {
                   />
                 </div>
                 <div className="flex justify-end">
-                  <LoadingButton type="submit" disabled={isPending}>Preview</LoadingButton>
+                  <LoadingButton type="submit" disabled={isPending}>
+                    Preview
+                  </LoadingButton>
                 </div>
               </div>
             </form>

@@ -32,7 +32,7 @@ export default async function EditEntityIndexRoute(props: IServerComponentsProps
   return (
     <>
       <div className="space-y-3">
-        <h3 className="text-foreground text-sm font-medium leading-3">Webhooks</h3>
+        <h3 className="text-sm font-medium leading-3 text-foreground">Webhooks</h3>
         <WebhooksTable items={data.items} withActions={true} showAddButton={true} />
       </div>
     </>

@@ -8,7 +8,7 @@ import { revalidatePath } from "next/cache";
 export async function syncAction(formData: FormData): Promise<{ success?: string; error?: string }> {
   try {
     await requireAuth();
-    
+
     const action = formData.get("action");
     if (action !== "sync") {
       return { error: "Invalid action" };
@@ -33,7 +33,7 @@ export async function syncAction(formData: FormData): Promise<{ success?: string
         // Create a mock request for the createContact call
         const url = new URL(`${process.env.NEXTAUTH_URL}/admin/xrm/sync`);
         const request = new Request(url.toString());
-        
+
         const created = await CrmService.createContact({
           request,
           tenantId: null,

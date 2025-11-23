@@ -21,7 +21,7 @@ const currentEntityUrl = (params: Params) => {
 };
 
 const replaceVariables = (params: Params, path?: string) => {
-  const tenant = Array.isArray(params.tenant) ? params.tenant[0] ?? "" : params.tenant ?? "";
+  const tenant = Array.isArray(params.tenant) ? (params.tenant[0] ?? "") : (params.tenant ?? "");
   return path?.replace(":tenant", tenant);
 };
 

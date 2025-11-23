@@ -95,7 +95,7 @@ export default function PricingClient({ data, params }: PricingClientProps) {
               value: (item) => (
                 <>
                   {t(item.title)}{" "}
-                  {item.badge && <span className=" border-border bg-theme-50 text-theme-800 ml-1 rounded-md border px-1 py-0.5 text-xs">{t(item.badge)}</span>}
+                  {item.badge && <span className="ml-1 rounded-md border border-border bg-theme-50 px-1 py-0.5 text-xs text-theme-800">{t(item.badge)}</span>}
                 </>
               ),
             },
@@ -108,7 +108,7 @@ export default function PricingClient({ data, params }: PricingClientProps) {
               name: "subscriptions",
               title: t("models.subscriptionProduct.plural"),
               value: (item) => (
-                <div className=" text-muted-foreground lowercase">
+                <div className="lowercase text-muted-foreground">
                   {item.tenantProducts?.length ?? 0} {t("shared.active")}
                 </div>
               ),

@@ -97,4 +97,3 @@ export const action = async (props: IServerComponentsProps, { kbSlug }: { kbSlug
 
   return Response.json({ error: "Invalid action" }, { status: 400 });
 };
-

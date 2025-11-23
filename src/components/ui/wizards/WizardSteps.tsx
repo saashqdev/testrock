@@ -49,7 +49,7 @@ export default function WizardSteps({ steps, selectedStep, onSetStep, children, 
         <select
           id="tabs"
           name="tabs"
-          className="border-border bg-background text-foreground focus:border-border focus:ring-ring block w-full rounded-md"
+          className="block w-full rounded-md border-border bg-background text-foreground focus:border-border focus:ring-ring"
           onChange={(e) => onSetStep(Number(e.target.value), undefined)}
           value={selectedStep}
         >
@@ -82,20 +82,20 @@ export default function WizardSteps({ steps, selectedStep, onSetStep, children, 
                     <span className="flex h-9 items-center" aria-hidden="true">
                       <span
                         className={clsx(
-                          "border-border bg-background relative flex h-6 w-6 items-center justify-center rounded-full border-2",
+                          "relative flex h-6 w-6 items-center justify-center rounded-full border-2 border-border bg-background",
                           stepIdx === selectedStep ? "border-theme-600 group-hover:border-theme-600" : "group-hover:border-theme-600"
                         )}
                       >
                         {stepIdx === selectedStep ? (
-                          <span className="bg-theme-600 h-2.5 w-2.5 rounded-full" />
+                          <span className="h-2.5 w-2.5 rounded-full bg-theme-600" />
                         ) : (
-                          <span className="group-hover:bg-theme-600 h-2.5 w-2.5 rounded-full bg-gray-400" />
+                          <span className="h-2.5 w-2.5 rounded-full bg-gray-400 group-hover:bg-theme-600" />
                         )}
                       </span>
                     </span>
                     <span className="ml-4 flex min-w-0 flex-col">
-                      <span className="text-muted-foreground text-sm font-medium">{step.name}</span>
-                      <span className="text-muted-foreground line-clamp-2 text-sm">{step.description}</span>
+                      <span className="text-sm font-medium text-muted-foreground">{step.name}</span>
+                      <span className="line-clamp-2 text-sm text-muted-foreground">{step.description}</span>
                     </span>
                   </button>
                 </li>
@@ -105,7 +105,7 @@ export default function WizardSteps({ steps, selectedStep, onSetStep, children, 
         </div>
         <div className="h-full w-full overflow-auto pb-20 md:w-3/4">{children}</div>
       </div>
-      <div className="bg-secondary/90 sticky bottom-0 -mx-8 px-4 py-3 shadow-inner md:py-2">
+      <div className="sticky bottom-0 -mx-8 bg-secondary/90 px-4 py-3 shadow-inner md:py-2">
         <div className="flex w-full justify-between space-x-2">
           <div>
             {canGoBack && (

@@ -27,9 +27,9 @@ export default function EditEntityRelationshipsClient({ items }: EditEntityRelat
 
   return (
     <div className="space-y-3">
-      <h3 className="text-foreground text-sm font-medium leading-3">{t("models.relationship.plural")}</h3>
+      <h3 className="text-sm font-medium leading-3 text-foreground">{t("models.relationship.plural")}</h3>
       <EntityRelationshipsTable items={items} editable={true} onReorder={onReorder} />
-      <div className="w-full flex justify-start">
+      <div className="flex w-full justify-start">
         <ButtonTertiary to="relationships/new">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />

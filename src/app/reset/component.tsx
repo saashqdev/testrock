@@ -18,7 +18,7 @@ type ActionData = {
 function SubmitButton({ disabled }: { disabled: boolean }) {
   const { pending } = useFormStatus();
   const { t } = useTranslation();
-  
+
   return (
     <LoadingButton type="submit" disabled={pending || disabled} className="w-full">
       {t("account.newPassword.button")}
@@ -57,13 +57,13 @@ export default function ResetPasswordForm({
           <div className="flex flex-col items-center">
             <div className="text-left text-2xl font-extrabold">{t("account.newPassword.title")}</div>
             <div className="mt-1 text-left">
-              <Link href="/login" className="text-primary font-medium hover:underline">
+              <Link href="/login" className="font-medium text-primary hover:underline">
                 {t("account.register.clickHereToLogin")}
               </Link>
             </div>
           </div>
 
-          <div className="border-border mx-auto flex flex-col items-center space-y-6 rounded-lg border p-6">
+          <div className="mx-auto flex flex-col items-center space-y-6 rounded-lg border border-border p-6">
             <form action={formAction} className="w-full space-y-3">
               <input type="hidden" name="verify-token" defaultValue={verifyToken} required readOnly />
               <div>

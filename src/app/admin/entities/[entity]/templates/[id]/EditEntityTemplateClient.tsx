@@ -16,11 +16,11 @@ interface EditEntityTemplateClientProps {
 export default function EditEntityTemplateClient({ entity, item, entitySlug }: EditEntityTemplateClientProps) {
   const params = useParams();
   const router = useRouter();
-  
+
   function close() {
     router.push(UrlUtils.getModulePath(params, `entities/${entitySlug}/templates`));
   }
-  
+
   return (
     <SlideOverWideEmpty title="Edit Entity Template" open={true} size="2xl" onClose={close}>
       <EntityTemplateForm entity={entity} item={item} />

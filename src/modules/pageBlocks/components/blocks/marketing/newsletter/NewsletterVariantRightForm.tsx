@@ -14,7 +14,7 @@ import { actionNewsletter } from "@/app/(marketing)/actions";
 
 function SubmitButton({ email, t }: { email: string; t: any }) {
   const { pending } = useFormStatus();
-  
+
   return (
     <ButtonPrimary
       type="submit"
@@ -41,10 +41,7 @@ export default function NewsletterVariantRightForm({ item }: { item: NewsletterB
           {item.subheadline && <p className="mt-4 leading-relaxed">{t(item.subheadline)}</p>}
         </div>
         <RecaptchaWrapper enabled>
-          <form
-            action={formAction}
-            className="mt-10 flex w-full flex-col rounded-lg border-2 border-border p-8 md:ml-auto md:mt-0 md:w-1/2 lg:w-2/6"
-          >
+          <form action={formAction} className="mt-10 flex w-full flex-col rounded-lg border-2 border-border p-8 md:ml-auto md:mt-0 md:w-1/2 lg:w-2/6">
             <input type="hidden" name="csrf" value={csrf} hidden readOnly />
             <HoneypotInput />
             <input type="hidden" name="source" value="right form block" hidden readOnly />
@@ -95,9 +92,7 @@ export default function NewsletterVariantRightForm({ item }: { item: NewsletterB
             <div className="flex justify-end">
               <SubmitButton email={email} t={t} />
             </div>
-            <div className="mt-3">
-              {state?.success ? <p>{state.success}</p> : state?.error ? <p>{state.error}</p> : <div className="invisible">...</div>}
-            </div>
+            <div className="mt-3">{state?.success ? <p>{state.success}</p> : state?.error ? <p>{state.error}</p> : <div className="invisible">...</div>}</div>
             <div className="mt-3 text-xs text-muted-foreground">
               {t("front.newsletter.weCare")}{" "}
               <Link href="/privacy-policy" className="font-medium underline">

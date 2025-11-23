@@ -13,7 +13,7 @@ type LoaderData = {
 
 const loader = async (searchParams: { [key: string]: string | string[] | undefined }) => {
   await verifyUserHasPermission("admin.notifications.view");
-  
+
   const filterableProperties: FilterablePropertyDto[] = [
     {
       name: "subscriberId",
@@ -24,7 +24,7 @@ const loader = async (searchParams: { [key: string]: string | string[] | undefin
       title: "Channel",
     },
   ];
-  
+
   // Convert searchParams object to URLSearchParams for compatibility
   const urlSearchParams = new URLSearchParams();
   if (searchParams) {
@@ -34,7 +34,7 @@ const loader = async (searchParams: { [key: string]: string | string[] | undefin
       }
     });
   }
-  
+
   const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
   const items = await NotificationService.getMessages({
     limit: currentPagination.pageSize,
@@ -42,7 +42,7 @@ const loader = async (searchParams: { [key: string]: string | string[] | undefin
     subscriberId: searchParams?.subscriberId?.toString(),
     channel: searchParams?.channel?.toString(),
   });
-  
+
   const data: LoaderData = {
     items,
     filterableProperties,
@@ -50,20 +50,16 @@ const loader = async (searchParams: { [key: string]: string | string[] | undefin
   return data;
 };
 
-export default async function NotificationMessagesPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default async function NotificationMessagesPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const params = await searchParams;
   const data = await loader(params);
-  
+
   return (
     <>
       <div className="mx-auto w-full max-w-5xl space-y-3 px-4 py-2 pb-6 sm:px-6 sm:pt-3 lg:px-8 xl:max-w-full">
-        <div className="md:border-border md:border-b md:py-2">
+        <div className="md:border-b md:border-border md:py-2">
           <div className="flex items-center justify-between">
-            <h3 className="text-foreground text-lg font-medium leading-6">Messages</h3>
+            <h3 className="text-lg font-medium leading-6 text-foreground">Messages</h3>
             <div className="flex items-center space-x-2">
               <InputFilters filters={data.filterableProperties} />
             </div>

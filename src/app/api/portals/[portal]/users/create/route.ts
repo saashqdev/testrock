@@ -4,16 +4,13 @@ import { getTenantIdOrNull } from "@/utils/services/server/urlService";
 import { db } from "@/db";
 import bcrypt from "bcryptjs";
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ portal: string }> }
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ portal: string }> }) {
   try {
     await requireAuth();
-    
+
     const { portal } = await params;
     const formData = await request.formData();
-    
+
     const email = formData.get("email")?.toString();
     const firstName = formData.get("firstName")?.toString();
     const lastName = formData.get("lastName")?.toString();

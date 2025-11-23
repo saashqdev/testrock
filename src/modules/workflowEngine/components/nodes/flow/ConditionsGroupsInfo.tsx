@@ -117,12 +117,7 @@ export default function ConditionsGroupsInfo({
         )}
       </SlideOverWideEmpty>
 
-      <SlideOverWideEmpty
-        size="2xl"
-        title={"Add case " + (block.conditionGroups.length + 1)}
-        open={addingNewGroup}
-        onClose={() => setAddingNewGroup(false)}
-      >
+      <SlideOverWideEmpty size="2xl" title={"Add case " + (block.conditionGroups.length + 1)} open={addingNewGroup} onClose={() => setAddingNewGroup(false)}>
         {addingNewGroup && (
           <ConditionsGroupInput
             workflow={workflow}

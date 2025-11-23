@@ -14,11 +14,11 @@ interface NewEntityRelationshipClientProps {
 
 export default function NewEntityRelationshipClient({ entity, entities, entitySlug, onSubmit }: NewEntityRelationshipClientProps) {
   const router = useRouter();
-  
+
   function close() {
     router.push(`/admin/entities/${entitySlug}/relationships`);
   }
-  
+
   return (
     <SlideOverWideEmpty title="New Relationship" open={true} className="2xl" onClose={close}>
       <EntityRelationshipForm entity={entity} entities={entities} onSubmit={onSubmit} />

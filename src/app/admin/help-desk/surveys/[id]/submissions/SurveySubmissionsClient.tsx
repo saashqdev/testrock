@@ -17,13 +17,7 @@ type PageData = {
   submissions: SurveySubmissionWithDetailsDto[];
 };
 
-export default function SurveySubmissionsClient({ 
-  data, 
-  surveyId 
-}: { 
-  data: PageData;
-  surveyId: string;
-}) {
+export default function SurveySubmissionsClient({ data, surveyId }: { data: PageData; surveyId: string }) {
   const { t } = useTranslation();
   const [actionData, action] = useActionState(deleteSurveySubmission, null);
   const [headers, setHeaders] = useState<RowHeaderDisplayDto<SurveySubmissionWithDetailsDto>[]>([]);
@@ -38,7 +32,7 @@ export default function SurveySubmissionsClient({
 
   useEffect(() => {
     if (!data) return;
-    
+
     const headers: RowHeaderDisplayDto<SurveySubmissionWithDetailsDto>[] = [
       {
         name: "results",
@@ -46,7 +40,7 @@ export default function SurveySubmissionsClient({
         value: (item, idx) => (
           <div>
             <ShowPayloadModalButton
-              description={<div className="text-muted-foreground text-xs font-medium">#{idx + 1}</div>}
+              description={<div className="text-xs font-medium text-muted-foreground">#{idx + 1}</div>}
               payload={JSON.stringify(item.results, null, 2)}
             />
           </div>
@@ -56,13 +50,13 @@ export default function SurveySubmissionsClient({
         name: "date",
         title: "Date",
         value: (i) => (
-          <time title={DateUtils.dateYMDHMS(i.createdAt)} className="text-muted-foreground text-xs">
+          <time title={DateUtils.dateYMDHMS(i.createdAt)} className="text-xs text-muted-foreground">
             {DateUtils.dateAgo(i.createdAt)}
           </time>
         ),
       },
     ];
-    
+
     data.item.items.forEach((item, idx) => {
       headers.push({
         name: item.title,
@@ -88,7 +82,7 @@ export default function SurveySubmissionsClient({
         },
       });
     });
-    
+
     headers.push(
       {
         name: "ipAddress",
@@ -99,7 +93,7 @@ export default function SurveySubmissionsClient({
         name: "cookie",
         title: "Cookie",
         className: "w-full",
-        value: (i) => <div className="text-foreground w-20 truncate text-xs">{i.userAnalyticsId}</div>,
+        value: (i) => <div className="w-20 truncate text-xs text-foreground">{i.userAnalyticsId}</div>,
       }
     );
     setHeaders(headers);

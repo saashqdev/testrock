@@ -48,7 +48,7 @@ export default function AdminAnalyticsVisitorsClient({ data }: AdminAnalyticsVis
                 name: "date",
                 title: "Date",
                 value: (i) => (
-                  <time title={DateUtils.dateYMDHMS(i.createdAt)} className="text-muted-foreground text-xs">
+                  <time title={DateUtils.dateYMDHMS(i.createdAt)} className="text-xs text-muted-foreground">
                     {DateUtils.dateAgo(i.createdAt)}
                   </time>
                 ),

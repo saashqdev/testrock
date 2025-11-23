@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   const startTime = performance.now();
   try {
     apiAccessValidation = await time(validateApiKey(request, {}), "validateApiKey");
-    
+
     const jsonBody = await time(request.json(), "request.json");
     const { parent, child } = jsonBody;
     if (!parent) {

@@ -157,7 +157,7 @@ export default function UserProfileSettings({ user, serverAction }: { user: User
           description={
             <p className="mt-1 text-xs leading-5 text-gray-600">
               {t("account.login.forgot")}{" "}
-              <a className="text-theme-600 hover:text-theme-500 font-bold" href={"/forgot-password?e=" + user?.email || ""}>
+              <a className="font-bold text-theme-600 hover:text-theme-500" href={"/forgot-password?e=" + user?.email || ""}>
                 {t("account.reset.button")}
               </a>
             </p>
@@ -251,7 +251,7 @@ export default function UserProfileSettings({ user, serverAction }: { user: User
                       required
                       value={i18n.language}
                       onChange={(e) => onChangedLocale(e.currentTarget.value)}
-                      className="focus:border-theme-500 focus:ring-theme-500 mt-1 block w-full min-w-0 flex-1 rounded-md border-gray-300 sm:text-sm"
+                      className="mt-1 block w-full min-w-0 flex-1 rounded-md border-gray-300 focus:border-theme-500 focus:ring-theme-500 sm:text-sm"
                     >
                       {languages.map((locale, idx) => {
                         return (

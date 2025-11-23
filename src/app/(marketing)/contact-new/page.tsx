@@ -20,12 +20,12 @@ export default async function ContactRoute(props: IServerComponentsProps) {
   const { t } = await getServerTranslations();
   const page = await getCurrentPage({ request, params, slug: "/contact" });
   const settings = await CrmService.getContactFormSettings();
-  
+
   const data = {
     ...page,
     settings,
   };
-  
+
   return <ContactPageClient data={toClientData(data) as any} />;
 }
 

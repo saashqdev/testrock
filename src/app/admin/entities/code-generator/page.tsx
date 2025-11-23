@@ -26,22 +26,22 @@ export default async function CodeGeneratorPage(props: IServerComponentsProps) {
       {data.entities.length === 0 ? (
         <Link
           href="/admin/entities/new"
-          className="border-border focus:bg-background hover:border-border relative flex w-full flex-col justify-center space-y-2 rounded-lg border-2 border-dashed p-6 text-center focus:border-2 focus:border-gray-600 focus:outline-hidden"
+          className="focus:outline-hidden relative flex w-full flex-col justify-center space-y-2 rounded-lg border-2 border-dashed border-border p-6 text-center hover:border-border focus:border-2 focus:border-gray-600 focus:bg-background"
         >
-          <div className="text-foreground block text-sm font-medium">Create entity</div>
+          <div className="block text-sm font-medium text-foreground">Create entity</div>
         </Link>
       ) : (
         <>
-          <div className="text-foreground text-lg font-bold">{t("shared.generate")}</div>
+          <div className="text-lg font-bold text-foreground">{t("shared.generate")}</div>
           <div className="grid grid-cols-3 gap-3">
             {data.entities.map((item) => {
               return (
                 <Link
                   key={item.name}
                   href={`/admin/entities/code-generator/files/${item.name}`}
-                  className="border-border focus:bg-background hover:border-border relative flex w-full flex-col justify-center space-y-2 rounded-lg border-2 border-dashed p-3 text-center focus:border-2 focus:border-gray-600 focus:outline-hidden"
+                  className="focus:outline-hidden relative flex w-full flex-col justify-center space-y-2 rounded-lg border-2 border-dashed border-border p-3 text-center hover:border-border focus:border-2 focus:border-gray-600 focus:bg-background"
                 >
-                  <div className="text-foreground block text-sm font-medium">{t(item.titlePlural)}</div>
+                  <div className="block text-sm font-medium text-foreground">{t(item.titlePlural)}</div>
                 </Link>
               );
             })}
@@ -50,4 +50,4 @@ export default async function CodeGeneratorPage(props: IServerComponentsProps) {
       )}
     </div>
   );
-};
+}

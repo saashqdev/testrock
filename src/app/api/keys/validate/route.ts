@@ -8,17 +8,17 @@ import { NextRequest } from "next/server";
 export async function POST(request: NextRequest) {
   // eslint-disable-next-line no-console
   console.log("Validating API key");
-  
+
   const { time, getServerTimingHeader } = await createMetrics({ request, params: {} }, `api.usage`);
   const { t } = await time(getServerTranslations(), "getTranslations");
 
   const startTime = performance.now();
   let apiAccessValidation: ApiAccessValidation | undefined = undefined;
-  
+
   try {
     apiAccessValidation = await validateTenantApiKey(request, {});
     const { tenantApiKey } = apiAccessValidation;
-    
+
     if (!tenantApiKey) {
       throw Error("Invalid API key");
     }
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
       status: 200,
       startTime,
     });
-    
+
     return Response.json(
       {
         plan: t(tenantApiKey.usage?.title ?? "", { 0: tenantApiKey.usage?.value }),
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
   } catch (e: any) {
     // eslint-disable-next-line no-console
     console.error({ error: e.message });
-    
+
     if (apiAccessValidation?.tenantApiKey) {
       await db.apiKeys.setApiKeyLogStatus(apiAccessValidation?.tenantApiKey.apiKeyLog.id, {
         error: JSON.stringify(e),
@@ -46,10 +46,7 @@ export async function POST(request: NextRequest) {
         startTime,
       });
     }
-    
-    return Response.json(
-      { error: e.message }, 
-      { status: 400, headers: getServerTimingHeader() }
-    );
+
+    return Response.json({ error: e.message }, { status: 400, headers: getServerTimingHeader() });
   }
 }

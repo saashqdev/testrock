@@ -14,23 +14,23 @@ interface PricingPageProps {
 
 export default function PricingPage({ pricingData }: PricingPageProps) {
   const { t } = useTranslation();
-  
+
   // Memoize the pricing data to prevent unnecessary re-renders
   const stablePricingData = useMemo(() => pricingData, [pricingData]);
-  
+
   useEffect(() => {
     // Disable scroll restoration globally
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
     }
-    
+
     return () => {
-      if ('scrollRestoration' in window.history) {
-        window.history.scrollRestoration = 'auto';
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "auto";
       }
     };
   }, []);
-  
+
   return (
     <div>
       <HeaderBlock />

@@ -124,4 +124,3 @@ export async function duplicate({ entity, propertyId }: { entity: EntityWithDeta
     tenantId: existingProperty.tenantId,
   });
 }
-

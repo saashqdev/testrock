@@ -29,22 +29,16 @@ export default function FakeProjectForm({
   const router = useRouter();
 
   const [tasks, setTasks] = useState<Partial<FakeTaskDto>[]>(item?.tasks || [{ name: "" }]);
-  
-  const [actionData, formAction, isPending] = useActionState(
-    async (_prevState: any, formData: FormData) => {
-      if (action) {
-        return await action(formData);
-      }
-      return null;
-    },
-    null
-  );
+
+  const [actionData, formAction, isPending] = useActionState(async (_prevState: any, formData: FormData) => {
+    if (action) {
+      return await action(formData);
+    }
+    return null;
+  }, null);
 
   return (
-    <form 
-      action={formAction}
-      className="space-y-4"
-    >
+    <form action={formAction} className="space-y-4">
       {item ? <input name="action" value="edit" hidden readOnly /> : <input name="action" value="create" hidden readOnly />}
 
       <InputGroup title="Details">
@@ -70,7 +64,7 @@ export default function FakeProjectForm({
         ))}
 
         <div className="flex flex-col space-y-2">
-          <h3 className="text-foreground text-sm font-medium leading-3">Tasks</h3>
+          <h3 className="text-sm font-medium leading-3 text-foreground">Tasks</h3>
           {tasks.map((item, index) => (
             <CollapsibleRow
               key={index}
@@ -113,9 +107,9 @@ export default function FakeProjectForm({
               disabled={isPending}
               type="button"
               onClick={async () => {
-                if (confirm('Are you sure you want to delete this project?')) {
+                if (confirm("Are you sure you want to delete this project?")) {
                   // You'll need to implement delete action separately
-                  router.push('/admin/playground/crud/projects');
+                  router.push("/admin/playground/crud/projects");
                 }
               }}
             >
@@ -124,7 +118,11 @@ export default function FakeProjectForm({
           )}
         </div>
         <div className="flex space-x-2">
-          {onCancel && <ButtonSecondary type="button" onClick={onCancel}>{t("shared.cancel")}</ButtonSecondary>}
+          {onCancel && (
+            <ButtonSecondary type="button" onClick={onCancel}>
+              {t("shared.cancel")}
+            </ButtonSecondary>
+          )}
           <ButtonPrimary type="submit" disabled={isPending}>
             {item ? t("shared.save") : t("shared.create")}
           </ButtonPrimary>

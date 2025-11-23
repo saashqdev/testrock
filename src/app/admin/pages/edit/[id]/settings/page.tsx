@@ -4,28 +4,28 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export default async function SettingsPage(props: IServerComponentsProps) {
   const data = await pageSettingsLoader(props);
-  
+
   async function updatePageAction(formData: FormData): Promise<void> {
     "use server";
     const mockRequest = {
       formData: async () => formData,
     };
-    await pageSettingsAction({ 
-      ...props, 
-      request: mockRequest as any 
+    await pageSettingsAction({
+      ...props,
+      request: mockRequest as any,
     });
   }
-  
+
   async function deletePageAction(formData: FormData): Promise<void> {
     "use server";
     const mockRequest = {
       formData: async () => formData,
     };
-    await pageSettingsAction({ 
-      ...props, 
-      request: mockRequest as any 
+    await pageSettingsAction({
+      ...props,
+      request: mockRequest as any,
     });
   }
-  
+
   return <PageSettingsRouteIndex data={data} updatePageAction={updatePageAction} deletePageAction={deletePageAction} />;
 }

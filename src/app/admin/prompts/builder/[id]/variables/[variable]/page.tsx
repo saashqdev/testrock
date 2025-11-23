@@ -9,7 +9,7 @@ type VariablePageProps = {
 export default async function VariablePage(props: VariablePageProps) {
   const params = await props.params;
   const item = await db.promptFlowInputVariables.getPromptFlowVariable(params.variable);
-  
+
   if (!item) {
     redirect(`/admin/prompts/builder/${params.id}/variables`);
   }

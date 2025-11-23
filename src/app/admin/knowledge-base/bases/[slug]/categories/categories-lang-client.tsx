@@ -144,15 +144,15 @@ export default function CategoriesClient({
         {data.items.map((item, idx) => {
           return (
             <div key={idx} className="space-y-2">
-              <div className="border-border bg-background rounded-md border px-4 py-0.5 shadow-2xs">
+              <div className="shadow-2xs rounded-md border border-border bg-background px-4 py-0.5">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between space-x-2">
                     <div className="flex items-center space-x-2 truncate">
-                      <div className=" flex items-center space-x-3 truncate">
+                      <div className="flex items-center space-x-3 truncate">
                         <div className="hidden shrink-0 sm:flex">
                           <OrderListButtons index={idx} items={data.items} editable={true} />
                         </div>
-                        <div className="text-foreground flex items-center space-x-2 truncate text-sm">
+                        <div className="flex items-center space-x-2 truncate text-sm text-foreground">
                           <div className="flex items-baseline space-x-1 truncate">
                             <div className="flex flex-col">
                               <div className="flex items-baseline space-x-2">
@@ -166,15 +166,15 @@ export default function CategoriesClient({
                                 </div>
                                 <div>•</div>
                                 {item.articles.filter((f) => f.publishedAt).length > 0 ? (
-                                  <div className="text-muted-foreground truncate text-xs">
+                                  <div className="truncate text-xs text-muted-foreground">
                                     {item.articles.filter((f) => f.publishedAt).length}{" "}
                                     {item.articles.filter((f) => f.publishedAt).length === 1 ? "article" : "articles"}
                                   </div>
                                 ) : (
-                                  <div className="text-muted-foreground truncate text-xs">No articles</div>
+                                  <div className="truncate text-xs text-muted-foreground">No articles</div>
                                 )}
                               </div>
-                              <div className="text-muted-foreground text-xs">{item.description}</div>
+                              <div className="text-xs text-muted-foreground">{item.description}</div>
                             </div>
                           </div>
                         </div>
@@ -194,29 +194,29 @@ export default function CategoriesClient({
                               return [...prev, item.id];
                             });
                           }}
-                          className="hover:bg-secondary/90 focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-hidden focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+                          className="focus:outline-hidden group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                         >
-                          <FolderIconFilled className="hover:text-muted-foreground h-4 w-4 text-gray-300" />
+                          <FolderIconFilled className="h-4 w-4 text-gray-300 hover:text-muted-foreground" />
                         </button>
                         <Link
                           href={item.id}
-                          className="hover:bg-secondary/90 focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-hidden focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+                          className="focus:outline-hidden group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                         >
-                          <PencilIcon className="group-hover:text-muted-foreground h-4 w-4 text-gray-300" />
+                          <PencilIcon className="h-4 w-4 text-gray-300 group-hover:text-muted-foreground" />
                         </Link>
                         <button
                           type="button"
                           onClick={() => handleDuplicate(item)}
-                          className="hover:bg-secondary/90 focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-hidden focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+                          className="focus:outline-hidden group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                         >
-                          <DocumentDuplicateIconFilled className="hover:text-muted-foreground h-4 w-4 text-gray-300" />
+                          <DocumentDuplicateIconFilled className="h-4 w-4 text-gray-300 hover:text-muted-foreground" />
                         </button>
                         <button
                           type="button"
                           onClick={() => handleNewArticle(item.id, undefined, "first")}
-                          className="hover:bg-secondary/90 focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-hidden focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+                          className="focus:outline-hidden group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                         >
-                          <PlusIcon className="hover:text-muted-foreground h-4 w-4 text-gray-300" />
+                          <PlusIcon className="h-4 w-4 text-gray-300 hover:text-muted-foreground" />
                         </button>
                       </div>
                     </div>
@@ -238,10 +238,10 @@ export default function CategoriesClient({
         })}
         <Link
           href={`new`}
-          className="focus:ring-ring border-border hover:border-border relative block w-full rounded-lg border-2 border-dashed px-12 py-6 text-center focus:outline-hidden focus:ring-2 focus:ring-offset-2"
+          className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border px-12 py-6 text-center hover:border-border focus:ring-2 focus:ring-ring focus:ring-offset-2"
         >
-          <PlusIcon className="text-foreground mx-auto h-5" />
-          <span className="text-foreground mt-2 block text-sm font-medium">Add new category</span>
+          <PlusIcon className="mx-auto h-5 text-foreground" />
+          <span className="mt-2 block text-sm font-medium text-foreground">Add new category</span>
         </Link>
       </div>
 
@@ -252,7 +252,7 @@ export default function CategoriesClient({
 
       <SlideOverWideEmpty
         title={getOutletTitle()}
-        open={!!<></>}
+        open={!!(<></>)}
         onClose={() => {
           router.replace(".");
         }}
@@ -287,27 +287,27 @@ function CategorySections({
 
   return (
     <div className="space-y-2 pb-2">
-      <div className="border-border bg-secondary w-full space-y-2 rounded-md border px-2 py-2">
-        <div className="text-foreground/80 text-sm font-medium">Articles</div>
+      <div className="w-full space-y-2 rounded-md border border-border bg-secondary px-2 py-2">
+        <div className="text-sm font-medium text-foreground/80">Articles</div>
         <div className="space-y-2">
           <ArticlesList kb={kb} articles={articles} onUpdateArticleTitle={onUpdateArticleTitle} onDeleteArticle={onDeleteArticle} />
           <button
             type="button"
             onClick={() => onNewArticle(category.id, undefined, "last")}
-            className="focus:ring-ring border-border hover:border-border relative block w-full rounded-lg border-2 border-dashed px-12 py-4 text-center focus:outline-hidden focus:ring-2 focus:ring-offset-2"
+            className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border px-12 py-4 text-center hover:border-border focus:ring-2 focus:ring-ring focus:ring-offset-2"
           >
-            <span className="text-muted-foreground block text-xs font-medium">{category.title} - Add article</span>
+            <span className="block text-xs font-medium text-muted-foreground">{category.title} - Add article</span>
           </button>
         </div>
-        <div className="text-foreground/80 text-sm font-medium">Sections</div>
+        <div className="text-sm font-medium text-foreground/80">Sections</div>
         <div className="space-y-2">
           {category.sections.map((item, idx) => {
             return (
-              <div key={idx} className="border-border bg-background rounded-md border px-4 py-0.5 shadow-2xs">
+              <div key={idx} className="shadow-2xs rounded-md border border-border bg-background px-4 py-0.5">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between space-x-2">
                     <div className="flex items-center space-x-2 truncate">
-                      <div className=" flex items-center space-x-3 truncate">
+                      <div className="flex items-center space-x-3 truncate">
                         <div className="hidden shrink-0 sm:flex">
                           <OrderListButtons
                             formData={{
@@ -319,13 +319,13 @@ function CategorySections({
                             editable={true}
                           />
                         </div>
-                        <div className="text-foreground flex items-center space-x-2 truncate text-sm">
+                        <div className="flex items-center space-x-2 truncate text-sm text-foreground">
                           <div className="flex items-baseline space-x-1 truncate">
                             <div className="flex flex-col">
                               <div className="flex items-baseline space-x-2">
                                 <div>{item.title}</div>
                                 <div>•</div>
-                                <div className="text-muted-foreground truncate text-xs">
+                                <div className="truncate text-xs text-muted-foreground">
                                   {category.articles.filter((f) => f.sectionId === item.id).length}{" "}
                                   {category.articles.filter((f) => f.sectionId === item.id).length === 1 ? "article" : "articles"}
                                 </div>
@@ -352,22 +352,22 @@ function CategorySections({
                               return [...prev, item.id];
                             });
                           }}
-                          className="hover:bg-secondary/90 focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-hidden focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+                          className="focus:outline-hidden group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                         >
-                          <FolderIconFilled className="hover:text-muted-foreground h-4 w-4 text-gray-300" />
+                          <FolderIconFilled className="h-4 w-4 text-gray-300 hover:text-muted-foreground" />
                         </button>
                         <Link
                           href={`${category.id}/sections/${item.id}`}
-                          className="hover:bg-secondary/90 focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-hidden focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+                          className="focus:outline-hidden group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                         >
-                          <PencilIcon className="group-hover:text-muted-foreground h-4 w-4 text-gray-300" />
+                          <PencilIcon className="h-4 w-4 text-gray-300 group-hover:text-muted-foreground" />
                         </Link>
                         <button
                           type="button"
                           onClick={() => onNewArticle(category.id, item.id, "first")}
-                          className="hover:bg-secondary/90 focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-hidden focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+                          className="focus:outline-hidden group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                         >
-                          <PlusIcon className="hover:text-muted-foreground h-4 w-4 text-gray-300" />
+                          <PlusIcon className="h-4 w-4 text-gray-300 hover:text-muted-foreground" />
                         </button>
                       </div>
                     </div>
@@ -389,9 +389,9 @@ function CategorySections({
           })}
           <Link
             href={`${category.id}/sections/new`}
-            className="focus:ring-ring border-border hover:border-border relative block w-full rounded-lg border-2 border-dashed px-12 py-4 text-center focus:outline-hidden focus:ring-2 focus:ring-offset-2"
+            className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border px-12 py-4 text-center hover:border-border focus:ring-2 focus:ring-ring focus:ring-offset-2"
           >
-            <span className="text-muted-foreground block text-xs font-medium">Add section</span>
+            <span className="block text-xs font-medium text-muted-foreground">Add section</span>
           </Link>
         </div>
       </div>
@@ -417,15 +417,15 @@ function SectionArticles({
   const articles = category.articles.filter((f) => f.sectionId === section.id).sort((a, b) => a.order - b.order);
   return (
     <div className="space-y-2 pb-2">
-      <div className="border-border bg-secondary w-full space-y-2 rounded-md border px-2 py-2">
+      <div className="w-full space-y-2 rounded-md border border-border bg-secondary px-2 py-2">
         <div className="space-y-2">
           <ArticlesList kb={kb} articles={articles} onUpdateArticleTitle={onUpdateArticleTitle} onDeleteArticle={onDeleteArticle} />
           <button
             type="button"
             onClick={() => onNewArticle(category.id, section.id, "last")}
-            className="focus:ring-ring border-border hover:border-border relative block w-full rounded-lg border-2 border-dashed px-12 py-4 text-center focus:outline-hidden focus:ring-2 focus:ring-offset-2"
+            className="focus:outline-hidden relative block w-full rounded-lg border-2 border-dashed border-border px-12 py-4 text-center hover:border-border focus:ring-2 focus:ring-ring focus:ring-offset-2"
           >
-            <span className="text-muted-foreground block text-xs font-medium">{section.title} - Add article</span>
+            <span className="block text-xs font-medium text-muted-foreground">{section.title} - Add article</span>
           </button>
         </div>
       </div>
@@ -467,19 +467,19 @@ function ArticlesList({
       actionName="set-article-orders"
       render={(item) => {
         return (
-          <div className="border-border bg-background rounded-md border px-4 py-0.5 shadow-2xs">
+          <div className="shadow-2xs rounded-md border border-border bg-background px-4 py-0.5">
             <div className="space-y-2">
               <div className="flex items-center justify-between space-x-2">
                 <div className="flex items-center space-x-2 truncate">
-                  <div className=" flex items-center space-x-3 truncate">
-                    <div className="text-foreground flex items-center space-x-2 truncate text-sm">
+                  <div className="flex items-center space-x-3 truncate">
+                    <div className="flex items-center space-x-2 truncate text-sm text-foreground">
                       <div className="flex items-baseline space-x-1 truncate">
                         <div className="flex flex-col">
                           <div className="flex items-center space-x-2">
                             <ColorBadge color={item.publishedAt ? Colors.GREEN : Colors.YELLOW} />
                             <div className="flex flex-col">
                               <div
-                                className="text-foreground flex cursor-text items-baseline space-x-1 text-sm focus:outline-hidden"
+                                className="focus:outline-hidden flex cursor-text items-baseline space-x-1 text-sm text-foreground"
                                 contentEditable
                                 suppressContentEditableWarning
                                 onBlur={(event) => handleUpdateArticleTitle(item.id, event.target.innerText)}
@@ -491,7 +491,7 @@ function ArticlesList({
                               >
                                 {item.title || "{Untitled}"}
                               </div>
-                              <div className="text-muted-foreground text-xs">
+                              <div className="text-xs text-muted-foreground">
                                 {KnowledgeBaseUtils.getArticleUrl({
                                   kb,
                                   article: item,
@@ -510,16 +510,16 @@ function ArticlesList({
                   <div className="flex items-center space-x-1 truncate p-1">
                     <Link
                       href={`/admin/knowledge-base/bases/${kb.slug}/articles/${item.language}/${item.id}`}
-                      className="hover:bg-secondary/90 focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-hidden focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+                      className="focus:outline-hidden group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                     >
-                      <PencilIcon className="group-hover:text-muted-foreground h-4 w-4 text-gray-300" />
+                      <PencilIcon className="h-4 w-4 text-gray-300 group-hover:text-muted-foreground" />
                     </Link>
                     <button
                       type="button"
-                      className="hover:bg-secondary/90 focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-hidden focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+                      className="focus:outline-hidden group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                       onClick={() => onDeleteArticle(item)}
                     >
-                      <TrashIcon className="group-hover:text-muted-foreground h-4 w-4 text-gray-300" />
+                      <TrashIcon className="h-4 w-4 text-gray-300 group-hover:text-muted-foreground" />
                     </button>
                   </div>
                 </div>
@@ -537,7 +537,7 @@ function DeleteButton({ onDelete, canDelete }: { onDelete: () => void; canDelete
     <button
       type="button"
       className={clsx(
-        "focus:bg-secondary/90 group flex items-center rounded-md border border-transparent p-2 focus:outline-hidden focus:ring-2 focus:ring-gray-400 focus:ring-offset-1",
+        "focus:outline-hidden group flex items-center rounded-md border border-transparent p-2 focus:bg-secondary/90 focus:ring-2 focus:ring-gray-400 focus:ring-offset-1",
         !canDelete ? "cursor-not-allowed opacity-50" : "hover:bg-secondary/90"
       )}
       disabled={!canDelete}

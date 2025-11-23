@@ -25,9 +25,9 @@ export default async function PricingStripePage(props: IServerComponentsProps) {
   const resolvedParams = await props.params;
   const params = resolvedParams || {};
   const request = props.request!;
-  
+
   await requireAuth();
-  
+
   const appConfiguration = await db.appConfiguration.getAppConfiguration();
   if (!appConfiguration.portals?.pricing) {
     throw new Error("Pricing is not enabled");
@@ -35,11 +35,11 @@ export default async function PricingStripePage(props: IServerComponentsProps) {
 
   const tenantId = await getTenantIdOrNull({ request, params });
   const item = await db.portals.getPortalById(tenantId, params.portal!);
-  
+
   if (!item) {
     redirect(UrlUtils.getModulePath(params, "portals"));
   }
-  
+
   let stripeAccount: Stripe.Account | null = null;
   try {
     stripeAccount = item.stripeAccountId ? await StripeConnectServer.getStripeAccount(item.stripeAccountId) : null;
@@ -50,7 +50,7 @@ export default async function PricingStripePage(props: IServerComponentsProps) {
       stripeAccountId: null,
     });
   }
-  
+
   const data: PageData = {
     item,
     stripeAccount,

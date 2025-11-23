@@ -203,16 +203,18 @@ export default function PricingPlanForm({ plans, item, canUpdate = true, canDele
     setLoading(true);
     const form = new FormData();
     form.set("action", "delete");
-    
+
     // Create a form element and submit it
-    const formElement = document.createElement('form');
-    formElement.method = 'post';
-    formElement.appendChild(Object.assign(document.createElement('input'), {
-      type: 'hidden',
-      name: 'action',
-      value: 'delete'
-    }));
-    
+    const formElement = document.createElement("form");
+    formElement.method = "post";
+    formElement.appendChild(
+      Object.assign(document.createElement("input"), {
+        type: "hidden",
+        name: "action",
+        value: "delete",
+      })
+    );
+
     document.body.appendChild(formElement);
     formElement.submit();
   }
@@ -237,22 +239,22 @@ export default function PricingPlanForm({ plans, item, canUpdate = true, canDele
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    
+
     // Submit the form data
     const formData = new FormData(e.currentTarget);
-    
+
     try {
-      const response = await fetch('', {
-        method: 'POST',
+      const response = await fetch("", {
+        method: "POST",
         body: formData,
       });
-      
+
       if (response.ok) {
         // Handle successful submission
-        router.push('/admin/settings/pricing');
+        router.push("/admin/settings/pricing");
       }
     } catch (error) {
-      console.error('Form submission error:', error);
+      console.error("Form submission error:", error);
     } finally {
       setLoading(false);
     }

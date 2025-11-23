@@ -13,18 +13,18 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
   const request = props.request!;
   const tenantId = await getTenantIdFromUrl(params);
   const page = await getCurrentPage({ request, params, slug: "/" + params.page, tenantId });
-  
+
   // Convert array-based metatags to Next.js Metadata format
   if (page?.page?.metaTags && page.page.metaTags.length > 0) {
-    const firstTitleTag = page.page.metaTags.find(tag => tag.name === 'title');
-    const firstDescTag = page.page.metaTags.find(tag => tag.name === 'description');
-    
+    const firstTitleTag = page.page.metaTags.find((tag) => tag.name === "title");
+    const firstDescTag = page.page.metaTags.find((tag) => tag.name === "description");
+
     return getMetaTags({
       title: firstTitleTag?.value,
       description: firstDescTag?.value,
     });
   }
-  
+
   return getMetaTags();
 }
 
@@ -33,7 +33,7 @@ export default async function TenantPage(props: IServerComponentsProps) {
   const request = props.request!;
   const tenantId = await getTenantIdFromUrl(params);
   const data = await getCurrentPage({ request, params, slug: "/" + params.page, tenantId });
-  
+
   if (!data.page && data.blocks.length === 0) {
     redirect("/404?page=" + params.page);
   }

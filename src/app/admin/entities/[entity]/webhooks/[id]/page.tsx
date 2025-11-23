@@ -12,7 +12,7 @@ type LoaderData = {
 };
 async function getLoaderData(props: IServerComponentsProps): Promise<LoaderData> {
   const params = (await props.params) || {};
-  const request = props.request!;  
+  const request = props.request!;
   await verifyUserHasPermission("admin.entities.view");
   const entity = await db.entities.getEntityBySlug({ tenantId: null, slug: params.entity! });
   if (!entity) {
@@ -76,8 +76,6 @@ export const action = async (props: IServerComponentsProps) => {
 export default async function EditEntityWebhookRoute(props: IServerComponentsProps) {
   const data = await getLoaderData(props);
   const params = await props.params;
-  
-  return (
-    <EditEntityWebhookClient item={data.item} entity={params?.entity!} />
-  );
+
+  return <EditEntityWebhookClient item={data.item} entity={params?.entity!} />;
 }

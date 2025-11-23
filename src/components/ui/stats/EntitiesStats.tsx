@@ -14,10 +14,10 @@ export function EntitiesStats({ items }: Props) {
   const loading = isPending;
   return (
     <div>
-      <h3 className=" text-foreground font-medium leading-4">{t("app.shared.periods.LAST_30_DAYS")}</h3>
+      <h3 className="font-medium leading-4 text-foreground">{t("app.shared.periods.LAST_30_DAYS")}</h3>
       <dl
         className={clsx(
-          "divide-border bg-background mt-3 grid grid-cols-1 divide-y overflow-hidden rounded-lg shadow-xs md:divide-x md:divide-y-0",
+          "shadow-xs mt-3 grid grid-cols-1 divide-y divide-border overflow-hidden rounded-lg bg-background md:divide-x md:divide-y-0",
           items.length === 1 && "md:grid-cols-1",
           items.length === 2 && "md:grid-cols-2",
           items.length === 3 && "md:grid-cols-3",
@@ -28,20 +28,20 @@ export function EntitiesStats({ items }: Props) {
       >
         {items.map((item) => (
           <span key={item.name} className="px-4 py-5 sm:p-6">
-            <dt className="text-foreground flex items-baseline space-x-1 text-base font-normal">
+            <dt className="flex items-baseline space-x-1 text-base font-normal text-foreground">
               <div>{t(item.name)}</div>
-              {item.hint && <div className="text-muted-foreground hidden text-xs xl:block">({t(item.hint)})</div>}
+              {item.hint && <div className="hidden text-xs text-muted-foreground xl:block">({t(item.hint)})</div>}
             </dt>
             <dd className="mt-1 flex items-baseline justify-between md:block lg:flex">
-              <div className="text-foreground flex items-baseline text-2xl font-semibold">
+              <div className="flex items-baseline text-2xl font-semibold text-foreground">
                 <div>{loading ? "..." : item.stat}</div>
-                <span className="text-muted-foreground ml-2 hidden text-sm font-medium xl:block">{!loading && <span>from {item.previousStat}</span>}</span>
+                <span className="ml-2 hidden text-sm font-medium text-muted-foreground xl:block">{!loading && <span>from {item.previousStat}</span>}</span>
               </div>
 
               {!loading && (
                 <div
                   className={clsx(
-                    item.changeType === StatChange.Increase ? " text-teal-800" : " text-rose-800",
+                    item.changeType === StatChange.Increase ? "text-teal-800" : "text-rose-800",
                     "inline-flex items-baseline rounded-full px-2.5 py-0.5 text-sm font-medium md:mt-2 lg:mt-0"
                   )}
                 >
@@ -72,7 +72,7 @@ export function EntitiesStats({ items }: Props) {
                       />
                     </svg>
                   ) : (
-                    <div className=" text-muted-foreground">-</div>
+                    <div className="text-muted-foreground">-</div>
                   )}
 
                   <span className="sr-only">{item.changeType === StatChange.Increase ? "Increased" : "Decreased"} by</span>

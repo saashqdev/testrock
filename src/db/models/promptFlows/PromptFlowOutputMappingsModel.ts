@@ -1,10 +1,10 @@
 import { PromptFlowOutputMapping, PromptTemplate } from "@prisma/client";
 
 export type PromptFlowOutputMappingsModel = {
-    id: string;
-    promptFlowOutputId: string;
-    promptTemplateId: string;
-    propertyId: string;
+  id: string;
+  promptFlowOutputId: string;
+  promptTemplateId: string;
+  propertyId: string;
 };
 
 export type PromptFlowOutputMappingWithDetailsDto = PromptFlowOutputMapping & {

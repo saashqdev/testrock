@@ -8,7 +8,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   try {
     await verifyUserHasPermission("admin.users.view");
     const { t } = await getServerTranslations();
-    
+
     const { id } = await params;
     const body = await request.json();
     const { email, firstName, lastName, password } = body;

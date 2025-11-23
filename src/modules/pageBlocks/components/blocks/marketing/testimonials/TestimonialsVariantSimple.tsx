@@ -76,7 +76,13 @@ export default function TestimonialsVariantSimple({ item }: { item: Testimonials
                   </div>
                   <div className="inline-flex items-center">
                     {testimonial.avatar ? (
-                      <Image alt="testimonial" src={testimonial.avatar} width={48} height={48} className="h-12 w-12 shrink-0 rounded-full object-cover object-center" />
+                      <Image
+                        alt="testimonial"
+                        src={testimonial.avatar}
+                        width={48}
+                        height={48}
+                        className="h-12 w-12 shrink-0 rounded-full object-cover object-center"
+                      />
                     ) : (
                       <UserAvatarBadge avatar={undefined} className="h-12 w-12 shrink-0 rounded-full object-cover object-center" />
                     )}

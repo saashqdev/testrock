@@ -34,15 +34,15 @@ export default function PostsList({ blogPath, items, withCoverImage, withAuthorN
           {items.map((item) => {
             return (
               <Link href={getLinkPath(item)} key={item.title} target={item.slug.startsWith("https:") ? "_blank" : undefined}>
-                <div className="border-border h-full overflow-hidden rounded-lg border-2 border-opacity-60">
+                <div className="h-full overflow-hidden rounded-lg border-2 border-border border-opacity-60">
                   {withCoverImage && item.image && <Image className="w-full object-cover object-center md:h-36 lg:h-48" src={item.image} alt={item.title} />}
                   <div className="p-6">
                     <div className="title-font flex items-center justify-between truncate text-xs font-medium uppercase tracking-widest">
                       <div>{item.category?.name}</div>
                       {withDate && <div>{DateUtils.dateAgo(item.date)}</div>}
                     </div>
-                    <h2 className="title-font text-foreground mb-3 text-lg font-medium">{item.title}</h2>
-                    <p className="text-muted-foreground mb-3 leading-relaxed">{item.description}</p>
+                    <h2 className="title-font mb-3 text-lg font-medium text-foreground">{item.title}</h2>
+                    <p className="mb-3 leading-relaxed text-muted-foreground">{item.description}</p>
                     <div className="flex items-center justify-between">
                       <div>
                         {/* {withAuthorName && item.author && (

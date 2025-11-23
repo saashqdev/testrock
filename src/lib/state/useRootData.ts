@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { UserWithoutPasswordDto } from "@/db/models";
 import { MetaTagsDto } from "@/lib/dtos/MetaTagsDto";
@@ -29,8 +29,8 @@ export const RootDataContext = createContext<RootDataDto | null>(null);
 
 export function useRootData(): RootDataDto {
   const context = useContext(RootDataContext);
-  
-  if (typeof window === 'undefined') {
+
+  if (typeof window === "undefined") {
     // During SSR, return a minimal default value to prevent context errors
     return {
       appConfiguration: {
@@ -38,11 +38,11 @@ export function useRootData(): RootDataDto {
         notifications: { enabled: false },
         app: { features: {} },
         auth: { authMethods: { emailPassword: { enabled: true }, github: { enabled: false }, google: { enabled: false } } },
-        subscription: { allowSignUpBeforeSubscribe: true }
-      }
+        subscription: { allowSignUpBeforeSubscribe: true },
+      },
     } as RootDataDto;
   }
-  
+
   if (!context) {
     throw new Error("useRootData must be used within a RootDataContext.Provider");
   }

@@ -32,7 +32,7 @@ export default function CountPageComponent({ initialData }: { initialData: Loade
   return (
     <div className="space-y-5 p-8">
       <div className="flex items-center justify-between space-x-2">
-        <h3 className="text-foreground grow text-lg font-medium leading-6">Summary</h3>
+        <h3 className="grow text-lg font-medium leading-6 text-foreground">Summary</h3>
         <div>
           <InputSelector
             className="w-44"
@@ -67,14 +67,14 @@ export default function CountPageComponent({ initialData }: { initialData: Loade
         )}
       >
         {data.summary.map((item, idx) => (
-          <div key={idx} className="bg-background overflow-hidden rounded-lg shadow-xs">
+          <div key={idx} className="shadow-xs overflow-hidden rounded-lg bg-background">
             <div className="p-5">
               <div className="flex items-center">
                 <div className="w-0 flex-1">
                   <dl>
-                    <dt className="text-muted-foreground truncate text-sm font-medium">{t(item.entity.titlePlural)}</dt>
+                    <dt className="truncate text-sm font-medium text-muted-foreground">{t(item.entity.titlePlural)}</dt>
                     <dd>
-                      <div className="text-foreground text-lg font-medium">
+                      <div className="text-lg font-medium text-foreground">
                         <span>{isPending ? "..." : item.count}</span>
                       </div>
                     </dd>
@@ -85,7 +85,7 @@ export default function CountPageComponent({ initialData }: { initialData: Loade
             {item.href && (
               <div className="bg-secondary px-5 py-3">
                 <div className="text-sm">
-                  <a href={item.href} className="text-theme-700 hover:text-theme-900 font-medium">
+                  <a href={item.href} className="font-medium text-theme-700 hover:text-theme-900">
                     View all
                   </a>
                 </div>

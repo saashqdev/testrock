@@ -7,11 +7,11 @@ import { TenantTypeDto } from "@/lib/dtos/tenants/TenantTypeDto";
 export async function GET() {
   try {
     await verifyUserHasPermission("admin.accountTypes.view");
-    
+
     const types: TenantTypeDto[] = await db.tenantTypes.getAllTenantTypes();
     const subscriptionProducts = await db.subscriptionProducts.getAllSubscriptionProducts();
     const allTenants = await db.tenants.getAllTenantsWithoutTypes();
-    
+
     types.unshift({
       title: "Default",
       titlePlural: "Default",
