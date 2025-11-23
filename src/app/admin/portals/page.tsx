@@ -8,9 +8,10 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("models.portal.plural")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `${t("models.portal.plural")} | ${siteTags.title}`,
+  };
 }
 
 export default async function AdminPortalsPage(props: IServerComponentsProps) {
