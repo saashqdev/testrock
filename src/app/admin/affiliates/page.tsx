@@ -6,9 +6,10 @@ import Component from "./component";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("affiliates.title")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `${t("affiliates.title")} | ${siteTags.title}`,
+  };
 }
 
 export type AffiliatesLoaderData = {
@@ -18,9 +19,10 @@ export type AffiliatesLoaderData = {
 async function load(): Promise<AffiliatesLoaderData> {
   await requireAuth();
   const { t } = await getServerTranslations();
+  const siteTags = getDefaultSiteTags();
 
   const data: AffiliatesLoaderData = {
-    title: `${t("affiliates.title")} | ${getDefaultSiteTags.title}`,
+    title: `${t("affiliates.title")} | ${siteTags.title}`,
   };
   return data;
 }

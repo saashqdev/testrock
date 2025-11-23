@@ -14,9 +14,10 @@ type LoaderData = {
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("analytics.settings")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `${t("analytics.settings")} | ${siteTags.title}`,
+  };
 }
 
 async function getSettingsData(): Promise<LoaderData> {

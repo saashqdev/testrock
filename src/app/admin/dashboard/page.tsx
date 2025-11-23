@@ -18,9 +18,10 @@ import TitleDataLayout from "@/context/TitleDataLayout";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("app.sidebar.dashboard")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `${t("app.sidebar.dashboard")} | ${siteTags.title}`,
+  };
 }
 
 export type AdminDashboardLoaderData = {
@@ -71,8 +72,9 @@ async function load(props: IServerComponentsProps): Promise<AdminDashboardLoader
     "admin.dashboard.details"
   );
 
+  const siteTags = getDefaultSiteTags();
   const data: AdminDashboardLoaderData = {
-    title: `${t("app.sidebar.dashboard")} | ${getDefaultSiteTags.title}`,
+    title: `${t("app.sidebar.dashboard")} | ${siteTags.title}`,
     stats,
     setupSteps,
     tenants,

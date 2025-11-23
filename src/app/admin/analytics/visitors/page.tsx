@@ -20,9 +20,10 @@ type LoaderData = {
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("analytics.uniqueVisitors")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `${t("analytics.uniqueVisitors")} | ${siteTags.title}`,
+  };
 }
 
 async function getVisitorsData(searchParams: { [key: string]: string | string[] | undefined }): Promise<LoaderData> {

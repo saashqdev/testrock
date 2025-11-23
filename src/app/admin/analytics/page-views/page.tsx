@@ -25,9 +25,10 @@ export type LoaderData = {
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("analytics.pageViews")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `${t("analytics.pageViews")} | ${siteTags.title}`,
+  };
 }
 
 async function getPageViewsData(props: IServerComponentsProps): Promise<LoaderData> {

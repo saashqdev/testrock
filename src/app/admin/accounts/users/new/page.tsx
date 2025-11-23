@@ -1,14 +1,15 @@
-import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { db } from "@/db";
 import Component from "./component";
+import { Metadata } from "next";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("shared.new")} ${t("models.user.object")} | ${getDefaultSiteTags.title}`,
-  });
+  return {
+    title: `${t("shared.new")} ${t("models.user.object")} | ${getDefaultSiteTags().title}`,
+  };
 }
 
 export default async function NewUserPage() {
