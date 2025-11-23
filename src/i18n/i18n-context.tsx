@@ -6,6 +6,7 @@ import i18next from "./client";
 
 export function I18nProvider({ children, language }: { children: React.ReactNode; language: string }) {
   useEffect(() => {
+    // Change language when it changes
     if (i18next.isInitialized && i18next.language !== language) {
       i18next.changeLanguage(language);
     }

@@ -20,6 +20,9 @@ if (!i18next.isInitialized) {
         caches: ["cookie"],
         order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'path', 'subdomain']
       },
+      react: {
+        useSuspense: false, // Disable suspense to prevent SSR issues
+      },
     });
 }
 
