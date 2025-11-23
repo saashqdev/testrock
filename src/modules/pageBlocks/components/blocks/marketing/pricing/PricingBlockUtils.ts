@@ -21,6 +21,15 @@ export type PricingBlockDto = {
   } | null;
 };
 
+export type PricingBlockData = {
+  items: SubscriptionProductDto[];
+  coupon: { error?: string; stripeCoupon?: Stripe.Coupon | null } | undefined;
+  currenciesAndPeriod: {
+    currencies: { value: string; options: string[] };
+    billingPeriods: { value: SubscriptionBillingPeriod; options: SubscriptionBillingPeriod[] };
+  };
+};
+
 export type PricingContactUsDto = {
   title: string;
   description: string;

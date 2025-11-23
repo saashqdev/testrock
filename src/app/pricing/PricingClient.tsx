@@ -1,6 +1,7 @@
 "use client";
+
 import PricingVariantSimple from "@/modules/pageBlocks/components/blocks/marketing/pricing/PricingVariantSimple";
-import { PricingBlockData } from "@/modules/pageBlocks/blocks/marketing/pricing/PricingBlockDto";
+import { PricingBlockData } from "@/modules/pageBlocks/components/blocks/marketing/pricing/PricingBlockUtils";
 
 interface PricingClientProps {
   pricingData: PricingBlockData;
