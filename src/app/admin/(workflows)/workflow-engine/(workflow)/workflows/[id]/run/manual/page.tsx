@@ -21,8 +21,9 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
 }
 
 export default async function WorkflowsIdRunManualPage(props: IServerComponentsProps) {
-  const data = await WorkflowsIdRunManualApi.loader(props);
   const params = await props.params;
+  const data = await WorkflowsIdRunManualApi.loader(props);
+  const workflowId = params?.id || "";
 
   // Define ActionData type to match what the view expects
   type ActionData = {
@@ -38,7 +39,7 @@ export default async function WorkflowsIdRunManualPage(props: IServerComponentsP
       formData.set("action", "execute");
       const response = await WorkflowsIdRunManualApi.action({
         ...props,
-        request: new Request(props.request?.url || `http://localhost/admin/workflow-engine/workflows/${params.id}/run/manual`, {
+        request: new Request(props.request?.url || `http://localhost/admin/workflow-engine/workflows/${workflowId}/run/manual`, {
           method: "POST",
           body: formData,
         }),
@@ -62,7 +63,7 @@ export default async function WorkflowsIdRunManualPage(props: IServerComponentsP
       formData.set("action", "continue-execution");
       const response = await WorkflowsIdRunManualApi.action({
         ...props,
-        request: new Request(props.request?.url || `http://localhost/admin/workflow-engine/workflows/${params.id}/run/manual`, {
+        request: new Request(props.request?.url || `http://localhost/admin/workflow-engine/workflows/${workflowId}/run/manual`, {
           method: "POST",
           body: formData,
         }),
