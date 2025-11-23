@@ -10,7 +10,21 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
     const params = (await props.params) || {};
     const request = props.request!;
     const data = await loader({ request, params });
-    return data?.metatags || {};
+    
+    // Convert MetaTagsDto array to Metadata object
+    const metadata: Metadata = {};
+    if (data?.metatags) {
+      for (const tag of data.metatags) {
+        if ("title" in tag) {
+          metadata.title = tag.title;
+        } else if ("name" in tag && "content" in tag) {
+          if (tag.name === "description") {
+            metadata.description = tag.content;
+          }
+        }
+      }
+    }
+    return metadata;
   } catch (error) {
     return {};
   }
