@@ -1,7 +1,7 @@
 import { getServerTranslations } from "@/i18n/server";
 import { requireAuth } from "@/lib/services/loaders.middleware";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import Component from "./component";
 
 export async function generateMetadata() {

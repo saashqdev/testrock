@@ -1,4 +1,4 @@
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { verifyUserHasPermission } from "@/modules/permissions/services/UserPermissionsService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import Component from "./component";

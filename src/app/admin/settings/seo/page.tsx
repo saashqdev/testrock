@@ -2,7 +2,7 @@ import { getServerTranslations } from "@/i18n/server";
 import { loader } from "@/modules/pageBlocks/routes/pages/PageMetaTags_Index";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import Component from "./component";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 
 export async function generateMetadata(props: IServerComponentsProps) {
   const data = await loader(props);

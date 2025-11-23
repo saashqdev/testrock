@@ -1,5 +1,5 @@
 import { getServerTranslations } from "@/i18n/server";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import Component from "./component";
 
 export async function generateMetadata() {

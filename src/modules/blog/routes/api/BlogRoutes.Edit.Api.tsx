@@ -1,7 +1,7 @@
 import { BlogCategory, BlogTag } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
-import { getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { getCategory, createCategory } from "@/utils/api/server/BlogApi";
 import FormHelper from "@/lib/helpers/FormHelper";

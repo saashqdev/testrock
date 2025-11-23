@@ -8,7 +8,7 @@ import UrlUtils from "@/utils/app/UrlUtils";
 import { getTenantIdOrNull } from "@/utils/services/server/urlService";
 import { getUserInfo } from "@/lib/services/session.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
-import { getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 
 export const generateMetadata = async ({ params }: { params: any }): Promise<Metadata> => {
   const tenantId = await getTenantIdOrNull({ request: {} as Request, params });

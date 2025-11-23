@@ -6,7 +6,7 @@ import { getServerTranslations } from "@/i18n/server";
 import { getUserInfo } from "@/lib/services/session.server";
 import { addTenantUser, createTenant } from "@/modules/accounts/services/TenantService";
 import { getUser } from "@/modules/accounts/services/UserService";
-import { defaultSiteTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { defaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { redirect } from "next/navigation";
 import Component from "./component";
 

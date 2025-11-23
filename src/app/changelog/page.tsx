@@ -3,7 +3,7 @@ import HeaderBlock from "@/modules/pageBlocks/components/blocks/marketing/header
 import { Metadata } from "next";
 import ChangelogIssues, { ChangelogItem } from "@/components/changelog/ChangelogIssues";
 import UrlUtils from "@/utils/app/UrlUtils";
-import { getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getCurrentPage } from "@/modules/pageBlocks/services/server/pagesService";
 import PageBlocks from "@/modules/pageBlocks/components/blocks/PageBlocks";
 import { PageLoaderData } from "@/modules/pageBlocks/dtos/PageBlockData";

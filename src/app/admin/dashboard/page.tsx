@@ -9,7 +9,7 @@ import { SetupItem } from "@/lib/dtos/setup/SetupItem";
 import { Stat } from "@/lib/dtos/stats/Stat";
 import { PaginationDto } from "@/lib/dtos/data/PaginationDto";
 import { getPaginationFromCurrentUrl } from "@/lib/helpers/RowPaginationHelper";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { createMetrics } from "@/modules/metrics/services/server/MetricTracker";
 import { promiseHash } from "@/utils/promises/promiseHash";
 import Component from "./component";

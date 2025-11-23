@@ -1,5 +1,5 @@
 import { AnalyticsPageView, AnalyticsUniqueVisitor, Prisma } from "@prisma/client";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { FilterablePropertyDto } from "@/lib/dtos/data/FilterablePropertyDto";
 import { PaginationDto } from "@/lib/dtos/data/PaginationDto";

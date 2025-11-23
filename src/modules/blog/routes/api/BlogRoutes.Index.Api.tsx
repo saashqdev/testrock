@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { MetaTagsDto } from "@/lib/dtos/seo/MetaTagsDto";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { BlogPostWithDetailsDto } from "@/db/models/blog/BlogModel";

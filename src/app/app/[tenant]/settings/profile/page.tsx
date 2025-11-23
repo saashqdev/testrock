@@ -6,7 +6,7 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { getUserInfo } from "@/lib/services/session.server";
 import { deleteUserWithItsTenants, getTenant, getTenantIdFromUrl } from "@/modules/accounts/services/TenantService";
 import { getUser, updateUser } from "@/modules/accounts/services/UserService";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { storeSupabaseFile } from "@/modules/storage/SupabaseStorageService";
 import { redirect } from "next/navigation";
 import bcrypt from "bcryptjs";

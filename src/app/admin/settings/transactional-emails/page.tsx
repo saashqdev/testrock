@@ -4,7 +4,7 @@ import EmailTemplates from "@/modules/emails/utils/EmailTemplates";
 import { AppConfigurationDto } from "@/db/models/core/AppConfigurationModel";
 import { requireAuth } from "@/lib/services/loaders.middleware";
 import { db } from "@/db";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import Component from "./component";
 
 type LoaderData = {

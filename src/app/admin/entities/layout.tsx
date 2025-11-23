@@ -19,7 +19,7 @@ import ExperimentIcon from "@/components/ui/icons/tests/ExperimentIcon";
 import ExperimentIconFilled from "@/components/ui/icons/tests/ExperimentIconFilled";
 import SidebarIconsLayout from "@/components/ui/layouts/SidebarIconsLayout";
 import { getServerTranslations } from "@/i18n/server";
-import { getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getServerTranslations();

@@ -10,7 +10,7 @@ import { RoleAssignedDto } from "@/modules/events/dtos/RoleAssignedDto";
 import { RoleUnassignedDto } from "@/modules/events/dtos/RoleUnassignedDto";
 import { requireAuth } from "@/lib/services/loaders.middleware";
 import { db } from "@/db";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import Component from "./component";
 
