@@ -1,12 +1,13 @@
-import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { verifyUserHasPermission } from "@/modules/permissions/services/UserPermissionsService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import Component from "./component";
 
 export async function generateMetadata() {
-  return defaultSeoMetaTags({
-    title: `Tenant Types | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `Tenant Types | ${siteTags.title}`,
+  };
 }
 
 export default async function (props: IServerComponentsProps) {
