@@ -1,4 +1,4 @@
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { db } from "@/db";
@@ -6,8 +6,8 @@ import Component from "./component";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("shared.new")} ${t("models.user.object")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("shared.new")} ${t("models.user.object")} | ${getDefaultSiteTags.title}`,
   });
 }
 

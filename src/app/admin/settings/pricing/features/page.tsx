@@ -1,5 +1,5 @@
 import { verifyUserHasPermission } from "@/modules/permissions/services/UserPermissionsService";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { db } from "@/db";
 import { SubscriptionProductDto } from "@/modules/subscriptions/dtos/SubscriptionProductDto";
@@ -8,8 +8,8 @@ import Component from "./component";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `Pricing Features | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `Pricing Features | ${getDefaultSiteTags.title}`,
   });
 }
 

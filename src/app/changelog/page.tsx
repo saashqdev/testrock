@@ -27,7 +27,7 @@ export async function generateMetadata(props: IServerComponentsProps): Promise<M
     const firstTitleTag = page.page.metaTags.find((tag) => tag.name === "title");
     const firstDescTag = page.page.metaTags.find((tag) => tag.name === "description");
 
-    return getMetaTags({
+    return defaultSeoMetaTags({
       title: firstTitleTag?.value,
       description: firstDescTag?.value,
     });

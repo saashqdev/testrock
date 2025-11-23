@@ -13,7 +13,7 @@ import Component from "./component";
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
   return {
-    title: `${t("pricing.subscribe")} | ${defaultSiteTags.title}`,
+    title: `${t("pricing.subscribe")} | ${getDefaultSiteTags.title}`,
   };
 }
 

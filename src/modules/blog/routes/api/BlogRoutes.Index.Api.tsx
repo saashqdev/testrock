@@ -11,7 +11,7 @@ import { requireAuth } from "@/lib/services/loaders.middleware";
 import { db } from "@/db";
 
 export const generateMetadata = async ({ params }: { params: any }): Promise<Metadata> => {
-  return getMetaTags({
+  return defaultSeoMetaTags({
     title: `Blog | ${process.env.APP_NAME}`,
   });
 };

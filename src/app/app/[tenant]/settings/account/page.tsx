@@ -3,7 +3,7 @@
 import { getServerTranslations } from "@/i18n/server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { deleteAndCancelTenant, getTenant, getTenantByIdOrSlug, getTenantIdFromUrl, updateTenant } from "@/modules/accounts/services/TenantService";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { storeSupabaseFile } from "@/modules/storage/SupabaseStorageService";
 import { redirect } from "next/navigation";
 import Component from "./component";
@@ -14,8 +14,8 @@ import { revalidatePath } from "next/cache";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("models.tenant.object")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("models.tenant.object")} | ${getDefaultSiteTags.title}`,
   });
 }
 

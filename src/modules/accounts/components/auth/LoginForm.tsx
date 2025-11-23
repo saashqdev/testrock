@@ -101,7 +101,7 @@ export default function LoginForm({ appConfiguration, redirectTo }: { appConfigu
 
 // export async function generateMetadata() {
 //   const { t } = await getServerTranslations();
-//   return getMetaTags({
-//     title: `${t("account.login.title")} | ${defaultSiteTags.title}`,
+//   return defaultSeoMetaTags({
+//     title: `${t("account.login.title")} | ${getDefaultSiteTags.title}`,
 //   });
 // }

@@ -1,4 +1,4 @@
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { getFiltersFromCurrentUrl, getPaginationFromCurrentUrl } from "@/lib/helpers/RowPaginationHelper";
@@ -8,8 +8,8 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("models.portal.plural")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("models.portal.plural")} | ${getDefaultSiteTags.title}`,
   });
 }
 

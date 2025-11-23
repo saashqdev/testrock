@@ -1,12 +1,12 @@
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import Component from "./component";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `Danger | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `Danger | ${getDefaultSiteTags.title}`,
   });
 }
 

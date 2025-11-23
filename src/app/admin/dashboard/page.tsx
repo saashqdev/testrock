@@ -9,7 +9,7 @@ import { SetupItem } from "@/lib/dtos/setup/SetupItem";
 import { Stat } from "@/lib/dtos/stats/Stat";
 import { PaginationDto } from "@/lib/dtos/data/PaginationDto";
 import { getPaginationFromCurrentUrl } from "@/lib/helpers/RowPaginationHelper";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { createMetrics } from "@/modules/metrics/services/server/MetricTracker";
 import { promiseHash } from "@/utils/promises/promiseHash";
 import Component from "./component";
@@ -18,8 +18,8 @@ import TitleDataLayout from "@/context/TitleDataLayout";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("app.sidebar.dashboard")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("app.sidebar.dashboard")} | ${getDefaultSiteTags.title}`,
   });
 }
 
@@ -72,7 +72,7 @@ async function load(props: IServerComponentsProps): Promise<AdminDashboardLoader
   );
 
   const data: AdminDashboardLoaderData = {
-    title: `${t("app.sidebar.dashboard")} | ${defaultSiteTags.title}`,
+    title: `${t("app.sidebar.dashboard")} | ${getDefaultSiteTags.title}`,
     stats,
     setupSteps,
     tenants,

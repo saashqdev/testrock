@@ -16,7 +16,7 @@ export const generateMetadata = async ({ params }: { params: any }): Promise<Met
     tenantId: tenantId?.toString() ?? null,
   });
 
-  return getMetaTags({
+  return defaultSeoMetaTags({
     title: workflow ? `Run Workflow (Stream): ${workflow.name} | ${process.env.APP_NAME}` : `Workflow | ${process.env.APP_NAME}`,
   });
 };

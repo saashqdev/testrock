@@ -1,5 +1,5 @@
 import { verifyUserHasPermission } from "@/modules/permissions/services/UserPermissionsService";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import Component from "./component";
 import { CachedValue, getCachedValues } from "@/lib/services/cache.server";
@@ -9,8 +9,8 @@ import { defaultAppConfiguration } from "@/modules/core/data/defaultAppConfigura
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("settings.admin.cache.title")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("settings.admin.cache.title")} | ${getDefaultSiteTags.title}`,
   });
 }
 

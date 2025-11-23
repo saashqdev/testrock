@@ -1,9 +1,9 @@
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 
 export async function generateMetadata() {
-  return getMetaTags({
-    title: `Metrics | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `Metrics | ${getDefaultSiteTags.title}`,
   });
 }
 

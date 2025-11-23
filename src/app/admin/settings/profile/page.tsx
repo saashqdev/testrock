@@ -1,11 +1,11 @@
 import { getServerTranslations } from "@/i18n/server";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import Component from "./component";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("settings.profile.profileTitle")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("settings.profile.profileTitle")} | ${getDefaultSiteTags.title}`,
   });
 }
 

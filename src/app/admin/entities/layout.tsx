@@ -23,7 +23,7 @@ import { getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getServerTranslations();
-  return getMetaTags({
+  return defaultSeoMetaTags({
     title: `${t("models.entity.plural")} | ${process.env.APP_NAME}`,
   });
 }

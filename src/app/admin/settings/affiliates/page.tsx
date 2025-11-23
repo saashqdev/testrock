@@ -1,12 +1,12 @@
 import IndexPageLayout from "@/components/ui/layouts/IndexPageLayout";
 import React from "react";
 import { getServerTranslations } from "@/i18n/server";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("affiliates.title")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("affiliates.title")} | ${getDefaultSiteTags.title}`,
   });
 }
 

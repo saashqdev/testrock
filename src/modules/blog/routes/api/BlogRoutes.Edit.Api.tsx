@@ -18,7 +18,7 @@ export const generateMetadata = async ({ params }: { params: any }): Promise<Met
   const tenantId = await getTenantIdOrNull({ request: {} as Request, params });
   const item = await db.blog.getBlogPost({ tenantId, idOrSlug: params.id ?? "" });
 
-  return getMetaTags({
+  return defaultSeoMetaTags({
     title: item ? `${item.title} | Blog | ${process.env.APP_NAME}` : `Blog | ${process.env.APP_NAME}`,
     description: item?.description || undefined,
     image: item?.image || undefined,

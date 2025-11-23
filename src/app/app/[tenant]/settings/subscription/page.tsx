@@ -8,7 +8,7 @@ import { PlanFeatureUsageDto } from "@/modules/subscriptions/dtos/PlanFeatureUsa
 import { getPlanFeaturesUsage } from "@/modules/subscriptions/services/SubscriptionService";
 import { verifyUserHasPermission } from "@/modules/permissions/services/UserPermissionsService";
 import { getUserInfo } from "@/lib/services/session.server";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { requireTenantSlug } from "@/lib/services/url.server";
 import Component from "./component";
@@ -21,8 +21,8 @@ import TitleDataLayout from "@/context/TitleDataLayout";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("settings.subscription.title")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("settings.subscription.title")} | ${getDefaultSiteTags.title}`,
   });
 }
 

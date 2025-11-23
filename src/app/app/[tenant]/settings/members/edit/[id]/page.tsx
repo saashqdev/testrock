@@ -3,7 +3,7 @@
 import { db } from "@/db";
 import { getTenantIdFromUrl } from "@/modules/accounts/services/TenantService";
 import { verifyUserHasPermission } from "@/modules/permissions/services/UserPermissionsService";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { requireTenantSlug } from "@/lib/services/url.server";
 import Component from "./component";
@@ -14,8 +14,8 @@ import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("settings.members.actions.new")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("settings.members.actions.new")} | ${getDefaultSiteTags.title}`,
   });
 }
 

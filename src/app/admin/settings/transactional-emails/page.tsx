@@ -4,7 +4,7 @@ import EmailTemplates from "@/modules/emails/utils/EmailTemplates";
 import { AppConfigurationDto } from "@/db/models/core/AppConfigurationModel";
 import { requireAuth } from "@/lib/services/loaders.middleware";
 import { db } from "@/db";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import Component from "./component";
 
 type LoaderData = {
@@ -20,8 +20,8 @@ type LoaderData = {
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("settings.admin.transactionalEmails.title")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("settings.admin.transactionalEmails.title")} | ${getDefaultSiteTags.title}`,
   });
 }
 
@@ -61,7 +61,7 @@ export default async function TransactionalEmailsPage() {
   };
 
   const data: LoaderData = {
-    title: `${t("settings.admin.transactionalEmails.title")} | ${defaultSiteTags.title}`,
+    title: `${t("settings.admin.transactionalEmails.title")} | ${getDefaultSiteTags.title}`,
     items,
     appConfiguration: serializedAppConfiguration,
     providers,

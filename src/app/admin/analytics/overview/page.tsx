@@ -1,4 +1,4 @@
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 import PeriodHelper from "@/lib/helpers/PeriodHelper";
@@ -13,8 +13,8 @@ type LoaderData = {
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("analytics.overview")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("analytics.overview")} | ${getDefaultSiteTags.title}`,
   });
 }
 

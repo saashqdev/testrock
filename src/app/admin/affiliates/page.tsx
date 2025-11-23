@@ -1,13 +1,13 @@
 import { getServerTranslations } from "@/i18n/server";
 import { requireAuth } from "@/lib/services/loaders.middleware";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import Component from "./component";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("affiliates.title")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("affiliates.title")} | ${getDefaultSiteTags.title}`,
   });
 }
 
@@ -20,7 +20,7 @@ async function load(): Promise<AffiliatesLoaderData> {
   const { t } = await getServerTranslations();
 
   const data: AffiliatesLoaderData = {
-    title: `${t("affiliates.title")} | ${defaultSiteTags.title}`,
+    title: `${t("affiliates.title")} | ${getDefaultSiteTags.title}`,
   };
   return data;
 }

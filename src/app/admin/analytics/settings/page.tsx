@@ -1,4 +1,4 @@
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { AnalyticsSettings } from "@prisma/client";
 import { prisma } from "@/db/config/prisma/database";
@@ -14,8 +14,8 @@ type LoaderData = {
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("analytics.settings")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("analytics.settings")} | ${getDefaultSiteTags.title}`,
   });
 }
 

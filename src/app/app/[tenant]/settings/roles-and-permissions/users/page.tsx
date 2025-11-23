@@ -10,7 +10,7 @@ import { RoleAssignedDto } from "@/modules/events/dtos/RoleAssignedDto";
 import { RoleUnassignedDto } from "@/modules/events/dtos/RoleUnassignedDto";
 import { requireAuth } from "@/lib/services/loaders.middleware";
 import { db } from "@/db";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import Component from "./component";
 
@@ -21,8 +21,8 @@ type LoaderData = {
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("models.role.adminRoles")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("models.role.adminRoles")} | ${getDefaultSiteTags.title}`,
   });
 }
 

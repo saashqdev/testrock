@@ -1,12 +1,12 @@
 import { getServerTranslations } from "@/i18n/server";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { verifyUserHasPermission } from "@/modules/permissions/services/UserPermissionsService";
 import Component from "./component";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("settings.admin.analytics.title")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("settings.admin.analytics.title")} | ${getDefaultSiteTags.title}`,
   });
 }
 

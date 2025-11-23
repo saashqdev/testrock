@@ -10,7 +10,7 @@ import { RoleWithPermissionsDto } from "@/db/models";
 import { TenantUserWithUserDto } from "@/db/models/accounts/TenantsModel";
 import { getBaseURL } from "@/lib/services/url.server";
 import { db } from "@/db";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { requireTenantSlug } from "@/lib/services/url.server";
 import { requireAuth } from "@/lib/services/loaders.middleware";
@@ -26,8 +26,8 @@ import TitleDataLayout from "@/context/TitleDataLayout";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("settings.members.title")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("settings.members.title")} | ${getDefaultSiteTags.title}`,
   });
 }
 

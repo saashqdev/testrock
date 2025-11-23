@@ -1,5 +1,5 @@
 import { AnalyticsPageView, AnalyticsUniqueVisitor, Prisma } from "@prisma/client";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { FilterablePropertyDto } from "@/lib/dtos/data/FilterablePropertyDto";
 import { PaginationDto } from "@/lib/dtos/data/PaginationDto";
@@ -25,8 +25,8 @@ export type LoaderData = {
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("analytics.pageViews")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("analytics.pageViews")} | ${getDefaultSiteTags.title}`,
   });
 }
 

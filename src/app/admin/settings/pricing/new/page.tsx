@@ -1,13 +1,13 @@
 import { verifyUserHasPermission } from "@/modules/permissions/services/UserPermissionsService";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { db } from "@/db";
 import Component from "./component";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("admin.pricing.new")} | ${defaultSiteTags.title}`,
+  return defaultSeoMetaTags({
+    title: `${t("admin.pricing.new")} | ${getDefaultSiteTags.title}`,
   });
 }
 
