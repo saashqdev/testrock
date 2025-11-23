@@ -19,13 +19,12 @@ import ExperimentIcon from "@/components/ui/icons/tests/ExperimentIcon";
 import ExperimentIconFilled from "@/components/ui/icons/tests/ExperimentIconFilled";
 import SidebarIconsLayout from "@/components/ui/layouts/SidebarIconsLayout";
 import { getServerTranslations } from "@/i18n/server";
-import { getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
+  return {
     title: `${t("models.entity.plural")} | ${process.env.APP_NAME}`,
-  });
+  };
 }
 
 export default function EntitiesLayout({ children }: { children: React.ReactNode }) {
