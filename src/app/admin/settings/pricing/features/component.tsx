@@ -494,7 +494,6 @@ export default function ({ data }: { data: PricingFeaturesLoaderData }) {
             stripeCoupon={null}
             canSubmit={false}
             currenciesAndPeriod={PricingUtils.getCurrenciesAndPeriods(selectedPlans.flatMap((f) => f.prices))}
-            serverAction={null}
           />
         </Modal>
       </IndexPageLayout>
