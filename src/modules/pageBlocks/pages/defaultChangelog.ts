@@ -5,8 +5,8 @@ import { getDefaultSiteTags } from "./defaultSeoMetaTags";
 export function defaultChangelog({ t }: { t: TFunction }): ChangelogItem[] {
   const items: ChangelogItem[] = [
     {
-      date: "Sep 31th, 2024",
-      title: "NextRock v1.4.0 🎉",
+      date: "Nov 25th, 2025",
+      title: "NextRock v1.6.1 🎉",
       url: "https://nextrock.com/changelog",
       description: "Your description here",
       videos: [
