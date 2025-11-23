@@ -2,8 +2,8 @@
 
 import { APP_VERSION, LAST_DEPLOYMENT } from "@/lib/constants";
 import DateUtils from "@/lib/utils/DateUtils";
-import HeaderBlock from "@/modules/pageBlocks/blocks/marketing/header/HeaderBlock";
-import HeadingBlock from "@/modules/pageBlocks/blocks/marketing/heading/HeadingBlock";
+import HeaderBlock from "@/modules/pageBlocks/components/blocks/marketing/header/HeaderBlock";
+import HeadingBlock from "@/modules/pageBlocks/components/blocks/marketing/heading/HeadingBlock";
 import { useTranslation } from "react-i18next";
 
 export default function () {
