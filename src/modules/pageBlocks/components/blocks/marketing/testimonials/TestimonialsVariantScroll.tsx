@@ -9,14 +9,14 @@ import { InfiniteMovingCards } from "@/components/aceternity/infinite-moving-car
 export default function TestimonialsVariantScroll({ item }: { item: TestimonialsBlockDto }) {
   const { t } = useTranslation();
   return (
-    <section className="">
-      <div className="container relative mx-auto space-y-6 px-5 py-12 pb-24">
+    <section className="relative overflow-hidden">
+      <div className="container relative z-10 mx-auto space-y-6 px-5 py-12 pb-24">
         <div
-          className={clsx(
-            "absolute left-1/2 top-1/2 -z-10 h-[400px] w-[800px] -translate-x-1/2 -translate-y-1/2 opacity-20 blur-[100px] dark:opacity-10",
-            "bg-yellow-500/50 dark:bg-yellow-500/80"
-          )}
-        />
+          className="pointer-events-none absolute inset-0 flex items-center justify-center"
+          aria-hidden="true"
+        >
+          <div className="h-[500px] w-[500px] rounded-full bg-yellow-500 opacity-20 blur-[150px] dark:opacity-10" />
+        </div>
         {(item.headline || item.subheadline) && (
           <div className="space-y-5 pb-8 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl">
             <h2 className="text-center text-3xl font-extrabold tracking-tight sm:text-4xl">{t(item.headline || "")}</h2>
