@@ -3,8 +3,8 @@
 import ButtonSecondary from "@/components/ui/buttons/ButtonSecondary";
 import ShowPayloadModalButton from "@/components/ui/json/ShowPayloadModalButton";
 import { CachedValue } from "@/lib/services/cache.server";
-import HeaderBlock from "@/modules/pageBlocks/blocks/marketing/header/HeaderBlock";
-import HeadingBlock from "@/modules/pageBlocks/blocks/marketing/heading/HeadingBlock";
+import HeaderBlock from "@/modules/pageBlocks/components/blocks/marketing/header/HeaderBlock";
+import HeadingBlock from "@/modules/pageBlocks/components/blocks/marketing/heading/HeadingBlock";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 import { actionDev } from "./page";

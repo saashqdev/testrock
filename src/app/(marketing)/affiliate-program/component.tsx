@@ -2,8 +2,8 @@
 
 import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import NumberUtils from "@/lib/utils/NumberUtils";
-import FooterBlock from "@/modules/pageBlocks/blocks/marketing/footer/FooterBlock";
-import HeaderBlock from "@/modules/pageBlocks/blocks/marketing/header/HeaderBlock";
+import FooterBlock from "@/modules/pageBlocks/components/blocks/marketing/footer/FooterBlock";
+import HeaderBlock from "@/modules/pageBlocks/components/blocks/marketing/header/HeaderBlock";
 import { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AffiliateProgramLoaderData } from "./page";

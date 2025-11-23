@@ -1,14 +1,14 @@
 "use client";
 
-import HeaderBlock from "@/modules/pageBlocks/blocks/marketing/header/HeaderBlock";
-import HeadingBlock from "@/modules/pageBlocks/blocks/marketing/heading/HeadingBlock";
+import HeaderBlock from "@/modules/pageBlocks/components/blocks/marketing/header/HeaderBlock";
+import HeadingBlock from "@/modules/pageBlocks/components/blocks/marketing/heading/HeadingBlock";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 import { actionMarketingForms } from "./page";
 import JsonPropertyValuesInput from "@/modules/jsonProperties/components/JsonPropertyValuesInput";
 import JsonPropertiesUtils from "@/modules/jsonProperties/utils/JsonPropertiesUtils";
 import { Button } from "@/components/ui/button";
-import FooterBlock from "@/modules/pageBlocks/blocks/marketing/footer/FooterBlock";
+import FooterBlock from "@/modules/pageBlocks/components/blocks/marketing/footer/FooterBlock";
 
 export default function () {
   const [actionData, action, pending] = useActionState(actionMarketingForms, null);
@@ -25,6 +25,7 @@ export default function () {
       <div className="py-4">
         <HeadingBlock
           item={{
+            style: "centered",
             headline: "Sample Form",
             subheadline: "This is a sample form with all supported properties.",
           }}
