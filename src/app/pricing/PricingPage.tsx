@@ -6,7 +6,7 @@ import FooterBlock from "@/modules/pageBlocks/components/blocks/marketing/footer
 import HeaderBlock from "@/modules/pageBlocks/components/blocks/marketing/header/HeaderBlock";
 import HeadingBlock from "@/modules/pageBlocks/components/blocks/marketing/heading/HeadingBlock";
 import PricingClient from "./PricingClient";
-import { PricingBlockData } from "@/modules/pageBlocks/blocks/marketing/pricing/PricingBlockDto";
+import { PricingBlockData } from "@/modules/pageBlocks/components/blocks/marketing/pricing/PricingBlockUtils";
 
 interface PricingPageProps {
   pricingData: PricingBlockData;
