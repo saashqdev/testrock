@@ -2,16 +2,27 @@
 
 import { getServerTranslations } from "@/i18n/server";
 import { defaultAppConfiguration } from "@/modules/core/data/defaultAppConfiguration";
-import { defaultSiteTags, getMetaTags } from "@/modules/pageBlocks/seo/SeoMetaTagsUtils";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import Component from "./component";
 import { db } from "@/db";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return getMetaTags({
-    title: `${t("affiliates.program")} | ${defaultSiteTags.title}`,
-    description: t("affiliates.description"),
-  });
+  const title = `${t("affiliates.program")} | ${getDefaultSiteTags().title}`;
+  const description = t("affiliates.description");
+  
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+    },
+    twitter: {
+      title,
+      description,
+    },
+  };
 }
 
 export type AffiliateProgramLoaderData = {
