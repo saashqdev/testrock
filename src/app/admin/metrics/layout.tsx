@@ -2,9 +2,10 @@ import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService
 import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 
 export async function generateMetadata() {
-  return defaultSeoMetaTags({
-    title: `Metrics | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `Metrics | ${siteTags.title}`,
+  };
 }
 
 export default async function AdminMetricsLayout({ children }: { children: React.ReactNode }) {
