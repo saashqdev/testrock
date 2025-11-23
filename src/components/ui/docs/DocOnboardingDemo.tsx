@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { NextRockOnboardingStepBlocks } from "@/modules/onboarding/blocks/defaultOnboarding/NextRockOnboarding";
+import { nextrockOnboardingStepBlocks } from "@/modules/onboarding/blocks/defaultOnboarding/nextrockOnboarding";
 import OnboardingBlock from "@/modules/onboarding/blocks/OnboardingBlock";
 import { OnboardingBlockDto } from "@/modules/onboarding/blocks/OnboardingBlockUtils";
 import ButtonPrimary from "../buttons/ButtonPrimary";
@@ -15,7 +15,7 @@ export default function DocOnboardingDemo() {
       style: "modal",
       title: "Onboarding Demo",
       canBeDismissed: true,
-      steps: NextRockOnboardingStepBlocks,
+      steps: nextrockOnboardingStepBlocks,
       height: "lg",
     });
   }, []);

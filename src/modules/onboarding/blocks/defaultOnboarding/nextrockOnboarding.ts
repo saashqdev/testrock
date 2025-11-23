@@ -1,6 +1,6 @@
 import { OnboardingStepBlockDto } from "../OnboardingBlockUtils";
 
-export const NextRockOnboardingStepBlocks: OnboardingStepBlockDto[] = [
+export const nextrockOnboardingStepBlocks: OnboardingStepBlockDto[] = [
   {
     id: "1",
     title: "Welcome!",
