@@ -1,13 +1,11 @@
-import { useTranslation } from "react-i18next";
-import Logo from "@/components/brand/Logo";
 import { getServerTranslations } from "@/i18n/server";
 import { addTenantProductsFromCheckoutSession, CheckoutSessionResponse, getAcquiredItemsFromCheckoutSession } from "@/utils/services/server/pricingService";
 import { createUserSession, getUserInfo, setLoggedUser } from "@/lib/services/session.server";
-import { RegisterForm } from "@/modules/users/components/RegisterForm";
 import { getRegistrationFormData, validateRegistration } from "@/utils/services/authService";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
 import { Metadata } from "next";
+import { PricingSubscribedSuccessClient } from "./PricingSubscribedSuccessClient";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const { t } = await getServerTranslations();
@@ -133,73 +131,4 @@ export default async function PricingSubscribedSuccessRoute(props: IServerCompon
   }
 
   return <PricingSubscribedSuccessClient data={data} action={handleRegistration} />;
-}
-
-function PricingSubscribedSuccessClient({
-  data,
-  action,
-}: {
-  data: LoaderData;
-  action: (prevState: ActionData | null, formData: FormData) => Promise<ActionData>;
-}) {
-  "use client";
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { useActionState, useEffect } = require("react");
-  const { t } = useTranslation();
-  const [actionData, formAction] = useActionState(action, null);
-
-  useEffect(() => {
-    try {
-      // @ts-ignore
-      $crisp.push(["do", "chat:hide"]);
-    } catch {
-      // ignore
-    }
-  }, []);
-
-  return (
-    <div>
-      <div className="">
-        <div className="flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-          <div className="mx-auto w-full max-w-sm space-y-5">
-            <Logo className="mx-auto h-12 w-auto" />
-
-            <div className="flex flex-col items-center">
-              {data.error ? (
-                <>
-                  <h1 className="text-left text-2xl font-extrabold">Unexpected Error</h1>
-                  <p className="mt-1 text-center text-sm text-red-500">{data.error}</p>
-                </>
-              ) : !data.checkoutSession ? (
-                <>
-                  <h1 className="text-left text-2xl font-extrabold">Error</h1>
-                  <p className="mt-1 text-center text-sm text-red-500">Invalid checkout session</p>
-                </>
-              ) : (
-                <>
-                  <h1 className="text-left text-2xl font-extrabold">{t("account.register.setup")}</h1>
-                  <p className="mt-1 text-center text-sm">Thank you for subscribing to {t(data.checkoutSession.products.map((f) => t(f.title)).join(", "))}</p>
-                </>
-              )}
-            </div>
-
-            {data.checkoutSession && !data.error && (
-              <RegisterForm
-                data={{
-                  company: actionData?.fields?.company,
-                  firstName: actionData?.fields?.firstName,
-                  lastName: actionData?.fields?.lastName,
-                  email: data.checkoutSession.customer.email,
-                }}
-                error={actionData?.error}
-                isSettingUpAccount={true}
-                action={formAction}
-              />
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 }
