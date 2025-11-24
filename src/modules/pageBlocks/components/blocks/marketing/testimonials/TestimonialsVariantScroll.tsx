@@ -15,7 +15,7 @@ export default function TestimonialsVariantScroll({ item }: { item: Testimonials
           className="pointer-events-none absolute inset-0 flex items-center justify-center"
           aria-hidden="true"
         >
-          <div className="h-[500px] w-[500px] rounded-full bg-yellow-500 opacity-20 blur-[150px] dark:opacity-10" />
+          <div className="h-[350px] w-[350px] rounded-full bg-yellow-500 opacity-20 blur-[150px] dark:opacity-10" />
         </div>
         {(item.headline || item.subheadline) && (
           <div className="space-y-5 pb-8 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl">

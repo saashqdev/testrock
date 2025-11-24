@@ -5,7 +5,7 @@ import { getRegistrationFormData, validateRegistration } from "@/utils/services/
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
 import { Metadata } from "next";
-import { PricingSubscribedSuccessClient } from "./PricingSubscribedSuccessClient";
+import { PricingSubscribedSuccessClient } from "./component";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const { t } = await getServerTranslations();
