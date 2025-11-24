@@ -17,9 +17,10 @@ import { requireAuth } from "@/lib/services/loaders.middleware";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("settings.profile.profileTitle")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `${t("settings.profile.profileTitle")} | ${siteTags.title}`,
+  };
 }
 
 export const actionAppSettingsProfile = async (prev: any, form: FormData) => {

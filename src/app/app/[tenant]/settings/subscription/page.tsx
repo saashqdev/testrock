@@ -8,7 +8,7 @@ import { PlanFeatureUsageDto } from "@/modules/subscriptions/dtos/PlanFeatureUsa
 import { getPlanFeaturesUsage } from "@/modules/subscriptions/services/SubscriptionService";
 import { verifyUserHasPermission } from "@/modules/permissions/services/UserPermissionsService";
 import { getUserInfo } from "@/lib/services/session.server";
-import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { requireTenantSlug } from "@/lib/services/url.server";
 import Component from "./component";
@@ -21,9 +21,10 @@ import TitleDataLayout from "@/context/TitleDataLayout";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("settings.subscription.title")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `${t("settings.subscription.title")} | ${siteTags.title}`,
+  };
 }
 
 export type AppSettingsSubscriptionLoaderData =
@@ -120,7 +121,8 @@ export const actionAppSettingsSubscription = async (prev: any, form: FormData) =
 export default async function () {
   const { t } = await getServerTranslations();
   const data = await loader();
-  const title = `${t("settings.subscription.title")} | ${defaultSiteTags.title}`;
+  const siteTags = getDefaultSiteTags();
+  const title = `${t("settings.subscription.title")} | ${siteTags.title}`;
 
   return (
     <TitleDataLayout data={{ title }}>
