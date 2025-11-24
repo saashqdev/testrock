@@ -27,7 +27,8 @@ export default function HeaderVariantSimple({ item, width = "7xl" }: { item: Hea
     setMounted(true);
   }, []);
 
-  const authenticated = mounted ? rootData.authenticated : false;
+  // Use mounted check to prevent hydration mismatch
+  const authenticated = mounted && rootData.authenticated;
   const appConfiguration = rootData.appConfiguration;
   const user = mounted ? rootData.user : null;
   const theme = mounted ? rootData.theme : undefined;

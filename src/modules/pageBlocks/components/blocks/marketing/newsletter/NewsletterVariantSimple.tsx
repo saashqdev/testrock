@@ -3,7 +3,7 @@
 import { useTranslation } from "react-i18next";
 import { NewsletterBlockDto } from "@/modules/pageBlocks/components/blocks/marketing/newsletter/NewsletterBlockUtils";
 import { useRootData } from "@/lib/state/useRootData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import RecaptchaWrapper from "@/components/recaptcha/RecaptchaWrapper";
 import HoneypotInput from "@/components/ui/honeypot/HoneypotInput";
 import InputText from "@/components/ui/input/InputText";
@@ -90,12 +90,19 @@ export default function NewsletterVariantSimple({ item }: { item: NewsletterBloc
 
 export function NewsletterForm({ onClose }: { onClose?: () => void }) {
   const { t } = useTranslation();
-  const { csrf } = useRootData();
+  const rootData = useRootData();
+  const [mounted, setMounted] = useState(false);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<{ subscription?: string; error?: string; success?: string }>({});
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const csrf = mounted ? rootData.csrf : undefined;
 
   const state: "idle" | "success" | "error" | "submitting" = isSubmitting
     ? "submitting"
@@ -141,7 +148,7 @@ export function NewsletterForm({ onClose }: { onClose?: () => void }) {
 
   return (
     <form id="newsletter-form" onSubmit={handleSubmit} className="mx-auto flex w-full max-w-xl flex-col items-end space-y-4 px-8 sm:px-0">
-      <input type="hidden" name="csrf" value={csrf} hidden readOnly />
+      {csrf && <input type="hidden" name="csrf" value={csrf} hidden readOnly />}
       <HoneypotInput />
       <input type="hidden" name="source" value="block" hidden readOnly />
       <HoneypotInput />

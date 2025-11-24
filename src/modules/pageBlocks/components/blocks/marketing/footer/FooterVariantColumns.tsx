@@ -10,10 +10,18 @@ import DarkModeToggle from "@/components/ui/toggles/DarkModeToggle";
 import ThemeSelector from "@/components/ui/selectors/ThemeSelector";
 import LocaleSelector from "@/components/ui/selectors/LocaleSelector";
 import { useRootData } from "@/lib/state/useRootData";
+import { useState, useEffect } from "react";
 
 export default function FooterVariantColumns({ item }: { item: FooterBlockDto }) {
   const { t } = useTranslation();
-  const { theme } = useRootData();
+  const rootData = useRootData();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const theme = mounted ? rootData.theme : undefined;
   return (
     <footer aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">

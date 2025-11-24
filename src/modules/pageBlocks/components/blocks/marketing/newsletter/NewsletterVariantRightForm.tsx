@@ -28,11 +28,12 @@ function SubmitButton({ email, t }: { email: string; t: any }) {
 }
 
 export default function NewsletterVariantRightForm({ item }: { item: NewsletterBlockDto }) {
-  const { csrf } = useRootData();
+  const rootData = useRootData();
   const { t } = useTranslation();
   const [state, formAction] = useFormState(actionNewsletter, { success: null, error: null });
 
   const [email, setEmail] = useState("");
+  const csrf = rootData.csrf || "";
   return (
     <section className="body-font w-full">
       <div className="container mx-auto flex flex-wrap items-center px-5 py-24">
@@ -42,7 +43,7 @@ export default function NewsletterVariantRightForm({ item }: { item: NewsletterB
         </div>
         <RecaptchaWrapper enabled>
           <form action={formAction} className="mt-10 flex w-full flex-col rounded-lg border-2 border-border p-8 md:ml-auto md:mt-0 md:w-1/2 lg:w-2/6">
-            <input type="hidden" name="csrf" value={csrf} hidden readOnly />
+            {csrf && <input type="hidden" name="csrf" value={csrf} hidden readOnly />}
             <HoneypotInput />
             <input type="hidden" name="source" value="right form block" hidden readOnly />
             <h2 className="title-font mb-5 text-lg font-medium">Sign Up</h2>

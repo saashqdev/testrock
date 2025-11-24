@@ -8,10 +8,18 @@ import WarningBanner from "@/components/ui/banners/WarningBanner";
 import { useRootData } from "@/lib/state/useRootData";
 import GridBlockUtils from "../../shared/grid/GridBlockUtils";
 import { CommunityBlockDto } from "./CommunityBlockUtils";
+import { useState, useEffect } from "react";
 
 export default function CommunityVariantSimple({ item }: { item: CommunityBlockDto }) {
-  const { debug } = useRootData();
+  const rootData = useRootData();
   const { t } = useTranslation();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const debug = mounted && rootData.debug;
   return (
     <div>
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-24">

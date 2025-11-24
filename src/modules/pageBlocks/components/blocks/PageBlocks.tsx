@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { useRootData } from "@/lib/state/useRootData";
 import clsx from "clsx";
 import PageBlockUtils from "@/modules/pageBlocks/components/blocks/PageBlockUtils";
@@ -33,7 +33,14 @@ export default function PageBlocks({
   onChange?: (items: PageBlockDto[]) => void;
   className?: string;
 }) {
-  const { userSession } = useRootData();
+  const rootData = useRootData();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const userSession = mounted ? rootData.userSession : undefined;
   const [editingBlockIndex, setEditingBlockIndex] = useState(-1);
   const [editingBlock, setEditingBlock] = useState<PageBlockDto>();
   const [editingBlockType, setEditingBlockType] = useState<string>("");
@@ -213,6 +220,7 @@ export default function PageBlocks({
                     LayoutBlockUtils.getClasses(item),
                     isGeneratingBlock(idx) && "opacity-50"
                   )}
+                  suppressHydrationWarning
                 >
                   <PageBlock item={item} userSession={userSession} />
                 </div>
