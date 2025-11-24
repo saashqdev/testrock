@@ -2,7 +2,7 @@
 
 import { getServerTranslations } from "@/i18n/server";
 import { RoleWithPermissionsDto } from "@/db/models/permissions/RolesModel";
-import { UserWithRolesDto, UserWithDetailsDto } from "@/db/models/accounts/UsersModel";
+import { UserWithRolesDto } from "@/db/models/accounts/UsersModel";
 import { getTenantIdFromUrl } from "@/modules/accounts/services/TenantService";
 import { getUserInfo } from "@/lib/services/session.server";
 import EventsService from "@/modules/events/services/server/EventsService";
@@ -10,7 +10,7 @@ import { RoleAssignedDto } from "@/modules/events/dtos/RoleAssignedDto";
 import { RoleUnassignedDto } from "@/modules/events/dtos/RoleUnassignedDto";
 import { requireAuth } from "@/lib/services/loaders.middleware";
 import { db } from "@/db";
-import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import Component from "./component";
 
@@ -21,9 +21,10 @@ type LoaderData = {
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("models.role.adminRoles")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `${t("models.role.adminRoles")} | ${siteTags.title}`,
+  };
 }
 
 const loader = async (props: IServerComponentsProps) => {
