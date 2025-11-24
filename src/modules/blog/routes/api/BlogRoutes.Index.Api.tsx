@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { MetaTagsDto } from "@/lib/dtos/seo/MetaTagsDto";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { BlogPostWithDetailsDto } from "@/db/models/blog/BlogModel";
@@ -11,9 +10,9 @@ import { requireAuth } from "@/lib/services/loaders.middleware";
 import { db } from "@/db";
 
 export const generateMetadata = async ({ params }: { params: any }): Promise<Metadata> => {
-  return defaultSeoMetaTags({
+  return {
     title: `Blog | ${process.env.APP_NAME}`,
-  });
+  };
 };
 export type LoaderData = {
   metatags: MetaTagsDto;
