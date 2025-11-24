@@ -8,7 +8,6 @@ import UrlUtils from "@/utils/app/UrlUtils";
 import { getTenantIdOrNull } from "@/utils/services/server/urlService";
 import { getUserInfo } from "@/lib/services/session.server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
-import { getMetaTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 
 export const generateMetadata = async ({ params }: { params: any }): Promise<Metadata> => {
   const tenantId = await getTenantIdOrNull({ request: {} as Request, params });
@@ -16,9 +15,9 @@ export const generateMetadata = async ({ params }: { params: any }): Promise<Met
     tenantId: tenantId?.toString() ?? null,
   });
 
-  return defaultSeoMetaTags({
+  return {
     title: workflow ? `Run Workflow (Stream): ${workflow.name} | ${process.env.APP_NAME}` : `Workflow | ${process.env.APP_NAME}`,
-  });
+  };
 };
 
 export type LoaderData = {

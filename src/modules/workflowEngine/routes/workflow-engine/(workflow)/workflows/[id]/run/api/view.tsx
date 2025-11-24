@@ -14,7 +14,7 @@ import WorkflowInputExamplesDropdown from "@/modules/workflowEngine/components/w
 import WorkflowRunDropdown from "@/modules/workflowEngine/components/workflows/buttons/WorkflowRunDropdown";
 import WorkflowUtils from "@/modules/workflowEngine/helpers/WorkflowUtils";
 import UrlUtils from "@/utils/app/UrlUtils";
-import { LoaderData } from "./workflows.$id.run.api.server";
+import { LoaderData } from "./api/workflows.$id.run.api.server";
 import clsx from "clsx";
 import { WorkflowExecutionDto } from "@/modules/workflowEngine/dtos/WorkflowExecutionDto";
 import ErrorBanner from "@/components/ui/banners/ErrorBanner";

@@ -14,7 +14,7 @@ import WorkflowResultBadge from "@/modules/workflowEngine/components/executions/
 import { WorkflowExecutionWithDetailsDto } from "@/db/models/workflows/WorkflowExecutionsModel";
 import UrlUtils from "@/utils/app/UrlUtils";
 import DateUtils from "@/lib/shared/DateUtils";
-import { LoaderData } from "./executions.api.server";
+import { LoaderData } from "./api/server";
 
 interface WorkflowsExecutionsViewProps {
   data: LoaderData;

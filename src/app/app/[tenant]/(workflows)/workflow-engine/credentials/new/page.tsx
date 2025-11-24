@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { loader } from "@/modules/workflowEngine/routes/workflow-engine/credentials/credentials.new.api.server";
-import WorkflowsCredentialsNewView from "@/modules/workflowEngine/routes/workflow-engine/credentials/credentials.new.view";
+import { loader } from "@/modules/workflowEngine/routes/workflow-engine/credentials/new/api/server";
+import WorkflowsCredentialsNewView from "@/modules/workflowEngine/routes/workflow-engine/credentials/new/view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {

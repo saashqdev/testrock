@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { LoaderData, ActionData } from "./danger.api.server";
+import { LoaderData, ActionData } from "./api/server";
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
 import DropdownOptions from "@/components/ui/dropdowns/DropdownOptions";
 import { Menu } from "@headlessui/react";

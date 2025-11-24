@@ -6,8 +6,8 @@ import {
   generateMetadata as generateWorkflowMetadata,
   loader,
   action,
-} from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.stream.api.server";
-import WorkflowsIdRunStreamView from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.stream.view";
+} from "@/modules/workflowEngine/routes/workflow-engine/(workflow)/workflows/[id]/run/stream/api/server";
+import WorkflowsIdRunStreamView from "@/modules/workflowEngine/routes/workflow-engine/(workflow)/workflows/[id]/run/stream/view";
 
 type Props = {
   params: Promise<{ tenant: string; id: string }>;

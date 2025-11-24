@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { loader, action } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.api.server";
+import { loader, action } from "@/modules/workflowEngine/routes/workflow-engine/(workflow)/workflows/[id]/run/api/server";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {

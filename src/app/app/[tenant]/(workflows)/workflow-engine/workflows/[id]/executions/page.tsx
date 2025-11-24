@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { loader } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.executions.api.server";
-import WorkflowsIdExecutionsView from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.executions.view";
+import { loader } from "@/modules/workflowEngine/routes/workflow-engine/(workflow)/workflows/[id]/executions/api/server";
+import WorkflowsIdExecutionsView from "@/modules/workflowEngine/routes/workflow-engine/(workflow)/workflows/[id]/executions/view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import "reactflow/dist/style.css";
 

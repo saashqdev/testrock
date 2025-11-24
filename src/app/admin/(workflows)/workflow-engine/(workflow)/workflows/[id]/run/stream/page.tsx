@@ -3,8 +3,8 @@ import {
   LoaderData,
   loader as serverLoader,
   action as serverAction,
-} from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.stream.api.server";
-import WorkflowsIdRunStreamView from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.run.stream.view";
+} from "@/modules/workflowEngine/routes/workflow-engine/(workflow)/workflows/[id]/run/stream/api/server";
+import WorkflowsIdRunStreamView from "@/modules/workflowEngine/routes/workflow-engine/(workflow)/workflows/[id]/run/stream/view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { Metadata } from "next";
 

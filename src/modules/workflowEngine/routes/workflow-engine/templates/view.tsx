@@ -11,7 +11,7 @@ import DefaultWorkflowTemplates from "@/modules/workflowEngine/utils/DefaultWork
 import UrlUtils from "@/utils/app/UrlUtils";
 import InputSearch from "@/components/ui/input/InputSearch";
 import ButtonSecondary from "@/components/ui/buttons/ButtonSecondary";
-import WorkflowUtils from "../../helpers/WorkflowUtils";
+import WorkflowUtils from "../../../helpers/WorkflowUtils";
 import EmptyState from "@/components/ui/emptyState/EmptyState";
 
 export default function WorkflowsTemplatesView() {

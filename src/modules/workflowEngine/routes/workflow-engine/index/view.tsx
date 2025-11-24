@@ -1,5 +1,5 @@
 import NumberUtils from "@/lib/shared/NumberUtils";
-import { LoaderData } from "./index.api.server";
+import { LoaderData } from "./api/server";
 
 export default function WorkflowEngineIndexView({ data }: { data: LoaderData }) {
   return (

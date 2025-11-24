@@ -8,7 +8,7 @@ import DateCell from "@/components/ui/dates/DateCell";
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
 import TableSimple from "@/components/ui/tables/TableSimple";
-import { LoaderData } from "./credentials.api.server";
+import { LoaderData } from "./api/server";
 
 export const metadata: Metadata = {
   title: "Workflow Credentials",

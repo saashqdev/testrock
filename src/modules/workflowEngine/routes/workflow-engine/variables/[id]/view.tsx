@@ -5,7 +5,7 @@ import { useEffect, useActionState } from "react";
 import WorkflowVariableForm from "@/modules/workflowEngine/components/workflowVariables/WorkflowVariableForm";
 import UrlUtils from "@/utils/app/UrlUtils";
 import SlideOverWideEmpty from "@/components/ui/slideOvers/SlideOverWideEmpty";
-import { LoaderData, updateWorkflowVariableAction } from "./variables.$id.api.server";
+import { LoaderData, updateWorkflowVariableAction } from "./api/server";
 import toast from "react-hot-toast";
 
 interface WorkflowsVariablesIdViewProps {

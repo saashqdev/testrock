@@ -4,7 +4,7 @@ import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
 import DateCell from "@/components/ui/dates/DateCell";
 import EditPageLayout from "@/components/ui/layouts/EditPageLayout";
 import TableSimple from "@/components/ui/tables/TableSimple";
-import { LoaderData } from "./variables.api.server";
+import { LoaderData } from "./api/server";
 
 export default function WorkflowsVariablesView({ data }: { data: LoaderData }) {
   return (

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import ServerError from "@/components/ui/errors/ServerError";
-import { loader } from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.index.api.server";
-import WorkflowsIdIndexView from "@/modules/workflowEngine/routes/workflow-engine/__workflow/workflows.$id.index.view";
+import { loader } from "@/modules/workflowEngine/routes/workflow-engine/(workflow)/workflows/[id]/index/api/server";
+import WorkflowsIdIndexView from "@/modules/workflowEngine/routes/workflow-engine/(workflow)/workflows/[id]/index/view";
 import "reactflow/dist/style.css";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
