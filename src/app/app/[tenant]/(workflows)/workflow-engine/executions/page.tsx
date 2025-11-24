@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import ServerError from "@/components/ui/errors/ServerError";
-import { loader, action } from "@/modules/workflowEngine/routes/workflow-engine/executions.api.server";
-import WorkflowsExecutionsView from "@/modules/workflowEngine/routes/workflow-engine/executions.view";
+import { loader, action } from "@/modules/workflowEngine/routes/workflow-engine/executions/api/server";
+import WorkflowsExecutionsView from "@/modules/workflowEngine/routes/workflow-engine/executions/view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
