@@ -13,7 +13,7 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
 import { WorkflowDto } from "@/modules/workflowEngine/dtos/WorkflowDto";
 import NumberUtils from "@/lib/shared/NumberUtils";
-import { LoaderData, ActionData } from "./workflows.index.api.server";
+import { LoaderData, ActionData } from "./api/server";
 import UrlUtils from "@/utils/app/UrlUtils";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
