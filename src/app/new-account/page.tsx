@@ -1,19 +1,19 @@
 "use server";
 
 import { db } from "@/db";
-import { TenantDto } from "@/db/models";
 import { getServerTranslations } from "@/i18n/server";
 import { getUserInfo } from "@/lib/services/session.server";
 import { addTenantUser, createTenant } from "@/modules/accounts/services/TenantService";
 import { getUser } from "@/modules/accounts/services/UserService";
-import { defaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { redirect } from "next/navigation";
 import Component from "./component";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
+  const siteTags = getDefaultSiteTags();
   return {
-    title: `${t("pricing.subscribe")} | ${getDefaultSiteTags.title}`,
+    title: `${t("pricing.subscribe")} | ${siteTags.title}`,
   };
 }
 
