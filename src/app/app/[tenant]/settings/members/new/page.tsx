@@ -12,7 +12,7 @@ import { DefaultAppFeatures } from "@/modules/subscriptions/data/appFeatures";
 import { getBaseURL } from "@/lib/services/url.server";
 import { getUserInfo } from "@/lib/services/session.server";
 import EmailTemplates from "@/modules/emails/utils/EmailTemplates";
-import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { requireTenantSlug } from "@/lib/services/url.server";
 import Component from "./component";
@@ -22,9 +22,10 @@ import { TenantUserType } from "@/lib/enums/tenants/TenantUserType";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("settings.members.actions.new")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `${t("settings.members.actions.new")} | ${siteTags.title}`,
+  };
 }
 
 type LoaderData = {
