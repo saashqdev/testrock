@@ -16,7 +16,7 @@ import { WorkflowBlockTypes } from "@/modules/workflowEngine/dtos/WorkflowBlockT
 import { WorkflowExecutionDto } from "@/modules/workflowEngine/dtos/WorkflowExecutionDto";
 import WorkflowUtils from "@/modules/workflowEngine/helpers/WorkflowUtils";
 import UrlUtils from "@/utils/app/UrlUtils";
-import { WorkflowDto } from "../../../../../../dtos/WorkflowDto";
+import { WorkflowDto } from "@/modules/workflowEngine/dtos/WorkflowDto";
 import ErrorBanner from "@/components/ui/banners/ErrorBanner";
 
 // Type for the loader data that would come from the server component
