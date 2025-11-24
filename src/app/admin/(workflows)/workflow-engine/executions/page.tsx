@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { loader, action } from "@/modules/workflowEngine/routes/workflow-engine/executions.api.server";
-import WorkflowsExecutionsView from "@/modules/workflowEngine/routes/workflow-engine/executions.view";
+import { loader, action } from "@/modules/workflowEngine/routes/workflow-engine/executions/api/server";
+import WorkflowsExecutionsView from "@/modules/workflowEngine/routes/workflow-engine/executions/view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { revalidatePath } from "next/cache";
 

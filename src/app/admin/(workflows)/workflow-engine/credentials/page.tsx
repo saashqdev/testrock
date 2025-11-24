@@ -1,8 +1,8 @@
 import { Metadata } from "next";
-import { loader } from "@/modules/workflowEngine/routes/workflow-engine/credentials.api.server";
-import WorkflowsCredentialsView from "@/modules/workflowEngine/routes/workflow-engine/credentials.view";
+import { loader } from "@/modules/workflowEngine/routes/workflow-engine/credentials/api/server";
+import WorkflowsCredentialsView from "@/modules/workflowEngine/routes/workflow-engine/credentials/view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
-import { deleteCredentialAction } from "@/modules/workflowEngine/routes/workflow-engine/credentialsActions";
+import { deleteCredentialAction } from "@/modules/workflowEngine/routes/workflow-engine/credentials/actions";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
   const data = await loader(props);

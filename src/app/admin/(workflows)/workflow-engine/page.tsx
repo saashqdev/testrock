@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { loader } from "@/modules/workflowEngine/routes/workflow-engine/index.api.server";
-import WorkflowEngineIndexView from "@/modules/workflowEngine/routes/workflow-engine/index.view";
+import { loader } from "@/modules/workflowEngine/routes/workflow-engine/index/api/server";
+import WorkflowEngineIndexView from "@/modules/workflowEngine/routes/workflow-engine/index/view";
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
