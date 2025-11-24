@@ -10,7 +10,7 @@ import { RoleWithPermissionsDto } from "@/db/models";
 import { TenantUserWithUserDto } from "@/db/models/accounts/TenantsModel";
 import { getBaseURL } from "@/lib/services/url.server";
 import { db } from "@/db";
-import { getDefaultSiteTags, defaultSeoMetaTags} from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
+import { getDefaultSiteTags } from "@/modules/pageBlocks/pages/defaultSeoMetaTags";
 import { getServerTranslations } from "@/i18n/server";
 import { requireTenantSlug } from "@/lib/services/url.server";
 import { requireAuth } from "@/lib/services/loaders.middleware";
@@ -26,9 +26,10 @@ import TitleDataLayout from "@/context/TitleDataLayout";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
-  return defaultSeoMetaTags({
-    title: `${t("settings.members.title")} | ${getDefaultSiteTags.title}`,
-  });
+  const siteTags = getDefaultSiteTags();
+  return {
+    title: `${t("settings.members.title")} | ${siteTags.title}`,
+  };
 }
 
 export type AppSettingsMembersLoaderData = {
@@ -167,7 +168,8 @@ export const actionAppSettingsMembersLayout = async (prev: any, form: FormData) 
 export default async function ({ children }: IServerComponentsProps) {
   const { t } = await getServerTranslations();
   const data = await loader();
-  const title = `${t("settings.members.title")} | ${defaultSiteTags.title}`;
+  const siteTags = getDefaultSiteTags();
+  const title = `${t("settings.members.title")} | ${siteTags.title}`;
 
   return (
     <TitleDataLayout data={{ title }}>
