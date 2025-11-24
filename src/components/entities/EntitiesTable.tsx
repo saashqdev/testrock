@@ -11,6 +11,8 @@ import OrderListButtons from "../ui/sort/OrderListButtons";
 import { useEffect, useState } from "react";
 import type { RowHeaderDisplayDto as TableRowHeaderDisplayDto } from "../ui/tables/TableSimple";
 import { useAppOrAdminData } from "@/lib/state/useAppOrAdminData";
+import { setEntityOrders } from "@/app/admin/entities/actions";
+import { useRouter } from "next/navigation";
 
 interface Props {
   items: EntityWithCountDto[];
@@ -21,8 +23,38 @@ interface Props {
 export default function EntitiesTable({ items, selected, onSelected }: Props) {
   const appOrAdminData = useAppOrAdminData();
   const { t } = useTranslation();
+  const router = useRouter();
 
+  const [localItems, setLocalItems] = useState<EntityWithCountDto[]>(items);
   const [headers, setHeaders] = useState<TableRowHeaderDisplayDto<EntityWithCountDto>[]>([]);
+  
+  // Update local items when props change
+  useEffect(() => {
+    setLocalItems(items);
+  }, [items]);
+  
+  const handleOrderChange = async (newItems: EntityWithCountDto[]) => {
+    // Optimistic update
+    setLocalItems(newItems);
+    
+    // Persist to server
+    const formData = new FormData();
+    formData.set("action", "set-orders");
+    newItems.forEach((item) => {
+      formData.append("orders[]", JSON.stringify({ id: item.id, order: item.order.toString() }));
+    });
+    
+    try {
+      await setEntityOrders(formData);
+      // Refresh the page data
+      router.refresh();
+    } catch (error) {
+      // Revert on error
+      setLocalItems(items);
+      console.error("Failed to update entity order:", error);
+    }
+  };
+
   useEffect(() => {
     const headers: TableRowHeaderDisplayDto<EntityWithCountDto>[] = [
       {
@@ -39,7 +71,7 @@ export default function EntitiesTable({ items, selected, onSelected }: Props) {
         title: t("shared.order"),
         name: "order",
         value: (item) => item.order,
-        formattedValue: (_, idx) => <OrderListButtons index={idx} items={items} />,
+        formattedValue: (_, idx) => <OrderListButtons index={idx} items={localItems} onChange={handleOrderChange} />,
       },
       {
         name: "title",
@@ -97,14 +129,14 @@ export default function EntitiesTable({ items, selected, onSelected }: Props) {
     ];
 
     setHeaders(headers);
-  }, [appOrAdminData?.tenantTypes, items, t]);
+  }, [appOrAdminData?.tenantTypes, localItems, t]);
 
   return (
     <div className="space-y-2">
       <TableSimple
         selectedRows={selected}
         onSelected={onSelected}
-        items={items}
+        items={localItems}
         actions={[
           {
             title: "No-code",
