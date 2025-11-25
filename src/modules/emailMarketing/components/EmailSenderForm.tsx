@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "next/navigation";
 import FormGroup from "@/components/ui/forms/FormGroup";
 import InputSelect from "@/components/ui/input/InputSelect";
 import InputText from "@/components/ui/input/InputText";
@@ -10,10 +11,13 @@ import { EmailSenderWithoutApiKeyDto } from "@/db/models/email/EmailSenderModel"
 
 interface Props {
   item?: EmailSenderWithoutApiKeyDto;
+  action?: (formData: FormData) => void;
+  pending?: boolean;
 }
 
-export default function EmailSenderForm({ item }: Props) {
+export default function EmailSenderForm({ item, action, pending }: Props) {
   const { t } = useTranslation();
+  const params = useParams();
   const rootData = useRootData();
   const [provider, setProvider] = useState<string>(item?.provider ?? "postmark");
   const [stream, setStream] = useState<string>(item?.stream ?? "broadcast");
@@ -23,8 +27,13 @@ export default function EmailSenderForm({ item }: Props) {
   // const [replyToEmail, setReplyToEmail] = useState<string>(item?.replyToEmail ?? "");
 
   return (
-    <FormGroup id={item?.id} editing={true}>
-      {/* <input type="hidden" name="order" value={order} hidden readOnly /> */}
+    <FormGroup 
+      id={item?.id} 
+      editing={true}
+      state={{ submitting: pending }}
+      onSubmit={action}
+    >
+      <input type="hidden" name="tenant" value={params.tenant?.toString() ?? ""} readOnly />
       <InputSelect
         name="provider"
         title={t("emailMarketing.senders.provider")}

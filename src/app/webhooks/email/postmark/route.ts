@@ -1,6 +1,18 @@
 import CrmService from "@/modules/crm/services/CrmService";
 import { db } from "@/db";
 
+export async function GET(request: Request) {
+  return Response.json(
+    {
+      webhook: "Postmark Email Webhook",
+      method: "POST",
+      description: "Handles Postmark webhook events for email delivery, bounces, opens, clicks, and subscription changes",
+      supportedEvents: ["Delivery", "Bounce", "SpamComplaint", "Open", "Click", "SubscriptionChange"],
+    },
+    { status: 200 }
+  );
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
