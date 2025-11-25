@@ -40,8 +40,8 @@ export default function PageBlocks({
     setMounted(true);
   }, []);
 
-  // Always use undefined during SSR to prevent hydration mismatch
-  const userSession = typeof window !== "undefined" && mounted ? rootData.userSession : undefined;
+  // Use rootData.userSession directly - useRootData hook already handles SSR
+  const userSession = rootData.userSession;
   const [editingBlockIndex, setEditingBlockIndex] = useState(-1);
   const [editingBlock, setEditingBlock] = useState<PageBlockDto>();
   const [editingBlockType, setEditingBlockType] = useState<string>("");

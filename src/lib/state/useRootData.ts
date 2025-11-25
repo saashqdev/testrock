@@ -33,6 +33,16 @@ export function useRootData(): RootDataDto {
   if (typeof window === "undefined") {
     // During SSR, return a minimal default value to prevent context errors
     return {
+      metatags: { title: "", description: "", keywords: "", image: "", url: "", twitterCreator: "", twitterSite: "" },
+      user: null,
+      theme: { color: "blue", scheme: "light" },
+      locale: "en",
+      serverUrl: "",
+      domainName: "",
+      userSession: { userId: "", email: "" },
+      authenticated: false,
+      debug: false,
+      isStripeTest: false,
       appConfiguration: {
         onboarding: { enabled: false },
         notifications: { enabled: false },
@@ -40,6 +50,7 @@ export function useRootData(): RootDataDto {
         auth: { authMethods: { emailPassword: { enabled: true }, github: { enabled: false }, google: { enabled: false } } },
         subscription: { allowSignUpBeforeSubscribe: true },
       },
+      featureFlags: [],
     } as RootDataDto;
   }
 
