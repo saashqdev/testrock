@@ -14,11 +14,7 @@ export async function verifyUserHasPermission(permissionName: DefaultPermission,
     where: { userId: userInfo.userId },
   });
 
-  // Debug logging
-  console.log(`[Permission Check] User: ${userInfo.userId}, Permission: ${permissionName}, AdminUser: ${adminUser ? "YES" : "NO"}`);
-
   if (adminUser) {
-    console.log(`[Permission Check] ✅ SuperAdmin bypass - access granted`);
     return true;
   }
 
@@ -26,7 +22,6 @@ export async function verifyUserHasPermission(permissionName: DefaultPermission,
   if (permission) {
     const userPermission = (await db.userRoles.countUserPermission(userInfo.userId, tenantId, permissionName)) > 0;
     if (!userPermission) {
-      console.log(`[Permission Check] ❌ No permission found`);
       throw Error(`You don't have permission to access this resource`);
     }
     console.log(`[Permission Check] ✅ Permission granted via role`);

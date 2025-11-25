@@ -78,12 +78,12 @@ export default function HeaderVariantSimple({ item, width = "7xl" }: { item: Hea
                       {item.withSignInAndSignUp && (
                         <div className="inline-flex space-x-2 rounded-md">
                           {!authenticated && (
-                            <ButtonTertiary
-                              to={registerRoute()}
-                              event={{ action: "click", category: "header", label: t("account.shared.signUp"), value: registerRoute() }}
-                            >
-                              <div>{t("account.shared.signUp")}</div>
-                            </ButtonTertiary>
+                          <ButtonTertiary
+                            to={registerRoute()}
+                            event={{ action: "click", category: "header", label: t("account.shared.signUp"), value: registerRoute() }}
+                          >
+                            {t("account.shared.signUp")}
+                          </ButtonTertiary>
                           )}
                           {(!hasProfileButton || !authenticated) && (
                             <ButtonPrimary
@@ -95,7 +95,7 @@ export default function HeaderVariantSimple({ item, width = "7xl" }: { item: Hea
                                 value: loginOrEnterRoute(),
                               }}
                             >
-                              {!authenticated ? <div>{t("account.shared.signIn")}</div> : <div>{t("shared.enter")}</div>}
+                              {!authenticated ? t("account.shared.signIn") : t("shared.enter")}
                             </ButtonPrimary>
                           )}
                         </div>
@@ -176,7 +176,7 @@ export default function HeaderVariantSimple({ item, width = "7xl" }: { item: Hea
                             value: loginOrEnterRoute(),
                           }}
                         >
-                          {!authenticated ? <div>{t("account.shared.signIn")}</div> : <div>{t("shared.enter")}</div>}
+                          {!authenticated ? t("account.shared.signIn") : t("shared.enter")}
                         </ButtonPrimary>
                       </>
                     )
@@ -276,7 +276,7 @@ export default function HeaderVariantSimple({ item, width = "7xl" }: { item: Hea
                           role="menuitem"
                           event={{ action: "click", category: "header", label: t("account.shared.signUp"), value: registerRoute() }}
                         >
-                          <div>{t("account.shared.signUp")}</div>
+                          {t("account.shared.signUp")}
                         </ButtonEvent>
 
                         <ButtonEvent
@@ -285,7 +285,7 @@ export default function HeaderVariantSimple({ item, width = "7xl" }: { item: Hea
                           role="menuitem"
                           event={{ action: "click", category: "header", label: t("account.shared.signIn"), value: "/login" }}
                         >
-                          <div>{t("account.shared.signIn")}</div>
+                          {t("account.shared.signIn")}
                         </ButtonEvent>
                       </>
                     )}

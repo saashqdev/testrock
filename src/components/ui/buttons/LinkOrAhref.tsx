@@ -35,30 +35,38 @@ export default function LinkOrAhref({
   onMouseEnter,
   onMouseLeave,
 }: Props) {
+  // Normalize the 'to' prop to ensure consistent behavior across server/client
+  const hasDestination = to !== undefined && to !== null && to !== "";
+  const isDisabled = disabled || (!hasDestination && !onClick);
+
+  if (isDisabled) {
+    return (
+      <div className={className} role={role} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        {children}
+      </div>
+    );
+  }
+
+  if (!hasDestination) {
+    return (
+      <Button
+        type={type}
+        onClick={onClick}
+        className={clsx(className, isLoading && "base-spinner cursor-not-allowed")}
+        role={role}
+        autoFocus={autoFocus}
+        disabled={disabled}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        {children}
+      </Button>
+    );
+  }
+
   return (
-    <Fragment>
-      {(!to && !onClick) || (to && disabled) ? (
-        <div className={className} role={role} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-          {children}
-        </div>
-      ) : to == undefined ? (
-        <Button
-          type={type}
-          onClick={onClick}
-          className={clsx(className, isLoading && "base-spinner cursor-not-allowed")}
-          role={role}
-          autoFocus={autoFocus}
-          disabled={disabled}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-        >
-          {children}
-        </Button>
-      ) : (
-        <Link onClick={onClick} href={to} target={target} className={className} role={role} rel={rel} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-          {children}
-        </Link>
-      )}
-    </Fragment>
+    <Link onClick={onClick} href={to} target={target} className={className} role={role} rel={rel} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      {children}
+    </Link>
   );
 }

@@ -39,7 +39,6 @@ export async function verifyUserHasPermission(permissionName: DefaultPermission,
   });
 
   if (adminUser) {
-    console.log(`[Permission Check] ✅ SuperAdmin bypass for ${permissionName}`);
     return true;
   }
 
