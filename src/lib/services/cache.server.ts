@@ -1,5 +1,6 @@
 import { cachified as originalCachified, CachifiedOptions, verboseReporter } from "@epic-web/cachified";
 import { getCacheConfig } from "./cacheConfig.server";
+import { LRUCache } from "lru-cache";
 
 const CACHE_LOGGING_ENABLED = true;
 
@@ -8,6 +9,23 @@ let redisClient: any = null;
 let cacheAdapter: any = null;
 let isConnecting = false;
 let connectionPromise: Promise<void> | null = null;
+
+// Memory cache using LRU
+let memoryCache: LRUCache<string, any> | null = null;
+
+function getMemoryCache() {
+  if (!memoryCache) {
+    memoryCache = new LRUCache({
+      max: 500, // Maximum number of items
+      ttl: 1000 * 60 * 60, // 1 hour default TTL
+      maxSize: 50 * 1024 * 1024, // 50MB max cache size
+      sizeCalculation: (value) => {
+        return JSON.stringify(value).length;
+      },
+    });
+  }
+  return memoryCache;
+}
 
 async function getRedisClient() {
   if (redisClient) return redisClient;
@@ -70,6 +88,17 @@ async function getRedisClient() {
 
 async function getCache() {
   const cacheType = getCacheConfig();
+  
+  if (cacheType === "memory") {
+    const lru = getMemoryCache();
+    // Return a cachified-compatible adapter
+    return {
+      get: async (key: string) => lru.get(key),
+      set: async (key: string, value: any) => lru.set(key, value),
+      delete: async (key: string) => lru.delete(key),
+    };
+  }
+  
   if (cacheType !== "redis") {
     return null;
   }
@@ -190,13 +219,39 @@ export async function getCachedValues() {
   if (!cacheType) {
     return [];
   }
+  
   try {
+    const cachedValues: CachedValue[] = [];
+    
+    if (cacheType === "memory") {
+      const lru = getMemoryCache();
+      const allKeys = Array.from(lru.keys());
+      
+      for (const key of allKeys) {
+        const value = lru.get(key);
+        if (!value) {
+          continue;
+        }
+        const sizeBytes = new TextEncoder().encode(JSON.stringify(value)).length;
+        const sizeMb = sizeBytes / 1024 / 1024;
+        cachedValues.push({
+          key,
+          value,
+          sizeMb,
+          createdAt: new Date(),
+          createdTime: Date.now(),
+        });
+      }
+      return cachedValues;
+    }
+    
+    // Redis cache
     const redis = await getRedisClient();
     if (!redis || !redis.isOpen) {
       return [];
     }
     const allKeys = await redis.keys("*");
-    const cachedValues: CachedValue[] = [];
+    
     for (const key of allKeys) {
       if (cachedValues.find((x) => x.key === key)) {
         continue;
@@ -207,9 +262,6 @@ export async function getCachedValues() {
       }
       const sizeBytes = new TextEncoder().encode(JSON.stringify(value)).length;
       const sizeMb = sizeBytes / 1024 / 1024;
-      // const createdTime = value.metadata.createdTime;
-      // const createdAt = new Date(createdTime);
-      // const cachedValue = { key, value: value.value, sizeMb, createdAt, createdTime };
       cachedValues.push({
         key,
         value,
@@ -232,7 +284,15 @@ export async function clearAllCache() {
   if (!cacheType) {
     return;
   }
+  
   try {
+    if (cacheType === "memory") {
+      const lru = getMemoryCache();
+      lru.clear();
+      return;
+    }
+    
+    // Redis cache
     const redis = await getRedisClient();
     if (!redis || !redis.isOpen) {
       return;
