@@ -1,6 +1,7 @@
 "use client";
 
 import { FeatureFlag, FeatureFlagFilter, Role, Tenant } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import toast from "react-hot-toast";
 import { SubscriptionProductDto } from "@/lib/dtos/subscriptions/SubscriptionProductDto";
@@ -31,7 +32,13 @@ type ComponentProps = {
 };
 
 export default function Component({ data, id }: ComponentProps) {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
+
+  async function handleAction(prevState: any, formData: FormData) {
+    const result = await handleFeatureFlagAction(formData, id);
+    return result || {};
+  }
 
   async function onDelete() {
     startTransition(async () => {
@@ -41,13 +48,16 @@ export default function Component({ data, id }: ComponentProps) {
 
       if (result?.error) {
         toast.error(result.error);
+      } else if (result?.success) {
+        toast.success(result.success);
+        router.push("/admin/feature-flags/flags");
       }
     });
   }
 
   return (
     <div>
-      <FeatureFlagForm item={data.item} metadata={data.metadata} onDelete={onDelete} />
+      <FeatureFlagForm item={data.item} metadata={data.metadata} action={handleAction} onDelete={onDelete} />
     </div>
   );
 }

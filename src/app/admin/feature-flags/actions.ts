@@ -19,7 +19,7 @@ export async function toggleFeatureFlag(id: string, enabled: boolean) {
     }
   );
 
-  revalidatePath("/admin/feature-flags");
+  revalidatePath("/admin/feature-flags/flags");
 
   return { success: true };
 }

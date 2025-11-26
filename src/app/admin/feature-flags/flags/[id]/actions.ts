@@ -34,16 +34,15 @@ export async function handleFeatureFlagAction(formData: FormData, id: string) {
 
     try {
       await db.featureFlags.updateFeatureFlag({ id: item.id }, { name, description, filters });
+      return { success: t("shared.updated") };
     } catch (e: any) {
       return { error: e.message };
     }
-
-    redirect("/admin/feature-flags/flags");
   } else if (action === "delete") {
     await prisma.featureFlag.delete({
       where: { id: item.id },
     });
-    redirect("/admin/feature-flags/flags");
+    return { success: t("shared.deleted") };
   } else {
     return { error: t("shared.invalidForm") };
   }

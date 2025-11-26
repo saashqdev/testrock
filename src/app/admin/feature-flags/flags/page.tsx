@@ -4,6 +4,8 @@ import { db } from "@/db";
 import { Metadata } from "next";
 import FeatureFlagsClient from "./FeatureFlagsClient";
 
+export const dynamic = 'force-dynamic';
+
 type LoaderData = {
   title: string;
   items: FeatureFlagWithEventsDto[];

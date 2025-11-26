@@ -65,8 +65,9 @@ export default function FeatureFlagForm({
       toast.error(state.error);
     } else if (state?.success) {
       toast.success(state.success);
+      router.push("/admin/feature-flags/flags");
     }
-  }, [state]);
+  }, [state, router]);
 
   useEffect(() => {
     if (!item) {

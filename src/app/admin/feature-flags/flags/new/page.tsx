@@ -71,7 +71,7 @@ async function createFeatureFlag(prevState: any, formData: FormData) {
 
     try {
       await db.featureFlags.createFeatureFlag({ name, description, enabled: false, filters });
-      redirect("/admin/feature-flags/flags");
+      return { success: t("shared.created") };
     } catch (e: any) {
       return { error: e.message };
     }

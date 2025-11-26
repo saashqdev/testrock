@@ -5,7 +5,7 @@ import { FeatureFlagWithEventsDto } from "@/db/models/featureFlags/FeatureFlagsM
 import SimpleBadge from "@/components/ui/badges/SimpleBadge";
 import { Colors } from "@/lib/enums/shared/Colors";
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import TabsWithIcons from "@/components/ui/tabs/TabsWithIcons";
 import ButtonPrimary from "@/components/ui/buttons/ButtonPrimary";
@@ -16,6 +16,7 @@ import InputCheckbox from "@/components/ui/input/InputCheckbox";
 import DateCell from "@/components/ui/dates/DateCell";
 import { toggleFeatureFlag } from "../actions";
 import { useTransition } from "react";
+import toast from "react-hot-toast";
 
 interface FeatureFlagsClientProps {
   items: FeatureFlagWithEventsDto[];
@@ -24,6 +25,7 @@ interface FeatureFlagsClientProps {
 export default function FeatureFlagsClient({ items }: FeatureFlagsClientProps) {
   const { t } = useTranslation();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   function countStatus(enabled?: boolean) {
@@ -35,7 +37,12 @@ export default function FeatureFlagsClient({ items }: FeatureFlagsClientProps) {
 
   function onToggle(item: FeatureFlagsModel, enabled: boolean) {
     startTransition(async () => {
-      await toggleFeatureFlag(item.id, enabled);
+      try {
+        await toggleFeatureFlag(item.id, enabled);
+        router.refresh();
+      } catch (error: any) {
+        toast.error(error.message || "Failed to toggle feature flag");
+      }
     });
   }
 
@@ -88,7 +95,7 @@ export default function FeatureFlagsClient({ items }: FeatureFlagsClientProps) {
         actions={[
           {
             title: t("shared.overview"),
-            onClickRoute: (_, i) => `${i.id}`,
+            onClickRoute: (_, i) => `flags/${i.id}`,
           },
         ]}
         headers={[
@@ -96,7 +103,7 @@ export default function FeatureFlagsClient({ items }: FeatureFlagsClientProps) {
             name: "status",
             title: "Status",
             value: (i) => {
-              return <InputCheckbox asToggle value={i.enabled} setValue={(checked) => onToggle(i, Boolean(checked))} disabled={isPending} />;
+              return <InputCheckbox asToggle value={i.enabled} onChange={(checked) => onToggle(i, Boolean(checked))} disabled={isPending} />;
             },
           },
           {
