@@ -140,22 +140,11 @@ const loader = async () => {
 
 export default async function (props: IServerComponentsProps) {
   const appData = await loader();
-  const searchParams = await props.searchParams;
-  const sidebarParam = searchParams?.sidebar;
-  let sidebarType: "v1" | "v2" | "v3" = "v3";
-
-  if (sidebarParam === "v1") {
-    sidebarType = "v1";
-  } else if (sidebarParam === "v2") {
-    sidebarType = "v2";
-  } else if (sidebarParam === "v3") {
-    sidebarType = "v3";
-  }
 
   return (
     <AppDataLayout data={appData}>
       <div className="min-h-screen bg-background">
-        <AppLayout layout="app" type={sidebarType}>
+        <AppLayout layout="app">
           {props.children}
         </AppLayout>
       </div>
