@@ -83,7 +83,7 @@ export const defaultAppConfiguration: AppConfigurationDto = {
   metrics: {
     enabled: true,
     logToConsole: true,
-    saveToDatabase: false,
+    saveToDatabase: true,
     ignoreUrls: ["/metrics", "/health", "/ping"],
   },
   branding: {
