@@ -124,7 +124,12 @@ const InputText = (props: InputTextProps, ref: Ref<RefInputText>) => {
   const [actualValue, setActualValue] = useState<string>(value ?? defaultValue ?? "");
 
   useEffect(() => {
-    setActualValue(value || defaultValue || "");
+    const newValue = value ?? defaultValue ?? "";
+    // Only update if the value actually changed to prevent infinite loops
+    if (newValue !== actualValue) {
+      setActualValue(newValue);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, defaultValue]);
 
   useEffect(() => {

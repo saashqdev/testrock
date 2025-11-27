@@ -183,7 +183,7 @@ export default function CategoriesClient({
                           <FolderIconFilled className="h-4 w-4 text-gray-300 hover:text-muted-foreground" />
                         </button>
                         <Link
-                          href={item.id}
+                          href={`${params.lang}/${item.id}`}
                           className="focus:outline-hidden group flex items-center rounded-md border border-transparent p-2 hover:bg-secondary/90 focus:bg-secondary/90 focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
                         >
                           <PencilIcon className="h-4 w-4 text-gray-300 group-hover:text-muted-foreground" />
