@@ -86,7 +86,7 @@ export function defaultLandingPage({ t, pricingData }: { t: TFunction; pricingDa
         topText: "Don't build from scratch",
         headline: "Build, Market, Manage your SaaS",
         subheadline:
-          "Marketing pages (Landing, Blog, Pricing), App pages (Dashboard, Account Settings), and Admin pages (Tenant/Users, Pricing, Entity Builder, Blog posts, CRM, Email marketing, and more).",
+          "Marketing pages (Landing, Blog, Pricing), App pages (Dashboard, Account Settings), and Admin pages (Tenant/Users, Pricing, Entity Builder, Blog posts, CRM, Email Marketing, and more).",
         items: defaultGallery,
       },
     },

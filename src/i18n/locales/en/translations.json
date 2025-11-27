@@ -1577,7 +1577,7 @@
         "description": "Update your personal info"
       },
       "general": {
-        "title": "General settings",
+        "title": "General Settings",
         "description": "Set up the application"
       },
       "tenants": {
@@ -1948,7 +1948,7 @@
     }
   },
   "emailMarketing": {
-    "title": "Email marketing",
+    "title": "Email Marketing",
     "campaign": "Campaign",
     "campaigns": "Campaigns",
     "newCampaign": "New campaign",
