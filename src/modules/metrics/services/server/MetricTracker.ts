@@ -74,30 +74,34 @@ export const createMetrics = async (
     }
 
     if (metrics.saveToDatabase) {
-      // store timings in parallel
-      const promises = timings.map((timing) =>
-        prisma.metricLog
-          .create({
-            data: {
-              env,
-              type,
-              route,
-              url,
-              function: timing.functionName,
-              duration: timing.duration,
-              userId,
-              tenantId,
-            },
-          })
-          .catch((e: any) => {
-            // eslint-disable-next-line no-console
-            // console.error("Error saving metrics to database", {
-            //   message: e.message,
-            // });
-            return Promise.resolve();
-          })
-      );
-      Promise.all(promises);
+      // store timings in parallel - fire and forget (cannot await in sync function)
+      Promise.all(
+        timings.map((timing) =>
+          prisma.metricLog
+            .create({
+              data: {
+                env,
+                type,
+                route,
+                url,
+                function: timing.functionName,
+                duration: timing.duration,
+                userId,
+                tenantId,
+              },
+            })
+            .catch((e: any) => {
+              // eslint-disable-next-line no-console
+              console.error("Error saving metrics to database", {
+                message: e.message,
+                timing,
+              });
+              return Promise.resolve();
+            })
+        )
+      ).catch((e) => {
+        console.error("Failed to save metrics batch", e);
+      });
     }
 
     const headerValue = timings.map((timing) => `${timing.functionName};dur=${timing.duration}`).join(", ");

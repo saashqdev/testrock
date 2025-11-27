@@ -99,7 +99,17 @@ export async function getUserInfo(): Promise<UserSession> {
   const lightOrDarkMode = scheme; // Keep in sync with scheme
   const lng = "en"; // Default language, adjust if needed
   const crsf = undefined; // Not present in UserSessionDto
-  const metrics = { enabled: false, logToConsole: false, saveToDatabase: false, ignoreUrls: [] }; // Default metrics
+  
+  // Fetch metrics configuration from database
+  let metrics = { enabled: false, logToConsole: false, saveToDatabase: false, ignoreUrls: [] };
+  try {
+    const appConfiguration = await db.appConfiguration.getAppConfiguration();
+    metrics = appConfiguration.metrics;
+  } catch (error) {
+    // Use default metrics if configuration cannot be loaded
+    console.warn("Could not load metrics configuration, using defaults", error);
+  }
+  
   const cookies: { category: string; allowed: boolean }[] = []; // Default cookies
   const impersonatingFromUserId = undefined; // Not present in UserSessionDto
   const theme = session?.theme ?? defaultThemeColor;

@@ -103,6 +103,9 @@ export class EventsDbPrisma implements IEventsDb {
       user: event.user
         ? {
             ...event.user,
+            admin: (event.user as any).admin ?? false,
+            defaultTenantId: (event.user as any).defaultTenantId ?? null,
+            avatar: (event.user as any).avatar ?? null,
           }
         : null,
     };

@@ -18,6 +18,16 @@ export default function EventDetails({ item }: Props) {
       return item.data;
     }
   };
+  
+  const getDescription = () => {
+    // If description exists and is a valid string, use it
+    if (item.description && typeof item.description === 'string' && item.description !== '[object Object]') {
+      return item.description;
+    }
+    // Otherwise, return a default message
+    return 'No description available';
+  };
+  
   return (
     <div className="space-y-3 text-sm">
       <div className="flex justify-between border-b border-border pb-3">
@@ -31,6 +41,12 @@ export default function EventDetails({ item }: Props) {
         <InputText name="account" title="Account" defaultValue={item.tenant?.name ?? ""} readOnly={true} />
         <InputText name="user" title="User" defaultValue={item.user?.email || ""} readOnly={true} />
       </div>
+      
+      {item.description && (
+        <div>
+          <InputText name="description" title="Description" defaultValue={getDescription()} readOnly={true} />
+        </div>
+      )}
 
       <div className="h-96 overflow-auto p-2">
         <MonacoEditor value={formattedData()} onChange={() => {}} theme="vs-dark" language="json" />

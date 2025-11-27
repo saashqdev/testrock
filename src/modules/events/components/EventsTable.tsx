@@ -30,6 +30,21 @@ export default function EventsTable({ items, pagination }: Props) {
       return item.data;
     }
   };
+  
+  const getDescription = (item: EventWithAttemptsDto) => {
+    // If description exists and is a valid string, use it
+    if (item.description && typeof item.description === 'string' && item.description !== '[object Object]') {
+      return item.description;
+    }
+    // Otherwise, try to parse and display the data field
+    try {
+      const parsed = JSON.parse(item.data);
+      return JSON.stringify(parsed);
+    } catch (e) {
+      return item.data || 'No description available';
+    }
+  };
+  
   return (
     <>
       <TableSimple
@@ -57,7 +72,7 @@ export default function EventsTable({ items, pagination }: Props) {
             title: t("models.event.data"),
             value: (i) => (
               <button type="button" onClick={() => setSelectedData(i)} className="truncate underline hover:text-theme-500">
-                {i.description}
+                {getDescription(i)}
               </button>
             ),
             className: "w-full",

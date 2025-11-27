@@ -26,7 +26,16 @@ async function create({
 }: ICreateApplicationEvent & {
   endpoints?: string[];
 }) {
-  const description = EventUtils.getDescription(event, data) ?? "";
+  let description = EventUtils.getDescription(event, data) ?? "";
+  
+  // Ensure description is always a valid string, never "[object Object]"
+  if (typeof description !== 'string') {
+    description = String(description);
+  }
+  if (description === '[object Object]') {
+    description = JSON.stringify(data);
+  }
+  
   const item = await db.events.createEvent({
     name: event,
     tenantId,
