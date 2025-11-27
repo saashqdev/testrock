@@ -1,9 +1,11 @@
 "use client";
 
-import { useRef, useTransition } from "react";
+import { useRef, useTransition, useState } from "react";
 import { useRouter } from "next/navigation";
 import ConfirmModal, { RefConfirmModal } from "@/components/ui/modals/ConfirmModal";
+import ActionResultModal from "@/components/ui/modals/ActionResultModal";
 import KbCategoryForm from "@/modules/knowledgeBase/components/bases/KbCategoryForm";
+import SlideOverFormLayout from "@/components/ui/slideOvers/SlideOverFormLayout";
 import { KnowledgeBaseDto } from "@/modules/knowledgeBase/dtos/KnowledgeBaseDto";
 import { KnowledgeBaseCategoryWithDetailsDto } from "@/modules/knowledgeBase/helpers/KbCategoryModelHelper";
 
@@ -32,10 +34,11 @@ interface KbCategoryClientProps {
 export default function KbCategoryClient({ knowledgeBase, item, lang, slug, onDelete, onEdit, onSetOrders }: KbCategoryClientProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [actionData, setActionData] = useState<{ error?: string; success?: string } | null>(null);
   const confirmDelete = useRef<RefConfirmModal>(null);
 
   function handleDelete() {
-    confirmDelete.current?.show("Delete knowledge base?", "Delete", "Cancel", `Are you sure you want to delete knowledge base "${item.title}"?`);
+    confirmDelete.current?.show("Delete category?", "Delete", "Cancel", `Are you sure you want to delete category "${item.title}"?`);
   }
 
   function handleConfirmedDelete() {
@@ -44,6 +47,7 @@ export default function KbCategoryClient({ knowledgeBase, item, lang, slug, onDe
         await onDelete(item.id, slug, lang);
       } catch (error) {
         console.error("Error deleting category:", error);
+        setActionData({ error: "Failed to delete category" });
       }
     });
   }
@@ -60,9 +64,9 @@ export default function KbCategoryClient({ knowledgeBase, item, lang, slug, onDe
     startTransition(async () => {
       try {
         await onEdit(item.id, knowledgeBase.id, slug, lang, data);
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error editing category:", error);
-        throw error;
+        setActionData({ error: error.message || "Failed to update category" });
       }
     });
   }
@@ -82,10 +86,23 @@ export default function KbCategoryClient({ knowledgeBase, item, lang, slug, onDe
     });
   }
 
+  function onClose() {
+    router.push(`/admin/knowledge-base/bases/${slug}/categories/${lang}`);
+  }
+
+  function onCancel() {
+    router.push(`/admin/knowledge-base/bases/${slug}/categories/${lang}`);
+  }
+
   return (
-    <div>
-      <KbCategoryForm knowledgeBase={knowledgeBase} language={lang} item={item} onDelete={handleDelete} />
+    <>
+      <SlideOverFormLayout title="Edit Category" description="Update category settings" onClosed={onClose} className="max-w-2xl">
+        <div className="px-4 sm:px-6">
+          <KbCategoryForm knowledgeBase={knowledgeBase} language={lang} item={item} onDelete={handleDelete} onSubmit={handleEdit} onCancel={onCancel} />
+        </div>
+      </SlideOverFormLayout>
       <ConfirmModal ref={confirmDelete} onYes={handleConfirmedDelete} destructive />
-    </div>
+      <ActionResultModal actionData={actionData ?? undefined} showSuccess={false} />
+    </>
   );
 }

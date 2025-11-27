@@ -107,22 +107,6 @@ export default function CategoriesClient({
     });
   }
 
-  function getOutletTitle() {
-    if (location.pathname.includes("/sections/")) {
-      if (params.section) {
-        return "Edit section";
-      } else {
-        return "Create section";
-      }
-    } else {
-      if (params.id) {
-        return "Edit category";
-      } else {
-        return "Create category";
-      }
-    }
-  }
-
   function handleUpdateArticleTitle(article: { id: string; title: string }) {
     startTransition(async () => {
       await onUpdateArticleTitle(article.id, article.title);
@@ -249,20 +233,6 @@ export default function CategoriesClient({
       <ConfirmModal ref={confirmDeleteSection} onYes={onConfirmedDeleteSection} destructive />
       <ConfirmModal ref={confirmDeleteArticle} onYes={onConfirmedDeleteArticle} destructive />
       <ActionResultModal actionData={actionData} showSuccess={false} />
-
-      <SlideOverWideEmpty
-        title={getOutletTitle()}
-        open={!!(<></>)}
-        onClose={() => {
-          router.replace(".");
-        }}
-        size="2xl"
-        overflowYScroll={true}
-      >
-        <div className="-mx-1 -mt-3">
-          <div className="space-y-4">{<></>}</div>
-        </div>
-      </SlideOverWideEmpty>
     </EditPageLayout>
   );
 }

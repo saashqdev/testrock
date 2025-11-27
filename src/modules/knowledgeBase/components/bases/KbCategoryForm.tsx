@@ -18,11 +18,15 @@ export default function KbCategoryForm({
   language,
   item,
   onDelete,
+  onSubmit,
+  onCancel,
 }: {
   knowledgeBase: KnowledgeBaseDto;
   language: string;
   item?: KnowledgeBaseCategoryWithDetailsDto;
   onDelete?: () => void;
+  onSubmit?: (formData: FormData) => void | Promise<void>;
+  onCancel?: () => void;
 }) {
   const router = useRouter();
   const { pending } = useFormStatus();
@@ -52,9 +56,17 @@ export default function KbCategoryForm({
     }
   }, [item, title]);
 
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    if (onSubmit) {
+      e.preventDefault();
+      const formData = new FormData(e.currentTarget);
+      await onSubmit(formData);
+    }
+  }
+
   return (
     <div>
-      <form method="post" className="inline-block w-full overflow-hidden p-1 text-left align-bottom sm:align-middle">
+      <form onSubmit={handleSubmit} method="post" className="inline-block w-full overflow-hidden p-1 text-left align-bottom sm:align-middle">
         <input type="hidden" name="action" value={item ? "edit" : "new"} hidden readOnly />
         <div className="space-y-2">
           <InputText ref={mainInput} autoFocus name="title" title={"Title"} value={title} setValue={setTitle} required />
@@ -105,7 +117,13 @@ export default function KbCategoryForm({
             )}
           </div>
           <div className="flex space-x-2">
-            <ButtonSecondary onClick={() => router.push(`/admin/knowledge-base/bases/${knowledgeBase.slug}/categories/${language}`)}>
+            <ButtonSecondary
+              onClick={
+                onCancel
+                  ? onCancel
+                  : () => router.push(`/admin/knowledge-base/bases/${knowledgeBase.slug}/categories/${language}`)
+              }
+            >
               {"Cancel"}
             </ButtonSecondary>
             <LoadingButton actionName={item ? "edit" : "new"} type="submit" disabled={pending}>

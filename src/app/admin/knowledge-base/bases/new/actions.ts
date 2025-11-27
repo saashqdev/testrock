@@ -1,6 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { db } from "@/db";
 import { KbNavLinkDto } from "@/modules/knowledgeBase/dtos/KbNavLinkDto";
 
@@ -54,7 +53,7 @@ export async function createKnowledgeBase(formData: FormData): Promise<ActionDat
         logo,
         seoImage,
       });
-      redirect("/admin/knowledge-base/bases");
+      return { success: "Knowledge base created successfully" };
     } catch (e: any) {
       return { error: e.message };
     }

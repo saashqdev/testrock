@@ -21,9 +21,11 @@ export type LoaderData = {
 };
 export const loader = async (props: IServerComponentsProps, { kbSlug }: { kbSlug?: string } = {}) => {
   const params = (await props.params) || {};
-  const request = props.request!;
+  const request = props.request;
   if (params.lang && !KnowledgeBaseUtils.supportedLanguages.find((f) => f.value === params.lang)) {
-    await RedirectsService.findAndRedirect({ request });
+    if (request) {
+      await RedirectsService.findAndRedirect({ request });
+    }
   }
   const kb = await KnowledgeBaseService.get({ slug: kbSlug ?? params.slug!, enabled: true, request });
 
@@ -31,8 +33,10 @@ export const loader = async (props: IServerComponentsProps, { kbSlug }: { kbSlug
   const userInfo = await getUserInfo();
 
   await db.kbAnalytics.createKnowledgeBaseView({ userAnalyticsId, knowledgeBaseId: kb.id });
-  const searchParams = new URL(request.url).searchParams;
-  const query = searchParams.get("q")?.toString();
+  
+  // Get search params from props or request
+  const searchParamsObj = await props.searchParams;
+  const query = searchParamsObj?.q?.toString() || (request ? new URL(request.url).searchParams.get("q")?.toString() : undefined);
   const currentUser = await db.users.getUser(userInfo.userId);
   const data: LoaderData = {
     metatags: kb.metatags,

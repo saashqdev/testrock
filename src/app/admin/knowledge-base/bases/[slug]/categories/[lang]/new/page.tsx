@@ -1,94 +1,85 @@
-import { redirect } from "next/navigation";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import ServerError from "@/components/ui/errors/ServerError";
+import ActionResultModal from "@/components/ui/modals/ActionResultModal";
 import KbCategoryForm from "@/modules/knowledgeBase/components/bases/KbCategoryForm";
-import { KnowledgeBaseDto } from "@/modules/knowledgeBase/dtos/KnowledgeBaseDto";
-import KnowledgeBaseService from "@/modules/knowledgeBase/service/KnowledgeBaseService.server";
-import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
-import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
-import { db } from "@/db";
+import SlideOverFormLayout from "@/components/ui/slideOvers/SlideOverFormLayout";
+import { KnowledgeBaseWithDetailsDto } from "@/db/models/knowledgeBase/KnowledgeBaseModel";
+import { createKbCategory, getKnowledgeBase } from "./actions";
+import { useParams } from "next/navigation";
 
-type LoaderData = {
-  knowledgeBase: KnowledgeBaseDto;
+type ActionData = {
+  error?: string;
+  success?: string;
 };
 
-async function getLoaderData(props: IServerComponentsProps): Promise<LoaderData> {
-  const params = (await props.params) || {};
-  const request = props.request!;
-  await verifyUserHasPermission("admin.kb.view");
-  const knowledgeBase = await KnowledgeBaseService.get({
-    slug: params.slug!,
-    request,
-  });
-  return {
-    knowledgeBase,
-  };
-}
+export default function NewKbCategoryPage() {
+  const [actionData, setActionData] = useState<ActionData | null>(null);
+  const [knowledgeBase, setKnowledgeBase] = useState<KnowledgeBaseWithDetailsDto | null>(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const params = useParams();
+  const slug = params.slug as string;
+  const lang = params.lang as string;
 
-export const action = async (props: IServerComponentsProps) => {
-  const params = (await props.params) || {};
-  const request = props.request!;
-  await verifyUserHasPermission("admin.kb.update");
-  const form = await request.formData();
-  const action = form.get("action")?.toString();
-
-  const knowledgeBase = await KnowledgeBaseService.get({
-    slug: params.slug!,
-    request,
-  });
-
-  if (action === "new") {
-    await verifyUserHasPermission("admin.kb.create");
-    const slug = form.get("slug")?.toString() ?? "";
-    const title = form.get("title")?.toString() ?? "";
-    const description = form.get("description")?.toString() ?? "";
-    const icon = form.get("icon")?.toString() ?? "";
-    const seoImage = form.get("seoImage")?.toString() ?? "";
-
-    const allCategories = await db.kbCategories.getAllKnowledgeBaseCategories({
-      knowledgeBaseSlug: params.slug!,
-      language: params.lang!,
-    });
-    let maxOrder = 0;
-    if (allCategories.length > 0) {
-      maxOrder = Math.max(...allCategories.map((i) => i.order));
+  useEffect(() => {
+    async function loadData() {
+      const kb = await getKnowledgeBase(slug);
+      setKnowledgeBase(kb);
+      setLoading(false);
     }
+    loadData();
+  }, [slug]);
 
-    const existing = await db.kbCategories.getKbCategoryBySlug({
-      knowledgeBaseId: knowledgeBase.id,
-      slug,
-      language: params.lang!,
-    });
-    if (existing) {
-      return Response.json({ error: "Slug already exists" }, { status: 400 });
+  async function handleSubmit(formData: FormData) {
+    const result = await createKbCategory(slug, lang, formData);
+    if (result?.error) {
+      setActionData(result);
+    } else {
+      // Success - navigate back to list
+      router.push(`/admin/knowledge-base/bases/${slug}/categories/${lang}`);
     }
-
-    try {
-      await db.kbCategories.createKnowledgeBaseCategory({
-        knowledgeBaseId: knowledgeBase.id,
-        slug,
-        title,
-        description,
-        icon,
-        language: params.lang!,
-        seoImage,
-        order: maxOrder + 1,
-      });
-    } catch (e: any) {
-      return Response.json({ error: e.message }, { status: 400 });
-    }
-
-    return redirect(`/admin/knowledge-base/bases/${params.slug}/categories/${params.lang}`);
-  } else {
-    return Response.json({ error: "Invalid form" }, { status: 400 });
   }
-};
 
-export default async function NewKbCategory(props: IServerComponentsProps) {
-  const data = await getLoaderData(props);
-  const params = (await props.params) || {};
+  function onClose() {
+    router.push(`/admin/knowledge-base/bases/${slug}/categories/${lang}`);
+  }
+
+  if (loading) {
+    return (
+      <SlideOverFormLayout title="New Category" description="Create a new category" onClosed={onClose} className="max-w-2xl">
+        <div className="px-4 sm:px-6 py-8 text-center">
+          <div className="text-muted-foreground">Loading...</div>
+        </div>
+      </SlideOverFormLayout>
+    );
+  }
+
+  if (!knowledgeBase) {
+    return (
+      <SlideOverFormLayout title="New Category" description="Create a new category" onClosed={onClose} className="max-w-2xl">
+        <div className="px-4 sm:px-6 py-8 text-center">
+          <div className="text-destructive">Knowledge base not found</div>
+        </div>
+      </SlideOverFormLayout>
+    );
+  }
 
   return (
-    <div>
-      <KbCategoryForm knowledgeBase={data.knowledgeBase} language={params.lang!} />
-    </div>
+    <>
+      <SlideOverFormLayout title="New Category" description="Create a new category for your knowledge base" onClosed={onClose} className="max-w-2xl">
+        <div className="px-4 sm:px-6">
+          <KbCategoryForm knowledgeBase={knowledgeBase} language={lang} onSubmit={handleSubmit} onCancel={onClose} />
+        </div>
+      </SlideOverFormLayout>
+
+      <ActionResultModal actionData={actionData ?? undefined} showSuccess={false} />
+    </>
   );
+}
+
+export function ErrorBoundary() {
+  return <ServerError />;
 }

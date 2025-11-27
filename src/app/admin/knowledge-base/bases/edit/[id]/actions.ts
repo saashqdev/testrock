@@ -1,15 +1,25 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { KbNavLinkDto } from "@/modules/knowledgeBase/dtos/KbNavLinkDto";
 import { verifyUserHasPermission } from "@/modules/permissions/services/UserPermissionsService";
 import { db } from "@/db";
 import { revalidatePath } from "next/cache";
+import { KnowledgeBaseWithDetailsDto } from "@/db/models/knowledgeBase/KnowledgeBaseModel";
 
 type ActionData = {
   error?: string;
   success?: string;
 };
+
+export async function getKnowledgeBase(id: string): Promise<KnowledgeBaseWithDetailsDto | null> {
+  try {
+    await verifyUserHasPermission("admin.kb.view");
+    const knowledgeBase = await db.knowledgeBase.getKnowledgeBaseById(id);
+    return knowledgeBase;
+  } catch (e) {
+    return null;
+  }
+}
 
 export async function editKnowledgeBase(id: string, formData: FormData): Promise<ActionData> {
   try {
@@ -18,7 +28,7 @@ export async function editKnowledgeBase(id: string, formData: FormData): Promise
     const item = await db.knowledgeBase.getKnowledgeBaseById(id);
 
     if (!item) {
-      redirect("/admin/knowledge-base/bases");
+      return { error: "Knowledge base not found" };
     }
 
     let basePath = formData.get("basePath")?.toString() ?? "";
@@ -67,7 +77,7 @@ export async function editKnowledgeBase(id: string, formData: FormData): Promise
       });
 
       revalidatePath("/admin/knowledge-base/bases");
-      redirect("/admin/knowledge-base/bases");
+      return { success: "Knowledge base updated successfully" };
     } catch (e: any) {
       return { error: e.message };
     }
@@ -83,13 +93,13 @@ export async function deleteKnowledgeBase(id: string): Promise<ActionData> {
     const item = await db.knowledgeBase.getKnowledgeBaseById(id);
 
     if (!item) {
-      redirect("/admin/knowledge-base/bases");
+      return { error: "Knowledge base not found" };
     }
 
     try {
       await db.knowledgeBase.deleteKnowledgeBase(id);
       revalidatePath("/admin/knowledge-base/bases");
-      redirect("/admin/knowledge-base/bases");
+      return { success: "Knowledge base deleted successfully" };
     } catch (e: any) {
       return { error: e.message };
     }

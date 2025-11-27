@@ -112,7 +112,7 @@ export default function AdminSettingsGeneral() {
               <Textarea
                 name="headScripts"
                 title="Head scripts"
-                defaultValue={appConfiguration.scripts.head ?? ""}
+                defaultValue={appConfiguration.scripts?.head ?? ""}
                 disabled={!canUpdate}
                 rows={10}
                 placeholder={`<head>
@@ -128,7 +128,7 @@ your scripts here
               <Textarea
                 name="bodyScripts"
                 title="Body scripts"
-                defaultValue={appConfiguration.scripts.body ?? ""}
+                defaultValue={appConfiguration.scripts?.body ?? ""}
                 disabled={!canUpdate}
                 rows={10}
                 placeholder={`<body>

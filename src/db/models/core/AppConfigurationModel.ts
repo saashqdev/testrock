@@ -103,5 +103,5 @@ export type AppConfigurationDto = {
   };
   portals: AppPortalConfigurationDto & { default: { enabled: boolean; path: string; title: string } };
   widgets: AppWidgetsConfigurationDto & { chatWidget: { enabled: false; provider: "tawkto"; config: {} } };
-  scripts: { head: string | null; body: string | null };
+  scripts?: { head: string | null; body: string | null };
 };

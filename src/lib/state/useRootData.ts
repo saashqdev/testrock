@@ -49,6 +49,13 @@ export function useRootData(): RootDataDto {
         app: { features: {} },
         auth: { authMethods: { emailPassword: { enabled: true }, github: { enabled: false }, google: { enabled: false } } },
         subscription: { allowSignUpBeforeSubscribe: true },
+        branding: {
+          logo: undefined,
+          logoDarkMode: undefined,
+          icon: undefined,
+          iconDarkMode: undefined,
+          favicon: undefined,
+        },
       },
       featureFlags: [],
     } as RootDataDto;

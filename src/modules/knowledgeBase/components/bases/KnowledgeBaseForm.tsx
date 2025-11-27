@@ -58,10 +58,16 @@ export default function KnowledgeBaseForm({
   const [color, setColor] = useState(item?.color || Colors.BLUE);
   const [enabled, setEnabled] = useState(item?.enabled ?? false);
   // const [metatags, setMetatags] = useState<MetaTagsDto>(item?.metatags || []);
-  const [languages, setLanguages] = useState<string[]>(item?.languages || [KnowledgeBaseUtils.defaultLanguage]);
+  const [languages, setLanguages] = useState<string[]>(() => {
+    if (!item?.languages) return [KnowledgeBaseUtils.defaultLanguage];
+    return typeof item.languages === "string" ? JSON.parse(item.languages) : item.languages;
+  });
   const [logo, setLogo] = useState<"light" | "dark" | string>(item?.logo || "dark");
   const [seoImage, setSeoImage] = useState(item?.seoImage || "");
-  const [links, setLinks] = useState<KbNavLinkDto[]>(item?.links || []);
+  const [links, setLinks] = useState<KbNavLinkDto[]>(() => {
+    if (!item?.links) return [];
+    return typeof item.links === "string" ? JSON.parse(item.links) : item.links;
+  });
 
   useEffect(() => {
     if (!item) {

@@ -13,7 +13,7 @@ export const loader = (props: IServerComponentsProps) => kbIndexLoader(props, { 
 // export const action = (props: IServerComponentsProps) => KbRoutesIndexApi.action(props);
 
 export default async function Page(props: IServerComponentsProps) {
-  const data = await kbIndexLoader(props);
+  const data = await kbIndexLoader(props, { kbSlug: "docs" });
   return <KbRoutesIndex data={data} />;
 }
 
