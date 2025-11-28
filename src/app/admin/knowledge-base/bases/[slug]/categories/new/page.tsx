@@ -6,7 +6,7 @@ export default async function NewCategoryRedirectPage(props: IServerComponentsPr
   const params = await props.params;
   
   // Get the knowledge base to find its default language
-  const knowledgeBase = await db.knowledgeBase.getKnowledgeBaseBySlug(params.slug!);
+  const knowledgeBase = await db.knowledgeBase.getKnowledgeBaseBySlug(params?.slug!);
   
   if (!knowledgeBase) {
     redirect("/admin/knowledge-base/bases");
@@ -17,5 +17,5 @@ export default async function NewCategoryRedirectPage(props: IServerComponentsPr
   const languages = typeof knowledgeBase.languages === "string" ? JSON.parse(knowledgeBase.languages) : knowledgeBase.languages;
   const lang = defaultLanguage || languages[0] || "en";
   
-  redirect(`/admin/knowledge-base/bases/${params.slug}/categories/${lang}/new`);
+  redirect(`/admin/knowledge-base/bases/${params?.slug}/categories/${lang}/new`);
 }
