@@ -22,11 +22,11 @@ const withTitleAndDescription = true;
 export default function KbDocsHeader({ kb }: Props) {
   const router = useRouter();
   const params = useParams();
-  const [searchParams] = useSearchParams();
+  const searchParams = useSearchParams();
 
   return (
     <div>
-      <div className={clsx("bg-linear-to-r text-white", ColorGradientUtils.getFrom800To900(kb.color))}>
+      <div className="bg-black text-white">
         <div className="max-w-(--breakpoint-2xl) mx-auto space-y-8 px-8 py-4">
           <div className="flex items-center justify-between space-x-2">
             <Link href={KnowledgeBaseUtils.getKbUrl({ kb, params })} className="flex select-none items-center space-x-2">
@@ -52,6 +52,9 @@ export default function KbDocsHeader({ kb }: Props) {
                   </a>
                 );
               })}
+              <a href="/" className={clsx("transition-colors duration-150 hover:text-white", ColorTextUtils.getText300(kb.color))}>
+                Back to site
+              </a>
               <div className="flex items-center space-x-2">
                 {kb.languages.length > 1 && (
                   <select

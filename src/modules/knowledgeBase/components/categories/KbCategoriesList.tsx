@@ -9,12 +9,14 @@ import ColorTextUtils from "@/lib/shared/colors/ColorTextUtils";
 import { KnowledgeBaseDto } from "../../dtos/KnowledgeBaseDto";
 import ColorGroupHoverUtils from "@/lib/shared/colors/ColorGroupHoverUtils";
 import { useTranslation } from "react-i18next";
+import { useMounted } from "@/hooks/use-mounted";
 
 export default function KbCategoriesList({ kb, items }: { kb: KnowledgeBaseDto; items: KbCategoryDto[] }) {
   const { t } = useTranslation();
+  const mounted = useMounted();
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold">{t("knowledgeBase.category.plural")}</h2>
+      <h2 className="text-2xl font-bold">{mounted ? t("knowledgeBase.category.plural") : "Categories"}</h2>
       <div className={clsx("grid grid-cols-1 gap-4")}>
         {items.map((item) => {
           return (

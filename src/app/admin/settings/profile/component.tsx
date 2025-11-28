@@ -121,7 +121,7 @@ export default function () {
                           <div className="h-12 w-12 overflow-hidden rounded-md bg-gray-100">
                             {(() => {
                               if (avatar) {
-                                return <Image id="avatar" alt="Avatar" src={avatar} />;
+                                return <img id="avatar" alt="Avatar" src={avatar} className="h-full w-full object-cover" />;
                               } else {
                                 return (
                                   <svg id="avatar" className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">

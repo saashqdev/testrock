@@ -20,11 +20,11 @@ type LoaderData = {
 
 async function getData(props: IServerComponentsProps): Promise<LoaderData> {
   const params = (await props.params) || {};
-  const request = props.request!;
+  const searchParams = (await props.searchParams) || {};
   await verifyUserHasPermission("admin.kb.view");
   const knowledgeBase = await KnowledgeBaseService.get({
     slug: params.slug!,
-    request,
+    request: props.request || new Request("http://localhost"),
   });
   if (!knowledgeBase) {
     return redirect("/admin/knowledge-base/bases");
@@ -33,7 +33,7 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
   // Use default language if not specified
   const defaultLang = knowledgeBase.defaultLanguage || knowledgeBase.languages[0] || "en";
 
-  const urlSearchParams = new URL(request.url).searchParams;
+  const urlSearchParams = new URLSearchParams(searchParams as any);
   const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
   const filterableProperties: FilterablePropertyDto[] = [
     {
@@ -62,7 +62,7 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
       title: "Content",
     },
   ];
-  const filters = getFiltersFromCurrentUrl(request, filterableProperties);
+  const filters = getFiltersFromCurrentUrl(props.request || new Request("http://localhost"), filterableProperties);
   const filtered = {
     title: filters.properties.find((f) => f.name === "title")?.value ?? filters.query ?? undefined,
     description: filters.properties.find((f) => f.name === "description")?.value ?? filters.query ?? undefined,

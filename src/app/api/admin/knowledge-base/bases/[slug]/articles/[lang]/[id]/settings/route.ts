@@ -1,11 +1,58 @@
-import { redirect } from "next/navigation";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { getUserInfo } from "@/lib/services/session.server";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import KnowledgeBaseService from "@/modules/knowledgeBase/service/KnowledgeBaseService.server";
 import KnowledgeBaseUtils from "@/modules/knowledgeBase/utils/KnowledgeBaseUtils";
 import { db } from "@/db";
 
-export async function POST(request: NextRequest, { params }: { params: Promise<{ slug: string; lang: string; id: string }> }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ slug: string; lang: string; id: string }> }
+) {
+  const resolvedParams = await params;
+
+  try {
+    // Basic authentication check
+    const userInfo = await getUserInfo();
+    if (!userInfo.userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const knowledgeBase = await KnowledgeBaseService.get({
+      slug: resolvedParams.slug,
+      request,
+    });
+
+    if (!knowledgeBase) {
+      return NextResponse.json({ error: "Knowledge base not found" }, { status: 404 });
+    }
+
+    const item = await db.kbArticles.getKbArticleById(resolvedParams.id);
+    if (!item) {
+      return NextResponse.json({ error: "Article not found" }, { status: 404 });
+    }
+
+    const allCategories = await db.kbCategories.getAllKnowledgeBaseCategoriesSimple();
+    const allArticles = await db.kbArticles.getAllKnowledgeBaseArticlesSimple();
+    const allKnowledgeBases = await db.knowledgeBase.getAllKnowledgeBaseNames();
+
+    return NextResponse.json({
+      knowledgeBase,
+      item,
+      allKnowledgeBases,
+      allArticles,
+      allCategories,
+    });
+  } catch (error: any) {
+    console.error("Error fetching article settings:", error);
+    return NextResponse.json({ error: error.message || "Internal server error" }, { status: 500 });
+  }
+}
+
+export async function POST(
+  request: NextRequest,
+  { params }: { params: Promise<{ slug: string; lang: string; id: string }> }
+) {
   const resolvedParams = await params;
   await verifyUserHasPermission("admin.kb.update");
 
@@ -79,7 +126,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
 
     return Response.json({
       success: true,
-      redirectUrl: `/admin/knowledge-base/bases/${knowledgeBase.slug}/articles/${language}/${item.id}`,
+      redirectUrl: `/admin/knowledge-base/bases/${resolvedParams.slug}/articles/${language}/${item.id}`,
     });
   } else if (action === "delete") {
     await verifyUserHasPermission("admin.kb.delete");

@@ -39,7 +39,7 @@ export default function KbArticleSettingsClient({
     form.set("action", "delete");
 
     try {
-      const response = await fetch(`/api/admin/knowledge-base/bases/${slug}/articles/${lang}/${item.id}`, {
+      const response = await fetch(`/api/admin/knowledge-base/bases/${slug}/articles/${lang}/${item.id}/settings`, {
         method: "POST",
         body: form,
       });
@@ -65,16 +65,14 @@ export default function KbArticleSettingsClient({
     const formData = new FormData(e.currentTarget);
 
     try {
-      const response = await fetch(`/api/admin/knowledge-base/bases/${slug}/articles/${lang}/${item.id}`, {
+      const response = await fetch(`/api/admin/knowledge-base/bases/${slug}/articles/${lang}/${item.id}/settings`, {
         method: "POST",
         body: formData,
       });
 
       if (response.ok) {
-        const data = await response.json();
-        if (data.redirectUrl) {
-          router.push(data.redirectUrl);
-        }
+        // Navigate back to article view on success
+        router.push(`/admin/knowledge-base/bases/${slug}/articles/${lang}/${item.id}`);
         router.refresh();
       } else {
         const data = await response.json();

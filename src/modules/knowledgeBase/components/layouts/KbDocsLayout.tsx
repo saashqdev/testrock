@@ -83,7 +83,7 @@ export default function KbDocsLayout({
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-white text-foreground">
       <KbDocsHeader kb={kb} />
       <div className="max-w-(--breakpoint-2xl) mx-auto flex-1 items-start px-4 pt-3 sm:px-6 md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10">
         <nav className={clsx("not-prose mb-2 flex items-center truncate border-b border-border pb-2 md:hidden")}>

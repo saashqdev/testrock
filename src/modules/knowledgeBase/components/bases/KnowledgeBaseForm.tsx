@@ -25,13 +25,28 @@ import ColorBackgroundUtils from "@/lib/shared/colors/ColorBackgroundUtils";
 import { useTranslation } from "react-i18next";
 import Images from "next/image";
 
+type KnowledgeBaseFormItem = {
+  basePath: string;
+  slug: string;
+  title: string;
+  description: string;
+  defaultLanguage: string;
+  layout: string;
+  color: number;
+  enabled: boolean;
+  languages: string | string[];
+  links: string | KbNavLinkDto[];
+  logo: string;
+  seoImage: string;
+};
+
 export default function KnowledgeBaseForm({
   item,
   onDelete,
   onSubmit,
   onCancel,
 }: {
-  item?: KnowledgeBaseDto;
+  item?: KnowledgeBaseFormItem;
   onDelete?: () => void;
   onSubmit?: (formData: FormData) => void | Promise<void>;
   onCancel?: () => void;

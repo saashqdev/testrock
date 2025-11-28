@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
 import { SideBarItem } from "@/lib/sidebar/SidebarItem";
+import { useEffect, useState } from "react";
 
 export function DocsSidebarNav({ items }: { items: SideBarItem[] }) {
   return (
@@ -30,6 +31,11 @@ export function DocsSidebarNav({ items }: { items: SideBarItem[] }) {
 
 function DocsSidebarNavItems({ items }: { items: SideBarItem[] }) {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return items?.length ? (
     <div className="grid grid-flow-row auto-rows-max">
       {items.map((item, index) =>
@@ -40,7 +46,7 @@ function DocsSidebarNavItems({ items }: { items: SideBarItem[] }) {
             className={clsx(
               "group flex w-full items-center rounded-md border border-transparent px-2 py-1 text-sm hover:underline",
               item.disabled && "cursor-not-allowed opacity-60",
-              pathname === item.path ? "font-medium text-foreground" : "text-muted-foreground"
+              mounted && pathname === item.path ? "font-medium text-foreground" : "text-muted-foreground"
             )}
             target={item.target}
             rel={item.target ? "noreferrer" : ""}

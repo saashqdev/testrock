@@ -2,7 +2,7 @@
 
 import { BubbleMenu, BubbleMenuProps } from "@tiptap/react/menus";
 import clsx from "clsx";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useRef } from "react";
 import { BoldIcon, ItalicIcon, UnderlineIcon, CodeIcon } from "lucide-react";
 import { NodeSelector } from "./NodeSelector";
 import { PromptFlowWithDetailsDto } from "@/db/models/promptFlows/PromptFlowsModel";
@@ -18,7 +18,8 @@ export interface BubbleMenuItem {
   icon: typeof BoldIcon;
 }
 
-type EditorBubbleMenuProps = Omit<BubbleMenuProps, "children"> & {
+type EditorBubbleMenuProps = {
+  editor: BubbleMenuProps["editor"];
   promptFlows?: PromptFlowWithDetailsDto[];
   onRunPromptFlow?: (
     promptFlow: PromptFlowWithDetailsDto,
@@ -27,7 +28,6 @@ type EditorBubbleMenuProps = Omit<BubbleMenuProps, "children"> & {
       selectedText: string;
     }
   ) => void;
-  tippyOptions?: any; // Add this line to allow tippyOptions
 };
 
 export const EditorBubbleMenu: React.FC<EditorBubbleMenuProps> = (props) => {
@@ -64,36 +64,55 @@ export const EditorBubbleMenu: React.FC<EditorBubbleMenuProps> = (props) => {
     },
   ];
 
-  const { promptFlows, onRunPromptFlow, tippyOptions, ...bubbleMenuProps } = props;
-
-  const bubbleMenuPropsWithDefaults = {
-    ...bubbleMenuProps,
-    shouldShow: ({ editor }: { editor: any }) => {
-      // don't show if image is selected
-
-      if (editor?.isActive("image")) {
-        return false;
-      }
-      return editor.view.state.selection.content().size > 0;
-    },
-  };
-
   const [isNodeSelectorOpen, setIsNodeSelectorOpen] = useState(false);
   const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
   const [isPromptSelectorOpen, setIsPromptSelectorOpen] = useState(false);
+  
+  const isAnyOpen = useRef(false);
+
+  const { editor, promptFlows, onRunPromptFlow } = props;
+
+  const handleNodeSelectorChange = (open: boolean) => {
+    isAnyOpen.current = open;
+    setIsNodeSelectorOpen(open);
+    if (open) {
+      setIsColorSelectorOpen(false);
+      setIsPromptSelectorOpen(false);
+    }
+  };
+
+  const handleColorSelectorChange = (open: boolean) => {
+    isAnyOpen.current = open;
+    setIsColorSelectorOpen(open);
+    if (open) {
+      setIsNodeSelectorOpen(false);
+      setIsPromptSelectorOpen(false);
+    }
+  };
 
   return (
-    <BubbleMenu {...bubbleMenuPropsWithDefaults} className="flex overflow-hidden rounded border border-stone-200 bg-background shadow-xl">
+    <BubbleMenu
+      editor={editor}
+      className="flex rounded border border-stone-200 bg-background shadow-xl"
+      shouldShow={({ editor }: { editor: any }) => {
+        // don't show if image is selected
+        if (editor?.isActive("image")) {
+          return false;
+        }
+        // Keep menu open if any selector is open
+        if (isAnyOpen.current || isNodeSelectorOpen || isColorSelectorOpen || isPromptSelectorOpen) {
+          return true;
+        }
+        return editor.view.state.selection.content().size > 0;
+      }}
+      updateDelay={0}
+    >
       {props.editor && (
         <Fragment>
           <NodeSelector
             editor={props.editor}
             isOpen={isNodeSelectorOpen}
-            setIsOpen={() => {
-              setIsNodeSelectorOpen(!isNodeSelectorOpen);
-              setIsColorSelectorOpen(false);
-              setIsPromptSelectorOpen(false);
-            }}
+            setIsOpen={handleNodeSelectorChange}
           />
           {items.map((item, index) => (
             <button key={index} onClick={item.command} type="button" className="p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200">
@@ -107,10 +126,7 @@ export const EditorBubbleMenu: React.FC<EditorBubbleMenuProps> = (props) => {
           <ColorSelector
             editor={props.editor}
             isOpen={isColorSelectorOpen}
-            setIsOpen={() => {
-              setIsColorSelectorOpen(!isColorSelectorOpen);
-              setIsNodeSelectorOpen(false);
-            }}
+            setIsOpen={handleColorSelectorChange}
           />
           {/* <ColorSelector
         editor={props.editor}

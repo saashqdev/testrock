@@ -44,6 +44,8 @@ export default function KbArticleContent({
                   <Image
                     src={item.createdByUser.avatar}
                     alt={`${item.createdByUser.firstName} ${item.createdByUser.lastName}`}
+                    width={32}
+                    height={32}
                     className="h-8 w-8 rounded-full"
                   />
                 )}

@@ -32,10 +32,6 @@ type ActionData = {
 };
 
 export const actionAdminProfile = async (prev: any, form: FormData): Promise<ActionData> => {
-  const tenantId = form.get("tenantId")?.toString();
-  if (!tenantId) {
-    return { profileError: `Tenant ID is required.` };
-  }
   await requireAuth({});
   const { t } = await getServerTranslations();
 
@@ -116,6 +112,11 @@ export const actionAdminProfile = async (prev: any, form: FormData): Promise<Act
     case "deleteAccount": {
       if (user.admin) {
         return { deleteError: "Cannot delete an admin" };
+      }
+
+      const tenantId = form.get("tenantId")?.toString();
+      if (!tenantId) {
+        return { deleteError: `Tenant ID is required for account deletion.` };
       }
 
       try {

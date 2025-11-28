@@ -13,7 +13,7 @@ export const loader = (props: IServerComponentsProps) => kbCategoryLoader(props,
 // export const action = (props: IServerComponentsProps) => KbRoutesCategoryApi.action(props, { kbSlug: "docs" });
 
 export default async function Page(props: IServerComponentsProps) {
-  const data = await kbCategoryLoader(props);
+  const data = await kbCategoryLoader(props, { kbSlug: "docs" });
   return <KbRoutesCategoryView data={data} />;
 }
 

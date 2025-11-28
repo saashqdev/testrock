@@ -3,6 +3,7 @@
 import { Editor } from "@tiptap/core";
 import clsx from "clsx";
 import { Check, ChevronDown } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 export interface BubbleColorMenuItem {
   name: string;
@@ -12,7 +13,7 @@ export interface BubbleColorMenuItem {
 interface ColorSelectorProps {
   editor: Editor;
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  setIsOpen: (open: boolean) => void;
 }
 
 export default function ColorSelector({ editor, isOpen, setIsOpen }: ColorSelectorProps) {
@@ -54,19 +55,19 @@ export default function ColorSelector({ editor, isOpen, setIsOpen }: ColorSelect
   const activeItem = items.find(({ color }) => editor.isActive("textStyle", { color }));
 
   return (
-    <div className="relative h-full">
-      <button
-        type="button"
-        className="flex h-full items-center gap-1 p-2 text-sm font-medium text-muted-foreground hover:bg-secondary"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <span style={{ color: activeItem?.color || "#000000" }}>Color</span>
-
-        <ChevronDown className="h-4 w-4" />
-      </button>
-
-      {isOpen && (
-        <section className="z-99999 fixed top-full mt-1 flex w-48 flex-col overflow-hidden rounded border border-stone-200 bg-background p-1 shadow-xl animate-in fade-in slide-in-from-top-1">
+    <Popover open={isOpen} onOpenChange={setIsOpen} modal={false}>
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          className="flex h-full items-center gap-1 p-2 text-sm font-medium text-muted-foreground hover:bg-secondary"
+          onMouseDown={(e) => e.preventDefault()}
+        >
+          <span style={{ color: activeItem?.color || "#000000" }}>Color</span>
+          <ChevronDown className="h-4 w-4" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent className="w-48 p-1" align="start" onOpenAutoFocus={(e) => e.preventDefault()}>
+        <div className="flex flex-col">
           {items.map(({ name, color }, index) => (
             <button
               type="button"
@@ -88,8 +89,8 @@ export default function ColorSelector({ editor, isOpen, setIsOpen }: ColorSelect
               {editor.isActive("textStyle", { color }) && <Check className="h-4 w-4" />}
             </button>
           ))}
-        </section>
-      )}
-    </div>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }

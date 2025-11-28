@@ -36,33 +36,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-async function updateArticle(formData: FormData, slug: string, lang: string, id: string) {
-  "use server";
-
-  await verifyUserHasPermission(null as any, "admin.kb.update");
-
-  const action = formData.get("action")?.toString() ?? "";
-
-  const item = await db.kbArticles.getKbArticleById(id);
-  if (!item) {
-    return { error: "Article not found" };
-  }
-
-  if (action === "edit") {
-    const content = formData.get("content")?.toString() ?? "";
-    const contentType = formData.get("contentType")?.toString() ?? "";
-
-    await db.kbArticles.updateKnowledgeBaseArticle(item.id, {
-      contentDraft: content,
-      contentType,
-    });
-
-    redirect(`/admin/knowledge-base/bases/${slug}/articles/${lang}/${id}`);
-  }
-
-  return { error: "Invalid action" };
-}
-
 export default async function ArticleEditPage({ params }: PageProps) {
   const resolvedParams = await params;
 
@@ -82,7 +55,32 @@ export default async function ArticleEditPage({ params }: PageProps) {
     redirect(`/admin/knowledge-base/bases/${resolvedParams.slug}/articles`);
   }
 
-  const updateArticleWithParams = updateArticle.bind(null, {} as FormData, resolvedParams.slug, resolvedParams.lang, resolvedParams.id);
+  async function updateArticle(formData: FormData) {
+    "use server";
 
-  return <ArticleEditClient knowledgeBase={knowledgeBase} item={item} params={resolvedParams} updateArticle={updateArticleWithParams} />;
+    await verifyUserHasPermission(null as any, "admin.kb.update");
+
+    const action = formData.get("action")?.toString() ?? "";
+
+    const item = await db.kbArticles.getKbArticleById(resolvedParams.id);
+    if (!item) {
+      return { error: "Article not found" };
+    }
+
+    if (action === "edit") {
+      const content = formData.get("content")?.toString() ?? "";
+      const contentType = formData.get("contentType")?.toString() ?? "";
+
+      await db.kbArticles.updateKnowledgeBaseArticle(item.id, {
+        contentDraft: content,
+        contentType,
+      });
+
+      redirect(`/admin/knowledge-base/bases/${resolvedParams.slug}/articles/${resolvedParams.lang}/${resolvedParams.id}`);
+    }
+
+    return { error: "Invalid action" };
+  }
+
+  return <ArticleEditClient knowledgeBase={knowledgeBase} item={item} params={resolvedParams} updateArticle={updateArticle} />;
 }

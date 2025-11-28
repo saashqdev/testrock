@@ -180,11 +180,11 @@ export default function ArticlesPage() {
           actions={[
             {
               title: "Settings",
-              onClickRoute: (_, item) => `/admin/knowledge-base/bases/${item.language}/articles/${KnowledgeBaseUtils.defaultLanguage}/${item.id}/settings`,
+              onClickRoute: (_, item) => `/admin/knowledge-base/bases/${item.knowledgeBase.slug}/articles/${item.language}/${item.id}/settings`,
             },
             {
               title: "Edit",
-              onClickRoute: (_, item) => `/admin/knowledge-base/bases/${item.language}/articles/${KnowledgeBaseUtils.defaultLanguage}/${item.id}/edit`,
+              onClickRoute: (_, item) => `/admin/knowledge-base/bases/${item.knowledgeBase.slug}/articles/${item.language}/${item.id}/edit`,
             },
           ]}
           headers={[

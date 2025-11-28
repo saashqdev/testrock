@@ -12,10 +12,12 @@ import ColorTextUtils from "@/lib/shared/colors/ColorTextUtils";
 import ColorGroupHoverUtils from "@/lib/shared/colors/ColorGroupHoverUtils";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
+import { useMounted } from "@/hooks/use-mounted";
 
 export default function KbCategory({ kb, item, allCategories }: { kb: KnowledgeBaseDto; item: KbCategoryDto; allCategories: KbCategoryDto[] }) {
   const { t } = useTranslation();
   const params = useParams();
+  const mounted = useMounted();
   return (
     <div className="space-y-6">
       <BreadcrumbSimple
@@ -73,7 +75,7 @@ export default function KbCategory({ kb, item, allCategories }: { kb: KnowledgeB
 
       <div className="grid grid-cols-12 gap-8">
         <div className="col-span-3 hidden space-y-3 md:block">
-          <div className="text font-bold">{t("knowledgeBase.category.plural")}</div>
+          <div className="text font-bold">{mounted ? t("knowledgeBase.category.plural") : "Categories"}</div>
           <div className="space-y-1">
             {allCategories.map((category) => {
               return (

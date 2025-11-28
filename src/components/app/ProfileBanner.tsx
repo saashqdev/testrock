@@ -53,14 +53,14 @@ export default function ProfileBanner({ user }: Props) {
           {/*Profile */}
           <div className="flex items-center">
             <Link href={UrlUtils.currentTenantUrl(params, `settings/profile`)}>
-              {user?.avatar && <Image className="hidden h-12 w-12 rounded-full sm:block" src={user?.avatar} alt="Profile" />}
+              {user?.avatar && <Image className="hidden h-12 w-12 rounded-full object-cover sm:block" src={user?.avatar} alt="Profile" width={48} height={48} />}
             </Link>
             <div>
               <div className="flex items-center">
                 <div>
                   {(() => {
                     if (user?.avatar) {
-                      return <Image className="h-12 w-12 rounded-sm sm:hidden" src={user?.avatar} alt="Avatar" />;
+                      return <Image className="h-12 w-12 rounded-sm object-cover sm:hidden" src={user?.avatar} alt="Avatar" width={48} height={48} />;
                     } else {
                       return (
                         <span className="inline-flex h-12 w-12 items-center justify-center rounded-sm bg-slate-800 shadow-xl sm:hidden">

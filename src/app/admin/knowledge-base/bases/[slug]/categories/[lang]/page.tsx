@@ -125,6 +125,28 @@ export default async function CategoriesPage(props: IServerComponentsProps) {
     revalidatePath(`/admin/knowledge-base/bases/${params.slug}/categories/${params.lang}`);
   }
 
+  async function handleSetCategoryOrders(items: { id: string; order: number }[]) {
+    "use server";
+    await verifyUserHasPermission("admin.kb.update");
+    for (const item of items) {
+      await db.kbCategories.updateKnowledgeBaseCategory(item.id, {
+        order: item.order,
+      });
+    }
+    revalidatePath(`/admin/knowledge-base/bases/${params.slug}/categories/${params.lang}`);
+  }
+
+  async function handleSetSectionOrders(items: { id: string; order: number }[]) {
+    "use server";
+    await verifyUserHasPermission("admin.kb.update");
+    for (const item of items) {
+      await db.kbCategorySections.updateKnowledgeBaseCategorySection(item.id, {
+        order: item.order,
+      });
+    }
+    revalidatePath(`/admin/knowledge-base/bases/${params.slug}/categories/${params.lang}`);
+  }
+
   return (
     <CategoriesClient
       data={data}
@@ -134,6 +156,8 @@ export default async function CategoriesPage(props: IServerComponentsProps) {
       onDuplicate={handleDuplicate}
       onNewArticle={handleNewArticle}
       onUpdateArticleTitle={handleUpdateArticleTitle}
+      onSetCategoryOrders={handleSetCategoryOrders}
+      onSetSectionOrders={handleSetSectionOrders}
     />
   );
 }

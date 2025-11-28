@@ -139,7 +139,7 @@ export default function KnowledgeBasesClient({ data }: KnowledgeBasesClientProps
           },
           {
             title: "Edit",
-            onClickRoute: (_, i) => `edit/${i.id}`,
+            onClickRoute: (_, i) => `bases/edit/${i.id}`,
           },
         ]}
         headers={[

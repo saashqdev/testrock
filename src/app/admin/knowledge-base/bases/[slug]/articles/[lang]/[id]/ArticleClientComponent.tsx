@@ -68,14 +68,14 @@ export default function ArticleClientComponent({ data, slug, lang, id, togglePub
         ]}
         buttons={
           <>
-            <ButtonSecondary to="settings">
+            <ButtonSecondary to={`/admin/knowledge-base/bases/${slug}/articles/${lang}/${id}/settings`}>
               <div>Settings</div>
             </ButtonSecondary>
-            <ButtonSecondary to="edit">
+            <ButtonSecondary to={`/admin/knowledge-base/bases/${slug}/articles/${lang}/${id}/edit`}>
               <div>Edit latest</div>
             </ButtonSecondary>
             {data.item.publishedAt && (
-              <ButtonSecondary to={KnowledgeBaseUtils.getArticleUrl({ kb: data.knowledgeBase, article: data.item, params: {} })} target="_blank">
+              <ButtonSecondary to={KnowledgeBaseUtils.getArticleUrl({ kb: data.knowledgeBase, article: data.item, params: { lang } })} target="_blank">
                 <div>Preview</div>
               </ButtonSecondary>
             )}

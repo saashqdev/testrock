@@ -5,14 +5,14 @@ import KbRoutesArticleView from "@/modules/knowledgeBase/routes/views/KbRoutes.A
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 
 export async function generateMetadata(props: IServerComponentsProps): Promise<Metadata> {
-  const data = await kbArticleLoader(props);
+  const data = await kbArticleLoader(props, { kbSlug: "docs" });
   return (data?.metatags as Metadata) || {};
 }
 export const loader = (props: IServerComponentsProps) => kbArticleLoader(props, { kbSlug: "docs" });
 export const action = (props: IServerComponentsProps) => kbArticleAction(props, { kbSlug: "docs" });
 
 export default async function Page(props: IServerComponentsProps) {
-  const data = await kbArticleLoader(props);
+  const data = await kbArticleLoader(props, { kbSlug: "docs" });
   return <KbRoutesArticleView data={data} />;
 }
 

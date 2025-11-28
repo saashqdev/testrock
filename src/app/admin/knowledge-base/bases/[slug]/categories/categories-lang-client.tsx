@@ -39,6 +39,8 @@ type CategoriesClientProps = {
   onDuplicate: (id: string) => Promise<void>;
   onNewArticle: (categoryId: string, sectionId: string | undefined, position: "first" | "last") => Promise<void>;
   onUpdateArticleTitle: (id: string, title: string) => Promise<void>;
+  onSetCategoryOrders: (items: { id: string; order: number }[]) => Promise<void>;
+  onSetSectionOrders: (items: { id: string; order: number }[]) => Promise<void>;
 };
 
 export default function CategoriesClient({
@@ -50,6 +52,8 @@ export default function CategoriesClient({
   onDuplicate,
   onNewArticle,
   onUpdateArticleTitle,
+  onSetCategoryOrders,
+  onSetSectionOrders,
 }: CategoriesClientProps) {
   const params = useParams();
   const router = useRouter();
@@ -134,7 +138,16 @@ export default function CategoriesClient({
                     <div className="flex items-center space-x-2 truncate">
                       <div className="flex items-center space-x-3 truncate">
                         <div className="hidden shrink-0 sm:flex">
-                          <OrderListButtons index={idx} items={data.items} editable={true} />
+                          <OrderListButtons
+                            index={idx}
+                            items={data.items}
+                            editable={true}
+                            onChange={(items) => {
+                              startTransition(async () => {
+                                await onSetCategoryOrders(items);
+                              });
+                            }}
+                          />
                         </div>
                         <div className="flex items-center space-x-2 truncate text-sm text-foreground">
                           <div className="flex items-baseline space-x-1 truncate">
@@ -214,6 +227,7 @@ export default function CategoriesClient({
                     onNewArticle={handleNewArticle}
                     onDeleteArticle={handleDeleteArticle}
                     onUpdateArticleTitle={handleUpdateArticleTitle}
+                    onSetSectionOrders={onSetSectionOrders}
                   />
                 )}
               </div>
@@ -244,6 +258,7 @@ function CategorySections({
   onNewArticle,
   onDeleteArticle,
   onUpdateArticleTitle,
+  onSetSectionOrders,
 }: {
   kb: KnowledgeBaseDto;
   category: KnowledgeBaseCategoryWithDetailsDto;
@@ -251,7 +266,9 @@ function CategorySections({
   onNewArticle: (categoryId: string, sectionId: string | undefined, position: "first" | "last") => void;
   onDeleteArticle: (article: { id: string; title: string }) => void;
   onUpdateArticleTitle: (article: { id: string; title: string }) => void;
+  onSetSectionOrders: (items: { id: string; order: number }[]) => Promise<void>;
 }) {
+  const [isPending, startTransition] = useTransition();
   const [toggledSections, setToggledSections] = useState<string[]>([]);
   const articles = category.articles.filter((f) => !f.sectionId).sort((a, b) => a.order - b.order);
 
@@ -280,13 +297,14 @@ function CategorySections({
                       <div className="flex items-center space-x-3 truncate">
                         <div className="hidden shrink-0 sm:flex">
                           <OrderListButtons
-                            formData={{
-                              categoryId: item.id,
-                            }}
-                            actionName="set-section-orders"
                             index={idx}
                             items={category.sections}
                             editable={true}
+                            onChange={(items) => {
+                              startTransition(async () => {
+                                await onSetSectionOrders(items);
+                              });
+                            }}
                           />
                         </div>
                         <div className="flex items-center space-x-2 truncate text-sm text-foreground">

@@ -91,7 +91,7 @@ export default function ArticlesClient({ data, params, onNewArticle, onDuplicate
           actions={[
             {
               title: "Settings",
-              onClickRoute: (_, item) => `${item.language}/${item.id}/settings`,
+              onClickRoute: (_, item) => `/admin/knowledge-base/bases/${params.slug}/articles/${item.language}/${item.id}/settings`,
             },
             {
               title: "Duplicate",
@@ -99,7 +99,7 @@ export default function ArticlesClient({ data, params, onNewArticle, onDuplicate
             },
             {
               title: "Edit",
-              onClickRoute: (_, item) => `${item.language}/${item.id}`,
+              onClickRoute: (_, item) => `/admin/knowledge-base/bases/${params.slug}/articles/${item.language}/${item.id}`,
             },
           ]}
           headers={[
@@ -116,7 +116,7 @@ export default function ArticlesClient({ data, params, onNewArticle, onDuplicate
               className: "w-full",
               value: (i) => (
                 <div className="space-y-1">
-                  <Link href={`${i.language}/${i.id}`} className="font-medium hover:underline">
+                  <Link href={`/admin/knowledge-base/bases/${params.slug}/articles/${i.language}/${i.id}`} className="font-medium hover:underline">
                     {i.title}
                   </Link>
                 </div>
@@ -133,7 +133,7 @@ export default function ArticlesClient({ data, params, onNewArticle, onDuplicate
                       {i.section && <div className="text-xs text-muted-foreground">{i.section.title}</div>}
                     </div>
                   ) : (
-                    <Link href={`${i.language}/${i.id}/settings`} className="text-xs italic text-muted-foreground hover:underline">
+                    <Link href={`/admin/knowledge-base/bases/${params.slug}/articles/${i.language}/${i.id}/settings`} className="text-xs italic text-muted-foreground hover:underline">
                       No category
                     </Link>
                   )}

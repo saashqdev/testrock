@@ -29,8 +29,10 @@ export type LoaderData = {
 };
 export const loader = async (props: IServerComponentsProps, { kbSlug }: { kbSlug?: string } = {}) => {
   const params = (await props.params) || {};
-  const request = props.request!;
-  await RedirectsService.findAndRedirect({ request });
+  const request = props.request;
+  if (request) {
+    await RedirectsService.findAndRedirect({ request });
+  }
   const analyticsInfo = await getAnalyticsInfo(request);
   const userInfo = await getUserInfo();
   const kb = await KnowledgeBaseService.get({ slug: kbSlug ?? params.slug!, enabled: true, request });
@@ -51,8 +53,8 @@ export const loader = async (props: IServerComponentsProps, { kbSlug }: { kbSlug
     userAnalyticsId: analyticsInfo.userAnalyticsId,
     articleId: item?.article.id ?? "",
   });
-  const searchParams = new URL(request.url).searchParams;
-  const query = searchParams.get("q")?.toString();
+  const searchParamsObj = await props.searchParams;
+  const query = searchParamsObj?.q?.toString() || (request ? new URL(request.url).searchParams.get("q")?.toString() : undefined);
   const currentUser = await db.users.getUser(userInfo.userId);
   KnowledgeBaseUtils.fixDarkMode({ article: item.article });
   const data: LoaderData = {
@@ -73,7 +75,10 @@ export const loader = async (props: IServerComponentsProps, { kbSlug }: { kbSlug
 
 export const action = async (props: IServerComponentsProps, { kbSlug }: { kbSlug?: string } = {}) => {
   const params = (await props.params) || {};
-  const request = props.request!;
+  const request = props.request;
+  if (!request) {
+    return Response.json({ error: "Request not available" }, { status: 400 });
+  }
   const { userAnalyticsId } = await getAnalyticsInfo(request);
   const form = await request.formData();
   const action = form.get("action") as string;

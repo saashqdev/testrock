@@ -55,6 +55,9 @@ export default function KbHeader({ kb, withTitleAndDescription, withSearch = tru
                   </a>
                 );
               })}
+              <a href="/" className={clsx("transition-colors duration-150 hover:text-white", ColorTextUtils.getText300(kb.color))}>
+                Back to site
+              </a>
               <div className="flex items-center space-x-2">
                 {kb.languages.length > 1 && (
                   <select

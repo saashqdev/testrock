@@ -8,14 +8,16 @@ import clsx from "clsx";
 import type { KnowledgeBaseDto } from "../dtos/KnowledgeBaseDto";
 import EmptyState from "@/components/ui/emptyState/EmptyState";
 import { useTranslation } from "react-i18next";
+import { useMounted } from "@/hooks/use-mounted";
 
 export default function KbFeaturedArticles({ kb, items }: { kb: KnowledgeBaseDto; items: KbArticleDto[] }) {
   const { t } = useTranslation();
+  const mounted = useMounted();
   return (
     <div className="space-y-4">
       <div className="flex items-center space-x-4">
         <FeaturedArticlesIcon color={kb.color} />
-        <h2 className="text-2xl font-bold">{t("knowledgeBase.featuredArticles")}</h2>
+        <h2 className="text-2xl font-bold">{mounted ? t("knowledgeBase.featuredArticles") : "Featured Articles"}</h2>
       </div>
       {items.length === 0 && <EmptyState className="bg-background" captions={{ thereAreNo: "No featured articles" }} />}
       <div className={clsx("grid gap-2", items.length === 1 ? "grid-cols-1" : "sm:grid-cols-2")}>

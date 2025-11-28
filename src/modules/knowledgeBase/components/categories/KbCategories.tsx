@@ -8,9 +8,11 @@ import KbCategoriesTopArticles from "./KbCategoriesTopArticles";
 import EmptyState from "@/components/ui/emptyState/EmptyState";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
+import { useMounted } from "@/hooks/use-mounted";
 
 export default function KbCategories({ items, kb }: { items: KbCategoryDto[]; kb: KnowledgeBaseDto }) {
   const { t } = useTranslation();
+  const mounted = useMounted();
   return (
     <div>
       {items.length === 0 ? (
@@ -28,7 +30,7 @@ export default function KbCategories({ items, kb }: { items: KbCategoryDto[]; kb
             <KbCategoriesGrid kb={kb} items={items} columns={3} />
           ) : kb.layout === "docs" ? (
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold">{t("knowledgeBase.category.plural")}</h2>
+              <h2 className="text-2xl font-bold">{mounted ? t("knowledgeBase.category.plural") : "Categories"}</h2>
               <KbCategoriesGrid kb={kb} items={items} columns={3} />
             </div>
           ) : null}

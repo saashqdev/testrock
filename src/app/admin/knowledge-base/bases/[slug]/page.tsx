@@ -6,6 +6,7 @@ import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService
 import { IServerComponentsProps } from "@/lib/dtos/ServerComponentsProps";
 import { db } from "@/db";
 import { Button } from "@/components/ui/button";
+import KnowledgeBaseUtils from "@/modules/knowledgeBase/utils/KnowledgeBaseUtils";
 
 type LoaderData = {
   knowledgeBase: KnowledgeBaseWithDetailsDto;
@@ -90,7 +91,7 @@ export default async function KnowledgeBaseOverviewPage(props: IServerComponents
               </Link>
             </Button>
             <Button asChild variant="outline">
-              <Link href={`${data.knowledgeBase.basePath}/${data.knowledgeBase.defaultLanguage || data.knowledgeBase.languages[0]}`} target="_blank">
+              <Link href={KnowledgeBaseUtils.getKbUrl({ kb: data.knowledgeBase, params: { lang: data.knowledgeBase.defaultLanguage || data.knowledgeBase.languages[0] } })} target="_blank">
                 Preview
               </Link>
             </Button>
