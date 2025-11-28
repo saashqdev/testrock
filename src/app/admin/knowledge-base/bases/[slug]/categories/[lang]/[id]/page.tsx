@@ -14,11 +14,10 @@ type LoaderData = {
 
 async function getData(props: IServerComponentsProps): Promise<LoaderData> {
   const params = (await props.params) || {};
-  const request = props.request;
   await verifyUserHasPermission("admin.kb.view");
   const knowledgeBase = await KnowledgeBaseService.get({
     slug: params.slug!,
-    request,
+    request: props.request!,
   });
   const item = await db.kbCategories.getKbCategoryById(params.id!);
   if (!item) {
