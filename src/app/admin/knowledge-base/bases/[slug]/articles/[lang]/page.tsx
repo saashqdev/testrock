@@ -24,7 +24,7 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
   await verifyUserHasPermission("admin.kb.view");
   const knowledgeBase = await KnowledgeBaseService.get({
     slug: params.slug!,
-    request: props.request,
+    request: props.request || new Request("http://localhost"),
   });
   if (!knowledgeBase) {
     return redirect("/admin/knowledge-base/bases");
