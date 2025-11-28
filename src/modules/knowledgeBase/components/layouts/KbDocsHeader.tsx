@@ -9,7 +9,6 @@ import ColorBackgroundUtils from "@/lib/shared/colors/ColorBackgroundUtils";
 import ColorTextUtils from "@/lib/shared/colors/ColorTextUtils";
 import ColorFocusUtils from "@/lib/shared/colors/ColorFocusUtils";
 import ColorRingUtils from "@/lib/shared/colors/ColorRingUtils";
-import ColorGradientUtils from "@/lib/shared/colors/ColorGradientUtils";
 import LogoLight from "@/assets/img/logo-light.png";
 import LogoDark from "@/assets/img/logo-dark.png";
 import KnowledgeBaseUtils from "../../utils/KnowledgeBaseUtils";
@@ -52,9 +51,9 @@ export default function KbDocsHeader({ kb }: Props) {
                   </a>
                 );
               })}
-              <a href="/" className={clsx("transition-colors duration-150 hover:text-white", ColorTextUtils.getText300(kb.color))}>
+              <Link href="/" className={clsx("transition-colors duration-150 hover:text-white", ColorTextUtils.getText300(kb.color))}>
                 Back to site
-              </a>
+              </Link>
               <div className="flex items-center space-x-2">
                 {kb.languages.length > 1 && (
                   <select
