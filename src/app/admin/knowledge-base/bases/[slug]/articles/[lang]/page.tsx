@@ -20,16 +20,16 @@ type LoaderData = {
 
 async function getData(props: IServerComponentsProps): Promise<LoaderData> {
   const params = (await props.params) || {};
-  const request = props.request!;
+  const searchParams = (await props.searchParams) || {};
   await verifyUserHasPermission("admin.kb.view");
   const knowledgeBase = await KnowledgeBaseService.get({
     slug: params.slug!,
-    request,
+    request: props.request,
   });
   if (!knowledgeBase) {
     return redirect("/admin/knowledge-base/bases");
   }
-  const urlSearchParams = new URL(request.url).searchParams;
+  const urlSearchParams = new URLSearchParams(searchParams as Record<string, string>);
   const currentPagination = getPaginationFromCurrentUrl(urlSearchParams);
   const filterableProperties: FilterablePropertyDto[] = [
     {
@@ -58,7 +58,7 @@ async function getData(props: IServerComponentsProps): Promise<LoaderData> {
       title: "Content",
     },
   ];
-  const filters = getFiltersFromCurrentUrl(request, filterableProperties);
+  const filters = getFiltersFromCurrentUrl(props.request, filterableProperties);
   const filtered = {
     title: filters.properties.find((f) => f.name === "title")?.value ?? filters.query ?? undefined,
     description: filters.properties.find((f) => f.name === "description")?.value ?? filters.query ?? undefined,
@@ -138,7 +138,6 @@ async function handleToggleFeatured(itemId: string, isFeatured: boolean, kb: Kno
 
 export default async function ArticlesPage(props: IServerComponentsProps) {
   const params = (await props.params) || {};
-  const request = props.request!;
 
   await verifyUserHasPermission("admin.kb.view");
 

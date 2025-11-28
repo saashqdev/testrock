@@ -6,44 +6,38 @@ export class KbAnalyticsDbPrisma implements IKbAnalyticsDb {
     if (!userAnalyticsId) {
       return;
     }
-    const existing = await prisma.knowledgeBaseViews.findUnique({
+    await prisma.knowledgeBaseViews.upsert({
       where: {
         knowledgeBaseId_userAnalyticsId: {
           userAnalyticsId,
           knowledgeBaseId,
         },
       },
+      create: {
+        userAnalyticsId,
+        knowledgeBaseId,
+      },
+      update: {},
     });
-    if (!existing) {
-      await prisma.knowledgeBaseViews.create({
-        data: {
-          userAnalyticsId,
-          knowledgeBaseId,
-        },
-      });
-    }
   }
 
   async createKnowledgeBaseArticleView({ userAnalyticsId, articleId }: { userAnalyticsId: string | null; articleId: string }) {
     if (!userAnalyticsId) {
       return;
     }
-    const existing = await prisma.knowledgeBaseArticleViews.findUnique({
+    await prisma.knowledgeBaseArticleViews.upsert({
       where: {
         knowledgeBaseArticleId_userAnalyticsId: {
           userAnalyticsId,
           knowledgeBaseArticleId: articleId,
         },
       },
+      create: {
+        userAnalyticsId,
+        knowledgeBaseArticleId: articleId,
+      },
+      update: {},
     });
-    if (!existing) {
-      await prisma.knowledgeBaseArticleViews.create({
-        data: {
-          userAnalyticsId,
-          knowledgeBaseArticleId: articleId,
-        },
-      });
-    }
   }
 
   async voteArticle({ userAnalyticsId, articleId, type }: { userAnalyticsId: string | null; articleId: string; type: "up" | "down" }) {
