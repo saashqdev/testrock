@@ -6,7 +6,7 @@ import ServerError from "@/components/ui/errors/ServerError";
 import ActionResultModal from "@/components/ui/modals/ActionResultModal";
 import KbCategoryForm from "@/modules/knowledgeBase/components/bases/KbCategoryForm";
 import SlideOverFormLayout from "@/components/ui/slideOvers/SlideOverFormLayout";
-import { KnowledgeBaseWithDetailsDto } from "@/db/models/knowledgeBase/KnowledgeBaseModel";
+import { KnowledgeBaseDto } from "@/modules/knowledgeBase/dtos/KnowledgeBaseDto";
 import { createKbCategory, getKnowledgeBase } from "./actions";
 import { useParams } from "next/navigation";
 
@@ -17,7 +17,7 @@ type ActionData = {
 
 export default function NewKbCategoryPage() {
   const [actionData, setActionData] = useState<ActionData | null>(null);
-  const [knowledgeBase, setKnowledgeBase] = useState<KnowledgeBaseWithDetailsDto | null>(null);
+  const [knowledgeBase, setKnowledgeBase] = useState<KnowledgeBaseDto | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const params = useParams();
@@ -26,7 +26,7 @@ export default function NewKbCategoryPage() {
 
   useEffect(() => {
     async function loadData() {
-      const kb = await getKnowledgeBase(slug);
+      const kb = await getKnowledgeBase(slug, new Request(window.location.href));
       setKnowledgeBase(kb);
       setLoading(false);
     }

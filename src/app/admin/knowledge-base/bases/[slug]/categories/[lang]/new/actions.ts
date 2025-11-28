@@ -1,8 +1,9 @@
 "use server";
 
-import { KnowledgeBaseWithDetailsDto } from "@/db/models/knowledgeBase/KnowledgeBaseModel";
+import { KnowledgeBaseDto } from "@/modules/knowledgeBase/dtos/KnowledgeBaseDto";
 import { verifyUserHasPermission } from "@/lib/helpers/server/PermissionsService";
 import { db } from "@/db";
+import KnowledgeBaseService from "@/modules/knowledgeBase/service/KnowledgeBaseService.server";
 
 type ActionData = {
   error?: string;
@@ -66,10 +67,10 @@ export async function createKbCategory(slug: string, lang: string, formData: For
   }
 }
 
-export async function getKnowledgeBase(slug: string): Promise<KnowledgeBaseWithDetailsDto | null> {
+export async function getKnowledgeBase(slug: string, request: Request): Promise<KnowledgeBaseDto | null> {
   try {
     await verifyUserHasPermission("admin.kb.view");
-    const knowledgeBase = await db.knowledgeBase.getKnowledgeBaseBySlug(slug);
+    const knowledgeBase = await KnowledgeBaseService.get({ slug, request });
     return knowledgeBase;
   } catch (e) {
     return null;
