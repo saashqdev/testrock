@@ -34,7 +34,7 @@ export const loader = async (props: IServerComponentsProps, { kbSlug }: { kbSlug
   
   // Get search params from props or request
   const searchParamsObj = await props.searchParams;
-  const query = searchParamsObj?.q?.toString() || new URL(request.url).searchParams.get("q")?.toString();
+  const query = searchParamsObj?.q?.toString() || (request ? new URL(request.url).searchParams.get("q")?.toString() : undefined);
   const currentUser = await db.users.getUser(userInfo.userId);
   const data: LoaderData = {
     metatags: kb.metatags,
