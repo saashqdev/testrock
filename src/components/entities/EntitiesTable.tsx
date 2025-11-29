@@ -33,26 +33,30 @@ export default function EntitiesTable({ items, selected, onSelected }: Props) {
     setLocalItems(items);
   }, [items]);
   
-  const handleOrderChange = async (newItems: EntityWithCountDto[]) => {
+  const handleOrderChange = (newItems: Array<{ id: string; order: number }>) => {
+    // Cast back to EntityWithCountDto[]
+    const updatedItems = newItems as EntityWithCountDto[];
+    
     // Optimistic update
-    setLocalItems(newItems);
+    setLocalItems(updatedItems);
     
     // Persist to server
     const formData = new FormData();
     formData.set("action", "set-orders");
-    newItems.forEach((item) => {
+    updatedItems.forEach((item) => {
       formData.append("orders[]", JSON.stringify({ id: item.id, order: item.order.toString() }));
     });
     
-    try {
-      await setEntityOrders(formData);
-      // Refresh the page data
-      router.refresh();
-    } catch (error) {
-      // Revert on error
-      setLocalItems(items);
-      console.error("Failed to update entity order:", error);
-    }
+    setEntityOrders(formData)
+      .then(() => {
+        // Refresh the page data
+        router.refresh();
+      })
+      .catch((error) => {
+        // Revert on error
+        setLocalItems(items);
+        console.error("Failed to update entity order:", error);
+      });
   };
 
   useEffect(() => {
