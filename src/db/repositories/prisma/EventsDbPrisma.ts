@@ -41,22 +41,11 @@ export class EventsDbPrisma implements IEventsDb {
       },
     });
 
-    // Map to EventWithAttemptsDto, filling missing user fields with null or default values
+    // Map to EventWithAttemptsDto
     const items: EventWithAttemptsDto[] = itemsRaw.map((item) => ({
       ...item,
-      tenant: item.tenant
-        ? {
-            ...item.tenant,
-          }
-        : null,
-      user: item.user
-        ? {
-            ...item.user,
-            admin: (item.user as any).admin ?? false,
-            defaultTenantId: (item.user as any).defaultTenantId ?? null,
-            avatar: (item.user as any).avatar ?? null,
-          }
-        : null,
+      tenant: item.tenant ?? null,
+      user: item.user ?? null,
     }));
     const totalItems = await prisma.event.count({
       where: {
@@ -95,19 +84,8 @@ export class EventsDbPrisma implements IEventsDb {
 
     return {
       ...event,
-      tenant: event.tenant
-        ? {
-            ...event.tenant,
-          }
-        : null,
-      user: event.user
-        ? {
-            ...event.user,
-            admin: (event.user as any).admin ?? false,
-            defaultTenantId: (event.user as any).defaultTenantId ?? null,
-            avatar: (event.user as any).avatar ?? null,
-          }
-        : null,
+      tenant: event.tenant ?? null,
+      user: event.user ?? null,
     };
   }
 
