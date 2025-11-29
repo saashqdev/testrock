@@ -101,7 +101,12 @@ export async function getUserInfo(): Promise<UserSession> {
   const crsf = undefined; // Not present in UserSessionDto
   
   // Fetch metrics configuration from database
-  let metrics = { enabled: false, logToConsole: false, saveToDatabase: false, ignoreUrls: [] };
+  let metrics: { enabled: boolean; logToConsole: boolean; saveToDatabase: boolean; ignoreUrls: string[] } = { 
+    enabled: false, 
+    logToConsole: false, 
+    saveToDatabase: false, 
+    ignoreUrls: [] 
+  };
   try {
     const appConfiguration = await db.appConfiguration.getAppConfiguration();
     metrics = appConfiguration.metrics;
