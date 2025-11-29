@@ -30,37 +30,6 @@ export const RootDataContext = createContext<RootDataDto | null>(null);
 export function useRootData(): RootDataDto {
   const context = useContext(RootDataContext);
 
-  if (typeof window === "undefined") {
-    // During SSR, return a minimal default value to prevent context errors
-    return {
-      metatags: { title: "", description: "", keywords: "", image: "", url: "", twitterCreator: "", twitterSite: "" },
-      user: null,
-      theme: { color: "blue", scheme: "light" },
-      locale: "en",
-      serverUrl: "",
-      domainName: "",
-      userSession: { userId: "", email: "" },
-      authenticated: false,
-      debug: false,
-      isStripeTest: false,
-      appConfiguration: {
-        onboarding: { enabled: false },
-        notifications: { enabled: false },
-        app: { features: {} },
-        auth: { authMethods: { emailPassword: { enabled: true }, github: { enabled: false }, google: { enabled: false } } },
-        subscription: { allowSignUpBeforeSubscribe: true },
-        branding: {
-          logo: undefined,
-          logoDarkMode: undefined,
-          icon: undefined,
-          iconDarkMode: undefined,
-          favicon: undefined,
-        },
-      },
-      featureFlags: [],
-    } as RootDataDto;
-  }
-
   if (!context) {
     throw new Error("useRootData must be used within a RootDataContext.Provider");
   }
