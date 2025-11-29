@@ -17,7 +17,7 @@ export type LoaderData = {
 };
 export const loader = async (props: IServerComponentsProps, { kbSlug }: { kbSlug?: string } = {}) => {
   const params = (await props.params) || {};
-  const request = props.request;
+  const request = props.request!;
   const kb = await KnowledgeBaseService.get({ slug: kbSlug ?? params.slug!, enabled: true, request });
   const language = params.lang ?? kb.defaultLanguage;
 
@@ -32,7 +32,7 @@ export const loader = async (props: IServerComponentsProps, { kbSlug }: { kbSlug
     throw redirect(KnowledgeBaseUtils.getKbUrl({ kb, params }));
   }
   const searchParamsObj = await props.searchParams;
-  const query = searchParamsObj?.q?.toString() || (request ? new URL(request.url).searchParams.get("q")?.toString() : undefined);
+  const query = searchParamsObj?.q?.toString() || new URL(request.url).searchParams.get("q")?.toString();
   const data: LoaderData = {
     metatags: item?.metatags,
     kb,
