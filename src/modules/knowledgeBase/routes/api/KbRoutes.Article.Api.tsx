@@ -30,9 +30,10 @@ export type LoaderData = {
 export const loader = async (props: IServerComponentsProps, { kbSlug }: { kbSlug?: string } = {}) => {
   const params = (await props.params) || {};
   const request = props.request;
-  if (request) {
-    await RedirectsService.findAndRedirect({ request });
+  if (!request) {
+    throw new Error("Request not available");
   }
+  await RedirectsService.findAndRedirect({ request });
   const analyticsInfo = await getAnalyticsInfo(request);
   const userInfo = await getUserInfo();
   const kb = await KnowledgeBaseService.get({ slug: kbSlug ?? params.slug!, enabled: true, request });
